@@ -1,3 +1,4 @@
+import { GetStaticProps, NextPage } from 'next';
 import * as React from 'react';
 
 import Layout from '@/components/layout/Layout';
@@ -7,20 +8,13 @@ import UnderlineLink from '@/components/links/UnderlineLink';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Seo from '@/components/Seo';
 
-/**
- * SVGR Support
- * Caveat: No React Props Type.
- *
- * You can override the next-env if the type is important to you
- * @see https://stackoverflow.com/questions/68103844/how-to-override-next-js-svg-module-declaration
- */
-import Vercel from '~/svg/Vercel.svg';
+import { DataContext, getAllItems, HomeItemData } from '@/pages/api/home';
 
-// !STARTERCONF -> Select !STARTERCONF and CMD + SHIFT + F
-// Before you begin editing, follow all comments with `STARTERCONF`,
-// to customize the default configuration.
+type IndexProps = {
+  itemsData: HomeItemData;
+};
 
-export default function HomePage() {
+const Index: NextPage<IndexProps> = ({ itemsData }) => {
   return (
     <Layout>
       {/* <Seo templateTitle='Home' /> */}
@@ -28,8 +22,13 @@ export default function HomePage() {
 
       <main>
         <section className='bg-white'>
+          <DataContext.Provider value={itemsData}>
+            {itemsData.map((item) => (
+              <div key={item.item_id}>{item.name}</div>
+            ))}
+          </DataContext.Provider>
+
           <div className='layout flex min-h-screen flex-col items-center justify-center text-center'>
-            <Vercel className='text-5xl' />
             <h1 className='mt-4'>
               Next.js + Tailwind CSS + TypeScript Starter
             </h1>
@@ -71,4 +70,15 @@ export default function HomePage() {
       </main>
     </Layout>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const allItems = await getAllItems();
+  return {
+    props: {
+      itemsData: allItems.data,
+    },
+  };
+};
+
+export default Index;
