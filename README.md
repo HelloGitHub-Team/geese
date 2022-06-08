@@ -6,11 +6,12 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。
 
 ## 技术栈
 
-此项目将采用 [next.js](https://nextjs.org/) 重新构建我们的官网 [hellogithub.com](https://hellogithub.com)：
-
-**全力以赴的开发中，敬请期待！**
+**正在全力以赴的开发中，敬请期待！**
 
 欢迎设计师、前端加入：<a href="mailto:595666367@qq.com">点击联系我</a>
+
+此项目将采用 [Next.js](https://nextjs.org/)+[Tailwind CSS](https://tailwindcss.com/) 重新构建我们的官网 [hellogithub.com](https://hellogithub.com)：
+
 
 ## 声明
 
