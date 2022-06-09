@@ -1,12 +1,16 @@
-import { GetStaticProps, NextPage, } from 'next';
+import { GetStaticProps, NextPage } from 'next';
+import Link from 'next/link';
 import * as React from 'react';
 
+import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 import Layout from '@/components/layout/Layout';
+import Sort from '@/components/layout/Sort';
+import Status from '@/components/layout/Status';
+import User from '@/components/layout/User';
 import Seo from '@/components/Seo';
 
 import { DataContext, getAllItems, HomeItemData } from '@/pages/api/home';
-import Link from 'next/link';
 
 type IndexProps = {
   itemsData: HomeItemData;
@@ -18,55 +22,83 @@ const Index: NextPage<IndexProps> = ({ itemsData }) => {
       <Seo templateTitle='Home' />
       <Seo />
       <Header isLogin={true}></Header>
-      <main className='container mx-auto lg:px-40'>
-        <div className='flex flex-row grow shrink min-h-screen sm:border-l sm:dark:border-slate-600 md:border-none'>
-          <div className='relative w-0 grow shrink lg:grow-0 lg:w-9/12'>
-            <div className='relative bg-white'>
-              <div className='bg-content border-main-content overflow-hidden mb-2 mt-2'>
-                <div className='flex pl-4 pr-3 py-2.5'>
-                  <div className='flex items-center justify-start space-x-2'>
-                    <Link className="flex items-center h-8 pl-3 pr-3 rounded-lg font-bold text-sm whitespace-nowrap hover:text-blue-500 hover:bg-slate-100 dark:bg-slate-700" href="/">热门</Link>
-                    <Link className="flex items-center h-8 pl-3 pr-3 rounded-lg font-bold text-sm whitespace-nowrap text-blue-500 bg-slate-100 dark:bg-slate-700" href="2">最新</Link>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <main className='container mx-auto px-5 md:px-0 xl:px-40'>
+        <div className='flex min-h-screen shrink grow flex-row sm:border-l sm:dark:border-slate-600 md:border-none'>
+          <div
+            id='main-left'
+            className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'
+          >
+            <Sort isLogin={true}></Sort>
 
-
-
-            <DataContext.Provider value={itemsData}>
-              {itemsData.map((item) => (
-                <div key={item.item_id} className='divide-y divide-color-primary border-main-content overflow-hidden bg-content'>
-                  <article className='mx-4'>
-                    <div className='bg-white relative -mx-4 pl-4 pr-3 py-3 hover-gray cursor-pointer'>
+            <div className='bg-content divide-y divide-slate-100 overflow-hidden'>
+              <DataContext.Provider value={itemsData}>
+                {itemsData.map((item) => (
+                  <article key={item.item_id} className='mx-4'>
+                    <div className='hover-gray relative -mx-4 cursor-pointer bg-white py-3 pl-4 pr-3 hover:bg-slate-50'>
                       <div className='pb-0.5'>
-                        <Link className="flex justify-between text-color-primary visited:text-slate-500 dark:visited:text-slate-400" href="/posts/">
-                          <span className="text-base leading-snug truncate pt-1">{item.title}111111111111111112sfasfasfsafasfasdf222222222222222222211111111111</span>
-                          {/* <span className="mt-1 ml-1 whitespace-nowrap rounded-md h-4 py-0.5 px-2 text-xs leading-none text-white font-semibold bg-blue-400">{item.comment_total}</span> */}
+                        <Link href='/posts/'>
+                          <div className='text-color-primary flex justify-between visited:text-slate-500 dark:visited:text-slate-400'>
+                            <span className='truncate pt-1 text-base leading-snug'>
+                              {item.title}
+                            </span>
+                            <span className='mt-1 ml-1 h-4 whitespace-nowrap rounded-md bg-blue-400 py-0.5 px-2 text-xs font-semibold leading-none text-white'>
+                              {item.comment_total}
+                            </span>
+                          </div>
                         </Link>
                       </div>
-                      <div className="text-slate-400 text-sm truncate pt-1">
+                      <div className='truncate pt-1 text-sm text-slate-400'>
                         {item.description}
                       </div>
-                      <div className="flex items-center pt-2">
-                        <Link className="shrink-0 grow-0 grow-0 shrink-0" href="/users/320967928804700160">
-                          <img width="20" height="20" src="https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaELhgSn8KrBspf8KDJQGPwHOKqkZfppGiaQQk3WdxFetbGAYibBzhZ7bLV81JM2qBKVNStLeIo3ryMEA/132" className="w-5 h-5 rounded bg-img"></img>
+                      <div className='flex items-center pt-2'>
+                        <Link href='/users/320967928804700160'>
+                          <img
+                            width='20'
+                            height='20'
+                            src='https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaELhgSn8KrBspf8KDJQGPwHOKqkZfppGiaQQk3WdxFetbGAYibBzhZ7bLV81JM2qBKVNStLeIo3ryMEA/132'
+                            className='bg-img h-5 w-5 rounded'
+                          ></img>
                         </Link>
-                        <div className="pl-2 text-slate-400 flex items-center text-sm grow shrink overflow-x-hidden">
-                          <Link className="whitespace-nowrap hover:underline text-color-primary text-color-secondary" href="/users/322392455870869504">卤蛋</Link>
-                          <span className="pl-1 pr-1">·</span><time>2 小时前</time>
+                        <div className='flex shrink grow items-center overflow-x-hidden pl-2 text-sm text-slate-400'>
+                          <Link href='/users/322392455870869504'>
+                            <div className='text-color-primary whitespace-nowrap hover:underline'>
+                              卤蛋
+                            </div>
+                          </Link>
+                          <span className='pl-1 pr-1'>·</span>
+                          <Link href='/users/322392455870869504'>
+                            <div className='text-color-primary whitespace-nowrap hover:underline'>
+                              Python
+                            </div>
+                          </Link>
+                          <span className='pl-1 pr-1'>·</span>
+                          <time>2 小时前</time>
+                        </div>
+                        <div className='whitespace-nowrap pl-2 text-sm text-slate-400'>
+                          20 次查看
                         </div>
                       </div>
                     </div>
                   </article>
-                </div>
-                // <div key={item.item_id}>{item.name}</div>
-              ))}
-            </DataContext.Provider>
-
+                ))}
+              </DataContext.Provider>
+            </div>
           </div>
 
-          <div className='bg-red-500 hidden md:block relative w-3/12 md:grow-0 shrink-0 ml-4 mt-2'></div>
+          <div
+            id='main-right'
+            className='relative hidden w-3/12 shrink-0 md:block md:grow-0'
+          >
+            <div className='relative flex h-full flex-col items-stretch'>
+              <div className='mt-2 ml-3'>
+                <div className='space-y-2'>
+                  <User isLogin={true}></User>
+                  <Status></Status>
+                </div>
+                <Footer></Footer>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </Layout>

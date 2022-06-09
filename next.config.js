@@ -10,7 +10,8 @@ module.exports = {
   images: {
     domains: [
       'raw.githubusercontent.com',
-      'img.hellogithub.com'
+      'img.hellogithub.com',
+      'thirdwx.qlogo.cn',
     ],
   },
 
