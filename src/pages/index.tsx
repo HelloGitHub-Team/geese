@@ -1,6 +1,5 @@
-import { GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
-import * as React from 'react';
 
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
@@ -14,14 +13,15 @@ import { DataContext, getAllItems, HomeItemData } from '@/pages/api/home';
 
 type IndexProps = {
   itemsData: HomeItemData;
+  wechatOAuthURL: string;
 };
 
-const Index: NextPage<IndexProps> = ({ itemsData }) => {
+const Index: NextPage<IndexProps> = ({ itemsData, wechatOAuthURL }) => {
   return (
     <Layout>
       <Seo templateTitle='Home' />
       <Seo />
-      <Header isLogin={true}></Header>
+      <Header></Header>
       <main className='container mx-auto px-5 md:px-0 xl:px-40'>
         <div className='flex min-h-screen shrink grow flex-row sm:border-l sm:dark:border-slate-600 md:border-none'>
           <div
@@ -105,10 +105,20 @@ const Index: NextPage<IndexProps> = ({ itemsData }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  );
   const allItems = await getAllItems();
+  // const OAuthURLRes = await getOAuthURL({url_type: 'geese'})
+  // const OAuthData = await OAuthURLRes.json()
+  // const cookie = OAuthURLRes.headers.get("set-cookie");
+  // res.setHeader("set-cookie", cookie);
+
   return {
     props: {
+      // wechatOAuthURL: OAuthData.url,
       itemsData: allItems.data,
     },
   };

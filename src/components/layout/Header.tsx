@@ -1,9 +1,54 @@
 import Link from 'next/link';
-import * as React from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-const Header = ({ isLogin }: { isLogin: boolean }) => {
+import { CurrentUser, getOAtuhURL, LoginOut } from '@/pages/api/login';
+
+const Header = () => {
+  const [loginStatus, setLoginStatus] = useState<boolean>(false);
+
+  const [loginURL, setLoginURL] = useState<string>('/');
+
+  const handleLogin = useCallback(async () => {
+    try {
+      // 获取 wechat URL
+      const data = await getOAtuhURL();
+      if (data?.url != undefined) {
+        setLoginURL(data.url);
+      }
+      const token = localStorage.getItem('Authorization');
+      const user = await CurrentUser({ Authorization: `Bearer ${token}` });
+      if (user == undefined) {
+        localStorage.clear();
+        setLoginStatus(false);
+      }
+    } catch (error) {
+      console.log('error:');
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    handleLogin();
+    const token = localStorage.getItem('Authorization');
+    if (token != undefined) {
+      setLoginStatus(true);
+    }
+  }, [handleLogin]);
+
+  const handleLoginOut = async () => {
+    try {
+      const token = localStorage.getItem('Authorization');
+      const result: any = await LoginOut({ Authorization: `Bearer ${token}` });
+      localStorage.clear();
+      setLoginStatus(false);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
   return (
-    <header className='bg-white shadow-md'>
+    <div className='bg-white shadow-md'>
       <nav className='mx-auto flex max-w-5xl items-center justify-between p-4'>
         <Link
           className='inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50'
@@ -17,41 +62,77 @@ const Header = ({ isLogin }: { isLogin: boolean }) => {
 
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
           <li>
-            <a className='rounded-lg px-3 py-2' href=''>
+            <Link href='/user/login/' className='rounded-lg px-3 py-2'>
               月刊
-            </a>
+            </Link>
           </li>
-          {!isLogin ? (
+          {!loginStatus ? (
             <li>
-              <a
-                className='inline-flex items-center rounded-lg px-3 py-2'
-                href=''
-                target='_blank'
-              >
-                登录
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                  className='ml-1.5 h-4 w-4'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
-                  ></path>
-                </svg>
-              </a>
+              <Link href={loginURL}>
+                <span className='inline-flex items-center rounded-lg px-3 py-2'>
+                  登录
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                    className='ml-1.5 h-4 w-4'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+                    ></path>
+                  </svg>
+                </span>
+              </Link>
             </li>
           ) : (
-            <></>
+            <li>
+              <button onClick={handleLoginOut}>
+                <span className='inline-flex items-center rounded-lg px-3 py-2'>
+                  退出
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                    className='ml-1.5 h-4 w-4'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
+                      d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+                    ></path>
+                  </svg>
+                </span>
+              </button>
+            </li>
           )}
         </ul>
       </nav>
-    </header>
+    </div>
   );
 };
+
+// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+//   const url = makeUrl(`/user/oauth/wechat/url/`, {url_type: 'geese'})
+
+//   const OAuthURLRes = await getOAuthURL()
+//   console.log(OAuthURLRes)
+//   const data = await OAuthURLRes.json()
+//   const cookie = OAuthURLRes.headers.get("set-cookie");
+//   if (cookie) {
+//     res.setHeader("set-cookie", cookie);
+//   }
+
+//   return {
+//     props: {
+//       OAuthURL: data.url
+//     },
+//   };
+// };
 
 export default Header;

@@ -72,7 +72,8 @@ const Index: NextPage<IndexProps> = ({ itemsData }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ req, res }) => {
+  console.log(req);
   const allItems = await getAllItems();
   return {
     props: {

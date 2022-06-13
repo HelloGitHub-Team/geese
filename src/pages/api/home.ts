@@ -55,7 +55,10 @@ export const makeHomeUrl = (params?: Record<string, unknown>) =>
 
 export const getAllItems = async (
   params?: Record<string, unknown>
-): Promise<HomeResponse> => fetcher<HomeResponse>(makeHomeUrl(params));
+): Promise<HomeResponse> => {
+  const data = await fetcher<HomeResponse>(makeHomeUrl(params));
+  return data;
+};
 
 export type HomeItemData = HomeItem[];
 
