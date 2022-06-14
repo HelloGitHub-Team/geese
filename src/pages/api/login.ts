@@ -1,19 +1,10 @@
 import { makeUrl } from '@/utils/api';
+import { User } from '@/utils/types/userType';
 
 import { fetcher } from './base';
 
 export interface OAuthURLResponse {
   url: string;
-}
-
-export interface User {
-  uid: string;
-  token: string;
-  userInfo: {
-    uid: string;
-    nickname: string;
-    avatar: string;
-  };
 }
 
 export const LoginOut = async (headers: any): Promise<Response> =>

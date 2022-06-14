@@ -1,11 +1,15 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
-import { CurrentUser, getOAtuhURL, LoginOut } from '@/pages/api/login';
+import { getOAtuhURL, LoginOut } from '@/pages/api/login';
 
-const Header = () => {
-  const [loginStatus, setLoginStatus] = useState<boolean>(false);
-
+const Header = ({
+  loginStatus,
+  updateLoginStatus,
+}: {
+  loginStatus: boolean;
+  updateLoginStatus: any;
+}) => {
   const [loginURL, setLoginURL] = useState<string>('/');
 
   const handleLogin = useCallback(async () => {
@@ -15,24 +19,13 @@ const Header = () => {
       if (data?.url != undefined) {
         setLoginURL(data.url);
       }
-      const token = localStorage.getItem('Authorization');
-      const user = await CurrentUser({ Authorization: `Bearer ${token}` });
-      if (user == undefined) {
-        localStorage.clear();
-        setLoginStatus(false);
-      }
     } catch (error) {
-      console.log('error:');
-      console.log(error);
+      console.log('error:' + error);
     }
   }, []);
 
   useEffect(() => {
     handleLogin();
-    const token = localStorage.getItem('Authorization');
-    if (token != undefined) {
-      setLoginStatus(true);
-    }
   }, [handleLogin]);
 
   const handleLoginOut = async () => {
@@ -40,7 +33,7 @@ const Header = () => {
       const token = localStorage.getItem('Authorization');
       const result: any = await LoginOut({ Authorization: `Bearer ${token}` });
       localStorage.clear();
-      setLoginStatus(false);
+      updateLoginStatus(false);
       return true;
     } catch (error) {
       return false;

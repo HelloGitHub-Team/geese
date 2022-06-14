@@ -3,8 +3,9 @@ import * as React from 'react';
 import { useEffect } from 'react';
 
 import { OAuthWechatAPI } from '@/pages/api/login';
+import { User } from '@/utils/types/userType';
 
-const Index = ({ token, userInfo }) => {
+const Index = ({ token, userInfo }, { token: string }) => {
   useEffect(() => {
     if (token != undefined) {
       // Perform localStorage action
@@ -22,11 +23,11 @@ const Index = ({ token, userInfo }) => {
 };
 
 Index.getInitialProps = async ({ req, query }) => {
-  const { code, state } = query;
-  const cookie = req.headers.cookie;
   let token, userInfo;
   try {
-    const data: any = await OAuthWechatAPI(code, state, cookie);
+    const { code, state } = query;
+    const cookie = req.headers.cookie;
+    const data: User = await OAuthWechatAPI(code, state, cookie);
     token = data.token;
     userInfo = data.userInfo;
     return { token, userInfo };
