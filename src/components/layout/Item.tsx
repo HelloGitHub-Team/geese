@@ -9,7 +9,7 @@ const Item: NextPage<RepositoryProps> = ({ repo }) => {
     <article className='mx-4'>
       <div className='hover-gray relative -mx-4 cursor-pointer bg-white py-3 pl-4 pr-3 hover:bg-slate-50'>
         <div className='pb-0.5'>
-          <Link href='/posts/'>
+          <Link href={`/repository/${repo.item_id}`}>
             <div className='text-color-primary flex justify-between visited:text-slate-500 dark:visited:text-slate-400'>
               <span className='truncate pt-1 text-base leading-snug'>
                 {repo.title}

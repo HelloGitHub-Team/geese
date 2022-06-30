@@ -4,15 +4,32 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。
 
 我们希望焕然的新版 HelloGitHub 官网，可以给你带来「惊鸿」一般的访问体验。
 
-![](docs/img/2022-06-09.png)
-
 **还正在全力以赴的开发中，敬请期待！**
+
+![](docs/img/2022-06-09.png)
 
 ## 技术栈
 
-欢迎设计师、前端加入：<a href="mailto:595666367@qq.com">点击联系我</a>
+此项目采用 [Next.js](https://nextjs.org/)+[Tailwind CSS](https://tailwindcss.com/) 重新构建我们的官网 [hellogithub.com](https://hellogithub.com)。
 
-此项目将采用 [Next.js](https://nextjs.org/)+[Tailwind CSS](https://tailwindcss.com/) 重新构建我们的官网 [hellogithub.com](https://hellogithub.com)：
+## 待开发功能
+
+- 排序组件：热门和最新切换有问题（简单）
+- 提交项目（简单）
+- 翻页组件（简单）
+- 搜索组件（中等）
+- 标签组件（中等）
+- 右边栏：用户和网站状态（中等）
+- 评论模块（复杂）
+- 项目详情页（复杂）
+
+欢迎认领功能：<a href="mailto:595666367@qq.com">点击联系我</a>
+
+## 鸣谢
+
+- 脚手架：[ts-nextjs-tailwind-starter](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter)
+- UI 框架：[preline](https://github.com/htmlstreamofficial/preline)
+- 网站样式参考：[hackertalk](https://hackertalk.net/)
 
 ## 声明
 

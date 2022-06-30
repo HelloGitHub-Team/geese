@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { OAuthWechatAPI } from '@/pages/api/login';
 import { User } from '@/utils/types/userType';
 
-const Index = ({ token, userInfo }, { token: string }) => {
+const Index = ({ token, userInfo }) => {
   useEffect(() => {
     if (token != undefined) {
       // Perform localStorage action
