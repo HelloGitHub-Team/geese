@@ -10,6 +10,13 @@ export interface Repository extends RepoType {
   user: UserType;
 }
 
+// returned data type
+export interface FetchData {
+  data: Repository[];
+  has_more: boolean;
+  page: number;
+}
+
 export interface RepoType {
   item_id: string;
   url: string;

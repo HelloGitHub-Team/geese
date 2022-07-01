@@ -5,7 +5,7 @@ import useSWR from 'swr';
 
 import { fetcher } from '@/pages/api/base';
 import { makeUrl } from '@/utils/api';
-import { Repository } from '@/utils/types/repoType';
+import { Repository, FetchData } from '@/utils/types/repoType';
 
 import Item from './Item';
 
@@ -50,19 +50,35 @@ import Item from './Item';
 //     }
 // }
 
+// Narrow the unknown type to the data type returned by the request
+function isFetchData(value: unknown): value is FetchData {
+  return (
+    value instanceof Object &&
+    Object.prototype.hasOwnProperty.call(value, 'data')
+  );
+}
+
 const Items = () => {
   const router = useRouter();
   const [sortBy, setSortBy] = useState<string>('hot');
+
   useEffect(() => {
     if (router.query) {
       const { sort_by } = router.query;
-      if (sort_by != undefined) {
+      if (sort_by != undefined && !(sort_by instanceof Array)) {
         setSortBy(sort_by);
       }
     }
   }, [router]);
+
   const { data, error } = useSWR(makeUrl(`/`, { sort_by: sortBy }), fetcher);
-  if (!data) {
+
+  let itmesData: Repository[] = []; // store the returned real data
+  if (isFetchData(data)) {
+    itmesData = data.data;
+  }
+
+  if (!itmesData) {
     return (
       <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
         <div className='bg-content divide-y divide-slate-100 overflow-hidden'>
@@ -102,7 +118,7 @@ const Items = () => {
         </div>
 
         <div className='bg-content divide-y divide-slate-100 overflow-hidden'>
-          {data.data.map((item: Repository) => (
+          {itmesData.map((item: Repository) => (
             <Item key={item.item_id} repo={item}></Item>
           ))}
         </div>
