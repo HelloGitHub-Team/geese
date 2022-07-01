@@ -1,6 +1,6 @@
+import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import { fetcher } from '@/pages/api/base';
@@ -60,71 +60,63 @@ function isFetchData(value: unknown): value is FetchData {
 
 const Items = () => {
   const router = useRouter();
-  const [sortBy, setSortBy] = useState<string>('hot');
+  const { sort_by = 'hot' } = router.query;
+  const { data, error } = useSWR<{
+    data: Repository[];
+    has_more: boolean;
+    page: number;
+  }>(makeUrl(`/`, { sort_by }), fetcher);
 
-  useEffect(() => {
-    if (router.query) {
-      const { sort_by } = router.query;
-      if (sort_by != undefined && !(sort_by instanceof Array)) {
-        setSortBy(sort_by);
+  const linkClassName = (sortName: string) =>
+    classNames(
+      'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold  hover:bg-slate-100 hover:text-blue-500',
+      {
+        'text-slate-500': sort_by !== sortName,
+        'bg-slate-100 text-blue-500': sort_by === sortName,
       }
-    }
-  }, [router]);
-
-  const { data, error } = useSWR(makeUrl(`/`, { sort_by: sortBy }), fetcher);
-
-  let itmesData: Repository[] = []; // store the returned real data
-  if (isFetchData(data)) {
-    itmesData = data.data;
-  }
-
-  if (!itmesData) {
-    return (
-      <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
-        <div className='bg-content divide-y divide-slate-100 overflow-hidden'>
-          <div>loading...</div>
-        </div>
-      </div>
     );
-  } else {
-    return (
-      <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
-        <div className='relative bg-white'>
-          <div className='bg-content border-main-content mb-2 mt-2 overflow-hidden'>
-            <div className='flex py-2.5 pl-4 pr-3'>
-              <div className='flex items-center justify-start space-x-2'>
-                <Link href='/?sort_by=hot'>
-                  <a className='flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold text-slate-500 hover:bg-slate-100 hover:text-blue-500'>
-                    热门
+
+  return (
+    <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
+      <div className='relative bg-white'>
+        <div className='bg-content border-main-content mb-2 mt-2 overflow-hidden'>
+          <div className='flex py-2.5 pl-4 pr-3'>
+            <div className='flex items-center justify-start space-x-2'>
+              <Link href='/?sort_by=hot'>
+                <a className={linkClassName('hot')}>热门</a>
+              </Link>
+
+              <Link href='/?sort_by=last'>
+                <a className={linkClassName('last')}>最近</a>
+              </Link>
+
+              <div className='absolute top-0 right-0 p-2.5'>
+                <Link href='/create/repo/'>
+                  <a className='flex h-8 items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600'>
+                    提交
                   </a>
                 </Link>
-
-                <Link href='/?sort_by=last'>
-                  <a className='flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold text-slate-500 hover:bg-slate-100 hover:text-blue-500'>
-                    最近
-                  </a>
-                </Link>
-
-                <div className='absolute top-0 right-0 p-2.5'>
-                  <Link href='/create/repo/'>
-                    <a className='flex h-8 items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600'>
-                      提交
-                    </a>
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
         </div>
-
-        <div className='bg-content divide-y divide-slate-100 overflow-hidden'>
-          {itmesData.map((item: Repository) => (
-            <Item key={item.item_id} repo={item}></Item>
-          ))}
-        </div>
       </div>
-    );
-  }
+
+      <div className='bg-content divide-y divide-slate-100 overflow-hidden'>
+        {data ? (
+          data.data.map((item: Repository) => (
+            <Item key={item.item_id} repo={item}></Item>
+          ))
+        ) : (
+          <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
+            <div className='bg-content divide-y divide-slate-100 overflow-hidden'>
+              <div>loading...</div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Items;
