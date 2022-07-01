@@ -1,6 +1,6 @@
+import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import { fetcher } from '@/pages/api/base';
@@ -52,16 +52,13 @@ import Item from './Item';
 
 const Items = () => {
   const router = useRouter();
-  const [sortBy, setSortBy] = useState<string>('hot');
-  useEffect(() => {
-    if (router.query) {
-      const { sort_by } = router.query;
-      if (sort_by != undefined) {
-        setSortBy(sort_by);
-      }
-    }
-  }, [router]);
-  const { data, error } = useSWR(makeUrl(`/`, { sort_by: sortBy }), fetcher);
+  const { sort_by = 'hot' } = router.query;
+  const { data, error } = useSWR<{
+    data: Repository[];
+    has_more: boolean;
+    page: number;
+  }>(makeUrl(`/`, { sort_by }), fetcher);
+
   if (!data) {
     return (
       <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
@@ -71,6 +68,14 @@ const Items = () => {
       </div>
     );
   } else {
+    const linkClassName = (sortName: string) =>
+      classNames(
+        'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold  hover:bg-slate-100 hover:text-blue-500',
+        {
+          'text-slate-500': sort_by !== sortName,
+          'bg-slate-100 text-blue-500': sort_by === sortName,
+        }
+      );
     return (
       <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
         <div className='relative bg-white'>
@@ -78,15 +83,11 @@ const Items = () => {
             <div className='flex py-2.5 pl-4 pr-3'>
               <div className='flex items-center justify-start space-x-2'>
                 <Link href='/?sort_by=hot'>
-                  <a className='flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold text-slate-500 hover:bg-slate-100 hover:text-blue-500'>
-                    热门
-                  </a>
+                  <a className={linkClassName('hot')}>热门</a>
                 </Link>
 
                 <Link href='/?sort_by=last'>
-                  <a className='flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold text-slate-500 hover:bg-slate-100 hover:text-blue-500'>
-                    最近
-                  </a>
+                  <a className={linkClassName('last')}>最近</a>
                 </Link>
 
                 <div className='absolute top-0 right-0 p-2.5'>
