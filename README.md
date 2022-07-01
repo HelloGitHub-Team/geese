@@ -23,17 +23,16 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。
 - 评论模块（复杂）
 - 项目详情页（复杂）
 
-开发中接口文档是“swagger”、复杂功能的需求文档用“语雀”、复杂功能原型图由我“手绘”。
+[点击](https://github.com/orgs/HelloGitHub-Team/projects/1/views/1)查看需求、认领功能！<a href="mailto:595666367@qq.com">联系我</a>
 
-要求：相信你是一个有始有终的人，所以认领后需给我一个靠谱的完成时间，可根据自己的实际情况而定，参考：简单（7天）、中等（14天）、复杂（30天）。
-
-欢迎认领功能：<a href="mailto:595666367@qq.com">点击联系我</a>
+**要求**：相信你是一个有始有终的人，所以认领后需给我一个靠谱的完成时间，可根据自己的实际情况而定，参考：简单（7天）、中等（14天）、复杂（30天）。
 
 ## 鸣谢
 
 - 脚手架：[ts-nextjs-tailwind-starter](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter)
-- UI 框架：[preline](https://github.com/htmlstreamofficial/preline)
-- 网站样式参考：[hackertalk](https://hackertalk.net/)
+- 组件：[hyperui](https://github.com/markmead/hyperui)
+- 样式参考：[hackertalk](https://hackertalk.net/)
+
 
 ## 声明
 
