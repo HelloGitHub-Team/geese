@@ -3,13 +3,12 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { getOAtuhURL, LoginOut } from '@/pages/api/login';
 
-const Header = ({
-  loginStatus,
-  updateLoginStatus,
-}: {
+interface IProps {
   loginStatus: boolean;
-  updateLoginStatus: any;
-}) => {
+  updateLoginStatus: (val: boolean) => void;
+}
+
+const Header = ({ loginStatus, updateLoginStatus }: IProps) => {
   const [loginURL, setLoginURL] = useState<string>('/');
 
   const handleLogin = useCallback(async () => {
