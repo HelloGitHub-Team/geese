@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 
@@ -25,12 +26,13 @@ const Item: NextPage<RepositoryProps> = ({ repo }) => {
         </div>
         <div className='flex items-center pt-2'>
           <Link href={`/users/${repo.user.uid}`}>
-            <img
+            <Image
               width='20'
               height='20'
               src={repo.user.avatar}
               className='bg-img h-5 w-5 rounded'
-            ></img>
+              alt=''
+            />
           </Link>
           <div className='flex shrink grow items-center overflow-x-hidden pl-2 text-sm text-slate-400'>
             <Link href={`/users/${repo.user.uid}`}>
