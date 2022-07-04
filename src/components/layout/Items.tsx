@@ -6,7 +6,7 @@ import useSWRInfinite from 'swr/infinite';
 
 import { fetcher } from '@/pages/api/base';
 import { makeUrl } from '@/utils/api';
-import { Repository } from '@/utils/types/repoType';
+import { HomeResponse, Repository } from '@/utils/types/repoType';
 
 import Item from './Item';
 
@@ -14,13 +14,14 @@ const Items = () => {
   const router = useRouter();
   const { sort_by = 'hot' } = router.query;
 
-  const { data, error, setSize, isValidating, size } = useSWRInfinite<{
-    data: Repository[];
-    has_more: boolean;
-    page: number;
-  }>((index) => makeUrl(`/`, { sort_by, page: index + 1 }), fetcher, {
-    revalidateFirstPage: false,
-  });
+  const { data, error, setSize, isValidating, size } =
+    useSWRInfinite<HomeResponse>(
+      (index) => makeUrl(`/`, { sort_by, page: index + 1 }),
+      fetcher,
+      {
+        revalidateFirstPage: false,
+      }
+    );
 
   const repositories = data
     ? data.reduce((pre: Repository[], curr) => {
@@ -53,7 +54,7 @@ const Items = () => {
     );
 
   return (
-    <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
+    <>
       <div className='relative bg-white'>
         <div className='bg-content border-main-content mb-2 mt-2 overflow-hidden'>
           <div className='flex py-2.5 pl-4 pr-3'>
@@ -79,8 +80,7 @@ const Items = () => {
       </div>
 
       <div
-        className='bg-content divide-y divide-slate-100 overflow-scroll'
-        style={{ height: 'calc(100vh - 180px)' }}
+        className='bg-content h-screen divide-y divide-slate-100 overflow-scroll'
         ref={rootRef}
       >
         {repositories.map((item: Repository) => (
@@ -94,7 +94,7 @@ const Items = () => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
