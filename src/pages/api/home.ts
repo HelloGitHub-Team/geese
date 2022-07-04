@@ -1,15 +1,9 @@
 import { createContext } from 'react';
 
 import { makeUrl } from '@/utils/api';
-import { Repository } from '@/utils/types/repoType';
+import { HomeResponse, Repository } from '@/utils/types/repoType';
 
 import { fetcher } from './base';
-
-export interface HomeResponse {
-  page: number;
-  data: Repository[];
-  has_more: boolean;
-}
 
 export interface Stats {
   repo_total: string;
