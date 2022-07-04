@@ -11,10 +11,21 @@ export interface HomeResponse {
   has_more: boolean;
 }
 
+export interface Stats {
+  repo_total: string;
+  user_total: string;
+  period_total: string;
+}
+
 export const getItems = async (
   params?: Record<string, unknown>
 ): Promise<HomeResponse> => {
   const data = await fetcher<HomeResponse>(makeUrl(`/`, params));
+  return data;
+};
+
+export const getStats = async (): Promise<Stats> => {
+  const data = await fetcher<Stats>(makeUrl(`/stats/`));
   return data;
 };
 
