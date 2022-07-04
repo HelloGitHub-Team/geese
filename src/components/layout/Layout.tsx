@@ -6,11 +6,29 @@ import Header from '@/components/layout/Header';
 import Status from '@/components/layout/Status';
 import User from '@/components/layout/User';
 
-import { CurrentUser } from '@/pages/api/login';
+import { getStats, Stats } from '@/pages/api/home';
+import { CurrentUser, UserStatus } from '@/pages/api/login';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   // Put Header or Footer Here
   const [loginStatus, setLoginStatus] = useState<boolean>(false);
+  const [stats, setStats] = useState<Stats>({} as Stats);
+  const [userStatus, setUserStatus] = useState<UserStatus>({} as UserStatus);
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  async function init() {
+    try {
+      const statsRes = await getStats();
+      if (statsRes !== void 0) {
+        setStats(statsRes);
+      }
+    } catch (err) {
+      console.info(err);
+    }
+  }
 
   const checkLogin = useCallback(async () => {
     try {
@@ -19,6 +37,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       if (user == undefined) {
         localStorage.clear();
         setLoginStatus(false);
+      } else {
+        setUserStatus(user as UserStatus);
       }
     } catch (error) {
       console.log(error);
@@ -49,8 +69,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div className='relative flex h-full flex-col items-stretch'>
               <div className='mt-2 ml-3'>
                 <div className='space-y-2'>
-                  <User isLogin={true}></User>
-                  <Status></Status>
+                  <User user={userStatus} isLogin={loginStatus}></User>
+                  <Status stats={stats}></Status>
                 </div>
                 <Footer></Footer>
               </div>
