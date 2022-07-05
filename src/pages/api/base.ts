@@ -12,5 +12,6 @@ export const fetcher = async function fetcher<T>(
     throw res;
   }
   const json = await res.json();
+  console.log(json);
   return json;
 };

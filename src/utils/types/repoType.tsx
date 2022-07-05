@@ -1,6 +1,12 @@
 import { Tag } from './tagType';
 import { UserType } from './userType';
 
+export interface HomeResponse {
+  page: number;
+  data: Repository[];
+  has_more: boolean;
+}
+
 export interface RepositoryProps {
   repo: Repository;
 }

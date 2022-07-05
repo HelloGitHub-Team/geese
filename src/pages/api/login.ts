@@ -7,6 +7,24 @@ export interface OAuthURLResponse {
   url: string;
 }
 
+export interface UserStatus {
+  uid?: string;
+  nickname?: string;
+  gender?: number;
+  city?: string;
+  province?: string;
+  country?: string;
+  avatar?: string;
+  permission?: Permission;
+  first_login?: string;
+  last_login?: string;
+}
+
+export interface Permission {
+  name: string;
+  code: string;
+}
+
 export const LoginOut = async (headers: any): Promise<Response> =>
   fetcher<Response>(makeUrl(`/user/logout/`), { headers: headers });
 

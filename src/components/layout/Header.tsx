@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -40,16 +41,19 @@ const Header = ({ loginStatus, updateLoginStatus }: IProps) => {
   };
 
   return (
-    <div className='bg-white shadow-md'>
-      <nav className='mx-auto flex max-w-5xl items-center justify-between p-4'>
+    <div className='fixed z-10 h-14 w-full bg-white shadow-md'>
+      <nav className='mx-auto flex max-w-5xl items-center justify-between p-2'>
         <Link
-          className='inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50'
+          className='inline-flex h-10  w-10 items-center justify-center rounded-lg bg-gray-50'
           href='/'
         >
-          <img
+          <Image
             className='h-8'
             src='https://raw.githubusercontent.com/521xueweihan/img_logo/main/logo/logo.png'
-          ></img>
+            width='30'
+            height='30'
+            alt='hellogithub'
+          />
         </Link>
 
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
