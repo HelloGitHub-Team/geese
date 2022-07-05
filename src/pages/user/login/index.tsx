@@ -39,28 +39,3 @@ Index.getInitialProps = async ({ req, query }) => {
 };
 
 export default Index;
-
-// const Index = ({}) => {
-// const router = useRouter()
-// console.log('router:')
-// console.log(router)
-// useEffect(() => {
-//   if(router.query?.code == undefined){
-//     // 没有必要参数返回首页
-//     Router.push('/')
-//   }
-// }, [])
-// const reqData: RequestInit = {}
-// reqData.credentials = 'include'
-// reqData.headers = {
-//   'Content-Type': 'application/json',
-// }
-// reqData.method = "POST"
-// reqData.body = JSON.stringify({code: 2323, state: 12})
-
-// const { data, error } = useSWR(
-//   [makeUrl('/user/oauth/wechat/'), reqData],
-//   fetch);
-
-// console.log(error)
-// console.log(data)

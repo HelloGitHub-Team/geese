@@ -5,15 +5,9 @@ import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 import Status from '@/components/layout/Status';
 import User from '@/components/layout/User';
-import useSWRInfinite from 'swr/infinite';
 
 import { getStats, Stats } from '@/pages/api/home';
 import { CurrentUser, UserStatus } from '@/pages/api/login';
-import { HomeResponse, Repository } from '@/utils/types/repoType';
-import { makeUrl } from '@/utils/api';
-import { fetcher } from '@/pages/api/base';
-import router from 'next/router';
-import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   // Put Header or Footer Here
