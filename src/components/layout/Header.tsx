@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
+import SearchInput from '@/components/search/SearchInput';
+
 import { getOAtuhURL, LoginOut } from '@/pages/api/login';
 
 const Header = ({
@@ -56,7 +58,7 @@ const Header = ({
             alt='hellogithub'
           />
         </Link>
-
+        <SearchInput />
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
           <li>
             <Link href='/user/login/' className='rounded-lg px-3 py-2'>
