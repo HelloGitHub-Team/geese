@@ -41,7 +41,7 @@ const Items = () => {
     onLoadMore: () => {
       setSize(pageIndex + 1);
     },
-    rootMargin: '0px 0px 400px 0px',
+    rootMargin: '0px 0px 100px 0px',
   });
 
   const linkClassName = (sortName: string) =>
@@ -79,18 +79,16 @@ const Items = () => {
         </div>
       </div>
 
-      <div
-        className='bg-content h-screen divide-y divide-slate-100 overflow-scroll'
-        ref={rootRef}
-      >
+      <div className='bg-content h-screen divide-y divide-slate-100'>
         {repositories.map((item: Repository) => (
           <Item key={item.item_id} repo={item}></Item>
         ))}
         {(isValidating || hasMore) && (
-          <div className='shrink grow lg:w-9/12 lg:grow-0' ref={sentryRef}>
-            <div className='bg-content divide-y divide-slate-100 overflow-hidden'>
-              <div>loading...</div>
-            </div>
+          <div
+            className='bg-content divide-y divide-slate-100 overflow-hidden'
+            ref={sentryRef}
+          >
+            <div>loading...</div>
           </div>
         )}
       </div>

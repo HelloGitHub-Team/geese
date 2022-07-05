@@ -42,10 +42,10 @@ const Header = ({
   };
 
   return (
-    <div className='bg-white shadow-md'>
-      <nav className='mx-auto flex max-w-5xl items-center justify-between p-4'>
+    <div className='fixed z-10 h-14 w-full bg-white shadow-md'>
+      <nav className='mx-auto flex max-w-5xl items-center justify-between p-2'>
         <Link
-          className='inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50'
+          className='inline-flex h-10  w-10 items-center justify-center rounded-lg bg-gray-50'
           href='/'
         >
           <Image

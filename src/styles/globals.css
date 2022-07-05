@@ -45,6 +45,9 @@
     cursor: url('/images/new-tab.png') 10 10, pointer;
   }
 
+  body {
+    @apply overflow-scroll bg-gray-100;
+  }
   /* #region  /**=========== Typography =========== */
   .h0 {
     @apply font-primary text-3xl font-bold md:text-5xl;
