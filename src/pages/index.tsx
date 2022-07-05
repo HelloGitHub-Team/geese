@@ -4,7 +4,6 @@ import Items from '@/components/layout/Items';
 import Seo from '@/components/Seo';
 
 import { HomeItemData } from '@/pages/api/home';
-import HomeView from '@/views/Home';
 
 type IndexProps = {
   itemsData: HomeItemData;
