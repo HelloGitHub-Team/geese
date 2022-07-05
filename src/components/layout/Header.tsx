@@ -2,15 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
-import { getOAtuhURL, LoginOut } from '@/pages/api/login';
+import { getOAtuhURL } from '@/pages/api/login';
 
-const Header = ({
-  loginStatus,
-  updateLoginStatus,
-}: {
+interface IProps {
   loginStatus: boolean;
-  updateLoginStatus: any;
-}) => {
+  updateLoginStatus: (val: boolean) => void;
+}
+
+const Header = ({ loginStatus, updateLoginStatus }: IProps) => {
   const [loginURL, setLoginURL] = useState<string>('/');
 
   const handleLogin = useCallback(async () => {
@@ -31,8 +30,8 @@ const Header = ({
 
   const handleLoginOut = async () => {
     try {
-      const token = localStorage.getItem('Authorization');
-      const result: any = await LoginOut({ Authorization: `Bearer ${token}` });
+      // const token = localStorage.getItem('Authorization');
+      // const result: any = await LoginOut({ Authorization: `Bearer ${token}` });
       localStorage.clear();
       updateLoginStatus(false);
       return true;
