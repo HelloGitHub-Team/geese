@@ -5,7 +5,12 @@ import { useEffect } from 'react';
 import { OAuthWechatAPI } from '@/pages/api/login';
 import { User } from '@/utils/types/userType';
 
-const Index = ({ token, userInfo }) => {
+interface IProps {
+  token: string;
+  userInfo: string;
+}
+
+const Index = ({ token, userInfo }: IProps) => {
   useEffect(() => {
     if (token != undefined) {
       // Perform localStorage action
@@ -14,7 +19,8 @@ const Index = ({ token, userInfo }) => {
     }
     // 返回首页
     Router.push('/');
-  }, []);
+  }, [token, userInfo]);
+
   return (
     <div>
       <div>登录中...</div>
