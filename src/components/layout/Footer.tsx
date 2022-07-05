@@ -6,10 +6,10 @@ const Footer = () => {
     <footer className='text-color-secondary flex flex-col flex-wrap px-3 py-2.5 text-sm'>
       <p>
         <Link href='/help/tos'>
-          <span className='hover:underline'>服务协议</span>
+          <span className='mr-2 hover:underline'>服务协议</span>
         </Link>
         <Link href='/help/syntax'>
-          <span className='ml-2 hover:underline'>Markdown</span>
+          <span className='hover:underline'>Markdown</span>
         </Link>
       </p>
       <Link target='_blank' href='https://beian.miit.gov.cn/'>
