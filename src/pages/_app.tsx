@@ -13,7 +13,7 @@ import Layout from '@/components/layout/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div id='root' className='min-h-screen bg-gray-100'>
+    <div id='root'>
       <Layout>
         <Component {...pageProps} />
       </Layout>
