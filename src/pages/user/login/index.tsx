@@ -1,3 +1,4 @@
+import { GetServerSidePropsContext } from 'next';
 import Router from 'next/router';
 import * as React from 'react';
 import { useEffect } from 'react';
@@ -28,11 +29,14 @@ const Index = ({ token, userInfo }: IProps) => {
   );
 };
 
-Index.getInitialProps = async ({ req, query }) => {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { req, query } = context;
   let token, userInfo;
   try {
-    const { code, state } = query;
-    const cookie = req.headers.cookie;
+    const code = query.code as string;
+    const state = query.state as string;
+    const cookie = req.headers.cookie as string;
+
     const data: User = await OAuthWechatAPI(code, state, cookie);
     token = data.token;
     userInfo = data.userInfo;
@@ -42,6 +46,6 @@ Index.getInitialProps = async ({ req, query }) => {
     console.log('登录失败');
     return { token, userInfo };
   }
-};
+}
 
 export default Index;
