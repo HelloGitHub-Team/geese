@@ -3,9 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
-import SearchInput from '@/components/search/SearchInput';
-
-import { getOAtuhURL, LoginOut } from '@/pages/api/login';
+import { getOAtuhURL } from '@/pages/api/login';
 
 interface IProps {
   loginStatus: boolean;
