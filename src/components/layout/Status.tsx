@@ -15,13 +15,13 @@ export default function Status() {
           <div className='whitespace-nowrap text-base text-slate-400'>
             用户总数
           </div>
-          <div className='text-4xl'>{stats?.user_total}</div>
+          <div className='text-4xl'>{numFormat(stats?.user_total)}</div>
         </div>
         <div className='flex-1'>
           <div className='whitespace-nowrap text-base text-slate-400'>
             开源项目
           </div>
-          <div className='text-4xl'>{stats?.repo_total}</div>
+          <div className='text-4xl'>{numFormat(stats?.repo_total)}</div>
         </div>
       </div>
 
@@ -33,4 +33,31 @@ export default function Status() {
       </div>
     </div>
   );
+}
+
+function numFormat(n: string | undefined, digits = 0) {
+  if (n === void 0) {
+    return '';
+  }
+  const num = +n;
+  if (num < 10000) {
+    return n;
+  }
+  const si = [
+    { value: 1, symbol: '' },
+    { value: 1e3, symbol: 'K' },
+    { value: 1e6, symbol: 'M' },
+    { value: 1e9, symbol: 'G' },
+    { value: 1e12, symbol: 'T' },
+    { value: 1e15, symbol: 'P' },
+    { value: 1e18, symbol: 'E' },
+  ];
+  const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+  let i;
+  for (i = si.length - 1; i > 0; i--) {
+    if (num >= si[i].value) {
+      break;
+    }
+  }
+  return (num / si[i].value).toFixed(digits).replace(rx, '$1') + si[i].symbol;
 }
