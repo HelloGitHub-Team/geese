@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import useSWR from 'swr';
 
 import { fetcher } from '@/pages/api/base';
@@ -51,6 +52,7 @@ import Item from './Item';
 // }
 
 const Items = () => {
+  const [lebelStatus, setLabel] = useState(false);
   const router = useRouter();
   const { sort_by = 'hot' } = router.query;
   const { data, error } = useSWR<{
@@ -68,6 +70,20 @@ const Items = () => {
       }
     );
 
+  const labelClassName = () =>
+    classNames(
+      'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold text-slate-500 hover:bg-slate-100 hover:text-blue-500',
+      {
+        'text-slate-500': !lebelStatus,
+        'bg-slate-100 text-blue-500': lebelStatus,
+      }
+    );
+
+  const changeLabelStatus = () => {
+    setLabel(!lebelStatus);
+    labelClassName();
+  };
+
   return (
     <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
       <div className='relative bg-white'>
@@ -82,6 +98,14 @@ const Items = () => {
                 <a className={linkClassName('last')}>最近</a>
               </Link>
 
+              <button
+                type='button'
+                onClick={changeLabelStatus}
+                className={labelClassName()}
+              >
+                标签
+              </button>
+
               <div className='absolute top-0 right-0 p-2.5'>
                 <Link href='/create/repo/'>
                   <a className='flex h-8 items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600'>
@@ -90,6 +114,48 @@ const Items = () => {
                 </Link>
               </div>
             </div>
+          </div>
+          <div
+            className={
+              lebelStatus ? 'flex pb-2.5 pl-4 pr-3' : 'hidden pb-2.5 pl-4 pr-3'
+            }
+          >
+            <button
+              type='button'
+              className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'
+            >
+              标签
+            </button>
+            <button
+              type='button'
+              className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'
+            >
+              标签
+            </button>
+            <button
+              type='button'
+              className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'
+            >
+              标签
+            </button>
+            <button
+              type='button'
+              className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'
+            >
+              标签
+            </button>
+            <button
+              type='button'
+              className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'
+            >
+              标签
+            </button>
+            <button
+              type='button'
+              className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'
+            >
+              标签
+            </button>
           </div>
         </div>
       </div>
