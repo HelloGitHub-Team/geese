@@ -14,6 +14,7 @@ interface IProps {
 
 const Header = ({ loginStatus, updateLoginStatus }: IProps) => {
   const router = useRouter();
+
   const [loginURL, setLoginURL] = useState<string>('/');
 
   const handleLogin = useCallback(async () => {

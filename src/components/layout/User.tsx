@@ -3,6 +3,8 @@ import Link from 'next/link';
 import * as React from 'react';
 import useSWR from 'swr';
 
+import useStorageListener from '@/hooks/useStorageListener';
+
 import { fetcher } from '@/pages/api/base';
 import { UserStatus } from '@/pages/api/login';
 import { makeUrl } from '@/utils/api';
@@ -16,16 +18,21 @@ type UserStatusProps = {
   user?: UserStatus;
 };
 
+const TOKENKEY = 'Authorization';
+
 export default function User({ isLogin, updateLoginStatus }: UserProps) {
+  const { hasToken: shouldFetch } = useStorageListener(TOKENKEY);
   const { data: userStatus } = useSWR<UserStatus>(
-    makeUrl('/user/me/'),
+    shouldFetch ? makeUrl('/user/me/') : null,
     (key) => {
-      const token = localStorage.getItem('Authorization');
-      const headers = { Authorization: `Bearer ${token}` };
+      const token = localStorage.getItem(TOKENKEY);
+      const headers = { [TOKENKEY]: `Bearer ${token}` };
       return fetcher(key, { headers });
     },
     {
-      onSuccess(data) {
+      isPaused: () => !shouldFetch,
+      onSuccess: function (data) {
+        console.log(data);
         if (data) {
           updateLoginStatus(true);
         } else {
@@ -35,6 +42,7 @@ export default function User({ isLogin, updateLoginStatus }: UserProps) {
       },
     }
   );
+
   const defaultAvatar =
     'https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaELhgSn8KrBspf8KDJQGPwHOKqkZfppGiaQQk3WdxFetbGAYibBzhZ7bLV81JM2qBKVNStLeIo3ryMEA/132';
 
