@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
 import { getOAtuhURL } from '@/pages/api/login';
+import SearchInput from '../search/SearchInput';
 
 interface IProps {
   loginStatus: boolean;
@@ -53,6 +54,7 @@ const Header = ({ loginStatus, updateLoginStatus }: IProps) => {
           alt='hellogithub'
           onClick={() => router.push('/')}
         />
+        <SearchInput />
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
           <li>
             <Link href='/user/login/' className='rounded-lg px-3 py-2'>
