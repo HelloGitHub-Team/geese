@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
 import { getOAtuhURL } from '@/pages/api/login';
+
 import SearchInput from '../search/SearchInput';
 
 interface IProps {
