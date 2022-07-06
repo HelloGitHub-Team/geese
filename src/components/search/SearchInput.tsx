@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import { fetcher } from '@/pages/api/base';
@@ -11,79 +12,93 @@ type DropdownList = {
 };
 
 /**
- * @搜索组件
+ * @顶部搜索输入框
  * @returns
  */
 export default function SearchInput() {
+  const router = useRouter();
+  const { q = '' } = router.query;
+
   const [query, setQuery] = React.useState<string>('');
   const [show, setShow] = React.useState<boolean>(false);
 
-  const [dropdownList, setDropdownList] = React.useState<DropdownList[]>([
-    { id: 1, name: 'Vue' },
-    { id: 2, name: 'React' },
-    { id: 3, name: 'Angular' },
-  ]);
+  React.useEffect(() => {
+    if (q) {
+      setQuery(q);
+    }
+  }, [q]);
+
+  // 联想词下拉列表
+  const [dropdownList, setDropdownList] = React.useState<DropdownList[]>([]);
   const dropdownRef = React.useRef();
 
-  // 获取搜索结果
-  const getSearchItems = React.useCallback((query) => {
-    fetcher(makeUrl(`/search`, { q: query, page: 1 }))
+  // 获取联想关键词
+  const getLenovoWord = debounce((query) => {
+    if (!query) {
+      setDropdownList([]);
+      setShow(false);
+      return;
+    }
+    fetcher(makeUrl(`/search/suggest`, { q: query }))
       .then((res) => {
-        console.log(res);
+        if (res?.length > 0) {
+          setDropdownList(res);
+          setShow(true);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, 200);
 
-  // 获取联想关键词
-  const getLenovoWord = React.useCallback(
-    debounce((query) => {
-      console.log('开始获取联想关键词', query);
-      fetcher(makeUrl(`/search/suggest`, { q: query }))
-        .then((res) => {
-          console.log(res);
-          setDropdownList(res);
-          if (res.length > 0) {
-            setShow(true);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }, 1000),
-    []
+  // 跳转搜索结果页面
+  const jump2Result = React.useCallback(
+    (q: string) => {
+      setShow(false);
+      if (q) {
+        router.push(`/search/result?q=${q}`);
+      } else {
+        router.push(`/`);
+      }
+    },
+    [router]
   );
 
+  // 回车搜索
   const onKeyDown = React.useCallback(
     (e) => {
       if (e.key === 'Enter') {
-        console.log('onKeyDown', e, e.target.value);
-        getSearchItems(e.target.value);
+        jump2Result(e.target.value);
       }
     },
-    [getSearchItems]
+    [jump2Result]
   );
 
+  // 点击搜索图标
   const onSearch = React.useCallback(() => {
-    getSearchItems(query);
-  }, [getSearchItems, query]);
+    jump2Result(query);
+  }, [jump2Result, query]);
 
   const onChange = (e) => {
-    console.log('onChange', e.target.value);
-    setQuery(e.target.value);
-    getLenovoWord(e.target.value);
+    const q = e.target.value;
+    setQuery(q);
+    getLenovoWord(q);
   };
 
   const onClickLenovoWord = React.useCallback(
     (item) => {
-      console.log('onClickLenovoWord', item.name);
-      setShow(false);
       setQuery(item.name);
-      getSearchItems(item.name);
+      setShow(false);
+      jump2Result(item.name);
     },
-    [getSearchItems]
+    [jump2Result]
   );
+
+  const onInputBlur = () => {
+    setTimeout(() => {
+      setShow(false);
+    }, 100);
+  };
 
   const dropdownClassName = (show: boolean) =>
     classNames(
@@ -102,12 +117,12 @@ export default function SearchInput() {
       <div className='relative w-2/4'>
         <input
           type='text'
-          className='block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400'
+          className='block h-10 w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400'
           placeholder='探索 HelloGitHub'
           value={query}
           onChange={onChange}
           onKeyDown={onKeyDown}
-          onFocus={() => setShow(true)}
+          onBlur={onInputBlur}
         ></input>
         <svg
           width='24'
@@ -115,7 +130,7 @@ export default function SearchInput() {
           viewBox='0 0 48 48'
           fill='none'
           xmlns='http://www.w3.org/2000/svg'
-          className='absolute right-1 top-0 mt-3 mr-3 cursor-pointer'
+          className='absolute right-1 top-2 mr-2 cursor-pointer'
           onClick={onSearch}
         >
           <rect width='48' height='48' fill='white' fillOpacity='0.01' />
