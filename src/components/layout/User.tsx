@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-
-import useStorageListener from '@/hooks/useStorageListener';
 
 import { fetcher } from '@/pages/api/base';
 import { UserStatus } from '@/pages/api/login';
@@ -21,30 +20,32 @@ type UserStatusProps = {
 const TOKENKEY = 'Authorization';
 
 export default function User({ isLogin, updateLoginStatus }: UserProps) {
-  const { hasToken: shouldFetch } = useStorageListener(TOKENKEY);
+  const [hasToken, setHasToken] = useState<boolean>(false);
+
+  const getToken = () => localStorage.getItem(TOKENKEY);
+
+  useEffect(() => {
+    setHasToken(!!getToken());
+  }, [isLogin]);
+
   const { data: userStatus } = useSWR<UserStatus>(
-    shouldFetch ? makeUrl('/user/me/') : null,
+    hasToken ? makeUrl('/user/me/') : null,
     (key) => {
-      const token = localStorage.getItem(TOKENKEY);
-      const headers = { [TOKENKEY]: `Bearer ${token}` };
+      const headers = { [TOKENKEY]: `Bearer ${getToken()}` };
       return fetcher(key, { headers });
     },
     {
-      isPaused: () => !shouldFetch,
-      onSuccess: function (data) {
-        console.log(data);
-        if (data) {
-          updateLoginStatus(true);
-        } else {
-          localStorage.clear();
-          updateLoginStatus(false);
-        }
+      onSuccess: function () {
+        updateLoginStatus(true);
+      },
+      onError: function () {
+        localStorage.clear();
+        updateLoginStatus(false);
       },
     }
   );
 
-  const defaultAvatar =
-    'https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaELhgSn8KrBspf8KDJQGPwHOKqkZfppGiaQQk3WdxFetbGAYibBzhZ7bLV81JM2qBKVNStLeIo3ryMEA/132';
+  const defaultAvatar = '';
 
   const UserStatus = ({ user }: UserStatusProps) => (
     <React.Fragment>
@@ -82,8 +83,18 @@ export default function User({ isLogin, updateLoginStatus }: UserProps) {
     </React.Fragment>
   );
 
+  const setToken = () => {
+    localStorage.setItem(
+      'Authorization',
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4bmIzdmRrY2hhIiwicGVybWlzc2lvbiI6InZpc2l0b3IiLCJuaWNrbmFtZSI6Inh1IiwiZXhwIjoxNjU3Njk3NzkxfQ.Zc7lVqCvlQ_g5jHCqAssMAwPNu6MX6lhLTZUtRlmK0Q'
+    );
+  };
+
   const NotLogin = () => (
-    <p className='py-1 text-center align-middle text-base text-slate-400'>
+    <p
+      className='py-8 text-center align-middle text-base text-slate-400'
+      onClick={setToken}
+    >
       未登录
     </p>
   );
