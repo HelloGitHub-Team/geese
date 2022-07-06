@@ -1,3 +1,4 @@
+import { GetServerSidePropsContext } from 'next';
 import Router from 'next/router';
 import * as React from 'react';
 import { useEffect } from 'react';
@@ -5,7 +6,12 @@ import { useEffect } from 'react';
 import { OAuthWechatAPI } from '@/pages/api/login';
 import { User } from '@/utils/types/userType';
 
-const Index = ({ token, userInfo }) => {
+interface IProps {
+  token: string;
+  userInfo: string;
+}
+
+const Index = ({ token, userInfo }: IProps) => {
   useEffect(() => {
     if (token != undefined) {
       // Perform localStorage action
@@ -14,7 +20,8 @@ const Index = ({ token, userInfo }) => {
     }
     // 返回首页
     Router.push('/');
-  }, []);
+  }, [token, userInfo]);
+
   return (
     <div>
       <div>登录中...</div>
@@ -22,11 +29,14 @@ const Index = ({ token, userInfo }) => {
   );
 };
 
-Index.getInitialProps = async ({ req, query }) => {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { req, query } = context;
   let token, userInfo;
   try {
-    const { code, state } = query;
-    const cookie = req.headers.cookie;
+    const code = query.code as string;
+    const state = query.state as string;
+    const cookie = req.headers.cookie as string;
+
     const data: User = await OAuthWechatAPI(code, state, cookie);
     token = data.token;
     userInfo = data.userInfo;
@@ -36,31 +46,6 @@ Index.getInitialProps = async ({ req, query }) => {
     console.log('登录失败');
     return { token, userInfo };
   }
-};
+}
 
 export default Index;
-
-// const Index = ({}) => {
-// const router = useRouter()
-// console.log('router:')
-// console.log(router)
-// useEffect(() => {
-//   if(router.query?.code == undefined){
-//     // 没有必要参数返回首页
-//     Router.push('/')
-//   }
-// }, [])
-// const reqData: RequestInit = {}
-// reqData.credentials = 'include'
-// reqData.headers = {
-//   'Content-Type': 'application/json',
-// }
-// reqData.method = "POST"
-// reqData.body = JSON.stringify({code: 2323, state: 12})
-
-// const { data, error } = useSWR(
-//   [makeUrl('/user/oauth/wechat/'), reqData],
-//   fetch);
-
-// console.log(error)
-// console.log(data)

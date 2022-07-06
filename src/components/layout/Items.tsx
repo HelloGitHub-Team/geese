@@ -2,64 +2,49 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import useSWR from 'swr';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
+import useSWRInfinite from 'swr/infinite';
 
 import { fetcher } from '@/pages/api/base';
 import { makeUrl } from '@/utils/api';
-import { Repository } from '@/utils/types/repoType';
+import { HomeResponse, Repository } from '@/utils/types/repoType';
 
 import Item from './Item';
-
-// const DataContext = createContext<Repository[]>([]);
-
-// function Items() {
-//     const { data, error } = useSWR(makeUrl(`/`), fetcher)
-//     console.log(data)
-//     return (
-//         <div><h1>1123123</h1></div>)
-//         // { data.map((item) => (<h1>{item.title}</h1>)) })
-
-// }
-
-// const LeftMain = ({ fallback }) => {
-//     return (
-//         <SWRConfig value={{ fallback }}>
-//             <Items />
-//         </SWRConfig>
-//     )
-//     // const { data, isLoading } = getItems()
-
-//     // return (<div className='bg-content divide-y divide-slate-100 overflow-hidden'>
-//     //     <DataContext.Provider value={items}>
-//     //         {items.map((item) => (
-//     //             <Item key= {item.item_id} repo={item}></Item>
-//     //         ))}
-//     //     </DataContext.Provider>
-//     // </div>)
-// };
-
-// export async function getStaticProps() {
-//     // `getStaticProps` is executed on the server side.
-//     const items = await getItems()
-//     const url = makeUrl(`/`)
-//     return {
-//         props: {
-//             fallback: {
-//                 url: items
-//             }
-//         }
-//     }
-// }
 
 const Items = () => {
   const [lebelStatus, setLabel] = useState(false);
   const router = useRouter();
   const { sort_by = 'hot' } = router.query;
-  const { data, error } = useSWR<{
-    data: Repository[];
-    has_more: boolean;
-    page: number;
-  }>(makeUrl(`/`, { sort_by }), fetcher);
+
+  const { data, error, setSize, isValidating, size } =
+    useSWRInfinite<HomeResponse>(
+      (index) => makeUrl(`/`, { sort_by, page: index + 1 }),
+      fetcher,
+      {
+        revalidateFirstPage: false,
+      }
+    );
+
+  const repositories = data
+    ? data.reduce((pre: Repository[], curr) => {
+        if (curr.data.length > 0) {
+          pre.push(...curr.data);
+        }
+        return pre;
+      }, [])
+    : [];
+  const hasMore = data ? data[data.length - 1].has_more : false;
+  const pageIndex = data ? size : 0;
+
+  const [sentryRef] = useInfiniteScroll({
+    loading: isValidating,
+    hasNextPage: hasMore,
+    disabled: !!error,
+    onLoadMore: () => {
+      setSize(pageIndex + 1);
+    },
+    rootMargin: '0px 0px 100px 0px',
+  });
 
   const linkClassName = (sortName: string) =>
     classNames(
@@ -85,7 +70,7 @@ const Items = () => {
   };
 
   return (
-    <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
+    <div>
       <div className='relative bg-white'>
         <div className='bg-content border-main-content mb-2 mt-2 overflow-hidden'>
           <div className='flex py-2.5 pl-4 pr-3'>
@@ -160,16 +145,16 @@ const Items = () => {
         </div>
       </div>
 
-      <div className='bg-content divide-y divide-slate-100 overflow-hidden'>
-        {data ? (
-          data.data.map((item: Repository) => (
-            <Item key={item.item_id} repo={item}></Item>
-          ))
-        ) : (
-          <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
-            <div className='bg-content divide-y divide-slate-100 overflow-hidden'>
-              <div>loading...</div>
-            </div>
+      <div className='bg-content h-screen divide-y divide-slate-100'>
+        {repositories.map((item: Repository) => (
+          <Item key={item.item_id} repo={item}></Item>
+        ))}
+        {(isValidating || hasMore) && (
+          <div
+            className='bg-content divide-y divide-slate-100 overflow-hidden'
+            ref={sentryRef}
+          >
+            <div>loading...</div>
           </div>
         )}
       </div>
