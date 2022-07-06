@@ -34,7 +34,7 @@ const Items = () => {
   const hasMore = data ? data[data.length - 1].has_more : false;
   const pageIndex = data ? size : 0;
 
-  const [sentryRef, { rootRef }] = useInfiniteScroll({
+  const [sentryRef] = useInfiniteScroll({
     loading: isValidating,
     hasNextPage: hasMore,
     disabled: !!error,
