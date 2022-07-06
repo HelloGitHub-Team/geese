@@ -14,9 +14,9 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   const router = useRouter();
   console.log(router);
 
-  const {
-    query: { rid },
-  } = router;
+  // const {
+  //   query: { rid },
+  // } = router;
 
   const { title, description } = repo;
 
@@ -28,9 +28,8 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query: { rid },
-}) => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const rid = query?.rid as string;
   const data = await getDetail(rid);
   console.log(data);
   return {
