@@ -12,6 +12,10 @@ export default function useStorageListener(storageKey: string) {
   );
 
   useEffect(() => {
+    setHasToken(!!localStorage.getItem(storageKey));
+  }, [storageKey]);
+
+  useEffect(() => {
     window.addEventListener('storage', eventListener);
     return () => window.removeEventListener('storage', eventListener);
   }, [eventListener]);
