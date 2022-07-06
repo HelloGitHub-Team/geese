@@ -2,7 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
-import { getOAtuhURL } from '@/pages/api/login';
+import SearchInput from '@/components/search/SearchInput';
+
+import { getOAtuhURL, LoginOut } from '@/pages/api/login';
 
 interface IProps {
   loginStatus: boolean;
@@ -55,7 +57,7 @@ const Header = ({ loginStatus, updateLoginStatus }: IProps) => {
             alt='hellogithub'
           />
         </Link>
-
+        <SearchInput />
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
           <li>
             <Link href='/user/login/' className='rounded-lg px-3 py-2'>
