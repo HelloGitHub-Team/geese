@@ -62,9 +62,9 @@ const Header = ({ loginStatus, updateLoginStatus }: IProps) => {
           </li>
           <>
             {!loginStatus ? (
-              <li>
+              <li className='block md:hidden'>
                 {/* <li className='md:hidden block'> */}
-                <Link href={data?.url || '/'} className='block md:hidden'>
+                <Link href={data?.url || '/'}>
                   <span className='inline-flex cursor-pointer items-center rounded-lg px-3 py-2'>
                     登录
                     <svg
