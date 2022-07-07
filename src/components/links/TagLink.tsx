@@ -9,15 +9,13 @@ import { HomeResponse } from '@/utils/types/repoType';
 export default function TagLink() {
   const router = useRouter();
   const { sort_by = 'hot' } = router.query;
-  const { data, error, setSize, isValidating, size } =
-    useSWRInfinite<HomeResponse>(
-      () =>
-        makeUrl(`/tag/search/`, { page: 1, page_size: 10, sort_by, asc: 0 }),
-      fetcher,
-      {
-        revalidateFirstPage: false,
-      }
-    );
+  const { data } = useSWRInfinite<HomeResponse>(
+    () => makeUrl(`/tag/search/`, { page: 1, page_size: 10, sort_by, asc: 0 }),
+    fetcher,
+    {
+      revalidateFirstPage: false,
+    }
+  );
   const reponse = data ? data[0].data : [];
   console.log(reponse);
   return (
