@@ -14,10 +14,6 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   const router = useRouter();
   console.log(router);
 
-  // const {
-  //   query: { rid },
-  // } = router;
-
   const { title, description } = repo;
 
   return (
