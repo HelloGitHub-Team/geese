@@ -40,11 +40,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const data: User = await OAuthWechatAPI(code, state, cookie);
     token = data.token;
     userInfo = data.userInfo;
-    return { token, userInfo };
+    return {
+      props: { token, userInfo },
+    };
   } catch (error) {
     console.log(error);
     console.log('登录失败');
-    return { token, userInfo };
+    return {
+      props: { token, userInfo },
+    };
   }
 }
 

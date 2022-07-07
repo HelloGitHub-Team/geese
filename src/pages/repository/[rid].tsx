@@ -18,7 +18,14 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   //   query: { rid },
   // } = router;
 
-  return <>{repo.title}</>;
+  const { title, description } = repo;
+
+  return (
+    <>
+      <h1>{title}</h1>
+      <p>{description}</p>
+    </>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
