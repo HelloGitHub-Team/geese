@@ -3,6 +3,7 @@ import Link from 'next/link';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 
 import { fetcher } from '@/pages/api/base';
 import { UserStatus } from '@/pages/api/login';
@@ -25,8 +26,26 @@ export default function User({ isLogin, updateLoginStatus }: UserProps) {
   const getToken = () => localStorage.getItem(TOKENKEY);
 
   useEffect(() => {
+    // localStorage.setItem(
+    //   'Authorization',
+    //   'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4bmIzdmRrY2hhIiwicGVybWlzc2lvbiI6InZpc2l0b3IiLCJuaWNrbmFtZSI6Inh1IiwiZXhwIjoxNjU3Njk3NzkxfQ.Zc7lVqCvlQ_g5jHCqAssMAwPNu6MX6lhLTZUtRlmK0Q'
+    // );
     setHasToken(!!getToken());
   }, [isLogin]);
+
+  const { data: auth } = useSWRImmutable<Record<string, any>>(
+    makeUrl(`/user/oauth/wechat/url/`, { url_type: 'geese' }),
+    (key) => {
+      const options: RequestInit = {
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      };
+      return fetcher(key, options);
+    },
+    {
+      shouldRetryOnError: false,
+    }
+  );
 
   const { data: userStatus } = useSWR<UserStatus>(
     hasToken ? makeUrl('/user/me/') : null,
@@ -83,20 +102,17 @@ export default function User({ isLogin, updateLoginStatus }: UserProps) {
     </React.Fragment>
   );
 
-  const setToken = () => {
-    localStorage.setItem(
-      'Authorization',
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4bmIzdmRrY2hhIiwicGVybWlzc2lvbiI6InZpc2l0b3IiLCJuaWNrbmFtZSI6Inh1IiwiZXhwIjoxNjU3Njk3NzkxfQ.Zc7lVqCvlQ_g5jHCqAssMAwPNu6MX6lhLTZUtRlmK0Q'
-    );
-  };
-
   const NotLogin = () => (
-    <p
-      className='py-8 text-center align-middle text-base text-slate-400'
-      onClick={setToken}
-    >
-      未登录
-    </p>
+    <div className='box-border py-6 text-center align-middle text-base'>
+      <Link href={auth?.url || '/'}>
+        <button
+          type='button'
+          className='button box-border rounded-md border-2 border-slate-400 px-3 py-2 text-white text-gray-500'
+        >
+          立即登录
+        </button>
+      </Link>
+    </div>
   );
 
   return (
