@@ -12,10 +12,15 @@ export interface RepositoryProps {
 }
 
 export interface Repository extends RepoType {
+  tid: Key | null | undefined;
   tags: Tag[];
   user: UserType;
 }
 
+export interface RepoTag extends RepoType {
+  name: string;
+  tid: string;
+}
 export interface RepoType {
   item_id: string;
   url: string;

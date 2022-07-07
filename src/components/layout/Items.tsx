@@ -12,6 +12,7 @@ import { makeUrl } from '@/utils/api';
 import { HomeResponse, Repository } from '@/utils/types/repoType';
 
 import Item from './Item';
+import TagLink from '../links/TagLink';
 
 const Items = () => {
   const [lebelStatus, setLabel] = useState(false);
@@ -107,42 +108,7 @@ const Items = () => {
               lebelStatus ? 'flex pb-2.5 pl-4 pr-3' : 'hidden pb-2.5 pl-4 pr-3'
             }
           >
-            <button
-              type='button'
-              className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'
-            >
-              标签
-            </button>
-            <button
-              type='button'
-              className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'
-            >
-              标签
-            </button>
-            <button
-              type='button'
-              className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'
-            >
-              标签
-            </button>
-            <button
-              type='button'
-              className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'
-            >
-              标签
-            </button>
-            <button
-              type='button'
-              className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'
-            >
-              标签
-            </button>
-            <button
-              type='button'
-              className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'
-            >
-              标签
-            </button>
+            <TagLink></TagLink>
           </div>
         </div>
       </div>
