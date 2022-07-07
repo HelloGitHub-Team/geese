@@ -6,7 +6,7 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。
 
 **正在全力以赴的开发中，敬请期待！**
 
-![](docs/img/2022-07-05.png)
+![](docs/img/2022-07-06.png)
 
 感谢每一位贡献代码的小伙伴，很开心和大家一起做开源项目～
 
@@ -16,21 +16,23 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。
 
 ## 待认领功能
 
-- 加载组件（简单）
-- 异常处理和提醒（中等）
+暂无
 
 **要求**：
 
 1. 相信你是**热爱开源**、**有始有终**、**靠谱**
 2. 认领后需给我一个靠谱的完成时间，可根据自己的实际情况而定，参考：简单（7 天）、中等（14 天）、复杂（30 天）。
-3. 提交代码前，请在本地运行：`yarn lint:fix` 和 `yarn lint` 检查代码格式，并尝试解决力所能及的**告警**。
+3. 提交代码前，检查代码格式，并尝试解决力所能及的**告警**。在本地执行命令：
+   - `yarn lint:fix`
+   - `yarn lint`
+   - `yarn typecheck`
 
 [点击](https://github.com/orgs/HelloGitHub-Team/projects/1/views/1)查看需求、认领功能！<a href="mailto:595666367@qq.com">联系我</a>
 
 ## 鸣谢
 
 - 脚手架：[ts-nextjs-tailwind-starter](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter)
-- 组件：[hyperui](https://github.com/markmead/hyperui)
+- 组件(暂未用到)：[hyperui](https://github.com/markmead/hyperui)
 - 样式参考：[hackertalk](https://hackertalk.net/)
 
 ## 声明

@@ -1,11 +1,14 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import { RepositoryProps } from '@/utils/types/repoType';
 
 const Item: NextPage<RepositoryProps> = ({ repo }) => {
+  const router = useRouter();
+
   return (
     <article className='mx-4'>
       <Link href={`/repository/${repo.item_id}`}>
@@ -24,15 +27,14 @@ const Item: NextPage<RepositoryProps> = ({ repo }) => {
             {repo.description}
           </div>
           <div className='flex items-center pt-2'>
-            <Link href={`/users/${repo.user.uid}`}>
-              <Image
-                width='20'
-                height='20'
-                src={repo.user.avatar}
-                className='bg-img h-5 w-5 rounded'
-                alt=''
-              />
-            </Link>
+            <Image
+              width='20'
+              height='20'
+              src={repo.user.avatar}
+              className='bg-img h-5 w-5 rounded'
+              alt=''
+              onClick={() => router.push(`/users/${repo.user.uid}`)}
+            />
             <div className='flex shrink grow items-center overflow-x-hidden pl-2 text-sm text-slate-400'>
               <Link href={`/users/${repo.user.uid}`}>
                 <div className='text-color-primary whitespace-nowrap hover:underline'>
