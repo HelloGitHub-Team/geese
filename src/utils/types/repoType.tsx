@@ -12,7 +12,7 @@ export interface RepositoryProps {
 }
 
 export interface Repository extends RepoType {
-  tid: Key | null | undefined;
+  tid: string | null | undefined;
   tags: Tag[];
   user: UserType;
 }
