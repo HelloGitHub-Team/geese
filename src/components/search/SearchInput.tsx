@@ -17,7 +17,7 @@ type DropdownList = {
  */
 export default function SearchInput() {
   const router = useRouter();
-  const { q = '' } = router.query;
+  const q = router.query?.q as string;
 
   const [query, setQuery] = React.useState<string>('');
   const [show, setShow] = React.useState<boolean>(false);
@@ -30,17 +30,17 @@ export default function SearchInput() {
 
   // 联想词下拉列表
   const [dropdownList, setDropdownList] = React.useState<DropdownList[]>([]);
-  const dropdownRef = React.useRef();
+  const dropdownRef = React.useRef<any>();
 
   // 获取联想关键词
-  const getLenovoWord = debounce((query) => {
+  const getLenovoWord = debounce((query: string) => {
     if (!query) {
       setDropdownList([]);
       setShow(false);
       return;
     }
     fetcher(makeUrl(`/search/suggest`, { q: query }))
-      .then((res) => {
+      .then((res: any) => {
         if (res?.length > 0) {
           setDropdownList(res);
           setShow(true);
@@ -66,7 +66,7 @@ export default function SearchInput() {
 
   // 回车搜索
   const onKeyDown = React.useCallback(
-    (e) => {
+    (e: any) => {
       if (e.key === 'Enter') {
         jump2Result(e.target.value);
       }
@@ -79,14 +79,14 @@ export default function SearchInput() {
     jump2Result(query);
   }, [jump2Result, query]);
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const q = e.target.value;
     setQuery(q);
     getLenovoWord(q);
   };
 
   const onClickLenovoWord = React.useCallback(
-    (item) => {
+    (item: any) => {
       setQuery(item.name);
       setShow(false);
       jump2Result(item.name);
@@ -111,10 +111,10 @@ export default function SearchInput() {
 
   return (
     <div
-      className='inline-flex flex-auto items-stretch rounded-md bg-white pl-5'
+      className='inline-flex flex-auto items-stretch rounded-md bg-white px-2'
       ref={dropdownRef}
     >
-      <div className='relative w-2/4'>
+      <div className='relative w-full max-w-xs'>
         <input
           type='text'
           className='block h-10 w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400'

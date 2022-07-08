@@ -8,16 +8,19 @@ import Seo from '@/components/Seo';
 
 import { fetcher } from '@/pages/api/base';
 import { makeUrl } from '@/utils/api';
-import { HomeResponse } from '@/utils/types/repoType';
-import { SearchItemType } from '@/utils/types/searchItemType';
+import {
+  SearchItemType,
+  SearchResponse,
+  SearchResultItemProps,
+} from '@/utils/types/searchItemType';
 
-const Result: NextPage<PageProps> = () => {
+const Result: NextPage = () => {
   const router = useRouter();
   const { q = '' } = router.query;
 
   // 根据路由参数 q 获取搜索结果
   const { data, error, setSize, isValidating, size } =
-    useSWRInfinite<HomeResponse>(
+    useSWRInfinite<SearchResponse>(
       (index) => makeUrl(`/search`, { q, page: index + 1 }),
       fetcher,
       {
@@ -27,7 +30,7 @@ const Result: NextPage<PageProps> = () => {
 
   // 追加搜索结果
   const list: SearchItemType[] =
-    data?.reduce((pre, curr) => {
+    data?.reduce((pre: SearchItemType[], curr) => {
       if (curr.data.length > 0) {
         pre.push(...curr.data);
       }
@@ -52,8 +55,8 @@ const Result: NextPage<PageProps> = () => {
     <>
       <Seo templateTitle='Search' />
       <div className='bg-content my-2 h-screen divide-y divide-slate-100'>
-        {list.map((item: SearchItemType, index: number) => (
-          <SearchResultItem index={index} key={item.rid} repo={item} />
+        {list.map((item: SearchItemType) => (
+          <SearchResultItem key={item.rid} repo={item} />
         ))}
         {(isValidating || hasMore) && (
           <div
@@ -75,7 +78,7 @@ export default Result;
  * @param repo
  * @returns
  */
-const SearchResultItem = ({ repo }) => {
+const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo }) => {
   return (
     <article className='mx-4'>
       <Link href={`/repository/${repo.rid}`}>
