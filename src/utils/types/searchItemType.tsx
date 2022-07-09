@@ -19,3 +19,13 @@ export interface SearchItemType {
   has_chinese: boolean;
   last_commit_at: string;
 }
+
+export interface SearchResultItemProps {
+  repo: SearchItemType;
+}
+
+export interface SearchResponse {
+  page: number;
+  data: SearchItemType[];
+  has_more: boolean;
+}
