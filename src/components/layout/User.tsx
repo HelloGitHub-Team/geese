@@ -9,6 +9,8 @@ import { fetcher } from '@/pages/api/base';
 import { UserStatus } from '@/pages/api/login';
 import { makeUrl } from '@/utils/api';
 
+import Loading from '../loading/Loading';
+
 type UserProps = {
   updateLoginStatus: (value: boolean) => void;
   isLogin: boolean;
@@ -58,7 +60,6 @@ export default function User({ isLogin, updateLoginStatus }: UserProps) {
         updateLoginStatus(true);
       },
       onError: function () {
-        localStorage.clear();
         updateLoginStatus(false);
       },
     }
@@ -123,7 +124,11 @@ export default function User({ isLogin, updateLoginStatus }: UserProps) {
 
   return (
     <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5'>
-      {isLogin ? <UserStatus user={userStatus} /> : <NotLogin />}
+      {userStatus ? (
+        <div>{isLogin ? <UserStatus user={userStatus} /> : <NotLogin />}</div>
+      ) : (
+        <Loading></Loading>
+      )}
     </div>
   );
 }
