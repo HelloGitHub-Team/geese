@@ -6,7 +6,7 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。
 
 **正在全力以赴的开发中，敬请期待！**
 
-![](docs/img/2022-07-06.png)
+![](docs/img/2022-07-10.png)
 
 感谢每一位贡献代码的小伙伴，很开心和大家一起做开源项目～
 
@@ -16,7 +16,8 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。
 
 ## 待认领功能
 
-暂无
+- [分享项目](https://github.com/HelloGitHub-Team/geese/issues/4)
+- [项目详情页](https://github.com/HelloGitHub-Team/geese/issues/10)
 
 **要求**：
 
@@ -32,7 +33,7 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。
 ## 鸣谢
 
 - 脚手架：[ts-nextjs-tailwind-starter](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter)
-- 组件(暂未用到)：[hyperui](https://github.com/markmead/hyperui)
+- 组件样式：[hyperui](https://github.com/markmead/hyperui)
 - 样式参考：[hackertalk](https://hackertalk.net/)
 
 ## 声明
