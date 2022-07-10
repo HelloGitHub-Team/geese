@@ -40,7 +40,6 @@ export interface RepoType {
   lang_color: string;
   homepage: string;
   license: string;
-  item_type: number;
   has_chinese: boolean;
   is_org: boolean;
   comment_total: number;

@@ -96,8 +96,13 @@ export default function User({ isLogin, updateLoginStatus }: UserProps) {
       </div>
 
       <div className='flex items-end pt-2 text-sm'>
+        <Link href='/create/repo/'>
+          <a className='flex h-8 items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600'>
+            分享项目
+          </a>
+        </Link>
         <div className='shrink grow'></div>
-        <div className='pr-2 pb-0.5 text-slate-400'>我的积分</div>
+        <div className='pr-2 pb-0.5 text-slate-400'>积分</div>
         <div className='text-4xl font-bold text-yellow-500'>15</div>
       </div>
     </React.Fragment>
@@ -108,7 +113,7 @@ export default function User({ isLogin, updateLoginStatus }: UserProps) {
       <Link href={auth?.url || '/'}>
         <button
           type='button'
-          className='button box-border rounded-md border-2 border-slate-400 px-3 py-2 text-white text-gray-500'
+          className='button box-border rounded-md border-2 border-slate-400 px-3 py-2 text-gray-500'
         >
           立即登录
         </button>

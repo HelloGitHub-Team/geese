@@ -94,7 +94,7 @@ const Items = () => {
                 标签
               </button>
 
-              <div className='absolute top-0 right-0 p-2.5'>
+              <div className='absolute top-0 right-0 p-2.5  md:hidden'>
                 <Link href='/create/repo/'>
                   <a className='flex h-8 items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600'>
                     提交
