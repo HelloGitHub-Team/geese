@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 import { getDetail } from '@/services/repository';
 
@@ -14,19 +15,19 @@ const Navbar = (props: PageProps) => {
   const router = useRouter();
 
   return (
-    <div className='flex h-12 items-center justify-between'>
-      <div className='cursor-pointer' onClick={() => router.back()}>
-        arrow
+    <div className='flex h-[52px] items-center justify-between'>
+      <div className='flex-1 cursor-pointer py-4 pr-4' onClick={router.back}>
+        <AiOutlineArrowLeft size={20} color='#60a5fa' />
       </div>
-      项目详情
-      <div className='flex items-center'>
+      <strong className='flex-1 text-center'>项目详情</strong>
+      <div className='flex flex-1 items-center justify-end text-xs'>
         由
         <div className='m-1 flex items-center'>
           <Image
             className='rounded-full'
             src={props.repo.share_user.avatar}
-            width={26}
-            height={26}
+            width={24}
+            height={24}
             alt='头像'
           />
         </div>
@@ -41,13 +42,15 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   const router = useRouter();
   console.log(router);
 
-  const { title, description } = repo;
+  const { title, description, name } = repo;
 
   return (
     <>
       <Navbar repo={repo} />
-      <h1>{title}</h1>
-      <p>{description}</p>
+      <div className='rounded-lg bg-white px-[16px] py-[12px]'>
+        <h1 className='text-xl'>{`${name}：${title}`}</h1>
+        <p className='mt-[4px] text-sm text-[#94a3b8]'>{description}</p>
+      </div>
     </>
   );
 };
