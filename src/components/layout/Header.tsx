@@ -4,16 +4,12 @@ import { useRouter } from 'next/router';
 import useSWRImmutable from 'swr/immutable';
 
 import { fetcher } from '@/services/base';
+import { LoginStatusProps } from '@/typing/user';
 import { makeUrl } from '@/utils/api';
 
 import SearchInput from '../search/SearchInput';
 
-interface IProps {
-  loginStatus: boolean;
-  updateLoginStatus: (val: boolean) => void;
-}
-
-const Header = ({ loginStatus, updateLoginStatus }: IProps) => {
+const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
   const router = useRouter();
 
   const { data } = useSWRImmutable<Record<string, any>>(
@@ -63,7 +59,6 @@ const Header = ({ loginStatus, updateLoginStatus }: IProps) => {
           <>
             {!loginStatus ? (
               <li className='block md:hidden'>
-                {/* <li className='md:hidden block'> */}
                 <Link href={data?.url || '/'}>
                   <span className='inline-flex cursor-pointer items-center rounded-lg px-3 py-2'>
                     登录
@@ -113,23 +108,5 @@ const Header = ({ loginStatus, updateLoginStatus }: IProps) => {
     </div>
   );
 };
-
-// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-//   const url = makeUrl(`/user/oauth/wechat/url/`, {url_type: 'geese'})
-
-//   const OAuthURLRes = await getOAuthURL()
-//   console.log(OAuthURLRes)
-//   const data = await OAuthURLRes.json()
-//   const cookie = OAuthURLRes.headers.get("set-cookie");
-//   if (cookie) {
-//     res.setHeader("set-cookie", cookie);
-//   }
-
-//   return {
-//     props: {
-//       OAuthURL: data.url
-//     },
-//   };
-// };
 
 export default Header;

@@ -6,6 +6,7 @@ import * as React from 'react';
 
 import { ItemProps } from '@/typing/home';
 import { fromNow } from '@/utils/day';
+import { numFormat } from '@/utils/util';
 
 const Item: NextPage<ItemProps> = ({ item }) => {
   const router = useRouter();
@@ -42,16 +43,14 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                 </div>
               </Link>
               <span className='pl-1 pr-1'>·</span>
-              <Link href='/users/322392455870869504'>
-                <div className='text-color-primary whitespace-nowrap hover:underline'>
-                  Python
-                </div>
-              </Link>
+              <div className='text-color-primary whitespace-nowrap'>
+                {item.primary_lang}
+              </div>
               <span className='pl-1 pr-1'>·</span>
               <time>{fromNow(item.updated_at)}</time>
             </div>
             <div className='whitespace-nowrap pl-2 text-sm text-slate-400'>
-              {item.clicks_total} 次查看
+              {numFormat(item.clicks_total)} 次查看
             </div>
           </div>
         </div>
