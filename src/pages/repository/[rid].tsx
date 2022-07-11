@@ -42,13 +42,16 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   const router = useRouter();
   console.log(router);
 
-  const { title, description, name } = repo;
+  const { title, description, name, volume_name } = repo;
 
   return (
     <>
       <Navbar repo={repo} />
       <div className='rounded-lg bg-white px-[16px] py-[12px]'>
-        <h1 className='text-xl'>{`${name}：${title}`}</h1>
+        <h1 className='text-xl'>
+          {`${name}：${title}`}
+          <span className='ml-1 text-xs'>vol.{volume_name}</span>
+        </h1>
         <p className='mt-[4px] text-sm text-[#94a3b8]'>{description}</p>
       </div>
     </>
