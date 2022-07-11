@@ -1,5 +1,5 @@
+import { Repository } from '@/typing/reppsitory';
 import { makeUrl } from '@/utils/api';
-import { Repository } from '@/utils/types/repoType';
 
 import { fetcher } from './base';
 

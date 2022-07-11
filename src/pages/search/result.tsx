@@ -6,13 +6,13 @@ import useSWRInfinite from 'swr/infinite';
 
 import Seo from '@/components/Seo';
 
-import { fetcher } from '@/pages/api/base';
-import { makeUrl } from '@/utils/api';
+import { fetcher } from '@/services/base';
 import {
   SearchItemType,
   SearchResponse,
   SearchResultItemProps,
-} from '@/utils/types/searchItemType';
+} from '@/typing/search';
+import { makeUrl } from '@/utils/api';
 
 const Result: NextPage = () => {
   const router = useRouter();

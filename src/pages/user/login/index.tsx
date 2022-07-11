@@ -3,8 +3,8 @@ import Router from 'next/router';
 import * as React from 'react';
 import { useEffect } from 'react';
 
-import { OAuthWechatAPI } from '@/pages/api/login';
-import { User } from '@/utils/types/userType';
+import { OAuthWechatAPI } from '@/services/login';
+import { User } from '@/typing/user';
 
 interface IProps {
   token: string;

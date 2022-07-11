@@ -1,15 +1,10 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 
-import { Repository } from '@/utils/types/repoType';
+import { getDetail } from '@/services/repository';
+import { RepositoryProps } from '@/typing/reppsitory';
 
-import { getDetail } from '../api/repository';
-
-type PageProps = {
-  repo: Repository;
-};
-
-const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
+const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
   console.log(repo);
   const router = useRouter();
   console.log(router);

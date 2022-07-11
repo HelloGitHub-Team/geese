@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSWRImmutable from 'swr/immutable';
 
-import { fetcher } from '@/pages/api/base';
+import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
 import SearchInput from '../search/SearchInput';

@@ -7,9 +7,9 @@ import useSWRInfinite from 'swr/infinite';
 
 import Loading from '@/components/loading/Loading';
 
-import { fetcher } from '@/pages/api/base';
+import { fetcher } from '@/services/base';
+import { HomeItem, HomeItems } from '@/typing/home';
 import { makeUrl } from '@/utils/api';
-import { HomeResponse, Repository } from '@/utils/types/repoType';
 
 import Item from './Item';
 import TagLink from '../links/TagLink';
@@ -20,7 +20,7 @@ const Items = () => {
   const { sort_by = 'hot' } = router.query;
 
   const { data, error, setSize, isValidating, size } =
-    useSWRInfinite<HomeResponse>(
+    useSWRInfinite<HomeItems>(
       (index) => makeUrl(`/`, { sort_by, page: index + 1 }),
       fetcher,
       {
@@ -29,7 +29,7 @@ const Items = () => {
     );
 
   const repositories = data
-    ? data.reduce((pre: Repository[], curr) => {
+    ? data.reduce((pre: HomeItem[], curr) => {
         if (curr.data.length > 0) {
           pre.push(...curr.data);
         }
@@ -114,8 +114,8 @@ const Items = () => {
       </div>
 
       <div className='bg-content h-screen divide-y divide-slate-100'>
-        {repositories.map((item: Repository) => (
-          <Item key={item.item_id} repo={item}></Item>
+        {repositories.map((item: HomeItem) => (
+          <Item key={item.item_id} item={item}></Item>
         ))}
         {(isValidating || hasMore) && (
           <div
