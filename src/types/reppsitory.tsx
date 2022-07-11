@@ -53,5 +53,4 @@ export interface RepoType {
   created_at: string;
   updated_at: string;
   publish_at: number;
-  share_user: UserType;
 }
