@@ -5,10 +5,10 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import { ItemProps } from '@/typing/home';
+import { fromNow } from '@/utils/day';
 
 const Item: NextPage<ItemProps> = ({ item }) => {
   const router = useRouter();
-
   return (
     <article className='mx-4'>
       <Link href={`/repository/${item.item_id}`}>
@@ -48,7 +48,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                 </div>
               </Link>
               <span className='pl-1 pr-1'>·</span>
-              <time>{item.updated_at}</time>
+              <time>{fromNow(item.updated_at)}</time>
             </div>
             <div className='whitespace-nowrap pl-2 text-sm text-slate-400'>
               {item.clicks_total} 次查看
