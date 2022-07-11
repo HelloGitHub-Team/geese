@@ -1,31 +1,35 @@
 ## 项目结构
 
+```
 src
-├── components          // 组件目录
-├── pages               // 页面目录
-│   ├── 404.tsx         // 404 异常
-│   ├── index.tsx       // 首页
-│   ├── repository      // 开源项目
-│   │   └── [rid].tsx   // 项目详情
-│   ├── search          // 搜索结果
-│   │   └── result.tsx  // 搜索结果展示页
-│   └── user            // 用户
-│       └── login.tsx   // 登录
-├── services            // 请求接口的函数
-│   ├── base.ts         // 基础函数
-│   ├── home.ts         // 请求首页
-│   ├── login.ts        // 请求登录
-│   └── repository.ts   // 请求项目详情
-├── styles              // 自定义全局样式（不用）
-├── typing              // 数据类型
-└── utils               // 工具函数
-    ├── api.ts          // 生成请求 URL
-    ├── day.ts          // 处理时间
-    ├── qs-stringify.ts // 处理请求参数
-    └── util.ts         // 其它
-
+├── components // 组件目录
+├── pages // 页面目录
+│   ├── 404.tsx // 404 异常
+│   ├── index.tsx // 首页
+│   ├── repository // 开源项目
+│   │   └── [rid].tsx // 项目详情
+│   ├── search // 搜索结果
+│   │   └── result.tsx // 搜索结果展示页
+│   └── user // 用户
+│   └── login.tsx // 登录
+├── services // 请求接口的函数
+│   ├── base.ts // 基础函数
+│   ├── home.ts // 请求首页
+│   ├── login.ts // 请求登录
+│   └── repository.ts // 请求项目详情
+├── styles // 自定义全局样式（不用）
+├── typing // 数据类型
+└── utils // 工具函数
+├── api.ts // 生成请求 URL
+├── day.ts // 处理时间
+├── qs-stringify.ts // 处理请求参数
+└── util.ts // 其它
+```
 
 ## 开发前
+
+接口文档：https://local.api.hellogithub.com/docs#/
+
 具体需求开发时建议将代码，拆分放到对应的目录中：
 
 - 组件：`components` 目录
@@ -34,12 +38,14 @@ src
 - 请求：`services` 目录
 
 ## 开发成
+
 在完成功能的前提下，进行自测。
 
 需要检查代码格式，并尝试解决力所能及的**告警**。在本地执行命令：
-   - `yarn lint:fix`
-   - `yarn lint`
-   - `yarn typecheck`
+
+- `yarn lint:fix`
+- `yarn lint`
+- `yarn typecheck`
 
 ## 提交代码
 

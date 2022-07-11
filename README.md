@@ -22,7 +22,7 @@ Geese 采用：
 
 ## 待认领
 
-[查看](https://github.com/orgs/HelloGitHub-Team/projects/1/views/1)需求和进度，开发须知[在这里](./docs/content.md)
+等待认领的功能：
 
 - [分享项目](https://github.com/HelloGitHub-Team/geese/issues/4)
 
@@ -31,6 +31,8 @@ Geese 采用：
 1. 相信你：**热爱开源**、**有始有终**、**靠谱**！
 2. 完成时间：可根据自己的实际情况而定，参考：简单（7 天）、中等（14 天）、复杂（30 天）。
 3. 有任何问题可在对应需求的 `issues` 进行沟通。
+
+[查看](https://github.com/orgs/HelloGitHub-Team/projects/1/views/1)需求和进度，开发须知[在这里](./docs/content.md)。
 
 ## 鸣谢
 
