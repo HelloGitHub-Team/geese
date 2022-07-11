@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
 
-import { fetcher } from '@/pages/api/base';
-import { UserStatus } from '@/pages/api/login';
+import { fetcher } from '@/services/base';
+import { UserStatus } from '@/typing/user';
 import { makeUrl } from '@/utils/api';
 
 import Loading from '../loading/Loading';

@@ -2,14 +2,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSWRInfinite from 'swr/infinite';
 
-import { fetcher } from '@/pages/api/base';
+import { fetcher } from '@/services/base';
+import { TagItems } from '@/typing/tag';
 import { makeUrl } from '@/utils/api';
-import { HomeResponse } from '@/utils/types/repoType';
 
 export default function TagLink() {
   const router = useRouter();
   const { sort_by = 'hot' } = router.query;
-  const { data } = useSWRInfinite<HomeResponse>(
+  const { data } = useSWRInfinite<TagItems>(
     () => makeUrl(`/tag/search/`, { page: 1, page_size: 10, sort_by, asc: 0 }),
     fetcher,
     {

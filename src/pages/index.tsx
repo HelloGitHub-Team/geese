@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
 
-import Items from '@/components/layout/Items';
+import Items from '@/components/home/Items';
 import Seo from '@/components/Seo';
 
-import { HomeItemData } from '@/pages/api/home';
+import { HomeItemData } from '@/services/home';
 
 type IndexProps = {
   itemsData: HomeItemData;

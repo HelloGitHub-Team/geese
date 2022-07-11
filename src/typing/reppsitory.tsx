@@ -1,36 +1,43 @@
-import { Tag } from './tagType';
-import { UserType } from './userType';
-
-export interface HomeResponse {
-  page: number;
-  data: Repository[];
-  has_more: boolean;
-}
+import { TagType } from './tag';
+import { UserType } from './user';
 
 export interface RepositoryProps {
   repo: Repository;
 }
 
 export interface Repository extends RepoType {
+  author: string;
+  share_user: UserType;
+  tags: TagType[];
+  is_active: boolean;
+  volume_name: string | null;
+
+  code: string;
+  image_url: string | null;
+  homepage: string | null;
+  document: string | null;
+  download: string | null;
+  online: string | null;
+  other_url: string | null;
+
+  score: number;
+  votes_total: number;
   tid: string | null | undefined;
-  tags: Tag[];
-  user: UserType;
 }
 
-export interface RepoTag extends RepoType {
+export interface RepoTag {
   name: string;
   tid: string;
 }
+
 export interface RepoType {
-  item_id: string;
+  rid: string;
   url: string;
   name: string;
   full_name: string;
-  volume_name: string;
+
   title: string;
-  period_desc: string;
   description: string;
-  image_url: string;
   forks: number;
   stars: number;
   stars_str: string;
@@ -38,17 +45,11 @@ export interface RepoType {
   subscribers: number;
   primary_lang: string;
   lang_color: string;
-  homepage: string;
+
   license: string;
   has_chinese: boolean;
   is_org: boolean;
-  comment_total: number;
-  repo_created_time: number;
-  repo_created_at: string;
-  repo_pushed_time: number;
-  repo_pushed_at: string;
-  repo_update_time: number;
-  repo_update_at: string;
+
   created_at: string;
   updated_at: string;
   publish_at: number;

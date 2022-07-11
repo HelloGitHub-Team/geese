@@ -1,8 +1,8 @@
 import * as React from 'react';
 import useSWR from 'swr';
 
-import { fetcher } from '@/pages/api/base';
-import { Stats } from '@/pages/api/home';
+import { fetcher } from '@/services/base';
+import { Stats } from '@/typing/home';
 import { makeUrl } from '@/utils/api';
 
 export default function Status() {
