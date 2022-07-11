@@ -5,6 +5,8 @@ import { useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
+import Loading from '@/components/loading/Loading';
+
 import { fetcher } from '@/pages/api/base';
 import { makeUrl } from '@/utils/api';
 import { HomeResponse, Repository } from '@/utils/types/repoType';
@@ -154,7 +156,7 @@ const Items = () => {
             className='bg-content divide-y divide-slate-100 overflow-hidden'
             ref={sentryRef}
           >
-            <div>loading...</div>
+            <Loading></Loading>
           </div>
         )}
       </div>
