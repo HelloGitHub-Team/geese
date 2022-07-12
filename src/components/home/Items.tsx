@@ -15,10 +15,9 @@ import Item from './Item';
 import TagLink from '../links/TagLink';
 
 const Items = () => {
-  const [lebelStatus, setLabel] = useState(false);
   const router = useRouter();
   const { sort_by = 'hot', tid = '' } = router.query;
-
+  const [lebelStatus, setLabel] = useState(false);
   const { data, error, setSize, isValidating, size } =
     useSWRInfinite<HomeItems>(
       (index) => makeUrl(`/`, { sort_by, tid, page: index + 1 }),
@@ -71,7 +70,6 @@ const Items = () => {
     setLabel(!lebelStatus);
     labelClassName();
   };
-
   return (
     <div>
       <div className='relative bg-white'>
