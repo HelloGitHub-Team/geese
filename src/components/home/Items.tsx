@@ -17,11 +17,11 @@ import TagLink from '../links/TagLink';
 const Items = () => {
   const [lebelStatus, setLabel] = useState(false);
   const router = useRouter();
-  const { sort_by = 'hot' } = router.query;
+  const { sort_by = 'hot', tid = '' } = router.query;
 
   const { data, error, setSize, isValidating, size } =
     useSWRInfinite<HomeItems>(
-      (index) => makeUrl(`/`, { sort_by, page: index + 1 }),
+      (index) => makeUrl(`/`, { sort_by, tid, page: index + 1 }),
       fetcher,
       {
         revalidateFirstPage: false,
