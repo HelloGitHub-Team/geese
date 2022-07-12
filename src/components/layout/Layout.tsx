@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { useState } from 'react';
+import useSWRImmutable from 'swr';
 
-import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
-import Status from '@/components/layout/Status';
-import User from '@/components/layout/User';
+
+import { fetcher } from '@/services/base';
+import { makeUrl } from '@/utils/api';
+
+import IndexSide from '../side/IndexSide';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   // Put Header or Footer Here
@@ -14,9 +17,24 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     setLoginStatus(value);
   };
 
+  const { data } = useSWRImmutable<Record<string, any>>(
+    makeUrl(`/user/oauth/wechat/url/`, { url_type: 'geese' }),
+    (key) => {
+      const options: RequestInit = {
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      };
+      return fetcher(key, options);
+    },
+    {
+      shouldRetryOnError: false,
+    }
+  );
+
   return (
     <>
       <Header
+        wechatOAtuhURL={data?.url}
         loginStatus={loginStatus}
         updateLoginStatus={updateLoginStatus}
       ></Header>
@@ -26,20 +44,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {children}
           </div>
           <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
-            <div className='relative flex h-full flex-col items-stretch'>
-              <div className='top-15 fixed w-3/12 xl:w-2/12'>
-                <div className='mt-2 ml-3'>
-                  <div className='space-y-2'>
-                    <User
-                      isLogin={loginStatus}
-                      updateLoginStatus={updateLoginStatus}
-                    ></User>
-                    <Status />
-                  </div>
-                  <Footer></Footer>
-                </div>
-              </div>
-            </div>
+            <IndexSide
+              wechatOAtuhURL={data?.url}
+              loginStatus={loginStatus}
+              updateLoginStatus={updateLoginStatus}
+            ></IndexSide>
           </div>
         </div>
       </main>

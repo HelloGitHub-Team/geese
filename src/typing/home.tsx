@@ -15,6 +15,8 @@ export interface HomeItem {
   item_id: string;
   title: string;
   description: string;
+  primary_lang: string;
+  lang_color: string;
   clicks_total: number;
   comment_total: number;
   updated_at: string;
@@ -23,7 +25,7 @@ export interface HomeItem {
 }
 
 export interface Stats {
-  repo_total: string;
-  user_total: string;
-  period_total: string;
+  repo_total: number;
+  user_total: number;
+  period_total: number;
 }
