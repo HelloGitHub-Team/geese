@@ -1,9 +1,15 @@
+export interface LoginOutProps {
+  updateLoginStatus: (value: boolean) => void;
+}
+
 export interface LoginStatusProps {
+  wechatOAtuhURL: string;
+  updateLoginStatus: (value: boolean) => void;
   loginStatus: boolean;
-  updateLoginStatus: (val: boolean) => void;
 }
 
 export interface UserProps {
+  wechatOAtuhURL: string;
   updateLoginStatus: (value: boolean) => void;
   isLogin: boolean;
 }
@@ -31,6 +37,10 @@ export interface UserStatusProps {
   permission: Permission;
   first_login: string;
   last_login: string;
+}
+
+export interface OAuthURLProps {
+  wechatOAtuhURL: string;
 }
 
 export interface OAuthURLResponse {

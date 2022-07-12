@@ -7,6 +7,7 @@ import UserStatus from '../login/UserStatus';
 export default function IndexSide({
   loginStatus,
   updateLoginStatus,
+  wechatOAtuhURL,
 }: LoginStatusProps) {
   return (
     <div className='relative flex h-full flex-col items-stretch'>
@@ -15,6 +16,7 @@ export default function IndexSide({
           <div className='space-y-2'>
             <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5'>
               <UserStatus
+                wechatOAtuhURL={wechatOAtuhURL}
                 isLogin={loginStatus}
                 updateLoginStatus={updateLoginStatus}
               ></UserStatus>
