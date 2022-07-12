@@ -9,12 +9,10 @@ import { makeUrl } from '@/utils/api';
 export default function TagLink() {
   const router = useRouter();
   const { sort_by = 'hot' } = router.query;
+  console.log('sort_by >>>', sort_by);
   const { data } = useSWRInfinite<TagItems>(
     () => makeUrl(`/tag/search/`, { page: 1, page_size: 10, sort_by, asc: 0 }),
-    fetcher,
-    {
-      revalidateFirstPage: false,
-    }
+    fetcher
   );
   const reponse = data ? data[0].data : [];
   console.log(reponse);
@@ -22,7 +20,7 @@ export default function TagLink() {
     <div>
       {reponse.map((item) => {
         return (
-          <Link key={item.tid} href='/?sort_by=hot'>
+          <Link key={item.tid} href={`/?sort_by=${sort_by}&tid=${item.tid}`}>
             <a className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'>
               {item.name}
             </a>
