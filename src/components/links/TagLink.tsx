@@ -12,7 +12,10 @@ export default function TagLink() {
   console.log('sort_by >>>', sort_by);
   const { data } = useSWRInfinite<TagItems>(
     () => makeUrl(`/tag/search/`, { page: 1, page_size: 10, sort_by, asc: 0 }),
-    fetcher
+    fetcher,
+    {
+      revalidateFirstPage: false,
+    }
   );
   const reponse = data ? data[0].data : [];
   console.log(reponse);
