@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 import { getDetail } from '@/services/repository';
+import { format } from '@/utils/day';
 
 import { Repository } from '@/types/reppsitory';
 
@@ -37,6 +38,19 @@ const Navbar = (props: PageProps) => {
   );
 };
 
+const Author = (props: PageProps) => {
+  const author = props.repo.author;
+  const createdAt = props.repo.created_at;
+
+  return (
+    <div className='mt-2 flex items-center'>
+      <span className='text-xs'>作者：</span>
+      <span className='text-xs'>{author}</span>
+      <span className='mx-2 inline-block h-3 w-[1px] bg-[#ccc]'></span>
+      <span className='text-xs'>{format(createdAt)}</span>
+    </div>
+  );
+};
 const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   console.log(repo);
   const router = useRouter();
@@ -52,7 +66,8 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
           {`${name}：${title}`}
           <span className='ml-1 text-xs'>vol.{volume_name}</span>
         </h1>
-        <p className='mt-[4px] text-sm text-[#94a3b8]'>{description}</p>
+        <p className='mt-2 text-sm text-[#94a3b8]'>{description}</p>
+        <Author repo={repo} />
       </div>
     </>
   );
