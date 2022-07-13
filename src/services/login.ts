@@ -4,7 +4,7 @@ import { fetcher } from './base';
 
 import { OAuthURLResponse, User } from '@/types/user';
 
-export const LoginOut = async (headers: any): Promise<Response> =>
+export const Logout = async (headers: any): Promise<Response> =>
   fetcher<Response>(makeUrl(`/user/logout/`), { headers: headers });
 
 export const CurrentUser = async (headers: any): Promise<Response> =>

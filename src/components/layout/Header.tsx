@@ -2,17 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import LoginOutButton from '../buttons/LoginOutButton';
-import LoginLink from '../links/LoginLink';
+import LoginButton from '../buttons/LoginButton';
+import LogoutButton from '../buttons/LogoutButton';
 import SearchInput from '../search/SearchInput';
 
 import { LoginStatusProps } from '@/types/user';
 
-const Header = ({
-  loginStatus,
-  updateLoginStatus,
-  wechatOAtuhURL,
-}: LoginStatusProps) => {
+const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
   const router = useRouter();
 
   return (
@@ -36,11 +32,11 @@ const Header = ({
           <>
             {!loginStatus ? (
               <li className='block md:hidden'>
-                <LoginLink wechatOAtuhURL={wechatOAtuhURL}></LoginLink>
+                <LoginButton></LoginButton>
               </li>
             ) : (
               <li className='hidden md:block '>
-                <LoginOutButton updateLoginStatus={updateLoginStatus} />
+                <LogoutButton updateLoginStatus={updateLoginStatus} />
               </li>
             )}
           </>
