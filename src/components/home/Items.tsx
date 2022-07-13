@@ -8,11 +8,12 @@ import useSWRInfinite from 'swr/infinite';
 import Loading from '@/components/loading/Loading';
 
 import { fetcher } from '@/services/base';
-import { HomeItem, HomeItems } from '@/typing/home';
 import { makeUrl } from '@/utils/api';
 
 import Item from './Item';
 import TagLink from '../links/TagLink';
+
+import { HomeItem, HomeItems } from '@/types/home';
 
 const Items = () => {
   const router = useRouter();

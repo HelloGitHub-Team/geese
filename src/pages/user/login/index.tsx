@@ -4,7 +4,8 @@ import * as React from 'react';
 import { useEffect } from 'react';
 
 import { OAuthWechatAPI } from '@/services/login';
-import { User } from '@/typing/user';
+
+import { User } from '@/types/user';
 
 interface IProps {
   token: string;

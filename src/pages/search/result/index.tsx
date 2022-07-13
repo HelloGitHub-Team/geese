@@ -8,8 +8,9 @@ import SearchResultItem from '@/components/search/SearchResultItem';
 import Seo from '@/components/Seo';
 
 import { fetcher } from '@/services/base';
-import { SearchItemType, SearchResponse } from '@/typing/search';
 import { makeUrl } from '@/utils/api';
+
+import { SearchItemType, SearchResponse } from '@/types/search';
 
 const Result: NextPage = () => {
   const router = useRouter();

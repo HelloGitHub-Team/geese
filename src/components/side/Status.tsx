@@ -2,11 +2,12 @@ import * as React from 'react';
 import useSWR from 'swr';
 
 import { fetcher } from '@/services/base';
-import { Stats } from '@/typing/home';
 import { makeUrl } from '@/utils/api';
 import { numFormat } from '@/utils/util';
 
 import Loading from '../loading/Loading';
+
+import { Stats } from '@/types/home';
 
 export default function Status() {
   const { data: stats } = useSWR<Stats>(makeUrl('/stats/'), fetcher, {

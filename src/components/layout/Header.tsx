@@ -2,11 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { LoginStatusProps } from '@/typing/user';
-
 import LoginOutButton from '../buttons/LoginOutButton';
 import LoginLink from '../links/LoginLink';
 import SearchInput from '../search/SearchInput';
+
+import { LoginStatusProps } from '@/types/user';
 
 const Header = ({
   loginStatus,

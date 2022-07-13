@@ -1,7 +1,8 @@
-import { OAuthURLResponse, User } from '@/typing/user';
 import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
+
+import { OAuthURLResponse, User } from '@/types/user';
 
 export const LoginOut = async (headers: any): Promise<Response> =>
   fetcher<Response>(makeUrl(`/user/logout/`), { headers: headers });

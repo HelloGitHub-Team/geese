@@ -1,9 +1,10 @@
 import { createContext } from 'react';
 
-import { HomeItem, HomeItems, Stats } from '@/typing/home';
 import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
+
+import { HomeItem, HomeItems, Stats } from '@/types/home';
 
 export const getItems = async (
   params?: Record<string, unknown>

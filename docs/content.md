@@ -20,7 +20,7 @@ src
 │   ├── login.ts // 请求登录
 │   └── repository.ts // 请求项目详情
 ├── styles // 自定义全局样式（不用）
-├── typing // 数据类型
+├── types // 数据类型
 └── utils // 工具函数
     ├── base.ts // 基础函数
     ├── api.ts // 生成请求 URL
@@ -40,7 +40,7 @@ src
 
 - 组件：`components` 目录
 - 页面：`page` 目录
-- 定义数据：`typing` 目录
+- 定义数据：`types` 目录
 - 请求：`services` 目录
 
 ## 开发后

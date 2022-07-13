@@ -13,7 +13,7 @@ type IndexProps = {
 const Index: NextPage<IndexProps> = () => {
   return (
     <>
-      <Seo templateTitle='Home' />
+      <Seo title='Home' />
       <Seo />
       <Items></Items>
     </>

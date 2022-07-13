@@ -1,8 +1,8 @@
-import { LoginStatusProps } from '@/typing/user';
-
 import Status from './Status';
 import Footer from '../layout/Footer';
 import UserStatus from '../login/UserStatus';
+
+import { LoginStatusProps } from '@/types/user';
 
 export default function IndexSide({
   loginStatus,

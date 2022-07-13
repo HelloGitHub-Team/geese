@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { OAuthURLProps } from '@/typing/user';
+import { OAuthURLProps } from '@/types/user';
 
 const LoginButton = ({ wechatOAtuhURL }: OAuthURLProps) => {
   return (

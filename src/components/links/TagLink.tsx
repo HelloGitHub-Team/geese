@@ -3,8 +3,9 @@ import { useRouter } from 'next/router';
 import useSWRInfinite from 'swr/infinite';
 
 import { fetcher } from '@/services/base';
-import { TagItems } from '@/typing/tag';
 import { makeUrl } from '@/utils/api';
+
+import { TagItems } from '@/types/tag';
 
 export default function TagLink() {
   const router = useRouter();

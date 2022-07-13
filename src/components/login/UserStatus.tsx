@@ -5,11 +5,12 @@ import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import { fetcher } from '@/services/base';
-import { UserProps, UserStatusProps } from '@/typing/user';
 import { makeUrl } from '@/utils/api';
 
 import LoginButton from '../buttons/LoginButton';
 import Loading from '../loading/Loading';
+
+import { UserProps, UserStatusProps } from '@/types/user';
 
 const TOKENKEY = 'Authorization';
 const AVATAR =

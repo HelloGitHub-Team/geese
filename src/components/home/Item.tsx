@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 
-import { ItemProps } from '@/typing/home';
 import { fromNow } from '@/utils/day';
 import { numFormat } from '@/utils/util';
+
+import { ItemProps } from '@/types/home';
 
 const Item: NextPage<ItemProps> = ({ item }) => {
   const router = useRouter();

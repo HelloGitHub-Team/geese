@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { NextPage } from 'next/types';
 
-import { SearchResultItemProps } from '@/typing/search';
+import { SearchResultItemProps } from '@/types/search';
 
 /**
  * 单个搜索结果展示组件

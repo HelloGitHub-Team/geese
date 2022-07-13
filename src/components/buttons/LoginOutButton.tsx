@@ -1,4 +1,4 @@
-import { LoginOutProps } from '@/typing/user';
+import { LoginOutProps } from '@/types/user';
 
 const LoginOutButton = ({ updateLoginStatus }: LoginOutProps) => {
   const handleLoginOut = async () => {

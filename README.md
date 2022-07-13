@@ -24,8 +24,6 @@ Geese 采用：
 
 等待认领的功能：
 
-- [分享项目](https://github.com/HelloGitHub-Team/geese/issues/4)
-
 **要求**
 
 1. 相信你：**热爱开源**、**有始有终**、**靠谱**！
