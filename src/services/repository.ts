@@ -2,13 +2,14 @@ import Message from '@/components/message';
 
 import { makeUrl } from '@/utils/api';
 
-import { fetcher } from './base';
+import { fetcher, post } from './base';
 
 import {
   BaseType,
   Collect,
   CommentData,
   CommentSuccessData,
+  CreateRepoRes,
   Repository,
   UserActionStatus,
   Vote,
@@ -174,3 +175,7 @@ export const unlike = async (data: {
   });
   return res;
 };
+
+export const createRepo = async (
+  params: Record<string, any>
+): Promise<CreateRepoRes> => post<CreateRepoRes>(`/repository/`, params);

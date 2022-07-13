@@ -151,3 +151,10 @@ export interface CommentSuccessData extends BaseType {
   remaining: number;
   data: CommentItemData;
 }
+
+export interface CreateRepoRes {
+  message: string;
+  posted: number;
+  remaining: number;
+  success: boolean;
+}
