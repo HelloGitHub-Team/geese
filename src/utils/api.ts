@@ -32,3 +32,7 @@ export const makeUrl = (
   const queryParameters = `?${stringify(parameters)}`;
   return `${API_HOST}${API_ROOT_PATH}${path}${queryParameters}`;
 };
+
+export const TOKEN_KEY = 'Authorization';
+
+export const getToken = () => localStorage.getItem(TOKEN_KEY);

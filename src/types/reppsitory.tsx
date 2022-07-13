@@ -54,3 +54,10 @@ export interface RepoType {
   updated_at: string;
   publish_at: number;
 }
+
+export interface CreateRepoRes {
+  message: string;
+  posted: number;
+  remaining: number;
+  success: boolean;
+}
