@@ -3,9 +3,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
+import Tag from '@/components/links/Tag';
+
 import { getDetail } from '@/services/repository';
 import { format } from '@/utils/day';
-import Tag from '@/components/links/Tag';
 
 import { Repository } from '@/types/reppsitory';
 
