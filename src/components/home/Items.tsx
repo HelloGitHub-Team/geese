@@ -29,10 +29,7 @@ const Items = () => {
   const { data, error, setSize, isValidating, size } =
     useSWRInfinite<HomeItems>(
       (index) => makeUrl(`/`, { sort_by, tid, page: index + 1 }),
-      fetcher,
-      {
-        revalidateFirstPage: false,
-      }
+      fetcher
     );
 
   const repositories = data
