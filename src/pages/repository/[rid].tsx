@@ -5,6 +5,7 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 import { getDetail } from '@/services/repository';
 import { format } from '@/utils/day';
+import Tag from '@/components/links/Tag';
 
 import { Repository } from '@/types/reppsitory';
 
@@ -51,6 +52,19 @@ const Author = (props: PageProps) => {
     </div>
   );
 };
+
+const Tags = (props: PageProps) => {
+  const tags = props.repo.tags;
+
+  return (
+    <div className='flex py-4'>
+      {tags.map((item) => (
+        <Tag name={item.name} tid={item.tid} key={item.tid} />
+      ))}
+    </div>
+  );
+};
+
 const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   console.log(repo);
   const router = useRouter();
@@ -68,6 +82,7 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
         </h1>
         <p className='mt-2 text-sm text-[#94a3b8]'>{description}</p>
         <Author repo={repo} />
+        <Tags repo={repo} />
       </div>
     </>
   );
