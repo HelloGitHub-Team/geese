@@ -37,6 +37,7 @@ export default function UserStatus({ isLogin, updateLoginStatus }: UserProps) {
       },
       onError: function () {
         updateLoginStatus(false);
+        localStorage.clear();
       },
     }
   );

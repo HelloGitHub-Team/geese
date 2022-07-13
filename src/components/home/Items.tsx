@@ -1,24 +1,31 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
 import Loading from '@/components/loading/Loading';
 
 import { fetcher } from '@/services/base';
+import { getTags } from '@/services/home';
 import { makeUrl } from '@/utils/api';
 
 import Item from './Item';
 import TagLink from '../links/TagLink';
 
 import { HomeItem, HomeItems } from '@/types/home';
+import { Tag } from '@/types/tag';
 
 const Items = () => {
   const router = useRouter();
   const { sort_by = 'hot', tid = '' } = router.query;
-  const [lebelStatus, setLabel] = useState(false);
+
+  const [labelStatus, setLabel] = useState(false);
+  const [tagItems, setTagItems] = useState<Tag[]>([]);
+  const [hotURL, setHotURL] = useState<string>('/?sort_by=hot');
+  const [lastURL, setLastURL] = useState<string>('/?sort_by=last');
+
   const { data, error, setSize, isValidating, size } =
     useSWRInfinite<HomeItems>(
       (index) => makeUrl(`/`, { sort_by, tid, page: index + 1 }),
@@ -62,32 +69,57 @@ const Items = () => {
     classNames(
       'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold text-slate-500 hover:bg-slate-100 hover:text-blue-500',
       {
-        'text-slate-500': !lebelStatus,
-        'bg-slate-100 text-blue-500': lebelStatus,
+        'text-slate-500': !labelStatus,
+        'bg-slate-100 text-blue-500': labelStatus,
       }
     );
 
-  const changeLabelStatus = () => {
-    setLabel(!lebelStatus);
-    labelClassName();
+  const handleTags = async () => {
+    try {
+      if (tagItems.length == 0) {
+        const data = await getTags('hot');
+        if (data?.data != undefined) {
+          setTagItems(data.data);
+        }
+      }
+    } catch (error) {
+      console.log('error:' + error);
+    }
+    setLabel(!labelStatus);
+    if (labelStatus) {
+      setHotURL('/?sort_by=hot');
+      setLastURL('/?sort_by=last');
+    }
   };
+
+  useEffect(() => {
+    if (tid) {
+      setHotURL(`/?sort_by=hot&tid=${tid}`);
+      setLastURL(`/?sort_by=last&tid=${tid}`);
+    } else {
+      setHotURL('/?sort_by=hot');
+      setLastURL('/?sort_by=last');
+      setLabel(false);
+    }
+  }, [tid]);
+
   return (
     <div>
       <div className='relative bg-white'>
         <div className='bg-content border-main-content mb-2 mt-2 overflow-hidden'>
           <div className='flex py-2.5 pl-4 pr-3'>
             <div className='flex items-center justify-start space-x-2'>
-              <Link href='/?sort_by=hot'>
+              <Link href={hotURL}>
                 <a className={linkClassName('hot')}>热门</a>
               </Link>
 
-              <Link href='/?sort_by=last'>
+              <Link href={lastURL}>
                 <a className={linkClassName('last')}>最近</a>
               </Link>
 
               <button
                 type='button'
-                onClick={changeLabelStatus}
+                onClick={handleTags}
                 className={labelClassName()}
               >
                 标签
@@ -104,10 +136,10 @@ const Items = () => {
           </div>
           <div
             className={
-              lebelStatus ? 'flex pb-2.5 pl-4 pr-3' : 'hidden pb-2.5 pl-4 pr-3'
+              labelStatus ? 'flex pb-2.5 pl-4 pr-3' : 'hidden pb-2.5 pl-4 pr-3'
             }
           >
-            <TagLink></TagLink>
+            <TagLink tagItems={tagItems}></TagLink>
           </div>
         </div>
       </div>

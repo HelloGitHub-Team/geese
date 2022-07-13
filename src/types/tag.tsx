@@ -1,3 +1,7 @@
+export interface TagsProps {
+  tagItems: Tag[];
+}
+
 export interface TagItems {
   page: number;
   data: Tag[];

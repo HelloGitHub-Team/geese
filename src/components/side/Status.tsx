@@ -1,5 +1,5 @@
 import * as React from 'react';
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
@@ -10,7 +10,7 @@ import Loading from '../loading/Loading';
 import { Stats } from '@/types/home';
 
 export default function Status() {
-  const { data: stats } = useSWR<Stats>(makeUrl('/stats/'), fetcher, {
+  const { data: stats } = useSWRImmutable<Stats>(makeUrl('/stats/'), fetcher, {
     revalidateIfStale: false,
   });
 
