@@ -54,10 +54,39 @@ module.exports = {
             backgroundPosition: '700px 0',
           },
         },
+        messageMoveOut: {
+          '0%': {
+            // transformOrigin: '0 0',
+            // transform: 'translateY(0%)',
+            opacity: 1,
+          },
+          '100%': {
+            // transformOrigin: '0 0',
+            // transform: 'translateY(-100%)',
+            opacity: 0,
+          },
+        },
+        messageMoveIn: {
+          '0%': {
+            // transformOrigin: '0 0',
+            // transform: 'translateY(-100%)',
+            top: '30px',
+            opacity: 1,
+          },
+          '100%': {
+            // transformOrigin: '0 0',
+            // transform: 'translateY(0%)',
+            top: '0',
+            opacity: 0,
+          },
+        },
       },
       animation: {
+        fade: 'opacity .2 linear',
         flicker: 'flicker 3s linear infinite',
         shimmer: 'shimmer 1.3s linear infinite',
+        messageMoveIn: 'messageMoveIn 0.3s ease-in',
+        messageMoveOut: 'messageMoveOut 0.3s ease-out',
       },
     },
   },

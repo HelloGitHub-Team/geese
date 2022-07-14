@@ -56,7 +56,7 @@ const Header = ({ loginStatus, updateLoginStatus }: IProps) => {
           onClick={() => router.push('/')}
         />
         <SearchInput />
-        <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
+        <ul className='text-md mb-0 flex items-center space-x-2 font-medium text-gray-500'>
           <li>
             <Link href='/user/login/' className='rounded-lg px-3 py-2'>
               月刊
