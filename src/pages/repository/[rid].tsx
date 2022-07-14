@@ -9,6 +9,7 @@ import { getDetail } from '@/services/repository';
 import { format } from '@/utils/day';
 
 import { Repository } from '@/types/reppsitory';
+import { useState } from 'react';
 
 type PageProps = {
   repo: Repository;
@@ -100,6 +101,73 @@ const Desc = (props: PageProps) => {
   return <p className='mt-2 text-sm text-[#94a3b8]'>{description}</p>;
 };
 
+const RepoInfo = (props: PageProps) => {
+  const [isShowMore, setIsShowMore] = useState(false);
+
+  const list = [
+    {
+      title: '星数',
+      value: props.repo.stars_str,
+    },
+    {
+      title: '中文',
+      value: props.repo.has_chinese ? '是' : '否',
+    },
+    {
+      title: '代码',
+      value: props.repo.primary_lang,
+    },
+    {
+      title: '活跃',
+      value: props.repo.is_active ? '是' : '否',
+    },
+    {
+      title: '许可',
+      value: props.repo.license || '无',
+    },
+    {
+      title: 'Forks',
+      value: props.repo.forks || '无',
+    },
+    {
+      title: 'Issues',
+      value: props.repo.open_issues,
+    },
+    {
+      title: '订阅数',
+      value: props.repo.subscribers,
+    },
+  ];
+
+  return (
+    <div className='relative'>
+      <div
+        className={`relative overflow-hidden rounded-lg ${
+          isShowMore ? '' : 'h-[76px]'
+        }`}
+      >
+        <div className='relative grid grid-cols-4 grid-rows-1 gap-3 rounded-lg bg-gray-100 py-3 text-center sm:grid-cols-5'>
+          {list.map((item) => (
+            <div key={item.title}>
+              <div className='text-gray-600'>{item.title}</div>
+              <div className='mt-1 overflow-hidden overflow-ellipsis text-lg font-bold text-gray-900'>
+                {item.value}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div
+        hidden={isShowMore}
+        className='absolute right-5 bottom-[-1px] translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-600 hover:bg-gray-200 active:bg-gray-100'
+        onClick={() => setIsShowMore(true)}
+      >
+        更多
+      </div>
+    </div>
+  );
+};
+
 const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   console.log(repo);
   const router = useRouter();
@@ -118,6 +186,8 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
           <Score className='hidden shrink-0 sm:block' repo={repo} />
         </div>
         <Tags repo={repo} />
+        <RepoInfo repo={repo} />
+        <div className='h-20'></div>
       </div>
     </>
   );
