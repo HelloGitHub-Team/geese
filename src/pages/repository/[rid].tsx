@@ -66,6 +66,24 @@ const Tags = (props: PageProps) => {
   );
 };
 
+// 评分
+const Score = (props: PageProps & { className?: string }) => {
+  const className = props.className || '';
+
+  return (
+    <div className={`w-32 overflow-hidden rounded-lg border ${className}`}>
+      <div className='bg-gray-600 py-2 text-center text-gray-100'>
+        <div className='text-xs'>HG 评分</div>
+        <div className='text-xl font-bold'>推荐</div>
+      </div>
+      <div className='py-2 text-center text-gray-600'>
+        <div className='font-bold'>推荐占比 80%</div>
+        <div className='font-bold'>50 个推荐</div>
+      </div>
+    </div>
+  );
+};
+
 const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   console.log(repo);
   const router = useRouter();
@@ -76,13 +94,18 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   return (
     <>
       <Navbar repo={repo} />
-      <div className='rounded-lg bg-white px-[16px] py-[12px]'>
-        <h1 className='text-xl'>
-          {`${name}：${title}`}
-          <span className='ml-1 text-xs'>vol.{volume_name}</span>
-        </h1>
-        <p className='mt-2 text-sm text-[#94a3b8]'>{description}</p>
-        <Author repo={repo} />
+      <div className='rounded-lg bg-white px-4 py-3'>
+        <div className='flex items-start justify-between gap-[5%]'>
+          <div>
+            <h1 className='text-xl'>
+              {`${name}：${title}`}
+              <span className='ml-1 text-xs'>vol.{volume_name}</span>
+            </h1>
+            <p className='mt-2 text-sm text-[#94a3b8]'>{description}</p>
+            <Author repo={repo} />
+          </div>
+          <Score className='hidden shrink-0 sm:block' repo={repo} />
+        </div>
         <Tags repo={repo} />
       </div>
     </>
