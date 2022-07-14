@@ -84,6 +84,17 @@ const Score = (props: PageProps & { className?: string }) => {
   );
 };
 
+const Title = (props: PageProps) => {
+  const { title, name, volume_name } = props.repo;
+
+  return (
+    <h1 className='text-xl'>
+      {`${name}：${title}`}
+      <span className='ml-1 text-xs'>vol.{volume_name}</span>
+    </h1>
+  );
+};
+
 const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   console.log(repo);
   const router = useRouter();
@@ -97,10 +108,7 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
       <div className='rounded-lg bg-white px-4 py-3'>
         <div className='flex items-start justify-between gap-[5%]'>
           <div>
-            <h1 className='text-xl'>
-              {`${name}：${title}`}
-              <span className='ml-1 text-xs'>vol.{volume_name}</span>
-            </h1>
+            <Title repo={repo} />
             <p className='mt-2 text-sm text-[#94a3b8]'>{description}</p>
             <Author repo={repo} />
           </div>
