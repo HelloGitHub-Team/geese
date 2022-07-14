@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 import TagItem from '@/components/links/TagItem';
@@ -9,7 +10,6 @@ import { getDetail } from '@/services/repository';
 import { format } from '@/utils/day';
 
 import { Repository } from '@/types/reppsitory';
-import { useState } from 'react';
 
 type PageProps = {
   repo: Repository;
