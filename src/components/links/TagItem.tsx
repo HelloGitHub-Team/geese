@@ -5,7 +5,7 @@ interface Props {
   tid: string;
 }
 
-const Tag = ({ name, tid }: Props) => {
+const TagItem = ({ name, tid }: Props) => {
   return (
     <Link href={`/?sort_by=hot&tid=${tid}`}>
       <a className='inline-flex h-8 items-center justify-center rounded-lg pl-3 pr-3 text-sm font-bold text-blue-400 hover:bg-blue-400 hover:text-white'>
@@ -15,4 +15,4 @@ const Tag = ({ name, tid }: Props) => {
   );
 };
 
-export default Tag;
+export default TagItem;

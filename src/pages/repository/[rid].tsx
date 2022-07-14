@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
-import Tag from '@/components/links/Tag';
+import TagItem from '@/components/links/TagItem';
 
 import { getDetail } from '@/services/repository';
 import { format } from '@/utils/day';
@@ -60,7 +60,7 @@ const Tags = (props: PageProps) => {
   return (
     <div className='flex py-4'>
       {tags.map((item) => (
-        <Tag name={item.name} tid={item.tid} key={item.tid} />
+        <TagItem name={item.name} tid={item.tid} key={item.tid} />
       ))}
     </div>
   );
