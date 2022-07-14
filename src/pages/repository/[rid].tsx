@@ -95,12 +95,15 @@ const Title = (props: PageProps) => {
   );
 };
 
+const Desc = (props: PageProps) => {
+  const { description } = props.repo;
+  return <p className='mt-2 text-sm text-[#94a3b8]'>{description}</p>;
+};
+
 const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   console.log(repo);
   const router = useRouter();
   console.log(router);
-
-  const { title, description, name, volume_name } = repo;
 
   return (
     <>
@@ -109,7 +112,7 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
         <div className='flex items-start justify-between gap-[5%]'>
           <div>
             <Title repo={repo} />
-            <p className='mt-2 text-sm text-[#94a3b8]'>{description}</p>
+            <Desc repo={repo} />
             <Author repo={repo} />
           </div>
           <Score className='hidden shrink-0 sm:block' repo={repo} />
