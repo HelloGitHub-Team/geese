@@ -59,7 +59,8 @@ const Tags = (props: PageProps) => {
   const tags = props.repo.tags;
 
   return (
-    <div className='flex py-4'>
+    <div className='flex items-center py-4'>
+      <span className='text-sm font-bold text-blue-400'>标签：</span>
       {tags.map((item) => (
         <TagItem name={item.name} tid={item.tid} key={item.tid} />
       ))}
@@ -89,7 +90,7 @@ const Title = (props: PageProps) => {
   const { title, name, volume_name } = props.repo;
 
   return (
-    <h1 className='text-xl'>
+    <h1 className='text-2xl text-gray-900'>
       {`${name}：${title}`}
       <span className='ml-1 text-xs'>vol.{volume_name}</span>
     </h1>
@@ -98,7 +99,7 @@ const Title = (props: PageProps) => {
 
 const Desc = (props: PageProps) => {
   const { description } = props.repo;
-  return <p className='mt-2 text-sm text-[#94a3b8]'>{description}</p>;
+  return <p className='mt-1 text-sm text-[#94a3b8]'>{description}</p>;
 };
 
 const RepoInfo = (props: PageProps) => {
