@@ -1,8 +1,10 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
+import ImageWithPreview from '@/components/ImageWithPreview';
 import TagItem from '@/components/links/TagItem';
 
 import { getDetail } from '@/services/repository';
@@ -58,10 +60,112 @@ const Tags = (props: PageProps) => {
   const tags = props.repo.tags;
 
   return (
-    <div className='flex py-4'>
+    <div className='flex items-center py-4'>
+      <span className='text-sm font-bold text-blue-400'>标签：</span>
       {tags.map((item) => (
         <TagItem name={item.name} tid={item.tid} key={item.tid} />
       ))}
+    </div>
+  );
+};
+
+// 评分
+const Score = (props: PageProps & { className?: string }) => {
+  const className = props.className || '';
+
+  return (
+    <div className={`w-32 overflow-hidden rounded-lg border ${className}`}>
+      <div className='bg-gray-600 py-2 text-center text-gray-100'>
+        <div className='text-xs'>HG 评分</div>
+        <div className='text-xl font-bold'>推荐</div>
+      </div>
+      <div className='py-2 text-center text-gray-600'>
+        <div className='font-bold'>推荐占比 80%</div>
+        <div className='font-bold'>50 个推荐</div>
+      </div>
+    </div>
+  );
+};
+
+const Title = (props: PageProps) => {
+  const { title, name, volume_name } = props.repo;
+
+  return (
+    <h1 className='text-2xl text-gray-900'>
+      {`${name}：${title}`}
+      <span className='ml-1 text-xs'>vol.{volume_name}</span>
+    </h1>
+  );
+};
+
+const Desc = (props: PageProps) => {
+  const { description } = props.repo;
+  return <p className='mt-1 text-sm text-[#94a3b8]'>{description}</p>;
+};
+
+const RepoInfo = (props: PageProps) => {
+  const [isShowMore, setIsShowMore] = useState(false);
+
+  const list = [
+    {
+      title: '星数',
+      value: props.repo.stars_str,
+    },
+    {
+      title: '中文',
+      value: props.repo.has_chinese ? '是' : '否',
+    },
+    {
+      title: '代码',
+      value: props.repo.primary_lang,
+    },
+    {
+      title: '活跃',
+      value: props.repo.is_active ? '是' : '否',
+    },
+    {
+      title: '许可',
+      value: props.repo.license || '无',
+    },
+    {
+      title: 'Forks',
+      value: props.repo.forks || '无',
+    },
+    {
+      title: 'Issues',
+      value: props.repo.open_issues,
+    },
+    {
+      title: '订阅数',
+      value: props.repo.subscribers,
+    },
+  ];
+
+  return (
+    <div className='relative'>
+      <div
+        className={`relative overflow-hidden rounded-lg ${
+          isShowMore ? '' : 'h-[76px]'
+        }`}
+      >
+        <div className='relative grid grid-cols-4 grid-rows-1 gap-3 rounded-lg bg-gray-100 py-3 text-center sm:grid-cols-5'>
+          {list.map((item) => (
+            <div key={item.title}>
+              <div className='text-gray-600'>{item.title}</div>
+              <div className='mt-1 overflow-hidden overflow-ellipsis text-lg font-bold text-gray-900'>
+                {item.value}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div
+        hidden={isShowMore}
+        className='absolute right-5 bottom-[-1px] translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-600 hover:bg-gray-200 active:bg-gray-100'
+        onClick={() => setIsShowMore(true)}
+      >
+        更多
+      </div>
     </div>
   );
 };
@@ -71,19 +175,28 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
   const router = useRouter();
   console.log(router);
 
-  const { title, description, name, volume_name } = repo;
-
   return (
     <>
       <Navbar repo={repo} />
-      <div className='rounded-lg bg-white px-[16px] py-[12px]'>
-        <h1 className='text-xl'>
-          {`${name}：${title}`}
-          <span className='ml-1 text-xs'>vol.{volume_name}</span>
-        </h1>
-        <p className='mt-2 text-sm text-[#94a3b8]'>{description}</p>
-        <Author repo={repo} />
+      <div className='rounded-lg bg-white px-4 py-3'>
+        <div className='flex items-start justify-between gap-[5%]'>
+          <div>
+            <Title repo={repo} />
+            <Desc repo={repo} />
+            <Author repo={repo} />
+          </div>
+          <Score className='hidden shrink-0 sm:block' repo={repo} />
+        </div>
         <Tags repo={repo} />
+        <RepoInfo repo={repo} />
+        <div className='mx-auto mt-10 flex overflow-hidden rounded-lg'>
+          {/* TODO 接口返回的链接的存在跨域问题 */}
+          <ImageWithPreview
+            src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+            alt='图片'
+          />
+        </div>
+        <div className='h-20'></div>
       </div>
     </>
   );
