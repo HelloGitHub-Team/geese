@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
+import ImageWithPreview from '@/components/ImageWithPreview';
 import TagItem from '@/components/links/TagItem';
 
 import { getDetail } from '@/services/repository';
@@ -188,6 +189,13 @@ const RepositoryPage: NextPage<PageProps> = ({ repo }) => {
         </div>
         <Tags repo={repo} />
         <RepoInfo repo={repo} />
+        <div className='mx-auto mt-10 flex overflow-hidden rounded-lg'>
+          {/* TODO 接口返回的链接的存在跨域问题 */}
+          <ImageWithPreview
+            src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+            alt='图片'
+          />
+        </div>
         <div className='h-20'></div>
       </div>
     </>
