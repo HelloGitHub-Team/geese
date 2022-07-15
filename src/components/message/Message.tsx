@@ -1,11 +1,17 @@
 import classNames from 'classnames';
 import React from 'react';
 
-function Message(props) {
-  const { type, content } = props;
+interface MessageProps {
+  type: string;
+  content: string;
+  onClose: () => void;
+}
+
+function Message(props: MessageProps) {
+  const { type, content, onClose } = props;
   const wrapClassName = (type: string) =>
     classNames(
-      'animation-messageMoveIn absolute -translate-x-1/2 left-2/4 top-20 z-50 flex items-center justify-between gap-4 rounded border border-green-900/10 bg-green-50 p-3 text-green-700',
+      'inline-block rounded border border-green-900/10 bg-green-50 p-4 text-green-700',
       {
         'text-green-700 border-green-900/10 bg-green-50': type === 'success',
         'text-amber-700 border-amber-900/10 bg-amber-50': type === 'warning',
@@ -94,27 +100,29 @@ function Message(props) {
 
   return (
     <div className={wrapClassName(type)} role='alert'>
-      <div className='mr-5 flex items-center gap-4'>
-        {icon(type)}
-        <span className='block text-base opacity-90'>{content}</span>
+      <div className='pointer-events-auto flex'>
+        <div className='mr-5 flex items-center gap-4'>
+          {icon(type)}
+          <span className='block text-base opacity-90'>{content}</span>
+        </div>
+
+        <button className='opacity-90' type='button' onClick={onClose}>
+          <span className='sr-only'> Close </span>
+
+          <svg
+            className='h-4 w-4'
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 20 20'
+            fill='currentColor'
+          >
+            <path
+              fillRule='evenodd'
+              d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+              clipRule='evenodd'
+            />
+          </svg>
+        </button>
       </div>
-
-      <button className='opacity-90' type='button'>
-        <span className='sr-only'> Close </span>
-
-        <svg
-          className='h-4 w-4'
-          xmlns='http://www.w3.org/2000/svg'
-          viewBox='0 0 20 20'
-          fill='currentColor'
-        >
-          <path
-            fillRule='evenodd'
-            d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
-            clipRule='evenodd'
-          />
-        </svg>
-      </button>
     </div>
   );
 }

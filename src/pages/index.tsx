@@ -1,4 +1,3 @@
-import { Button } from 'antd';
 import { NextPage } from 'next';
 
 import Items from '@/components/layout/Items';
@@ -14,17 +13,22 @@ type IndexProps = {
 
 const Index: NextPage<IndexProps> = () => {
   const showMessage = () => {
-    console.log(Message);
-    Message.success('Success!!!');
+    let cnt = 1;
+    return () => {
+      Message.success(`success - ${cnt}`, { autoClose: true });
+      // Message.error(`error - ${cnt}`);
+      // Message.info(`info - ${cnt}`);
+      // Message.warn(`warn - ${cnt}`);
+      cnt++;
+    };
   };
+
   return (
     <>
       <Seo templateTitle='Home' />
       <Seo />
       <div>
-        <Button type='primary' onClick={showMessage}>
-          Message
-        </Button>
+        <button onClick={showMessage()}>Message</button>
       </div>
       <Items></Items>
     </>

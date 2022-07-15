@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 
 import Message from './Message';
-import { alertService, AlertType } from './message.service';
+import { alertService } from './message.service';
 export { Alert };
 
 Alert.propTypes = {
@@ -13,10 +13,10 @@ Alert.propTypes = {
 
 Alert.defaultProps = {
   id: 'default-alert',
-  fade: true,
+  fade: false,
 };
 
-function Alert({ id, fade }) {
+function Alert({ id }) {
   const mounted = useRef(false);
   const router = useRouter();
   const [alerts, setAlerts] = useState([]);
@@ -38,11 +38,13 @@ function Alert({ id, fade }) {
       } else {
         // add alert to array with unique id
         alert.itemId = Math.random();
+        alert.fadeIn = true;
+        alert.fadeOut = false;
         setAlerts((alerts) => [...alerts, alert]);
 
         // auto close alert if required
         if (alert.autoClose) {
-          // setTimeout(() => removeAlert(alert), 3000);
+          removeAlert(alert);
         }
       }
     });
@@ -70,43 +72,37 @@ function Alert({ id, fade }) {
     });
   }
 
-  function removeAlert(alert) {
+  function removeAlert(alert, duration = 1000 * 2) {
     if (!mounted.current) return;
-
-    if (fade) {
-      // fade out alert
+    const remove = () => {
+      // 先给待删除的元素加上一个动画
       setAlerts((alerts) =>
         alerts.map((x) =>
-          x.itemId === alert.itemId ? { ...x, fade: true } : x
+          x.itemId === alert.itemId ? { ...x, fadeIn: false, fadeOut: true } : x
         )
       );
 
-      // remove alert after faded out
+      // 延迟删除
       setTimeout(() => {
         setAlerts((alerts) => alerts.filter((x) => x.itemId !== alert.itemId));
       }, 250);
+    };
+    if (duration) {
+      setTimeout(remove, duration);
     } else {
-      // remove alert
-      setAlerts((alerts) => alerts.filter((x) => x.itemId !== alert.itemId));
+      remove();
     }
   }
 
   function cssClasses(alert) {
     if (!alert) return;
 
-    const classes = ['alert', 'alert-info'];
+    const classes = 'block p-4 text-center'.split(' ');
 
-    const alertTypeClass = {
-      [AlertType.Success]: 'alert-success',
-      [AlertType.Error]: 'alert-danger',
-      [AlertType.Info]: 'alert-info',
-      [AlertType.Warning]: 'alert-warning',
-    };
-
-    classes.push(alertTypeClass[alert.type]);
-
-    if (alert.fade) {
-      classes.push('transition-opacity');
+    if (alert.fadeOut) {
+      classes.push('ant-move-up-leave ant-move-up-leave-active');
+    } else if (alert.fadeIn) {
+      classes.push('ant-move-up-appear ant-move-up-appear-active');
     }
 
     return classes.join(' ');
@@ -115,10 +111,18 @@ function Alert({ id, fade }) {
   if (!alerts.length) return null;
 
   return (
-    <div>
-      {alerts.map((alert, index) => (
-        <Message key={index} type={alert.type} content={alert.message} />
-      ))}
+    <div className='pointer-events-none fixed top-4 left-0 z-50 w-full'>
+      <div>
+        {alerts.map((alert, index) => (
+          <div key={index} className={cssClasses(alert)}>
+            <Message
+              type={alert.type}
+              content={alert.message}
+              onClose={() => removeAlert(alert, 0)}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
