@@ -12,7 +12,7 @@ const Navbar: NextPage<UserAvaterProps> = ({ avatar }) => {
   return (
     <div className='flex items-center justify-between'>
       <div className='flex-1 cursor-pointer py-2 pr-4' onClick={router.back}>
-        <AiOutlineArrowLeft size={20} color='#60a5fa' />
+        <AiOutlineArrowLeft className='text-blue-400' size={20} />
       </div>
       <strong className='flex-1 text-center'>项目详情</strong>
       <div className='flex flex-1 items-center justify-end text-xs text-gray-500'>

@@ -22,7 +22,7 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
         <Navbar avatar={repo.share_user.avatar} />
         <Info repo={repo}></Info>
         <div className='w-full p-2 text-base leading-7 lg:text-lg'>
-          <p className='line-clamp-4 '>{repo.summary}</p>
+          <p className='text-gray-900 line-clamp-4'>{repo.summary}</p>
         </div>
         {repo.image_url ? (
           <div className='mx-auto mt-2 flex overflow-hidden rounded-lg'>
