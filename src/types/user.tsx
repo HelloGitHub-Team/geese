@@ -12,6 +12,10 @@ export interface UserProps {
   isLogin: boolean;
 }
 
+export interface UserAvaterProps {
+  avatar: string;
+}
+
 export interface User {
   uid: string;
   token: string;
