@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 
-import { fetcher } from '@/pages/api/base';
+import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 import { debounce } from '@/utils/util';
 

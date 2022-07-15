@@ -4,7 +4,7 @@ import Items from '@/components/layout/Items';
 import Message from '@/components/message/message.service';
 import Seo from '@/components/Seo';
 
-import { HomeItemData } from '@/pages/api/home';
+import { HomeItemData } from '@/services/home';
 
 type IndexProps = {
   itemsData: HomeItemData;
@@ -25,7 +25,7 @@ const Index: NextPage<IndexProps> = () => {
 
   return (
     <>
-      <Seo templateTitle='Home' />
+      <Seo title='Home' />
       <Seo />
       <div>
         <button onClick={showMessage()}>Message</button>
