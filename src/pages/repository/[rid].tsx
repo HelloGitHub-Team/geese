@@ -25,8 +25,12 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
           <p className='text-gray-900 line-clamp-4'>{repo.summary}</p>
         </div>
         {repo.image_url ? (
-          <div className='mx-auto mt-2 flex overflow-hidden rounded-lg'>
-            <ImageWithPreview src={repo?.image_url} alt='图片' />
+          <div className='my-2 flex justify-center'>
+            <ImageWithPreview
+              src={repo?.image_url}
+              className='rounded-lg'
+              alt='图片'
+            />
           </div>
         ) : (
           <div></div>

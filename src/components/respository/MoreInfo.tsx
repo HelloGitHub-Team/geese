@@ -2,6 +2,8 @@ import { NextPage } from 'next';
 import * as React from 'react';
 import { useState } from 'react';
 
+import { numFormat } from '@/utils/util';
+
 import { RepositoryProps } from '@/types/reppsitory';
 
 const MoreInfo: NextPage<RepositoryProps> = ({ repo }) => {
@@ -17,7 +19,7 @@ const MoreInfo: NextPage<RepositoryProps> = ({ repo }) => {
       value: repo.has_chinese ? '是' : '否',
     },
     {
-      title: '代码',
+      title: '主语言',
       value: repo.primary_lang,
     },
     {
@@ -30,19 +32,19 @@ const MoreInfo: NextPage<RepositoryProps> = ({ repo }) => {
     },
     {
       title: '组织',
-      value: repo.is_org || '无',
+      value: repo.is_org ? '是' : '否',
     },
     {
       title: 'Forks',
-      value: repo.forks || '无',
+      value: numFormat(repo.forks),
     },
     {
       title: 'Issues',
-      value: repo.open_issues,
+      value: numFormat(repo.open_issues),
     },
     {
       title: '订阅数',
-      value: repo.subscribers,
+      value: numFormat(repo.subscribers),
     },
   ];
 
@@ -50,27 +52,35 @@ const MoreInfo: NextPage<RepositoryProps> = ({ repo }) => {
     <div className='relative mt-2'>
       <div
         className={`relative overflow-hidden rounded-lg ${
-          isShowMore ? '' : 'h-[76px]'
+          isShowMore ? '' : 'h-20'
         }`}
       >
-        <div className='relative grid grid-cols-4 grid-rows-1 gap-3 rounded-lg bg-gray-100 py-3 text-center sm:grid-cols-5'>
+        <div className='relative grid grid-cols-4 grid-rows-1 gap-2 rounded-lg bg-gray-100 py-3 text-center sm:grid-cols-5'>
           {infoList.map((item) => (
-            <div key={item.title}>
-              <div className='text-sm text-gray-600'>{item.title}</div>
-              <div className='mt-1 overflow-hidden overflow-ellipsis text-lg font-bold text-gray-900'>
+            <div className='px-2' key={item.title}>
+              <div className='relative mt-1 overflow-hidden whitespace-nowrap text-lg font-bold text-gray-900 lg:text-xl'>
                 {item.value}
               </div>
+              <div className='text-sm text-gray-400'>{item.title}</div>
             </div>
           ))}
         </div>
       </div>
-      <div
-        hidden={isShowMore}
-        className='absolute right-5 bottom-0 translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-600 hover:bg-gray-200 active:bg-gray-100'
-        onClick={() => setIsShowMore(true)}
-      >
-        更多
-      </div>
+      {!isShowMore ? (
+        <div
+          className='absolute right-3 bottom-0 translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-400 hover:bg-gray-200 active:bg-gray-100 lg:right-9'
+          onClick={() => setIsShowMore(true)}
+        >
+          更多
+        </div>
+      ) : (
+        <div
+          className='absolute right-3 bottom-0 translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-400 hover:bg-gray-200 active:bg-gray-100 lg:right-9'
+          onClick={() => setIsShowMore(false)}
+        >
+          收起
+        </div>
+      )}
     </div>
   );
 };
