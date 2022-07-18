@@ -9,6 +9,12 @@ export const fetcher = async function fetcher<T>(
 
   const res = await fetch(input, init);
   if (!res.ok || res.status === 500 || res.status === 404) {
+    if (res.status === 500) {
+      window.location.href = '/500';
+    }
+    if (res.status === 404) {
+      window.location.href = '/404';
+    }
     throw res;
   }
   const json = await res.json();
