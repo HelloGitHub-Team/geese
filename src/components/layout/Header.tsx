@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import Message from '@/components/message';
+
 import LoginButton from '../buttons/LoginButton';
 import LogoutButton from '../buttons/LogoutButton';
 import SearchInput from '../search/SearchInput';
@@ -10,6 +12,11 @@ import { LoginStatusProps } from '@/types/user';
 
 const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
   const router = useRouter();
+
+  const showMessage = () => {
+    Message.info(`HelloGitHub`);
+    router.push('/');
+  };
 
   return (
     <div className='fixed z-10 h-14 w-full bg-white shadow-md'>
@@ -20,7 +27,7 @@ const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
           width='28'
           height='28'
           alt='hellogithub'
-          onClick={() => router.push('/')}
+          onClick={showMessage}
         />
         <SearchInput />
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>

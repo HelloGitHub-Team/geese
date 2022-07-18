@@ -2,35 +2,41 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 
+import type { Alert } from './alert.service';
+import { alertService } from './alert.service';
 import Message from './Message';
-import { alertService } from './message.service';
-export { Alert };
 
-Alert.propTypes = {
+AlertComp.propTypes = {
   id: PropTypes.string,
   fade: PropTypes.bool,
 };
 
-Alert.defaultProps = {
+AlertComp.defaultProps = {
   id: 'default-alert',
   fade: false,
 };
 
-function Alert({ id }) {
+interface AlertProps {
+  id?: string;
+}
+
+function AlertComp({ id }: AlertProps) {
   const mounted = useRef(false);
   const router = useRouter();
-  const [alerts, setAlerts] = useState([]);
+  const [alerts, setAlerts] = useState<Alert[]>([]);
 
   useEffect(() => {
     mounted.current = true;
 
     // subscribe to new alert notifications
-    const subscription = alertService.onAlert(id).subscribe((alert) => {
+    const subscription = alertService.onAlert(id).subscribe((alert: Alert) => {
       // clear alerts when an empty alert is received
       if (!alert.message) {
-        setAlerts((alerts) => {
+        setAlerts((alerts: Alert[]) => {
           // filter out alerts without 'keepAfterRouteChange' flag
-          const filteredAlerts = alerts.filter((x) => x.keepAfterRouteChange);
+          const filteredAlerts: Alert[] = alerts.filter(
+            (x) => x.keepAfterRouteChange
+          );
 
           // remove 'keepAfterRouteChange' flag on the rest
           return omit(filteredAlerts, 'keepAfterRouteChange');
@@ -65,14 +71,14 @@ function Alert({ id }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function omit(arr, key) {
+  function omit(arr: Alert[], key: string): Alert[] {
     return arr.map((obj) => {
-      const { [key]: omitted, ...rest } = obj;
+      const { [key]: _omitted, ...rest } = obj;
       return rest;
     });
   }
 
-  function removeAlert(alert, duration = 1000 * 2) {
+  function removeAlert(alert: Alert, duration = 1000 * 2) {
     if (!mounted.current) return;
     const remove = () => {
       // 先给待删除的元素加上一个动画
@@ -94,13 +100,13 @@ function Alert({ id }) {
     }
   }
 
-  function cssClasses(alert) {
+  function cssClasses(alert: Alert) {
     if (!alert) return;
 
     const classes = 'block p-4 text-center'.split(' ');
 
     if (alert.fadeOut) {
-      classes.push('ant-move-up-leave ant-move-up-leave-active');
+      // classes.push('ant-move-up-leave ant-move-up-leave-active');
     } else if (alert.fadeIn) {
       classes.push('ant-move-up-appear ant-move-up-appear-active');
     }
@@ -126,3 +132,4 @@ function Alert({ id }) {
     </div>
   );
 }
+export { AlertComp };

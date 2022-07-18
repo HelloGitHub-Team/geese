@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface MessageProps {
   type: string;
@@ -20,7 +20,7 @@ function Message(props: MessageProps) {
       }
     );
 
-  const icon = (type: string) => {
+  const icon = (type = 'success'): ReactNode => {
     const iconMap = {
       success: (
         <span className='op rounded-full bg-green-600 p-2 text-white'>
@@ -95,7 +95,7 @@ function Message(props: MessageProps) {
         </span>
       ),
     };
-    return iconMap[type];
+    return iconMap[type as keyof typeof iconMap];
   };
 
   return (

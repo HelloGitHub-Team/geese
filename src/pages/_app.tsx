@@ -6,7 +6,7 @@ import '@/styles/globals.css';
 import '@/styles/colors.css';
 
 import Layout from '@/components/layout/Layout';
-import { Alert } from '@/components/message/Alert';
+import { AlertComp as Alert } from '@/components/message/Alert';
 
 /**
  * !STARTERCONF info
