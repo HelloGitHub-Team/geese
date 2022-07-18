@@ -72,10 +72,10 @@ function AlertComp({ id }: AlertProps) {
   }, []);
 
   function omit(arr: Alert[], key: string): Alert[] {
-    return arr.map((obj) => {
+    return arr.map((obj: Alert) => {
       const { [key]: _omitted, ...rest } = obj;
-      return rest;
-    });
+      return rest as Alert;
+    }) as Alert[];
   }
 
   function removeAlert(alert: Alert, duration = 1000 * 2) {

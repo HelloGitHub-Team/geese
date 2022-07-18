@@ -27,6 +27,7 @@ type Alert = {
   keepAfterRouteChange?: boolean;
   fadeIn?: boolean;
   fadeOut?: boolean;
+  [key: string]: string | number | boolean | undefined;
 };
 export type { Alert };
 
