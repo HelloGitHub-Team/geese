@@ -31,7 +31,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
             )}
 
             {repo.tags.map((item) => (
-              <Link href={`/?sort_by=hot&tid=${item.tid}`} key={item.tid}>
+              <Link href={`/tags/${item.tid}/`} key={item.tid}>
                 <div className='mr-1 mt-1 flex h-6 cursor-pointer items-center rounded border border-current px-2.5 text-xs font-medium hover:bg-blue-400 hover:text-white active:opacity-60 lg:mr-2'>
                   {item.name}
                 </div>
