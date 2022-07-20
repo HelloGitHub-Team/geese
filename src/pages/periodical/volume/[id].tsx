@@ -13,18 +13,13 @@ import {
 } from '@/types/volume';
 
 const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
-  const categoryList = volume.data.map((category: VolumeCategory) => {
-    const { category_id, category_name } = category;
-    return {
-      category_id,
-      category_name,
-    };
-  });
+  const categoryList: VolumeCategory[] = volume?.data || [];
+
   return (
     <div className='mt-4'>
       <Seo title={`开源项目 ${volume.current_num}`} />
       <Seo />
-      {volume.data.map((category: VolumeCategory, cIndex: number) => {
+      {categoryList?.map((category: VolumeCategory, _cIndex: number) => {
         const id = `category-${category.category_id}`;
         return (
           <div key={category.category_id} className='pt-10'>
@@ -38,7 +33,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
                     <span>{index + 1} - </span>
                     {item.name}
                   </h4>
-                  <MDRender mdString={item.description} />
+                  <MDRender>{item.description}</MDRender>
                   <ImageWithPreview
                     src={item?.image_url}
                     className='rounded-lg'
@@ -50,9 +45,10 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
           </div>
         );
       })}
+      ;
       <div className='fixed left-10 top-40'>
         <ul className='list-disc'>
-          {categoryList.map((category, cIndex: number) => {
+          {categoryList?.map((category, cIndex: number) => {
             const id = `#category-${category.category_id}`;
             return (
               <li key={cIndex} className='list-item'>
@@ -87,7 +83,7 @@ export async function getStaticPaths() {
 }
 
 // 在构建时也会被调用
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: any) {
   // params 包含此片博文的 `id` 信息。
   // 如果路由是 /posts/1，那么 params.id 就是 1
   const volume = await getVolume(params.id);

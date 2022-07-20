@@ -15,6 +15,6 @@ export const getVolume = async (id: string): Promise<Volume> => {
     const data = await fetcher<Volume>(makeUrl(`/volume/?num=${id}`));
     return data;
   } catch (error) {
-    return {};
+    return {} as Volume;
   }
 };
