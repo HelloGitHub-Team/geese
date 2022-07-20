@@ -1,4 +1,3 @@
-import { TagType } from './tag';
 import { UserType } from './user';
 
 export interface HomeItems {
@@ -20,7 +19,6 @@ export interface HomeItem {
   clicks_total: number;
   comment_total: number;
   updated_at: string;
-  tags: TagType[];
   user: UserType;
 }
 

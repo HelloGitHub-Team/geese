@@ -15,3 +15,14 @@ dayjs.locale('zh-cn');
 export const fromNow = (datetime: string): string => {
   return dayjs(datetime).fromNow();
 };
+
+export const formatZH = (
+  datetime: string,
+  format = 'YYYY年MM月DD日 HH:mm'
+): string => {
+  return dayjs(datetime).format(format);
+};
+
+export const format = (datetime: string, format = 'YYYY-MM-DD'): string => {
+  return dayjs(datetime).format(format);
+};

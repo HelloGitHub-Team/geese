@@ -23,7 +23,7 @@ export function numFormat(n: number | undefined, digits = 0) {
     return '';
   }
   const num = +n;
-  if (num < 10000) {
+  if (num < 1000) {
     return n;
   }
   const si = [

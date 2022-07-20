@@ -3,15 +3,17 @@ export interface LoginOutProps {
 }
 
 export interface LoginStatusProps {
-  wechatOAtuhURL: string;
   updateLoginStatus: (value: boolean) => void;
   loginStatus: boolean;
 }
 
 export interface UserProps {
-  wechatOAtuhURL: string;
   updateLoginStatus: (value: boolean) => void;
   isLogin: boolean;
+}
+
+export interface UserAvaterProps {
+  avatar: string;
 }
 
 export interface User {
@@ -37,10 +39,6 @@ export interface UserStatusProps {
   permission: Permission;
   first_login: string;
   last_login: string;
-}
-
-export interface OAuthURLProps {
-  wechatOAtuhURL: string;
 }
 
 export interface OAuthURLResponse {

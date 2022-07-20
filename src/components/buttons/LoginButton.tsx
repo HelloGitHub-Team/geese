@@ -1,20 +1,23 @@
-import Link from 'next/link';
+import { getOAtuhURL } from '@/services/login';
 
-import { OAuthURLProps } from '@/types/user';
+const LoginButton = () => {
+  const handleOAtuhURL = async () => {
+    try {
+      const data = await getOAtuhURL();
+      if (data?.url != undefined) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.log('error:' + error);
+    }
+  };
 
-const LoginButton = ({ wechatOAtuhURL }: OAuthURLProps) => {
   return (
-    <div className='box-border py-6 text-center align-middle text-base'>
-      <Link href={wechatOAtuhURL || '/'}>
-        <button
-          type='button'
-          className='button box-border rounded-md border-2 border-slate-400 px-3 py-2 text-gray-500'
-        >
-          立即登录
-        </button>
-      </Link>
-    </div>
+    <button onClick={handleOAtuhURL}>
+      <span className='inline-flex cursor-pointer items-center rounded-lg px-3 py-2'>
+        登录
+      </span>
+    </button>
   );
 };
-
 export default LoginButton;

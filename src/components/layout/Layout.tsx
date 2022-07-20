@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
-import useSWRImmutable from 'swr';
 
 import Header from '@/components/layout/Header';
-
-import { fetcher } from '@/services/base';
-import { makeUrl } from '@/utils/api';
 
 import IndexSide from '../side/IndexSide';
 
@@ -17,24 +13,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     setLoginStatus(value);
   };
 
-  const { data } = useSWRImmutable<Record<string, any>>(
-    makeUrl(`/user/oauth/wechat/url/`, { url_type: 'geese' }),
-    (key) => {
-      const options: RequestInit = {
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-      };
-      return fetcher(key, options);
-    },
-    {
-      shouldRetryOnError: false,
-    }
-  );
-
   return (
     <>
       <Header
-        wechatOAtuhURL={data?.url}
         loginStatus={loginStatus}
         updateLoginStatus={updateLoginStatus}
       ></Header>
@@ -45,7 +26,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
           <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
             <IndexSide
-              wechatOAtuhURL={data?.url}
               loginStatus={loginStatus}
               updateLoginStatus={updateLoginStatus}
             ></IndexSide>

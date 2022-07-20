@@ -12,6 +12,7 @@ export interface Repository extends RepoType {
   is_active: boolean;
   volume_name: string | null;
 
+  summary: string;
   code: string;
   image_url: string | null;
   homepage: string | null;
@@ -50,7 +51,7 @@ export interface RepoType {
   has_chinese: boolean;
   is_org: boolean;
 
-  created_at: string;
+  repo_created_at: string;
   updated_at: string;
   publish_at: number;
 }

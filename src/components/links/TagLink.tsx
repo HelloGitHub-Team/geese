@@ -1,29 +1,16 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import useSWRInfinite from 'swr/infinite';
 
-import { fetcher } from '@/services/base';
-import { makeUrl } from '@/utils/api';
+import { Tag, TagsProps } from '@/types/tag';
 
-import { TagItems } from '@/types/tag';
-
-export default function TagLink() {
+export default function TagLink({ tagItems }: TagsProps) {
   const router = useRouter();
   const { sort_by = 'hot', tid = '' } = router.query;
-  console.log('sort_by >>>', sort_by);
-  const { data } = useSWRInfinite<TagItems>(
-    () => makeUrl(`/tag/search/`, { page: 1, page_size: 10, sort_by, asc: 0 }),
-    fetcher,
-    {
-      revalidateFirstPage: false,
-    }
-  );
-  const reponse = data ? data[0].data : [];
-  console.log(reponse);
+
   return (
     <div className='overflow-y-auto'>
       <ul className='flex'>
-        {reponse.map((item) => {
+        {tagItems.map((item: Tag) => {
           return (
             <li className='shrink-0 grow-0 basis-auto' key={item.tid}>
               <Link href={`/?sort_by=${sort_by}&tid=${item.tid}`}>
