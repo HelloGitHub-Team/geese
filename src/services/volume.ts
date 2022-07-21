@@ -18,3 +18,12 @@ export const getVolume = async (id: string): Promise<Volume> => {
     return {} as Volume;
   }
 };
+
+export const getVolumeNum = async (): Promise<T> => {
+  try {
+    const { current_num } = (await fetcher<T>(makeUrl(`/volume/`))) || {};
+    return current_num;
+  } catch (error) {
+    return 0;
+  }
+};

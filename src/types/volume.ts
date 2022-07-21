@@ -24,5 +24,5 @@ export interface VolumeItem {
   stars: number;
   forks: number;
   watch: number;
-  image_url: string;
+  image_url: string | null;
 }
