@@ -58,7 +58,7 @@ export interface RepoType {
 
 export interface CreateRepoRes {
   message: string;
-  posted: number;
-  remaining: number;
+  posted?: number;
+  remaining?: number;
   success: boolean;
 }

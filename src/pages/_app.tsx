@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 import '@/styles/colors.css';
+import '@/styles/popup.css';
 
 import Layout from '@/components/layout/Layout';
 import { AlertComp as Alert } from '@/components/message/Alert';
