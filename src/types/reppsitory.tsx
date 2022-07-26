@@ -154,7 +154,7 @@ export interface CommentSuccessData extends BaseType {
 
 export interface CreateRepoRes {
   message: string;
-  posted: number;
-  remaining: number;
+  posted?: number;
+  remaining?: number;
   success: boolean;
 }

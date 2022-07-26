@@ -5,6 +5,8 @@ import useSWR from 'swr';
 
 import useToken from '@/hooks/useToken';
 
+import { RepoPoPup } from '@/components/repo';
+
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
@@ -66,11 +68,16 @@ export default function UserStatus({ isLogin, updateLoginStatus }: UserProps) {
               </div>
 
               <div className='flex items-end pt-2 text-sm'>
-                <Link href='/create/repo/'>
+                <RepoPoPup>
+                  <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600'>
+                    分享项目
+                  </a>
+                </RepoPoPup>
+                {/* <Link href='/create/repo/'>
                   <a className='flex h-8 items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600'>
                     分享项目
                   </a>
-                </Link>
+                </Link> */}
                 <div className='shrink grow'></div>
                 <div className='pr-2 pb-0.5 text-slate-400'>积分</div>
                 <div className='text-4xl font-bold text-yellow-500'>15</div>

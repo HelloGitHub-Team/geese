@@ -1,0 +1,57 @@
+import React from 'react';
+
+const CZIndex = 10;
+
+type PopupStyle = {
+  popupContent: {
+    tooltip: React.CSSProperties;
+    modal: React.CSSProperties;
+  };
+  popupArrow: React.CSSProperties;
+  overlay: {
+    tooltip: React.CSSProperties;
+    modal: React.CSSProperties;
+  };
+};
+
+const Style: PopupStyle = {
+  popupContent: {
+    tooltip: {
+      position: 'absolute',
+      zIndex: CZIndex,
+    },
+    modal: {
+      position: 'relative',
+      margin: 'auto',
+    },
+  },
+  popupArrow: {
+    height: '8px',
+    width: '16px',
+    position: 'absolute',
+    background: 'transparent',
+    color: '#FFF',
+    zIndex: -1,
+  },
+  overlay: {
+    tooltip: {
+      position: 'fixed',
+      top: '0',
+      bottom: '0',
+      left: '0',
+      right: '0',
+      zIndex: CZIndex,
+    },
+    modal: {
+      position: 'fixed',
+      top: '0',
+      bottom: '0',
+      left: '0',
+      right: '0',
+      display: 'flex',
+      zIndex: CZIndex,
+    },
+  },
+};
+
+export default Style;
