@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 
+import { Dialog } from '@/components/dialog';
 import Message from '@/components/message';
-import Popup from '@/components/popup';
+import { Transition } from '@/components/transition/transition';
 
 import { createRepo } from '@/services/repository';
 
@@ -61,14 +62,14 @@ export default function CreateRepo({ response }: CreateRepoProps) {
   }
 
   return (
-    <div className='bg-content border-main-content mb-2 mt-2 overflow-hidden'>
-      <form onSubmit={handleCreateRepo} className='space-y-4 py-5 px-10'>
+    <div className='bg-content border-main-content mb-2 mt-2 overflow-hidden p-1'>
+      <form onSubmit={handleCreateRepo} className='space-y-4'>
         <div>
           <label className='sr-only' htmlFor='url'>
             url
           </label>
           <input
-            className='w-full rounded-lg border-gray-200 p-3 text-sm'
+            className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none'
             placeholder='项目地址（如: https://github.com/xxx/xxx）'
             type='text'
             onChange={onUrlChange}
@@ -81,7 +82,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
             summary
           </label>
           <textarea
-            className='w-full rounded-lg border-gray-200 p-3 text-sm'
+            className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none'
             placeholder='项目介绍'
             rows={8}
             id='summary'
@@ -116,19 +117,60 @@ export default function CreateRepo({ response }: CreateRepoProps) {
   );
 }
 
-export function RepoPoPup({ children }: { children: JSX.Element }) {
-  function renderPoPup(close: () => void) {
-    const handleResponse = (res: CreateRepoRes) => {
-      if (res.success) {
-        close();
-      }
-    };
-    return <CreateRepo response={handleResponse} />;
+export function RepoModal({ children }: { children: JSX.Element }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
   }
-  // <a suppressHydrationWarning={true}></a>
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  const handleResponse = (res: CreateRepoRes) => {
+    if (res.success) {
+      closeModal();
+    }
+  };
+
   return (
-    <Popup trigger={children} modal nested>
-      {renderPoPup}
-    </Popup>
+    <>
+      {React.cloneElement(children, { onClick: openModal })}
+
+      <Transition as={Fragment} show={isOpen} appear>
+        <Dialog as='div' className='relative z-10' onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter='ease-out duration-300'
+            enterFrom='opacity-0'
+            enterTo='opacity-100'
+            leave='ease-in duration-200'
+            leaveFrom='opacity-100'
+            leaveTo='opacity-0'
+          >
+            <div className='fixed inset-0 bg-black bg-opacity-25' />
+          </Transition.Child>
+
+          <div className='fixed inset-0 overflow-y-auto'>
+            <div className='flex min-h-full items-center justify-center p-4 text-center'>
+              <Transition.Child
+                as={Fragment}
+                enter='ease-out duration-300'
+                enterFrom='opacity-0 scale-95'
+                enterTo='opacity-100 scale-100'
+                leave='ease-in duration-200'
+                leaveFrom='opacity-100 scale-100'
+                leaveTo='opacity-0 scale-95'
+              >
+                <Dialog.Panel className='w-[48rem] max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                  <CreateRepo response={handleResponse}></CreateRepo>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+    </>
   );
 }
