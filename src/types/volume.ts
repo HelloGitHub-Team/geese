@@ -1,4 +1,5 @@
 export interface PeriodicalPageProps {
+  total: number;
   volume: VolumeType;
 }
 

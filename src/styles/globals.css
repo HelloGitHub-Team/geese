@@ -214,3 +214,19 @@ svg {
   height: 0;
   transition: height 0.4s 0.4s, transition 0.4s;
 }
+
+/* 自定义滚动条 */
+.custom-scrollbar::-webkit-scrollbar {
+  /* 隐藏默认的滚动条 */
+  -webkit-appearance: none;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 100%;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #e4e6eb;
+  outline: none;
+  border-radius: 2px;
+}

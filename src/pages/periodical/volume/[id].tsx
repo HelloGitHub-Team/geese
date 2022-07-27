@@ -1,5 +1,7 @@
+import classNames from 'classnames';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import ImageWithPreview from '@/components/ImageWithPreview';
 import MDRender from '@/components/mdRender/MDRender';
@@ -8,7 +10,7 @@ import Seo from '@/components/Seo';
 
 import { getVolume, getVolumeNum } from '@/services/volume';
 
-import { Fork, LinkTo, Star, Watch } from './icon';
+import { Fork, LinkTo, Star, ToTop, Watch } from './icon';
 
 import {
   PeriodicalPageProps,
@@ -16,9 +18,19 @@ import {
   VolumeItem,
 } from '@/types/volume';
 
+interface CategoryTopRange {
+  id: string;
+  start: number;
+  end: number;
+}
+
 const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
   const router = useRouter();
-  const categoryList: VolumeCategory[] = volume?.data || [];
+  const [activeCategory, setActiveCategory] = useState<string>('');
+  // 月刊列表
+  const categoryList: VolumeCategory[] = useMemo(() => {
+    return volume?.data || [];
+  }, [volume]);
   const { current_num } = volume;
   const onPageChange = (page: number) => {
     console.log(page);
@@ -28,34 +40,107 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
     console.log(item);
     // window.open(item.github_url);
   };
-  const allItems = categoryList
-    .reduce((acc, category) => {
+
+  const allItems: string[] = categoryList
+    .reduce((acc: any, category: any) => {
       return acc.concat(category.items);
     }, [])
-    .map((item) => item.rid);
+    .map((item: VolumeItem) => item.rid);
+
   const itemIndex = (item: VolumeItem) => {
     return allItems.indexOf(item.rid) + 1;
   };
+  const linkClassName = (id: string) =>
+    classNames('cursor-pointer rounded-md p-2 hover:bg-gray-100', {
+      'text-blue-500': id === activeCategory,
+      'text-gray-700': id !== activeCategory,
+    });
+
+  const ticking = useRef(false);
+  const categoryEles = useRef<CategoryTopRange[]>([]);
+
+  useEffect(() => {
+    categoryEles.current = [];
+    categoryList?.forEach((category, index: number) => {
+      const id = `#category-${category.category_id}`;
+      const el: any = document.querySelector(id);
+      console.log(id, el.offsetTop);
+
+      let categoryTopRange: CategoryTopRange = {
+        id,
+        start: 0,
+        end: 0,
+      };
+
+      if (index === categoryList.length - 1) {
+        categoryTopRange = {
+          id,
+          start: el.offsetTop,
+          end: document.body.offsetHeight,
+        };
+      } else {
+        const nextCategory: VolumeCategory = categoryList[index + 1];
+        const nextEl: any = document.querySelector(
+          `#category-${nextCategory.category_id}`
+        );
+
+        categoryTopRange = {
+          id,
+          start: el.offsetTop,
+          end: nextEl.offsetTop,
+        };
+      }
+      categoryEles.current.push(categoryTopRange);
+    });
+    console.log(categoryEles.current);
+  }, [categoryList]);
+
+  useEffect(() => {
+    const body = document.getElementsByTagName('body')[0];
+    console.log(body);
+    body.onscroll = (e: any) => {
+      // console.dir(e)
+      if (!ticking.current) {
+        window.requestAnimationFrame(function () {
+          const top = e.srcElement.documentElement.scrollTop || 0;
+          const category: CategoryTopRange | undefined =
+            categoryEles.current.find(
+              (cate: CategoryTopRange) => cate.start <= top && cate.end > top
+            );
+          console.log(top, category, categoryEles);
+          if (category) {
+            setActiveCategory((category as CategoryTopRange).id);
+          }
+          ticking.current = false;
+        });
+
+        ticking.current = true;
+      }
+    };
+  }, [categoryEles]);
+
   return (
-    <div className='relative pb-12'>
+    <div className='relative pb-6'>
       <Seo title={`HelloGitHub 第 ${current_num} 期`} />
-      <div className='mt-5 flex flex-col items-center'>
-        <h1 className='mb-2 font-medium text-gray-700'>第 {current_num} 期</h1>
-        <h2 className='font-normal text-gray-400'>
-          兴趣是最好的老师，HelloGitHub 的使命就是帮你找到编程的兴趣。
-        </h2>
-      </div>
-      <div className='my-8 max-h-screen overflow-y-auto bg-white p-5'>
+      <div className='my-6 bg-white p-5'>
+        <div className='my-6 flex flex-col items-center px-2'>
+          <h1 className='mb-2 font-medium text-gray-700'>
+            《HelloGitHub》第 {current_num} 期
+          </h1>
+          <h2 className='text-center text-xl font-normal text-gray-400'>
+            兴趣是最好的老师，HelloGitHub 让你对编程感兴趣！
+          </h2>
+        </div>
         {categoryList?.map((category: VolumeCategory, _cIndex: number) => {
           const id = `category-${category.category_id}`;
           return (
-            <div key={category.category_id} className='pb-10'>
-              <h1 id={id} className='text-gray-600'>
+            <div id={id} key={category.category_id} className='pb-10'>
+              <h1 className='mt-5 text-xl text-gray-900'>
                 {category.category_name}
               </h1>
-              {category.items.map((item: VolumeItem, index: number) => {
+              {category.items.map((item: VolumeItem) => {
                 return (
-                  <div key={item.rid} className='mt-4'>
+                  <div key={item.rid}>
                     <div className='mt-8 mb-4 inline-flex gap-2'>
                       <a id={item.name} href={`#${item.name}`}>
                         <LinkTo />
@@ -101,31 +186,53 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
         })}
       </div>
       {/* 右侧目录 */}
-      <div className='fixed top-48 right-80 bg-white p-4'>
-        <ul className='list-inside list-disc'>
-          {categoryList?.map((category, cIndex: number) => {
-            const id = `#category-${category.category_id}`;
-            return (
-              <li key={cIndex} className='list-item'>
-                <a
-                  // href={id}
-                  className='text-blue-700'
-                  onClick={() => {
-                    document.querySelector(id).scrollIntoView();
-                  }}
-                >
-                  {category.category_name}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
+      <div className='absolute top-0 right-0 hidden p-4 md:block md:grow-0'>
+        <div className='fixed top-20 right-64'>
+          <div className='w-64 rounded-sm bg-white p-4'>
+            <h4 className='mb-2 border-b border-gray-200 pb-2'>目录</h4>
+            <ul
+              className='custom-scrollbar overflow-scroll'
+              style={{ maxHeight: 550 }}
+            >
+              {categoryList?.map((category, cIndex: number) => {
+                const id = `#category-${category.category_id}`;
+
+                return (
+                  <li
+                    key={cIndex}
+                    className={linkClassName(id)}
+                    onClick={() => {
+                      setActiveCategory(id);
+                      const ele: any = document.querySelector(id);
+                      console.dir(ele);
+                      const { offsetTop } = ele;
+                      // 根据 offsetTop 滚动到指定位置
+                      window.scrollTo({
+                        top: offsetTop - 20,
+                      });
+                    }}
+                  >
+                    {category.category_name}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+        <div
+          onClick={() => {
+            // 滚动到顶部
+            window.scrollTo({
+              top: 0,
+            });
+            setActiveCategory('');
+          }}
+          className='fixed bottom-10 right-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md'
+        >
+          <ToTop />
+        </div>
       </div>
-      <Pagination
-        total={total}
-        current={current_num}
-        onChange={onPageChange}
-      ></Pagination>
+      <Pagination total={total} current={current_num} onChange={onPageChange} />
     </div>
   );
 };

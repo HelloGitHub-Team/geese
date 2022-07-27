@@ -19,10 +19,10 @@ export const getVolume = async (id: string): Promise<Volume> => {
   }
 };
 
-export const getVolumeNum = async (): Promise<T> => {
+export const getVolumeNum = async (): Promise<number> => {
   try {
-    const { current_num } = (await fetcher<T>(makeUrl(`/volume/`))) || {};
-    return current_num;
+    const { current_num } = (await fetcher(makeUrl(`/volume/`))) || {};
+    return current_num as number;
   } catch (error) {
     return 0;
   }

@@ -27,7 +27,7 @@ export default function Pagination({
     console.log(page);
     onChange?.(page);
   };
-  const JumpBtnClass = (type) => {
+  const JumpBtnClass = (type: number) => {
     let className = '';
     if (type === -1) {
       className =
@@ -40,7 +40,7 @@ export default function Pagination({
           ? 'pointer-events-none text-gray-400 hidden'
           : 'pointer-events-auto hover:text-blue-600 text-gray-600';
     }
-    return clsxm('inline-flex items-center gap-2 rounded-md p-4', className);
+    return clsxm('inline-flex items-center gap-2 rounded-md p-2', className);
   };
   return (
     <div className={clsxm('', className)} {...rest}>
@@ -56,7 +56,7 @@ export default function Pagination({
           min='1'
           max={total}
           value={page}
-          onInput={(e) => {
+          onInput={(e: any) => {
             console.log(e.target.value);
             const value = e.target.value;
             if (value > total) {
