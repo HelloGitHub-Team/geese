@@ -7,7 +7,7 @@ type PaginationProps = {
   PreviousText?: string;
   NextText?: string;
   total: number; // 总页码
-  onChange: (page: number) => void;
+  onPageChange: (page: number) => void;
 } & React.ComponentPropsWithoutRef<'div'>;
 
 export default function Pagination({
@@ -16,16 +16,16 @@ export default function Pagination({
   NextText = '下一期',
   total,
   current = 1,
-  onChange,
+  onPageChange,
   ...rest
 }: PaginationProps) {
   const [page, setPage] = React.useState<number>(current);
   React.useEffect(() => {
     setPage(current);
   }, [current]);
-  const onPageChange = (page: number) => {
+  const handlePageChange = (page: number) => {
     console.log(page);
-    onChange?.(page);
+    onPageChange?.(page);
   };
   const JumpBtnClass = (type: number) => {
     let className = '';
@@ -69,7 +69,7 @@ export default function Pagination({
           }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              onPageChange(page);
+              handlePageChange(page);
             }
           }}
         />

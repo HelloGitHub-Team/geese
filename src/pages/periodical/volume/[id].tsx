@@ -232,7 +232,11 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
           <ToTop />
         </div>
       </div>
-      <Pagination total={total} current={current_num} onChange={onPageChange} />
+      <Pagination
+        total={total}
+        current={current_num}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 };
