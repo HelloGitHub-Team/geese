@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+
+import useToken from '@/hooks/useToken';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
@@ -14,20 +15,12 @@ import { UserProps, UserStatusProps } from '@/types/user';
 
 import { DEFAULT_AVATAR } from '~/constants';
 
-const TOKENKEY = 'Authorization';
-
 export default function UserStatus({ isLogin, updateLoginStatus }: UserProps) {
-  const [hasToken, setHasToken] = useState<boolean>(false);
-
-  const getToken = () => localStorage.getItem(TOKENKEY);
-  useEffect(() => {
-    setHasToken(!!getToken());
-  }, []);
-
+  const { token, setToken } = useToken();
   const { data, isValidating } = useSWR<UserStatusProps>(
-    hasToken ? makeUrl('/user/me/') : null,
+    token ? makeUrl('/user/me/') : null,
     (key) => {
-      const headers = { [TOKENKEY]: `Bearer ${getToken()}` };
+      const headers = { Authorization: `Bearer ${token}` };
       return fetcher(key, { headers });
     },
     {
@@ -37,7 +30,7 @@ export default function UserStatus({ isLogin, updateLoginStatus }: UserProps) {
       },
       onError: function () {
         updateLoginStatus(false);
-        localStorage.clear();
+        setToken(null);
       },
     }
   );
