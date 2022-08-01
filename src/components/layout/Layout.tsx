@@ -26,19 +26,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         updateLoginStatus={updateLoginStatus}
       ></Header>
       <main className='container mx-auto px-0 pt-14 xl:px-40'>
-        <div className='flex shrink grow flex-row sm:border-l sm:dark:border-slate-600 md:border-none'>
-          <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
-            {children}
-          </div>
-          {showIndexSide && (
+        {showIndexSide ? (
+          <div className='flex shrink grow flex-row sm:border-l sm:dark:border-slate-600 md:border-none'>
+            <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
+              {children}
+            </div>
+
             <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
               <IndexSide
                 loginStatus={loginStatus}
                 updateLoginStatus={updateLoginStatus}
               ></IndexSide>
             </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div>{children}</div>
+        )}
       </main>
     </>
   );

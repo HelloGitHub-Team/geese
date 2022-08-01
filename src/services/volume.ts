@@ -10,6 +10,11 @@ interface Volume {
   data: any[];
 }
 
+type VolumeAll = {
+  total: number;
+  data: any[];
+};
+
 export const getVolume = async (id: string): Promise<Volume> => {
   try {
     const data = await fetcher<Volume>(makeUrl(`/volume/?num=${id}`));
@@ -19,11 +24,21 @@ export const getVolume = async (id: string): Promise<Volume> => {
   }
 };
 
-export const getVolumeNum = async (): Promise<number> => {
+export const getVolumeNum = async (): Promise<VolumeAll> => {
   try {
-    const { current_num } = (await fetcher(makeUrl(`/volume/`))) || {};
-    return current_num as number;
+    const { total = 0, data = [] } =
+      (await fetcher(makeUrl(`/volume/all/`))) || {};
+    return { total, data };
   } catch (error) {
-    return 0;
+    return { total: 0, data: [] };
+  }
+};
+
+// 记录 github 访问次数 /v1/repository/go/github/
+export const recordGoGithub = async (rid: string): Promise<any> => {
+  try {
+    await fetcher(makeUrl(`/repository/go/github/?rid=${rid}`));
+  } catch (error) {
+    console.error(error);
   }
 };

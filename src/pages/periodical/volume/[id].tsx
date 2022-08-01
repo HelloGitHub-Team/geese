@@ -8,7 +8,7 @@ import MDRender from '@/components/mdRender/MDRender';
 import Pagination from '@/components/pagination/Pagination';
 import Seo from '@/components/Seo';
 
-import { getVolume, getVolumeNum } from '@/services/volume';
+import { getVolume, getVolumeNum, recordGoGithub } from '@/services/volume';
 
 import { Fork, LinkTo, Star, ToTop, Watch } from './icon';
 
@@ -18,11 +18,11 @@ import {
   VolumeItem,
 } from '@/types/volume';
 
-interface CategoryTopRange {
+type CategoryTopRange = {
   id: string;
   start: number;
   end: number;
-}
+};
 
 const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
   const router = useRouter();
@@ -31,14 +31,14 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
   const categoryList: VolumeCategory[] = useMemo(() => {
     return volume?.data || [];
   }, [volume]);
+
   const { current_num } = volume;
   const onPageChange = (page: number) => {
-    console.log(page);
     router.push(`/periodical/volume/${page}`);
   };
   const onClickLink = (item: VolumeItem) => {
-    console.log(item);
-    // window.open(item.github_url);
+    // 调用接口记录链接点击信息
+    recordGoGithub(item.rid);
   };
 
   const allItems: string[] = categoryList
@@ -59,12 +59,12 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
   const ticking = useRef(false);
   const categoryEles = useRef<CategoryTopRange[]>([]);
 
+  // 设置每个段落的top值范围, 用于滚动时判断对应目录标题高亮
   useEffect(() => {
     categoryEles.current = [];
     categoryList?.forEach((category, index: number) => {
       const id = `#category-${category.category_id}`;
-      const el: any = document.querySelector(id);
-      console.log(id, el.offsetTop);
+      const el: HTMLElement = document.querySelector(id) as HTMLElement;
 
       let categoryTopRange: CategoryTopRange = {
         id,
@@ -79,10 +79,9 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
           end: document.body.offsetHeight,
         };
       } else {
-        const nextCategory: VolumeCategory = categoryList[index + 1];
-        const nextEl: any = document.querySelector(
-          `#category-${nextCategory.category_id}`
-        );
+        const nextEl: HTMLElement = document.querySelector(
+          `#category-${categoryList[index + 1].category_id}`
+        ) as HTMLElement;
 
         categoryTopRange = {
           id,
@@ -92,147 +91,161 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
       }
       categoryEles.current.push(categoryTopRange);
     });
-    console.log(categoryEles.current);
   }, [categoryList]);
 
+  // 监听 body 滚动事件, 设置对应当前内容的目录标题高亮
   useEffect(() => {
-    const body = document.getElementsByTagName('body')[0];
-    console.log(body);
-    body.onscroll = (e: any) => {
-      // console.dir(e)
+    const body: HTMLElement = document.getElementsByTagName(
+      'body'
+    )[0] as HTMLElement;
+
+    body.onscroll = (e: Event) => {
       if (!ticking.current) {
         window.requestAnimationFrame(function () {
-          const top = e.srcElement.documentElement.scrollTop || 0;
+          const top = (e.target as any)?.documentElement.scrollTop || 0;
           const category: CategoryTopRange | undefined =
             categoryEles.current.find(
-              (cate: CategoryTopRange) => cate.start <= top && cate.end > top
+              (cate) => cate.start <= top && cate.end > top
             );
-          console.log(top, category, categoryEles);
           if (category) {
             setActiveCategory((category as CategoryTopRange).id);
           }
           ticking.current = false;
         });
-
         ticking.current = true;
       }
     };
   }, [categoryEles]);
 
   return (
-    <div className='relative pb-6'>
-      <Seo title={`HelloGitHub 第 ${current_num} 期`} />
-      <div className='my-6 bg-white p-5'>
-        <div className='my-6 flex flex-col items-center px-2'>
-          <h1 className='mb-2 font-medium text-gray-700'>
-            《HelloGitHub》第 {current_num} 期
-          </h1>
-          <h2 className='text-center text-xl font-normal text-gray-400'>
-            兴趣是最好的老师，HelloGitHub 让你对编程感兴趣！
-          </h2>
-        </div>
-        {categoryList?.map((category: VolumeCategory, _cIndex: number) => {
-          const id = `category-${category.category_id}`;
-          return (
-            <div id={id} key={category.category_id} className='pb-10'>
-              <h1 className='mt-5 text-xl text-gray-900'>
-                {category.category_name}
+    <div className='flex shrink grow flex-row sm:border-l sm:dark:border-slate-600 md:border-none'>
+      <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
+        <div className='relative pb-6'>
+          <Seo title={`HelloGitHub 第 ${current_num} 期`} />
+          <div className='my-6 bg-white p-5'>
+            <div className='my-6 flex flex-col items-center px-2'>
+              <h1 className='mb-2 font-medium text-gray-700'>
+                《HelloGitHub》第 {current_num} 期
               </h1>
-              {category.items.map((item: VolumeItem) => {
-                return (
-                  <div key={item.rid}>
-                    <div className='mt-8 mb-4 inline-flex gap-2'>
-                      <a id={item.name} href={`#${item.name}`}>
-                        <LinkTo />
-                      </a>
-                      <span>{itemIndex(item)}.</span>
-                      <a
-                        href={item.github_url}
-                        target='_blank'
-                        onClick={() => onClickLink(item)}
-                        className=' text-blue-600'
-                        rel='noreferrer'
-                      >
-                        <span>{item.name}</span>
-                      </a>
-                    </div>
-                    {/* stars forks watch */}
-                    <div className='mb-4 flex'>
-                      <span className='mr-2 flex text-gray-600'>
-                        <Star /> Star {item.stars}
-                      </span>
-                      <span className='mr-2 flex text-gray-600'>
-                        <Fork />
-                        Fork {item.forks}
-                      </span>
-                      <span className='flex text-gray-600'>
-                        <Watch />
-                        Watch {item.watch}
-                      </span>
-                    </div>
-                    <MDRender>{item.description}</MDRender>
-                    {item.image_url && (
-                      <ImageWithPreview
-                        src={item.image_url}
-                        className='rounded-lg'
-                        alt={item.name}
-                      />
-                    )}
-                  </div>
-                );
-              })}
+              <h2 className='text-center text-xl font-normal text-gray-400'>
+                兴趣是最好的老师，HelloGitHub 让你对编程感兴趣！
+              </h2>
             </div>
-          );
-        })}
-      </div>
-      {/* 右侧目录 */}
-      <div className='absolute top-0 right-0 hidden p-4 md:block md:grow-0'>
-        <div className='fixed top-20 right-64'>
-          <div className='w-64 rounded-sm bg-white p-4'>
-            <h4 className='mb-2 border-b border-gray-200 pb-2'>目录</h4>
-            <ul
-              className='custom-scrollbar overflow-scroll'
-              style={{ maxHeight: 550 }}
-            >
-              {categoryList?.map((category, cIndex: number) => {
-                const id = `#category-${category.category_id}`;
-
-                return (
-                  <li
-                    key={cIndex}
-                    className={linkClassName(id)}
-                    onClick={() => {
-                      setActiveCategory(id);
-                      const ele: any = document.querySelector(id);
-                      console.dir(ele);
-                      const { offsetTop } = ele;
-                      // 根据 offsetTop 滚动到指定位置
-                      window.scrollTo({
-                        top: offsetTop - 20,
-                      });
-                    }}
-                  >
+            {categoryList?.map((category: VolumeCategory, _cIndex: number) => {
+              const id = `category-${category.category_id}`;
+              return (
+                <div id={id} key={category.category_id} className='pb-10'>
+                  <h1 className='mt-5 text-xl text-gray-900'>
                     {category.category_name}
-                  </li>
-                );
-              })}
-            </ul>
+                  </h1>
+                  {category.items.map((item: VolumeItem) => {
+                    return (
+                      <div key={item.rid}>
+                        <div className='mt-8 mb-4 inline-flex gap-2'>
+                          <a id={item.name} href={`#${item.name}`}>
+                            <LinkTo />
+                          </a>
+                          <span>{itemIndex(item)}.</span>
+                          <a
+                            href={item.github_url}
+                            target='_blank'
+                            onClick={() => onClickLink(item)}
+                            className=' text-blue-600'
+                            rel='noreferrer'
+                          >
+                            <span>{item.name}</span>
+                          </a>
+                        </div>
+                        {/* stars forks watch */}
+                        <div className='mb-4 flex'>
+                          <span className='mr-2 flex text-gray-600'>
+                            <Star />
+                            Star {item.stars}
+                          </span>
+                          <span className='mr-2 flex text-gray-600'>
+                            <Fork />
+                            Fork {item.forks}
+                          </span>
+                          <span className='flex text-gray-600'>
+                            <Watch />
+                            Watch {item.watch}
+                          </span>
+                        </div>
+                        {/* markdown 内容渲染 */}
+                        <MDRender>{item.description}</MDRender>
+                        {/* 图片预览 */}
+                        {item.image_url && (
+                          <ImageWithPreview
+                            className='rounded-lg'
+                            src={item.image_url}
+                            alt={item.name}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+
+          <Pagination
+            total={total}
+            current={current_num}
+            onChange={onPageChange}
+          />
+        </div>
+      </div>
+
+      <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
+        {/* 右侧目录 */}
+        <div className=''>
+          <div className='top-15 fixed w-3/12 xl:w-2/12'>
+            <div className='mt-6 ml-3 bg-white p-4'>
+              <h4 className='mb-2 border-b border-gray-200 pb-2'>目录</h4>
+              <ul
+                className='custom-scrollbar overflow-scroll'
+                style={{ maxHeight: 550 }}
+              >
+                {categoryList?.map((category, cIndex) => {
+                  const id = `#category-${category.category_id}`;
+
+                  return (
+                    <li
+                      key={cIndex}
+                      className={linkClassName(id)}
+                      onClick={() => {
+                        setActiveCategory(id);
+                        const { offsetTop } = document.querySelector(
+                          id
+                        ) as HTMLElement;
+                        // 根据 offsetTop 滚动到指定位置
+                        window.scrollTo({
+                          top: offsetTop,
+                        });
+                      }}
+                    >
+                      {category.category_name}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+          <div
+            onClick={() => {
+              // 滚动到顶部
+              window.scrollTo({
+                top: 0,
+              });
+              setActiveCategory('');
+            }}
+            className='fixed bottom-10 right-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md'
+          >
+            <ToTop />
           </div>
         </div>
-        <div
-          onClick={() => {
-            // 滚动到顶部
-            window.scrollTo({
-              top: 0,
-            });
-            setActiveCategory('');
-          }}
-          className='fixed bottom-10 right-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md'
-        >
-          <ToTop />
-        </div>
       </div>
-      <Pagination total={total} current={current_num} onChange={onPageChange} />
     </div>
   );
 };
@@ -242,8 +255,8 @@ export default PeriodicalPage;
 // 此函数在构建时被调用
 export async function getStaticPaths() {
   // 调用外部 API 获取月刊的总期数
-  const total = await getVolumeNum();
-  const posts = new Array(total).fill(0).map((_, i) => ({ id: String(i + 1) }));
+  const { data } = await getVolumeNum();
+  const posts = data.map(({ num }) => ({ id: String(num) }));
 
   // 根据博文列表生成所有需要预渲染的路径
   const paths = posts.map((post) => ({
@@ -257,11 +270,11 @@ export async function getStaticPaths() {
 
 // 在构建时也会被调用
 export async function getStaticProps({ params }: any) {
-  // params 包含此片博文的 `id` 信息。
+  // params 包含此篇博文的 `id` 信息。
   // 如果路由是 /posts/1，那么 params.id 就是 1
   const volume = await getVolume(params.id);
-  const total = await getVolumeNum();
+  const { total } = await getVolumeNum();
 
   // 通过 props 参数向页面传递博文的数据
-  return { props: { volume, total } };
+  return { props: { volume, total }, revalidate: 10 };
 }
