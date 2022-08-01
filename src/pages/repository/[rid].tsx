@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 
 import ImageWithPreview from '@/components/ImageWithPreview';
 import ButtonGroup from '@/components/respository/ButtonGroup';
+import CommentSubmit from '@/components/respository/CommentSubmit';
 import Info from '@/components/respository/Info';
 import MoreInfo from '@/components/respository/MoreInfo';
 import Navbar from '@/components/respository/Navbar';
@@ -10,7 +11,6 @@ import Seo from '@/components/Seo';
 import { getDetail } from '@/services/repository';
 
 import { RepositoryProps } from '@/types/reppsitory';
-import CommentSubmit from '@/components/respository/CommentSubmit';
 
 const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
   return (
