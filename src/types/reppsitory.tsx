@@ -55,3 +55,33 @@ export interface RepoType {
   updated_at: string;
   publish_at: number;
 }
+
+export interface CommentItem {
+  comment: string;
+  belong_id: string;
+  belong: string;
+  cid: string;
+  votes: 0;
+  user: {
+    uid: string;
+    nickname: string;
+    avatar: string;
+  };
+  score: number;
+  is_used: boolean;
+  is_hot: boolean;
+  is_voted: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+/**
+ * 获取评论接口返回的数据
+ */
+export interface CommentData {
+  total: number;
+  user_comment: CommentItem;
+  data: CommentItem[];
+  page: number;
+  has_more: boolean;
+}
