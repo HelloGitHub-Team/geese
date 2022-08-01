@@ -2,7 +2,7 @@ import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-import { BaseType, Repository, Vote, VoteStatus } from '@/types/reppsitory';
+import { BaseType, Repository, CommentData, Vote, VoteStatus } from '@/types/reppsitory';
 
 export const getDetail = async (rid: string): Promise<Repository> => {
   const data = await fetcher<Repository>(makeUrl(`/repository/detail/${rid}/`));
@@ -54,4 +54,47 @@ export const recordGoGithub = async (rid: string): Promise<any> => {
   } catch (error) {
     console.error(error);
   }
+export const submitComment = async (
+  belongId: string,
+  data: {
+    comment: string;
+    isUsed: string;
+    score: number;
+  }
+) => {
+  const url = makeUrl(`/v1/comment/repository/${belongId}`);
+  const res = await fetcher<any>(url, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  return res;
+};
+
+export const getComments = async (belong: string, belongId: string) => {
+  const url = makeUrl(`/v1/comment/${belong}/${belongId}`);
+  const res = await fetcher<CommentData>(url);
+  return res;
+};
+
+// 点赞
+export const like = async (
+  belong: string,
+  belongId: string,
+  data: { item_id: string }
+) => {
+  const url = makeUrl(`/v1/vote/${belong}/${belongId}`);
+  const res = await fetcher<any>(url, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  return res;
+};
+
+// 取消点赞
+export const unlike = async (id: string) => {
+  const url = makeUrl(`/v1/vote/${id}`);
+  const res = await fetcher<any>(url, {
+    method: 'DELETE',
+  });
+  return res;
 };
