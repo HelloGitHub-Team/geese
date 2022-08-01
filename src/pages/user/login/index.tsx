@@ -3,25 +3,29 @@ import Router from 'next/router';
 import * as React from 'react';
 import { useEffect } from 'react';
 
+import useUserInfo from '@/hooks/useUserInfo';
+
 import { OAuthWechatAPI } from '@/services/login';
 
-import { User } from '@/types/user';
+import { User, UserType } from '@/types/user';
 
 interface IProps {
   token: string;
-  userInfo: string;
+  userInfo: UserType;
 }
 
 const Index = ({ token, userInfo }: IProps) => {
+  const { setUserInfo } = useUserInfo();
+
   useEffect(() => {
     if (token != undefined) {
       // Perform localStorage action
       localStorage.setItem('Authorization', token);
-      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      setUserInfo(userInfo);
     }
     // 返回首页
     Router.push('/');
-  }, [token, userInfo]);
+  }, [token, userInfo, setUserInfo]);
 
   return (
     <div>
