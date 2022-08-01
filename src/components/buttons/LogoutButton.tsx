@@ -10,7 +10,6 @@ const LogoutButton = ({ updateLoginStatus }: LoginOutProps) => {
     try {
       await Logout({ Authorization: `Bearer ${token}` });
       setToken(null);
-      localStorage.clear();
       updateLoginStatus(false);
       return true;
     } catch (error) {
