@@ -13,7 +13,7 @@ export const submitComment = async (
   belongId: string,
   data: {
     comment: string;
-    isUsed: string;
+    isUsed: boolean;
     score: number;
   }
 ) => {
