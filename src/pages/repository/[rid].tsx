@@ -11,6 +11,7 @@ import Seo from '@/components/Seo';
 import { getDetail } from '@/services/repository';
 
 import { RepositoryProps } from '@/types/reppsitory';
+import CommentSubmit from '@/components/respository/CommentSubmit';
 
 const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
   return (
@@ -35,6 +36,7 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
         <MoreInfo repo={repo}></MoreInfo>
       </div>
       <ButtonGroup repo={repo} />
+      <CommentSubmit />
       <div className='h-80'></div>
     </>
   );
