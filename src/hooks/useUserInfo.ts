@@ -1,5 +1,6 @@
-import { UserType } from '@/types/user';
 import { useEffect, useState } from 'react';
+
+import { UserType } from '@/types/user';
 
 const useUserInfo = () => {
   const storageKey = 'userInfo';
