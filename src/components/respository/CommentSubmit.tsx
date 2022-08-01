@@ -3,14 +3,17 @@ import { FormEventHandler, useEffect, useState } from 'react';
 
 import { submitComment } from '@/services/repository';
 
+import { DEFAULT_AVATAR } from '~/constants';
+
 function CommentSubmit(props: {
   avatar: string;
   belongId: string;
   onSuccess?: () => void;
 }) {
   const { commentData, setCommentData } = useCommentData();
+
   // TODO 默认头像
-  const { avatar = '/', belongId, onSuccess } = props;
+  const { avatar = DEFAULT_AVATAR, belongId, onSuccess } = props;
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
     const { value } = e.currentTarget;
