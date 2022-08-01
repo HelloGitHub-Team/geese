@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { isClient } from '@/utils/util';
+
 import { UserType } from '@/types/user';
 
 const useUserInfo = () => {
   const storageKey = 'userInfo';
-  const storageInfo = localStorage.getItem(storageKey);
+  const storageInfo = isClient() ? localStorage.getItem(storageKey) : null;
   const [info, setInfo] = useState<UserType>({
     uid: '',
     nickname: '',
