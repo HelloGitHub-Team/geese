@@ -192,7 +192,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
           <Pagination
             total={total}
             current={current_num}
-            onChange={onPageChange}
+            onPageChange={onPageChange}
           />
         </div>
       </div>
