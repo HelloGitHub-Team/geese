@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { isClient } from '@/utils/util';
+
 const useToken = () => {
   const TOKEN_KEY = 'Authorization';
-  const tokenStorage = localStorage.getItem(TOKEN_KEY);
+  const tokenStorage = isClient() ? localStorage.getItem(TOKEN_KEY) : null;
   const [token, setToken] = useState<string | null>(null);
   const handleTokenChange = useCallback((token: string | null) => {
     if (token) {
