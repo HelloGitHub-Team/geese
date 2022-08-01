@@ -36,7 +36,7 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
         <MoreInfo repo={repo}></MoreInfo>
       </div>
       <ButtonGroup repo={repo} />
-      <CommentSubmit />
+      <CommentSubmit className='mt-3' belongId={repo.rid} />
       <div className='h-80'></div>
     </>
   );
