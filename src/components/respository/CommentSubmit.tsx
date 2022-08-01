@@ -1,19 +1,22 @@
 import Image from 'next/image';
 import { FormEventHandler, useEffect, useState } from 'react';
 
+import useLogin from '@/hooks/useLogin';
+import useUserInfo from '@/hooks/useUserInfo';
+
 import { submitComment } from '@/services/repository';
 
 import { DEFAULT_AVATAR } from '~/constants';
 
 function CommentSubmit(props: {
-  avatar: string;
   belongId: string;
+  className?: string;
   onSuccess?: () => void;
 }) {
   const { commentData, setCommentData } = useCommentData();
-
-  // TODO 默认头像
-  const { avatar = DEFAULT_AVATAR, belongId, onSuccess } = props;
+  const { userInfo } = useUserInfo();
+  const { login } = useLogin();
+  const { belongId, className, onSuccess } = props;
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
     const { value } = e.currentTarget;
@@ -29,8 +32,10 @@ function CommentSubmit(props: {
   };
 
   const handleSubmit = () => {
+    if (!userInfo.avatar) {
+      return login();
+    }
     submitComment(belongId, commentData).then(() => {
-      // 清空 localStorage 中的数据
       setCommentData({
         comment: '',
         isUsed: false,
@@ -41,12 +46,16 @@ function CommentSubmit(props: {
   };
 
   return (
-    <div className='mt-3 bg-white p-4'>
+    <div className={`${className} bg-white p-4`}>
       <h3 className=' mb-4'>评论</h3>
       <div className='flex items-start'>
         <div className='avatar mr-4'>
           <div className='relative w-16 rounded-full'>
-            <Image layout='fill' src={avatar} alt='头像' />
+            <Image
+              layout='fill'
+              src={userInfo.avatar || DEFAULT_AVATAR}
+              alt='头像'
+            />
           </div>
         </div>
         <div className='flex-1'>
