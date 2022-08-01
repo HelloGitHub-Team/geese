@@ -1,6 +1,7 @@
-import { submitComment } from '@/services/repository';
 import Image from 'next/image';
 import { FormEventHandler, useEffect, useState } from 'react';
+
+import { submitComment } from '@/services/repository';
 
 function CommentSubmit(props: {
   avatar: string;
