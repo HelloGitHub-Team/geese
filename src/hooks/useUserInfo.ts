@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { UserType } from '@/types/user';
 
 const useUserInfo = () => {
   const storageKey = 'userInfo';
+  const storageInfo = localStorage.getItem(storageKey);
   const [info, setInfo] = useState<UserType>({
     uid: '',
     nickname: '',
@@ -11,14 +12,13 @@ const useUserInfo = () => {
   });
 
   useEffect(() => {
-    const info = localStorage.getItem(storageKey);
-    info && setInfo(JSON.parse(info));
-  }, []);
+    storageInfo && setInfo(JSON.parse(storageInfo));
+  }, [storageInfo]);
 
-  const setUserInfo = (info: UserType) => {
+  const setUserInfo = useCallback((info: UserType) => {
     localStorage.setItem(storageKey, JSON.stringify(info));
     setInfo(info);
-  };
+  }, []);
 
   return {
     userInfo: info,
