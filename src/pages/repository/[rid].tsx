@@ -36,7 +36,11 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
         <MoreInfo repo={repo}></MoreInfo>
       </div>
       <ButtonGroup repo={repo} />
-      <CommentContainer className='mt-3 bg-white' belongId={repo.rid} />
+      <CommentContainer
+        className='mt-3 bg-white'
+        belong='repository'
+        belongId={repo.rid}
+      />
       <div className='h-80'></div>
     </>
   );
