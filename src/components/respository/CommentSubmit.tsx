@@ -5,6 +5,8 @@ import useCommentData from '@/hooks/useCommentData';
 import useLogin from '@/hooks/useLogin';
 import useUserInfo from '@/hooks/useUserInfo';
 
+import Rating from '@/components/respository/Rating';
+
 import { submitComment } from '@/services/repository';
 
 import { DEFAULT_AVATAR } from '~/constants';
@@ -47,8 +49,7 @@ function CommentSubmit(props: {
   };
 
   return (
-    <div className={`${className} p-4`}>
-      <h3 className=' mb-4'>评论</h3>
+    <div className={`${className}`}>
       <div className='flex items-start'>
         <div className='avatar mr-4'>
           <div className='relative w-16 rounded-full'>
@@ -94,43 +95,7 @@ function CommentSubmit(props: {
             <div className='h-4 w-[1px] bg-gray-300'></div>
             <div className='flex items-center text-sm'>
               <span>评分：</span>
-              <div className='rating rating-sm'>
-                <input
-                  type='radio'
-                  name='rating-1'
-                  className='mask mask-star'
-                  checked={commentData.score === 1}
-                  onClick={() => handleChangeRating(1)}
-                />
-                <input
-                  type='radio'
-                  name='rating-1'
-                  className='mask mask-star'
-                  checked={commentData.score === 2}
-                  onClick={() => handleChangeRating(2)}
-                />
-                <input
-                  type='radio'
-                  name='rating-1'
-                  className='mask mask-star'
-                  checked={commentData.score === 3}
-                  onClick={() => handleChangeRating(3)}
-                />
-                <input
-                  type='radio'
-                  name='rating-1'
-                  className='mask mask-star'
-                  checked={commentData.score === 4}
-                  onClick={() => handleChangeRating(4)}
-                />
-                <input
-                  type='radio'
-                  name='rating-1'
-                  className='mask mask-star'
-                  checked={commentData.score === 5}
-                  onClick={() => handleChangeRating(5)}
-                />
-              </div>
+              <Rating value={commentData.score} onChange={handleChangeRating} />
             </div>
             <button
               className='btn btn-sm ml-auto'
