@@ -56,12 +56,12 @@ export interface RepoType {
   publish_at: number;
 }
 
-export interface CommentItem {
+export interface CommentItemData {
   comment: string;
   belong_id: string;
   belong: string;
   cid: string;
-  votes: 0;
+  votes: number;
   user: {
     uid: string;
     nickname: string;
@@ -80,8 +80,8 @@ export interface CommentItem {
  */
 export interface CommentData {
   total: number;
-  user_comment: CommentItem;
-  data: CommentItem[];
+  user_comment: CommentItemData;
+  data: CommentItemData[];
   page: number;
   has_more: boolean;
 }

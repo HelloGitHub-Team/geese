@@ -25,8 +25,15 @@ export const submitComment = async (
   return res;
 };
 
-export const getComments = async (belong: string, belongId: string) => {
-  const url = makeUrl(`/v1/comment/${belong}/${belongId}`);
+export const getComments = async (
+  belong: string,
+  belongId: string,
+  page = 1,
+  sortType = 'last'
+) => {
+  const url = makeUrl(
+    `/v1/comment/${belong}/${belongId}?page=${page}&sort_by=${sortType}`
+  );
   const res = await fetcher<CommentData>(url);
   return res;
 };
