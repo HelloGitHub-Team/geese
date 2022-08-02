@@ -21,7 +21,7 @@ const useLogin = () => {
   const logout = useCallback(async () => {
     await Logout({ Authorization: `Bearer ${token}` });
     setToken(null);
-  }, []);
+  }, [token, setToken]);
 
   useEffect(() => {
     setIsLogin(!!token);
