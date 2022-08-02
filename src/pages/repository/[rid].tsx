@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 
 import ImageWithPreview from '@/components/ImageWithPreview';
 import ButtonGroup from '@/components/respository/ButtonGroup';
-import CommentSubmit from '@/components/respository/CommentSubmit';
+import CommentContainer from '@/components/respository/CommentContainer';
 import Info from '@/components/respository/Info';
 import MoreInfo from '@/components/respository/MoreInfo';
 import Navbar from '@/components/respository/Navbar';
@@ -37,7 +37,7 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
         <MoreInfo repo={repo}></MoreInfo>
       </div>
       <ButtonGroup repo={repo} />
-      <CommentSubmit className='mt-3' belongId={repo.rid} />
+      <CommentContainer className='mt-3 bg-white' belongId={repo.rid} />
       <div className='h-80'></div>
     </>
   );

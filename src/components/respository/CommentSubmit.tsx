@@ -47,7 +47,7 @@ function CommentSubmit(props: {
   };
 
   return (
-    <div className={`${className} bg-white p-4`}>
+    <div className={`${className} p-4`}>
       <h3 className=' mb-4'>评论</h3>
       <div className='flex items-start'>
         <div className='avatar mr-4'>
