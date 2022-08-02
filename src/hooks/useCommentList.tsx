@@ -52,7 +52,7 @@ function useCommentList({
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   return {
     list,
