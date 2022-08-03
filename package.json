@@ -23,7 +23,6 @@
     "@tailwindcss/line-clamp": "^0.4.0",
     "classnames": "^2.3.1",
     "clsx": "^1.1.1",
-    "daisyui": "^2.20.0",
     "dayjs": "^1.11.3",
     "eslint-plugin-react": "^7.30.1",
     "next": "^12.1.6",
