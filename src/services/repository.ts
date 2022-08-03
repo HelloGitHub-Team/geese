@@ -77,7 +77,7 @@ export const getComments = async (
   sortType = 'last'
 ) => {
   const url = makeUrl(
-    `/v1/comment/${belong}/${belongId}?page=${page}&sort_by=${sortType}`
+    `/comment/${belong}/${belongId}?page=${page}&sort_by=${sortType}`
   );
   const res = await fetcher<CommentData>(url);
   return res;
