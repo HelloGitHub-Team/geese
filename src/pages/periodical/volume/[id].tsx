@@ -7,10 +7,11 @@ import ImageWithPreview from '@/components/ImageWithPreview';
 import MDRender from '@/components/mdRender/MDRender';
 import Pagination from '@/components/pagination/Pagination';
 import Seo from '@/components/Seo';
+import ToTop from '@/components/toTop/ToTop';
 
 import { getVolume, getVolumeNum, recordGoGithub } from '@/services/volume';
 
-import { Fork, LinkTo, Star, ToTop, Watch } from './icon';
+import { Fork, LinkTo, Star, Watch } from './icon';
 
 import {
   PeriodicalPageProps,
@@ -232,18 +233,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
               </ul>
             </div>
           </div>
-          <div
-            onClick={() => {
-              // 滚动到顶部
-              window.scrollTo({
-                top: 0,
-              });
-              setActiveCategory('');
-            }}
-            className='fixed bottom-10 right-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md'
-          >
-            <ToTop />
-          </div>
+          <ToTop cb={() => setActiveCategory('')} />
         </div>
       </div>
     </div>

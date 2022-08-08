@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useState } from 'react';
 
 import Header from '@/components/layout/Header';
+import ToTop from '@/components/toTop/ToTop';
 
 import IndexSide from '../side/IndexSide';
 
@@ -37,6 +38,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 loginStatus={loginStatus}
                 updateLoginStatus={updateLoginStatus}
               ></IndexSide>
+              <ToTop />
             </div>
           </div>
         ) : (
