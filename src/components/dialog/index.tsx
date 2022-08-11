@@ -25,13 +25,13 @@ import {
   Hidden,
   isDisabledReactIssue7711,
   match,
-} from '../utils';
+} from './utils';
 import {
   StackMessage,
   StackProvider,
   State,
   useOpenClosed,
-} from '../utils/common';
+} from './utils/common';
 import {
   useEvent,
   useEventListener,
@@ -41,14 +41,14 @@ import {
   useOwnerDocument,
   useServerHandoffComplete,
   useSyncRefs,
-} from '../utils/hooks';
+} from './utils/hooks';
 import {
   Features,
   forwardRefWithAs,
   PropsForFeatures,
   render,
-} from '../utils/render';
-import { Props } from '../utils/types';
+} from './utils/render';
+import { Props } from './utils/types';
 
 export enum Keys {
   Space = ' ',

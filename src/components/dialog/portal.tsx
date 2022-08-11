@@ -13,16 +13,16 @@ import React, {
 } from 'react';
 import { createPortal } from 'react-dom';
 
-import { isServer, microTask } from '../utils';
+import { isServer, microTask } from './utils';
 import {
   optionalRef,
   useIsoMorphicEffect,
   useOwnerDocument,
   useServerHandoffComplete,
   useSyncRefs,
-} from '../utils/hooks';
-import { forwardRefWithAs, render } from '../utils/render';
-import { Props } from '../utils/types';
+} from './utils/hooks';
+import { forwardRefWithAs, render } from './utils/render';
+import { Props } from './utils/types';
 
 const ForcePortalRootContext = createContext(false);
 

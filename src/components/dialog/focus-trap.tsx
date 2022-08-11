@@ -16,7 +16,7 @@ import {
   Hidden,
   match,
   microTask,
-} from '../utils';
+} from './utils';
 import {
   Direction as TabDirection,
   useEvent,
@@ -27,9 +27,9 @@ import {
   useSyncRefs,
   useTabDirection,
   useWatch,
-} from '../utils/hooks';
-import { forwardRefWithAs, render } from '../utils/render';
-import { Props } from '../utils/types';
+} from './utils/hooks';
+import { forwardRefWithAs, render } from './utils/render';
+import { Props } from './utils/types';
 
 const DEFAULT_FOCUS_TRAP_TAG = 'div' as const;
 

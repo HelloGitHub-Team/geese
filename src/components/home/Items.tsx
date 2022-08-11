@@ -6,7 +6,7 @@ import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
 import Loading from '@/components/loading/Loading';
-import { RepoModal } from '@/components/repo';
+import { RepoModal } from '@/components/respository/Submit';
 
 import { fetcher } from '@/services/base';
 import { getTags } from '@/services/home';

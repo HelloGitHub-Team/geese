@@ -6,7 +6,7 @@ import {
   useContext,
 } from 'react';
 
-import { useEvent, useIsoMorphicEffect } from '@/components/utils/hooks';
+import { useEvent, useIsoMorphicEffect } from '@/components/dialog/utils/hooks';
 
 const Context = createContext<State | null>(null);
 Context.displayName = 'OpenClosedContext';

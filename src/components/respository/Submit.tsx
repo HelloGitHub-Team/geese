@@ -3,7 +3,7 @@ import { Fragment, useCallback, useState } from 'react';
 
 import { Dialog } from '@/components/dialog';
 import Message from '@/components/message';
-import { Transition } from '@/components/transition/transition';
+import { Transition } from '@/components/dialog/transition/transition';
 
 import { createRepo } from '@/services/repository';
 

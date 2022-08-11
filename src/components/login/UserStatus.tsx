@@ -5,7 +5,7 @@ import useSWR from 'swr';
 
 import useToken from '@/hooks/useToken';
 
-import { RepoModal } from '@/components/repo';
+import { RepoModal } from '@/components/respository/Submit';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';

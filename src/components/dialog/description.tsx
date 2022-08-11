@@ -14,9 +14,9 @@ import {
   useId,
   useIsoMorphicEffect,
   useSyncRefs,
-} from '../utils/hooks';
-import { forwardRefWithAs, render } from '../utils/render';
-import { Props } from '../utils/types';
+} from './utils/hooks';
+import { forwardRefWithAs, render } from './utils/render';
+import { Props } from './utils/types';
 
 interface SharedData {
   slot?: any;
