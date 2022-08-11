@@ -25,7 +25,7 @@ type CategoryTopRange = {
   end: number;
 };
 
-const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
+const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<string>('');
   // 月刊列表
@@ -33,7 +33,6 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
     return volume?.data || [];
   }, [volume]);
 
-  const { current_num } = volume;
   const onPageChange = (page: number) => {
     router.push(`/periodical/volume/${page}`);
   };
@@ -122,11 +121,11 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
     <div className='flex shrink grow flex-row sm:border-l sm:dark:border-slate-600 md:border-none'>
       <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
         <div className='relative pb-6'>
-          <Seo title={`HelloGitHub 第 ${current_num} 期`} />
-          <div className='my-6 bg-white p-5'>
-            <div className='my-6 flex flex-col items-center px-2'>
+          <Seo title={`HelloGitHub 第 ${volume?.current_num} 期`} />
+          <div className='my-2 bg-white p-5'>
+            <div className='my-4 flex flex-col items-center px-2'>
               <h1 className='mb-2 font-medium text-gray-700'>
-                《HelloGitHub》第 {current_num} 期
+                《HelloGitHub》第 {volume?.current_num} 期
               </h1>
               <h2 className='text-center text-xl font-normal text-gray-400'>
                 兴趣是最好的老师，HelloGitHub 让你对编程感兴趣！
@@ -142,7 +141,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
                   {category.items.map((item: VolumeItem) => {
                     return (
                       <div key={item.rid}>
-                        <div className='mt-8 mb-4 inline-flex gap-2'>
+                        <div className='mt-6 mb-4 inline-flex gap-2'>
                           <a id={item.name} href={`#${item.name}`}>
                             <LinkTo />
                           </a>
@@ -174,13 +173,16 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
                         </div>
                         {/* markdown 内容渲染 */}
                         <MDRender>{item.description}</MDRender>
+
                         {/* 图片预览 */}
                         {item.image_url && (
-                          <ImageWithPreview
-                            className='rounded-lg'
-                            src={item.image_url}
-                            alt={item.name}
-                          />
+                          <div className='my-2 flex justify-center'>
+                            <ImageWithPreview
+                              className='rounded-lg'
+                              src={item.image_url}
+                              alt={item.name}
+                            />
+                          </div>
                         )}
                       </div>
                     );
@@ -191,8 +193,8 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
           </div>
 
           <Pagination
-            total={total}
-            current={current_num}
+            total={volume?.total}
+            current={volume?.current_num}
             onPageChange={onPageChange}
           />
         </div>
@@ -202,7 +204,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume, total }) => {
         {/* 右侧目录 */}
         <div className=''>
           <div className='top-15 fixed w-3/12 xl:w-2/12'>
-            <div className='mt-6 ml-3 bg-white p-4'>
+            <div className='mt-2 ml-3 bg-white p-4'>
               <h4 className='mb-2 border-b border-gray-200 pb-2'>目录</h4>
               <ul
                 className='custom-scrollbar overflow-scroll'
@@ -246,16 +248,16 @@ export default PeriodicalPage;
 export async function getStaticPaths() {
   // 调用外部 API 获取月刊的总期数
   const { data } = await getVolumeNum();
-  const posts = data.map(({ num }) => ({ id: String(num) }));
+  // const posts = data.map(({ num }) => ({ id: String(num) }));
 
   // 根据博文列表生成所有需要预渲染的路径
-  const paths = posts.map((post) => ({
-    params: { id: post.id },
+  const paths = data.map((item) => ({
+    params: { id: String(item.num) },
   }));
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
+  return { paths, fallback: true };
 }
 
 // 在构建时也会被调用
@@ -263,8 +265,6 @@ export async function getStaticProps({ params }: any) {
   // params 包含此篇博文的 `id` 信息。
   // 如果路由是 /posts/1，那么 params.id 就是 1
   const volume = await getVolume(params.id);
-  const { total } = await getVolumeNum();
-
   // 通过 props 参数向页面传递博文的数据
-  return { props: { volume, total }, revalidate: 10 };
+  return { props: { volume }, revalidate: 3600 * 10 };
 }

@@ -8,11 +8,15 @@ export const fetcher = async function fetcher<T>(
   }
 
   const res = await fetch(input, init);
-  if (!res.ok || res.status === 500 || res.status === 404) {
+  if (
+    !res.ok ||
+    res.status === 500 ||
+    res.status === 404 ||
+    res.status === 400
+  ) {
     if (res.status === 500) {
       window.location.href = '/500';
-    }
-    if (res.status === 404) {
+    } else if (res.status === 404 || res.status === 400) {
       window.location.href = '/404';
     }
     throw res;

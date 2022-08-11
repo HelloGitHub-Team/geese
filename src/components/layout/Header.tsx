@@ -32,7 +32,7 @@ const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
         <SearchInput />
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
           <li className='md:block'>
-            <Link href='/periodical/volume/75' className='rounded-lg px-3 py-2'>
+            <Link href='/periodical/volume/' className='rounded-lg px-3 py-2'>
               月刊
             </Link>
           </li>

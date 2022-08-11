@@ -117,8 +117,8 @@ export default function SearchInput() {
       <div className='relative w-full max-w-xs'>
         <input
           type='text'
-          className='block h-10 w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400'
-          placeholder='探索 HelloGitHub'
+          className='block h-10 w-full rounded-md border-gray-200 py-3 px-2 text-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 md:text-sm'
+          placeholder='搜索开源项目'
           value={query}
           onChange={onChange}
           onKeyDown={onKeyDown}

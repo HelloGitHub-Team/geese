@@ -1,9 +1,9 @@
 export interface PeriodicalPageProps {
-  total: number;
   volume: VolumeType;
 }
 
 export interface VolumeType {
+  total: number;
   pre_num: number;
   next_num: number;
   current_num: number;

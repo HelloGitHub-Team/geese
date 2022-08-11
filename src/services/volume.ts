@@ -5,6 +5,7 @@ import { fetcher } from './base';
 interface Volume {
   pre_num: number;
   next_num: number;
+  total: number;
   current_num: number;
   publish_at: string;
   data: any[];
