@@ -1,43 +1,47 @@
+import clsx from 'clsx';
+import { GoStar } from 'react-icons/go';
+
 import { NOOP } from '~/constants';
 
 function Rating(props: { value: number; onChange?: (value: number) => void }) {
-  const { value, onChange = NOOP } = props;
+  const { value = 2, onChange = NOOP } = props;
+  const size = 18;
 
   return (
-    <div className='rating rating-sm'>
-      <input
-        type='radio'
-        name='rating-1'
-        className='mask mask-star'
-        checked={value === 1}
+    <div className='flex items-center'>
+      <GoStar
+        size={size}
+        className={clsx('cursor-pointer text-gray-400', {
+          'text-yellow-300': value >= 1,
+        })}
         onClick={() => onChange(1)}
       />
-      <input
-        type='radio'
-        name='rating-1'
-        className='mask mask-star'
-        checked={value === 2}
+      <GoStar
+        size={size}
+        className={clsx('cursor-pointer text-gray-400', {
+          'text-yellow-300': value >= 2,
+        })}
         onClick={() => onChange(2)}
       />
-      <input
-        type='radio'
-        name='rating-1'
-        className='mask mask-star'
-        checked={value === 3}
+      <GoStar
+        size={size}
+        className={clsx('cursor-pointer text-gray-400', {
+          'text-yellow-300': value >= 3,
+        })}
         onClick={() => onChange(3)}
       />
-      <input
-        type='radio'
-        name='rating-1'
-        className='mask mask-star'
-        checked={value === 4}
+      <GoStar
+        size={size}
+        className={clsx('cursor-pointer text-gray-400', {
+          'text-yellow-300': value >= 4,
+        })}
         onClick={() => onChange(4)}
       />
-      <input
-        type='radio'
-        name='rating-1'
-        className='mask mask-star'
-        checked={value === 5}
+      <GoStar
+        size={size}
+        className={clsx('cursor-pointer text-gray-400', {
+          'text-yellow-300': value >= 5,
+        })}
         onClick={() => onChange(5)}
       />
     </div>

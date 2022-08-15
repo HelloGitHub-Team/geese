@@ -62,7 +62,7 @@ const CommentItem = (
           <span className='text-sm'>{isUsed ? '已用过' : '未用过'}</span>
         </div>
         <div className='mt-3 text-sm text-gray-900'>{comment}</div>
-        <div className='flex items-center justify-between'>
+        <div className='mt-2 flex items-center justify-between'>
           <span className='text-sm text-[#8a919f]'>{fromNow(createdAt)}</span>
           <div
             className={`flex cursor-pointer items-center leading-10 text-[#8a919f] hover:text-gray-900 active:text-gray-400 ${

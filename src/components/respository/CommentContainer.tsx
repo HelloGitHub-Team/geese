@@ -21,6 +21,7 @@ const CommentContainer = (props: Props) => {
     list[index].is_voted = value;
     setList([...list]);
   };
+  const btnActive = 'bg-blue-600';
 
   return (
     <div className={`p-4 ${className}`}>
@@ -30,13 +31,17 @@ const CommentContainer = (props: Props) => {
         <strong>{total} 条评论</strong>
         <div className='btn-group'>
           <button
-            className={`btn btn-sm ${sortType === 'last' ? 'btn-active' : ''}`}
+            className={`${
+              sortType === 'last' ? btnActive : ''
+            } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-l-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90`}
             onClick={() => sortBy('last')}
           >
-            默认
+            最新
           </button>
           <button
-            className={`btn btn-sm ${sortType === 'hot' ? 'btn-active' : ''}`}
+            className={`${
+              sortType === 'hot' ? btnActive : ''
+            } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-r-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90`}
             onClick={() => sortBy('hot')}
           >
             最热

@@ -51,8 +51,8 @@ function CommentSubmit(props: {
   return (
     <div className={`${className}`}>
       <div className='flex items-start'>
-        <div className='avatar mr-4'>
-          <div className='relative w-16 rounded-full'>
+        <div className='relative mr-4 inline-flex'>
+          <div className='relative aspect-square w-16 overflow-hidden rounded-full'>
             <Image
               layout='fill'
               src={userInfo.avatar || DEFAULT_AVATAR}
@@ -62,7 +62,7 @@ function CommentSubmit(props: {
         </div>
         <div className='flex-1'>
           <textarea
-            className='textarea textarea-bordered w-full'
+            className='min-h-[3rem] w-full flex-shrink rounded-lg bg-white py-2 px-4 text-sm'
             placeholder='写评论...'
             value={commentData.comment}
             onInput={handleInput}
@@ -75,10 +75,11 @@ function CommentSubmit(props: {
               <input
                 type='radio'
                 name='radio-1'
-                className='radio radio-sm mr-1'
+                className='mr-1 h-5 w-5 flex-shrink-0 cursor-pointer appearance-none rounded-full border border-gray-400 text-gray-800 focus:border-gray-800 focus:bg-gray-800'
+                style={{ boxShadow: 'none' }}
                 checked={!commentData.isUsed}
               />
-              <span className='label-text'>未用过</span>
+              <span className='text-sm'>未用过</span>
             </label>
             <label
               className='flex cursor-pointer items-center py-2'
@@ -87,10 +88,11 @@ function CommentSubmit(props: {
               <input
                 type='radio'
                 name='radio-1'
-                className='radio radio-sm mr-1'
+                className='mr-1 h-5 w-5 flex-shrink-0 cursor-pointer appearance-none rounded-full border border-gray-400 text-gray-800 focus:border-gray-800 focus:bg-gray-800'
+                style={{ boxShadow: 'none' }}
                 checked={commentData.isUsed}
               />
-              <span className='label-text'>已用过</span>
+              <span className='text-sm'>已用过</span>
             </label>
             <div className='h-4 w-[1px] bg-gray-300'></div>
             <div className='flex items-center text-sm'>
@@ -98,7 +100,7 @@ function CommentSubmit(props: {
               <Rating value={commentData.score} onChange={handleChangeRating} />
             </div>
             <button
-              className='btn btn-sm ml-auto'
+              className='ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90'
               disabled={!commentData.comment || !commentData.score}
               onClick={handleSubmit}
             >
