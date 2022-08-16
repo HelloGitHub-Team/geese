@@ -2,9 +2,10 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { isClient } from '@/utils/util';
 
+const TOKEN_KEY = 'Authorization';
+
 const useToken = () => {
-  const TOKEN_KEY = 'Authorization';
-  const tokenStorage = isClient() ? localStorage.getItem(TOKEN_KEY) : null;
+  const tokenStorage = getCurrentToken();
   const [token, setToken] = useState<string | null>(null);
   const handleTokenChange = useCallback((token: string | null) => {
     if (token) {
@@ -23,6 +24,10 @@ const useToken = () => {
     token,
     setToken: handleTokenChange,
   };
+};
+
+export const getCurrentToken = () => {
+  return isClient() ? localStorage.getItem(TOKEN_KEY) : null;
 };
 
 export default useToken;

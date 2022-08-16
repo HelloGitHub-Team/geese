@@ -1,3 +1,5 @@
+import { getCurrentToken } from '@/hooks/useToken';
+
 import Message from '@/components/message';
 
 export const fetcher = async function fetcher<T>(
@@ -9,7 +11,13 @@ export const fetcher = async function fetcher<T>(
     throw new Error('OFFLINE');
   }
 
-  const res = await fetch(input, init);
+  const defaultInit = {
+    headers: {
+      Authorization: `Bearer ${getCurrentToken()}`,
+    },
+  };
+  const res = await fetch(input, Object.assign(defaultInit, init));
+
   try {
     const json = await res.json();
     if (!res.ok) {
