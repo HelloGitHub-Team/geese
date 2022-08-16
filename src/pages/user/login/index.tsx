@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext } from 'next';
-import Router from 'next/router';
 import * as React from 'react';
 import { useEffect } from 'react';
 
@@ -25,8 +24,12 @@ const Index = ({ token, userInfo }: IProps) => {
       setToken(token);
       setUserInfo(userInfo);
     }
-    // 返回首页
-    Router.push('/');
+    // 返回触发登录时的页面。
+    // 1.登录的流程需要触发 2 次页面跳转。
+    // 2.一次是从触发登录的页面跳转到二维码页面。
+    // 3.一次是从二维码页面跳转到本页面。
+    // 4.所以返回 2 次正好是回到触发登录时的页面。
+    window.history.go(-2);
   }, [token, userInfo, setUserInfo, setToken]);
 
   return (
