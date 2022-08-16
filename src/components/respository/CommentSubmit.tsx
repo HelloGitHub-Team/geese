@@ -18,7 +18,7 @@ function CommentSubmit(props: {
 }) {
   const { commentData, setCommentData } = useCommentData();
   const { userInfo } = useUserInfo();
-  const { login } = useLogin();
+  const { login, isLogin } = useLogin();
   const { belongId, className, onSuccess } = props;
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
@@ -35,7 +35,7 @@ function CommentSubmit(props: {
   };
 
   const handleSubmit = () => {
-    if (!userInfo.avatar) {
+    if (!isLogin) {
       return login();
     }
     submitComment(belongId, commentData).then(() => {
@@ -100,7 +100,7 @@ function CommentSubmit(props: {
               <Rating value={commentData.score} onChange={handleChangeRating} />
             </div>
             <button
-              className='ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90'
+              className='ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90 disabled:bg-gray-100 disabled:text-gray-300'
               disabled={!commentData.comment || !commentData.score}
               onClick={handleSubmit}
             >

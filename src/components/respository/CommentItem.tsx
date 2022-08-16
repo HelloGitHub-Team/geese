@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import { GoThumbsup } from 'react-icons/go';
 
+import { showMessage } from '@/lib/showMessage';
+import useLogin from '@/hooks/useLogin';
+
 import Rating from '@/components/respository/Rating';
 
 import { like, unlike } from '@/services/repository';
@@ -30,14 +33,17 @@ const CommentItem = (
     className,
     onChangeVote = NOOP,
   } = props;
+  const { isLogin } = useLogin();
 
   const handleVote = async () => {
     if (isVoted) {
-      await unlike(cid);
+      await unlike({ belong, belongId, cid });
       onChangeVote(false);
-    } else {
-      await like(belong, belongId, { item_id: cid });
+    } else if (isLogin) {
+      await like({ belong, belongId, cid });
       onChangeVote(true);
+    } else {
+      showMessage('请先登录！');
     }
   };
 

@@ -62,10 +62,14 @@ export const submitComment = async (
     score: number;
   }
 ) => {
-  const url = makeUrl(`/v1/comment/repository/${belongId}`);
+  const url = makeUrl(`/comment/repository/${belongId}`);
   const res = await fetcher<any>(url, {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      is_used: data.isUsed,
+      score: data.score,
+      comment: data.comment,
+    }),
   });
   return res;
 };
@@ -84,13 +88,13 @@ export const getComments = async (
 };
 
 // 点赞
-export const like = async (
-  belong: string,
-  belongId: string,
-  data: { item_id: string }
-) => {
-  const url = makeUrl(`/v1/vote/${belong}/${belongId}`);
-  const res = await fetcher<any>(url, {
+export const like = async (data: {
+  belong: 'repository' | 'article';
+  belongId: string;
+  cid: string;
+}) => {
+  const url = makeUrl(`/vote/comment`);
+  const res = await fetcher<{ success: boolean; message?: string }>(url, {
     method: 'POST',
     body: JSON.stringify(data),
   });
@@ -98,10 +102,15 @@ export const like = async (
 };
 
 // 取消点赞
-export const unlike = async (id: string) => {
-  const url = makeUrl(`/v1/vote/${id}`);
-  const res = await fetcher<any>(url, {
+export const unlike = async (data: {
+  belong: 'repository' | 'article';
+  belongId: string;
+  cid: string;
+}) => {
+  const url = makeUrl(`/vote/comment`);
+  const res = await fetcher<{ success: boolean; message?: string }>(url, {
     method: 'DELETE',
+    body: JSON.stringify(data),
   });
   return res;
 };

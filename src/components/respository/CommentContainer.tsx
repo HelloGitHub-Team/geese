@@ -19,6 +19,7 @@ const CommentContainer = (props: Props) => {
 
   const handleChangeVote = (index: number, value: boolean) => {
     list[index].is_voted = value;
+    list[index].votes++;
     setList([...list]);
   };
   const btnActive = 'bg-blue-600';

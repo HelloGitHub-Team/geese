@@ -97,31 +97,47 @@ export interface CommentItem {
 }
 
 export interface CommentItemData {
+  /** 评论内容 */
   comment: string;
+  /** 评论对应的开源项目 ID */
   belong_id: string;
-  belong: string;
+  /** 评论类别 */
+  belong: 'repository' | 'article';
+  /** 评论 ID */
   cid: string;
+  /** 评论被点按的总数 */
   votes: number;
+  /** 发布评论的用户信息 */
   user: {
     uid: string;
     nickname: string;
     avatar: string;
   };
+  /** 评分 */
   score: number;
+  /** 是否用过 */
   is_used: boolean;
+  /** 是否置顶（后台编辑） */
   is_hot: boolean;
-  is_voted: boolean;
+  /** 是否精选 */
+  is_show: boolean;
+  /** 评论发布时间 */
   created_at: string;
-  updated_at: string;
+  /** 是否已点赞 */
+  is_voted?: boolean;
 }
 
 /**
  * 获取评论接口返回的数据
  */
 export interface CommentData {
+  /** 展出的评论总条数 */
   total: number;
+  /** 当前访问该项目的用户，发布过的评论内容 */
   user_comment: CommentItemData;
   data: CommentItemData[];
+  /** 第几页 */
   page: number;
+  /** 是否有下一页 */
   has_more: boolean;
 }
