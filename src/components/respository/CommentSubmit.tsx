@@ -26,7 +26,16 @@ function CommentSubmit(props: {
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
     const { value } = e.currentTarget;
-    setCommentData({ ...commentData, comment: value });
+
+    // 自动增加输入框的高度
+    // 2 是 上下两个 border 的高度
+    e.currentTarget.style.height = `${e.currentTarget.scrollHeight + 2}px`;
+
+    setCommentData({
+      ...commentData,
+      comment: value,
+      height: e.currentTarget.scrollHeight + 2,
+    });
   };
 
   const handleRadioChange = (isUsed: boolean) => {
@@ -73,6 +82,7 @@ function CommentSubmit(props: {
         <div className='flex-1'>
           <textarea
             className='min-h-[3rem] w-full flex-shrink rounded-lg bg-white py-2 px-4 text-sm'
+            style={{ height: commentData.height }}
             placeholder='写评论...'
             value={commentData.comment}
             onInput={handleInput}
