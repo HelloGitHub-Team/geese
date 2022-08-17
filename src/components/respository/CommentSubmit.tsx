@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { FormEventHandler } from 'react';
 
+import { showMessage } from '@/lib/showMessage';
 import useCommentData from '@/hooks/useCommentData';
 import useLogin from '@/hooks/useLogin';
 import useUserInfo from '@/hooks/useUserInfo';
@@ -38,14 +39,18 @@ function CommentSubmit(props: {
     if (!isLogin) {
       return login();
     }
-    submitComment(belongId, commentData).then(() => {
-      setCommentData({
-        comment: '',
-        isUsed: false,
-        score: 0,
+    submitComment(belongId, commentData)
+      .then(() => {
+        setCommentData({
+          comment: '',
+          isUsed: false,
+          score: 0,
+        });
+        onSuccess && onSuccess();
+      })
+      .catch((err) => {
+        showMessage(err.message || '提交评论失败');
       });
-      onSuccess && onSuccess();
-    });
   };
 
   return (
