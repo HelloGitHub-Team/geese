@@ -5,12 +5,11 @@ import { openGraph } from '@/lib/helper';
 
 // !STARTERCONF Change these default meta
 const defaultMeta = {
-  title: 'Next.js + Tailwind CSS + TypeScript Starter',
-  siteName: 'Next.js + Tailwind CSS + TypeScript Starter',
-  description:
-    'A starter for Next.js, Tailwind CSS, and TypeScript with Absolute Import, Seo, Link component, pre-configured with Husky',
+  title: 'HelloGitHub',
+  siteName: 'HelloGitHub',
+  description: '分享 GitHub 上有趣入门级的开源项目',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
-  url: 'https://tsnext-tw.thcl.dev',
+  url: 'https://hellogithub.com',
   type: 'website',
   robots: 'follow, index',
   /** No need to be filled, will be populated with openGraph function */
@@ -59,6 +58,7 @@ export default function Seo(props: SeoProps) {
       <meta name='twitter:title' content={meta.title} />
       <meta name='twitter:description' content={meta.description} />
       <meta name='twitter:image' content={meta.image} />
+      <meta name='referrer' content='no-referrer' />
       {meta.date && (
         <>
           <meta property='article:published_time' content={meta.date} />

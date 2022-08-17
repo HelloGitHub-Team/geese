@@ -3,8 +3,9 @@ import Router from 'next/router';
 import * as React from 'react';
 import { useEffect } from 'react';
 
-import { OAuthWechatAPI } from '@/pages/api/login';
-import { User } from '@/utils/types/userType';
+import { OAuthWechatAPI } from '@/services/login';
+
+import { User } from '@/types/user';
 
 interface IProps {
   token: string;
@@ -40,11 +41,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const data: User = await OAuthWechatAPI(code, state, cookie);
     token = data.token;
     userInfo = data.userInfo;
-    return { token, userInfo };
+    return {
+      props: { token, userInfo },
+    };
   } catch (error) {
     console.log(error);
     console.log('登录失败');
-    return { token, userInfo };
+    return {
+      props: { token, userInfo },
+    };
   }
 }
 

@@ -1,0 +1,6 @@
+/* 因全局把 img 标签的 display 属性设置为了 block，
+导致了 rc-image 组件预览图片的时候图片的位置显示异常，
+所以这里把 display 属性设置为了 inline，以修复该问题 */
+.rc-image-preview-img {
+  display: inline;
+}

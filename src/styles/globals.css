@@ -1,3 +1,5 @@
+@import url(./fix-rc-image.css);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -118,4 +120,113 @@
   .animated-underline:focus-visible {
     background-size: 0 2px, 100% 2px;
   }
+}
+
+svg {
+  vertical-align: baseline;
+}
+.animate__animated.animate__fadeInDown {
+  --animate-duration: 0.2s;
+}
+.animate__animated.animate__fadeOutUp {
+  --animate-duration: 0.4s;
+}
+.ant-move-up-appear {
+  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+.ant-move-up-leave {
+  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+  -webkit-animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
+  animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
+}
+.ant-move-up-appear.ant-move-up-appear-active {
+  -webkit-animation-name: antMoveUpIn;
+  animation-name: antMoveUpIn;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+}
+.ant-move-up-leave.ant-move-up-leave-active {
+  -webkit-animation-name: antMoveUpOut;
+  animation-name: antMoveUpOut;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  pointer-events: none;
+}
+@-webkit-keyframes antMoveUpIn {
+  0% {
+    transform: translateY(-100%);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    transform-origin: 0 0;
+    opacity: 1;
+  }
+}
+@keyframes antMoveUpIn {
+  0% {
+    transform: translateY(-100%);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    transform-origin: 0 0;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes antMoveUpOut {
+  0% {
+    transform: translateY(0%);
+    transform-origin: 0 0;
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+}
+@keyframes antMoveUpOut {
+  0% {
+    transform: translateY(0%);
+    transform-origin: 0 0;
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    transform-origin: 0 0;
+    opacity: 0;
+  }
+}
+.message-transition {
+  height: 0;
+  transition: height 0.4s 0.4s, transition 0.4s;
+}
+
+/* 自定义滚动条 */
+.custom-scrollbar::-webkit-scrollbar {
+  /* 隐藏默认的滚动条 */
+  -webkit-appearance: none;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 100%;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #e4e6eb;
+  outline: none;
+  border-radius: 2px;
 }
