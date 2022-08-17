@@ -139,3 +139,9 @@ export const ToTop = () => {
     </svg>
   );
 };
+
+function fixBuildComponent() {
+  return '';
+}
+
+export default fixBuildComponent;
