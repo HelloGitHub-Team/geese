@@ -70,7 +70,7 @@ function CommentSubmit(props: {
   return (
     <div className={`${className}`}>
       <div className='flex items-start'>
-        <div className='relative mr-4 inline-flex'>
+        <div className='relative mr-4 hidden sm:inline-flex'>
           <div className='relative aspect-square w-16 overflow-hidden rounded-full'>
             <Image
               layout='fill'
@@ -87,7 +87,7 @@ function CommentSubmit(props: {
             value={commentData.comment}
             onInput={handleInput}
           ></textarea>
-          <div className='flex items-center gap-4'>
+          <div className='flex items-center gap-2 text-xs sm:gap-4 sm:text-sm'>
             <label
               className='flex cursor-pointer items-center py-2'
               onClick={() => handleRadioChange(false)}
@@ -99,7 +99,7 @@ function CommentSubmit(props: {
                 style={{ boxShadow: 'none' }}
                 checked={!commentData.isUsed}
               />
-              <span className='text-sm'>未用过</span>
+              <span>未用过</span>
             </label>
             <label
               className='flex cursor-pointer items-center py-2'
@@ -112,10 +112,10 @@ function CommentSubmit(props: {
                 style={{ boxShadow: 'none' }}
                 checked={commentData.isUsed}
               />
-              <span className='text-sm'>已用过</span>
+              <span>已用过</span>
             </label>
             <div className='h-4 w-[1px] bg-gray-300'></div>
-            <div className='flex items-center text-sm'>
+            <div className='flex items-center'>
               <span>评分：</span>
               <Rating value={commentData.score} onChange={handleChangeRating} />
             </div>
