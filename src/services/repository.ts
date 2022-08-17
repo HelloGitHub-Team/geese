@@ -1,10 +1,17 @@
-import { showMessage } from '@/lib/showMessage';
+import Message from '@/components/message';
 
 import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-import { BaseType, Repository, CommentData, CommentSuccessData, Vote, VoteStatus } from '@/types/reppsitory';
+import {
+  BaseType,
+  CommentData,
+  CommentSuccessData,
+  Repository,
+  Vote,
+  VoteStatus,
+} from '@/types/reppsitory';
 
 export const getDetail = async (rid: string): Promise<Repository> => {
   const data = await fetcher<Repository>(makeUrl(`/repository/detail/${rid}/`));
@@ -56,6 +63,8 @@ export const recordGoGithub = async (rid: string): Promise<any> => {
   } catch (error) {
     console.error(error);
   }
+};
+
 export const submitComment = async (
   belongId: string,
   data: {
@@ -104,7 +113,7 @@ export const like = async (data: {
       cid: data.cid,
     }),
   }).catch((err) => {
-    showMessage(err.message || '点赞失败');
+    Message.error(err.message || '点赞失败');
     throw err;
   });
   return res;
@@ -125,7 +134,7 @@ export const unlike = async (data: {
       cid: data.cid,
     }),
   }).catch((err) => {
-    showMessage(err.message || '取消点赞失败');
+    Message.error(err.message || '取消点赞失败');
     throw err;
   });
   return res;

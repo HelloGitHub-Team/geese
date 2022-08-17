@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import { GoThumbsup } from 'react-icons/go';
 
-import { showMessage } from '@/lib/showMessage';
 import useLogin from '@/hooks/useLogin';
 import useUserInfo from '@/hooks/useUserInfo';
 
+import Message from '@/components/message';
 import Rating from '@/components/respository/Rating';
 
 import { like, unlike } from '@/services/repository';
@@ -47,7 +47,7 @@ const CommentItem = (
       await like({ belong, belongId, cid });
       onChangeVote(true);
     } else {
-      showMessage('请先登录！');
+      Message.error('请先登录！');
     }
   };
 

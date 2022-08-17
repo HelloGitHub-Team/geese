@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import { FormEventHandler } from 'react';
 
-import { showMessage } from '@/lib/showMessage';
 import useCommentData from '@/hooks/useCommentData';
 import useLogin from '@/hooks/useLogin';
 import useUserInfo from '@/hooks/useUserInfo';
 
+import Message from '@/components/message';
 import Rating from '@/components/respository/Rating';
 
 import { submitComment } from '@/services/repository';
@@ -51,7 +51,7 @@ function CommentSubmit(props: {
       return login();
     }
     if (getErrMessage(commentData)) {
-      return showMessage(getErrMessage(commentData));
+      return Message.error(getErrMessage(commentData));
     }
     submitComment(belongId, commentData)
       .then((data) => {
@@ -63,7 +63,7 @@ function CommentSubmit(props: {
         onSuccess && onSuccess(data);
       })
       .catch((err) => {
-        showMessage(err.message || '提交评论失败');
+        Message.error(err.message || '提交评论失败');
       });
   };
 
