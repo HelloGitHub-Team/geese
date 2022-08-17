@@ -5,7 +5,6 @@ import { getVolumeNum } from '@/services/volume';
 
 const PeriodicalButton = () => {
   const router = useRouter();
-  console.log(router);
   const [atPeriodical, setAtPeriodical] = useState<boolean>(false);
 
   const handlePeriodicalURL = async () => {
