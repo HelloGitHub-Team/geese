@@ -13,6 +13,7 @@ export const fetcher = async function fetcher<T>(
 
   const defaultInit = {
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${getCurrentToken()}`,
     },
   };
