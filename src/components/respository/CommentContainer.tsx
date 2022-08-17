@@ -59,42 +59,48 @@ const CommentContainer = (props: Props) => {
       ) : (
         <CommentSubmit belongId={belongId} onSuccess={handleCommentSuccess} />
       )}
-      <div className='my-8 flex items-center justify-between'>
-        <strong>{total} 条评论</strong>
-        <div className='btn-group'>
-          <button
-            className={`${
-              sortType === 'last' ? btnActive : ''
-            } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-l-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90`}
-            onClick={() => sortBy('last')}
+      {total ? (
+        <>
+          <div className='my-8 flex items-center justify-between'>
+            <strong>{total} 条评论</strong>
+            <div className='btn-group'>
+              <button
+                className={`${
+                  sortType === 'last' ? btnActive : ''
+                } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-l-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90`}
+                onClick={() => sortBy('last')}
+              >
+                最新
+              </button>
+              <button
+                className={`${
+                  sortType === 'hot' ? btnActive : ''
+                } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-r-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90`}
+                onClick={() => sortBy('hot')}
+              >
+                最热
+              </button>
+            </div>
+          </div>
+          {list.map((item, index) => (
+            <CommentItem
+              className='mb-6'
+              {...item}
+              key={item.cid}
+              onChangeVote={(value) => handleChangeVote(index, value)}
+            />
+          ))}
+          <div
+            hidden={!hasMore}
+            className='cursor-pointer rounded-md bg-gray-50 text-center text-sm leading-10 hover:bg-gray-200 active:bg-gray-50'
+            onClick={loadMore}
           >
-            最新
-          </button>
-          <button
-            className={`${
-              sortType === 'hot' ? btnActive : ''
-            } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-r-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90`}
-            onClick={() => sortBy('hot')}
-          >
-            最热
-          </button>
-        </div>
-      </div>
-      {list.map((item, index) => (
-        <CommentItem
-          className='mb-6'
-          {...item}
-          key={item.cid}
-          onChangeVote={(value) => handleChangeVote(index, value)}
-        />
-      ))}
-      <div
-        hidden={!hasMore}
-        className='cursor-pointer rounded-md bg-gray-50 text-center text-sm leading-10 hover:bg-gray-200 active:bg-gray-50'
-        onClick={loadMore}
-      >
-        加载更多...
-      </div>
+            加载更多...
+          </div>
+        </>
+      ) : (
+        <div className='py-16 text-center text-xl text-gray-300'>暂无评论</div>
+      )}
     </div>
   );
 };
