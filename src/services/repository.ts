@@ -1,3 +1,5 @@
+import { showMessage } from '@/lib/showMessage';
+
 import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
@@ -97,6 +99,9 @@ export const like = async (data: {
   const res = await fetcher<{ success: boolean; message?: string }>(url, {
     method: 'POST',
     body: JSON.stringify(data),
+  }).catch((err) => {
+    showMessage(err.message || '点赞失败');
+    throw err;
   });
   return res;
 };
@@ -111,6 +116,9 @@ export const unlike = async (data: {
   const res = await fetcher<{ success: boolean; message?: string }>(url, {
     method: 'DELETE',
     body: JSON.stringify(data),
+  }).catch((err) => {
+    showMessage(err.message || '取消点赞失败');
+    throw err;
   });
   return res;
 };
