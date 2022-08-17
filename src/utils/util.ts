@@ -2,7 +2,6 @@
  * 防抖
  * @param func
  * @param wait
- * @param immediate
  * @returns function
  */
 export function debounce(func: any, wait: number) {

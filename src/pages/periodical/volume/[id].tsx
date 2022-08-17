@@ -118,6 +118,24 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
     };
   }, [categoryEles]);
 
+  if (router.isFallback) {
+    return (
+      <div className='mt-20 flex animate-pulse'>
+        <Seo title='月刊' />
+        <div className='ml-4 mt-2 w-full'>
+          <h3 className='h-4 rounded-md bg-gray-200 dark:bg-gray-700'></h3>
+
+          <ul className='mt-5 space-y-3'>
+            <li className='h-4 w-full rounded-md bg-gray-200 dark:bg-gray-700'></li>
+            <li className='h-4 w-full rounded-md bg-gray-200 dark:bg-gray-700'></li>
+            <li className='h-4 w-full rounded-md bg-gray-200 dark:bg-gray-700'></li>
+            <li className='h-4 w-full rounded-md bg-gray-200 dark:bg-gray-700'></li>
+          </ul>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className='flex shrink grow flex-row sm:border-l sm:dark:border-slate-600 md:border-none'>
       <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
@@ -266,6 +284,9 @@ export async function getStaticProps({ params }: any) {
   // params 包含此篇博文的 `id` 信息。
   // 如果路由是 /posts/1，那么 params.id 就是 1
   const volume = await getVolume(params.id);
+  if (!volume) {
+    return { notFound: true };
+  }
   // 通过 props 参数向页面传递博文的数据
   return { props: { volume }, revalidate: 3600 * 10 };
 }

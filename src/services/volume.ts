@@ -16,12 +16,12 @@ type VolumeAll = {
   data: any[];
 };
 
-export const getVolume = async (id: string): Promise<Volume> => {
+export const getVolume = async (id: string): Promise<Volume | boolean> => {
   try {
     const data = await fetcher<Volume>(makeUrl(`/volume/?num=${id}`));
     return data;
   } catch (error) {
-    return {} as Volume;
+    return false;
   }
 };
 
