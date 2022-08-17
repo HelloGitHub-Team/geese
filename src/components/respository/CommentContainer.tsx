@@ -3,6 +3,8 @@ import useCommentList from '@/hooks/useCommentList';
 import CommentItem from '@/components/respository/CommentItem';
 import CommentSubmit from '@/components/respository/CommentSubmit';
 
+import { CommentSuccessData } from '@/types/reppsitory';
+
 interface Props {
   belong: string;
   belongId: string;
@@ -11,23 +13,52 @@ interface Props {
 
 const CommentContainer = (props: Props) => {
   const { belong, belongId, className } = props;
-  const { list, total, hasMore, loadMore, sortBy, sortType, setList } =
-    useCommentList({
-      belong,
-      belongId,
-    });
+  const {
+    list,
+    total,
+    hasMore,
+    loadMore,
+    sortBy,
+    sortType,
+    setList,
+    currentUserComment,
+    setCurrentUserComment,
+  } = useCommentList({
+    belong,
+    belongId,
+  });
 
   const handleChangeVote = (index: number, value: boolean) => {
     list[index].is_voted = value;
     list[index].votes++;
     setList([...list]);
   };
+  const handleChangeCurrentUserVote = (value: boolean) => {
+    if (!currentUserComment) return;
+    setCurrentUserComment({
+      ...currentUserComment,
+      is_voted: value,
+      votes: value
+        ? currentUserComment.votes + 1
+        : currentUserComment.votes - 1,
+    });
+  };
+  const handleCommentSuccess = (data: CommentSuccessData) => {
+    setCurrentUserComment(data.data);
+  };
   const btnActive = 'bg-blue-600';
 
   return (
     <div className={`p-4 ${className}`}>
       <h3 className='mb-4'>评论</h3>
-      <CommentSubmit belongId={belongId} />
+      {currentUserComment ? (
+        <CommentItem
+          {...currentUserComment}
+          onChangeVote={handleChangeCurrentUserVote}
+        />
+      ) : (
+        <CommentSubmit belongId={belongId} onSuccess={handleCommentSuccess} />
+      )}
       <div className='my-8 flex items-center justify-between'>
         <strong>{total} 条评论</strong>
         <div className='btn-group'>

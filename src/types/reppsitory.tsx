@@ -141,3 +141,16 @@ export interface CommentData {
   /** 是否有下一页 */
   has_more: boolean;
 }
+
+/**
+ * 评论和点赞成功后返回的数据
+ */
+export interface CommentSuccessData {
+  /** 今日已发布几条 */
+  posted: number;
+  /** 一天一共能发布几条评论 */
+  limit: number;
+  /** 今天还能发布几条 */
+  remaining: number;
+  data: CommentItemData;
+}

@@ -58,6 +58,7 @@ function useCommentList({
     list,
     total,
     currentUserComment,
+    setCurrentUserComment,
     page,
     hasMore,
     loadMore,

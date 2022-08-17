@@ -3,6 +3,7 @@ import { GoThumbsup } from 'react-icons/go';
 
 import { showMessage } from '@/lib/showMessage';
 import useLogin from '@/hooks/useLogin';
+import useUserInfo from '@/hooks/useUserInfo';
 
 import Rating from '@/components/respository/Rating';
 
@@ -30,10 +31,13 @@ const CommentItem = (
     is_used: isUsed,
     created_at: createdAt,
     is_voted: isVoted,
+    is_show: isShow,
     className,
     onChangeVote = NOOP,
   } = props;
   const { isLogin } = useLogin();
+  const { userInfo } = useUserInfo();
+  const madeByCurrentUser = userInfo.uid === user.uid;
 
   const handleVote = async () => {
     if (isVoted) {
@@ -66,6 +70,9 @@ const CommentItem = (
             <Rating value={score} />
           </span>
           <span className='text-sm'>{isUsed ? '已用过' : '未用过'}</span>
+          <span className='ml-auto text-sm' hidden={!madeByCurrentUser}>
+            {isShow ? '已精选' : '未精选'}
+          </span>
         </div>
         <div className='mt-3 text-sm text-gray-900'>{comment}</div>
         <div className='mt-2 flex items-center justify-between'>

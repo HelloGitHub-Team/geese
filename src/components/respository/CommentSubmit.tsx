@@ -10,12 +10,14 @@ import Rating from '@/components/respository/Rating';
 
 import { submitComment } from '@/services/repository';
 
+import { CommentSuccessData } from '@/types/reppsitory';
+
 import { DEFAULT_AVATAR } from '~/constants';
 
 function CommentSubmit(props: {
   belongId: string;
   className?: string;
-  onSuccess?: () => void;
+  onSuccess?: (data: CommentSuccessData) => void;
 }) {
   const { commentData, setCommentData } = useCommentData();
   const { userInfo } = useUserInfo();
@@ -39,17 +41,17 @@ function CommentSubmit(props: {
     if (!isLogin) {
       return login();
     }
-    if (commentData.comment.length < 10) {
-      return showMessage('评论内容不能少于10个字');
+    if (getErrMessage(commentData)) {
+      return showMessage(getErrMessage(commentData));
     }
     submitComment(belongId, commentData)
-      .then(() => {
+      .then((data) => {
         setCommentData({
           comment: '',
           isUsed: false,
           score: 0,
         });
-        onSuccess && onSuccess();
+        onSuccess && onSuccess(data);
       })
       .catch((err) => {
         showMessage(err.message || '提交评论失败');
@@ -119,6 +121,23 @@ function CommentSubmit(props: {
       </div>
     </div>
   );
+}
+
+function getErrMessage(commentData: {
+  comment: string;
+  isUsed: boolean;
+  score: number;
+}) {
+  if (commentData.comment.length < 10) {
+    return '评论内容不能少于 10 个字';
+  }
+  if (commentData.comment.length > 200) {
+    return '评论内容不能超过 200 个字';
+  }
+  if (!commentData.score) {
+    return '请评分';
+  }
+  return '';
 }
 
 export default CommentSubmit;
