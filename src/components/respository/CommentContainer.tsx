@@ -46,7 +46,7 @@ const CommentContainer = (props: Props) => {
   const handleCommentSuccess = (data: CommentSuccessData) => {
     setCurrentUserComment(data.data);
   };
-  const btnActive = 'bg-blue-700';
+  const btnActive = '!bg-blue-500';
 
   return (
     <div className={`p-4 ${className}`}>

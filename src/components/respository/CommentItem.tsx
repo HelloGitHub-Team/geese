@@ -53,8 +53,8 @@ const CommentItem = (
 
   return (
     <div className={`flex items-start ${className}`}>
-      <div className='avatar mr-4'>
-        <div className='relative w-16 rounded-full'>
+      <div className='mr-4 overflow-hidden rounded-full'>
+        <div className='relative h-14 w-14'>
           <Image
             layout='fill'
             src={user?.avatar || DEFAULT_AVATAR}
@@ -77,15 +77,17 @@ const CommentItem = (
         <div className='mt-3 text-sm text-gray-900'>{comment}</div>
         <div className='mt-2 flex items-center justify-between'>
           <span className='text-sm text-[#8a919f]'>{fromNow(createdAt)}</span>
-          <div
-            className={`flex cursor-pointer items-center leading-10 text-[#8a919f] hover:text-gray-900 active:text-gray-400 ${
-              isVoted ? 'text-blue-600' : ''
-            }`}
-            onClick={handleVote}
-          >
-            <GoThumbsup className='mr-1' size={14} />
-            <span className='text-sm'>{votes || '点赞'}</span>
-          </div>
+          {madeByCurrentUser || (
+            <div
+              className={`flex cursor-pointer items-center leading-10 text-[#8a919f] hover:text-gray-900 active:text-gray-400 ${
+                isVoted ? 'text-blue-500' : ''
+              }`}
+              onClick={handleVote}
+            >
+              <GoThumbsup className='mr-1' size={14} />
+              <span className='text-sm'>{votes || '点赞'}</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
