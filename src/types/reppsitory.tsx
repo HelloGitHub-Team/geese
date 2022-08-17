@@ -134,7 +134,7 @@ export interface CommentData {
   /** 展出的评论总条数 */
   total: number;
   /** 当前访问该项目的用户，发布过的评论内容 */
-  user_comment: CommentItemData;
+  current_comment: CommentItemData;
   data: CommentItemData[];
   /** 第几页 */
   page: number;

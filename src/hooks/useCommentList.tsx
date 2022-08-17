@@ -27,7 +27,7 @@ function useCommentList({
         const data = await getComments(belong, belongId, 1, sortType);
         setList(data.data);
         setTotal(data.total);
-        setCurrentUserComment(data.user_comment);
+        setCurrentUserComment(data.current_comment);
         setPage(data.page);
         setHasMore(data.has_more);
         setSortType(sortType);

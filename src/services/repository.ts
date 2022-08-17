@@ -98,7 +98,11 @@ export const like = async (data: {
   const url = makeUrl(`/vote/comment`);
   const res = await fetcher<{ success: boolean; message?: string }>(url, {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      belong: data.belong,
+      belong_id: data.belongId,
+      cid: data.cid,
+    }),
   }).catch((err) => {
     showMessage(err.message || '点赞失败');
     throw err;
@@ -115,7 +119,11 @@ export const unlike = async (data: {
   const url = makeUrl(`/vote/comment`);
   const res = await fetcher<{ success: boolean; message?: string }>(url, {
     method: 'DELETE',
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      belong: data.belong,
+      belong_id: data.belongId,
+      cid: data.cid,
+    }),
   }).catch((err) => {
     showMessage(err.message || '取消点赞失败');
     throw err;
