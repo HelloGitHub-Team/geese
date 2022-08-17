@@ -77,25 +77,6 @@ export interface BaseType {
   success: boolean;
 }
 
-export interface CommentItem {
-  comment: string;
-  belong_id: string;
-  belong: string;
-  cid: string;
-  votes: number;
-  user: {
-    uid: string;
-    nickname: string;
-    avatar: string;
-  };
-  score: number;
-  is_used: boolean;
-  is_hot: boolean;
-  is_voted: boolean;
-  created_at: string;
-  updated_at: string;
-}
-
 export interface CommentItemData {
   /** 评论内容 */
   comment: string;
