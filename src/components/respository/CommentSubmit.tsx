@@ -39,6 +39,9 @@ function CommentSubmit(props: {
     if (!isLogin) {
       return login();
     }
+    if (commentData.comment.length < 10) {
+      return showMessage('评论内容不能少于10个字');
+    }
     submitComment(belongId, commentData)
       .then(() => {
         setCommentData({
