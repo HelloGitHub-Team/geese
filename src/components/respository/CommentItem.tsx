@@ -80,7 +80,7 @@ const CommentItem = (
           {madeByCurrentUser || (
             <div
               className={`flex cursor-pointer items-center leading-10 text-[#8a919f] hover:text-gray-900 active:text-gray-400 ${
-                isVoted ? 'text-blue-500' : ''
+                isVoted ? '!text-blue-500' : ''
               }`}
               onClick={handleVote}
             >
