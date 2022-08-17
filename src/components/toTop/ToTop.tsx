@@ -21,8 +21,6 @@ export default function ToTop({ cb }: ToTopProps) {
       if (!ticking.current) {
         window.requestAnimationFrame(function () {
           const top = (e.target as any).documentElement.scrollTop || 0;
-          console.log({ e });
-          console.log({ top });
           setShow(top > 300);
           ticking.current = false;
         });

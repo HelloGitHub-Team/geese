@@ -14,7 +14,7 @@ const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
   const router = useRouter();
 
   const showMessage = () => {
-    Message.info(`HelloGitHub`);
+    Message.info(`返回首页`);
     router.push('/');
   };
 

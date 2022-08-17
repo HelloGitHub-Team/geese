@@ -22,7 +22,7 @@ export interface Repository extends RepoType {
   other_url: string | null;
 
   score: number;
-  votes_total: number;
+  likes: number;
   tid: string | null | undefined;
 }
 
@@ -54,4 +54,25 @@ export interface RepoType {
   repo_created_at: string;
   updated_at: string;
   publish_at: number;
+}
+
+export interface VoteStatus {
+  is_voted: boolean;
+}
+
+export interface Vote {
+  posted: number;
+  limit: number;
+  remaining: number;
+  data: VoteType;
+}
+
+export interface VoteType {
+  belong: string;
+  belong_id: string;
+  total: number;
+}
+
+export interface BaseType {
+  success: boolean;
 }

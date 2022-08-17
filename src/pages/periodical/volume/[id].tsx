@@ -9,7 +9,8 @@ import Pagination from '@/components/pagination/Pagination';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
 
-import { getVolume, getVolumeNum, recordGoGithub } from '@/services/volume';
+import { recordGoGithub } from '@/services/repository';
+import { getVolume, getVolumeNum } from '@/services/volume';
 
 import { Fork, LinkTo, Star, Watch } from './icon';
 
