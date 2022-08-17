@@ -2,16 +2,20 @@ import { useEffect, useState } from 'react';
 
 function useCommentData() {
   const storageKey = 'COMMENT_DATA';
-  const [commentData, setCommentData] = useState({
+  const defaultValue = {
     comment: '',
     isUsed: false,
     score: 0,
     // 输入框高度
     height: 58,
-  });
+  };
+  const [commentData, setCommentData] = useState(defaultValue);
 
   useEffect(() => {
-    setCommentData(JSON.parse(localStorage.getItem(storageKey) || '{}'));
+    const data = localStorage.getItem(storageKey);
+    if (data) {
+      setCommentData(JSON.parse(data));
+    }
   }, []);
 
   const storeCommentData = (data: {
