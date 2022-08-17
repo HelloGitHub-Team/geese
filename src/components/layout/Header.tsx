@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import Message from '@/components/message';
 
 import LoginButton from '../buttons/LoginButton';
 import LogoutButton from '../buttons/LogoutButton';
+import PeriodicalButton from '../buttons/Periodical';
 import SearchInput from '../search/SearchInput';
 
 import { LoginStatusProps } from '@/types/user';
@@ -14,7 +14,7 @@ const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
   const router = useRouter();
 
   const showMessage = () => {
-    Message.info(`返回首页`);
+    Message.info(`HelloGitHub 首页`);
     router.push('/');
   };
 
@@ -32,9 +32,7 @@ const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
         <SearchInput />
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
           <li className='md:block'>
-            <Link href='/periodical/volume/' className='rounded-lg px-3 py-2'>
-              月刊
-            </Link>
+            <PeriodicalButton></PeriodicalButton>
           </li>
           <>
             {!loginStatus ? (
