@@ -30,7 +30,7 @@ const CommentContainer = (props: Props) => {
 
   const handleChangeVote = (index: number, value: boolean) => {
     list[index].is_voted = value;
-    list[index].votes++;
+    value ? list[index].votes++ : list[index].votes--;
     setList([...list]);
   };
   const handleChangeCurrentUserVote = (value: boolean) => {
