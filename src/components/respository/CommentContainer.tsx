@@ -23,6 +23,7 @@ const CommentContainer = (props: Props) => {
     setList,
     currentUserComment,
     setCurrentUserComment,
+    refreshList,
   } = useCommentList({
     belong,
     belongId,
@@ -46,6 +47,9 @@ const CommentContainer = (props: Props) => {
   const handleCommentSuccess = (data: CommentSuccessData) => {
     setCurrentUserComment(data.data);
   };
+  const handleCommentFail = () => {
+    refreshList();
+  };
   const btnActive = '!bg-blue-500';
 
   return (
@@ -57,7 +61,11 @@ const CommentContainer = (props: Props) => {
           onChangeVote={handleChangeCurrentUserVote}
         />
       ) : (
-        <CommentSubmit belongId={belongId} onSuccess={handleCommentSuccess} />
+        <CommentSubmit
+          belongId={belongId}
+          onSuccess={handleCommentSuccess}
+          onFail={handleCommentFail}
+        />
       )}
       {total ? (
         <>

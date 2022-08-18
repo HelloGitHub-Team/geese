@@ -126,7 +126,7 @@ export interface CommentData {
 /**
  * 评论和点赞成功后返回的数据
  */
-export interface CommentSuccessData {
+export interface CommentSuccessData extends BaseType {
   /** 今日已发布几条 */
   posted: number;
   /** 一天一共能发布几条评论 */

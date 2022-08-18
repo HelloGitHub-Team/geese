@@ -18,11 +18,12 @@ function CommentSubmit(props: {
   belongId: string;
   className?: string;
   onSuccess?: (data: CommentSuccessData) => void;
+  onFail?: (error: any) => void;
 }) {
   const { commentData, setCommentData } = useCommentData();
   const { userInfo } = useUserInfo();
   const { login, isLogin } = useLogin();
-  const { belongId, className, onSuccess } = props;
+  const { belongId, className, onSuccess, onFail } = props;
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
     const { value } = e.currentTarget;
@@ -60,7 +61,11 @@ function CommentSubmit(props: {
           isUsed: false,
           score: 0,
         });
-        onSuccess && onSuccess(data);
+        if (data.success) {
+          onSuccess && onSuccess(data);
+        } else {
+          onFail && onFail(data);
+        }
       })
       .catch((err) => {
         Message.error(err.message || '提交评论失败');
