@@ -74,7 +74,9 @@ const CommentItem = (
             {isShow ? '已精选' : '未精选'}
           </span>
         </div>
-        <div className='mt-3 text-sm text-gray-900'>{comment}</div>
+        <div className='mt-3 whitespace-pre text-sm text-gray-900'>
+          {comment}
+        </div>
         <div className='mt-2 flex items-center justify-between'>
           <span className='text-sm text-[#8a919f]'>{fromNow(createdAt)}</span>
           {madeByCurrentUser || (
