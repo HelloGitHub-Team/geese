@@ -43,9 +43,15 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const rid = query?.rid as string;
   const data = await getDetail(rid);
-  return {
-    props: { repo: data },
-  };
+  if (typeof data.rid === 'undefined') {
+    return {
+      notFound: true,
+    };
+  } else {
+    return {
+      props: { repo: data },
+    };
+  }
 };
 
 export default RepositoryPage;
