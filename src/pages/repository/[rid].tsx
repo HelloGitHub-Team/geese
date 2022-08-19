@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 
 import ImageWithPreview from '@/components/ImageWithPreview';
 import ButtonGroup from '@/components/respository/ButtonGroup';
+import CommentContainer from '@/components/respository/CommentContainer';
 import Info from '@/components/respository/Info';
 import MoreInfo from '@/components/respository/MoreInfo';
 import Navbar from '@/components/respository/Navbar';
@@ -20,21 +21,24 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
       <div className='mt-2 bg-white px-2 pb-10 pt-2'>
         <Navbar avatar={repo.share_user.avatar} />
         <Info repo={repo}></Info>
-        {repo.image_url ? (
-          <div className='my-2 flex justify-center'>
+        {repo.image_url && (
+          <div className='my-2 flex cursor-zoom-in justify-center'>
             <ImageWithPreview
               src={repo?.image_url}
               className='rounded-lg'
               alt='图片'
             />
           </div>
-        ) : (
-          <></>
         )}
         <Tabs repo={repo}></Tabs>
         <MoreInfo repo={repo}></MoreInfo>
       </div>
       <ButtonGroup repo={repo} />
+      <CommentContainer
+        className='mt-3 bg-white'
+        belong='repository'
+        belongId={repo.rid}
+      />
       <div className='h-80'></div>
     </>
   );

@@ -1,8 +1,17 @@
+import Message from '@/components/message';
+
 import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-import { BaseType, Repository, Vote, VoteStatus } from '@/types/reppsitory';
+import {
+  BaseType,
+  CommentData,
+  CommentSuccessData,
+  Repository,
+  Vote,
+  VoteStatus,
+} from '@/types/reppsitory';
 
 export const getDetail = async (rid: string): Promise<Repository> => {
   const data = await fetcher<Repository>(makeUrl(`/repository/detail/${rid}/`));
@@ -54,4 +63,79 @@ export const recordGoGithub = async (rid: string): Promise<any> => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const submitComment = async (
+  belongId: string,
+  data: {
+    comment: string;
+    isUsed: boolean;
+    score: number;
+  }
+) => {
+  const url = makeUrl(`/comment/repository/${belongId}`);
+  const res = await fetcher<CommentSuccessData>(url, {
+    method: 'POST',
+    body: JSON.stringify({
+      is_used: data.isUsed,
+      score: data.score,
+      comment: data.comment,
+    }),
+  });
+  return res;
+};
+
+export const getComments = async (
+  belong: string,
+  belongId: string,
+  page = 1,
+  sortType = 'last'
+) => {
+  const url = makeUrl(
+    `/comment/${belong}/${belongId}?page=${page}&sort_by=${sortType}`
+  );
+  const res = await fetcher<CommentData>(url);
+  return res;
+};
+
+// 点赞
+export const like = async (data: {
+  belong: 'repository' | 'article';
+  belongId: string;
+  cid: string;
+}) => {
+  const url = makeUrl(`/vote/comment`);
+  const res = await fetcher<{ success: boolean; message?: string }>(url, {
+    method: 'POST',
+    body: JSON.stringify({
+      belong: data.belong,
+      belong_id: data.belongId,
+      cid: data.cid,
+    }),
+  }).catch((err) => {
+    Message.error(err.message || '点赞失败');
+    throw err;
+  });
+  return res;
+};
+
+// 取消点赞
+export const unlike = async (data: {
+  belong: 'repository' | 'article';
+  belongId: string;
+  cid: string;
+}) => {
+  const url = makeUrl(`/vote/comment`);
+  const res = await fetcher<{ success: boolean; message?: string }>(url, {
+    method: 'DELETE',
+    body: JSON.stringify({
+      belong: data.belong,
+      belong_id: data.belongId,
+      cid: data.cid,
+    }),
+  }).catch((err) => {
+    Message.error(err.message || '取消点赞失败');
+    throw err;
+  });
+  return res;
 };

@@ -1,13 +1,15 @@
+import useToken from '@/hooks/useToken';
+
 import { Logout } from '@/services/login';
 
 import { LoginOutProps } from '@/types/user';
 
 const LogoutButton = ({ updateLoginStatus }: LoginOutProps) => {
+  const { token, setToken } = useToken();
   const handleLogout = async () => {
     try {
-      const token = localStorage.getItem('Authorization');
       await Logout({ Authorization: `Bearer ${token}` });
-      localStorage.clear();
+      setToken(null);
       updateLoginStatus(false);
       return true;
     } catch (error) {
