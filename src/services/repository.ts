@@ -6,9 +6,9 @@ import { fetcher } from './base';
 
 import {
   BaseType,
+  Collect,
   CommentData,
   CommentSuccessData,
-  Collect,
   Repository,
   UserActionStatus,
   Vote,
