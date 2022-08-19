@@ -58,6 +58,7 @@ const CommentContainer = (props: Props) => {
       {currentUserComment ? (
         <CommentItem
           {...currentUserComment}
+          alone
           onChangeVote={handleChangeCurrentUserVote}
         />
       ) : (

@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { GoThumbsup } from 'react-icons/go';
 
 import useLogin from '@/hooks/useLogin';
-import useUserInfo from '@/hooks/useUserInfo';
 
 import Message from '@/components/message';
 import Rating from '@/components/respository/Rating';
@@ -17,6 +16,8 @@ import { DEFAULT_AVATAR, NOOP } from '~/constants';
 const CommentItem = (
   props: CommentItemData & {
     className?: string;
+    /** 是否独自显示，以表示当前用户所发表过的评论 */
+    alone?: boolean;
     onChangeVote?: (value: boolean) => void;
   }
 ) => {
@@ -32,12 +33,11 @@ const CommentItem = (
     created_at: createdAt,
     is_voted: isVoted,
     is_show: isShow,
+    alone,
     className,
     onChangeVote = NOOP,
   } = props;
   const { isLogin } = useLogin();
-  const { userInfo } = useUserInfo();
-  const madeByCurrentUser = userInfo.uid === user.uid;
 
   const handleVote = async () => {
     if (isVoted) {
@@ -70,7 +70,7 @@ const CommentItem = (
             <Rating value={score} />
           </span>
           <span className='text-sm'>{isUsed ? '已用过' : '未用过'}</span>
-          <span className='ml-auto text-sm' hidden={!madeByCurrentUser}>
+          <span className='ml-auto text-sm' hidden={!alone}>
             {isShow ? '已精选' : '未精选'}
           </span>
         </div>
@@ -79,7 +79,7 @@ const CommentItem = (
         </div>
         <div className='mt-2 flex items-center justify-between'>
           <span className='text-sm text-[#8a919f]'>{fromNow(createdAt)}</span>
-          {madeByCurrentUser || (
+          {alone || (
             <div
               className={`flex cursor-pointer items-center leading-10 text-[#8a919f] hover:text-gray-900 active:text-gray-400 ${
                 isVoted ? '!text-blue-500' : ''
