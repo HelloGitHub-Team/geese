@@ -48,11 +48,11 @@ function CommentSubmit(props: {
   };
 
   const handleSubmit = () => {
-    if (!isLogin) {
-      return login();
-    }
     if (getErrMessage(commentData)) {
       return Message.error(getErrMessage(commentData));
+    }
+    if (!isLogin) {
+      return login();
     }
     submitComment(belongId, commentData)
       .then((data) => {
@@ -126,7 +126,6 @@ function CommentSubmit(props: {
             </div>
             <button
               className='ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90 disabled:bg-gray-100 disabled:text-gray-300'
-              disabled={!commentData.comment || !commentData.score}
               onClick={handleSubmit}
             >
               发布
@@ -143,6 +142,9 @@ function getErrMessage(commentData: {
   isUsed: boolean;
   score: number;
 }) {
+  if (!commentData.comment) {
+    return '评论内容不能为空';
+  }
   if (commentData.comment.length < 10) {
     return '评论内容不能少于 10 个字';
   }

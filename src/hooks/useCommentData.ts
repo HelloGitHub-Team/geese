@@ -5,7 +5,7 @@ function useCommentData() {
   const defaultValue = {
     comment: '',
     isUsed: false,
-    score: 0,
+    score: 5,
     // 输入框高度
     height: 58,
   };
