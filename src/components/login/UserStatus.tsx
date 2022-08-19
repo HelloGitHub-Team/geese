@@ -72,8 +72,10 @@ export default function UserStatus({ isLogin, updateLoginStatus }: UserProps) {
                   </a>
                 </Link>
                 <div className='shrink grow'></div>
-                <div className='pr-2 pb-0.5 text-slate-400'>积分</div>
-                <div className='text-4xl font-bold text-yellow-500'>15</div>
+                <div className='pr-2 pb-0.5 text-slate-400'>贡献值</div>
+                <div className='text-4xl font-bold text-yellow-500'>
+                  {data?.contribute}
+                </div>
               </div>
             </>
           ) : (

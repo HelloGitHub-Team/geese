@@ -8,9 +8,10 @@ import {
   BaseType,
   CommentData,
   CommentSuccessData,
+  Collect,
   Repository,
+  UserActionStatus,
   Vote,
-  VoteStatus,
 } from '@/types/reppsitory';
 
 export const getDetail = async (rid: string): Promise<Repository> => {
@@ -18,13 +19,19 @@ export const getDetail = async (rid: string): Promise<Repository> => {
   return data;
 };
 
-export const voteRepoStatus = async (rid: string): Promise<VoteStatus> => {
+export const userRepoStatus = async (
+  rid: string
+): Promise<UserActionStatus> => {
   const data: RequestInit = {};
+  data.credentials = 'include';
   data.headers = {
+    'Content-Type': 'application/json',
     Authorization: `Bearer ${window.localStorage.getItem('Authorization')}`,
   };
-  const result = await fetcher<VoteStatus>(
-    makeUrl(`/vote/repository/${rid}/status/`),
+  data.method = 'POST';
+  data.body = JSON.stringify({ item_id: rid, item_type: 'repository' });
+  const result = await fetcher<UserActionStatus>(
+    makeUrl(`/user/action/status/`),
     data
   );
   return result;
@@ -43,6 +50,19 @@ export const voteRepo = async (rid: string): Promise<Vote> => {
   return resp;
 };
 
+export const collectRepo = async (rid: string): Promise<Collect> => {
+  const data: RequestInit = {};
+  data.credentials = 'include';
+  data.headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${window.localStorage.getItem('Authorization')}`,
+  };
+  data.method = 'POST';
+  data.body = JSON.stringify({ rid: rid });
+  const resp = await fetcher<Collect>(makeUrl('/repository/collect/'), data);
+  return resp;
+};
+
 export const cancelVoteRepo = async (rid: string): Promise<BaseType | null> => {
   const data: RequestInit = {};
   data.credentials = 'include';
@@ -53,6 +73,21 @@ export const cancelVoteRepo = async (rid: string): Promise<BaseType | null> => {
   data.method = 'DELETE';
   data.body = JSON.stringify({ belong_id: rid, belong: 'repository' });
   const resp = await fetcher<BaseType>(makeUrl('/vote/'), data);
+  return resp;
+};
+
+export const cancelCollectRepo = async (
+  rid: string
+): Promise<BaseType | null> => {
+  const data: RequestInit = {};
+  data.credentials = 'include';
+  data.headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${window.localStorage.getItem('Authorization')}`,
+  };
+  data.method = 'DELETE';
+  data.body = JSON.stringify({ rid: rid });
+  const resp = await fetcher<BaseType>(makeUrl('/repository/collect/'), data);
   return resp;
 };
 

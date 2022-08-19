@@ -23,6 +23,9 @@ export interface Repository extends RepoType {
 
   score: number;
   likes: number;
+  collect_total: number;
+  comment_total: number;
+  praise_rate: number;
   tid: string | null | undefined;
 }
 
@@ -56,8 +59,16 @@ export interface RepoType {
   publish_at: number;
 }
 
-export interface VoteStatus {
+export interface UserActionStatus {
   is_voted: boolean;
+  is_collected: boolean;
+}
+
+export interface Collect {
+  posted: number;
+  limit: number;
+  remaining: number;
+  data: CollectType;
 }
 
 export interface Vote {
@@ -70,6 +81,11 @@ export interface Vote {
 export interface VoteType {
   belong: string;
   belong_id: string;
+  total: number;
+}
+
+export interface CollectType {
+  cid: string;
   total: number;
 }
 
