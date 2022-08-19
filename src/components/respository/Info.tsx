@@ -40,7 +40,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           </div>
         </div>
       </div>
-      <Score></Score>
+      <Score repo={repo}></Score>
     </div>
   );
 };

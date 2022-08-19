@@ -20,6 +20,7 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
       <div className='mt-2 bg-white px-2 pb-10 pt-2'>
         <Navbar avatar={repo.share_user.avatar} />
         <Info repo={repo}></Info>
+        <Tabs repo={repo}></Tabs>
         {repo.image_url ? (
           <div className='my-2 flex justify-center'>
             <ImageWithPreview
@@ -31,7 +32,6 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
         ) : (
           <></>
         )}
-        <Tabs repo={repo}></Tabs>
         <MoreInfo repo={repo}></MoreInfo>
       </div>
       <ButtonGroup repo={repo} />
