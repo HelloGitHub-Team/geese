@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IoIosArrowRoundUp } from 'react-icons/io';
 
 interface ToTopProps {
   cb?: () => void;
@@ -35,35 +36,7 @@ export default function ToTop({ cb }: ToTopProps) {
       style={show ? { display: 'flex' } : { display: 'none' }}
       className='fixed bottom-10 right-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md'
     >
-      <svg
-        width='18'
-        height='18'
-        viewBox='0 0 48 48'
-        fill='none'
-        xmlns='http://www.w3.org/2000/svg'
-      >
-        <path
-          d='M24.0083 14.1006V42.0001'
-          stroke='#333'
-          strokeWidth='4'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-        />
-        <path
-          d='M12 26L24 14L36 26'
-          stroke='#333'
-          strokeWidth='4'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-        />
-        <path
-          d='M12 6H36'
-          stroke='#333'
-          strokeWidth='4'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-        />
-      </svg>
+      <IoIosArrowRoundUp size={22} />
     </div>
   );
 }

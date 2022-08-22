@@ -4,6 +4,7 @@ import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
 import Loading from '@/components/loading/Loading';
+import Message from '@/components/message';
 import SearchResultItem from '@/components/search/SearchResultItem';
 import Seo from '@/components/Seo';
 
@@ -19,7 +20,7 @@ const Result: NextPage = () => {
   // 根据路由参数 q 获取搜索结果
   const { data, error, setSize, isValidating, size } =
     useSWRInfinite<SearchResponse>(
-      (index) => makeUrl(`/search`, { q, page: index + 1 }),
+      (index) => (q ? makeUrl(`/search`, { q, page: index + 1 }) : null),
       fetcher,
       {
         revalidateFirstPage: false,
@@ -29,8 +30,10 @@ const Result: NextPage = () => {
   // 追加搜索结果
   const list: SearchItemType[] =
     data?.reduce((pre: SearchItemType[], curr) => {
-      if (curr.data.length > 0) {
+      if (curr.data?.length > 0) {
         pre.push(...curr.data);
+      } else {
+        Message.info('搜索结果为空');
       }
       return pre;
     }, []) || [];
@@ -52,6 +55,7 @@ const Result: NextPage = () => {
   return (
     <>
       <Seo templateTitle='Search' />
+
       <div className='bg-content my-2 h-screen divide-y divide-slate-100'>
         {list.map((item: SearchItemType) => (
           <SearchResultItem key={item.rid} repo={item} />

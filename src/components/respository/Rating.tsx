@@ -3,8 +3,11 @@ import { GoStar } from 'react-icons/go';
 
 import { NOOP } from '~/constants';
 
-function Rating(props: { value: number; onChange?: (value: number) => void }) {
-  const { value = 2, onChange = NOOP } = props;
+function Rating(props: {
+  value: number;
+  onRateChange?: (value: number) => void;
+}) {
+  const { value = 5, onRateChange = NOOP } = props;
   const size = 18;
 
   return (
@@ -14,35 +17,35 @@ function Rating(props: { value: number; onChange?: (value: number) => void }) {
         className={clsx('cursor-pointer text-gray-400', {
           'text-yellow-300': value >= 1,
         })}
-        onClick={() => onChange(1)}
+        onClick={() => onRateChange(1)}
       />
       <GoStar
         size={size}
         className={clsx('cursor-pointer text-gray-400', {
           'text-yellow-300': value >= 2,
         })}
-        onClick={() => onChange(2)}
+        onClick={() => onRateChange(2)}
       />
       <GoStar
         size={size}
         className={clsx('cursor-pointer text-gray-400', {
           'text-yellow-300': value >= 3,
         })}
-        onClick={() => onChange(3)}
+        onClick={() => onRateChange(3)}
       />
       <GoStar
         size={size}
         className={clsx('cursor-pointer text-gray-400', {
           'text-yellow-300': value >= 4,
         })}
-        onClick={() => onChange(4)}
+        onClick={() => onRateChange(4)}
       />
       <GoStar
         size={size}
         className={clsx('cursor-pointer text-gray-400', {
           'text-yellow-300': value >= 5,
         })}
-        onClick={() => onChange(5)}
+        onClick={() => onRateChange(5)}
       />
     </div>
   );

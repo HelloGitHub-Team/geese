@@ -2,6 +2,9 @@ import classNames from 'classnames';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { GoRepoForked } from 'react-icons/go';
+import { IoIosStarOutline } from 'react-icons/io';
+import { MdOutlineRemoveRedEye } from 'react-icons/md';
 
 import ImageWithPreview from '@/components/ImageWithPreview';
 import MDRender from '@/components/mdRender/MDRender';
@@ -11,8 +14,7 @@ import ToTop from '@/components/toTop/ToTop';
 
 import { recordGoGithub } from '@/services/repository';
 import { getVolume, getVolumeNum } from '@/services/volume';
-
-import { Fork, LinkTo, Star, Watch } from './icon';
+import { numFormat } from '@/utils/util';
 
 import {
   PeriodicalPageProps,
@@ -122,7 +124,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
     return (
       <div className='mt-20 flex animate-pulse'>
         <Seo title='月刊' />
-        <div className='ml-4 mt-2 w-full'>
+        <div className='ml-4 mt-3 w-full'>
           <h3 className='h-4 rounded-md bg-gray-200 dark:bg-gray-700'></h3>
 
           <ul className='mt-5 space-y-3'>
@@ -141,9 +143,9 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
       <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
         <div className='relative pb-6'>
           <Seo title={`HelloGitHub 第 ${volume?.current_num} 期`} />
-          <div className='my-2 bg-white p-5'>
+          <div className='mt-3 mb-2 bg-white p-5'>
             <div className='my-4 flex flex-col items-center px-2'>
-              <h1 className='mb-2 font-medium text-gray-700'>
+              <h1 className='mb-2 font-medium text-black'>
                 《HelloGitHub》第 {volume?.current_num} 期
               </h1>
               <h2 className='text-center text-xl font-normal text-gray-400'>
@@ -153,17 +155,14 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
             {categoryList?.map((category: VolumeCategory, _cIndex: number) => {
               const id = `category-${category.category_id}`;
               return (
-                <div id={id} key={category.category_id} className='pb-10'>
-                  <h1 className='mt-5 text-xl text-gray-900'>
+                <div id={id} key={category.category_id} className='pb-5'>
+                  <h1 className='mt-4 text-xl text-black'>
                     {category.category_name}
                   </h1>
                   {category.items.map((item: VolumeItem) => {
                     return (
                       <div key={item.rid}>
-                        <div className='mt-6 mb-4 inline-flex gap-2'>
-                          <a id={item.name} href={`#${item.name}`}>
-                            <LinkTo />
-                          </a>
+                        <div className='mt-3 mb-2 inline-flex gap-1'>
                           <span>{itemIndex(item)}.</span>
                           <a
                             href={item.github_url}
@@ -176,18 +175,18 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
                           </a>
                         </div>
                         {/* stars forks watch */}
-                        <div className='mb-4 flex'>
-                          <span className='mr-2 flex text-gray-600'>
-                            <Star />
-                            Star {item.stars}
+                        <div className='mb-2 flex  text-sm text-gray-500'>
+                          <span className='mr-2 flex '>
+                            <IoIosStarOutline size={16} />
+                            Star {numFormat(item.stars)}
                           </span>
-                          <span className='mr-2 flex text-gray-600'>
-                            <Fork />
-                            Fork {item.forks}
+                          <span className='mr-2 flex'>
+                            <GoRepoForked size={16} />
+                            Fork {numFormat(item.forks)}
                           </span>
-                          <span className='flex text-gray-600'>
-                            <Watch />
-                            Watch {item.watch}
+                          <span className='flex'>
+                            <MdOutlineRemoveRedEye size={16} />
+                            Watch {numFormat(item.watch)}
                           </span>
                         </div>
                         {/* markdown 内容渲染 */}
@@ -223,7 +222,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
         {/* 右侧目录 */}
         <div className=''>
           <div className='top-15 fixed w-3/12 xl:w-2/12'>
-            <div className='mt-2 ml-3 bg-white p-4'>
+            <div className='mt-3 ml-3 bg-white p-4'>
               <h4 className='mb-2 border-b border-gray-200 pb-2'>目录</h4>
               <ul
                 className='custom-scrollbar overflow-scroll'

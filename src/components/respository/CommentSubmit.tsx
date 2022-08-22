@@ -27,10 +27,13 @@ function CommentSubmit(props: {
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
     const { value } = e.currentTarget;
-
-    // 自动增加输入框的高度
-    // 2 是 上下两个 border 的高度
-    e.currentTarget.style.height = `${e.currentTarget.scrollHeight + 2}px`;
+    if (value.length == 0) {
+      e.currentTarget.style.height = `58px`;
+    } else {
+      // 自动增加输入框的高度
+      // 2 是 上下两个 border 的高度
+      e.currentTarget.style.height = `${e.currentTarget.scrollHeight + 2}px`;
+    }
 
     setCommentData({
       ...commentData,
@@ -59,10 +62,11 @@ function CommentSubmit(props: {
         setCommentData({
           comment: '',
           isUsed: false,
-          score: 0,
+          score: 5,
         });
         if (data.success) {
           onSuccess && onSuccess(data);
+          Message.success('发布评论成功');
         } else {
           onFail && onFail(data);
         }
@@ -93,36 +97,35 @@ function CommentSubmit(props: {
             onInput={handleInput}
           ></textarea>
           <div className='flex items-center gap-2 text-xs sm:gap-4 sm:text-sm'>
-            <label
-              className='flex cursor-pointer items-center py-2'
-              onClick={() => handleRadioChange(false)}
-            >
+            <label className='flex cursor-pointer items-center py-2'>
               <input
                 type='radio'
                 name='radio-1'
                 className='mr-1 h-5 w-5 flex-shrink-0 cursor-pointer appearance-none rounded-full border border-gray-400 text-gray-800 focus:border-gray-800 focus:bg-gray-800'
                 style={{ boxShadow: 'none' }}
                 checked={!commentData.isUsed}
+                onChange={() => handleRadioChange(false)}
               />
               <span>未用过</span>
             </label>
-            <label
-              className='flex cursor-pointer items-center py-2'
-              onClick={() => handleRadioChange(true)}
-            >
+            <label className='flex cursor-pointer items-center py-2'>
               <input
                 type='radio'
                 name='radio-1'
                 className='mr-1 h-5 w-5 flex-shrink-0 cursor-pointer appearance-none rounded-full border border-gray-400 text-gray-800 focus:border-gray-800 focus:bg-gray-800'
                 style={{ boxShadow: 'none' }}
                 checked={commentData.isUsed}
+                onChange={() => handleRadioChange(true)}
               />
               <span>已用过</span>
             </label>
             <div className='h-4 w-[1px] bg-gray-300'></div>
             <div className='flex items-center'>
               <span>评分：</span>
-              <Rating value={commentData.score} onChange={handleChangeRating} />
+              <Rating
+                value={commentData.score}
+                onRateChange={handleChangeRating}
+              />
             </div>
             <button
               className='ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90 disabled:bg-gray-100 disabled:text-gray-300'

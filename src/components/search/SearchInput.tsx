@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import * as React from 'react';
+import { IoIosSearch } from 'react-icons/io';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
@@ -79,7 +80,7 @@ export default function SearchInput() {
     jump2Result(query);
   }, [jump2Result, query]);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const q = e.target.value;
     setQuery(q);
     getLenovoWord(q);
@@ -120,42 +121,16 @@ export default function SearchInput() {
           className='block h-10 w-full rounded-md border-gray-200 py-3 px-2 text-xs focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 md:text-sm'
           placeholder='搜索开源项目'
           value={query}
-          onChange={onChange}
+          onChange={onQueryChange}
           onKeyDown={onKeyDown}
           onBlur={onInputBlur}
         ></input>
-        <svg
-          width='24'
-          height='24'
-          viewBox='0 0 48 48'
-          fill='none'
-          xmlns='http://www.w3.org/2000/svg'
+
+        <IoIosSearch
+          size={24}
           className='absolute right-1 top-2 mr-2 cursor-pointer'
           onClick={onSearch}
-        >
-          <rect width='48' height='48' fill='white' fillOpacity='0.01' />
-          <path
-            d='M21 38C30.3888 38 38 30.3888 38 21C38 11.6112 30.3888 4 21 4C11.6112 4 4 11.6112 4 21C4 30.3888 11.6112 38 21 38Z'
-            fill='none'
-            stroke='#333'
-            strokeWidth='4'
-            strokeLinejoin='round'
-          />
-          <path
-            d='M26.6568 14.3431C25.2091 12.8954 23.2091 12 21 12C18.7909 12 16.7909 12.8954 15.3431 14.3431'
-            stroke='#333'
-            strokeWidth='4'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-          />
-          <path
-            d='M33.2218 33.2218L41.7071 41.7071'
-            stroke='#333'
-            strokeWidth='4'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-          />
-        </svg>
+        />
 
         <div className={dropdownClassName(show)} role='menu'>
           <div className='p-2'>

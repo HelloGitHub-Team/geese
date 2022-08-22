@@ -103,7 +103,7 @@ const Items = () => {
   return (
     <div>
       <div className='relative bg-white'>
-        <div className='bg-content border-main-content mb-2 mt-2 overflow-hidden'>
+        <div className='bg-content border-main-content mb-2 mt-3 overflow-hidden'>
           <div className='flex py-2.5 pl-4 pr-3'>
             <div className='flex items-center justify-start space-x-2'>
               <Link href={hotURL}>
