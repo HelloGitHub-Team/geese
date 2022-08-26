@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Fragment, useCallback, useState } from 'react';
+import { VscChromeClose } from 'react-icons/vsc';
 
 import { Dialog } from '@/components/dialog';
-import Message from '@/components/message';
 import { Transition } from '@/components/dialog/transition/transition';
+import Message from '@/components/message';
 
 import { createRepo } from '@/services/repository';
 
@@ -62,7 +63,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
   }
 
   return (
-    <div className='bg-content border-main-content mb-2 mt-2 overflow-hidden p-1'>
+    <div className='bg-content border-main-content overflow-hidden p-1'>
       <form onSubmit={handleCreateRepo} className='space-y-4'>
         <div>
           <label className='sr-only' htmlFor='url'>
@@ -164,6 +165,15 @@ export function RepoModal({ children }: { children: JSX.Element }) {
                 leaveTo='opacity-0 scale-95'
               >
                 <Dialog.Panel className='w-[48rem] max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                  <div
+                    className='ml-auto box-content w-6 pb-4 pl-4'
+                    onClick={closeModal}
+                  >
+                    <VscChromeClose
+                      size={24}
+                      className='cursor-pointer text-gray-500'
+                    />
+                  </div>
                   <CreateRepo response={handleResponse}></CreateRepo>
                 </Dialog.Panel>
               </Transition.Child>
