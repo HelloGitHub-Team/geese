@@ -29,17 +29,17 @@ export default function CreateRepo({ response }: CreateRepoProps) {
       if (validateUrl(url)) {
         createRepo({ url, summary }).then((res) => {
           if (res.success) {
-            Message.success(res.message);
+            Message.success(`创建成功，您还可以提交 ${res.remaining} 次`);
           } else {
-            Message.warn(res.message);
+            Message.error(res.message);
           }
           response(res);
           setLoading(false);
         });
       } else {
         setLoading(false);
-        const message = '请检查项目地址是否符合提交规范.';
-        Message.warn(message);
+        const message = '项目地址必须是由 https://github.com 开头';
+        Message.error(message);
         response({ success: false, message: message });
       }
     },
