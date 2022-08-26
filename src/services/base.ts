@@ -13,13 +13,17 @@ export const fetcher = async function fetcher<T>(
     throw new Error('OFFLINE');
   }
 
-  const defaultInit = {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${getCurrentToken()}`,
-    },
+  const defaultHeaders = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${getCurrentToken()}`,
   };
-  const res = await fetch(input, Object.assign(defaultInit, init));
+  if (init?.headers) {
+    init.headers = { ...defaultHeaders, ...init.headers };
+  } else if (init) {
+    init.headers = defaultHeaders;
+  }
+
+  const res = await fetch(input, init);
 
   try {
     const json = await res.json();
