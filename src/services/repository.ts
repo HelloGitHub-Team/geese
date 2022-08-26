@@ -9,6 +9,7 @@ import {
   Collect,
   CommentData,
   CommentSuccessData,
+  CreateRepoRes,
   Repository,
   UserActionStatus,
   Vote,
@@ -173,4 +174,13 @@ export const unlike = async (data: {
     throw err;
   });
   return res;
+};
+
+export const createRepo = (
+  params: Record<string, any>
+): Promise<CreateRepoRes> => {
+  return fetcher<CreateRepoRes>(makeUrl('/repository/'), {
+    method: 'POST',
+    body: JSON.stringify(params),
+  });
 };
