@@ -2,7 +2,7 @@ import Message from '@/components/message';
 
 import { makeUrl } from '@/utils/api';
 
-import { fetcher, post } from './base';
+import { fetcher } from './base';
 
 import {
   BaseType,
@@ -176,6 +176,11 @@ export const unlike = async (data: {
   return res;
 };
 
-export const createRepo = async (
+export const createRepo = (
   params: Record<string, any>
-): Promise<CreateRepoRes> => post<CreateRepoRes>(`/repository/`, params);
+): Promise<CreateRepoRes> => {
+  return fetcher<CreateRepoRes>(makeUrl('/repository/'), {
+    method: 'POST',
+    body: JSON.stringify(params),
+  });
+};

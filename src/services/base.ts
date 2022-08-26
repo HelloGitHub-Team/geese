@@ -2,8 +2,6 @@ import { getCurrentToken } from '@/hooks/useToken';
 
 import Message from '@/components/message';
 
-import { makeUrl } from '@/utils/api';
-
 export const fetcher = async function fetcher<T>(
   input: RequestInfo,
   init?: RequestInit
@@ -62,22 +60,3 @@ export const fetcher = async function fetcher<T>(
     return Object({ success: false, data: null });
   }
 };
-
-export function fetchPost(
-  fetcher: <T>(input: RequestInfo, init?: RequestInit) => Promise<T>,
-  options?: RequestInit,
-  headers?: HeadersInit
-) {
-  return async <T>(key: string, params: Record<string, any>) => {
-    const requestInit: RequestInit = {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(params),
-      ...options,
-    };
-
-    return await fetcher<T>(makeUrl(key), requestInit);
-  };
-}
-
-export const post = fetchPost(fetcher);
