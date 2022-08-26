@@ -73,9 +73,12 @@ export default function CreateRepo({ response }: CreateRepoProps) {
             className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none'
             placeholder='项目地址（如: https://github.com/xxx/xxx）'
             type='text'
-            onChange={onUrlChange}
             id='url'
+            onChange={onUrlChange}
           />
+          <div className='mt-2 text-xs text-gray-400'>
+            注意：仅接受 GitHub 上的开源项目
+          </div>
         </div>
 
         <div>
@@ -84,7 +87,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
           </label>
           <textarea
             className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none'
-            placeholder='项目介绍'
+            placeholder='项目介绍（非必填）'
             rows={8}
             id='summary'
             onChange={onSummaryChange}
