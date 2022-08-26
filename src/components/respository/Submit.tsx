@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Fragment, useCallback, useState } from 'react';
 import { VscChromeClose } from 'react-icons/vsc';
 
+import useLogin from '@/hooks/useLogin';
+
 import { Dialog } from '@/components/dialog';
 import { Transition } from '@/components/dialog/transition/transition';
 import Message from '@/components/message';
@@ -123,12 +125,16 @@ export default function CreateRepo({ response }: CreateRepoProps) {
 
 export function RepoModal({ children }: { children: JSX.Element }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { isLogin, login } = useLogin();
 
   function closeModal() {
     setIsOpen(false);
   }
 
   function openModal() {
+    if (!isLogin) {
+      return login();
+    }
     setIsOpen(true);
   }
 
