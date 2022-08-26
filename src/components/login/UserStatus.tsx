@@ -27,8 +27,13 @@ export default function UserStatus({ isLogin, updateLoginStatus }: UserProps) {
     },
     {
       revalidateIfStale: false,
-      onSuccess: function () {
-        updateLoginStatus(true);
+      onSuccess: function (data) {
+        if (data?.uid) {
+          updateLoginStatus(true);
+        } else {
+          updateLoginStatus(false);
+          setToken(null);
+        }
       },
       onError: function () {
         updateLoginStatus(false);

@@ -80,7 +80,7 @@ function CommentSubmit(props: {
     <div className={`${className}`}>
       <div className='flex items-start'>
         <div className='relative mr-4 hidden sm:inline-flex'>
-          <div className='relative aspect-square w-16 overflow-hidden rounded-full'>
+          <div className='relative aspect-square w-14 overflow-hidden rounded-full'>
             <Image
               layout='fill'
               src={userInfo.avatar || DEFAULT_AVATAR}
