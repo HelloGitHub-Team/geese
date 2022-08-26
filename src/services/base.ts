@@ -19,6 +19,8 @@ export const fetcher = async function fetcher<T>(
     init.headers = { ...defaultHeaders, ...init.headers };
   } else if (init) {
     init.headers = defaultHeaders;
+  } else {
+    init = { headers: defaultHeaders };
   }
 
   const res = await fetch(input, init);
