@@ -11,7 +11,7 @@ const Navbar: NextPage<UserAvaterProps> = ({ avatar }) => {
 
   return (
     <div className='flex items-center justify-between'>
-      <div className='cursor-pointer py-2 pr-4' onClick={router.back}>
+      <div className='cursor-pointer py-2 pr-4' onClick={() => router.back()}>
         <AiOutlineArrowLeft className='text-blue-400' size={20} />
       </div>
       <strong className='text-center'>项目详情</strong>
