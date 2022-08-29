@@ -48,7 +48,7 @@ const Index = ({ token, userInfo, user_agent }: IProps) => {
   return (
     <div className='bg-white'>
       {token ? (
-        <div className='mt-3'>
+        <div className='mt-2'>
           <div className='flex py-2.5 pl-4 pr-3'>登录成功，跳转中...</div>
         </div>
       ) : (

@@ -74,14 +74,13 @@ export default function UserStatus({ isLogin, updateLoginStatus }: UserProps) {
 
               <div className='flex items-end pt-2 text-sm'>
                 <RepoModal>
-                  <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600'>
+                  <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 pl-1 pr-1 text-xs text-white active:bg-blue-600 xl:pl-4 xl:pr-4 xl:text-sm'>
                     分享项目
                   </a>
                 </RepoModal>
-                {/* <ModalRepo></ModalRepo> */}
                 <div className='shrink grow'></div>
                 <div className='pr-2 pb-0.5 text-slate-400'>贡献值</div>
-                <div className='text-4xl font-bold text-yellow-500'>
+                <div className='text-3xl font-bold text-yellow-500 xl:text-3xl'>
                   {data?.contribute}
                 </div>
               </div>

@@ -222,7 +222,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
         {/* 右侧目录 */}
         <div className=''>
           <div className='top-15 fixed w-3/12 xl:w-2/12'>
-            <div className='mt-3 ml-3 bg-white p-4'>
+            <div className='mt-2 ml-3 bg-white p-4'>
               <h4 className='mb-2 border-b border-gray-200 pb-2'>目录</h4>
               <ul
                 className='custom-scrollbar overflow-scroll'

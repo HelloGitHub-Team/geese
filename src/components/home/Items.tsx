@@ -14,6 +14,7 @@ import { makeUrl } from '@/utils/api';
 
 import Item from './Item';
 import TagLink from '../links/TagLink';
+import ToTop from '../toTop/ToTop';
 
 import { HomeItem, HomeItems } from '@/types/home';
 import { Tag } from '@/types/tag';
@@ -104,7 +105,7 @@ const Items = () => {
   return (
     <div>
       <div className='relative bg-white'>
-        <div className='bg-content border-main-content mb-2 mt-3 overflow-hidden'>
+        <div className='bg-content border-main-content mb-2 mt-2 overflow-hidden'>
           <div className='flex py-2.5 pl-4 pr-3'>
             <div className='flex items-center justify-start space-x-2'>
               <Link href={hotURL}>
@@ -141,7 +142,6 @@ const Items = () => {
           </div>
         </div>
       </div>
-
       <div className='bg-content h-screen divide-y divide-slate-100'>
         {repositories.map((item: HomeItem) => (
           <Item key={item.item_id} item={item}></Item>
@@ -154,6 +154,9 @@ const Items = () => {
             <Loading></Loading>
           </div>
         )}
+        <div className='hidden md:block'>
+          <ToTop />
+        </div>
       </div>
     </div>
   );
