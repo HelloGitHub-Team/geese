@@ -16,7 +16,7 @@ import {
 } from '@/types/reppsitory';
 
 export const getDetail = async (rid: string): Promise<Repository> => {
-  const data = await fetcher<Repository>(makeUrl(`/repository/detail/${rid}/`));
+  const data = await fetcher<Repository>(makeUrl(`/repository/detail/${rid}`));
   return data;
 };
 
@@ -161,7 +161,7 @@ export const unlike = async (data: {
   belongId: string;
   cid: string;
 }) => {
-  const url = makeUrl(`/vote/comment`);
+  const url = makeUrl('/vote/comment');
   const res = await fetcher<{ success: boolean; message?: string }>(url, {
     method: 'DELETE',
     body: JSON.stringify({

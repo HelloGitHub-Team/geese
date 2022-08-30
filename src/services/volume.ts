@@ -12,13 +12,14 @@ interface Volume {
 }
 
 type VolumeAll = {
+  lastNum: number;
   total: number;
   data: any[];
 };
 
-export const getVolume = async (id: string): Promise<Volume | boolean> => {
+export const getVolume = async (num: number): Promise<Volume | boolean> => {
   try {
-    const data = await fetcher<Volume>(makeUrl(`/volume/?num=${id}`));
+    const data = await fetcher<Volume>(makeUrl(`/volume/${num}`));
     return data;
   } catch (error) {
     return false;
@@ -27,10 +28,13 @@ export const getVolume = async (id: string): Promise<Volume | boolean> => {
 
 export const getVolumeNum = async (): Promise<VolumeAll> => {
   try {
-    const { total = 0, data = [] } =
-      (await fetcher(makeUrl(`/volume/all/`))) || {};
-    return { total, data };
+    const {
+      total = 0,
+      data = [],
+      lastNum = 0,
+    } = (await fetcher(makeUrl(`/volume/all/`))) || {};
+    return { total, data, lastNum };
   } catch (error) {
-    return { total: 0, data: [] };
+    return { total: 0, data: [], lastNum: 0 };
   }
 };

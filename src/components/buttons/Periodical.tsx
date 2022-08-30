@@ -8,8 +8,7 @@ const PeriodicalButton = () => {
   const [atPeriodical, setAtPeriodical] = useState<boolean>(false);
 
   const handlePeriodicalURL = async () => {
-    const { data } = await getVolumeNum();
-    const lastNum = data.at(0).num;
+    const { data, lastNum } = await getVolumeNum();
     if (data) {
       router.push(`/periodical/volume/${lastNum}`);
     } else {

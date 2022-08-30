@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Fragment, useCallback, useState } from 'react';
+import { IoIosArrowRoundForward } from 'react-icons/io';
 import { VscChromeClose } from 'react-icons/vsc';
 
 import useLogin from '@/hooks/useLogin';
@@ -31,7 +32,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
       if (validateUrl(url)) {
         createRepo({ url, summary }).then((res) => {
           if (res.success) {
-            Message.success(`创建成功，您还可以提交 ${res.remaining} 次`);
+            Message.success(`提交成功，您还可以提交 ${res.remaining} 次`);
           } else {
             Message.error(res.message);
           }
@@ -40,7 +41,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
         });
       } else {
         setLoading(false);
-        const message = '项目地址必须是由 https://github.com 开头';
+        const message = '地址必须是由 https://github.com 开头';
         Message.error(message);
         response({ success: false, message: message });
       }
@@ -73,13 +74,13 @@ export default function CreateRepo({ response }: CreateRepoProps) {
           </label>
           <input
             className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none'
-            placeholder='项目地址（如: https://github.com/xxx/xxx）'
+            placeholder='项目地址（如：https://github.com/521xueweihan/HelloGitHub）'
             type='text'
             id='url'
             onChange={onUrlChange}
           />
           <div className='mt-2 text-xs text-gray-400'>
-            注意：仅接受 GitHub 上的开源项目
+            👆 仅接受 GitHub 上的开源项目
           </div>
         </div>
 
@@ -89,11 +90,14 @@ export default function CreateRepo({ response }: CreateRepoProps) {
           </label>
           <textarea
             className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none'
-            placeholder='项目介绍（非必填）'
+            placeholder='请填写项目描述：这是个什么项目、能用来干什么、有什么特点或解决了什么痛点，适用于什么场景、能够让初学者学到什么'
             rows={8}
             id='summary'
             onChange={onSummaryChange}
           ></textarea>
+          <div className='mt-2 text-xs text-gray-400'>
+            字数限制 10-200 个字符
+          </div>
         </div>
 
         <div className='mt-4 text-right'>
@@ -102,20 +106,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
             className='inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto'
           >
             <span className='font-medium'>提交</span>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='ml-3 h-5 w-5'
-              fill='none'
-              viewBox='0 0 24 24'
-              stroke='currentColor'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M14 5l7 7m0 0l-7 7m7-7H3'
-              />
-            </svg>
+            <IoIosArrowRoundForward size={24} />
           </button>
         </div>
       </form>

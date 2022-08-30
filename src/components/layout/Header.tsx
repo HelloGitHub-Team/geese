@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import Message from '@/components/message';
-
 import LoginButton from '../buttons/LoginButton';
 import LogoutButton from '../buttons/LogoutButton';
 import PeriodicalButton from '../buttons/Periodical';
@@ -14,7 +12,6 @@ const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
   const router = useRouter();
 
   const showMessage = () => {
-    Message.info(`HelloGitHub 首页`);
     router.push('/');
   };
 

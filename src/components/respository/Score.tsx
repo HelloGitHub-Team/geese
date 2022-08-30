@@ -22,7 +22,7 @@ const Score: NextPage<RepositoryProps> = ({ repo }) => {
             </div>
           ) : (
             <div className='pb-1 text-center text-xs text-white'>
-              <div>暂无好评率</div>
+              <div>暂无</div>
               <div>评测数不够</div>
             </div>
           )}
