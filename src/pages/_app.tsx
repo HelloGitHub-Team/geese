@@ -5,6 +5,8 @@ import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 import '@/styles/colors.css';
 
+import { LoginProvider } from '@/hooks/useLoginContext';
+
 import Layout from '@/components/layout/Layout';
 import { AlertComp as Alert } from '@/components/message/Alert';
 
@@ -20,16 +22,18 @@ function MyApp({ Component, pageProps }: AppProps) {
   const singlePage: string[] = ['/404', '/500'];
   return (
     <div id='root'>
-      {singlePage.includes(pathname) ? (
-        <Component {...pageProps} />
-      ) : (
-        <Layout>
+      <LoginProvider>
+        {singlePage.includes(pathname) ? (
           <Component {...pageProps} />
-        </Layout>
-      )}
-      <div id='alert'>
-        <Alert />
-      </div>
+        ) : (
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        )}
+        <div id='alert'>
+          <Alert />
+        </div>
+      </LoginProvider>
     </div>
   );
 }

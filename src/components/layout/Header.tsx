@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import useLogin from '@/hooks/useLogin';
+import { useLoginContext } from '@/hooks/useLoginContext';
 
 import LogoutButton from '@/components/buttons/LogoutButton';
 
@@ -11,13 +11,11 @@ import LoginButton from '../buttons/LoginButton';
 import PeriodicalButton from '../buttons/Periodical';
 import SearchInput from '../search/SearchInput';
 
-import { LoginStatusProps } from '@/types/user';
-
 import { DEFAULT_AVATAR } from '~/constants';
 
 const AvatarWithDropdown = (props: { className?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { logout } = useLogin();
+  const { logout } = useLoginContext();
 
   useEffect(() => {
     const handleDocumentClick = () => {
@@ -62,8 +60,9 @@ const AvatarWithDropdown = (props: { className?: string }) => {
   );
 };
 
-const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
+const Header = () => {
   const router = useRouter();
+  const { isLogin } = useLoginContext();
 
   const showMessage = () => {
     router.push('/');
@@ -88,14 +87,14 @@ const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
             <PeriodicalButton></PeriodicalButton>
           </li>
           <>
-            {!loginStatus ? (
+            {!isLogin ? (
               <li className='block md:hidden'>
                 <LoginButton></LoginButton>
               </li>
             ) : (
               <>
                 <li className='hidden md:block '>
-                  <LogoutButton updateLoginStatus={updateLoginStatus} />
+                  <LogoutButton />
                 </li>
                 <AvatarWithDropdown className='md:hidden' />
               </>

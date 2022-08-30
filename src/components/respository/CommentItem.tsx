@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { GoThumbsup } from 'react-icons/go';
 
-import useLogin from '@/hooks/useLogin';
+import { useLoginContext } from '@/hooks/useLoginContext';
 
 import Message from '@/components/message';
 import Rating from '@/components/respository/Rating';
@@ -37,7 +37,7 @@ const CommentItem = (
     className,
     onChangeVote = NOOP,
   } = props;
-  const { isLogin } = useLogin();
+  const { isLogin } = useLoginContext();
 
   const handleVote = async () => {
     if (isVoted) {

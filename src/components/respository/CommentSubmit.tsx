@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { FormEventHandler } from 'react';
 
 import useCommentData from '@/hooks/useCommentData';
-import useLogin from '@/hooks/useLogin';
+import { useLoginContext } from '@/hooks/useLoginContext';
 import useUserInfo from '@/hooks/useUserInfo';
 
 import Message from '@/components/message';
@@ -22,7 +22,7 @@ function CommentSubmit(props: {
 }) {
   const { commentData, setCommentData } = useCommentData();
   const { userInfo } = useUserInfo();
-  const { login, isLogin } = useLogin();
+  const { login, isLogin } = useLoginContext();
   const { belongId, className, onSuccess, onFail } = props;
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {

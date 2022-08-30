@@ -3,6 +3,7 @@ import Link from 'next/link';
 import * as React from 'react';
 import useSWR from 'swr';
 
+import { useLoginContext } from '@/hooks/useLoginContext';
 import useToken from '@/hooks/useToken';
 
 import { RepoModal } from '@/components/respository/Submit';
@@ -13,32 +14,18 @@ import { makeUrl } from '@/utils/api';
 import Loading from '../loading/Loading';
 import SideLoginButton from '../side/SideLoginButton';
 
-import { UserProps, UserStatusProps } from '@/types/user';
+import { UserStatusProps } from '@/types/user';
 
 import { DEFAULT_AVATAR } from '~/constants';
 
-export default function UserStatus({ isLogin, updateLoginStatus }: UserProps) {
-  const { token, setToken } = useToken();
+export default function UserStatus() {
+  const { token } = useToken();
+  const { isLogin } = useLoginContext();
   const { data, isValidating } = useSWR<UserStatusProps>(
     token ? makeUrl('/user/me/') : null,
     (key) => {
       const headers = { Authorization: `Bearer ${token}` };
       return fetcher(key, { headers });
-    },
-    {
-      revalidateIfStale: false,
-      onSuccess: function (data) {
-        if (data?.uid) {
-          updateLoginStatus(true);
-        } else {
-          updateLoginStatus(false);
-          setToken(null);
-        }
-      },
-      onError: function () {
-        updateLoginStatus(false);
-        setToken(null);
-      },
     }
   );
 
