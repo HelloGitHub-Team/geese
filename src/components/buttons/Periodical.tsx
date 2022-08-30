@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+import Button from '@/components/buttons/Button';
+
 import { getVolumeNum } from '@/services/volume';
 
 const PeriodicalButton = () => {
@@ -22,21 +24,23 @@ const PeriodicalButton = () => {
   return (
     <>
       {atPeriodical ? (
-        <button
+        <Button
+          className='font-normal text-gray-500'
+          variant='ghost'
           onClick={() => {
             router.push('/');
           }}
         >
-          <span className='inline-flex cursor-pointer items-center rounded-lg px-3 py-2'>
-            首页
-          </span>
-        </button>
+          首页
+        </Button>
       ) : (
-        <button onClick={handlePeriodicalURL}>
-          <span className='inline-flex cursor-pointer items-center rounded-lg px-3 py-2'>
-            月刊
-          </span>
-        </button>
+        <Button
+          className='font-normal text-gray-500'
+          variant='ghost'
+          onClick={handlePeriodicalURL}
+        >
+          月刊
+        </Button>
       )}
     </>
   );

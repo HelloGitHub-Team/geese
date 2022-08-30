@@ -1,14 +1,18 @@
 import { useLoginContext } from '@/hooks/useLoginContext';
 
+import Button from '@/components/buttons/Button';
+
 const LogoutButton = () => {
   const { logout } = useLoginContext();
 
   return (
-    <button onClick={logout}>
-      <span className='inline-flex items-center rounded-lg px-3 py-2'>
-        退出
-      </span>
-    </button>
+    <Button
+      className='font-normal text-gray-500'
+      variant='ghost'
+      onClick={logout}
+    >
+      退出
+    </Button>
   );
 };
 

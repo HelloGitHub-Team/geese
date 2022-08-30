@@ -19,7 +19,7 @@ import { Repository, RepositoryProps } from '@/types/reppsitory';
 
 const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
   const commonStyle =
-    'flex flex-1 items-center justify-center cursor-pointer leading-10 hover:text-blue-500 active:text-gray-400';
+    'flex flex-1 items-center justify-center cursor-pointer leading-10 hover:text-current md:hover:text-blue-500 active:!text-gray-400';
   const iconStyle = 'mr-1';
 
   const [isVoted, setIsVoted] = useState<boolean>(false);
