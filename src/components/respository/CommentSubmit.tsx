@@ -6,6 +6,7 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 import useUserInfo from '@/hooks/useUserInfo';
 
 import Message from '@/components/message';
+import Modal from '@/components/modal';
 import Rating from '@/components/respository/Rating';
 
 import { submitComment } from '@/services/repository';
@@ -57,23 +58,30 @@ function CommentSubmit(props: {
     if (!isLogin) {
       return login();
     }
-    submitComment(belongId, commentData)
-      .then((data) => {
-        setCommentData({
-          comment: '',
-          isUsed: false,
-          score: 5,
-        });
-        if (data.success) {
-          onSuccess && onSuccess(data);
-          Message.success('发布评论成功');
-        } else {
-          onFail && onFail(data);
-        }
-      })
-      .catch((err) => {
-        Message.error(err.message || '提交评论失败');
-      });
+    Modal.confirm({
+      title: '提交评论',
+      content: '评论一经提交后无法修改和删除，请误发布灌水、广告、恶意等内容。',
+      okText: '确认发布',
+      onOk() {
+        submitComment(belongId, commentData)
+          .then((data) => {
+            setCommentData({
+              comment: '',
+              isUsed: false,
+              score: 5,
+            });
+            if (data.success) {
+              onSuccess && onSuccess(data);
+              Message.success('发布评论成功');
+            } else {
+              onFail && onFail(data);
+            }
+          })
+          .catch((err) => {
+            Message.error(err.message || '提交评论失败');
+          });
+      },
+    });
   };
 
   return (
