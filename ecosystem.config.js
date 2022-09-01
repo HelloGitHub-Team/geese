@@ -6,7 +6,7 @@ module.exports = {
       instances: 2,
       max_restarts: 3,
       env: {
-        NODE_ENV: 'production',
+        NEXT_PUBLIC_ENV: 'production',
       },
       watch: true,
       merge_logs: true,
@@ -14,8 +14,8 @@ module.exports = {
       max_memory_restart: '1G',
       instance_var: 'NODE_APP_INSTANCE',
       log_date_format: 'YYYY-MM-DD HH:mm:ss:SS',
-      error_file: '/var/log/geese/error.log',
-      out_file: '/var/log/geese/out.log',
+      error_file: '/data/logs/geese_error.log',
+      out_file: '/data/logs/geese_out.log',
     },
   ],
 };
