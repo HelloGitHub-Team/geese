@@ -8,9 +8,9 @@ const PRODUCTION_API_HOST = 'https://api.hellogithub.com';
 const API_ROOT_PATH = '/v1';
 
 export const API_HOST =
-  process.env.NEXT_PUBLIC_ENV === 'production'
-    ? PRODUCTION_API_HOST
-    : LOCAL_API_HOST;
+  process.env.NEXT_PUBLIC_ENV === 'development'
+    ? LOCAL_API_HOST
+    : PRODUCTION_API_HOST;
 
 /**
  * Generates a url to make an api call to our backend
