@@ -31,5 +31,7 @@ app.prepare().then(() => {
     return handle(req, res, parsedUrl);
   });
 
-  server.listen(NODE_PORT, () => console.log('App listening on port ' + NODE_PORT));
+  server.listen(NODE_PORT, () =>
+    console.log('App listening on port ' + NODE_PORT)
+  );
 });

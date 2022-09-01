@@ -2,7 +2,6 @@
  * 防抖
  * @param func
  * @param wait
- * @param immediate
  * @returns function
  */
 export function debounce(func: any, wait: number) {
@@ -44,3 +43,8 @@ export function numFormat(n: number | undefined, digits = 0) {
   }
   return (num / si[i].value).toFixed(digits).replace(rx, '$1') + si[i].symbol;
 }
+
+/**
+ * 是否是在浏览器端运行
+ */
+export const isClient = () => typeof window !== 'undefined';

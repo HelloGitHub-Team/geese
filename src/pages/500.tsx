@@ -16,9 +16,9 @@ export default function ServerErrorPage() {
               size={60}
               className='drop-shadow-glow animate-flicker text-red-500'
             />
-            <h1 className='mt-8 text-4xl md:text-6xl'>500-Server-side error</h1>
+            <h1 className='mt-8 text-4xl md:text-6xl'>服务器出错啦！</h1>
             <ArrowLink className='mt-4 md:text-lg' href='/'>
-              Back to Home
+              返回首页
             </ArrowLink>
           </div>
         </section>

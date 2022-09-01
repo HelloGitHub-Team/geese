@@ -1,6 +1,6 @@
 import Status from './Status';
+import UserStatus from './UserStatus';
 import Footer from '../layout/Footer';
-import UserStatus from '../login/UserStatus';
 
 import { LoginStatusProps } from '@/types/user';
 

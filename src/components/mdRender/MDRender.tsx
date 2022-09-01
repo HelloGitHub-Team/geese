@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { vs } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 import clsxm from '@/lib/clsxm';
 
@@ -24,15 +24,10 @@ export default function MDRender({
 
 const Code = {
   code({ node: _node, inline, className, children, ...props }: any) {
-    const match = /language-(\w+)/.exec(className || '');
+    const match = /language-(\w+)/.exec(className || '') || 'shell';
     children = String(children).replace(/\n$/, '');
     return !inline && match ? (
-      <SyntaxHighlighter
-        style={tomorrow}
-        language={match[1]}
-        PreTag='div'
-        {...props}
-      >
+      <SyntaxHighlighter style={vs} language={match[1]} PreTag='div' {...props}>
         {children}
       </SyntaxHighlighter>
     ) : (

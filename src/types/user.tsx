@@ -31,14 +31,9 @@ export interface UserType {
 export interface UserStatusProps {
   uid: string;
   nickname: string;
-  gender: number;
-  city: string;
-  province: string;
-  country: string;
   avatar: string;
   permission: Permission;
-  first_login: string;
-  last_login: string;
+  contribute: number;
 }
 
 export interface OAuthURLResponse {

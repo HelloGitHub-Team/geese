@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import { fromNow } from '@/utils/day';
@@ -10,7 +9,6 @@ import { numFormat } from '@/utils/util';
 import { ItemProps } from '@/types/home';
 
 const Item: NextPage<ItemProps> = ({ item }) => {
-  const router = useRouter();
   return (
     <article className='mx-4'>
       <Link href={`/repository/${item.item_id}`}>
@@ -35,14 +33,11 @@ const Item: NextPage<ItemProps> = ({ item }) => {
               src={item.user.avatar}
               className='bg-img h-5 w-5 rounded'
               alt=''
-              onClick={() => router.push(`/users/${item.user.uid}`)}
             />
             <div className='flex shrink grow items-center overflow-x-hidden pl-2 text-sm text-slate-400'>
-              <Link href={`/users/${item.user.uid}`}>
-                <div className='text-color-primary whitespace-nowrap hover:underline'>
-                  {item.user.nickname}
-                </div>
-              </Link>
+              <div className='text-color-primary whitespace-nowrap'>
+                {item.user.nickname}
+              </div>
               <span className='pl-1 pr-1'>·</span>
               <div className='text-color-primary whitespace-nowrap'>
                 {item.primary_lang}

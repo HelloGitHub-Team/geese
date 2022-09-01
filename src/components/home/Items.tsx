@@ -6,6 +6,7 @@ import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
 import Loading from '@/components/loading/Loading';
+import { RepoModal } from '@/components/respository/Submit';
 
 import { fetcher } from '@/services/base';
 import { getTags } from '@/services/home';
@@ -13,6 +14,7 @@ import { makeUrl } from '@/utils/api';
 
 import Item from './Item';
 import TagLink from '../links/TagLink';
+import ToTop from '../toTop/ToTop';
 
 import { HomeItem, HomeItems } from '@/types/home';
 import { Tag } from '@/types/tag';
@@ -123,11 +125,11 @@ const Items = () => {
               </button>
 
               <div className='absolute top-0 right-0 p-2.5  md:hidden'>
-                <Link href='/create/repo/'>
+                <RepoModal>
                   <a className='flex h-8 items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600'>
                     提交
                   </a>
-                </Link>
+                </RepoModal>
               </div>
             </div>
           </div>
@@ -140,7 +142,6 @@ const Items = () => {
           </div>
         </div>
       </div>
-
       <div className='bg-content h-screen divide-y divide-slate-100'>
         {repositories.map((item: HomeItem) => (
           <Item key={item.item_id} item={item}></Item>
@@ -153,6 +154,9 @@ const Items = () => {
             <Loading></Loading>
           </div>
         )}
+        <div className='hidden md:block'>
+          <ToTop />
+        </div>
       </div>
     </div>
   );

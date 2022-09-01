@@ -1,3 +1,7 @@
+import { getCurrentToken } from '@/hooks/useToken';
+
+import Message from '@/components/message';
+
 export const fetcher = async function fetcher<T>(
   input: RequestInfo,
   init?: RequestInit
@@ -7,20 +11,54 @@ export const fetcher = async function fetcher<T>(
     throw new Error('OFFLINE');
   }
 
-  const res = await fetch(input, init);
-  if (
-    !res.ok ||
-    res.status === 500 ||
-    res.status === 404 ||
-    res.status === 400
-  ) {
-    if (res.status === 500) {
-      window.location.href = '/500';
-    } else if (res.status === 404 || res.status === 400) {
-      window.location.href = '/404';
-    }
-    throw res;
+  const defaultHeaders = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${getCurrentToken()}`,
+  };
+  if (init?.headers) {
+    init.headers = { ...defaultHeaders, ...init.headers };
+  } else if (init) {
+    init.headers = defaultHeaders;
+  } else {
+    init = { headers: defaultHeaders };
   }
-  const json = await res.json();
-  return json;
+
+  const res = await fetch(input, init);
+
+  try {
+    const json = await res.json();
+    if (!res.ok) {
+      if (res.status === 500) {
+        if (typeof window !== 'undefined') {
+          window.location.href = '/500';
+        } else {
+          Message.error('服务器发生错误');
+        }
+      } else if (res.status === 404) {
+        if (typeof window !== 'undefined') {
+          window.location.href = '/404';
+        } else {
+          Message.error('未找到该资源');
+        }
+      } else if (res.status === 400) {
+        Message.error(json.message);
+      } else if (res.status === 401) {
+        if (!res.url.includes('/me/')) {
+          Message.error('请先登录');
+        }
+      } else {
+        if (json.detail) {
+          Message.error(json.detail);
+        } else {
+          Message.error(json.message);
+        }
+      }
+      return Object({ success: false, data: null });
+    } else {
+      return json;
+    }
+  } catch (error) {
+    console.log(error);
+    return Object({ success: false, data: null });
+  }
 };
