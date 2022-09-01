@@ -3,7 +3,7 @@ import { Fragment, useCallback, useState } from 'react';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import { VscChromeClose } from 'react-icons/vsc';
 
-import useLogin from '@/hooks/useLogin';
+import { useLoginContext } from '@/hooks/useLoginContext';
 
 import { Dialog } from '@/components/dialog';
 import { Transition } from '@/components/dialog/transition/transition';
@@ -116,7 +116,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
 
 export function RepoModal({ children }: { children: JSX.Element }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { isLogin, login } = useLogin();
+  const { isLogin, login } = useLoginContext();
 
   function closeModal() {
     setIsOpen(false);

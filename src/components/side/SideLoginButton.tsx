@@ -1,22 +1,13 @@
-import { getOAtuhURL } from '@/services/login';
+import { useLoginContext } from '@/hooks/useLoginContext';
 
 const SideLoginButton = () => {
-  const handleOAtuhURL = async () => {
-    try {
-      const data = await getOAtuhURL();
-      if (data?.url != undefined) {
-        window.location.href = data.url;
-      }
-    } catch (error) {
-      console.log('error:' + error);
-    }
-  };
+  const { login } = useLoginContext();
 
   return (
     <>
       <div className='box-border py-6 text-center align-middle text-base'>
         <button
-          onClick={handleOAtuhURL}
+          onClick={login}
           type='button'
           className='button box-border rounded-md border-2 border-slate-400 px-3 py-2 text-gray-500'
         >

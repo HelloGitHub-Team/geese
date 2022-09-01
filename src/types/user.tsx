@@ -1,17 +1,3 @@
-export interface LoginOutProps {
-  updateLoginStatus: (value: boolean) => void;
-}
-
-export interface LoginStatusProps {
-  updateLoginStatus: (value: boolean) => void;
-  loginStatus: boolean;
-}
-
-export interface UserProps {
-  updateLoginStatus: (value: boolean) => void;
-  isLogin: boolean;
-}
-
 export interface UserAvaterProps {
   avatar: string;
 }

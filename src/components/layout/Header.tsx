@@ -1,15 +1,68 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
+import { useLoginContext } from '@/hooks/useLoginContext';
+
+import LogoutButton from '@/components/buttons/LogoutButton';
 
 import LoginButton from '../buttons/LoginButton';
-import LogoutButton from '../buttons/LogoutButton';
 import PeriodicalButton from '../buttons/Periodical';
 import SearchInput from '../search/SearchInput';
 
-import { LoginStatusProps } from '@/types/user';
+import { DEFAULT_AVATAR } from '~/constants';
 
-const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
+const AvatarWithDropdown = (props: { className?: string }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { logout } = useLoginContext();
+
+  useEffect(() => {
+    const handleDocumentClick = () => {
+      setIsOpen(false);
+    };
+
+    document.addEventListener('click', handleDocumentClick);
+
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, []);
+
+  return (
+    <div className={`${props.className} h-7 w-7`}>
+      <Image
+        className='relative overflow-hidden rounded-full'
+        src={DEFAULT_AVATAR}
+        alt='头像'
+        width={28}
+        height={28}
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen(!isOpen);
+        }}
+      />
+      <div
+        className='absolute right-1 mt-2 w-32 rounded border bg-white py-2 shadow-md'
+        hidden={!isOpen}
+      >
+        <div className='absolute -top-1.5 right-3 h-3 w-3 rotate-45 border-l border-t bg-white'></div>
+        <Link href='/' className='block'>
+          <div className='block px-4 leading-8 active:bg-gray-100'>
+            我的首页
+          </div>
+        </Link>
+        <div className='px-4 leading-8 active:bg-gray-100' onClick={logout}>
+          退出
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Header = () => {
   const router = useRouter();
+  const { isLogin } = useLoginContext();
 
   const showMessage = () => {
     router.push('/');
@@ -34,14 +87,17 @@ const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
             <PeriodicalButton></PeriodicalButton>
           </li>
           <>
-            {!loginStatus ? (
+            {!isLogin ? (
               <li className='block md:hidden'>
                 <LoginButton></LoginButton>
               </li>
             ) : (
-              <li className='hidden md:block '>
-                <LogoutButton updateLoginStatus={updateLoginStatus} />
-              </li>
+              <>
+                <li className='hidden md:block '>
+                  <LogoutButton />
+                </li>
+                <AvatarWithDropdown className='md:hidden' />
+              </>
             )}
           </>
         </ul>

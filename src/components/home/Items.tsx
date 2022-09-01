@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
+import Button from '@/components/buttons/Button';
 import Loading from '@/components/loading/Loading';
 import { RepoModal } from '@/components/respository/Submit';
 
@@ -116,13 +117,13 @@ const Items = () => {
                 <a className={linkClassName('last')}>最近</a>
               </Link>
 
-              <button
-                type='button'
+              <Button
+                variant='ghost'
                 onClick={handleTags}
                 className={labelClassName()}
               >
                 标签
-              </button>
+              </Button>
 
               <div className='absolute top-0 right-0 p-2.5  md:hidden'>
                 <RepoModal>

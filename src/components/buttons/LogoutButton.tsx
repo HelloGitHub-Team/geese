@@ -1,28 +1,18 @@
-import useToken from '@/hooks/useToken';
+import { useLoginContext } from '@/hooks/useLoginContext';
 
-import { Logout } from '@/services/login';
+import Button from '@/components/buttons/Button';
 
-import { LoginOutProps } from '@/types/user';
-
-const LogoutButton = ({ updateLoginStatus }: LoginOutProps) => {
-  const { token, setToken } = useToken();
-  const handleLogout = async () => {
-    try {
-      await Logout({ Authorization: `Bearer ${token}` });
-      setToken(null);
-      updateLoginStatus(false);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
+const LogoutButton = () => {
+  const { logout } = useLoginContext();
 
   return (
-    <button onClick={handleLogout}>
-      <span className='inline-flex items-center rounded-lg px-3 py-2'>
-        退出
-      </span>
-    </button>
+    <Button
+      className='font-normal text-gray-500'
+      variant='ghost'
+      onClick={logout}
+    >
+      退出
+    </Button>
   );
 };
 

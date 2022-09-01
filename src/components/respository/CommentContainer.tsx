@@ -76,7 +76,7 @@ const CommentContainer = (props: Props) => {
               <button
                 className={`${
                   sortType === 'last' ? btnActive : ''
-                } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-l-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90`}
+                } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-l-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90`}
                 onClick={() => sortBy('last')}
               >
                 最新
@@ -84,7 +84,7 @@ const CommentContainer = (props: Props) => {
               <button
                 className={`${
                   sortType === 'hot' ? btnActive : ''
-                } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-r-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90`}
+                } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-r-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90`}
                 onClick={() => sortBy('hot')}
               >
                 最热

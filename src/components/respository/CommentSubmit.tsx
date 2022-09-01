@@ -2,10 +2,11 @@ import Image from 'next/image';
 import { FormEventHandler } from 'react';
 
 import useCommentData from '@/hooks/useCommentData';
-import useLogin from '@/hooks/useLogin';
+import { useLoginContext } from '@/hooks/useLoginContext';
 import useUserInfo from '@/hooks/useUserInfo';
 
 import Message from '@/components/message';
+import Modal from '@/components/modal';
 import Rating from '@/components/respository/Rating';
 
 import { submitComment } from '@/services/repository';
@@ -22,7 +23,7 @@ function CommentSubmit(props: {
 }) {
   const { commentData, setCommentData } = useCommentData();
   const { userInfo } = useUserInfo();
-  const { login, isLogin } = useLogin();
+  const { login, isLogin } = useLoginContext();
   const { belongId, className, onSuccess, onFail } = props;
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
@@ -57,23 +58,30 @@ function CommentSubmit(props: {
     if (!isLogin) {
       return login();
     }
-    submitComment(belongId, commentData)
-      .then((data) => {
-        setCommentData({
-          comment: '',
-          isUsed: false,
-          score: 5,
-        });
-        if (data.success) {
-          onSuccess && onSuccess(data);
-          Message.success('发布评论成功');
-        } else {
-          onFail && onFail(data);
-        }
-      })
-      .catch((err) => {
-        Message.error(err.message || '提交评论失败');
-      });
+    Modal.confirm({
+      title: '提交评论',
+      content: '评论一经提交后无法修改和删除，请误发布灌水、广告、恶意等内容。',
+      okText: '确认发布',
+      onOk() {
+        submitComment(belongId, commentData)
+          .then((data) => {
+            setCommentData({
+              comment: '',
+              isUsed: false,
+              score: 5,
+            });
+            if (data.success) {
+              onSuccess && onSuccess(data);
+              Message.success('发布评论成功');
+            } else {
+              onFail && onFail(data);
+            }
+          })
+          .catch((err) => {
+            Message.error(err.message || '提交评论失败');
+          });
+      },
+    });
   };
 
   return (
@@ -128,7 +136,7 @@ function CommentSubmit(props: {
               />
             </div>
             <button
-              className='ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform active:scale-90 disabled:bg-gray-100 disabled:text-gray-300'
+              className='ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90'
               onClick={handleSubmit}
             >
               发布
