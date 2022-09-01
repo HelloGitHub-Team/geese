@@ -9,6 +9,7 @@ import { LoginProvider } from '@/hooks/useLoginContext';
 
 import Layout from '@/components/layout/Layout';
 import { AlertComp as Alert } from '@/components/message/Alert';
+import PullRefresh from '@/components/PullRefresh';
 
 /**
  * !STARTERCONF info
@@ -23,13 +24,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div id='root'>
       <LoginProvider>
-        {singlePage.includes(pathname) ? (
-          <Component {...pageProps} />
-        ) : (
-          <Layout>
+        <PullRefresh>
+          {singlePage.includes(pathname) ? (
             <Component {...pageProps} />
-          </Layout>
-        )}
+          ) : (
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          )}
+        </PullRefresh>
         <div id='alert'>
           <Alert />
         </div>
