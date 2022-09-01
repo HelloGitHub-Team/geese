@@ -1,14 +1,18 @@
 import { useLoginContext } from '@/hooks/useLoginContext';
 
+import Button from '@/components/buttons/Button';
+
 const LoginButton = () => {
   const { login } = useLoginContext();
 
   return (
-    <button onClick={login}>
-      <span className='inline-flex cursor-pointer items-center rounded-lg px-3 py-2'>
-        登录
-      </span>
-    </button>
+    <Button
+      className='font-normal text-gray-500'
+      variant='ghost'
+      onClick={login}
+    >
+      登录
+    </Button>
   );
 };
 export default LoginButton;

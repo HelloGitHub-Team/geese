@@ -42,7 +42,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
           'shadow-sm',
           'transition-colors duration-75',
-          'outline-transparent md:outline-current',
           //#region  //*=========== Variants ===========
           [
             variant === 'primary' && [
