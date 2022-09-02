@@ -60,7 +60,8 @@ function CommentSubmit(props: {
     }
     Modal.confirm({
       title: '提交评论',
-      content: '评论一经提交后无法修改和删除，请误发布灌水、广告、恶意等内容。',
+      content:
+        '评论提交后：无法修改、重新提交和删除，请发布有价值的内容共建社区。',
       okText: '确认发布',
       onOk() {
         submitComment(belongId, commentData)
