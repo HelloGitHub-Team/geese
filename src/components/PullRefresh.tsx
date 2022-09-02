@@ -77,7 +77,7 @@ const PullRefresh = ({ children }: { children?: JSX.Element }) => {
     <div ref={el}>
       <div
         style={{ height }}
-        className='flex items-center justify-center text-sm text-gray-800'
+        className='flex items-center justify-center overflow-hidden text-sm text-gray-800'
       >
         {shouldRefresh ? '松开刷新' : isRefresh ? '刷新中...' : '下拉刷新'}
       </div>

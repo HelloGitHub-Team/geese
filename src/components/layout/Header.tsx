@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
+import useUserInfo from '@/hooks/useUserInfo';
 
 import LogoutButton from '@/components/buttons/LogoutButton';
 
@@ -16,6 +17,7 @@ import { DEFAULT_AVATAR } from '~/constants';
 const AvatarWithDropdown = (props: { className?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { logout } = useLoginContext();
+  const { userInfo } = useUserInfo();
 
   useEffect(() => {
     const handleDocumentClick = () => {
@@ -33,7 +35,7 @@ const AvatarWithDropdown = (props: { className?: string }) => {
     <div className={`${props.className} h-7 w-7`}>
       <Image
         className='relative overflow-hidden rounded-full'
-        src={DEFAULT_AVATAR}
+        src={userInfo.avatar || DEFAULT_AVATAR}
         alt='头像'
         width={28}
         height={28}

@@ -64,15 +64,14 @@ const CommentItem = (
       </div>
       <div className='flex-1'>
         <div className='flex items-center gap-4'>
-          <span className='text-md'>{user?.nickname}</span>
+          <span className='text-md w-16 overflow-hidden text-ellipsis whitespace-nowrap'>
+            {user?.nickname}
+          </span>
           <span className='flex items-center text-sm'>
             评分：
             <Rating value={score} />
           </span>
           <span className='text-sm'>{isUsed ? '已用过' : '未用过'}</span>
-          <span className='ml-auto text-sm' hidden={!alone}>
-            {isShow ? '已精选' : '未精选'}
-          </span>
         </div>
         <div className='mt-3 whitespace-pre text-sm text-gray-900'>
           {comment}
@@ -81,7 +80,7 @@ const CommentItem = (
           <span className='text-sm text-[#8a919f]'>{fromNow(createdAt)}</span>
           {alone || (
             <div
-              className={`flex cursor-pointer items-center leading-10 text-[#8a919f] hover:text-gray-900 active:text-gray-400 ${
+              className={`flex cursor-pointer items-center leading-10 text-gray-400 hover:text-gray-900 active:text-gray-400 ${
                 isVoted ? '!text-blue-500' : ''
               }`}
               onClick={handleVote}
@@ -90,6 +89,9 @@ const CommentItem = (
               <span className='text-sm'>{votes || '点赞'}</span>
             </div>
           )}
+          <span className='ml-auto text-sm text-gray-400' hidden={!alone}>
+            {isShow ? '已精选' : '未精选'}
+          </span>
         </div>
       </div>
     </div>
