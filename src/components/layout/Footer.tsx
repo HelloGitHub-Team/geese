@@ -23,37 +23,39 @@ const Footer = () => {
         target='_blank'
         href='https://www.ucloud.cn/site/active/kuaijiesale.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display#wulanchabu'
       >
-        <span className='mt-1 inline-block cursor-pointer hover:underline'>
-          本站服务器由
+        <div className='mt-2 flex cursor-pointer hover:underline'>
+          <div className='mr-1'>本站服务器由</div>
           <Image
             src='https://img.hellogithub.com/ad/ucloud.png'
             width='86'
             height='16'
             alt='ucloud'
-          />{' '}
-          提供
-        </span>
+          />
+          <div className='ml-1'>提供</div>
+        </div>
       </Link>
 
       <Link target='_blank' href='https://www.upyun.com/'>
-        <span className='mt-1 cursor-pointer hover:underline'>
-          专业的
+        <div className='mt-2 flex cursor-pointer hover:underline'>
+          <div className='mr-1 align-text-bottom'>专业的</div>
           <Image
+            className='align-middle'
             src='https://img.hellogithub.com/ad/upyun.png'
-            width='50'
-            height='25'
+            width='36'
+            height='18'
             alt='upyun'
-          />{' '}
-          提供云存储服务
-        </span>
+          />
+          <div className='ml-1 align-text-bottom'>提供云存储服务</div>
+        </div>
       </Link>
+
       <Link target='_blank' href='https://beian.miit.gov.cn/'>
-        <span className='mt-1 cursor-pointer  hover:underline'>
+        <span className='mt-2 cursor-pointer hover:underline'>
           京 ICP 备 17046648-1 号
         </span>
       </Link>
       <Link target='_blank' href='https://www.beian.gov.cn/portal/recordQuery'>
-        <span className='mt-1 cursor-pointer hover:underline'>
+        <span className='mt-2 cursor-pointer hover:underline'>
           <Image
             src='https://img.hellogithub.com/ad/filing.png'
             width='12'
@@ -63,7 +65,7 @@ const Footer = () => {
           京公网安备 11010802023873 号
         </span>
       </Link>
-      <span className='mt-1'>© 2022 HelloGitHub</span>
+      <span className='mt-2'>©2022 HelloGitHub</span>
     </footer>
   );
 };
