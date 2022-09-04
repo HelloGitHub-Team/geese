@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import Header from '@/components/layout/Header';
-import ToTop from '@/components/toTop/ToTop';
 
 import IndexSide from '../side/IndexSide';
 
@@ -29,7 +28,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
             <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
               <IndexSide></IndexSide>
-              <ToTop />
             </div>
           </div>
         )}

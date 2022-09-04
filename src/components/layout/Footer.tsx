@@ -48,15 +48,18 @@ const Footer = () => {
         href='https://www.upyun.com/'
         rel='noreferrer'
       >
-        <div className='mt-2 flex cursor-pointer hover:underline'>
-          <div className='mr-1 align-text-bottom'>专业的</div>
-          <Image
-            src='https://img.hellogithub.com/ad/upyun.png'
-            width='36'
-            height='18'
-            alt='upyun'
-          />
-          <div className='ml-1 align-text-bottom'>提供云存储服务</div>
+        <div className='mt-2 cursor-pointer hover:underline'>
+          <span>专业的</span>
+          <span className='mx-1 align-[-3px]'>
+            <Image
+              className='object-contain'
+              src='https://img.hellogithub.com/ad/upyun.png'
+              width='42'
+              height='16'
+              alt='upyun'
+            />
+          </span>
+          <span>提供云存储服务</span>
         </div>
       </a>
 

@@ -27,7 +27,7 @@ export default function Ad(props: Props) {
 
   return (
     <div
-      className={`${props.className} relative h-20 cursor-pointer rounded-lg bg-white`}
+      className={`${props.className} relative h-20 cursor-pointer overflow-hidden rounded-lg bg-white`}
       hidden={!visible}
     >
       <a href={props.url} target='_blank' rel='noreferrer'>
