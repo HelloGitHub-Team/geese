@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 
 import Button from '@/components/buttons/Button';
 
@@ -7,7 +6,6 @@ import { getVolumeNum } from '@/services/volume';
 
 const PeriodicalButton = () => {
   const router = useRouter();
-  const [atPeriodical, setAtPeriodical] = useState<boolean>(false);
 
   const handlePeriodicalURL = async () => {
     const { data, lastNum } = await getVolumeNum();
@@ -18,12 +16,9 @@ const PeriodicalButton = () => {
     }
   };
 
-  useEffect(() => {
-    setAtPeriodical(router.asPath.startsWith('/periodical/volume/'));
-  }, [router]);
   return (
     <>
-      {atPeriodical ? (
+      <li className='hidden md:block'>
         <Button
           className='font-normal text-gray-500'
           variant='ghost'
@@ -33,15 +28,16 @@ const PeriodicalButton = () => {
         >
           首页
         </Button>
-      ) : (
+      </li>
+      <li className='block'>
         <Button
-          className='font-normal text-gray-500'
+          className='hidden font-normal text-gray-500 md:block'
           variant='ghost'
           onClick={handlePeriodicalURL}
         >
           月刊
         </Button>
-      )}
+      </li>
     </>
   );
 };

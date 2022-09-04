@@ -17,8 +17,7 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
   return (
     <>
       <Seo title={`开源项目 ${repo.name}`} />
-      <Seo />
-      <div className='mt-3 bg-white px-2 pb-10 pt-2'>
+      <div className='mt-2 bg-white px-2 pb-10 pt-2'>
         <Navbar avatar={repo.share_user.avatar} />
         <Info repo={repo}></Info>
         <Tabs repo={repo}></Tabs>

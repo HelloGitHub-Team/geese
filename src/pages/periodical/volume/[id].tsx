@@ -124,7 +124,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
     return (
       <div className='mt-20 flex animate-pulse'>
         <Seo title='月刊' />
-        <div className='ml-4 mt-3 w-full'>
+        <div className='ml-4 mt-2 w-full'>
           <h3 className='h-4 rounded-md bg-gray-200 dark:bg-gray-700'></h3>
 
           <ul className='mt-5 space-y-3'>
@@ -143,7 +143,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
       <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
         <div className='relative pb-6'>
           <Seo title={`HelloGitHub 第 ${volume?.current_num} 期`} />
-          <div className='mt-3 mb-2 bg-white p-5'>
+          <div className='mt-2 mb-2 bg-white p-5'>
             <div className='my-4 flex flex-col items-center px-2'>
               <h1 className='mb-2 font-medium text-black'>
                 《HelloGitHub》第 {volume?.current_num} 期

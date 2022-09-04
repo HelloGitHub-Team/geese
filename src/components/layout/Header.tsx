@@ -6,8 +6,6 @@ import { useEffect, useState } from 'react';
 import { useLoginContext } from '@/hooks/useLoginContext';
 import useUserInfo from '@/hooks/useUserInfo';
 
-import LogoutButton from '@/components/buttons/LogoutButton';
-
 import LoginButton from '../buttons/LoginButton';
 import PeriodicalButton from '../buttons/Periodical';
 import SearchInput from '../search/SearchInput';
@@ -76,7 +74,7 @@ const Header = () => {
         <span className='hidden md:block'>
           <Image
             className='h-8 cursor-pointer'
-            src='https://raw.githubusercontent.com/521xueweihan/img_logo/main/logo/logo.png'
+            src='https://img.hellogithub.com/logo/logo.png'
             width='28'
             height='28'
             alt='hellogithub'
@@ -85,9 +83,7 @@ const Header = () => {
         </span>
         <SearchInput />
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
-          <li className='md:block'>
-            <PeriodicalButton></PeriodicalButton>
-          </li>
+          <PeriodicalButton></PeriodicalButton>
           <>
             {!isLogin ? (
               <li className='block md:hidden'>
@@ -95,9 +91,6 @@ const Header = () => {
               </li>
             ) : (
               <>
-                <li className='hidden md:block '>
-                  <LogoutButton />
-                </li>
                 <AvatarWithDropdown className='md:hidden' />
               </>
             )}
