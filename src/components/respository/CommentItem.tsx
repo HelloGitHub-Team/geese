@@ -64,14 +64,16 @@ const CommentItem = (
       </div>
       <div className='flex-1'>
         <div className='flex items-center gap-4'>
-          <span className='text-md w-16 overflow-hidden text-ellipsis whitespace-nowrap'>
+          <span className='text-md w-px max-w-fit flex-1 overflow-hidden text-ellipsis whitespace-nowrap'>
             {user?.nickname}
           </span>
-          <span className='flex items-center text-sm'>
+          <span className='flex shrink-0 items-center text-sm'>
             评分：
             <Rating value={score} />
           </span>
-          <span className='text-sm'>{isUsed ? '已用过' : '未用过'}</span>
+          <span className='shrink-0 text-sm'>
+            {isUsed ? '已用过' : '未用过'}
+          </span>
         </div>
         <div className='mt-3 whitespace-pre text-sm text-gray-900'>
           {comment}
