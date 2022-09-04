@@ -1,8 +1,9 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { MouseEventHandler, useEffect, useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { VscClose } from 'react-icons/vsc';
+
+const PUTAdURL =
+  'https://hellogithub.yuque.com/forms/share/ecbba03f-3e35-44db-99af-a664d24b539f';
 
 interface Props {
   id: string;
@@ -12,30 +13,24 @@ interface Props {
 }
 
 export default function Ad(props: Props) {
-  const [visible, setVisible] = useState(false);
-  const route = useRouter();
+  const [visible, setVisible] = useState(true);
   const handleClose: MouseEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
-    localStorage.setItem(props.id, 'true');
+    // localStorage.setItem(props.id, 'true');
     setVisible(false);
   };
-  const handleAd: MouseEventHandler<HTMLDivElement> = (e) => {
-    e.preventDefault();
-    // TODO: 投放广告跳转的地址
-    route.push(props.url);
-  };
 
-  useEffect(() => {
-    const isHide = localStorage.getItem(props.id);
-    setVisible(!isHide);
-  }, [props.id, setVisible]);
+  // useEffect(() => {
+  //   const isHide = localStorage.getItem(props.id);
+  //   setVisible(!isHide);
+  // }, [props.id, setVisible]);
 
   return (
-    <Link href={props.url} target='_blank'>
-      <div
-        className={`${props.className} relative h-20 cursor-pointer rounded-lg bg-white`}
-        hidden={!visible}
-      >
+    <div
+      className={`${props.className} relative h-20 cursor-pointer rounded-lg bg-white`}
+      hidden={!visible}
+    >
+      <a href={props.url} target='_blank' rel='noreferrer'>
         <div className='group relative h-full'>
           <Image
             className='object-contain'
@@ -50,14 +45,14 @@ export default function Ad(props: Props) {
             <VscClose size={20} />
           </div>
         </div>
-        <div
-          className='group absolute right-2 bottom-2 cursor-pointer rounded-sm border border-white bg-[rgba(0,0,0,.2)] px-2 text-xs text-white'
-          onClick={handleAd}
-        >
+      </a>
+
+      <a href={PUTAdURL} target='_blank' rel='noreferrer'>
+        <div className='group absolute right-2 bottom-2 cursor-pointer rounded-sm border border-white bg-[rgba(0,0,0,.2)] px-1.5 text-xs text-white'>
           <span className='group-hover:hidden'>广告</span>
           <span className='hidden group-hover:inline'>投放广告</span>
         </div>
-      </div>
-    </Link>
+      </a>
+    </div>
   );
 }

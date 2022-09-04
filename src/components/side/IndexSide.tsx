@@ -20,7 +20,7 @@ export default function IndexSide() {
             />
             <Ad
               id='upyun'
-              image='https://img.hellogithub.com/ad/upyun.png'
+              image='https://img.hellogithub.com/ad/upyun2.png'
               url='https://www.upyun.com/'
             />
             <Status />
