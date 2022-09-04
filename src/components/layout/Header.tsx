@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { useLoginContext } from '@/hooks/useLoginContext';
 import useUserInfo from '@/hooks/useUserInfo';
 
+import Button from '@/components/buttons/Button';
+
 import LoginButton from '../buttons/LoginButton';
 import PeriodicalButton from '../buttons/Periodical';
 import SearchInput from '../search/SearchInput';
@@ -83,6 +85,17 @@ const Header = () => {
         </span>
         <SearchInput />
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
+          <li className='hidden md:block'>
+            <Button
+              className='font-normal text-gray-500'
+              variant='ghost'
+              onClick={() => {
+                router.push('/');
+              }}
+            >
+              首页
+            </Button>
+          </li>
           <PeriodicalButton></PeriodicalButton>
           <>
             {!isLogin ? (

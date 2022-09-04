@@ -14,14 +14,14 @@ export default function IndexSide() {
               <UserStatus></UserStatus>
             </div>
             <Ad
-              id='ucloud'
-              image='https://img.hellogithub.com/ad/ucloud.png'
-              url='https://www.ucloud.cn/site/active/kuaijiesale.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display#wulanchabu'
-            />
-            <Ad
               id='upyun'
               image='https://img.hellogithub.com/ad/upyun2.png'
               url='https://www.upyun.com/'
+            />
+            <Ad
+              id='ucloud'
+              image='https://img.hellogithub.com/ad/ucloud.png'
+              url='https://www.ucloud.cn/site/active/kuaijiesale.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display#wulanchabu'
             />
             <Status />
           </div>
