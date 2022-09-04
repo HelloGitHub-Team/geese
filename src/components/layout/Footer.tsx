@@ -23,29 +23,34 @@ const Footer = () => {
         target='_blank'
         href='https://www.ucloud.cn/site/active/kuaijiesale.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display#wulanchabu'
       >
-        <div className='mt-2 flex cursor-pointer hover:underline'>
-          <div className='mr-1'>本站服务器由</div>
-          <Image
-            src='https://img.hellogithub.com/ad/ucloud.png'
-            width='86'
-            height='16'
-            alt='ucloud'
-          />
-          <div className='ml-1'>提供</div>
+        <div className='mt-2 cursor-pointer hover:underline'>
+          <span>本站服务器由</span>
+          <span className='mx-1 align-[-3px]'>
+            <Image
+              className='object-contain'
+              src='https://img.hellogithub.com/ad/ucloud.png'
+              width='86'
+              height='16'
+              alt='ucloud'
+            />
+          </span>
+          <span>提供</span>
         </div>
       </Link>
 
       <Link target='_blank' href='https://www.upyun.com/'>
-        <div className='mt-2 flex cursor-pointer hover:underline'>
-          <div className='mr-1 align-text-bottom'>专业的</div>
-          <Image
-            className='align-middle'
-            src='https://img.hellogithub.com/ad/upyun.png'
-            width='36'
-            height='18'
-            alt='upyun'
-          />
-          <div className='ml-1 align-text-bottom'>提供云存储服务</div>
+        <div className='mt-2 cursor-pointer hover:underline'>
+          <span>专业的</span>
+          <span className='mx-1 align-[-4px]'>
+            <Image
+              className='object-contain'
+              src='https://img.hellogithub.com/ad/upyun.png'
+              width='48'
+              height='18'
+              alt='upyun'
+            />
+          </span>
+          <span>提供云存储服务</span>
         </div>
       </Link>
 
