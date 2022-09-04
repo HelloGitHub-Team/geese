@@ -18,17 +18,6 @@ const PeriodicalButton = () => {
 
   return (
     <>
-      <li className='hidden md:block'>
-        <Button
-          className='font-normal text-gray-500'
-          variant='ghost'
-          onClick={() => {
-            router.push('/');
-          }}
-        >
-          首页
-        </Button>
-      </li>
       <li className='block'>
         <Button
           className='hidden font-normal text-gray-500 md:block'
