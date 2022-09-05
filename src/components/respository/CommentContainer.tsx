@@ -108,7 +108,9 @@ const CommentContainer = (props: Props) => {
           </div>
         </>
       ) : (
-        <div className='py-16 text-center text-xl text-gray-300'>暂无评论</div>
+        <div className='mt-4 border-t border-gray-300 text-center text-xl'>
+          <div className='py-14 text-gray-300'>暂无评论</div>
+        </div>
       )}
     </div>
   );

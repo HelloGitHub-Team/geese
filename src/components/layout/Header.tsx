@@ -66,10 +66,6 @@ const Header = () => {
   const router = useRouter();
   const { isLogin } = useLoginContext();
 
-  const showMessage = () => {
-    router.push('/');
-  };
-
   return (
     <div className='fixed z-10 h-14 w-full bg-white shadow-sm'>
       <nav className='mx-auto flex max-w-5xl items-center justify-between p-2'>
@@ -80,7 +76,9 @@ const Header = () => {
             width='28'
             height='28'
             alt='hellogithub'
-            onClick={showMessage}
+            onClick={() => {
+              router.reload();
+            }}
           />
         </span>
         <SearchInput />
