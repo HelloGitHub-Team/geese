@@ -6,7 +6,7 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。
 
 **正在全力以赴的开发中，敬请期待！**
 
-![](docs/img/2022-07-10.png)
+![](docs/img/2022-09-05.png)
 
 感谢每一位贡献代码的[小伙伴](https://github.com/HelloGitHub-Team/geese/graphs/contributors)，很开心能够和大家一起做开源项目～
 
@@ -23,6 +23,8 @@ Geese 采用：
 ## 待认领
 
 等待认领的功能：
+
+- [待优化的问题集合](https://github.com/HelloGitHub-Team/geese/issues/38)
 
 **要求**
 

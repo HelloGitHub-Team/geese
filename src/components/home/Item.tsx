@@ -8,6 +8,8 @@ import { numFormat } from '@/utils/util';
 
 import { ItemProps } from '@/types/home';
 
+import { DEFAULT_AVATAR } from '~/constants';
+
 const Item: NextPage<ItemProps> = ({ item }) => {
   return (
     <article className='mx-4'>
@@ -27,16 +29,27 @@ const Item: NextPage<ItemProps> = ({ item }) => {
             {item.description}
           </div>
           <div className='flex items-center pt-2'>
-            <Image
-              width='20'
-              height='20'
-              src={item.user.avatar}
-              className='bg-img h-5 w-5 rounded'
-              alt=''
-            />
+            {item.author_avatar ? (
+              <Image
+                width='20'
+                height='20'
+                src={`https://img.hellogithub.com/github_avatar/${item.author_avatar}!small`}
+                className='bg-img h-5 w-5 rounded'
+                alt='github_avatar'
+              />
+            ) : (
+              <Image
+                width='20'
+                height='20'
+                src={DEFAULT_AVATAR}
+                className='bg-img h-5 w-5 rounded'
+                alt='github_avatar'
+              />
+            )}
+
             <div className='flex shrink grow items-center overflow-x-hidden pl-2 text-sm text-slate-400'>
               <div className='text-color-primary whitespace-nowrap'>
-                {item.user.nickname}
+                {item.author}
               </div>
               <span className='pl-1 pr-1'>·</span>
               <div className='text-color-primary whitespace-nowrap'>

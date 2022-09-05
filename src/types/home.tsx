@@ -12,6 +12,8 @@ export interface ItemProps {
 
 export interface HomeItem {
   item_id: string;
+  author: string;
+  author_avatar: string;
   title: string;
   description: string;
   primary_lang: string;
