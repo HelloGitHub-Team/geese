@@ -52,9 +52,14 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                 {item.author}
               </div>
               <span className='pl-1 pr-1'>·</span>
-              <div className='text-color-primary whitespace-nowrap'>
-                {item.primary_lang}
-              </div>
+              <span>
+                <span
+                  className={`relative box-border inline-block h-3 w-3 rounded-full border align-[-1px] bg-[${item.lang_color}]`}
+                ></span>
+                <span className='text-color-primary whitespace-nowrap pl-0.5'>
+                  {item.primary_lang}
+                </span>
+              </span>
               <span className='pl-1 pr-1'>·</span>
               <time>{fromNow(item.updated_at)}</time>
             </div>
