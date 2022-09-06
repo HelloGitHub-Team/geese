@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_OPTIONS='--inspect' next dev",
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "server_start": "pm2 start ecosystem.config.js",
@@ -58,6 +58,7 @@
     "@typescript-eslint/parser": "^5.26.0",
     "autoprefixer": "^10.4.7",
     "babel-plugin-import": "^1.13.5",
+    "cross-env": "^7.0.3",
     "eslint": "^8.16.0",
     "eslint-config-next": "^12.1.6",
     "eslint-config-prettier": "^8.5.0",
