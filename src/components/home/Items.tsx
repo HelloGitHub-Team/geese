@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
@@ -24,7 +24,7 @@ const Items = () => {
   const router = useRouter();
   const { sort_by = 'hot', tid = '' } = router.query;
 
-  const [labelStatus, setLabel] = useState(false);
+  const [labelStatus, setLabelStatus] = useState(false);
   const [tagItems, setTagItems] = useState<Tag[]>([]);
   const [hotURL, setHotURL] = useState<string>('/?sort_by=hot');
   const [lastURL, setLastURL] = useState<string>('/?sort_by=last');
@@ -59,7 +59,7 @@ const Items = () => {
 
   const linkClassName = (sortName: string) =>
     classNames(
-      'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold  hover:bg-slate-100 hover:text-blue-500',
+      'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold hover:bg-slate-100 hover:text-blue-500',
       {
         'text-slate-500': sort_by !== sortName,
         'bg-slate-100 text-blue-500': sort_by === sortName,
@@ -68,41 +68,61 @@ const Items = () => {
 
   const labelClassName = () =>
     classNames(
-      'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold text-slate-500 hover:bg-slate-100 hover:text-blue-500',
+      'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold hover:bg-slate-100 hover:text-blue-500',
       {
         'text-slate-500': !labelStatus,
         'bg-slate-100 text-blue-500': labelStatus,
       }
     );
 
-  const handleTags = async () => {
+  const handleTags = useCallback(async () => {
     try {
       if (tagItems.length == 0) {
         const data = await getTags('hot');
         if (data?.data != undefined) {
+          data.data.unshift({
+            name: '全部',
+            tid: '',
+            repo_total: 0,
+            created_at: '',
+            udpated_at: '',
+          });
           setTagItems(data.data);
         }
       }
     } catch (error) {
       console.log('error:' + error);
     }
-    setLabel(!labelStatus);
+  }, [tagItems, setTagItems]);
+
+  const handleTagButton = () => {
     if (labelStatus) {
-      setHotURL('/?sort_by=hot');
-      setLastURL('/?sort_by=last');
+      setLabelStatus(false);
+      // setHotURL('/?sort_by=hot');
+      // setLastURL('/?sort_by=last');
+      if (sort_by == 'last') {
+        router.push('/?sort_by=last');
+      }
+      {
+        router.push('/');
+      }
+    } else {
+      setLabelStatus(true);
     }
   };
 
   useEffect(() => {
+    handleTags();
     if (tid) {
       setHotURL(`/?sort_by=hot&tid=${tid}`);
       setLastURL(`/?sort_by=last&tid=${tid}`);
+      setLabelStatus(true);
     } else {
       setHotURL('/?sort_by=hot');
       setLastURL('/?sort_by=last');
-      setLabel(false);
+      setLabelStatus(false);
     }
-  }, [tid]);
+  }, [tid, handleTags]);
 
   return (
     <div>
@@ -120,7 +140,7 @@ const Items = () => {
 
               <Button
                 variant='ghost'
-                onClick={handleTags}
+                onClick={handleTagButton}
                 className={labelClassName()}
               >
                 标签
@@ -135,11 +155,7 @@ const Items = () => {
               </div>
             </div>
           </div>
-          <div
-            className={
-              labelStatus ? 'flex pb-2.5 pl-4 pr-3' : 'hidden pb-2.5 pl-4 pr-3'
-            }
-          >
+          <div className={labelStatus ? 'flex pb-2.5 pl-4 pr-3' : 'hidden'}>
             <TagLink tagItems={tagItems}></TagLink>
           </div>
         </div>

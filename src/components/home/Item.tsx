@@ -55,7 +55,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
               <span>
                 <span
                   style={{ backgroundColor: `${item.lang_color}` }}
-                  className='relative box-border inline-block h-3 w-3 rounded-full border align-[-1px]'
+                  className='relative box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px]'
                 ></span>
                 <span className='text-color-primary whitespace-nowrap pl-0.5'>
                   {item.primary_lang}

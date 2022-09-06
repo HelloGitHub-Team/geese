@@ -11,7 +11,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const showIndexSide = React.useMemo<boolean>(() => {
     const { pathname } = router;
     // 不需要展示右边栏的路由
-    const singlePage: string[] = ['/help/ats', '/periodical/volume/[id]'];
+    const singlePage: string[] = [
+      '/help/ats',
+      '/help/rule',
+      '/periodical/volume/[id]',
+    ];
     return singlePage.includes(pathname);
   }, [router]);
 

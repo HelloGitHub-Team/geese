@@ -33,8 +33,8 @@ export default function IndexSide() {
             </div>
             <Ad
               id='upyun'
-              image='https://img.hellogithub.com/ad/upyun2.png'
-              url='https://www.upyun.com/'
+              image='https://img.hellogithub.com/ad/side_upyun.png'
+              url='https://www.upyun.com/overseasActivities'
             />
             <Ad
               id='ucloud'
@@ -52,8 +52,8 @@ export default function IndexSide() {
       >
         <Ad
           id='upyun'
-          image='https://img.hellogithub.com/ad/upyun2.png'
-          url='https://www.upyun.com/'
+          image='https://img.hellogithub.com/ad/side_upyun.png'
+          url='https://www.upyun.com/overseasActivities'
         />
         <Ad
           id='ucloud'

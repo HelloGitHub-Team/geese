@@ -53,7 +53,7 @@ const Footer = () => {
           <span className='mx-1 align-[-3px]'>
             <Image
               className='object-contain'
-              src='https://img.hellogithub.com/ad/upyun.png'
+              src='https://img.hellogithub.com/ad/footer_upyun.png'
               width='42'
               height='16'
               alt='upyun'
@@ -88,7 +88,7 @@ const Footer = () => {
         </span>
       </a>
       <p className='mt-2'>
-        <span>©2022 HelloGitHub</span>
+        <span className='cursor-default'>©2022 HelloGitHub</span>
         <span className='pl-1 pr-1'>·</span>
         <a
           className='cursor-pointer hover:underline'
