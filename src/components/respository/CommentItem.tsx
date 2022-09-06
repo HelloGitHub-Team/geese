@@ -9,6 +9,8 @@ import Rating from '@/components/respository/Rating';
 import { like, unlike } from '@/services/repository';
 import { fromNow } from '@/utils/day';
 
+import MDRender from '../mdRender/MDRender';
+
 import { CommentItemData } from '@/types/reppsitory';
 
 import { DEFAULT_AVATAR, NOOP } from '~/constants';
@@ -52,19 +54,29 @@ const CommentItem = (
   };
 
   return (
-    <div className={`flex items-start ${className}`}>
-      <div className='mr-4 overflow-hidden rounded-full'>
+    <div className={`flex ${className}`}>
+      <div className='mr-4 hidden md:block'>
         <div className='relative h-14 w-14'>
           <Image
+            className='rounded-full'
             layout='fill'
             src={user?.avatar || DEFAULT_AVATAR}
             alt='头像'
           />
         </div>
       </div>
-      <div className='flex-1'>
+      <div className='w-max-full relative flex-1'>
         <div className='flex items-center gap-4'>
-          <span className='text-md w-px max-w-fit flex-1 overflow-hidden text-ellipsis whitespace-nowrap'>
+          <span className='w-px max-w-fit flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold md:text-base md:font-normal'>
+            <span className='mr-1 align-[-3px] md:hidden '>
+              <Image
+                width='20'
+                height='20'
+                src={user?.avatar || DEFAULT_AVATAR}
+                className='bg-img h-5 w-5 rounded-full '
+                alt='github_avatar'
+              />
+            </span>
             {user?.nickname}
           </span>
           <span className='flex shrink-0 items-center text-sm'>
@@ -75,8 +87,8 @@ const CommentItem = (
             {isUsed ? '已用过' : '未用过'}
           </span>
         </div>
-        <div className='mt-3 whitespace-pre text-sm text-gray-900'>
-          {comment}
+        <div className='mt-2 whitespace-normal text-sm text-gray-900'>
+          <MDRender>{comment}</MDRender>
         </div>
         <div className='mt-2 flex items-center justify-between'>
           <span className='text-sm text-[#8a919f]'>{fromNow(createdAt)}</span>
