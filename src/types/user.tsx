@@ -15,6 +15,7 @@ export interface UserType {
 }
 
 export interface UserStatusProps {
+  success: string;
   uid: string;
   nickname: string;
   avatar: string;

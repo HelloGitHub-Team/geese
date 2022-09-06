@@ -34,6 +34,7 @@ export const LoginProvider = ({ children }: { children: JSX.Element[] }) => {
   }, []);
   const logout = useCallback(async () => {
     await Logout({ Authorization: `Bearer ${token}` });
+    localStorage.clear();
     setToken(null);
   }, [token, setToken]);
 

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
+import { useEffect } from 'react';
 import useSWR from 'swr';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -29,11 +30,22 @@ export default function UserStatus() {
     }
   );
 
+  useEffect(() => {
+    // 校验 token 过期的话，则清理本地存储的 token
+    if (!isValidating && isLogin && !data?.success) {
+      // 1. 请求 me 接口得到结果
+      // 2. isLogin 为登录状态（这时有可能为过期token）
+      // 3. 根据 me 接口的结果判断 token 是否过期
+      // 4. isLogin 为 true 但 token 校验失败，则清理 localStorage
+      localStorage.clear();
+    }
+  }, [data, isLogin, isValidating]);
+
   return (
     <>
       {!isValidating ? (
         <div>
-          {isLogin ? (
+          {isLogin && data?.success ? (
             <>
               <div className='relative'>
                 <Link href={data?.uid ? '/users/' + data?.uid : '_blank'}>
