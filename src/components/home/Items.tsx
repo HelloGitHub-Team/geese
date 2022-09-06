@@ -2,8 +2,9 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import useInfiniteScroll from 'react-infinite-scroll-hook';
-import useSWRInfinite from 'swr/infinite';
+import useSWR from 'swr';
+
+import useToken from '@/hooks/useToken';
 
 import Button from '@/components/buttons/Button';
 import Loading from '@/components/loading/Loading';
@@ -15,6 +16,7 @@ import { makeUrl } from '@/utils/api';
 
 import Item from './Item';
 import TagLink from '../links/TagLink';
+import Pagination from '../pagination/Pagination';
 import ToTop from '../toTop/ToTop';
 
 import { HomeItem, HomeItems } from '@/types/home';
@@ -24,38 +26,20 @@ const Items = () => {
   const router = useRouter();
   const { sort_by = 'hot', tid = '' } = router.query;
 
+  const { token } = useToken();
+  const [pageIndex, setPageIndex] = useState(1);
   const [labelStatus, setLabelStatus] = useState(false);
   const [tagItems, setTagItems] = useState<Tag[]>([]);
   const [hotURL, setHotURL] = useState<string>('/?sort_by=hot');
   const [lastURL, setLastURL] = useState<string>('/?sort_by=last');
 
-  const { data, error, setSize, isValidating, size } =
-    useSWRInfinite<HomeItems>(
-      (index) => makeUrl(`/`, { sort_by, tid, page: index + 1 }),
-      fetcher,
-      { revalidateFirstPage: false }
-    );
-
-  const repositories = data
-    ? data.reduce((pre: HomeItem[], curr) => {
-        if (curr.data.length > 0) {
-          pre.push(...curr.data);
-        }
-        return pre;
-      }, [])
-    : [];
-  const hasMore = data ? data[data.length - 1].has_more : false;
-  const pageIndex = data ? size : 0;
-
-  const [sentryRef] = useInfiniteScroll({
-    loading: isValidating,
-    hasNextPage: hasMore,
-    disabled: !!error,
-    onLoadMore: () => {
-      setSize(pageIndex + 1);
-    },
-    rootMargin: '0px 0px 100px 0px',
-  });
+  const { data, isValidating } = useSWR<HomeItems>(
+    makeUrl(`/`, { sort_by, tid, page: pageIndex }),
+    (key) => {
+      const headers = { Authorization: `Bearer ${token}` };
+      return fetcher(key, { headers });
+    }
+  );
 
   const linkClassName = (sortName: string) =>
     classNames(
@@ -98,8 +82,6 @@ const Items = () => {
   const handleTagButton = () => {
     if (labelStatus) {
       setLabelStatus(false);
-      // setHotURL('/?sort_by=hot');
-      // setLastURL('/?sort_by=last');
       if (sort_by == 'last') {
         router.push('/?sort_by=last');
       } else {
@@ -159,21 +141,28 @@ const Items = () => {
           </div>
         </div>
       </div>
-      <div className='bg-content h-screen divide-y divide-slate-100'>
-        {repositories.map((item: HomeItem) => (
-          <Item key={item.item_id} item={item}></Item>
-        ))}
-        {(isValidating || hasMore) && (
-          <div
-            className='bg-content divide-y divide-slate-100 overflow-hidden'
-            ref={sentryRef}
-          >
-            <Loading></Loading>
+      {isValidating ? (
+        <Loading></Loading>
+      ) : (
+        <>
+          <div className='bg-content h-screen divide-y divide-slate-100'>
+            {data?.data.map((item: HomeItem, index: number) => (
+              <Item key={item.item_id} item={item} index={index}></Item>
+            ))}
+            <div className='h-16 py-2 text-sm'>
+              <Pagination
+                total={data?.page_total as number}
+                current={data?.page as number}
+                onPageChange={setPageIndex}
+                PreviousText='上一页'
+                NextText='下一页'
+              />
+            </div>
           </div>
-        )}
-        <div className='hidden md:block'>
-          <ToTop />
-        </div>
+        </>
+      )}
+      <div className='hidden md:block'>
+        <ToTop />
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import { ItemProps } from '@/types/home';
 
 import { DEFAULT_AVATAR } from '~/constants';
 
-const Item: NextPage<ItemProps> = ({ item }) => {
+const Item: NextPage<ItemProps> = ({ item, index }) => {
   return (
     <article className='mx-4'>
       <Link href={`/repository/${item.item_id}`}>
@@ -18,7 +18,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
           <div className='pb-0.5'>
             <div className='text-color-primary flex justify-between visited:text-slate-500 dark:visited:text-slate-400'>
               <span className='truncate pt-1 text-base leading-snug'>
-                {item.title}
+                {index + 1}. {item.title}
               </span>
               <span className='mt-1 ml-1 h-4 whitespace-nowrap rounded-md bg-blue-400 py-0.5 px-2 text-xs font-semibold leading-none text-white'>
                 {item.comment_total}
@@ -48,8 +48,8 @@ const Item: NextPage<ItemProps> = ({ item }) => {
             )}
 
             <div className='flex shrink grow items-center overflow-x-hidden text-sm text-slate-400 md:pl-1'>
-              <div className='text-color-primary hidden truncate whitespace-nowrap md:block md:max-w-xs'>
-                {item.author}
+              <div className=' text-color-primary hidden cursor-auto truncate whitespace-nowrap md:block md:max-w-xs'>
+                {item.author}/{item.name}
               </div>
               <span className='pl-1 pr-1'>·</span>
               <span>

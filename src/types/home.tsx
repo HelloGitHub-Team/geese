@@ -4,10 +4,12 @@ export interface HomeItems {
   page: number;
   data: HomeItem[];
   has_more: boolean;
+  page_total: number;
 }
 
 export interface ItemProps {
   item: HomeItem;
+  index: number;
 }
 
 export interface HomeItem {
