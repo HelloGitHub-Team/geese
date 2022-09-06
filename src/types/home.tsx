@@ -15,6 +15,7 @@ export interface HomeItem {
   author: string;
   author_avatar: string;
   title: string;
+  name: string;
   description: string;
   primary_lang: string;
   lang_color: string;

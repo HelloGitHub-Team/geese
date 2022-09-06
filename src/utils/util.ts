@@ -27,6 +27,7 @@ export function numFormat(n: number | undefined, digits = 0) {
   }
   const si = [
     { value: 1, symbol: '' },
+    { value: 1e4, symbol: 'W+' },
     { value: 1e6, symbol: 'M' },
     { value: 1e9, symbol: 'G' },
     { value: 1e12, symbol: 'T' },

@@ -51,6 +51,7 @@ export default function UserStatus() {
                 <Link href={data?.uid ? '/users/' + data?.uid : '_blank'}>
                   <span className='bg-img absolute top-0 left-0 h-10 w-10 shrink-0 grow-0 rounded-lg object-cover'>
                     <Image
+                      className='rounded'
                       width={40}
                       height={40}
                       alt='Picture of the author'

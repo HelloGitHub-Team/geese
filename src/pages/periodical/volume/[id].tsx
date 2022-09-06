@@ -178,15 +178,15 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
                         <div className='mb-2 flex  text-sm text-gray-500'>
                           <span className='mr-2 flex '>
                             <IoIosStarOutline size={16} />
-                            Star {numFormat(item.stars)}
+                            Star {numFormat(item.stars, 1)}
                           </span>
                           <span className='mr-2 flex'>
                             <GoRepoForked size={16} />
-                            Fork {numFormat(item.forks)}
+                            Fork {numFormat(item.forks, 1)}
                           </span>
                           <span className='flex'>
                             <MdOutlineRemoveRedEye size={16} />
-                            Watch {numFormat(item.watch)}
+                            Watch {numFormat(item.watch, 1)}
                           </span>
                         </div>
                         {/* markdown 内容渲染 */}

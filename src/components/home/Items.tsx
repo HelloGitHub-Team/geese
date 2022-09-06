@@ -102,8 +102,7 @@ const Items = () => {
       // setLastURL('/?sort_by=last');
       if (sort_by == 'last') {
         router.push('/?sort_by=last');
-      }
-      {
+      } else {
         router.push('/');
       }
     } else {
