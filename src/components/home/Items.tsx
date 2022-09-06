@@ -2,58 +2,60 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
+import useSWRInfinite from 'swr/infinite';
 
 import Button from '@/components/buttons/Button';
 import Loading from '@/components/loading/Loading';
 import { RepoModal } from '@/components/respository/Submit';
 
-import { getItems } from '@/services/home';
+import { fetcher } from '@/services/base';
+import { getTags } from '@/services/home';
+import { makeUrl } from '@/utils/api';
 
 import Item from './Item';
 import TagLink from '../links/TagLink';
-import Pagination from '../pagination/Pagination';
 import ToTop from '../toTop/ToTop';
 
-import { HomeItem } from '@/types/home';
-import { TagType } from '@/types/tag';
+import { HomeItem, HomeItems } from '@/types/home';
+import { Tag } from '@/types/tag';
 
 const Items = () => {
   const router = useRouter();
-  const { sort_by = 'hot', tid = '', page = 1 } = router.query;
+  const { sort_by = 'hot', tid = '' } = router.query;
 
-  const [tagItems, setTagItems] = useState<TagType[]>([]);
-  const [itemsData, setItemsData] = useState<HomeItem[]>([]);
-  const [pageIndex, setPageIndex] = useState(1);
-  const [pageTotal, setPageTotal] = useState(1);
-
-  const [isValidating, setIsValidating] = useState(true);
   const [labelStatus, setLabelStatus] = useState(false);
+  const [tagItems, setTagItems] = useState<Tag[]>([]);
   const [hotURL, setHotURL] = useState<string>('/?sort_by=hot');
   const [lastURL, setLastURL] = useState<string>('/?sort_by=last');
 
-  const onPageChange = (pageNum: number) => {
-    setPageIndex(pageNum);
-    const asPath = router.asPath;
-    if (asPath.includes('page=')) {
-      let url = `${router.basePath}?`;
-      if (sort_by) {
-        url += `sort_by=${sort_by}`;
-      }
-      if (tid) {
-        url += `&tid=${tid}`;
-      }
-      if (pageNum > 1) {
-        url += `&page=${pageNum}`;
-      }
-      router.push(url);
-    } else if (asPath.includes('?')) {
-      const url = `${asPath}&page=${pageNum}`;
-      router.push(url);
-    } else {
-      const url = `${asPath}?page=${pageNum}`;
-      router.push(url);
-    }
-  };
+  const { data, error, setSize, isValidating, size } =
+    useSWRInfinite<HomeItems>(
+      (index) => makeUrl(`/`, { sort_by, tid, page: index + 1 }),
+      fetcher,
+      { revalidateFirstPage: false }
+    );
+
+  const repositories = data
+    ? data.reduce((pre: HomeItem[], curr) => {
+        if (curr.data.length > 0) {
+          pre.push(...curr.data);
+        }
+        return pre;
+      }, [])
+    : [];
+  const hasMore = data ? data[data.length - 1].has_more : false;
+  const pageIndex = data ? size : 0;
+
+  const [sentryRef] = useInfiniteScroll({
+    loading: isValidating,
+    hasNextPage: hasMore,
+    disabled: !!error,
+    onLoadMore: () => {
+      setSize(pageIndex + 1);
+    },
+    rootMargin: '0px 0px 100px 0px',
+  });
 
   const linkClassName = (sortName: string) =>
     classNames(
@@ -73,24 +75,25 @@ const Items = () => {
       }
     );
 
-  const handleItems = useCallback(
-    async (pageNum: number) => {
-      try {
-        setIsValidating(true);
-        const data = await getItems({ sort_by, tid, page: pageNum });
-        if (tagItems.length == 0) {
-          setTagItems(data.tags);
+  const handleTags = useCallback(async () => {
+    try {
+      if (tagItems.length == 0) {
+        const data = await getTags('hot');
+        if (data?.data != undefined) {
+          data.data.unshift({
+            name: '全部',
+            tid: '',
+            repo_total: 0,
+            created_at: '',
+            udpated_at: '',
+          });
+          setTagItems(data.data);
         }
-        setItemsData(data.data);
-        setPageIndex(data.page);
-        setPageTotal(data.page_total);
-        setIsValidating(false);
-      } catch (error) {
-        console.log('error:' + error);
       }
-    },
-    [tagItems, setTagItems, tid, sort_by]
-  );
+    } catch (error) {
+      console.log('error:' + error);
+    }
+  }, [tagItems, setTagItems]);
 
   const handleTagButton = () => {
     if (labelStatus) {
@@ -106,28 +109,22 @@ const Items = () => {
   };
 
   useEffect(() => {
-    if (router.isReady) {
-      if (tid) {
-        setHotURL(`/?sort_by=hot&tid=${tid}`);
-        setLastURL(`/?sort_by=last&tid=${tid}`);
-        setLabelStatus(true);
-      } else {
-        setHotURL('/?sort_by=hot');
-        setLastURL('/?sort_by=last');
-        setLabelStatus(false);
-      }
-      if (Number(page) > 1) {
-        handleItems(Number(page));
-      } else {
-        handleItems(1);
-      }
+    handleTags();
+    if (tid) {
+      setHotURL(`/?sort_by=hot&tid=${tid}`);
+      setLastURL(`/?sort_by=last&tid=${tid}`);
+      setLabelStatus(true);
+    } else {
+      setHotURL('/?sort_by=hot');
+      setLastURL('/?sort_by=last');
+      setLabelStatus(false);
     }
-  }, [handleItems, router.isReady, page, tid, sort_by]);
+  }, [tid, handleTags]);
 
   return (
     <div>
       <div className='relative bg-white'>
-        <div className='bg-content mb-2 mt-2 overflow-hidden'>
+        <div className='bg-content border-main-content mb-2 mt-2 overflow-hidden'>
           <div className='flex py-2.5 pl-4 pr-3'>
             <div className='flex items-center justify-start space-x-2'>
               <Link href={hotURL}>
@@ -137,6 +134,7 @@ const Items = () => {
               <Link href={lastURL}>
                 <a className={linkClassName('last')}>最近</a>
               </Link>
+
               <Button
                 variant='ghost'
                 onClick={handleTagButton}
@@ -159,28 +157,21 @@ const Items = () => {
           </div>
         </div>
       </div>
-      {isValidating ? (
-        <Loading></Loading>
-      ) : (
-        <>
-          <div className='bg-content h-screen divide-y divide-slate-100'>
-            {itemsData.map((item: HomeItem, index: number) => (
-              <Item key={item.item_id} item={item} index={index}></Item>
-            ))}
-            <div className='h-16 py-2 text-sm'>
-              <Pagination
-                total={pageTotal}
-                current={pageIndex}
-                onPageChange={onPageChange}
-                PreviousText='上一页'
-                NextText='下一页'
-              />
-            </div>
+      <div className='bg-content h-screen divide-y divide-slate-100'>
+        {repositories.map((item: HomeItem, index) => (
+          <Item key={item.item_id} item={item} index={index}></Item>
+        ))}
+        {(isValidating || hasMore) && (
+          <div
+            className='bg-content divide-y divide-slate-100 overflow-hidden'
+            ref={sentryRef}
+          >
+            <Loading></Loading>
           </div>
-        </>
-      )}
-      <div className='hidden md:block'>
-        <ToTop />
+        )}
+        <div className='hidden md:block'>
+          <ToTop />
+        </div>
       </div>
     </div>
   );
