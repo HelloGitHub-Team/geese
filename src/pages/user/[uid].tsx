@@ -6,12 +6,12 @@ import clsxm from '@/lib/clsxm';
 import useUserDetailInfo from '@/hooks/useUserDetailInfo';
 
 import Seo from '@/components/Seo';
+import DynamicRecordList from '@/components/user/dynamicRecordList';
 
 const tabList = [
-  { key: 1, title: '动态' },
-  { key: 2, title: '贡献' },
-  { key: 3, title: '收藏' },
-  { key: 4, title: '测评' },
+  { key: 1, title: '动态', component: DynamicRecordList },
+  { key: 3, title: '收藏', component: DynamicRecordList },
+  { key: 4, title: '测评', component: DynamicRecordList },
 ];
 
 export default function User() {
@@ -83,7 +83,7 @@ export default function User() {
             </nav>
           </div>
           <div className='text-center'>
-            {tabList.find((tab) => tab.key === activeTab)?.title}
+            {tabList.find((tab) => tab.key === activeTab)?.component()}
           </div>
         </div>
       </div>
