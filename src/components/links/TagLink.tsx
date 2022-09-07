@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { Tag, TagsProps } from '@/types/tag';
+import { TagsProps, TagType } from '@/types/tag';
 
 export default function TagLink({ tagItems }: TagsProps) {
   const router = useRouter();
@@ -10,7 +10,7 @@ export default function TagLink({ tagItems }: TagsProps) {
   return (
     <div className='custom-scrollbar overflow-y-auto'>
       <ul className='flex text-sm font-normal'>
-        {tagItems.map((item: Tag) => {
+        {tagItems.map((item: TagType) => {
           return (
             <li className='shrink-0 grow-0 basis-auto' key={item.tid}>
               <Link href={`/?sort_by=${sort_by}&tid=${item.tid}`}>

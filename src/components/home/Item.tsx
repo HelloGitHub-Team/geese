@@ -48,8 +48,10 @@ const Item: NextPage<ItemProps> = ({ item, index }) => {
             )}
 
             <div className='flex shrink grow items-center overflow-x-hidden text-sm text-slate-400 md:pl-1'>
-              <div className=' text-color-primary hidden cursor-auto truncate whitespace-nowrap md:block md:max-w-xs'>
-                {item.author}/{item.name}
+              <div className='text-color-primary hidden cursor-auto truncate whitespace-nowrap md:block md:max-w-xs'>
+                {item.author}
+                <span className='pl-1 pr-1'>·</span>
+                {item.name}
               </div>
               <span className='pl-1 pr-1'>·</span>
               <span>

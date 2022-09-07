@@ -2,44 +2,58 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import useSWR from 'swr';
-
-import useToken from '@/hooks/useToken';
 
 import Button from '@/components/buttons/Button';
 import Loading from '@/components/loading/Loading';
 import { RepoModal } from '@/components/respository/Submit';
 
-import { fetcher } from '@/services/base';
-import { getTags } from '@/services/home';
-import { makeUrl } from '@/utils/api';
+import { getItems } from '@/services/home';
 
 import Item from './Item';
 import TagLink from '../links/TagLink';
 import Pagination from '../pagination/Pagination';
 import ToTop from '../toTop/ToTop';
 
-import { HomeItem, HomeItems } from '@/types/home';
-import { Tag } from '@/types/tag';
+import { HomeItem } from '@/types/home';
+import { TagType } from '@/types/tag';
 
 const Items = () => {
   const router = useRouter();
-  const { sort_by = 'hot', tid = '' } = router.query;
+  const { sort_by = 'hot', tid = '', page = 1 } = router.query;
 
-  const { token } = useToken();
+  const [tagItems, setTagItems] = useState<TagType[]>([]);
+  const [itemsData, setItemsData] = useState<HomeItem[]>([]);
   const [pageIndex, setPageIndex] = useState(1);
+  const [pageTotal, setPageTotal] = useState(1);
+
+  const [isValidating, setIsValidating] = useState(true);
   const [labelStatus, setLabelStatus] = useState(false);
-  const [tagItems, setTagItems] = useState<Tag[]>([]);
   const [hotURL, setHotURL] = useState<string>('/?sort_by=hot');
   const [lastURL, setLastURL] = useState<string>('/?sort_by=last');
 
-  const { data, isValidating } = useSWR<HomeItems>(
-    makeUrl(`/`, { sort_by, tid, page: pageIndex }),
-    (key) => {
-      const headers = { Authorization: `Bearer ${token}` };
-      return fetcher(key, { headers });
+  const onPageChange = (pageNum: number) => {
+    setPageIndex(pageNum);
+    const asPath = router.asPath;
+    if (asPath.includes('page=')) {
+      let url = `${router.basePath}?`;
+      if (sort_by) {
+        url += `sort_by=${sort_by}`;
+      }
+      if (tid) {
+        url += `&tid=${tid}`;
+      }
+      if (pageNum > 1) {
+        url += `&page=${pageNum}`;
+      }
+      router.push(url);
+    } else if (asPath.includes('?')) {
+      const url = `${asPath}&page=${pageNum}`;
+      router.push(url);
+    } else {
+      const url = `${asPath}?page=${pageNum}`;
+      router.push(url);
     }
-  );
+  };
 
   const linkClassName = (sortName: string) =>
     classNames(
@@ -59,25 +73,24 @@ const Items = () => {
       }
     );
 
-  const handleTags = useCallback(async () => {
-    try {
-      if (tagItems.length == 0) {
-        const data = await getTags('hot');
-        if (data?.data != undefined) {
-          data.data.unshift({
-            name: '全部',
-            tid: '',
-            repo_total: 0,
-            created_at: '',
-            udpated_at: '',
-          });
-          setTagItems(data.data);
+  const handleItems = useCallback(
+    async (pageNum: number) => {
+      try {
+        setIsValidating(true);
+        const data = await getItems({ sort_by, tid, page: pageNum });
+        if (tagItems.length == 0) {
+          setTagItems(data.tags);
         }
+        setItemsData(data.data);
+        setPageIndex(data.page);
+        setPageTotal(data.page_total);
+        setIsValidating(false);
+      } catch (error) {
+        console.log('error:' + error);
       }
-    } catch (error) {
-      console.log('error:' + error);
-    }
-  }, [tagItems, setTagItems]);
+    },
+    [tagItems, setTagItems, tid, sort_by]
+  );
 
   const handleTagButton = () => {
     if (labelStatus) {
@@ -93,17 +106,23 @@ const Items = () => {
   };
 
   useEffect(() => {
-    handleTags();
-    if (tid) {
-      setHotURL(`/?sort_by=hot&tid=${tid}`);
-      setLastURL(`/?sort_by=last&tid=${tid}`);
-      setLabelStatus(true);
-    } else {
-      setHotURL('/?sort_by=hot');
-      setLastURL('/?sort_by=last');
-      setLabelStatus(false);
+    if (router.isReady) {
+      if (tid) {
+        setHotURL(`/?sort_by=hot&tid=${tid}`);
+        setLastURL(`/?sort_by=last&tid=${tid}`);
+        setLabelStatus(true);
+      } else {
+        setHotURL('/?sort_by=hot');
+        setLastURL('/?sort_by=last');
+        setLabelStatus(false);
+      }
+      if (Number(page) > 1) {
+        handleItems(Number(page));
+      } else {
+        handleItems(1);
+      }
     }
-  }, [tid, handleTags]);
+  }, [handleItems, router.isReady, page, tid, sort_by]);
 
   return (
     <div>
@@ -118,7 +137,6 @@ const Items = () => {
               <Link href={lastURL}>
                 <a className={linkClassName('last')}>最近</a>
               </Link>
-
               <Button
                 variant='ghost'
                 onClick={handleTagButton}
@@ -146,14 +164,14 @@ const Items = () => {
       ) : (
         <>
           <div className='bg-content h-screen divide-y divide-slate-100'>
-            {data?.data.map((item: HomeItem, index: number) => (
+            {itemsData.map((item: HomeItem, index: number) => (
               <Item key={item.item_id} item={item} index={index}></Item>
             ))}
             <div className='h-16 py-2 text-sm'>
               <Pagination
-                total={data?.page_total as number}
-                current={data?.page as number}
-                onPageChange={setPageIndex}
+                total={pageTotal}
+                current={pageIndex}
+                onPageChange={onPageChange}
                 PreviousText='上一页'
                 NextText='下一页'
               />

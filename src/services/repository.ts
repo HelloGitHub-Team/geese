@@ -25,10 +25,6 @@ export const userRepoStatus = async (
 ): Promise<UserActionStatus> => {
   const data: RequestInit = {};
   data.credentials = 'include';
-  data.headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${window.localStorage.getItem('Authorization')}`,
-  };
   data.method = 'POST';
   data.body = JSON.stringify({ item_id: rid, item_type: 'repository' });
   const result = await fetcher<UserActionStatus>(
@@ -41,10 +37,6 @@ export const userRepoStatus = async (
 export const voteRepo = async (rid: string): Promise<Vote> => {
   const data: RequestInit = {};
   data.credentials = 'include';
-  data.headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${window.localStorage.getItem('Authorization')}`,
-  };
   data.method = 'POST';
   data.body = JSON.stringify({ belong_id: rid, belong: 'repository' });
   const resp = await fetcher<Vote>(makeUrl('/vote/'), data);
@@ -54,10 +46,6 @@ export const voteRepo = async (rid: string): Promise<Vote> => {
 export const collectRepo = async (rid: string): Promise<Collect> => {
   const data: RequestInit = {};
   data.credentials = 'include';
-  data.headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${window.localStorage.getItem('Authorization')}`,
-  };
   data.method = 'POST';
   data.body = JSON.stringify({ rid: rid });
   const resp = await fetcher<Collect>(makeUrl('/repository/collect/'), data);
@@ -67,10 +55,6 @@ export const collectRepo = async (rid: string): Promise<Collect> => {
 export const cancelVoteRepo = async (rid: string): Promise<BaseType | null> => {
   const data: RequestInit = {};
   data.credentials = 'include';
-  data.headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${window.localStorage.getItem('Authorization')}`,
-  };
   data.method = 'DELETE';
   data.body = JSON.stringify({ belong_id: rid, belong: 'repository' });
   const resp = await fetcher<BaseType>(makeUrl('/vote/'), data);
@@ -82,10 +66,6 @@ export const cancelCollectRepo = async (
 ): Promise<BaseType | null> => {
   const data: RequestInit = {};
   data.credentials = 'include';
-  data.headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${window.localStorage.getItem('Authorization')}`,
-  };
   data.method = 'DELETE';
   data.body = JSON.stringify({ rid: rid });
   const resp = await fetcher<BaseType>(makeUrl('/repository/collect/'), data);

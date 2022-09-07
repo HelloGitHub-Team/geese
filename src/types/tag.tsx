@@ -14,7 +14,7 @@ export interface TagPage {
 }
 
 export interface TagsProps {
-  tagItems: Tag[];
+  tagItems: TagType[];
 }
 
 export interface TagItems {

@@ -1,8 +1,11 @@
+import { TagType } from './tag';
 import { UserType } from './user';
 
 export interface HomeItems {
+  success: boolean;
   page: number;
   data: HomeItem[];
+  tags: TagType[];
   has_more: boolean;
   page_total: number;
 }
