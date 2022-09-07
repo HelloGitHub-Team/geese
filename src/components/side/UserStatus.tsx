@@ -63,7 +63,7 @@ export default function UserStatus() {
                   <div className='flex min-w-0 items-center'>
                     <Link
                       className='mr-2 block h-5 shrink grow truncate text-sm hover:underline'
-                      href='/user/314838220949536768'
+                      href={`/user/${data.uid}`}
                     >
                       {data?.nickname}
                     </Link>

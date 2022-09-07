@@ -3,12 +3,9 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import clsxm from '@/lib/clsxm';
+import useUserDetailInfo from '@/hooks/useUserDetailInfo';
 
 import Seo from '@/components/Seo';
-
-import { getUserInfo } from '@/services/user';
-
-import type { UserInfoType } from '@/types/user';
 
 const tabList = [
   { key: 1, title: '动态' },
@@ -17,49 +14,21 @@ const tabList = [
   { key: 4, title: '测评' },
 ];
 
-const userInfoProps = {
-  uid: '8MKvZoxaWt',
-  nickname: '卤蛋',
-  avatar:
-    'https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaELhgSn8KrBspf8KDJQGPwHOKqkZfppGiaQQk3WdxFetbGAYibBzhZ7bLV81JM2qBKVNStLeIo3ryMEA/132',
-  contribute_total: 0,
-  share_repo_total: 0,
-  comment_repo_total: 1,
-  permission: {
-    name: '游客',
-    code: 'visitor',
-  },
-  first_login: '2022-08-29T20:03:50',
-  rank: 1,
-  level: 1,
-};
-
 export default function User() {
   const router = useRouter();
-  const { uid = '8MKvZoxaWt' } = router.query;
-  const [userInfo, setUserInfo] = React.useState<UserInfoType>(userInfoProps);
+  const { uid } = router.query;
+  const userDetailInfo = useUserDetailInfo(uid as string);
   const [activeTab, setActiveTab] = React.useState<number>(1);
-
-  React.useEffect(() => {
-    getUserInfo(uid)
-      .then((res) => {
-        console.log(JSON.stringify(res));
-        // setUserInfo(res.userInfo);
-      })
-      .catch((err) => {
-        console.log({ err });
-      });
-  }, [uid]);
 
   return (
     <>
-      <Seo templateTitle={userInfo.nickname} />
+      <Seo templateTitle={userDetailInfo?.nickname} />
       <div className='bg-content my-2 h-screen divide-y divide-slate-100'>
-        {userInfo.nickname && (
+        {userDetailInfo?.nickname && (
           <div className='flex rounded-lg bg-white p-6'>
             <Image
-              src={userInfo.avatar}
-              alt={userInfo.nickname}
+              src={userDetailInfo?.avatar}
+              alt={userDetailInfo?.nickname}
               width={90}
               height={90}
               className='h-24 w-24 rounded-full bg-white'
@@ -67,23 +36,27 @@ export default function User() {
             <div className='ml-5 flex flex-col justify-center'>
               <div className='flex justify-between'>
                 <div className='mb-2'>
-                  <span className='text-lg font-bold'>{userInfo.nickname}</span>
-                  <span className='ml-4 italic'>Lv.{userInfo.rank}</span>
+                  <span className='text-lg font-bold'>
+                    {userDetailInfo?.nickname}
+                  </span>
+                  <span className='ml-4 italic'>Lv.{userDetailInfo?.rank}</span>
                 </div>
                 <span>
                   贡献值：
                   <span className='text-lg font-semibold'>
-                    {userInfo.contribute_total}
+                    {userDetailInfo?.contribute_total}
                   </span>
                 </span>
               </div>
-              <div>你是 HelloGitHub 社区的第 {userInfo.rank} 位小伙伴</div>
               <div>
-                于 {userInfo.first_login.replace(/T/g, ' ')} 加入，已分享{' '}
-                {userInfo.share_repo_total} 个开源项目，
-                {userInfo.comment_repo_total} 份开源测评
+                你是 HelloGitHub 社区的第 {userDetailInfo?.rank} 位小伙伴
               </div>
-              <div>{userInfo.last_login}</div>
+              <div>
+                于 {userDetailInfo?.first_login.replace(/T/g, ' ')} 加入，已分享{' '}
+                {userDetailInfo?.share_repo_total} 个开源项目，
+                {userDetailInfo?.comment_repo_total} 份开源测评
+              </div>
+              <div>{userDetailInfo?.last_login}</div>
             </div>
           </div>
         )}
@@ -110,7 +83,7 @@ export default function User() {
             </nav>
           </div>
           <div className='text-center'>
-            {tabList.find((tab) => tab.key === activeTab).title}
+            {tabList.find((tab) => tab.key === activeTab)?.title}
           </div>
         </div>
       </div>
