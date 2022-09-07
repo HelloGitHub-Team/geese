@@ -6,12 +6,13 @@ import clsxm from '@/lib/clsxm';
 import useUserDetailInfo from '@/hooks/useUserDetailInfo';
 
 import Seo from '@/components/Seo';
+import CollectionList from '@/components/user/CollectionList';
 import DynamicRecordList from '@/components/user/dynamicRecordList';
 
 const tabList = [
-  { key: 1, title: '动态', component: DynamicRecordList },
-  { key: 3, title: '收藏', component: DynamicRecordList },
-  { key: 4, title: '测评', component: DynamicRecordList },
+  { key: 1, title: '动态' },
+  { key: 2, title: '收藏' },
+  { key: 3, title: '测评' },
 ];
 
 export default function User() {
@@ -65,7 +66,7 @@ export default function User() {
             <nav className='-mb-0.5 flex space-x-6'>
               {tabList.map((tab) => {
                 return (
-                  <a
+                  <span
                     key={tab.key}
                     className={clsxm(
                       'text-xm inline-flex items-center gap-2 whitespace-nowrap border-b-[3px] border-transparent py-4 px-1 text-gray-500 hover:text-blue-600',
@@ -73,17 +74,24 @@ export default function User() {
                         'border-blue-500 font-medium': activeTab === tab.key,
                       }
                     )}
-                    href='#'
                     onClick={() => setActiveTab(tab.key)}
                   >
                     {tab.title}
-                  </a>
+                  </span>
                 );
               })}
             </nav>
           </div>
           <div className='text-center'>
-            {tabList.find((tab) => tab.key === activeTab)?.component()}
+            {activeTab === 1 && (
+              <DynamicRecordList uid={uid as string}></DynamicRecordList>
+            )}
+            {activeTab === 2 && (
+              <CollectionList uid={uid as string}></CollectionList>
+            )}
+            {activeTab === 3 && (
+              <DynamicRecordList uid={uid as string}></DynamicRecordList>
+            )}
           </div>
         </div>
       </div>

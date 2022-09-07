@@ -1,3 +1,5 @@
+import { RepoType } from '@/types/reppsitory';
+
 export interface UserAvaterProps {
   avatar: string;
 }
@@ -52,4 +54,10 @@ export interface DynamicRecord {
   dynamic_type: string;
   value: number;
   remark: string;
+}
+
+export interface CollectItem {
+  uid: string;
+  created_at: string;
+  repo: RepoType;
 }

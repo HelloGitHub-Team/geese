@@ -1,14 +1,15 @@
-import { useRouter } from 'next/router';
-
 import useUserDetailInfo from '@/hooks/useUserDetailInfo';
 import useUserDynamicRecord from '@/hooks/useUserDynamicRecord';
 
 import { fromNow } from '@/utils/day';
 
-export default function DynamicRecordList() {
-  const router = useRouter();
-  const userInfo = useUserDetailInfo(router.query.uid as string);
-  const list = useUserDynamicRecord(router.query.uid as string);
+interface Props {
+  uid: string;
+}
+
+export default function DynamicRecordList(props: Props) {
+  const userInfo = useUserDetailInfo(props.uid);
+  const list = useUserDynamicRecord(props.uid);
 
   return (
     <>
