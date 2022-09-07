@@ -1,4 +1,4 @@
-import useCollectionData from '@/hooks/useCollectionData';
+import useCollectionData from '@/hooks/user/useCollectionData';
 
 import Button from '@/components/buttons/Button';
 import Loading from '@/components/loading/Loading';

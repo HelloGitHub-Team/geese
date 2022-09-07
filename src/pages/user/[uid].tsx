@@ -3,16 +3,17 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import clsxm from '@/lib/clsxm';
-import useUserDetailInfo from '@/hooks/useUserDetailInfo';
+import useUserDetailInfo from '@/hooks/user/useUserDetailInfo';
 
 import Seo from '@/components/Seo';
 import CollectionList from '@/components/user/CollectionList';
-import DynamicRecordList from '@/components/user/dynamicRecordList';
+import CommentList from '@/components/user/CommentList';
+import DynamicRecordList from '@/components/user/DynamicRecordList';
 
 const tabList = [
   { key: 1, title: '动态' },
   { key: 2, title: '收藏' },
-  { key: 3, title: '测评' },
+  { key: 3, title: '评论' },
 ];
 
 export default function User() {
@@ -82,16 +83,14 @@ export default function User() {
               })}
             </nav>
           </div>
-          <div className='text-center'>
+          <div>
             {activeTab === 1 && (
               <DynamicRecordList uid={uid as string}></DynamicRecordList>
             )}
             {activeTab === 2 && (
               <CollectionList uid={uid as string}></CollectionList>
             )}
-            {activeTab === 3 && (
-              <DynamicRecordList uid={uid as string}></DynamicRecordList>
-            )}
+            {activeTab === 3 && <CommentList uid={uid as string}></CommentList>}
           </div>
         </div>
       </div>

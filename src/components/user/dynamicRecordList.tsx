@@ -1,4 +1,4 @@
-import useUserDetailInfo from '@/hooks/useUserDetailInfo';
+import useUserDetailInfo from '@/hooks/user/useUserDetailInfo';
 import useUserDynamicRecord from '@/hooks/useUserDynamicRecord';
 
 import { fromNow } from '@/utils/day';
