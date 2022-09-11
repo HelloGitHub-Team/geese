@@ -13,7 +13,7 @@ import { submitComment } from '@/services/repository';
 
 import { CommentSuccessData } from '@/types/reppsitory';
 
-import { DEFAULT_AVATAR } from '~/constants';
+import { DEFAULT_AVATAR, DEFAULT_INITITAL_COMMENT_DATA } from '~/constants';
 
 function CommentSubmit(props: {
   belongId: string;
@@ -66,11 +66,7 @@ function CommentSubmit(props: {
       onOk() {
         submitComment(belongId, commentData)
           .then((data) => {
-            setCommentData({
-              comment: '',
-              isUsed: false,
-              score: 5,
-            });
+            setCommentData(DEFAULT_INITITAL_COMMENT_DATA);
             if (data.success) {
               onSuccess && onSuccess(data);
               Message.success('发布评论成功');

@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react';
 
+import { DEFAULT_INITITAL_COMMENT_DATA } from '~/constants';
+
 function useCommentData() {
   const storageKey = 'COMMENT_DATA';
-  const defaultValue = {
-    comment: '',
-    isUsed: false,
-    score: 5,
-    // 输入框高度
-    height: 58,
-  };
-  const [commentData, setCommentData] = useState(defaultValue);
+  const [commentData, setCommentData] = useState(DEFAULT_INITITAL_COMMENT_DATA);
 
   useEffect(() => {
     const data = localStorage.getItem(storageKey);
