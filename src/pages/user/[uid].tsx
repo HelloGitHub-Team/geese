@@ -10,6 +10,8 @@ import CollectionList from '@/components/user/CollectionList';
 import CommentList from '@/components/user/CommentList';
 import DynamicRecordList from '@/components/user/DynamicRecordList';
 
+import { formatZH } from '@/utils/day';
+
 const tabList = [
   { key: 1, title: '动态' },
   { key: 2, title: '收藏' },
@@ -28,37 +30,48 @@ export default function User() {
       <div className='bg-content my-2 h-screen divide-y divide-slate-100'>
         {userDetailInfo?.nickname && (
           <div className='flex rounded-lg bg-white p-6'>
-            <Image
-              src={userDetailInfo?.avatar}
-              alt={userDetailInfo?.nickname}
-              width={90}
-              height={90}
-              className='h-24 w-24 rounded-full bg-white'
-            />
-            <div className='ml-5 flex flex-col justify-center'>
-              <div className='flex justify-between'>
-                <div className='mb-2'>
-                  <span className='text-lg font-bold'>
-                    {userDetailInfo?.nickname}
-                  </span>
-                  <span className='ml-4 italic'>Lv.{userDetailInfo?.rank}</span>
+            <div className='shrink-0'>
+              <Image
+                src={userDetailInfo?.avatar}
+                alt={userDetailInfo?.nickname}
+                width={90}
+                height={90}
+                className='rounded-full bg-white'
+              />
+            </div>
+            <div className='ml-5 flex flex-1 flex-col justify-center'>
+              <div className='mb-2 flex items-center'>
+                <div className='w-px max-w-fit flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg font-bold'>
+                  {userDetailInfo?.nickname}
                 </div>
-                <span>
-                  贡献值：
-                  <span className='text-lg font-semibold'>
-                    {userDetailInfo?.contribute_total}
-                  </span>
-                </span>
+                <div className='ml-2 text-sm font-bold text-yellow-500'>
+                  Lv{userDetailInfo?.rank}
+                </div>
+                <div className='ml-2 text-sm font-bold text-yellow-500'>
+                  贡献值 {userDetailInfo?.contribute_total}
+                </div>
               </div>
-              <div>
-                你是 HelloGitHub 社区的第 {userDetailInfo?.rank} 位小伙伴
+              <div className='text-sm leading-6 text-gray-500'>
+                你是 HelloGitHub 社区的第{' '}
+                <span className='font-bold'>{userDetailInfo?.rank}</span>{' '}
+                位小伙伴，于{' '}
+                <span className='font-bold'>
+                  {formatZH(
+                    userDetailInfo?.first_login,
+                    'YYYY 年 MM 月 DD 日 HH:mm'
+                  )}
+                </span>{' '}
+                加入，已分享{' '}
+                <span className='font-bold'>
+                  {userDetailInfo?.share_repo_total}
+                </span>{' '}
+                个开源项目，
+                <span className='font-bold'>
+                  {userDetailInfo?.comment_repo_total}
+                </span>{' '}
+                份开源测评。
+                <div>{userDetailInfo?.last_login}</div>
               </div>
-              <div>
-                于 {userDetailInfo?.first_login.replace(/T/g, ' ')} 加入，已分享{' '}
-                {userDetailInfo?.share_repo_total} 个开源项目，
-                {userDetailInfo?.comment_repo_total} 份开源测评
-              </div>
-              <div>{userDetailInfo?.last_login}</div>
             </div>
           </div>
         )}
@@ -93,6 +106,7 @@ export default function User() {
             {activeTab === 3 && <CommentList uid={uid as string}></CommentList>}
           </div>
         </div>
+        <div className='h-2'></div>
       </div>
     </>
   );
