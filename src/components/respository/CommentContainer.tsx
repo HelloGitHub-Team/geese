@@ -3,8 +3,6 @@ import useCommentList from '@/hooks/useCommentList';
 import CommentItem from '@/components/respository/CommentItem';
 import CommentSubmit from '@/components/respository/CommentSubmit';
 
-import { CommentSuccessData } from '@/types/reppsitory';
-
 interface Props {
   belong: string;
   belongId: string;
@@ -44,8 +42,8 @@ const CommentContainer = (props: Props) => {
         : currentUserComment.votes - 1,
     });
   };
-  const handleCommentSuccess = (data: CommentSuccessData) => {
-    setCurrentUserComment(data.data);
+  const handleCommentSuccess = () => {
+    refreshList();
   };
   const handleCommentFail = () => {
     refreshList();
