@@ -46,6 +46,7 @@ export interface UserDetailInfo {
   last_login: string;
   rank: number;
   level: number;
+  in_person: boolean;
 }
 
 export interface DynamicRecord {

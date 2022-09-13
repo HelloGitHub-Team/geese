@@ -78,23 +78,25 @@ export default function User() {
         <div className='mt-2 rounded-lg bg-white p-4 sm:p-6'>
           <div className='border-b border-gray-200'>
             <nav className='-mb-0.5 flex space-x-6'>
-              {tabList.map((tab) => {
-                return (
-                  <span
-                    key={tab.key}
-                    className={clsxm(
-                      'text-xm inline-flex cursor-pointer items-center gap-2 whitespace-nowrap border-b-2 border-transparent py-2 px-1 text-gray-500 hover:text-blue-600',
-                      {
-                        'border-blue-500 font-bold text-blue-500':
-                          activeTab === tab.key,
-                      }
-                    )}
-                    onClick={() => setActiveTab(tab.key)}
-                  >
-                    {tab.title}
-                  </span>
-                );
-              })}
+              {tabList
+                .filter((_, index) => index === 0 || userDetailInfo?.in_person)
+                .map((tab) => {
+                  return (
+                    <span
+                      key={tab.key}
+                      className={clsxm(
+                        'text-xm inline-flex cursor-pointer items-center gap-2 whitespace-nowrap border-b-2 border-transparent py-2 px-1 text-gray-500 hover:text-blue-600',
+                        {
+                          'border-blue-500 font-bold text-blue-500':
+                            activeTab === tab.key,
+                        }
+                      )}
+                      onClick={() => setActiveTab(tab.key)}
+                    >
+                      {tab.title}
+                    </span>
+                  );
+                })}
             </nav>
           </div>
           <div>
