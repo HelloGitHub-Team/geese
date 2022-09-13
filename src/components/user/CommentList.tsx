@@ -26,7 +26,9 @@ export default function CommentList(props: Props) {
           <div className='p-2'>
             <div className='flex justify-between py-2 text-gray-600'>
               <div className='flex'>
-                <span className='mr-4'>{index + 1}.</span>
+                <span className='mr-4'>
+                  {(data.page - 1) * data.pageSize + index + 1}.
+                </span>
                 <span className='text-gray-600'>
                   于 {formatZH(item.created_at, 'YYYY 年 MM 月 DD 日')} 发布的
                   {belongMap[item.belong]}评论

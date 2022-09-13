@@ -18,7 +18,9 @@ export default function CollectionList(props: Props) {
           className='flex items-center border-t py-4 first:border-t-0'
           key={item.repo.rid}
         >
-          <div className='mr-4 self-start'>{index + 1}.</div>
+          <div className='mr-4 self-start'>
+            {(data.page - 1) * data.pageSize + index + 1}.
+          </div>
           <div className='flex-1 pr-2'>
             <div className='font-bold'>{item.repo.name}</div>
             <div className='my-2 flex'>
