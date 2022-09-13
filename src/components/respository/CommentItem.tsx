@@ -20,6 +20,7 @@ const CommentItem = (
     className?: string;
     /** 是否独自显示，以表示当前用户所发表过的评论 */
     alone?: boolean;
+    footerRight?: (data: CommentItemData) => React.ReactNode;
     onChangeVote?: (value: boolean) => void;
   }
 ) => {
@@ -52,6 +53,25 @@ const CommentItem = (
       Message.error('请先登录！');
     }
   };
+
+  const footerRight =
+    props.footerRight ||
+    (() =>
+      alone ? (
+        <span className='ml-auto text-sm text-gray-400'>
+          {isShow ? '已精选' : '未精选'}
+        </span>
+      ) : (
+        <div
+          className={`flex cursor-pointer items-center leading-10 text-gray-400 hover:text-gray-900 active:text-gray-400 ${
+            isVoted ? '!text-blue-500' : ''
+          }`}
+          onClick={handleVote}
+        >
+          <GoThumbsup className='mr-1' size={14} />
+          <span className='text-sm'>{votes || '点赞'}</span>
+        </div>
+      ));
 
   return (
     <div className={`flex ${className}`}>
@@ -87,25 +107,12 @@ const CommentItem = (
             {isUsed ? '已用过' : '未用过'}
           </span>
         </div>
-        <div className='mt-2 whitespace-normal text-sm text-gray-900'>
+        <div className='mt-2 whitespace-normal break-all text-sm text-gray-900'>
           <MDRender>{comment}</MDRender>
         </div>
         <div className='mt-2 flex items-center justify-between'>
-          <span className='text-sm text-[#8a919f]'>{fromNow(createdAt)}</span>
-          {alone || (
-            <div
-              className={`flex cursor-pointer items-center leading-10 text-gray-400 hover:text-gray-900 active:text-gray-400 ${
-                isVoted ? '!text-blue-500' : ''
-              }`}
-              onClick={handleVote}
-            >
-              <GoThumbsup className='mr-1' size={14} />
-              <span className='text-sm'>{votes || '点赞'}</span>
-            </div>
-          )}
-          <span className='ml-auto text-sm text-gray-400' hidden={!alone}>
-            {isShow ? '已精选' : '未精选'}
-          </span>
+          <span className='text-sm text-gray-400'>{fromNow(createdAt)}</span>
+          {footerRight(props)}
         </div>
       </div>
     </div>

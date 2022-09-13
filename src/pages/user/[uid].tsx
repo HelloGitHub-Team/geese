@@ -29,7 +29,7 @@ export default function User() {
       <Seo templateTitle={userDetailInfo?.nickname} />
       <div className='bg-content my-2 h-screen divide-y divide-slate-100'>
         {userDetailInfo?.nickname && (
-          <div className='flex rounded-lg bg-white p-6'>
+          <div className='flex rounded-lg bg-white p-4 sm:p-6'>
             <div className='shrink-0'>
               <Image
                 src={userDetailInfo?.avatar}
@@ -75,7 +75,7 @@ export default function User() {
             </div>
           </div>
         )}
-        <div className='mt-2 rounded-lg bg-white p-6'>
+        <div className='mt-2 rounded-lg bg-white p-4 sm:p-6'>
           <div className='border-b border-gray-200'>
             <nav className='-mb-0.5 flex space-x-6'>
               {tabList.map((tab) => {

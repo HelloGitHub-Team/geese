@@ -64,7 +64,7 @@ export default function CollectionList(props: Props) {
         </div>
       ))}
       <Pagination
-        hidden={data.page_total <= 10}
+        hidden={data.total <= 10}
         PreviousText='上一页'
         NextText='下一页'
         current={data.page}
