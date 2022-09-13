@@ -52,7 +52,7 @@ const Index = ({ token, userInfo, user_agent }: IProps) => {
           <div className='flex py-2.5 pl-4 pr-3'>登录成功，跳转中...</div>
         </div>
       ) : (
-        <div className='m-3'>
+        <div className='m-2'>
           <div className='flex py-2.5 pl-4 pr-3'>登录失败，返回首页.</div>
         </div>
       )}

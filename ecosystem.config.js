@@ -7,7 +7,7 @@ module.exports = {
       max_restarts: 3,
       env: {
         NEXT_PUBLIC_ENV: 'production',
-        NODE_PORT: '3000'
+        NODE_PORT: '3000',
       },
       watch: true,
       merge_logs: true,
