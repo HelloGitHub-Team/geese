@@ -30,8 +30,8 @@ const TagPage: NextPage<TagPageProps> = ({ items, tag_name }) => {
       </div>
 
       <div className='bg-content h-screen divide-y divide-slate-100'>
-        {items.map((item: HomeItem) => (
-          <Item key={item.item_id} item={item}></Item>
+        {items.map((item: HomeItem, index: number) => (
+          <Item key={item.item_id} item={item} index={index}></Item>
         ))}
       </div>
     </>

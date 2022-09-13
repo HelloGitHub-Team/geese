@@ -1,17 +1,3 @@
-export interface LoginOutProps {
-  updateLoginStatus: (value: boolean) => void;
-}
-
-export interface LoginStatusProps {
-  updateLoginStatus: (value: boolean) => void;
-  loginStatus: boolean;
-}
-
-export interface UserProps {
-  updateLoginStatus: (value: boolean) => void;
-  isLogin: boolean;
-}
-
 export interface UserAvaterProps {
   avatar: string;
 }
@@ -29,16 +15,12 @@ export interface UserType {
 }
 
 export interface UserStatusProps {
+  success: string;
   uid: string;
   nickname: string;
-  gender: number;
-  city: string;
-  province: string;
-  country: string;
   avatar: string;
   permission: Permission;
-  first_login: string;
-  last_login: string;
+  contribute: number;
 }
 
 export interface OAuthURLResponse {

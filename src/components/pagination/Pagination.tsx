@@ -24,7 +24,6 @@ export default function Pagination({
     setPage(current);
   }, [current]);
   const handlePageChange = (page: number) => {
-    console.log(page);
     onPageChange?.(page);
   };
   const JumpBtnClass = (type: number) => {
@@ -40,12 +39,18 @@ export default function Pagination({
           ? 'pointer-events-none text-gray-400 hidden'
           : 'pointer-events-auto hover:text-blue-600 text-gray-600';
     }
-    return clsxm('inline-flex items-center gap-2 rounded-md p-2', className);
+    return clsxm(
+      'inline-flex items-center gap-2 rounded-md p-2 cursor-pointer',
+      className
+    );
   };
   return (
     <div className={clsxm('', className)} {...rest}>
       <nav className='flex items-center justify-center space-x-2'>
-        <a href={`/periodical/volume/${page - 1}`} className={JumpBtnClass(-1)}>
+        <a
+          onClick={() => handlePageChange(page - 1)}
+          className={JumpBtnClass(-1)}
+        >
           <span aria-hidden='true'>«</span>
           <span>{PreviousText}</span>
         </a>
@@ -77,7 +82,10 @@ export default function Pagination({
         <span className='mx-0 inline-flex h-10 w-10 items-center rounded-full p-4 font-medium text-gray-500'>
           {total}
         </span>
-        <a href={`/periodical/volume/${page + 1}`} className={JumpBtnClass(1)}>
+        <a
+          onClick={() => handlePageChange(page + 1)}
+          className={JumpBtnClass(1)}
+        >
           <span>{NextText}</span>
           <span aria-hidden='true'>»</span>
         </a>

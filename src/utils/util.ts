@@ -2,7 +2,6 @@
  * 防抖
  * @param func
  * @param wait
- * @param immediate
  * @returns function
  */
 export function debounce(func: any, wait: number) {
@@ -23,12 +22,12 @@ export function numFormat(n: number | undefined, digits = 0) {
     return '';
   }
   const num = +n;
-  if (num < 1000) {
+  if (num < 10000) {
     return n;
   }
   const si = [
     { value: 1, symbol: '' },
-    { value: 1e3, symbol: 'K' },
+    { value: 1e4, symbol: 'W+' },
     { value: 1e6, symbol: 'M' },
     { value: 1e9, symbol: 'G' },
     { value: 1e12, symbol: 'T' },
@@ -44,3 +43,8 @@ export function numFormat(n: number | undefined, digits = 0) {
   }
   return (num / si[i].value).toFixed(digits).replace(rx, '$1') + si[i].symbol;
 }
+
+/**
+ * 是否是在浏览器端运行
+ */
+export const isClient = () => typeof window !== 'undefined';

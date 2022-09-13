@@ -1,50 +1,109 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
-import Message from '@/components/message';
+import { useLoginContext } from '@/hooks/useLoginContext';
+import useUserInfo from '@/hooks/useUserInfo';
+
+import Button from '@/components/buttons/Button';
 
 import LoginButton from '../buttons/LoginButton';
-import LogoutButton from '../buttons/LogoutButton';
+import PeriodicalButton from '../buttons/Periodical';
 import SearchInput from '../search/SearchInput';
 
-import { LoginStatusProps } from '@/types/user';
+import { DEFAULT_AVATAR } from '~/constants';
 
-const Header = ({ loginStatus, updateLoginStatus }: LoginStatusProps) => {
-  const router = useRouter();
+const AvatarWithDropdown = (props: { className?: string }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { logout } = useLoginContext();
+  const { userInfo } = useUserInfo();
 
-  const showMessage = () => {
-    Message.info(`HelloGitHub`);
-    router.push('/');
-  };
+  useEffect(() => {
+    const handleDocumentClick = () => {
+      setIsOpen(false);
+    };
+
+    document.addEventListener('click', handleDocumentClick);
+
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, []);
 
   return (
-    <div className='fixed z-10 h-14 w-full bg-white shadow-md'>
+    <div className={`${props.className} h-7 w-7`}>
+      <Image
+        className='relative overflow-hidden rounded-full'
+        src={userInfo.avatar || DEFAULT_AVATAR}
+        alt='头像'
+        width={28}
+        height={28}
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen(!isOpen);
+        }}
+      />
+      <div
+        className='absolute right-1 mt-2 w-32 rounded border bg-white py-2 shadow-md'
+        hidden={!isOpen}
+      >
+        <div className='absolute -top-1.5 right-3 h-3 w-3 rotate-45 border-l border-t bg-white'></div>
+        <Link href='/' className='block'>
+          <div className='block px-4 leading-8 active:bg-gray-100'>
+            我的首页
+          </div>
+        </Link>
+        <div className='px-4 leading-8 active:bg-gray-100' onClick={logout}>
+          退出
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Header = () => {
+  const router = useRouter();
+  const { isLogin } = useLoginContext();
+
+  return (
+    <div className='fixed z-10 h-14 w-full bg-white shadow-sm'>
       <nav className='mx-auto flex max-w-5xl items-center justify-between p-2'>
-        <Image
-          className='h-8 cursor-pointer'
-          src='https://raw.githubusercontent.com/521xueweihan/img_logo/main/logo/logo.png'
-          width='28'
-          height='28'
-          alt='hellogithub'
-          onClick={showMessage}
-        />
+        <span className='hidden md:block'>
+          <Image
+            className='h-8 cursor-pointer'
+            src='https://img.hellogithub.com/logo/logo.png'
+            width='28'
+            height='28'
+            alt='hellogithub'
+            onClick={() => {
+              router.reload();
+            }}
+          />
+        </span>
         <SearchInput />
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
-          <li className='md:block'>
-            <Link href='/periodical/volume/' className='rounded-lg px-3 py-2'>
-              月刊
-            </Link>
+          <li className='hidden md:block'>
+            <Button
+              className='font-normal text-gray-500'
+              variant='ghost'
+              onClick={() => {
+                router.push('/');
+              }}
+            >
+              首页
+            </Button>
           </li>
+          <PeriodicalButton></PeriodicalButton>
           <>
-            {!loginStatus ? (
+            {!isLogin ? (
               <li className='block md:hidden'>
                 <LoginButton></LoginButton>
               </li>
             ) : (
-              <li className='hidden md:block '>
-                <LogoutButton updateLoginStatus={updateLoginStatus} />
-              </li>
+              <>
+                <AvatarWithDropdown className='md:hidden' />
+              </>
             )}
           </>
         </ul>

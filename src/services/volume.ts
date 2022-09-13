@@ -2,44 +2,26 @@ import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-interface Volume {
-  pre_num: number;
-  next_num: number;
-  total: number;
-  current_num: number;
-  publish_at: string;
-  data: any[];
-}
+import { Volume, VolumeAll } from '@/types/volume';
 
-type VolumeAll = {
-  total: number;
-  data: any[];
-};
-
-export const getVolume = async (id: string): Promise<Volume> => {
+export const getVolume = async (num: number): Promise<Volume | boolean> => {
   try {
-    const data = await fetcher<Volume>(makeUrl(`/volume/?num=${id}`));
+    const data = await fetcher<Volume>(makeUrl(`/volume/${num}`));
     return data;
   } catch (error) {
-    return {} as Volume;
+    return false;
   }
 };
 
 export const getVolumeNum = async (): Promise<VolumeAll> => {
   try {
-    const { total = 0, data = [] } =
-      (await fetcher(makeUrl(`/volume/all/`))) || {};
-    return { total, data };
+    const {
+      total = 0,
+      data = [],
+      lastNum = 0,
+    } = (await fetcher<VolumeAll>(makeUrl(`/volume/all/`))) || {};
+    return { total, data, lastNum };
   } catch (error) {
-    return { total: 0, data: [] };
-  }
-};
-
-// 记录 github 访问次数 /v1/repository/go/github/
-export const recordGoGithub = async (rid: string): Promise<any> => {
-  try {
-    await fetcher(makeUrl(`/repository/go/github/?rid=${rid}`));
-  } catch (error) {
-    console.error(error);
+    return { total: 0, data: [], lastNum: 0 };
   }
 };
