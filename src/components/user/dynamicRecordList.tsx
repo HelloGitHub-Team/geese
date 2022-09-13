@@ -10,15 +10,23 @@ export default function DynamicRecordList(props: Props) {
   const list = useUserDynamicRecord(props.uid);
 
   return (
-    <div className='text-sm'>
-      {list?.map((item, index) => (
-        <div className='my-8 last:mb-0' key={index}>
-          <span className='mr-4'>{index + 1}.</span>
-          <span className='text-gray-600'>{`${fromNow(item.created_at)}，因${
-            item.remark
-          }，收获 ${item.value} 点贡献值`}</span>
+    <>
+      {list?.length ? (
+        <div className='text-sm'>
+          {list?.map((item, index) => (
+            <div className='my-8 last:mb-0' key={index}>
+              <span className='mr-4'>{index + 1}.</span>
+              <span className='text-gray-600'>{`${fromNow(
+                item.created_at
+              )}，因${item.remark}，收获 ${item.value} 点贡献值`}</span>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      ) : (
+        <div className='mt-4 text-center text-xl'>
+          <div className='py-14 text-gray-300'>暂无动态</div>
+        </div>
+      )}
+    </>
   );
 }
