@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { GoThumbsup } from 'react-icons/go';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -87,17 +88,19 @@ const CommentItem = (
       </div>
       <div className='w-max-full relative flex-1'>
         <div className='flex items-center gap-4'>
-          <span className='w-px max-w-fit flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold md:text-base md:font-normal'>
-            <span className='mr-1 align-[-3px] md:hidden '>
+          <span className='flex w-px max-w-fit flex-1 items-center overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold md:text-base md:font-normal'>
+            <span className='mr-1 h-5 md:hidden'>
               <Image
                 width='20'
                 height='20'
                 src={user?.avatar || DEFAULT_AVATAR}
-                className='bg-img h-5 w-5 rounded-full '
+                className='h-5 w-5 rounded-full'
                 alt='github_avatar'
               />
             </span>
-            {user?.nickname}
+            <Link href={`/user/${user.uid}`}>
+              <a>{user?.nickname}</a>
+            </Link>
           </span>
           <span className='flex shrink-0 items-center text-sm'>
             评分：

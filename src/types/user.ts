@@ -2,6 +2,7 @@ import { RepoType } from '@/types/reppsitory';
 
 export interface UserAvaterProps {
   avatar: string;
+  uid: string;
 }
 
 export interface User {

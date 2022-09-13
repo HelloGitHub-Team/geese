@@ -18,7 +18,7 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
     <>
       <Seo title={`开源项目 ${repo.name}`} />
       <div className='mt-2 bg-white px-2 pb-10 pt-2'>
-        <Navbar avatar={repo.share_user.avatar} />
+        <Navbar avatar={repo.share_user.avatar} uid={repo.share_user.uid} />
         <Info repo={repo}></Info>
         <Tabs repo={repo}></Tabs>
         {repo.image_url && (
