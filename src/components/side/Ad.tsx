@@ -33,7 +33,7 @@ export default function Ad(props: Props) {
       <a href={props.url} target='_blank' rel='noreferrer'>
         <div className='group relative h-full'>
           <Image
-            className='object-fill'
+            className='object-contain'
             layout='fill'
             src={props.image}
             alt='广告'

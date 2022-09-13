@@ -10,6 +10,7 @@ import { LoginProvider } from '@/hooks/useLoginContext';
 import Layout from '@/components/layout/Layout';
 import { AlertComp as Alert } from '@/components/message/Alert';
 import PullRefresh from '@/components/PullRefresh';
+import Script from 'next/script';
 
 /**
  * !STARTERCONF info
@@ -23,6 +24,19 @@ function MyApp({ Component, pageProps }: AppProps) {
   const singlePage: string[] = ['/404', '/500'];
   return (
     <div id='root'>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+        strategy='afterInteractive'
+      />
+      <Script id='google-analytics' strategy='afterInteractive'>
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+        `}
+      </Script>
       <LoginProvider>
         <PullRefresh>
           {singlePage.includes(pathname) ? (
