@@ -57,7 +57,7 @@ export default function Pagination({
 
         <input
           type='number'
-          className='dark:text-gray-400" text-xm block w-20 rounded-md border-gray-200 py-1 px-2 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800'
+          className='text-xm block w-20 rounded-md border-gray-200 py-1 px-2 focus:border-blue-500 focus:ring-blue-500'
           min='1'
           max={total}
           value={page}
