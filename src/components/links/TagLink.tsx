@@ -10,7 +10,7 @@ export default function TagLink({ tagItems }: TagsProps) {
   return (
     <div className='custom-scrollbar overflow-y-auto'>
       <ul className='flex text-sm font-normal'>
-        {tagItems.map((item: TagType) => {
+        {tagItems?.map((item: TagType) => {
           return (
             <li className='shrink-0 grow-0 basis-auto' key={item.tid}>
               <Link href={`/?sort_by=${sort_by}&tid=${item.tid}`}>

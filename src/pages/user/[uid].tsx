@@ -10,7 +10,7 @@ import { getUserInfo } from '@/services/user';
 
 import type { UserInfoType } from '@/types/user';
 
-const tabList = [
+const tabList: any[] = [
   { key: 1, title: '动态' },
   { key: 2, title: '贡献' },
   { key: 3, title: '收藏' },
@@ -34,6 +34,11 @@ const userInfoProps = {
   level: 1,
 };
 
+type Response = {
+  success: boolean;
+  userInfo: UserInfoType;
+};
+
 export default function User() {
   const router = useRouter();
   const { uid = '8MKvZoxaWt' } = router.query;
@@ -42,9 +47,8 @@ export default function User() {
 
   React.useEffect(() => {
     getUserInfo(uid)
-      .then((res) => {
-        console.log(JSON.stringify(res));
-        // setUserInfo(res.userInfo);
+      .then((res: Response) => {
+        setUserInfo(res.userInfo);
       })
       .catch((err) => {
         console.log({ err });
@@ -83,7 +87,6 @@ export default function User() {
                 {userInfo.share_repo_total} 个开源项目，
                 {userInfo.comment_repo_total} 份开源测评
               </div>
-              <div>{userInfo.last_login}</div>
             </div>
           </div>
         )}

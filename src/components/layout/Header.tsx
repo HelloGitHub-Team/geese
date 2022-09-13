@@ -95,6 +95,17 @@ const Header = () => {
             </Button>
           </li>
           <PeriodicalButton></PeriodicalButton>
+          <li className='hidden md:block'>
+            <Button
+              className='font-normal text-gray-500'
+              variant='ghost'
+              onClick={() => {
+                router.push('/report/tiobe');
+              }}
+            >
+              排行榜
+            </Button>
+          </li>
           <>
             {!isLogin ? (
               <li className='block md:hidden'>
