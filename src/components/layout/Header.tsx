@@ -7,6 +7,7 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 import useUserInfo from '@/hooks/useUserInfo';
 
 import Button from '@/components/buttons/Button';
+import ThemeSwitch from '@/components/ThemeSwitch';
 
 import { DEFAULT_AVATAR } from '@/utils/constants';
 
@@ -83,6 +84,9 @@ const Header = () => {
         </span>
         <SearchInput />
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
+          <li className='pl-2 md:px-4'>
+            <ThemeSwitch />
+          </li>
           <li className='hidden md:block'>
             <Button
               className='font-normal text-gray-500'
@@ -95,17 +99,13 @@ const Header = () => {
             </Button>
           </li>
           <PeriodicalButton></PeriodicalButton>
-          <>
-            {!isLogin ? (
-              <li className='block md:hidden'>
-                <LoginButton></LoginButton>
-              </li>
-            ) : (
-              <>
-                <AvatarWithDropdown className='md:hidden' />
-              </>
-            )}
-          </>
+          {!isLogin ? (
+            <li className='block md:hidden'>
+              <LoginButton></LoginButton>
+            </li>
+          ) : (
+            <AvatarWithDropdown className='md:hidden' />
+          )}
         </ul>
       </nav>
     </div>
