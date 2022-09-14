@@ -29,7 +29,7 @@ export default function User() {
     <>
       <Seo templateTitle={userDetailInfo?.nickname} />
       <div className='h-screen divide-y divide-slate-100'>
-        <Navbar middleText='用户首页'></Navbar>
+        <Navbar middleText='个人主页'></Navbar>
         {userDetailInfo?.nickname && (
           <>
             {/* PC端 */}

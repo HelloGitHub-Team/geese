@@ -51,7 +51,7 @@ const AvatarWithDropdown = (props: { className?: string }) => {
         <div className='absolute -top-1.5 right-3 h-3 w-3 rotate-45 border-l border-t bg-white'></div>
         <Link href={`/user/${userInfo.uid}`} className='block'>
           <div className='block px-4 leading-8 active:bg-gray-100'>
-            我的首页
+            我的主页
           </div>
         </Link>
         <div className='px-4 leading-8 active:bg-gray-100' onClick={logout}>
