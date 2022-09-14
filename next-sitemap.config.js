@@ -12,6 +12,9 @@ module.exports = {
   exclude: ['/tachi', '/user', '/help', '/search'],
 
   robotsTxtOptions: {
+    additionalSitemaps: [
+      'https://hellogithub.com/server-sitemap-index.xml', // <==== Add here
+    ],
     policies: [
       {
         userAgent: '*',

@@ -6,9 +6,8 @@ import { getURLs } from '@/services/sitemap';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Method to source urls from cms
-  const urls = await getURLs();
-
-  return getServerSideSitemapIndex(ctx, urls);
+  const data = await getURLs();
+  return getServerSideSitemapIndex(ctx, data?.data);
 };
 
 // Default export to prevent next.js errors
