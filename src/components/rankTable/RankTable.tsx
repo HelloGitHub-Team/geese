@@ -78,7 +78,7 @@ export const RankSearchBar = ({
   options = [
     { key: '/report/tiobe', value: '编程语言' },
     { key: '/report/netcraft', value: '服务器' },
-    { key: '/report/db', value: '数据库' },
+    { key: '/report/db-engines', value: '数据库' },
   ],
   onChange,
 }: RankSearchBarProps) => {
@@ -104,6 +104,7 @@ export const RankSearchBar = ({
           <Image className='inline h-6 w-6' src={logo} alt={title}></Image>
         )}
         <span className='ml-1'>{title}</span>
+        {/* <Tooltip /> */}
       </div>
       <div>
         <Dropdown
@@ -112,6 +113,25 @@ export const RankSearchBar = ({
           onChange={(opt) => onChange('month', opt.key)}
         />
       </div>
+    </div>
+  );
+};
+
+export const Tooltip = () => {
+  return (
+    <div className='hs-tooltip inline-block'>
+      <button
+        type='button'
+        className='hs-tooltip-toggle inline-flex h-10 w-10 items-center justify-center gap-2 rounded-full border border-gray-200 bg-gray-50 text-gray-600 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-white/[.1] dark:hover:bg-white/[.05] dark:hover:text-white'
+      >
+        tip
+        <span
+          className='hs-tooltip-content invisible absolute z-10 inline-block rounded-md bg-gray-900 py-1 px-2 text-xs font-medium text-white opacity-0 shadow-sm transition-opacity hs-tooltip-shown:visible hs-tooltip-shown:opacity-100 dark:bg-slate-700'
+          role='tooltip'
+        >
+          Tooltip on top
+        </span>
+      </button>
     </div>
   );
 };

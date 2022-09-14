@@ -2,17 +2,12 @@ import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 
 import RankTable, { RankSearchBar } from '@/components/rankTable/RankTable';
+import { ChangeColumnRender } from '@/components/report/Report';
 import Seo from '@/components/Seo';
 
 import { getTiobeRank } from '@/services/rank';
 
-import { RankDataItem } from '@/types/rank';
-interface RankPageProps {
-  month: number;
-  year: number;
-  monthList: number[];
-  list: string[];
-}
+import { RankPageProps } from '@/types/rank';
 
 // 排名	编程语言	流行度	对比上月	年度明星语言
 const columns: any[] = [
@@ -22,9 +17,7 @@ const columns: any[] = [
   {
     key: 'change',
     title: '对比上月',
-    render: (row: RankDataItem, index) => {
-      return <div>{row.change || '新上榜'} </div>;
-    },
+    render: ChangeColumnRender,
   },
   { key: 'star', title: '年度明星语言' },
 ];
@@ -42,12 +35,15 @@ const TiobePage: NextPage<RankPageProps> = ({
     if (key === 'month') {
       router.push(`/report/tiobe/?month=${value}`);
     }
+    if (key === 'target') {
+      router.push(`${value}`);
+    }
   };
 
   return (
     <>
       <Seo title='编程语言排行 | HelloGitHub' />
-      <div className='p-2 text-center'>
+      <div className='mb-10 p-2 text-center'>
         <h2 className='my-4 font-light'>
           {year}年{month}月编程语言排行榜
         </h2>
