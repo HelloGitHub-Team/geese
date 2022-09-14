@@ -12,7 +12,7 @@ import { CollectItem } from '@/types/user';
 export default function useCollectionData(uid: string) {
   const [page, setPage] = useState(1);
   const { data, error } = useSWR<Page<CollectItem>>(
-    uid ? makeUrl(`/user/${uid}/collection?page=${page}`) : null,
+    uid ? makeUrl(`/user/${uid}/collection/?page=${page}`) : null,
     fetcher
   );
 

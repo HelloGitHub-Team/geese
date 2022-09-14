@@ -12,6 +12,7 @@ import {
   userRepoStatus,
   voteRepo,
 } from '@/services/repository';
+import { numFormat } from '@/utils/util';
 
 import message from '../message';
 
@@ -92,7 +93,7 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
         <div className={commonStyle} onClick={() => onCancelVote(repo.rid)}>
           <IoMdThumbsUp className='mr-1 text-blue-500' size={14} />
           <span className='text-xs text-inherit text-blue-500'>
-            {likesTotal}
+            {numFormat(likesTotal, 1)}
           </span>
         </div>
       ) : (
@@ -106,7 +107,7 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
         <div className={commonStyle} onClick={() => onCancelCollect(repo.rid)}>
           <GoStar className='mr-1 text-blue-500' size={14} />
           <span className='text-xs text-inherit text-blue-500'>
-            {collectTotal}
+            {numFormat(collectTotal, 1)}
           </span>
         </div>
       ) : (

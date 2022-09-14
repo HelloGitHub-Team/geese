@@ -3,8 +3,10 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import clsxm from '@/lib/clsxm';
+import { useLoginContext } from '@/hooks/useLoginContext';
 import useUserDetailInfo from '@/hooks/user/useUserDetailInfo';
 
+import Button from '@/components/buttons/Button';
 import Seo from '@/components/Seo';
 import CollectionList from '@/components/user/CollectionList';
 import CommentList from '@/components/user/CommentList';
@@ -21,6 +23,7 @@ const tabList = [
 export default function User() {
   const router = useRouter();
   const { uid } = router.query;
+  const { logout, isLogin } = useLoginContext();
   const userDetailInfo = useUserDetailInfo(uid as string);
   const [activeTab, setActiveTab] = React.useState<number>(1);
 
@@ -29,51 +32,129 @@ export default function User() {
       <Seo templateTitle={userDetailInfo?.nickname} />
       <div className='bg-content my-2 h-screen divide-y divide-slate-100'>
         {userDetailInfo?.nickname && (
-          <div className='flex rounded-lg bg-white p-4 sm:p-6'>
-            <div className='shrink-0'>
-              <Image
-                src={userDetailInfo?.avatar}
-                alt={userDetailInfo?.nickname}
-                width={90}
-                height={90}
-                className='rounded-full bg-white'
-              />
-            </div>
-            <div className='ml-5 flex flex-1 flex-col justify-center'>
-              <div className='mb-2 flex items-center'>
-                <div className='w-px max-w-fit flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg font-bold'>
-                  {userDetailInfo?.nickname}
-                </div>
-                <div className='ml-2 text-sm font-bold text-yellow-500'>
-                  Lv{userDetailInfo?.rank}
-                </div>
-                <div className='ml-2 text-sm font-bold text-yellow-500'>
-                  贡献值 {userDetailInfo?.contribute_total}
-                </div>
+          <>
+            {/* PC端 */}
+            <div className='hidden rounded-lg bg-white p-4 sm:p-6 md:flex'>
+              <div className='shrink-0'>
+                <Image
+                  src={userDetailInfo?.avatar}
+                  alt={userDetailInfo?.nickname}
+                  width={90}
+                  height={90}
+                  className='rounded-full bg-white'
+                />
               </div>
-              <div className='text-sm leading-6 text-gray-500'>
-                你是 HelloGitHub 社区的第{' '}
-                <span className='font-bold'>{userDetailInfo?.rank}</span>{' '}
-                位小伙伴，于{' '}
-                <span className='font-bold'>
-                  {formatZH(
-                    userDetailInfo?.first_login,
-                    'YYYY 年 MM 月 DD 日 HH:mm'
+              <div className='ml-5 flex flex-1 flex-col justify-center'>
+                <div className='my-2 flex items-center'>
+                  <div className='w-px max-w-fit flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg font-bold'>
+                    {userDetailInfo?.nickname}
+                  </div>
+                  <div className='ml-2 text-sm font-bold text-yellow-500'>
+                    Lv{userDetailInfo?.level}
+                  </div>
+                  <div className='shrink grow'></div>
+                  {userDetailInfo.in_person && isLogin ? (
+                    <div className='hidden md:block'>
+                      <Button
+                        className='button box-border rounded-md border border-slate-400 px-2 py-1 text-sm font-normal  text-gray-400'
+                        variant='ghost'
+                        onClick={logout}
+                      >
+                        退出
+                      </Button>
+                    </div>
+                  ) : (
+                    <></>
                   )}
-                </span>{' '}
-                加入，已分享{' '}
-                <span className='font-bold'>
-                  {userDetailInfo?.share_repo_total}
-                </span>{' '}
-                个开源项目，
-                <span className='font-bold'>
-                  {userDetailInfo?.comment_repo_total}
-                </span>{' '}
-                份开源测评。
-                <div>{userDetailInfo?.last_login}</div>
+                </div>
+                <div className='text-sm leading-6 text-gray-500'>
+                  <div>
+                    {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
+                    社区的第{' '}
+                    <span className='font-bold'>{userDetailInfo?.rank}</span>{' '}
+                    位小伙伴，于{' '}
+                    <span className='font-bold'>
+                      {formatZH(
+                        userDetailInfo?.first_login,
+                        'YYYY 年 MM 月 DD 日'
+                      )}
+                    </span>{' '}
+                    加入。
+                  </div>
+                  <div>
+                    已分享{' '}
+                    <span className='font-bold'>
+                      {userDetailInfo?.share_repo_total}
+                    </span>{' '}
+                    个开源项目{' '}
+                    <span className='font-bold'>
+                      {userDetailInfo?.comment_repo_total}
+                    </span>{' '}
+                    份开源测评，共获得{' '}
+                    <span className='font-bold'>
+                      {userDetailInfo?.contribute_total}
+                    </span>{' '}
+                    点贡献值。
+                  </div>
+                  <div>{userDetailInfo?.last_login}</div>
+                </div>
               </div>
             </div>
-          </div>
+
+            {/* 移动端 */}
+            <div className='align-center flex flex-col rounded-lg bg-white p-4 sm:p-6 md:hidden'>
+              <div className='mx-auto flex'>
+                <Image
+                  src={userDetailInfo?.avatar}
+                  alt={userDetailInfo?.nickname}
+                  width={72}
+                  height={72}
+                  className='rounded-full bg-white'
+                />
+              </div>
+              <div className='flex flex-col'>
+                <div className='mx-auto mt-2 flex w-32 items-center justify-center'>
+                  <div className=' self-end overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold'>
+                    {userDetailInfo?.nickname}
+                  </div>
+                  <div className='ml-1 self-end text-sm font-bold text-yellow-500'>
+                    <span className='align-[0.4px]'>
+                      Lv{userDetailInfo?.level}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className='flex flex-col items-center justify-center text-sm leading-6 text-gray-500'>
+                <p>
+                  {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
+                  社区的第{' '}
+                  <span className='font-bold'> {userDetailInfo?.rank} </span>{' '}
+                  位小伙伴
+                </p>
+                <p>
+                  于{' '}
+                  {formatZH(userDetailInfo?.first_login, 'YYYY 年 MM 月 DD 日')}{' '}
+                  加入共获得{' '}
+                  <span className='font-bold'>
+                    {userDetailInfo?.contribute_total}
+                  </span>{' '}
+                  点贡献值
+                </p>
+                <p>
+                  已分享{' '}
+                  <span className='font-bold'>
+                    {userDetailInfo?.share_repo_total}
+                  </span>{' '}
+                  个开源项目{' '}
+                  <span className='font-bold'>
+                    {userDetailInfo?.comment_repo_total}
+                  </span>{' '}
+                  份开源测评
+                </p>
+              </div>
+            </div>
+          </>
         )}
         <div className='mt-2 rounded-lg bg-white p-4 sm:p-6'>
           <div className='border-b border-gray-200'>

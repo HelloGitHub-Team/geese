@@ -1,8 +1,12 @@
+import Link from 'next/link';
+
 import useCollectionData from '@/hooks/user/useCollectionData';
 
 import Button from '@/components/buttons/Button';
 import Loading from '@/components/loading/Loading';
 import Pagination from '@/components/pagination/Pagination';
+
+import { numFormat } from '@/utils/util';
 
 interface Props {
   uid: string;
@@ -39,7 +43,7 @@ export default function CollectionList(props: Props) {
                   {item.repo.primary_lang}
                 </div>
                 <div className='px-1'>·</div>
-                <div>{item.repo.stars}k</div>
+                <div>{numFormat(item.repo.stars, 1)}</div>
                 <div className='px-1'>·</div>
                 <div>{item.repo.has_chinese ? '中文' : '非中文'}</div>
               </div>
@@ -54,16 +58,23 @@ export default function CollectionList(props: Props) {
                   {item.repo.primary_lang}
                 </div>
                 <div className='px-1'>·</div>
-                <div>star: {item.repo.stars}k</div>
+                <div>Star：{numFormat(item.repo.stars, 1)}</div>
                 <div className='px-1'>·</div>
                 <div>中文：{item.repo.has_chinese ? '是' : '否'}</div>
               </div>
             </div>
-            <Button className='h-8 px-2 text-sm font-normal' variant='outline'>
-              <a href={item.repo.url} target='_blank' rel='noreferrer'>
+            <Link
+              href={`/repository/${item.repo.rid}`}
+              target='_blank'
+              rel='noreferrer'
+            >
+              <Button
+                className='h-8 px-2 text-sm font-normal'
+                variant='outline'
+              >
                 查看
-              </a>
-            </Button>
+              </Button>
+            </Link>
           </div>
         ))}
         <Pagination

@@ -12,7 +12,7 @@ import { CommentItemData } from '@/types/reppsitory';
 export default function useCommentHistory(uid: string) {
   const [page, setPage] = useState(1);
   const { data, error } = useSWR<Page<CommentItemData>>(
-    uid ? makeUrl(`/user/${uid}/comment?page=${page}`) : null,
+    uid ? makeUrl(`/user/${uid}/comment/?page=${page}`) : null,
     fetcher
   );
 

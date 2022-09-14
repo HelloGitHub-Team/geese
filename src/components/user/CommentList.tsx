@@ -24,7 +24,7 @@ export default function CommentList(props: Props) {
       <>
         {data.data.map((item, index) => {
           return userInfo ? (
-            <div className='p-2'>
+            <div className='p-2' key={item.cid}>
               <div className='flex justify-between py-2 text-gray-600'>
                 <div className='flex'>
                   <span className='mr-4'>
@@ -35,19 +35,24 @@ export default function CommentList(props: Props) {
                     {belongMap[item.belong]}评论
                   </span>
                 </div>
+
                 <div className='whitespace-nowrap text-sm'>
-                  <Button
-                    className='mr-1 h-7 p-2 font-normal'
-                    variant='outline'
-                  >
-                    <a
-                      href='https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb'
-                      target='_blank'
-                      rel='noreferrer'
+                  {item.is_show ? (
+                    <></>
+                  ) : (
+                    <Button
+                      className='mr-1 h-7 p-2 font-normal'
+                      variant='outline'
                     >
-                      申诉
-                    </a>
-                  </Button>
+                      <a
+                        href='https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb'
+                        target='_blank'
+                        rel='noreferrer'
+                      >
+                        申诉
+                      </a>
+                    </Button>
+                  )}
                   <Button className='h-7 p-2 font-normal'>
                     <a
                       href={`/${item.belong}/${item.belong_id}`}

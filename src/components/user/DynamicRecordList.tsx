@@ -14,7 +14,7 @@ export default function DynamicRecordList(props: Props) {
       {list?.length ? (
         <div className='text-sm'>
           {list?.map((item, index) => (
-            <div className='my-8 last:mb-0' key={index}>
+            <div className='my-4 last:mb-0 md:my-8' key={index}>
               <span className='mr-4'>{index + 1}.</span>
               <span className='text-gray-600'>{`${fromNow(
                 item.created_at

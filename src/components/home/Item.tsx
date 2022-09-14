@@ -48,7 +48,7 @@ const Item: NextPage<ItemProps> = ({ item, index }) => {
             )}
 
             <div className='flex shrink grow items-center overflow-x-hidden text-sm text-slate-400 md:pl-1'>
-              <div className='text-color-primary hidden cursor-auto truncate whitespace-nowrap md:block md:max-w-xs'>
+              <div className='text-color-primary hidden truncate whitespace-nowrap md:block md:max-w-xs'>
                 {item.author}
                 <span className='pl-1 pr-1'>·</span>
                 {item.name}
@@ -67,7 +67,7 @@ const Item: NextPage<ItemProps> = ({ item, index }) => {
               <time>{fromNow(item.updated_at)}</time>
             </div>
             <div className='whitespace-nowrap pl-2 text-sm text-slate-400'>
-              {numFormat(item.clicks_total)} 次查看
+              {numFormat(item.clicks_total, 2, 10000)} 次查看
             </div>
           </div>
         </div>

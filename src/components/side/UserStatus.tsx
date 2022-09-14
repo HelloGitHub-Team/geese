@@ -47,8 +47,8 @@ export default function UserStatus() {
         <div>
           {isLogin && data?.success ? (
             <>
-              <div className='relative'>
-                <Link href={data?.uid ? '/users/' + data?.uid : '_blank'}>
+              <Link href={`/user/${data.uid}`}>
+                <div className='relative cursor-pointer'>
                   <span className='bg-img absolute top-0 left-0 h-10 w-10 shrink-0 grow-0 rounded-lg object-cover'>
                     <Image
                       className='rounded'
@@ -58,19 +58,16 @@ export default function UserStatus() {
                       src={data?.avatar || DEFAULT_AVATAR}
                     ></Image>
                   </span>
-                </Link>
-                <div className='shrink grow pl-12'>
-                  <div className='flex min-w-0 items-center'>
-                    <Link
-                      className='mr-2 block h-5 shrink grow truncate text-sm hover:underline'
-                      href={`/user/${data.uid}`}
-                    >
-                      {data?.nickname}
-                    </Link>
+                  <div className='shrink grow pl-12'>
+                    <div className='flex min-w-0 items-center'>
+                      <span className='mr-2 block h-5 shrink grow truncate text-sm hover:underline'>
+                        {data?.nickname}
+                      </span>
+                    </div>
+                    <div className='text-sm font-bold text-yellow-500'>Lv1</div>
                   </div>
-                  <div className='text-sm font-bold text-yellow-500'>Lv1</div>
                 </div>
-              </div>
+              </Link>
 
               <div className='flex items-end pt-2 text-sm'>
                 <RepoModal>

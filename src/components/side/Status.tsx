@@ -22,7 +22,9 @@ export default function Status() {
             <div className='whitespace-nowrap text-base text-slate-400'>
               用户总数
             </div>
-            <div className='text-3xl'>{numFormat(stats?.user_total, 1)}</div>
+            <div className='text-3xl'>
+              {numFormat(stats?.user_total, 1, 10000)}
+            </div>
           </div>
           <div className='flex-1'>
             <div className='whitespace-nowrap text-base text-slate-400'>
