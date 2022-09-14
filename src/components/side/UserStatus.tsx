@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import useSWR from 'swr';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
