@@ -63,11 +63,7 @@ export default function CollectionList(props: Props) {
                 <div>中文：{item.repo.has_chinese ? '是' : '否'}</div>
               </div>
             </div>
-            <Link
-              href={`/repository/${item.repo.rid}`}
-              target='_blank'
-              rel='noreferrer'
-            >
+            <Link href={`/repository/${item.repo.rid}`} rel='noreferrer'>
               <Button
                 className='h-8 px-2 text-sm font-normal'
                 variant='outline'

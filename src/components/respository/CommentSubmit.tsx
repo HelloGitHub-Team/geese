@@ -10,10 +10,12 @@ import Modal from '@/components/modal';
 import Rating from '@/components/respository/Rating';
 
 import { submitComment } from '@/services/repository';
+import {
+  DEFAULT_AVATAR,
+  DEFAULT_INITITAL_COMMENT_DATA,
+} from '@/utils/constants';
 
 import { CommentSuccessData } from '@/types/reppsitory';
-
-import { DEFAULT_AVATAR, DEFAULT_INITITAL_COMMENT_DATA } from '~/constants';
 
 function CommentSubmit(props: {
   belongId: string;

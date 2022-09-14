@@ -3,12 +3,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 
+import { DEFAULT_AVATAR } from '@/utils/constants';
 import { fromNow } from '@/utils/day';
 import { numFormat } from '@/utils/util';
 
 import { ItemProps } from '@/types/home';
-
-import { DEFAULT_AVATAR } from '~/constants';
 
 const Item: NextPage<ItemProps> = ({ item, index }) => {
   return (

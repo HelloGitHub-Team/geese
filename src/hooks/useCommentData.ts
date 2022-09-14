@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { DEFAULT_INITITAL_COMMENT_DATA } from '~/constants';
+import { DEFAULT_INITITAL_COMMENT_DATA } from '@/utils/constants';
 
 function useCommentData() {
   const storageKey = 'COMMENT_DATA';

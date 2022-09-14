@@ -8,11 +8,11 @@ import useUserInfo from '@/hooks/useUserInfo';
 
 import Button from '@/components/buttons/Button';
 
+import { DEFAULT_AVATAR } from '@/utils/constants';
+
 import LoginButton from '../buttons/LoginButton';
 import PeriodicalButton from '../buttons/Periodical';
 import SearchInput from '../search/SearchInput';
-
-import { DEFAULT_AVATAR } from '~/constants';
 
 const AvatarWithDropdown = (props: { className?: string }) => {
   const [isOpen, setIsOpen] = useState(false);

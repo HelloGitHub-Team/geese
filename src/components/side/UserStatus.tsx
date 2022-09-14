@@ -11,13 +11,12 @@ import { RepoModal } from '@/components/respository/Submit';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
+import { DEFAULT_AVATAR } from '@/utils/constants';
 
 import Loading from '../loading/Loading';
 import SideLoginButton from '../side/SideLoginButton';
 
 import { UserStatusProps } from '@/types/user';
-
-import { DEFAULT_AVATAR } from '~/constants';
 
 export default function UserStatus() {
   const { token } = useToken();

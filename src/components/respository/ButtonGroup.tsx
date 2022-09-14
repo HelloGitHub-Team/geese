@@ -73,7 +73,9 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
   };
 
   const handleCopy = (repo: Repository) => {
-    const text = `${repo.title.trim()}\n开源项目详情：https://dev.hg.hellogithub.com/repository/${
+    const text = `${
+      repo.name
+    }：${repo.title.trim()}\n开源项目详情：https://dev.hg.hellogithub.com/repository/${
       repo.rid
     }`;
     if (copy(text)) {

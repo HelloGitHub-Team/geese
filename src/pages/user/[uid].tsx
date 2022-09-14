@@ -3,10 +3,9 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import clsxm from '@/lib/clsxm';
-import { useLoginContext } from '@/hooks/useLoginContext';
 import useUserDetailInfo from '@/hooks/user/useUserDetailInfo';
 
-import Button from '@/components/buttons/Button';
+import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
 import CollectionList from '@/components/user/CollectionList';
 import CommentList from '@/components/user/CommentList';
@@ -23,14 +22,14 @@ const tabList = [
 export default function User() {
   const router = useRouter();
   const { uid } = router.query;
-  const { logout, isLogin } = useLoginContext();
   const userDetailInfo = useUserDetailInfo(uid as string);
   const [activeTab, setActiveTab] = React.useState<number>(1);
 
   return (
     <>
       <Seo templateTitle={userDetailInfo?.nickname} />
-      <div className='bg-content my-2 h-screen divide-y divide-slate-100'>
+      <div className='h-screen divide-y divide-slate-100'>
+        <Navbar middleText='用户首页'></Navbar>
         {userDetailInfo?.nickname && (
           <>
             {/* PC端 */}
@@ -52,20 +51,6 @@ export default function User() {
                   <div className='ml-2 text-sm font-bold text-yellow-500'>
                     Lv{userDetailInfo?.level}
                   </div>
-                  <div className='shrink grow'></div>
-                  {userDetailInfo.in_person && isLogin ? (
-                    <div className='hidden md:block'>
-                      <Button
-                        className='button box-border rounded-md border border-slate-400 px-2 py-1 text-sm font-normal  text-gray-400'
-                        variant='ghost'
-                        onClick={logout}
-                      >
-                        退出
-                      </Button>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
                 </div>
                 <div className='text-sm leading-6 text-gray-500'>
                   <div>

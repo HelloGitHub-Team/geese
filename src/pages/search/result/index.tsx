@@ -5,6 +5,7 @@ import useSWRInfinite from 'swr/infinite';
 
 import Loading from '@/components/loading/Loading';
 import Message from '@/components/message';
+import Navbar from '@/components/navbar/Navbar';
 import SearchResultItem from '@/components/search/SearchResultItem';
 import Seo from '@/components/Seo';
 
@@ -55,7 +56,7 @@ const Result: NextPage = () => {
   return (
     <>
       <Seo templateTitle='Search' />
-
+      <Navbar middleText='搜索结果'></Navbar>
       <div className='bg-content my-2 h-screen divide-y divide-slate-100'>
         {list.map((item: SearchItemType) => (
           <SearchResultItem key={item.rid} repo={item} />

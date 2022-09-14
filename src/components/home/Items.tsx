@@ -124,40 +124,39 @@ const Items = () => {
   return (
     <div>
       <div className='relative bg-white'>
-        <div className='bg-content border-main-content mb-2 mt-2 overflow-hidden'>
-          <div className='flex py-2.5 pl-4 pr-3'>
-            <div className='flex items-center justify-start space-x-2'>
-              <Link href={hotURL}>
-                <a className={linkClassName('hot')}>热门</a>
-              </Link>
+        <div className='my-2 overflow-hidden'>
+          <div className='flex h-12 items-center justify-start space-x-2 py-2 px-4'>
+            <Link href={hotURL}>
+              <a className={linkClassName('hot')}>热门</a>
+            </Link>
 
-              <Link href={lastURL}>
-                <a className={linkClassName('last')}>最近</a>
-              </Link>
+            <Link href={lastURL}>
+              <a className={linkClassName('last')}>最近</a>
+            </Link>
 
-              <Button
-                variant='ghost'
-                onClick={handleTagButton}
-                className={labelClassName()}
-              >
-                标签
-              </Button>
+            <Button
+              variant='ghost'
+              onClick={handleTagButton}
+              className={labelClassName()}
+            >
+              标签
+            </Button>
 
-              <div className='absolute top-0 right-0 p-2.5  md:hidden'>
-                <RepoModal>
-                  <a className='flex h-8 items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600'>
-                    提交
-                  </a>
-                </RepoModal>
-              </div>
+            <div className='absolute top-0 right-0 p-2.5  md:hidden'>
+              <RepoModal>
+                <a className='flex h-8 items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600'>
+                  提交
+                </a>
+              </RepoModal>
             </div>
           </div>
+
           <div className={labelStatus ? 'flex pb-2.5 pl-4 pr-3' : 'hidden'}>
             <TagLink tagItems={tagItems}></TagLink>
           </div>
         </div>
       </div>
-      <div className='bg-content h-screen divide-y divide-slate-100'>
+      <div className='h-screen divide-y divide-slate-100'>
         {repositories.map((item: HomeItem, index) => (
           <Item key={item.item_id} item={item} index={index}></Item>
         ))}

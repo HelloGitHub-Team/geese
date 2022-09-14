@@ -1,11 +1,11 @@
 import { GetServerSideProps, NextPage } from 'next';
 
 import ImageWithPreview from '@/components/ImageWithPreview';
+import RepoDetailNavbar from '@/components/navbar/RepoNavbar';
 import ButtonGroup from '@/components/respository/ButtonGroup';
 import CommentContainer from '@/components/respository/CommentContainer';
 import Info from '@/components/respository/Info';
 import MoreInfo from '@/components/respository/MoreInfo';
-import Navbar from '@/components/respository/Navbar';
 import Tabs from '@/components/respository/Tabs';
 import Seo from '@/components/Seo';
 
@@ -16,9 +16,14 @@ import { RepositoryProps } from '@/types/reppsitory';
 const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
   return (
     <>
-      <Seo title={`开源项目 ${repo.name}`} />
+      <Seo title={`开源项目 ${repo.name} 详情`} />
+
+      <RepoDetailNavbar
+        avatar={repo.share_user.avatar}
+        uid={repo.share_user.uid}
+      />
+
       <div className='mt-2 bg-white px-2 pb-10 pt-2'>
-        <Navbar avatar={repo.share_user.avatar} uid={repo.share_user.uid} />
         <Info repo={repo}></Info>
         <Tabs repo={repo}></Tabs>
         {repo.image_url && (

@@ -2,8 +2,7 @@ import Image from 'next/image';
 import { MouseEventHandler, useState } from 'react';
 import { VscClose } from 'react-icons/vsc';
 
-const PUTAdURL =
-  'https://hellogithub.yuque.com/forms/share/ecbba03f-3e35-44db-99af-a664d24b539f';
+import { PUTAdURL } from '@/utils/constants';
 
 interface Props {
   id: string;

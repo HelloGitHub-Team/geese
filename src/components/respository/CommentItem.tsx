@@ -8,13 +8,12 @@ import Message from '@/components/message';
 import Rating from '@/components/respository/Rating';
 
 import { like, unlike } from '@/services/repository';
+import { DEFAULT_AVATAR, NOOP } from '@/utils/constants';
 import { fromNow } from '@/utils/day';
 
 import MDRender from '../mdRender/MDRender';
 
 import { CommentItemData } from '@/types/reppsitory';
-
-import { DEFAULT_AVATAR, NOOP } from '~/constants';
 
 const CommentItem = (
   props: CommentItemData & {

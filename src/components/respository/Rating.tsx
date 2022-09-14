@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { GoStar } from 'react-icons/go';
 
-import { NOOP } from '~/constants';
+import { NOOP } from '@/utils/constants';
 
 function Rating(props: {
   value: number;

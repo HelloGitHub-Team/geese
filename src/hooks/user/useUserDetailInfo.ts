@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
@@ -6,7 +6,7 @@ import { makeUrl } from '@/utils/api';
 import { UserDetailInfo } from '@/types/user';
 
 export default function useUserDetailInfo(uid: string) {
-  const { data, error } = useSWR<{
+  const { data, error } = useSWRImmutable<{
     userInfo: UserDetailInfo;
   }>(uid ? makeUrl(`/user/${uid}`) : null, fetcher);
 
