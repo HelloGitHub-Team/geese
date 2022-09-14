@@ -1,8 +1,10 @@
 import { GetServerSideProps, NextPage } from 'next';
 
 import Item from '@/components/home/Item';
+import ItemBottom from '@/components/home/ItemBottom';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
+import ToTop from '@/components/toTop/ToTop';
 
 import { getTagPageItems } from '@/services/tag';
 
@@ -20,6 +22,10 @@ const TagPage: NextPage<TagPageProps> = ({ items, tag_name }) => {
         {items.map((item: HomeItem, index: number) => (
           <Item key={item.item_id} item={item} index={index}></Item>
         ))}
+        <ItemBottom endText='你不经意间触碰到了底线'></ItemBottom>
+        <div className='hidden md:block'>
+          <ToTop />
+        </div>
       </div>
     </>
   );

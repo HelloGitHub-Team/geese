@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 
+import ItemBottom from '@/components/home/ItemBottom';
 import MDRender from '@/components/mdRender/MDRender';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
@@ -19,9 +20,7 @@ const RulePage: NextPage<HelpPageProps> = ({ content }) => {
         <article className='prose max-w-none'>
           <MDRender>{content}</MDRender>
         </article>
-        <div className='flex flex-col items-center text-base text-gray-400 '>
-          - END -
-        </div>
+        <ItemBottom endText='END'></ItemBottom>
       </div>
       <ToTop />
       <div className='h-4'></div>

@@ -26,7 +26,6 @@ const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo }) => {
           <div className='truncate pt-1 text-sm text-slate-400'>
             {repo.description}
           </div>
-          <div className='flex items-center pt-2'></div>
         </div>
       </Link>
     </article>

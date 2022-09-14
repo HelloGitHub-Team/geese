@@ -5,6 +5,8 @@ import { useCallback, useEffect, useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
+import { useLoginContext } from '@/hooks/useLoginContext';
+
 import Button from '@/components/buttons/Button';
 import Loading from '@/components/loading/Loading';
 import { RepoModal } from '@/components/respository/Submit';
@@ -14,6 +16,7 @@ import { getTags } from '@/services/home';
 import { makeUrl } from '@/utils/api';
 
 import Item from './Item';
+import ItemBottom from '../home/ItemBottom';
 import TagLink from '../links/TagLink';
 import ToTop from '../toTop/ToTop';
 
@@ -24,6 +27,7 @@ const Items = () => {
   const router = useRouter();
   const { sort_by = 'hot', tid = '' } = router.query;
 
+  const { isLogin } = useLoginContext();
   const [labelStatus, setLabelStatus] = useState(false);
   const [tagItems, setTagItems] = useState<Tag[]>([]);
   const [hotURL, setHotURL] = useState<string>('/?sort_by=hot');
@@ -108,6 +112,16 @@ const Items = () => {
     }
   };
 
+  const handleItemBottom = () => {
+    if (!isValidating && !hasMore) {
+      if (isLogin) {
+        return <ItemBottom endText='你不经意间触碰到了底线'></ItemBottom>;
+      } else {
+        return <ItemBottom endText='到底啦！登录可查看更多内容'></ItemBottom>;
+      }
+    }
+  };
+
   useEffect(() => {
     handleTags();
     if (tid) {
@@ -122,7 +136,7 @@ const Items = () => {
   }, [tid, handleTags]);
 
   return (
-    <div>
+    <>
       <div className='relative bg-white'>
         <div className='my-2 overflow-hidden'>
           <div className='flex h-12 items-center justify-start space-x-2 py-2 px-4'>
@@ -168,11 +182,12 @@ const Items = () => {
             <Loading></Loading>
           </div>
         )}
+        {handleItemBottom()}
         <div className='hidden md:block'>
           <ToTop />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
