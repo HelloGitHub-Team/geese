@@ -68,7 +68,7 @@ const Header = () => {
   const { isLogin } = useLoginContext();
 
   return (
-    <div className='fixed z-10 h-14 w-full bg-white shadow-sm'>
+    <div className='fixed z-10 h-14 w-full bg-white shadow-sm backdrop-blur dark:border dark:border-slate-50/[0.06] dark:bg-transparent'>
       <nav className='mx-auto flex max-w-5xl items-center justify-between p-2'>
         <span className='hidden md:block'>
           <Image
