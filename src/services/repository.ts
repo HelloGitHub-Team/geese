@@ -120,7 +120,7 @@ export const like = async (data: {
   belongId: string;
   cid: string;
 }) => {
-  const url = makeUrl(`/vote/comment`);
+  const url = makeUrl(`/vote/comment/`);
   const res = await fetcher<{ success: boolean; message?: string }>(url, {
     method: 'POST',
     body: JSON.stringify({
@@ -141,7 +141,7 @@ export const unlike = async (data: {
   belongId: string;
   cid: string;
 }) => {
-  const url = makeUrl('/vote/comment');
+  const url = makeUrl('/vote/comment/');
   const res = await fetcher<{ success: boolean; message?: string }>(url, {
     method: 'DELETE',
     body: JSON.stringify({

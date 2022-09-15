@@ -15,7 +15,7 @@ export default function DynamicRecordList(props: Props) {
         <div className='text-sm'>
           {list?.map((item, index) => (
             <div className='my-4 last:mb-0 md:my-8' key={index}>
-              <span className='mr-4'>{index + 1}.</span>
+              <span className='mr-4 dark:text-slate-300'>{index + 1}.</span>
               <span className='text-gray-600 dark:text-gray-400'>{`${fromNow(
                 item.created_at
               )}，因${item.remark}，收获 ${item.value} 点贡献值`}</span>

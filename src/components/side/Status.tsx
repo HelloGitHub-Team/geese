@@ -22,7 +22,7 @@ export default function Status() {
             <div className='whitespace-nowrap text-base text-slate-400'>
               用户总数
             </div>
-            <div className='text-3xl'>
+            <div className='text-3xl dark:text-slate-300'>
               {numFormat(stats?.user_total, 1, 10000)}
             </div>
           </div>
@@ -30,7 +30,9 @@ export default function Status() {
             <div className='whitespace-nowrap text-base text-slate-400'>
               开源项目
             </div>
-            <div className='text-3xl'>{numFormat(stats?.repo_total, 1)}</div>
+            <div className='text-3xl dark:text-slate-300'>
+              {numFormat(stats?.repo_total, 1)}
+            </div>
           </div>
         </div>
       ) : (
@@ -38,7 +40,7 @@ export default function Status() {
       )}
 
       <div className='text-base text-slate-400'>关于本站</div>
-      <div className='text-base leading-7'>
+      <div className='text-sm leading-7 dark:text-slate-300'>
         HelloGitHub 是一个分享有趣、 入门级开源项目的平台。
         希望大家能够在这里找到编程的快乐、 轻松搞定问题的技术方案、
         大呼过瘾的开源神器， 顺其自然地开启开源之旅。

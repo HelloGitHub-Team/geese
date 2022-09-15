@@ -3,6 +3,7 @@ import * as React from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 
 import Seo from '@/components/Seo';
+import ThemeSwitch from '@/components/ThemeSwitch';
 
 import SVG404 from '~/images/404.svg';
 
@@ -12,6 +13,9 @@ export default function NotFoundPage() {
       <Seo templateTitle='Not Found' />
 
       <main>
+        <div className='hidden'>
+          <ThemeSwitch />
+        </div>
         <section className='min-h-screen bg-white dark:bg-gray-800'>
           <div className='flex flex-col items-center justify-center'>
             <div className='mx-4'>
@@ -19,7 +23,7 @@ export default function NotFoundPage() {
               <SVG404 className='md:hidden' width={300} height={300} />
             </div>
             <Link href='/'>
-              <div className='group relative inline-flex cursor-pointer items-center overflow-hidden rounded border border-current px-7 py-2 text-blue-500 focus:outline-none focus:ring active:text-blue-400'>
+              <div className='group relative inline-flex cursor-pointer items-center overflow-hidden rounded border border-current px-7 py-2 text-blue-500 focus:outline-none focus:ring active:text-blue-400 dark:text-slate-500 dark:active:text-slate-500'>
                 <span className='absolute right-0 translate-x-full transition-transform group-hover:-translate-x-4'>
                   <IoIosArrowForward size={16} />
                 </span>

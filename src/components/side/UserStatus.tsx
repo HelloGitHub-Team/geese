@@ -64,7 +64,7 @@ export default function UserStatus() {
                   </span>
                   <div className='shrink grow pl-12'>
                     <div className='flex min-w-0 items-center'>
-                      <span className='mr-2 block h-5 shrink grow truncate text-sm hover:underline'>
+                      <span className='mr-2 block h-5 shrink grow truncate text-sm hover:text-blue-500 hover:underline dark:text-slate-300'>
                         {data?.nickname}
                       </span>
                     </div>
@@ -74,7 +74,7 @@ export default function UserStatus() {
               </Link>
               <div className='flex items-end pt-2 text-sm'>
                 <RepoModal>
-                  <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 pl-1 pr-1 text-xs text-white active:bg-blue-600 dark:bg-blue-800 dark:active:bg-blue-900 xl:pl-4 xl:pr-4 xl:text-sm'>
+                  <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 pl-1 pr-1 text-xs text-white active:bg-blue-600 dark:bg-slate-700 dark:text-slate-300 dark:active:bg-slate-900 xl:pl-4 xl:pr-4 xl:text-sm'>
                     分享项目
                   </a>
                 </RepoModal>
@@ -87,12 +87,12 @@ export default function UserStatus() {
 
               <div className='mt-3 flex cursor-pointer justify-between border-t text-xs dark:border-gray-700'>
                 <Link href={`/user/${data.uid}`} className='block'>
-                  <div className='pl-1 pt-3 pb-1 text-slate-400 hover:text-blue-500'>
+                  <div className='pl-1 pt-3 pb-1 text-slate-400 hover:text-blue-500 hover:underline'>
                     我的主页
                   </div>
                 </Link>
                 <div
-                  className='pr-1 pt-3 pb-1 text-slate-400 hover:text-blue-500'
+                  className='pr-1 pt-3 pb-1 text-slate-400 hover:text-blue-500 hover:underline'
                   onClick={logout}
                 >
                   退出登录

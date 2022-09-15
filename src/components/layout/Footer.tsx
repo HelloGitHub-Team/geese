@@ -57,7 +57,7 @@ const Footer = () => {
           <span className='mx-1 align-[-3px]'>
             <Image
               className='object-contain'
-              src='https://img.hellogithub.com/ad/ucloud.png'
+              src='https://img.hellogithub.com/ad/ucloud_footer.png'
               width='86'
               height='16'
               alt='ucloud'
@@ -77,7 +77,7 @@ const Footer = () => {
           <span className='mx-1 align-[-3px]'>
             <Image
               className='object-contain'
-              src='https://img.hellogithub.com/ad/footer_upyun.png'
+              src='https://img.hellogithub.com/ad/upyun_footer.png'
               width='42'
               height='16'
               alt='upyun'
@@ -117,7 +117,7 @@ const Footer = () => {
         <span className='inline-block cursor-pointer align-[-2px] hover:text-green-500'>
           <a
             target='_blank'
-            href='https://img.hellogithub.com/logo/weixin_footer.png'
+            href='https://img.hellogithub.com/ad/weixin_footer.png'
             rel='noreferrer'
           >
             <AiFillWechat size={14} />

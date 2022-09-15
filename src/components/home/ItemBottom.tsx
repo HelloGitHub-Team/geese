@@ -8,8 +8,8 @@ interface Props {
 const ItemBottom: NextPage<Props> = ({ endText }) => {
   return (
     <>
-      <div className='my-4 flex flex-col items-center text-base text-gray-400 '>
-        <p>- {endText} -</p>
+      <div className='mt-4 flex flex-col items-center border-none text-base text-gray-400'>
+        <p className='mb-4'>- {endText} -</p>
       </div>
     </>
   );

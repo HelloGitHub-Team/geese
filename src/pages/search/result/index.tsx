@@ -82,7 +82,7 @@ const Result: NextPage = () => {
           </div>
         )}
         {handleItemBottom()}
-        <div className='hidden md:block'>
+        <div className='hidden border-none md:block'>
           <ToTop />
         </div>
       </div>

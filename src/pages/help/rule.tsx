@@ -18,7 +18,7 @@ const RulePage: NextPage<HelpPageProps> = ({ content }) => {
           社区规则
         </div>
         <article className='prose max-w-none'>
-          <MDRender>{content}</MDRender>
+          <MDRender className='dark:invert'>{content}</MDRender>
         </article>
         <ItemBottom endText='END'></ItemBottom>
       </div>

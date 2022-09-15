@@ -103,7 +103,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
         <div className='mt-4 text-right'>
           <button
             type='submit'
-            className='inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white dark:bg-blue-800 sm:w-auto'
+            className='inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white dark:bg-slate-600 dark:text-slate-300 sm:w-auto'
           >
             <span className='font-medium'>提交</span>
             <IoIosArrowRoundForward size={24} />

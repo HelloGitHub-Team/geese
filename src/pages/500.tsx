@@ -3,6 +3,7 @@ import * as React from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 
 import Seo from '@/components/Seo';
+import ThemeSwitch from '@/components/ThemeSwitch';
 
 import SVG500 from '~/images/500.svg';
 
@@ -12,6 +13,9 @@ export default function ServerErrorPage() {
       <Seo templateTitle='Internal Server Error' />
 
       <main>
+        <div className='hidden'>
+          <ThemeSwitch />
+        </div>
         <section className='min-h-screen bg-white dark:bg-gray-800'>
           <div className='flex flex-col items-center justify-center'>
             <div className='mx-4 mt-14 mb-2'>

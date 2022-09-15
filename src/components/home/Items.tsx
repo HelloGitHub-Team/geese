@@ -157,17 +157,17 @@ const Items = () => {
             >
               标签
             </Button>
-
-            <div className='absolute top-0 right-0 p-2.5  md:hidden'>
+            <div className='shrink grow'></div>
+            <div className='md:hidden'>
               <RepoModal>
-                <a className='flex h-8 items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600'>
+                <a className='flex h-8 items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600 dark:bg-slate-700 dark:text-slate-300 dark:active:bg-slate-900'>
                   提交
                 </a>
               </RepoModal>
             </div>
           </div>
 
-          <div className={labelStatus ? 'flex pb-2.5 pl-4 pr-3' : 'hidden'}>
+          <div className={labelStatus ? 'flex px-4 pb-2.5' : 'hidden'}>
             <TagLink tagItems={tagItems}></TagLink>
           </div>
         </div>
@@ -185,7 +185,7 @@ const Items = () => {
           </div>
         )}
         {handleItemBottom()}
-        <div className='hidden md:block'>
+        <div className='hidden border-none md:block'>
           <ToTop />
         </div>
       </div>

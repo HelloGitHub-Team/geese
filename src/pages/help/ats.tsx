@@ -19,7 +19,7 @@ const ATSPage: NextPage<HelpPageProps> = ({ content }) => {
           用户服务协议
         </div>
         <article className='prose max-w-none'>
-          <MDRender>{content}</MDRender>
+          <MDRender className='dark:invert'>{content}</MDRender>
         </article>
         <ItemBottom endText='END'></ItemBottom>
       </div>
