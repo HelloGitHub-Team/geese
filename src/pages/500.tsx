@@ -1,25 +1,56 @@
+import Link from 'next/link';
 import * as React from 'react';
-import { RiAlarmWarningFill } from 'react-icons/ri';
+import { IoIosArrowForward } from 'react-icons/io';
 
-import ArrowLink from '@/components/links/ArrowLink';
 import Seo from '@/components/Seo';
+
+import SVG500 from '~/images/500.svg';
 
 export default function ServerErrorPage() {
   return (
     <>
-      <Seo templateTitle='500' />
+      <Seo templateTitle='Internal Server Error' />
 
       <main>
-        <section className='bg-white'>
-          <div className='layout flex min-h-screen flex-col items-center justify-center text-center text-black'>
-            <RiAlarmWarningFill
-              size={60}
-              className='drop-shadow-glow animate-flicker text-red-500'
-            />
-            <h1 className='mt-8 text-4xl md:text-6xl'>服务器出错啦！</h1>
-            <ArrowLink className='mt-4 md:text-lg' href='/'>
-              返回首页
-            </ArrowLink>
+        <section className='min-h-screen bg-white'>
+          <div className='flex flex-col items-center justify-center'>
+            <div className='mx-4 mt-14 mb-2'>
+              <SVG500 className='hidden md:block' width={500} height={500} />
+              <SVG500 className='md:hidden' width={300} height={300} />
+            </div>
+            <Link href='/'>
+              <div className='group relative inline-flex cursor-pointer items-center overflow-hidden rounded border border-current px-7 py-2 text-blue-600 focus:outline-none focus:ring active:text-blue-500'>
+                <span className='absolute right-0 translate-x-full transition-transform group-hover:-translate-x-4'>
+                  <IoIosArrowForward size={16} />
+                </span>
+
+                <span className='text-sm font-medium transition-all group-hover:mr-4'>
+                  <span>返回首页</span>
+                </span>
+              </div>
+            </Link>
+            <div className='mt-4 block text-xs text-slate-400'>
+              <a
+                target='_blank'
+                className='cursor-pointer hover:underline'
+                href='https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb'
+                rel='noreferrer'
+              >
+                <span>反馈问题</span>
+              </a>
+              <span className='pl-1 pr-1'>·</span>
+              <a
+                target='_blank'
+                className='cursor-pointer hover:underline'
+                href='https://github.com/HelloGitHub-Team/geese'
+                rel='noreferrer'
+              >
+                <span>贡献代码</span>
+              </a>
+              <p className='mt-2'>
+                <span className='cursor-default'>©2022 HelloGitHub</span>
+              </p>
+            </div>
           </div>
         </section>
       </main>

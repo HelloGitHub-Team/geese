@@ -43,10 +43,6 @@
       U+2215, U+FEFF, U+FFFD;
   } */
 
-  .cursor-newtab {
-    cursor: url('/images/new-tab.png') 10 10, pointer;
-  }
-
   body {
     @apply bg-gray-100;
   }
