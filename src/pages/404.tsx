@@ -19,7 +19,7 @@ export default function NotFoundPage() {
               <SVG404 className='md:hidden' width={300} height={300} />
             </div>
             <Link href='/'>
-              <div className='group relative inline-flex cursor-pointer items-center overflow-hidden rounded border border-current px-7 py-2 text-blue-600 focus:outline-none focus:ring active:text-blue-500'>
+              <div className='group relative inline-flex cursor-pointer items-center overflow-hidden rounded border border-current px-7 py-2 text-blue-500 focus:outline-none focus:ring active:text-blue-400'>
                 <span className='absolute right-0 translate-x-full transition-transform group-hover:-translate-x-4'>
                   <IoIosArrowForward size={16} />
                 </span>
@@ -38,7 +38,7 @@ export default function NotFoundPage() {
               >
                 <span>反馈问题</span>
               </a>
-              <span className='pl-1 pr-1'>·</span>
+              <span className='px-1'>·</span>
               <a
                 target='_blank'
                 className='cursor-pointer hover:underline'

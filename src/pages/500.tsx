@@ -38,7 +38,7 @@ export default function ServerErrorPage() {
               >
                 <span>反馈问题</span>
               </a>
-              <span className='pl-1 pr-1'>·</span>
+              <span className='px-1'>·</span>
               <a
                 target='_blank'
                 className='cursor-pointer hover:underline'

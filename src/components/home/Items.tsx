@@ -176,7 +176,7 @@ const Items = () => {
         ))}
         {(isValidating || hasMore) && (
           <div
-            className='bg-content divide-y divide-slate-100 overflow-hidden'
+            className='divide-y divide-slate-100 overflow-hidden'
             ref={sentryRef}
           >
             <Loading></Loading>

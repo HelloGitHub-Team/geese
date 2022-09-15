@@ -66,7 +66,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
   }
 
   return (
-    <div className='bg-content border-main-content overflow-hidden p-1'>
+    <div className='overflow-hidden p-1'>
       <form onSubmit={handleCreateRepo} className='space-y-4'>
         <div>
           <label className='sr-only' htmlFor='url'>

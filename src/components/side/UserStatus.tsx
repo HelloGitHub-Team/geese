@@ -87,12 +87,12 @@ export default function UserStatus() {
 
               <div className='mt-2 flex cursor-pointer justify-between border-t'>
                 <Link href={`/user/${data.uid}`} className='block'>
-                  <div className='pl-1 pt-2 pb-1 text-sm text-gray-400 hover:text-blue-500'>
+                  <div className='pl-1 pt-2 pb-1 text-sm text-slate-400 hover:text-blue-500'>
                     我的主页
                   </div>
                 </Link>
                 <div
-                  className='pr-1 pt-2 pb-1 text-sm text-gray-400 hover:text-blue-500'
+                  className='pr-1 pt-2 pb-1 text-sm text-slate-400 hover:text-blue-500'
                   onClick={logout}
                 >
                   退出登录
