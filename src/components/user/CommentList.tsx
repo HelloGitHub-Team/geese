@@ -65,7 +65,7 @@ export default function CommentList(props: Props) {
                 </div>
               </div>
               <CommentItem
-                className='rounded-xl border bg-white p-4'
+                className='rounded-xl border bg-white p-4 dark:bg-gray-800'
                 key={item.cid}
                 {...item}
                 user={userInfo}

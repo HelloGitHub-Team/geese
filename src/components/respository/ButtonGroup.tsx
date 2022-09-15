@@ -90,7 +90,7 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
   }, [repo]);
 
   return (
-    <div className='flex border-t border-solid bg-white text-center text-xs text-gray-600'>
+    <div className='flex border-t border-solid bg-white text-center text-xs text-gray-600 dark:bg-gray-800'>
       {isVoted ? (
         <div className={commonStyle} onClick={() => onCancelVote(repo.rid)}>
           <IoMdThumbsUp className='mr-1 text-blue-500' size={14} />

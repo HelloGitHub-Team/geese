@@ -125,13 +125,13 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
       <div className='mt-20 flex animate-pulse'>
         <Seo title='月刊' />
         <div className='ml-4 mt-2 w-full'>
-          <h3 className='h-4 rounded-md bg-gray-200 dark:bg-gray-700'></h3>
+          <h3 className='h-4 rounded-md bg-gray-200'></h3>
 
           <ul className='mt-5 space-y-3'>
-            <li className='h-4 w-full rounded-md bg-gray-200 dark:bg-gray-700'></li>
-            <li className='h-4 w-full rounded-md bg-gray-200 dark:bg-gray-700'></li>
-            <li className='h-4 w-full rounded-md bg-gray-200 dark:bg-gray-700'></li>
-            <li className='h-4 w-full rounded-md bg-gray-200 dark:bg-gray-700'></li>
+            <li className='h-4 w-full rounded-md bg-gray-200'></li>
+            <li className='h-4 w-full rounded-md bg-gray-200'></li>
+            <li className='h-4 w-full rounded-md bg-gray-200'></li>
+            <li className='h-4 w-full rounded-md bg-gray-200'></li>
           </ul>
         </div>
       </div>
@@ -139,11 +139,11 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
   }
 
   return (
-    <div className='flex shrink grow flex-row sm:border-l sm:dark:border-slate-600 md:border-none'>
+    <div className='flex shrink grow flex-row sm:border-l md:border-none'>
       <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
         <div className='relative pb-6'>
           <Seo title={`HelloGitHub 第 ${volume?.current_num} 期`} />
-          <div className='mt-2 mb-2 bg-white p-5'>
+          <div className='mt-2 mb-2 bg-white p-5 dark:bg-gray-800'>
             <div className='my-4 flex flex-col items-center px-2'>
               <h1 className='mb-2 font-medium text-black'>
                 《HelloGitHub》第 {volume?.current_num} 期
@@ -222,7 +222,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
         {/* 右侧目录 */}
         <div className=''>
           <div className='top-15 fixed w-3/12 xl:w-2/12'>
-            <div className='mt-2 ml-3 bg-white p-4'>
+            <div className='mt-2 ml-3 bg-white p-4 dark:bg-gray-800'>
               <h4 className='mb-2 border-b border-gray-200 pb-2'>目录</h4>
               <ul
                 className='custom-scrollbar overflow-scroll'

@@ -63,21 +63,23 @@ const Items = () => {
 
   const linkClassName = (sortName: string) =>
     classNames(
-      'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold hover:bg-slate-100 hover:text-blue-500',
+      'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold hover:bg-slate-100 dark:hover:bg-slate-700',
       {
-        'text-slate-500': sort_by !== sortName,
-        'bg-slate-100 text-blue-500': sort_by === sortName,
+        'text-gray-500 dark:text-gray-200': sort_by !== sortName,
+        'bg-gray-100 dark:bg-gray-700 text-blue-500': sort_by === sortName,
       }
     );
 
-  const labelClassName = () =>
-    classNames(
-      'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold hover:bg-slate-100 hover:text-blue-500',
+  function labelClassName() {
+    return classNames(
+      'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold hover:bg-slate-100 dark:hover:bg-slate-700',
       {
-        'text-slate-500': !labelStatus,
-        'bg-slate-100 text-blue-500': labelStatus,
+        'text-gray-500 dark:text-gray-200': !labelStatus,
+        'bg-gray-100 dark:bg-gray-700 dark:focus:bg-gray-700 text-blue-500':
+          labelStatus,
       }
     );
+  }
 
   const handleTags = useCallback(async () => {
     try {
@@ -137,7 +139,7 @@ const Items = () => {
 
   return (
     <>
-      <div className='relative bg-white'>
+      <div className='relative bg-white dark:bg-gray-800'>
         <div className='my-2 overflow-hidden'>
           <div className='flex h-12 items-center justify-start space-x-2 py-2 px-4'>
             <Link href={hotURL}>
@@ -170,13 +172,13 @@ const Items = () => {
           </div>
         </div>
       </div>
-      <div className='h-screen divide-y divide-slate-100'>
+      <div className='h-screen divide-y divide-slate-100 dark:divide-slate-700'>
         {repositories.map((item: HomeItem, index) => (
           <Item key={item.item_id} item={item} index={index}></Item>
         ))}
         {(isValidating || hasMore) && (
           <div
-            className='divide-y divide-slate-100 overflow-hidden'
+            className='bg-content divide-y divide-slate-100 overflow-hidden dark:divide-slate-700'
             ref={sentryRef}
           >
             <Loading></Loading>

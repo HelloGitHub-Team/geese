@@ -16,7 +16,7 @@ export default function ThemeSwitch() {
       aria-checked
       onClick={toggleTheme}
     >
-      <span className='absolute top-px left-px h-[18px] w-[18px] rounded-full bg-white shadow transition-all duration-300 dark:translate-x-[18px]'>
+      <span className='absolute top-px left-px h-[18px] w-[18px] rounded-full bg-white shadow transition-all duration-300 dark:translate-x-[18px] dark:bg-gray-800'>
         <span>
           <svg
             xmlns='http://www.w3.org/2000/svg'

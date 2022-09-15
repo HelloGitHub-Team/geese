@@ -103,7 +103,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
         <div className='mt-4 text-right'>
           <button
             type='submit'
-            className='inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto'
+            className='inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white dark:bg-blue-800 sm:w-auto'
           >
             <span className='font-medium'>提交</span>
             <IoIosArrowRoundForward size={24} />
@@ -164,7 +164,7 @@ export function RepoModal({ children }: { children: JSX.Element }) {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel className='w-[48rem] max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                <Dialog.Panel className='w-[48rem] max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-800'>
                   <div
                     className='ml-auto box-content w-6 pb-4 pl-4'
                     onClick={closeModal}

@@ -12,7 +12,7 @@ export default function NotFoundPage() {
       <Seo templateTitle='Not Found' />
 
       <main>
-        <section className='min-h-screen bg-white'>
+        <section className='min-h-screen bg-white dark:bg-gray-800'>
           <div className='flex flex-col items-center justify-center'>
             <div className='mx-4'>
               <SVG404 className='hidden md:block' width={500} height={500} />

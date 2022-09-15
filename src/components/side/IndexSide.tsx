@@ -28,7 +28,7 @@ export default function IndexSide() {
       <div ref={containerRef}>
         <div className='mt-2 ml-3'>
           <div className='space-y-2'>
-            <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5'>
+            <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5 dark:bg-gray-800'>
               <UserStatus></UserStatus>
             </div>
             <Ad

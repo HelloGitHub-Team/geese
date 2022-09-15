@@ -46,16 +46,19 @@ const AvatarWithDropdown = (props: { className?: string }) => {
         }}
       />
       <div
-        className='absolute right-1 mt-2 w-32 rounded border bg-white py-2 shadow-md'
+        className='absolute right-1 mt-2 w-32 rounded border bg-white py-2 text-gray-500 shadow-md dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400'
         hidden={!isOpen}
       >
-        <div className='absolute -top-1.5 right-3 h-3 w-3 rotate-45 border-l border-t bg-white'></div>
+        <div className='absolute -top-1.5 right-3 h-3 w-3 rotate-45 border-l border-t bg-white dark:border-gray-600 dark:bg-gray-800'></div>
         <Link href={`/user/${userInfo.uid}`} className='block'>
-          <div className='block px-4 leading-8 active:bg-gray-100'>
+          <div className='block px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
             我的主页
           </div>
         </Link>
-        <div className='px-4 leading-8 active:bg-gray-100' onClick={logout}>
+        <div
+          className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'
+          onClick={logout}
+        >
           退出
         </div>
       </div>
@@ -72,7 +75,7 @@ const Header = () => {
       <nav className='mx-auto flex max-w-5xl items-center justify-between p-2'>
         <span className='hidden md:block'>
           <Image
-            className='h-8 cursor-pointer'
+            className='h-8 cursor-pointer dark:invert'
             src='https://img.hellogithub.com/logo/logo.png'
             width='28'
             height='28'
@@ -83,13 +86,13 @@ const Header = () => {
           />
         </span>
         <SearchInput />
-        <ul className='text-md flex items-center space-x-2 font-medium text-gray-500'>
+        <ul className='text-md flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400'>
           <li className='pl-2 md:px-4'>
             <ThemeSwitch />
           </li>
           <li className='hidden md:block'>
             <Button
-              className='font-normal text-gray-500'
+              className='font-normal text-gray-500 dark:text-gray-400'
               variant='ghost'
               onClick={() => {
                 router.push('/');

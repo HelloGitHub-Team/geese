@@ -11,7 +11,7 @@ const RepoDetailNavbar: NextPage<UserAvaterProps> = ({ avatar, uid }) => {
   const router = useRouter();
 
   return (
-    <div className='my-2 bg-white'>
+    <div className='my-2 bg-white dark:bg-gray-800'>
       <div className='flex h-12 items-center justify-between py-2 px-4'>
         <div className='cursor-pointer pr-4' onClick={() => router.back()}>
           <AiOutlineArrowLeft className='text-blue-400' size={20} />

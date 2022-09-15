@@ -32,7 +32,7 @@ const Container = (props: Props) => {
       {/* PC 端 */}
       <div
         className={clsxm(
-          'fixed left-0 top-0 right-0 bottom-0 z-10 m-auto hidden h-fit w-96 scale-90 rounded bg-white transition-transform sm:block',
+          'fixed left-0 top-0 right-0 bottom-0 z-10 m-auto hidden h-fit w-96 scale-90 rounded bg-white transition-transform dark:bg-gray-800 sm:block',
           {
             'scale-125': startAnimation,
           }
@@ -64,7 +64,7 @@ const Container = (props: Props) => {
       {/* 移动端 */}
       <div
         className={clsxm(
-          'fixed left-0 top-0 right-0 bottom-0 z-10 m-auto h-fit w-80 scale-75 overflow-hidden rounded-lg bg-white transition-transform sm:hidden',
+          'fixed left-0 top-0 right-0 bottom-0 z-10 m-auto h-fit w-80 scale-75 overflow-hidden rounded-lg bg-white transition-transform dark:bg-gray-800 sm:hidden',
           {
             'scale-100': startAnimation,
           }
@@ -78,14 +78,14 @@ const Container = (props: Props) => {
         </div>
         <div className='flex gap-px bg-gray-100 pt-px'>
           <Button
-            className='flex h-12 flex-1 items-center justify-center rounded-none bg-white font-normal text-gray-800'
+            className='flex h-12 flex-1 items-center justify-center rounded-none bg-white font-normal text-gray-800 dark:bg-gray-800'
             variant='ghost'
             onClick={props.onCancel}
           >
             {props.cancelText || '取消'}
           </Button>
           <Button
-            className='flex h-12 flex-1 items-center justify-center rounded-none bg-white font-normal text-blue-500'
+            className='flex h-12 flex-1 items-center justify-center rounded-none bg-white font-normal text-blue-500 dark:bg-gray-800'
             variant='ghost'
             onClick={props.onOk}
           >

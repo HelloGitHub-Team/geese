@@ -20,7 +20,7 @@ const PeriodicalButton = () => {
     <>
       <li className='block'>
         <Button
-          className='hidden font-normal text-gray-500 md:block'
+          className='hidden font-normal text-gray-500 dark:text-gray-400 md:block'
           variant='ghost'
           onClick={handlePeriodicalURL}
         >

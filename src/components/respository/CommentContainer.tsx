@@ -48,7 +48,7 @@ const CommentContainer = (props: Props) => {
   const handleCommentFail = () => {
     refreshList();
   };
-  const btnActive = '!bg-blue-500';
+  const btnActive = '!bg-blue-500 dark:!bg-blue-800';
 
   return (
     <div className={`p-4 ${className}`}>

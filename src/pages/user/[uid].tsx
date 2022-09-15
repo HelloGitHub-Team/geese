@@ -28,19 +28,19 @@ export default function User() {
   return (
     <>
       <Seo templateTitle={userDetailInfo?.nickname} />
-      <div className='h-screen divide-y divide-slate-100'>
+      <div className='h-screen divide-y divide-slate-100 dark:divide-slate-700'>
         <Navbar middleText='个人主页'></Navbar>
         {userDetailInfo?.nickname && (
           <>
             {/* PC端 */}
-            <div className='hidden rounded-lg bg-white p-4 sm:p-6 md:flex'>
+            <div className='hidden rounded-lg bg-white p-4 dark:bg-gray-800 sm:p-6 md:flex'>
               <div className='shrink-0'>
                 <Image
                   src={userDetailInfo?.avatar}
                   alt={userDetailInfo?.nickname}
                   width={90}
                   height={90}
-                  className='rounded-full bg-white'
+                  className='rounded-full bg-white dark:bg-gray-800'
                 />
               </div>
               <div className='ml-5 flex flex-1 flex-col justify-center'>
@@ -87,14 +87,14 @@ export default function User() {
             </div>
 
             {/* 移动端 */}
-            <div className='align-center flex flex-col rounded-lg bg-white p-4 sm:p-6 md:hidden'>
+            <div className='align-center flex flex-col rounded-lg bg-white p-4 dark:bg-gray-800 sm:p-6 md:hidden'>
               <div className='mx-auto flex'>
                 <Image
                   src={userDetailInfo?.avatar}
                   alt={userDetailInfo?.nickname}
                   width={72}
                   height={72}
-                  className='rounded-full bg-white'
+                  className='rounded-full bg-white dark:bg-gray-800'
                 />
               </div>
               <div className='flex flex-col'>
@@ -141,7 +141,7 @@ export default function User() {
             </div>
           </>
         )}
-        <div className='mt-2 rounded-lg bg-white p-4 sm:p-6'>
+        <div className='mt-2 rounded-lg bg-white p-4 dark:bg-gray-800 sm:p-6'>
           <div className='border-b border-gray-200'>
             <nav className='-mb-0.5 flex space-x-6'>
               {tabList
