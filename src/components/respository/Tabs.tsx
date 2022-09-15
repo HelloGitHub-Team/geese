@@ -34,7 +34,7 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
 
   return (
     <>
-      <nav className='flex border-b border-gray-100 text-base font-medium'>
+      <nav className='flex border-b border-gray-100 text-base font-medium dark:border-gray-700'>
         <span
           className={tabClassName('summary')}
           onClick={() => setSelectTab('summary')}

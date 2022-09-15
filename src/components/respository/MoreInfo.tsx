@@ -55,10 +55,10 @@ const MoreInfo: NextPage<RepositoryProps> = ({ repo }) => {
           isShowMore ? '' : 'h-20'
         }`}
       >
-        <div className='relative grid grid-cols-4 grid-rows-1 gap-2 rounded-lg bg-gray-100 py-3 text-center sm:grid-cols-5'>
+        <div className='relative grid grid-cols-4 grid-rows-1 gap-2 rounded-lg bg-gray-100 py-3 text-center dark:bg-gray-700 sm:grid-cols-5'>
           {infoList.map((item) => (
             <div className='px-2' key={item.title}>
-              <div className='relative mt-1 overflow-hidden whitespace-nowrap text-lg font-bold text-gray-900 lg:text-xl'>
+              <div className='relative mt-1 overflow-hidden whitespace-nowrap text-lg font-bold text-gray-900 dark:text-gray-200 lg:text-xl'>
                 {item.value}
               </div>
               <div className='text-sm text-gray-400'>{item.title}</div>
@@ -68,14 +68,14 @@ const MoreInfo: NextPage<RepositoryProps> = ({ repo }) => {
       </div>
       {!isShowMore ? (
         <div
-          className='absolute right-3 bottom-0 translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-400 hover:bg-gray-200 active:bg-gray-100 lg:right-9'
+          className='absolute right-3 bottom-0 translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-400 hover:bg-gray-200 active:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:active:bg-gray-700 lg:right-9'
           onClick={() => setIsShowMore(true)}
         >
           更多
         </div>
       ) : (
         <div
-          className='absolute right-3 bottom-0 translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-400 hover:bg-gray-200 active:bg-gray-100 lg:right-9'
+          className='absolute right-3 bottom-0 translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-400 hover:bg-gray-200 active:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:active:bg-gray-700 lg:right-9'
           onClick={() => setIsShowMore(false)}
         >
           收起

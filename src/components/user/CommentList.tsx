@@ -92,7 +92,7 @@ export default function CommentList(props: Props) {
       </>
     ) : (
       <div className='mt-4 text-center text-xl'>
-        <div className='py-14 text-gray-300'>暂无评论</div>
+        <div className='py-14 text-gray-300 dark:text-gray-500'>暂无评论</div>
       </div>
     )
   ) : null;

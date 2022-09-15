@@ -17,7 +17,7 @@ const RepoDetailNavbar: NextPage<UserAvaterProps> = ({ avatar, uid }) => {
           <AiOutlineArrowLeft className='text-blue-400' size={20} />
         </div>
         <div className='text-center font-bold'>项目详情</div>
-        <div className='flex items-center justify-end text-xs text-gray-500'>
+        <div className='flex items-center justify-end text-xs text-gray-500 dark:text-gray-400'>
           由
           <Link href={`/user/${uid}`}>
             <a className='m-1 flex items-center'>

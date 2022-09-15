@@ -109,7 +109,7 @@ const CommentItem = (
             {isUsed ? '已用过' : '未用过'}
           </span>
         </div>
-        <div className='mt-2 whitespace-normal break-all text-sm text-gray-900'>
+        <div className='mt-2 whitespace-normal break-all text-sm text-gray-900 dark:text-gray-200'>
           <MDRender>{comment}</MDRender>
         </div>
         <div className='mt-2 flex items-center justify-between'>
