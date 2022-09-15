@@ -25,12 +25,12 @@ export default function CommentList(props: Props) {
         {data.data.map((item, index) => {
           return userInfo ? (
             <div className='p-2' key={item.cid}>
-              <div className='flex justify-between py-2 text-gray-600'>
+              <div className='flex justify-between py-2'>
                 <div className='flex'>
                   <span className='mr-4'>
                     {(data.page - 1) * data.pageSize + index + 1}.
                   </span>
-                  <span className='text-gray-600'>
+                  <span className='text-gray-600 dark:text-gray-300'>
                     于 {formatZH(item.created_at, 'YYYY 年 MM 月 DD 日')} 发布的
                     {belongMap[item.belong]}评论
                   </span>
@@ -53,7 +53,7 @@ export default function CommentList(props: Props) {
                       </a>
                     </Button>
                   )}
-                  <Button className='h-7 p-2 font-normal'>
+                  <Button className='h-7 p-2 font-normal dark:border-blue-800 dark:bg-blue-800'>
                     <a
                       href={`/${item.belong}/${item.belong_id}`}
                       target='_blank'
@@ -65,7 +65,7 @@ export default function CommentList(props: Props) {
                 </div>
               </div>
               <CommentItem
-                className='rounded-xl border bg-white p-4'
+                className='rounded-xl border bg-white p-4 dark:border-gray-700 dark:bg-gray-800'
                 key={item.cid}
                 {...item}
                 user={userInfo}
@@ -92,7 +92,7 @@ export default function CommentList(props: Props) {
       </>
     ) : (
       <div className='mt-4 text-center text-xl'>
-        <div className='py-14 text-gray-300'>暂无评论</div>
+        <div className='py-14 text-gray-300 dark:text-gray-500'>暂无评论</div>
       </div>
     )
   ) : null;

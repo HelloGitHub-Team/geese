@@ -15,9 +15,9 @@ export default function Status() {
   });
 
   return (
-    <div className='space-y-1.5 rounded-lg bg-white px-3 py-2.5'>
+    <div className='space-y-1.5 rounded-lg bg-white px-3 py-2.5 dark:bg-gray-800'>
       {stats ? (
-        <div className='flex flex-wrap border-b border-b-slate-300 pb-3'>
+        <div className='flex flex-wrap border-b border-b-slate-300 pb-3 dark:border-b-slate-700'>
           <div className='flex-1 pr-4'>
             <div className='whitespace-nowrap text-base text-slate-400'>
               用户总数

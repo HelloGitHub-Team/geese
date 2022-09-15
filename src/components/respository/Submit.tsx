@@ -73,7 +73,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
             url
           </label>
           <input
-            className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none'
+            className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
             placeholder='项目地址（如：https://github.com/521xueweihan/HelloGitHub）'
             type='text'
             id='url'
@@ -89,7 +89,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
             summary
           </label>
           <textarea
-            className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none'
+            className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
             placeholder='请填写项目描述：这是个什么项目、能用来干什么、有什么特点或解决了什么痛点，适用于什么场景、能够让初学者学到什么'
             rows={8}
             id='summary'
@@ -103,7 +103,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
         <div className='mt-4 text-right'>
           <button
             type='submit'
-            className='inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white sm:w-auto'
+            className='inline-flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-3 text-white dark:bg-blue-800 sm:w-auto'
           >
             <span className='font-medium'>提交</span>
             <IoIosArrowRoundForward size={24} />
@@ -164,7 +164,7 @@ export function RepoModal({ children }: { children: JSX.Element }) {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel className='w-[48rem] max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                <Dialog.Panel className='w-[48rem] max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-700'>
                   <div
                     className='ml-auto box-content w-6 pb-4 pl-4'
                     onClick={closeModal}

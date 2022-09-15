@@ -54,10 +54,13 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
     return allItems.indexOf(item.rid) + 1;
   };
   const linkClassName = (id: string) =>
-    classNames('cursor-pointer rounded-md p-2 hover:bg-gray-100', {
-      'text-blue-500': id === activeCategory,
-      'text-gray-700': id !== activeCategory,
-    });
+    classNames(
+      'cursor-pointer rounded-md p-2 hover:bg-gray-100 dark:hover:bg-gray-700',
+      {
+        'text-blue-500': id === activeCategory,
+        'text-gray-700 dark:text-gray-400': id !== activeCategory,
+      }
+    );
 
   const ticking = useRef(false);
   const categoryEles = useRef<CategoryTopRange[]>([]);
@@ -125,13 +128,13 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
       <div className='mt-20 flex animate-pulse'>
         <Seo title='月刊' />
         <div className='ml-4 mt-2 w-full'>
-          <h3 className='h-4 rounded-md bg-gray-200 dark:bg-gray-700'></h3>
+          <h3 className='h-4 rounded-md bg-gray-200'></h3>
 
           <ul className='mt-5 space-y-3'>
-            <li className='h-4 w-full rounded-md bg-gray-200 dark:bg-gray-700'></li>
-            <li className='h-4 w-full rounded-md bg-gray-200 dark:bg-gray-700'></li>
-            <li className='h-4 w-full rounded-md bg-gray-200 dark:bg-gray-700'></li>
-            <li className='h-4 w-full rounded-md bg-gray-200 dark:bg-gray-700'></li>
+            <li className='h-4 w-full rounded-md bg-gray-200'></li>
+            <li className='h-4 w-full rounded-md bg-gray-200'></li>
+            <li className='h-4 w-full rounded-md bg-gray-200'></li>
+            <li className='h-4 w-full rounded-md bg-gray-200'></li>
           </ul>
         </div>
       </div>
@@ -139,13 +142,13 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
   }
 
   return (
-    <div className='flex shrink grow flex-row sm:border-l sm:dark:border-slate-600 md:border-none'>
+    <div className='flex shrink grow flex-row sm:border-l md:border-none'>
       <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
         <div className='relative pb-6'>
           <Seo title={`HelloGitHub 第 ${volume?.current_num} 期`} />
-          <div className='mt-2 mb-2 bg-white p-5'>
+          <div className='mt-2 mb-2 bg-white p-5 dark:bg-gray-800'>
             <div className='my-4 flex flex-col items-center px-2'>
-              <h1 className='mb-2 font-medium text-black'>
+              <h1 className='mb-2 font-medium text-black dark:text-white'>
                 《HelloGitHub》第 {volume?.current_num} 期
               </h1>
               <h2 className='text-center text-xl font-normal text-gray-400'>
@@ -156,7 +159,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
               const id = `category-${category.category_id}`;
               return (
                 <div id={id} key={category.category_id} className='pb-5'>
-                  <h1 className='mt-4 text-xl text-black'>
+                  <h1 className='mt-4 text-xl text-black dark:text-white'>
                     {category.category_name}
                   </h1>
                   {category.items.map((item: VolumeItem) => {
@@ -175,7 +178,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
                           </a>
                         </div>
                         {/* stars forks watch */}
-                        <div className='mb-2 flex  text-sm text-gray-500'>
+                        <div className='mb-2 flex  text-sm text-gray-500 dark:text-gray-400'>
                           <span className='mr-2 flex '>
                             <IoIosStarOutline size={16} />
                             Star {numFormat(item.stars, 1)}
@@ -196,7 +199,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
                         {item.image_url && (
                           <div className='my-2 flex justify-center'>
                             <ImageWithPreview
-                              className='rounded-lg'
+                              className='cursor-zoom-in rounded-lg'
                               src={item.image_url}
                               alt={item.name}
                             />
@@ -222,8 +225,10 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
         {/* 右侧目录 */}
         <div className=''>
           <div className='top-15 fixed w-3/12 xl:w-2/12'>
-            <div className='mt-2 ml-3 bg-white p-4'>
-              <h4 className='mb-2 border-b border-gray-200 pb-2'>目录</h4>
+            <div className='mt-2 ml-3 bg-white p-4 dark:bg-gray-800'>
+              <h4 className='mb-2 border-b border-gray-200 pb-2 dark:border-gray-700'>
+                目录
+              </h4>
               <ul
                 className='custom-scrollbar overflow-scroll'
                 style={{ maxHeight: 550 }}

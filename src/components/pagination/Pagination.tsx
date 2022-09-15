@@ -32,12 +32,12 @@ export default function Pagination({
       className =
         current <= 1
           ? 'pointer-events-none text-gray-400 hidden'
-          : 'pointer-events-auto hover:text-blue-600 text-gray-600';
+          : 'pointer-events-auto hover:!text-blue-600 text-gray-600 dark:text-gray-400';
     } else {
       className =
         current >= total
           ? 'pointer-events-none text-gray-400 hidden'
-          : 'pointer-events-auto hover:text-blue-600 text-gray-600';
+          : 'pointer-events-auto hover:!text-blue-600 text-gray-600 dark:text-gray-400';
     }
     return clsxm(
       'inline-flex items-center gap-2 rounded-md p-2 cursor-pointer',
@@ -57,7 +57,7 @@ export default function Pagination({
 
         <input
           type='number'
-          className='text-xm block w-20 rounded-md border-gray-200 py-1 px-2 focus:border-blue-500 focus:ring-blue-500'
+          className='text-xm block w-20 rounded-md border-gray-200 py-1 px-2 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-700'
           min='1'
           max={total}
           value={page}
@@ -79,7 +79,7 @@ export default function Pagination({
           }}
         />
         <b>/</b>
-        <span className='mx-0 inline-flex h-10 w-10 items-center rounded-full p-4 font-medium text-gray-500'>
+        <span className='mx-0 inline-flex h-10 w-10 items-center rounded-full p-4 font-medium text-gray-500 dark:text-gray-400'>
           {total}
         </span>
         <a

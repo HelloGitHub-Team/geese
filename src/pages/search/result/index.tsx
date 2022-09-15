@@ -69,13 +69,13 @@ const Result: NextPage = () => {
     <>
       <Seo templateTitle='Search' />
       <Navbar middleText='搜索结果'></Navbar>
-      <div className='h-screen divide-y divide-slate-100'>
+      <div className='h-screen divide-y divide-slate-100 dark:divide-slate-700'>
         {list.map((item: SearchItemType) => (
           <SearchResultItem key={item.rid} repo={item} />
         ))}
         {(isValidating || hasMore) && (
           <div
-            className='bg-content divide-y divide-slate-100 overflow-hidden'
+            className='bg-content divide-y divide-slate-100 overflow-hidden dark:divide-slate-700'
             ref={sentryRef}
           >
             <Loading></Loading>

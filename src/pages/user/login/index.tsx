@@ -46,7 +46,7 @@ const Index = ({ token, userInfo, user_agent }: IProps) => {
   }, [token, userInfo, setUserInfo, setToken, user_agent, router]);
 
   return (
-    <div className='bg-white'>
+    <div className='bg-white dark:bg-gray-800'>
       {token ? (
         <div className='mt-2'>
           <div className='flex py-2.5 pl-4 pr-3'>登录成功，跳转中...</div>

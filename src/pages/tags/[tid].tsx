@@ -18,7 +18,7 @@ const TagPage: NextPage<TagPageProps> = ({ items, tag_name }) => {
       <Seo />
       <Navbar middleText={tag_name} endText='标签'></Navbar>
 
-      <div className='h-screen divide-y divide-slate-100'>
+      <div className='h-screen divide-y divide-slate-100 dark:divide-slate-700'>
         {items.map((item: HomeItem, index: number) => (
           <Item key={item.item_id} item={item} index={index}></Item>
         ))}

@@ -112,13 +112,13 @@ export default function SearchInput() {
 
   return (
     <div
-      className='inline-flex flex-auto items-stretch rounded-md bg-white px-2'
+      className='inline-flex flex-auto items-stretch rounded-md bg-white px-2 dark:bg-transparent'
       ref={dropdownRef}
     >
       <div className='relative w-full max-w-xs'>
         <input
           type='text'
-          className='block h-10 w-full rounded-md border-gray-200 py-3 px-2 text-xs focus:border-blue-500 focus:ring-blue-500 md:text-sm'
+          className='block h-10 w-full rounded-md border-gray-200 py-3 px-2 text-xs placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:placeholder:text-gray-400 dark:focus:border-blue-900 dark:focus:ring-blue-900 md:text-sm'
           placeholder='搜索开源项目'
           value={query}
           onChange={onQueryChange}
@@ -128,7 +128,7 @@ export default function SearchInput() {
 
         <IoIosSearch
           size={24}
-          className='absolute right-1 top-2 mr-2 cursor-pointer'
+          className='absolute right-1 top-2 mr-2 cursor-pointer text-gray-800 dark:text-gray-400'
           onClick={onSearch}
         />
 

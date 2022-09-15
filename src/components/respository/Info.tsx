@@ -16,7 +16,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           <div className='w-full text-lg line-clamp-3 lg:text-2xl lg:line-clamp-2'>
             {repo.name}：{repo.title}
           </div>
-          <div className='mt-1 mr-1 flex flex-wrap text-gray-500 lg:mr-2'>
+          <div className='mt-1 mr-1 flex flex-wrap text-gray-500 dark:text-gray-400 lg:mr-2'>
             <div className='mt-1 hidden text-sm lg:mr-2 lg:block lg:text-base'>
               作者 {repo.author}
               <span className='pl-1 pr-1'>·</span>
