@@ -42,6 +42,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
           'shadow-sm',
           'transition-colors duration-75',
+          'dark:hover:bg-gray-700 dark:focus:bg-gray-800 dark:active:bg-gray-800',
           //#region  //*=========== Variants ===========
           [
             variant === 'primary' && [

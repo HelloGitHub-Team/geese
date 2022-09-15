@@ -1,5 +1,8 @@
+import { RepoType } from './reppsitory';
+
 export interface UserAvaterProps {
   avatar: string;
+  uid: string;
 }
 
 export interface User {
@@ -32,26 +35,31 @@ export interface Permission {
   code: string;
 }
 
-export const userInfo = {
-  uid: '8MKvZoxaWt',
-  nickname: '卤蛋',
-  avatar:
-    'https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaELhgSn8KrBspf8KDJQGPwHOKqkZfppGiaQQk3WdxFetbGAYibBzhZ7bLV81JM2qBKVNStLeIo3ryMEA/132',
-  contribute_total: 0,
-  share_repo_total: 0,
-  comment_repo_total: 1,
-  permission: {
-    name: '游客',
-    code: 'visitor',
-  },
-  first_login: '2022-08-29T20:03:50',
-  rank: 1,
-  level: 1,
-};
+export interface UserDetailInfo {
+  uid: string;
+  nickname: string;
+  avatar: string;
+  contribute_total: number;
+  share_repo_total: number;
+  comment_repo_total: number;
+  permission: Permission;
+  first_login: string;
+  last_login: string;
+  rank: number;
+  level: number;
+  in_person: boolean;
+}
 
-export type UserInfoType = typeof userInfo;
+export interface DynamicRecord {
+  uid: string;
+  created_at: string;
+  dynamic_type: string;
+  value: number;
+  remark: string;
+}
 
-export type Response = {
-  success: boolean;
-  userInfo: UserInfoType;
-};
+export interface CollectItem {
+  uid: string;
+  created_at: string;
+  repo: RepoType;
+}

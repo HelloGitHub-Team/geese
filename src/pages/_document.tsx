@@ -14,16 +14,8 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang='en'>
-        <Head>
-          {/* <link
-            rel='preload'
-            href='/fonts/inter-var-latin.woff2'
-            as='font'
-            type='font/woff2'
-            crossOrigin='anonymous'
-          /> */}
-        </Head>
+      <Html lang='zh'>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />

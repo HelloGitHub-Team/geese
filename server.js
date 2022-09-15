@@ -10,7 +10,7 @@ const express = require('express');
 const expressRouter = express.Router();
 const server = express();
 
-const NODE_PORT = 8888;
+const NODE_PORT = process.env.NODE_PORT;
 
 app.prepare().then(() => {
   expressRouter.get('*', (req, res) => {

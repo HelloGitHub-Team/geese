@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 
+import ItemBottom from '@/components/home/ItemBottom';
 import MDRender from '@/components/mdRender/MDRender';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
@@ -12,16 +13,14 @@ const RulePage: NextPage<HelpPageProps> = ({ content }) => {
   return (
     <>
       <Seo title='社区规则' />
-      <div className='mt-2 bg-white p-5 '>
+      <div className='mt-2 bg-white p-5 dark:bg-gray-800 '>
         <div className='mb-10 flex flex-col items-center px-2 text-4xl font-bold '>
           社区规则
         </div>
         <article className='prose max-w-none'>
-          <MDRender>{content}</MDRender>
+          <MDRender className='dark:invert'>{content}</MDRender>
         </article>
-        <div className='flex flex-col items-center text-base text-gray-400 '>
-          - END -
-        </div>
+        <ItemBottom endText='END'></ItemBottom>
       </div>
       <ToTop />
       <div className='h-4'></div>
