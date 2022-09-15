@@ -225,6 +225,7 @@ svg {
   background-color: #e4e6eb;
   outline: none;
   border-radius: 2px;
+  @apply dark:bg-gray-700;
 }
 
 .dark {
