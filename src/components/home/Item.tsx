@@ -13,7 +13,7 @@ const Item: NextPage<ItemProps> = ({ item, index }) => {
   return (
     <article className='mx-4'>
       <Link href={`/repository/${item.item_id}`}>
-        <div className='hover-gray relative -mx-4 cursor-pointer bg-white py-3 pl-4 pr-3 hover:bg-slate-50 dark:bg-gray-800'>
+        <div className='relative -mx-4 cursor-pointer bg-white py-3 pl-4 pr-3 hover:bg-slate-50 dark:bg-gray-800'>
           <div className='pb-0.5'>
             <div className='text-color-primary flex justify-between visited:text-slate-500'>
               <span className='truncate pt-1 text-base leading-snug'>

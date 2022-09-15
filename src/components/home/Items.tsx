@@ -65,8 +65,8 @@ const Items = () => {
     classNames(
       'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold hover:bg-slate-100 dark:hover:bg-slate-700',
       {
-        'text-gray-500 dark:text-gray-200': sort_by !== sortName,
-        'bg-gray-100 dark:bg-gray-700 text-blue-500': sort_by === sortName,
+        'text-slate-500 dark:text-slate-200': sort_by !== sortName,
+        'bg-slate-100 dark:bg-slate-700 text-blue-500': sort_by === sortName,
       }
     );
 
@@ -74,8 +74,8 @@ const Items = () => {
     return classNames(
       'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold hover:bg-slate-100 dark:hover:bg-slate-700',
       {
-        'text-gray-500 dark:text-gray-200': !labelStatus,
-        'bg-gray-100 dark:bg-gray-700 dark:focus:bg-gray-700 text-blue-500':
+        'text-slate-500 dark:text-slate-200': !labelStatus,
+        'bg-slate-100 dark:bg-slate-700 dark:focus:bg-slate-700 text-blue-500':
           labelStatus,
       }
     );
@@ -178,7 +178,7 @@ const Items = () => {
         ))}
         {(isValidating || hasMore) && (
           <div
-            className='bg-content divide-y divide-slate-100 overflow-hidden dark:divide-slate-700'
+            className='divide-y divide-slate-100 overflow-hidden dark:divide-slate-700'
             ref={sentryRef}
           >
             <Loading></Loading>
