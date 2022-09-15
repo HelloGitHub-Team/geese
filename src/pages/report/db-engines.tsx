@@ -10,8 +10,8 @@ import { getDBRank } from '@/services/rank';
 import { RankPageProps } from '@/types/rank';
 
 const columns: any[] = [
-  { key: 'position', title: '排名' },
-  { key: 'name', title: '数据库名称' },
+  { key: 'position', title: '排名', width: 80 },
+  { key: 'name', title: '数据库名称', width: 120 },
   { key: 'rating', title: '分数' },
   {
     key: 'change',
@@ -85,7 +85,7 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const data = await getDBRank(query['month']);
+  const data = await getDBRank(query['month'] as unknown as number);
   if (!data.success) {
     return {
       notFound: true,

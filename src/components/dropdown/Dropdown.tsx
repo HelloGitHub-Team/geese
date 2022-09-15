@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 type option = {
-  key: string;
+  key: string | number;
   value: string;
 };
 type DropdownProps = {
-  initValue: string;
+  initValue?: string;
   options: option[];
-  onChange: () => void;
+  onChange: (opt: any) => void;
 };
 export default function Dropdown(props: DropdownProps) {
   const [activeOption, setActiveOption] = useState(props.options[0]?.value);

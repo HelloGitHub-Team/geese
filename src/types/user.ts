@@ -50,3 +50,8 @@ export const userInfo = {
 };
 
 export type UserInfoType = typeof userInfo;
+
+export type Response = {
+  success: boolean;
+  userInfo: UserInfoType;
+};

@@ -10,11 +10,12 @@ import { getNetcraftRank } from '@/services/rank';
 import { RankDataItem, RankPageProps } from '@/types/rank';
 
 const columns: any[] = [
-  { key: 'position', title: '排名' },
-  { key: 'name', title: '服务器名称' },
+  { key: 'position', title: '排名', width: 80 },
+  { key: 'name', title: '服务器名称', width: 120 },
   {
     key: 'rating',
     title: '市场占比',
+    width: 120,
     render: (row: RankDataItem) => {
       return <div>{row.rating}%</div>;
     },
@@ -116,7 +117,7 @@ const NetcraftPage: NextPage<RankPageProps> = ({
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const data = await getNetcraftRank(query['month']);
+  const data = await getNetcraftRank(query['month'] as unknown as number);
   if (!data.success) {
     return {
       notFound: true,

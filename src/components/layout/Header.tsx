@@ -7,6 +7,7 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 import useUserInfo from '@/hooks/useUserInfo';
 
 import Button from '@/components/buttons/Button';
+import { RankButton } from '@/components/buttons/RankButton';
 
 import LoginButton from '../buttons/LoginButton';
 import PeriodicalButton from '../buttons/Periodical';
@@ -96,23 +97,17 @@ const Header = () => {
           </li>
           <PeriodicalButton></PeriodicalButton>
           <li className='hidden md:block'>
-            <Button
-              className='font-normal text-gray-500'
-              variant='ghost'
-              onClick={() => {
-                router.push('/report/tiobe');
-              }}
-            >
-              排行榜
-            </Button>
+            <RankButton />
           </li>
           <>
             {!isLogin ? (
               <li className='block md:hidden'>
+                <RankButton />
                 <LoginButton></LoginButton>
               </li>
             ) : (
               <>
+                <RankButton />
                 <AvatarWithDropdown className='md:hidden' />
               </>
             )}

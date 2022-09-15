@@ -3,7 +3,7 @@ import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import { RankDataItem } from '@/types/rank';
 
 export const ChangeColumnRender = (row: RankDataItem) => {
-  let text = row.change;
+  let text = `${row.change}`;
   if (typeof text !== 'number') {
     text = '新上榜';
   } else {

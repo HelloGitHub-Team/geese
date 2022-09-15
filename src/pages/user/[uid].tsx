@@ -8,7 +8,7 @@ import Seo from '@/components/Seo';
 
 import { getUserInfo } from '@/services/user';
 
-import type { UserInfoType } from '@/types/user';
+import type { Response, UserInfoType } from '@/types/user';
 
 const tabList: any[] = [
   { key: 1, title: '动态' },
@@ -34,11 +34,6 @@ const userInfoProps = {
   level: 1,
 };
 
-type Response = {
-  success: boolean;
-  userInfo: UserInfoType;
-};
-
 export default function User() {
   const router = useRouter();
   const { uid = '8MKvZoxaWt' } = router.query;
@@ -46,7 +41,7 @@ export default function User() {
   const [activeTab, setActiveTab] = React.useState<number>(1);
 
   React.useEffect(() => {
-    getUserInfo(uid)
+    getUserInfo(uid as any as string)
       .then((res: Response) => {
         setUserInfo(res.userInfo);
       })

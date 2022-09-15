@@ -11,7 +11,7 @@ import { RankPageProps } from '@/types/rank';
 
 // 排名	编程语言	流行度	对比上月	年度明星语言
 const columns: any[] = [
-  { key: 'position', title: '排名' },
+  { key: 'position', title: '排名', width: 80 },
   { key: 'name', title: '编程语言' },
   { key: 'rating', title: '流行度' },
   {
@@ -63,7 +63,7 @@ const TiobePage: NextPage<RankPageProps> = ({
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const data = await getTiobeRank(query['month']);
+  const data = await getTiobeRank(query['month'] as unknown as number);
   if (!data.success) {
     return {
       notFound: true,

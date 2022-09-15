@@ -1,8 +1,9 @@
 export interface RankDataItem {
+  [key: string]: string | number | undefined;
   name: string;
   position: number;
   rating: string;
-  change: null | number;
+  change: number;
   star?: string;
   total?: number;
 }
@@ -19,5 +20,5 @@ export interface RankPageProps {
   month: number;
   year: number;
   monthList: number[];
-  list: string[];
+  list: RankDataItem[];
 }
