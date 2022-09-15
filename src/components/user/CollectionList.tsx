@@ -20,7 +20,7 @@ export default function CollectionList(props: Props) {
       <div>
         {data.data.map((item, index) => (
           <div
-            className='flex items-center border-t py-4 first:border-t-0'
+            className='flex items-center border-t py-4 first:border-t-0 dark:border-gray-700'
             key={item.repo.rid}
           >
             <div className='mr-4 self-start'>
@@ -29,12 +29,12 @@ export default function CollectionList(props: Props) {
             <div className='flex-1 pr-2'>
               <div className='font-bold'>{item.repo.name}</div>
               <div className='my-2 flex'>
-                <span className='w-px max-w-fit flex-1 items-stretch overflow-hidden text-ellipsis whitespace-nowrap text-gray-400'>
+                <span className='w-px max-w-fit flex-1 items-stretch overflow-hidden text-ellipsis whitespace-nowrap text-gray-400 dark:text-gray-300'>
                   {item.repo.description}
                 </span>
               </div>
               {/* 移动端 */}
-              <div className='flex items-center text-sm text-gray-500 sm:hidden'>
+              <div className='flex items-center text-sm text-gray-500 dark:text-gray-400 sm:hidden'>
                 <div>
                   <span
                     style={{ backgroundColor: `${item.repo.lang_color}` }}
@@ -48,7 +48,7 @@ export default function CollectionList(props: Props) {
                 <div>{item.repo.has_chinese ? '中文' : '非中文'}</div>
               </div>
               {/* PC端 */}
-              <div className='hidden items-center text-sm text-gray-500 sm:flex'>
+              <div className='hidden items-center text-sm text-gray-500 dark:text-gray-400 sm:flex'>
                 <div>
                   主语言：
                   <span
@@ -84,7 +84,7 @@ export default function CollectionList(props: Props) {
       </div>
     ) : (
       <div className='mt-4 text-center text-xl'>
-        <div className='py-14 text-gray-300'>暂无收藏</div>
+        <div className='py-14 text-gray-300 dark:text-gray-500'>暂无收藏</div>
       </div>
     )
   ) : (

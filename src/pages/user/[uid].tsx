@@ -28,7 +28,7 @@ export default function User() {
   return (
     <>
       <Seo templateTitle={userDetailInfo?.nickname} />
-      <div className='h-screen divide-y divide-slate-100 dark:divide-slate-700'>
+      <div className='h-screen divide-y divide-slate-100 dark:divide-slate-800'>
         <Navbar middleText='个人主页'></Navbar>
         {userDetailInfo?.nickname && (
           <>
@@ -52,7 +52,7 @@ export default function User() {
                     Lv{userDetailInfo?.level}
                   </div>
                 </div>
-                <div className='text-sm leading-6 text-gray-500'>
+                <div className='text-sm leading-6 text-gray-500 dark:text-gray-400'>
                   <div>
                     {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
                     社区的第{' '}
@@ -110,7 +110,7 @@ export default function User() {
                 </div>
               </div>
 
-              <div className='flex flex-col items-center justify-center text-sm leading-6 text-gray-500'>
+              <div className='flex flex-col items-center justify-center text-sm leading-6 text-gray-500 dark:text-gray-400'>
                 <p>
                   {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
                   社区的第{' '}
@@ -142,7 +142,7 @@ export default function User() {
           </>
         )}
         <div className='mt-2 rounded-lg bg-white p-4 dark:bg-gray-800 sm:p-6'>
-          <div className='border-b border-gray-200'>
+          <div className='border-b border-gray-200 dark:border-gray-700'>
             <nav className='-mb-0.5 flex space-x-6'>
               {tabList
                 .filter((_, index) => index === 0 || userDetailInfo?.in_person)
@@ -151,9 +151,9 @@ export default function User() {
                     <span
                       key={tab.key}
                       className={clsxm(
-                        'text-xm inline-flex cursor-pointer items-center gap-2 whitespace-nowrap border-b-2 border-transparent py-2 px-1 text-gray-500 hover:text-blue-600',
+                        'text-xm inline-flex cursor-pointer items-center gap-2 whitespace-nowrap border-b-2 border-transparent py-2 px-1 text-gray-500 hover:text-blue-600 dark:text-gray-400',
                         {
-                          'border-blue-500 font-bold text-blue-500':
+                          '!border-blue-500 font-bold !text-blue-500':
                             activeTab === tab.key,
                         }
                       )}
