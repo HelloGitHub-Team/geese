@@ -1,5 +1,10 @@
+import { HomeItem } from './home';
 import { TagType } from './tag';
 import { UserType } from './user';
+
+export interface RepositoryItems {
+  repositories: HomeItem[];
+}
 
 export interface RepositoryProps {
   repo: Repository;

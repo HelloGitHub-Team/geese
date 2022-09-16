@@ -14,7 +14,7 @@ const ATSPage: NextPage<HelpPageProps> = ({ content }) => {
     <>
       <Seo title='用户服务协议' />
 
-      <div className='mt-2 bg-white p-5 dark:bg-gray-800 '>
+      <div className='mt-2 rounded-lg bg-white p-5 dark:bg-gray-800 '>
         <div className='mb-10 flex flex-col items-center px-2 text-4xl font-bold '>
           用户服务协议
         </div>

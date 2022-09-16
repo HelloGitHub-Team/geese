@@ -2,6 +2,8 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+import RedirectBar from '@/components/navbar/RedirectBar';
+
 const Redict: NextPage = () => {
   const router = useRouter();
 
@@ -14,15 +16,7 @@ const Redict: NextPage = () => {
     }
   }, [router]);
 
-  return (
-    <>
-      <div className='bg-white dark:bg-gray-800'>
-        <div className='m-2'>
-          <div className='flex py-2.5 pl-4 pr-3'>跳转中...</div>
-        </div>
-      </div>
-    </>
-  );
+  return <RedirectBar />;
 };
 
 export default Redict;
