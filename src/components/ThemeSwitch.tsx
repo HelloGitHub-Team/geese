@@ -2,14 +2,16 @@ import { useEffect } from 'react';
 
 import { toggleTheme, updateTheme } from '@/lib/theme';
 
+import Button from './buttons/Button';
+
 export default function ThemeSwitch() {
   useEffect(() => {
     updateTheme();
   }, []);
 
   return (
-    <button
-      className='relative block h-[22px] w-10 shrink-0 rounded-xl border border-slate-300 bg-slate-100 transition-colors hover:border-slate-400 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500'
+    <Button
+      className='relative block h-[22px] w-10 shrink-0 rounded-xl border border-slate-300 bg-slate-100 transition-colors hover:border-slate-400 hover:bg-slate-100 active:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:hover:border-slate-500 dark:active:bg-slate-700'
       type='button'
       role='switch'
       aria-label='Toggle dark mode'
@@ -46,6 +48,6 @@ export default function ThemeSwitch() {
           </svg>
         </span>
       </span>
-    </button>
+    </Button>
   );
 }
