@@ -2,11 +2,12 @@ import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineDown } from 'react-icons/ai';
 
-type option = {
+export type option = {
   key: string | number;
   value: string;
 };
 type DropdownProps = {
+  size?: 'small' | 'medium' | 'large' | '';
   initValue?: string;
   options: option[];
   trigger?: string;
@@ -49,6 +50,15 @@ export default function Dropdown(props: DropdownProps) {
       }
     );
 
+  const btnClassName = () => {
+    return classNames(
+      'flex items-center rounded-l-md px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-700',
+      {
+        'px-2 py-1': props.size === 'small',
+      }
+    );
+  };
+
   const onTrigger = (event: string): any => {
     const triggerMap: any = {
       focus: () => {
@@ -80,7 +90,7 @@ export default function Dropdown(props: DropdownProps) {
       className='inline-flex items-stretch rounded-md border bg-white'
     >
       <button
-        className='flex items-center rounded-l-md px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-700'
+        className={btnClassName()}
         onFocus={onTrigger('focus')}
         onBlur={onTrigger('blur')}
         onMouseMove={onTrigger('mousemove')}
@@ -101,7 +111,7 @@ export default function Dropdown(props: DropdownProps) {
             {props.options?.map((opt: option) => (
               <a
                 key={opt.key}
-                className='block cursor-pointer rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700'
+                className='block cursor-pointer rounded-lg px-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700'
                 onClick={() => onChange(opt)}
               >
                 {opt.value}

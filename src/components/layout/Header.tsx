@@ -7,9 +7,9 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 import useUserInfo from '@/hooks/useUserInfo';
 
 import Button from '@/components/buttons/Button';
-
 import { RankButton } from '@/components/buttons/RankButton';
 import ThemeSwitch from '@/components/ThemeSwitch';
+
 import { DEFAULT_AVATAR } from '@/utils/constants';
 
 import LoginButton from '../buttons/LoginButton';
@@ -109,12 +109,12 @@ const Header = () => {
           <>
             {!isLogin ? (
               <li className='block md:hidden'>
-                <RankButton />
-                <LoginButton></LoginButton>
+                <RankButton type='dropdown' />
+                <LoginButton />
               </li>
             ) : (
               <>
-                <RankButton />
+                <RankButton type='dropdown' />
                 <AvatarWithDropdown className='md:hidden' />
               </>
             )}

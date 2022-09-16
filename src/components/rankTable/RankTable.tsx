@@ -60,7 +60,9 @@ export const RankSearchBar = ({
       />
       <div className='flex items-center'>
         {logo && (
-          <Image className='inline h-6 w-6' src={logo} alt={title}></Image>
+          <div className='inline h-6 w-6'>
+            <Image className='inline h-6 w-6' src={logo} alt={title}></Image>
+          </div>
         )}
         <span className='ml-1'>{title}</span>
       </div>
