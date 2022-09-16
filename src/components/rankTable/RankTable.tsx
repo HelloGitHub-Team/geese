@@ -52,7 +52,7 @@ export const RankSearchBar = ({
   }, [router]);
 
   return (
-    <div className='mb-2 flex items-center justify-between overflow-hidden rounded-lg border bg-gray-50 py-2 px-2 shadow dark:border-gray-700 dark:bg-gray-700 dark:shadow-gray-900'>
+    <div className='mb-2 flex items-center justify-between rounded-lg border bg-gray-50 py-2 px-2 shadow dark:border-gray-700 dark:bg-gray-700 dark:shadow-gray-900'>
       <Dropdown
         options={options}
         initValue={target}
@@ -64,13 +64,11 @@ export const RankSearchBar = ({
         )}
         <span className='ml-1'>{title}</span>
       </div>
-      <div>
-        <Dropdown
-          initValue={month}
-          options={monthList?.map((m) => ({ key: m, value: `${m}月` }))}
-          onChange={(opt: any) => onChange('month', opt.key)}
-        />
-      </div>
+      <Dropdown
+        initValue={month}
+        options={monthList?.map((m) => ({ key: m, value: `${m}月` }))}
+        onChange={(opt: any) => onChange('month', opt.key)}
+      />
     </div>
   );
 };

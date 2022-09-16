@@ -1778,11 +1778,6 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@popperjs/core@^2.11.2":
-  version "2.11.6"
-  resolved "https://registry.npmmirror.com/@popperjs/core/-/core-2.11.6.tgz#cee20bd55e68a1720bdab363ecf0c821ded4cd45"
-  integrity sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==
-
 "@rushstack/eslint-patch@^1.1.3":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.1.3.tgz#6801033be7ff87a6b7cadaf5b337c9f366a3c4b0"
@@ -6948,13 +6943,6 @@ postcss@^8.4.14:
     nanoid "^3.3.4"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
-
-preline@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.npmmirror.com/preline/-/preline-1.2.1.tgz#a257696e2e5b77130843bb6d3a6db13be37d591b"
-  integrity sha512-MOmcPgxwYGLjpQpPF6PncZ87tBkofZdJAZWYL7XMaJALklj/NIWUMG4925wF8IaZPpmdBszkXJw2GCpWBl3TFA==
-  dependencies:
-    "@popperjs/core" "^2.11.2"
 
 prelude-ls@^1.2.1:
   version "1.2.1"

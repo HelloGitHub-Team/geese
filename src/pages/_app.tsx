@@ -1,6 +1,5 @@
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
@@ -23,10 +22,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { pathname } = router;
   // 需要单页面展示的路由
   const singlePage: string[] = ['/404', '/500'];
-
-  useEffect(() => {
-    import('preline');
-  }, []);
 
   return (
     <div id='root'>
