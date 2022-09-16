@@ -10,9 +10,9 @@ import { SearchResultItemProps } from '@/types/search';
  */
 const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo }) => {
   return (
-    <article className='mx-4'>
+    <article>
       <Link href={`/repository/${repo.rid}`}>
-        <div className='hover-gray relative -mx-4 cursor-pointer bg-white py-3 pl-4 pr-3 hover:bg-slate-50 dark:bg-gray-800'>
+        <div className='hover-gray relative cursor-pointer bg-white py-3 pl-4 pr-3 hover:bg-slate-50 dark:bg-gray-800'>
           <div className='pb-0.5'>
             <div className='text-color-primary flex justify-between visited:text-slate-500 dark:text-slate-300 '>
               <span className='truncate pt-1 text-base leading-snug'>

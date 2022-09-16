@@ -10,7 +10,7 @@ interface Props {
 const Navbar = ({ middleText = '', endText }: Props) => {
   const router = useRouter();
   return (
-    <div className='relative my-2 overflow-hidden bg-white dark:bg-slate-800'>
+    <div className='relative my-2 bg-white dark:bg-slate-800 md:rounded-lg'>
       <div className='flex h-12 items-center justify-between py-2 px-4'>
         <div className='cursor-pointer' onClick={router.back}>
           <AiOutlineArrowLeft className='text-blue-400' size={20} />

@@ -23,7 +23,7 @@ export default function ServerErrorPage() {
               <SVG500 className='md:hidden' width={300} height={300} />
             </div>
             <Link href='/'>
-              <div className='group relative inline-flex cursor-pointer items-center overflow-hidden rounded border border-current px-7 py-2 text-blue-600 focus:outline-none focus:ring active:text-blue-500'>
+              <div className='group relative inline-flex cursor-pointer items-center overflow-hidden rounded border border-current px-7 py-2 text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:text-slate-500 dark:active:text-slate-500'>
                 <span className='absolute right-0 translate-x-full transition-transform group-hover:-translate-x-4'>
                   <IoIosArrowForward size={16} />
                 </span>
