@@ -87,7 +87,7 @@ const IndexBar = () => {
   }, [tid, handleTags]);
 
   return (
-    <div className='relative my-2 overflow-hidden rounded-lg bg-white dark:bg-slate-800'>
+    <div className='relative my-2 overflow-hidden bg-white dark:bg-slate-800 md:rounded-lg'>
       <div className='flex h-12 items-center justify-start space-x-2 py-2 px-4'>
         <Link href={hotURL}>
           <a className={linkClassName('hot')}>热门</a>

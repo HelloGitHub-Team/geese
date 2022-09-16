@@ -70,7 +70,7 @@ const Result: NextPage = () => {
       <Seo templateTitle='Search' />
       <Navbar middleText='搜索结果'></Navbar>
       <div className='h-screen'>
-        <div className='divide-y divide-slate-100 overflow-y-hidden rounded-lg bg-white dark:divide-slate-700'>
+        <div className='divide-y divide-slate-100 overflow-y-hidden bg-white dark:divide-slate-700 md:rounded-lg'>
           {list.map((item: SearchItemType) => (
             <SearchResultItem key={item.rid} repo={item} />
           ))}

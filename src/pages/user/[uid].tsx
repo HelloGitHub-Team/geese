@@ -89,7 +89,7 @@ export default function User() {
             </div>
 
             {/* 移动端 */}
-            <div className='align-center flex flex-col rounded-lg bg-white p-4 dark:bg-gray-800 sm:p-6 md:hidden'>
+            <div className='align-center flex flex-col bg-white p-4 dark:bg-gray-800 sm:p-6 md:hidden md:rounded-lg'>
               <div className='mx-auto flex'>
                 <Image
                   src={userDetailInfo?.avatar}
@@ -146,7 +146,7 @@ export default function User() {
             </div>
           </>
         )}
-        <div className='mt-2 rounded-lg bg-white p-4 dark:bg-gray-800 sm:p-6'>
+        <div className='mt-2 bg-white p-4 dark:bg-gray-800 sm:p-6 md:rounded-lg'>
           <div className='border-b border-gray-200 dark:border-gray-700'>
             <nav className='-mb-0.5 flex space-x-6'>
               {tabList

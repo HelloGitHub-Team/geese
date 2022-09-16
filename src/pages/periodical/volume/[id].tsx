@@ -146,7 +146,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
       <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
         <div className='relative pb-6'>
           <Seo title={`HelloGitHub 第 ${volume?.current_num} 期`} />
-          <div className='mt-2 mb-2 rounded-lg bg-white p-5 dark:bg-gray-800'>
+          <div className='mt-2 mb-2 bg-white p-5 dark:bg-gray-800 md:rounded-lg'>
             <div className='my-4 flex flex-col items-center px-2'>
               <h1 className='mb-2 font-medium text-black dark:text-white'>
                 《HelloGitHub》第 {volume?.current_num} 期
@@ -225,7 +225,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
         {/* 右侧目录 */}
         <div>
           <div className='top-15 fixed w-3/12 xl:w-2/12'>
-            <div className='mt-2 ml-3 rounded-lg bg-white p-4 dark:bg-gray-800'>
+            <div className='mt-2 ml-3 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
               <h4 className='mb-2 border-b border-gray-200 pb-2 dark:border-gray-700'>
                 目录
               </h4>

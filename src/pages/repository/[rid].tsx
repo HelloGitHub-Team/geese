@@ -23,7 +23,7 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
         uid={repo.share_user.uid}
       />
 
-      <div className='mt-2 rounded-t-lg bg-white px-2 pb-10 pt-2 dark:bg-slate-800'>
+      <div className='mt-2 bg-white px-2 pb-10 pt-2 dark:bg-slate-800 md:rounded-t-lg'>
         <Info repo={repo}></Info>
         <Tabs repo={repo}></Tabs>
         {repo.image_url && (
@@ -39,7 +39,7 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
       </div>
       <ButtonGroup repo={repo} />
       <CommentContainer
-        className='mt-2 rounded-lg bg-white dark:bg-slate-800'
+        className='mt-2 bg-white dark:bg-slate-800 md:rounded-lg'
         belong='repository'
         belongId={repo.rid}
       />
