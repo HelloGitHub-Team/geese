@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {showIndexSide ? (
           <div>{children}</div>
         ) : (
-          <div className='flex shrink grow flex-row sm:border-l sm:dark:border-slate-600 md:border-none'>
+          <div className='flex shrink grow flex-row sm:border-l md:border-none'>
             <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
               {children}
             </div>

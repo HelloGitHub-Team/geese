@@ -4,113 +4,184 @@ import * as React from 'react';
 
 import clsxm from '@/lib/clsxm';
 
+import useUserDetailInfo from '@/hooks/user/useUserDetailInfo';
+
+import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
+import CollectionList from '@/components/user/CollectionList';
+import CommentList from '@/components/user/CommentList';
+import DynamicRecordList from '@/components/user/DynamicRecordList';
 
-import { getUserInfo } from '@/services/user';
+import { formatZH } from '@/utils/day';
 
-import type { Response, UserInfoType } from '@/types/user';
-
-const tabList: any[] = [
+const tabList = [
   { key: 1, title: '动态' },
-  { key: 2, title: '贡献' },
-  { key: 3, title: '收藏' },
-  { key: 4, title: '测评' },
+  { key: 2, title: '收藏' },
+  { key: 3, title: '评论' },
 ];
-
-const userInfoProps = {
-  uid: '8MKvZoxaWt',
-  nickname: '卤蛋',
-  avatar:
-    'https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaELhgSn8KrBspf8KDJQGPwHOKqkZfppGiaQQk3WdxFetbGAYibBzhZ7bLV81JM2qBKVNStLeIo3ryMEA/132',
-  contribute_total: 0,
-  share_repo_total: 0,
-  comment_repo_total: 1,
-  permission: {
-    name: '游客',
-    code: 'visitor',
-  },
-  first_login: '2022-08-29T20:03:50',
-  rank: 1,
-  level: 1,
-};
 
 export default function User() {
   const router = useRouter();
-  const { uid = '8MKvZoxaWt' } = router.query;
-  const [userInfo, setUserInfo] = React.useState<UserInfoType>(userInfoProps);
+  const { uid } = router.query;
+  const userDetailInfo = useUserDetailInfo(uid as string);
   const [activeTab, setActiveTab] = React.useState<number>(1);
-
-  React.useEffect(() => {
-    getUserInfo(uid as any as string)
-      .then((res: Response) => {
-        setUserInfo(res.userInfo);
-      })
-      .catch((err) => {
-        console.log({ err });
-      });
-  }, [uid]);
 
   return (
     <>
-      <Seo templateTitle={userInfo.nickname} />
-      <div className='bg-content my-2 h-screen divide-y divide-slate-100'>
-        {userInfo.nickname && (
-          <div className='flex rounded-lg bg-white p-6'>
-            <Image
-              src={userInfo.avatar}
-              alt={userInfo.nickname}
-              width={90}
-              height={90}
-              className='h-24 w-24 rounded-full bg-white'
-            />
-            <div className='ml-5 flex flex-col justify-center'>
-              <div className='flex justify-between'>
-                <div className='mb-2'>
-                  <span className='text-lg font-bold'>{userInfo.nickname}</span>
-                  <span className='ml-4 italic'>Lv.{userInfo.rank}</span>
-                </div>
-                <span>
-                  贡献值：
-                  <span className='text-lg font-semibold'>
-                    {userInfo.contribute_total}
-                  </span>
-                </span>
+      <Seo templateTitle={userDetailInfo?.nickname} />
+      <div className='h-screen divide-y divide-slate-100 dark:divide-slate-800'>
+        <Navbar middleText='个人主页'></Navbar>
+        {userDetailInfo?.nickname && (
+          <>
+            {/* PC端 */}
+            <div className='hidden rounded-lg bg-white p-4 dark:bg-gray-800 sm:p-6 md:flex'>
+              <div className='shrink-0'>
+                <Image
+                  src={userDetailInfo?.avatar}
+                  alt={userDetailInfo?.nickname}
+                  width={90}
+                  height={90}
+                  className='rounded-full bg-white dark:bg-gray-800'
+                />
               </div>
-              <div>你是 HelloGitHub 社区的第 {userInfo.rank} 位小伙伴</div>
-              <div>
-                于 {userInfo.first_login.replace(/T/g, ' ')} 加入，已分享{' '}
-                {userInfo.share_repo_total} 个开源项目，
-                {userInfo.comment_repo_total} 份开源测评
+              <div className='ml-5 flex flex-1 flex-col justify-center'>
+                <div className='my-2 flex items-center'>
+                  <div className='w-px max-w-fit flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg font-bold dark:text-slate-300'>
+                    {userDetailInfo?.nickname}
+                  </div>
+                  <div className='ml-2 text-sm font-bold text-yellow-500'>
+                    Lv{userDetailInfo?.level}
+                  </div>
+                </div>
+                <div className='text-sm leading-6 text-gray-500 dark:text-gray-400'>
+                  <div>
+                    {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
+                    社区的第{' '}
+                    <span className='font-bold dark:text-slate-300'>
+                      {userDetailInfo?.rank}
+                    </span>{' '}
+                    位小伙伴，于{' '}
+                    <span className='font-bold dark:text-slate-300'>
+                      {formatZH(
+                        userDetailInfo?.first_login,
+                        'YYYY 年 MM 月 DD 日'
+                      )}
+                    </span>{' '}
+                    加入。
+                  </div>
+                  <div>
+                    已分享{' '}
+                    <span className='font-bold dark:text-slate-300'>
+                      {userDetailInfo?.share_repo_total}
+                    </span>{' '}
+                    个开源项目{' '}
+                    <span className='font-bold dark:text-slate-300'>
+                      {userDetailInfo?.comment_repo_total}
+                    </span>{' '}
+                    份开源测评，共获得{' '}
+                    <span className='font-bold dark:text-slate-300'>
+                      {userDetailInfo?.contribute_total}
+                    </span>{' '}
+                    点贡献值。
+                  </div>
+                  <div>{userDetailInfo?.last_login}</div>
+                </div>
               </div>
             </div>
-          </div>
+
+            {/* 移动端 */}
+            <div className='align-center flex flex-col rounded-lg bg-white p-4 dark:bg-gray-800 sm:p-6 md:hidden'>
+              <div className='mx-auto flex'>
+                <Image
+                  src={userDetailInfo?.avatar}
+                  alt={userDetailInfo?.nickname}
+                  width={72}
+                  height={72}
+                  className='rounded-full bg-white dark:bg-gray-800'
+                />
+              </div>
+              <div className='flex flex-col'>
+                <div className='mx-auto mt-2 flex w-32 items-center justify-center'>
+                  <div className=' self-end overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold dark:text-slate-300'>
+                    {userDetailInfo?.nickname}
+                  </div>
+                  <div className='ml-1 self-end text-sm font-bold text-yellow-500'>
+                    <span className='align-[0.4px]'>
+                      Lv{userDetailInfo?.level}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className='flex flex-col items-center justify-center text-sm leading-6 text-gray-500 dark:text-gray-400'>
+                <p>
+                  {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
+                  社区的第{' '}
+                  <span className='font-bold dark:text-slate-300'>
+                    {' '}
+                    {userDetailInfo?.rank}{' '}
+                  </span>{' '}
+                  位小伙伴
+                </p>
+                <p>
+                  于{' '}
+                  {formatZH(userDetailInfo?.first_login, 'YYYY 年 MM 月 DD 日')}{' '}
+                  加入共获得{' '}
+                  <span className='font-bold dark:text-slate-300'>
+                    {userDetailInfo?.contribute_total}
+                  </span>{' '}
+                  点贡献值
+                </p>
+                <p>
+                  已分享{' '}
+                  <span className='font-bold dark:text-slate-300'>
+                    {userDetailInfo?.share_repo_total}
+                  </span>{' '}
+                  个开源项目{' '}
+                  <span className='font-bold dark:text-slate-300'>
+                    {userDetailInfo?.comment_repo_total}
+                  </span>{' '}
+                  份开源测评
+                </p>
+              </div>
+            </div>
+          </>
         )}
-        <div className='mt-2 h-full rounded-lg bg-white p-6'>
-          <div className='border-b-2 border-gray-200 dark:border-gray-700'>
+        <div className='mt-2 rounded-lg bg-white p-4 dark:bg-gray-800 sm:p-6'>
+          <div className='border-b border-gray-200 dark:border-gray-700'>
             <nav className='-mb-0.5 flex space-x-6'>
-              {tabList.map((tab) => {
-                return (
-                  <a
-                    key={tab.key}
-                    className={clsxm(
-                      'text-xm inline-flex items-center gap-2 whitespace-nowrap border-b-[3px] border-transparent py-4 px-1 text-gray-500 hover:text-blue-600',
-                      {
-                        'border-blue-500 font-medium': activeTab === tab.key,
-                      }
-                    )}
-                    href='#'
-                    onClick={() => setActiveTab(tab.key)}
-                  >
-                    {tab.title}
-                  </a>
-                );
-              })}
+              {tabList
+                .filter((_, index) => index === 0 || userDetailInfo?.in_person)
+                .map((tab) => {
+                  return (
+                    <span
+                      key={tab.key}
+                      className={clsxm(
+                        'text-xm inline-flex cursor-pointer items-center gap-2 whitespace-nowrap border-b-2 border-transparent py-2 px-1 text-gray-500 hover:text-blue-600 dark:text-gray-400',
+                        {
+                          '!border-blue-500 font-bold !text-blue-500':
+                            activeTab === tab.key,
+                        }
+                      )}
+                      onClick={() => setActiveTab(tab.key)}
+                    >
+                      {tab.title}
+                    </span>
+                  );
+                })}
             </nav>
           </div>
-          <div className='text-center'>
-            {tabList.find((tab) => tab.key === activeTab).title}
+          <div>
+            {activeTab === 1 && (
+              <DynamicRecordList uid={uid as string}></DynamicRecordList>
+            )}
+            {activeTab === 2 && (
+              <CollectionList uid={uid as string}></CollectionList>
+            )}
+            {activeTab === 3 && <CommentList uid={uid as string}></CommentList>}
           </div>
         </div>
+        <div className='h-2'></div>
       </div>
     </>
   );

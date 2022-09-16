@@ -32,7 +32,7 @@ const Container = (props: Props) => {
       {/* PC 端 */}
       <div
         className={clsxm(
-          'fixed left-0 top-0 right-0 bottom-0 z-10 m-auto hidden h-fit w-96 scale-90 rounded bg-white transition-transform sm:block',
+          'fixed left-0 top-0 right-0 bottom-0 z-10 m-auto hidden h-fit w-96 scale-90 rounded bg-white transition-transform dark:bg-gray-800 sm:block',
           {
             'scale-125': startAnimation,
           }
@@ -47,16 +47,21 @@ const Container = (props: Props) => {
             <VscChromeClose size={18} />
           </div>
         </div>
-        <div className='m-4 text-sm'>{props.children || props.content}</div>
+        <div className='m-4 text-sm dark:text-gray-400'>
+          {props.children || props.content}
+        </div>
         <div className='flex justify-end gap-2 py-2 px-3'>
           <Button
-            className='py-1 px-2 font-normal text-gray-600'
+            className='py-1 px-2 font-normal text-gray-600 dark:hover:border-gray-700 dark:hover:text-gray-100'
             variant='light'
             onClick={props.onCancel}
           >
             {props.cancelText || '取消'}
           </Button>
-          <Button className='py-1 px-2 font-normal' onClick={props.onOk}>
+          <Button
+            className='py-1 px-2 font-normal dark:border-blue-900 dark:bg-blue-800'
+            onClick={props.onOk}
+          >
             {props.okText || '确认'}
           </Button>
         </div>
@@ -64,28 +69,28 @@ const Container = (props: Props) => {
       {/* 移动端 */}
       <div
         className={clsxm(
-          'fixed left-0 top-0 right-0 bottom-0 z-10 m-auto h-fit w-80 scale-75 overflow-hidden rounded-lg bg-white transition-transform sm:hidden',
+          'fixed left-0 top-0 right-0 bottom-0 z-10 m-auto h-fit w-80 scale-75 overflow-hidden rounded-lg bg-white transition-transform dark:bg-gray-800 sm:hidden',
           {
             'scale-100': startAnimation,
           }
         )}
       >
-        <div className='pt-6 text-center text-base text-gray-800'>
+        <div className='pt-6 text-center text-base text-gray-800 dark:text-gray-100'>
           {props.title}
         </div>
-        <div className='px-6 pt-2 pb-6 text-center text-sm text-gray-500'>
+        <div className='px-6 pt-2 pb-6 text-center text-sm text-gray-500 dark:text-gray-400'>
           {props.children || props.content}
         </div>
-        <div className='flex gap-px bg-gray-100 pt-px'>
+        <div className='flex gap-px bg-gray-100 pt-px dark:bg-gray-700'>
           <Button
-            className='flex h-12 flex-1 items-center justify-center rounded-none bg-white font-normal text-gray-800'
+            className='flex h-12 flex-1 items-center justify-center rounded-none bg-white font-normal text-gray-800 dark:bg-gray-800 dark:text-gray-100'
             variant='ghost'
             onClick={props.onCancel}
           >
             {props.cancelText || '取消'}
           </Button>
           <Button
-            className='flex h-12 flex-1 items-center justify-center rounded-none bg-white font-normal text-blue-500'
+            className='flex h-12 flex-1 items-center justify-center rounded-none bg-white font-normal text-blue-500 dark:bg-gray-800'
             variant='ghost'
             onClick={props.onOk}
           >

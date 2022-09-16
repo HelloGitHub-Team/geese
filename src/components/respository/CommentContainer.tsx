@@ -3,8 +3,6 @@ import useCommentList from '@/hooks/useCommentList';
 import CommentItem from '@/components/respository/CommentItem';
 import CommentSubmit from '@/components/respository/CommentSubmit';
 
-import { CommentSuccessData } from '@/types/reppsitory';
-
 interface Props {
   belong: string;
   belongId: string;
@@ -44,13 +42,13 @@ const CommentContainer = (props: Props) => {
         : currentUserComment.votes - 1,
     });
   };
-  const handleCommentSuccess = (data: CommentSuccessData) => {
-    setCurrentUserComment(data.data);
+  const handleCommentSuccess = () => {
+    refreshList();
   };
   const handleCommentFail = () => {
     refreshList();
   };
-  const btnActive = '!bg-blue-500';
+  const btnActive = '!bg-blue-500 dark:!bg-blue-800';
 
   return (
     <div className={`p-4 ${className}`}>
@@ -108,8 +106,8 @@ const CommentContainer = (props: Props) => {
           </div>
         </>
       ) : (
-        <div className='mt-4 border-t border-gray-300 text-center text-xl'>
-          <div className='py-14 text-gray-300'>暂无评论</div>
+        <div className='mt-4 border-t border-gray-300 text-center text-xl dark:border-gray-700'>
+          <div className='py-14 text-gray-300 dark:text-gray-500'>暂无评论</div>
         </div>
       )}
     </div>

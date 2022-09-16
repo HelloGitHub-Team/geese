@@ -10,8 +10,7 @@ import log from '@/lib/log';
 import useToken from '@/hooks/useToken';
 
 import { getOAtuhURL, Logout } from '@/services/login';
-
-import { NOOP } from '~/constants';
+import { NOOP } from '@/utils/constants';
 
 const LoginContext = createContext({
   isLogin: false,

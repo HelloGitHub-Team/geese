@@ -28,17 +28,17 @@ export default function IndexSide() {
       <div ref={containerRef}>
         <div className='mt-2 ml-3'>
           <div className='space-y-2'>
-            <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5'>
+            <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5 dark:bg-gray-800'>
               <UserStatus></UserStatus>
             </div>
             <Ad
               id='upyun'
-              image='https://img.hellogithub.com/ad/side_upyun.png'
+              image='https://img.hellogithub.com/ad/upyun_side.png'
               url='https://www.upyun.com/overseasActivities'
             />
             <Ad
               id='ucloud'
-              image='https://img.hellogithub.com/ad/ucloud.png'
+              image='https://img.hellogithub.com/ad/ucloud_side.png'
               url='https://www.ucloud.cn/site/active/kuaijiesale.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display#wulanchabu'
             />
             <Status />
@@ -52,7 +52,7 @@ export default function IndexSide() {
       >
         <Ad
           id='upyun'
-          image='https://img.hellogithub.com/ad/side_upyun.png'
+          image='https://img.hellogithub.com/ad/upyun_side.png'
           url='https://www.upyun.com/overseasActivities'
         />
         <Ad

@@ -17,17 +17,18 @@ export function debounce(func: any, wait: number) {
   };
 }
 
-export function numFormat(n: number | undefined, digits = 0) {
+export function numFormat(n: number | undefined, digits = 0, threshold = 1000) {
   if (n === void 0) {
     return '';
   }
   const num = +n;
-  if (num < 10000) {
+  if (num < threshold) {
     return n;
   }
   const si = [
     { value: 1, symbol: '' },
-    { value: 1e4, symbol: 'W+' },
+    { value: 1e3, symbol: 'k' },
+    { value: 1e4, symbol: 'w' },
     { value: 1e6, symbol: 'M' },
     { value: 1e9, symbol: 'G' },
     { value: 1e12, symbol: 'T' },

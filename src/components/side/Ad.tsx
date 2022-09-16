@@ -2,8 +2,7 @@ import Image from 'next/image';
 import { MouseEventHandler, useState } from 'react';
 import { VscClose } from 'react-icons/vsc';
 
-const PUTAdURL =
-  'https://hellogithub.yuque.com/forms/share/ecbba03f-3e35-44db-99af-a664d24b539f';
+import { PUTAdURL } from '@/utils/constants';
 
 interface Props {
   id: string;
@@ -27,13 +26,13 @@ export default function Ad(props: Props) {
 
   return (
     <div
-      className={`${props.className} relative h-20 cursor-pointer overflow-hidden rounded-lg bg-white`}
+      className={`${props.className} relative h-20 cursor-pointer overflow-hidden rounded-lg bg-white dark:bg-gray-800`}
       hidden={!visible}
     >
       <a href={props.url} target='_blank' rel='noreferrer'>
         <div className='group relative h-full'>
           <Image
-            className='object-fill'
+            className='object-contain'
             layout='fill'
             src={props.image}
             alt='广告'
@@ -48,7 +47,7 @@ export default function Ad(props: Props) {
       </a>
 
       <a href={PUTAdURL} target='_blank' rel='noreferrer'>
-        <div className='group absolute right-2 bottom-2 cursor-pointer rounded-sm border border-white bg-[rgba(0,0,0,.2)] px-1.5 text-xs text-white'>
+        <div className='group absolute right-2 bottom-2 cursor-pointer rounded-sm border border-white bg-[rgba(0,0,0,.2)] px-1.5 text-xs text-white dark:border-slate-500 dark:text-slate-500'>
           <span className='group-hover:hidden'>广告</span>
           <span className='hidden group-hover:inline'>投放广告</span>
         </div>

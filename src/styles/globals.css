@@ -43,12 +43,8 @@
       U+2215, U+FEFF, U+FFFD;
   } */
 
-  .cursor-newtab {
-    cursor: url('/images/new-tab.png') 10 10, pointer;
-  }
-
   body {
-    @apply bg-gray-100;
+    @apply bg-gray-100 dark:bg-gray-900;
   }
   /* #region  /**=========== Typography =========== */
   .h0 {
@@ -229,4 +225,9 @@ svg {
   background-color: #e4e6eb;
   outline: none;
   border-radius: 2px;
+  @apply dark:bg-gray-700;
+}
+
+.dark {
+  color-scheme: dark;
 }

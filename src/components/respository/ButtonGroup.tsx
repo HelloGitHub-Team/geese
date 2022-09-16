@@ -12,6 +12,7 @@ import {
   userRepoStatus,
   voteRepo,
 } from '@/services/repository';
+import { numFormat } from '@/utils/util';
 
 import message from '../message';
 
@@ -72,7 +73,9 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
   };
 
   const handleCopy = (repo: Repository) => {
-    const text = `${repo.title.trim()}\n开源项目详情：https://dev.hg.hellogithub.com/repository/${
+    const text = `${
+      repo.name
+    }：${repo.title.trim()}\n开源项目详情：https://dev.hg.hellogithub.com/repository/${
       repo.rid
     }`;
     if (copy(text)) {
@@ -87,12 +90,12 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
   }, [repo]);
 
   return (
-    <div className='flex border-t border-solid bg-white text-center text-xs text-gray-600'>
+    <div className='flex border-t border-solid bg-white text-center text-xs text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'>
       {isVoted ? (
         <div className={commonStyle} onClick={() => onCancelVote(repo.rid)}>
           <IoMdThumbsUp className='mr-1 text-blue-500' size={14} />
           <span className='text-xs text-inherit text-blue-500'>
-            {likesTotal}
+            {numFormat(likesTotal, 1)}
           </span>
         </div>
       ) : (
@@ -106,7 +109,7 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
         <div className={commonStyle} onClick={() => onCancelCollect(repo.rid)}>
           <GoStar className='mr-1 text-blue-500' size={14} />
           <span className='text-xs text-inherit text-blue-500'>
-            {collectTotal}
+            {numFormat(collectTotal, 1)}
           </span>
         </div>
       ) : (
