@@ -5,8 +5,7 @@ import { VscChromeClose } from 'react-icons/vsc';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
-import { Dialog } from '@/components/dialog';
-import { Transition } from '@/components/dialog/transition/transition';
+import BasicDialog from '@/components/dialog/BasicDialog';
 import Message from '@/components/message';
 
 import { createRepo } from '@/services/repository';
@@ -79,7 +78,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
             id='url'
             onChange={onUrlChange}
           />
-          <div className='mt-2 text-xs text-gray-400'>
+          <div className='mt-2 text-left text-xs text-gray-400'>
             👆 仅接受 GitHub 上的开源项目
           </div>
         </div>
@@ -95,7 +94,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
             id='summary'
             onChange={onSummaryChange}
           ></textarea>
-          <div className='mt-2 text-xs text-gray-400'>
+          <div className='mt-2 text-left text-xs text-gray-400'>
             字数限制 10-200 个字符
           </div>
         </div>
@@ -137,50 +136,17 @@ export function RepoModal({ children }: { children: JSX.Element }) {
 
   return (
     <>
-      {React.cloneElement(children, { onClick: openModal })}
-
-      <Transition as={Fragment} show={isOpen} appear>
-        <Dialog as='div' className='relative z-10' onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter='ease-out duration-300'
-            enterFrom='opacity-0'
-            enterTo='opacity-100'
-            leave='ease-in duration-200'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
-          >
-            <div className='fixed inset-0 bg-black bg-opacity-25' />
-          </Transition.Child>
-
-          <div className='fixed inset-0 overflow-y-auto'>
-            <div className='flex min-h-full items-center justify-center p-4 text-center'>
-              <Transition.Child
-                as={Fragment}
-                enter='ease-out duration-300'
-                enterFrom='opacity-0 scale-95'
-                enterTo='opacity-100 scale-100'
-                leave='ease-in duration-200'
-                leaveFrom='opacity-100 scale-100'
-                leaveTo='opacity-0 scale-95'
-              >
-                <Dialog.Panel className='w-[48rem] max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-700'>
-                  <div
-                    className='ml-auto box-content w-6 pb-4 pl-4'
-                    onClick={closeModal}
-                  >
-                    <VscChromeClose
-                      size={24}
-                      className='cursor-pointer text-gray-500'
-                    />
-                  </div>
-                  <CreateRepo response={handleResponse}></CreateRepo>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
+      <div onClick={openModal}>{children}</div>
+      <BasicDialog
+        className='w-5/6 max-w-xl rounded-lg p-5'
+        visible={isOpen}
+        onClose={closeModal}
+      >
+        <div className='ml-auto box-content w-6 pb-4 pl-4' onClick={closeModal}>
+          <VscChromeClose size={24} className='cursor-pointer text-gray-500' />
+        </div>
+        <CreateRepo response={handleResponse}></CreateRepo>
+      </BasicDialog>
     </>
   );
 }
