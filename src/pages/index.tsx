@@ -68,7 +68,7 @@ const Index: NextPage = () => {
         <Items repositories={repositories}></Items>
         {(isValidating || hasMore) && (
           <div
-            className='divide-y divide-slate-100 overflow-hidden dark:divide-slate-700'
+            className='divide-y divide-gray-100 overflow-hidden dark:divide-gray-700'
             ref={sentryRef}
           >
             <Loading></Loading>

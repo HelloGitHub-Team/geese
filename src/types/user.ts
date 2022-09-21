@@ -1,4 +1,4 @@
-import { RepoType } from '@/types/reppsitory';
+import { RepoType } from './reppsitory';
 
 export interface UserAvaterProps {
   avatar: string;

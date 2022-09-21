@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { pathname } = router;
   // 需要单页面展示的路由
   const singlePage: string[] = ['/404', '/500'];
+
   return (
     <div id='root'>
       <Script

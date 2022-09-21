@@ -74,7 +74,7 @@ const CommentContainer = (props: Props) => {
               <button
                 className={`${
                   sortType === 'last' ? btnActive : ''
-                } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-l-lg bg-slate-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90`}
+                } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-l-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90`}
                 onClick={() => sortBy('last')}
               >
                 最新
@@ -82,7 +82,7 @@ const CommentContainer = (props: Props) => {
               <button
                 className={`${
                   sortType === 'hot' ? btnActive : ''
-                } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-r-lg bg-slate-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90`}
+                } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-r-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90`}
                 onClick={() => sortBy('hot')}
               >
                 最热
@@ -99,17 +99,15 @@ const CommentContainer = (props: Props) => {
           ))}
           <div
             hidden={!hasMore}
-            className='cursor-pointer rounded-md bg-slate-50 text-center text-sm leading-10 hover:bg-slate-200 active:bg-slate-50'
+            className='cursor-pointer rounded-md bg-gray-50 text-center text-sm leading-10 hover:bg-gray-200 active:bg-gray-50'
             onClick={loadMore}
           >
             加载更多...
           </div>
         </>
       ) : (
-        <div className='mt-4 border-t border-slate-300 text-center text-xl dark:border-slate-700'>
-          <div className='py-14 text-slate-300 dark:text-slate-500'>
-            暂无评论
-          </div>
+        <div className='mt-4 border-t border-gray-300 text-center text-xl dark:border-gray-700'>
+          <div className='py-14 text-gray-300 dark:text-gray-500'>暂无评论</div>
         </div>
       )}
     </div>

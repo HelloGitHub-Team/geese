@@ -31,3 +31,12 @@ const PeriodicalButton = () => {
   );
 };
 export default PeriodicalButton;
+
+export const getPeriodicalPath = async () => {
+  const { data, lastNum } = await getVolumeNum();
+  if (data) {
+    return `/periodical/volume/${lastNum}`;
+  } else {
+    return '/';
+  }
+};

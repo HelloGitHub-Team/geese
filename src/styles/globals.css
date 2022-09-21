@@ -160,48 +160,48 @@ svg {
 }
 @-webkit-keyframes antMoveUpIn {
   0% {
-    transform: translateY(-100%);
+    transform: trangrayY(-100%);
     transform-origin: 0 0;
     opacity: 0;
   }
   100% {
-    transform: translateY(0%);
+    transform: trangrayY(0%);
     transform-origin: 0 0;
     opacity: 1;
   }
 }
 @keyframes antMoveUpIn {
   0% {
-    transform: translateY(-100%);
+    transform: trangrayY(-100%);
     transform-origin: 0 0;
     opacity: 0;
   }
   100% {
-    transform: translateY(0%);
+    transform: trangrayY(0%);
     transform-origin: 0 0;
     opacity: 1;
   }
 }
 @-webkit-keyframes antMoveUpOut {
   0% {
-    transform: translateY(0%);
+    transform: trangrayY(0%);
     transform-origin: 0 0;
     opacity: 1;
   }
   100% {
-    transform: translateY(-100%);
+    transform: trangrayY(-100%);
     transform-origin: 0 0;
     opacity: 0;
   }
 }
 @keyframes antMoveUpOut {
   0% {
-    transform: translateY(0%);
+    transform: trangrayY(0%);
     transform-origin: 0 0;
     opacity: 1;
   }
   100% {
-    transform: translateY(-100%);
+    transform: trangrayY(-100%);
     transform-origin: 0 0;
     opacity: 0;
   }
