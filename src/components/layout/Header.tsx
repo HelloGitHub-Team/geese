@@ -114,8 +114,10 @@ const Header = () => {
               </li>
             ) : (
               <>
-                <RankButton type='dropdown' />
-                <AvatarWithDropdown className='md:hidden' />
+                <li className='md:hidden'>
+                  <RankButton type='dropdown' />
+                  <AvatarWithDropdown />
+                </li>
               </>
             )}
           </>
