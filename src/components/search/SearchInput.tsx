@@ -103,7 +103,7 @@ export default function SearchInput() {
 
   const dropdownClassName = (show: boolean) =>
     classNames(
-      'absolute z-10 mt-1 w-full origin-top-right rounded-md border border-slate-100 dark:border-slate-900 bg-white dark:bg-slate-800 shadow-lg',
+      'absolute z-10 mt-1 w-full origin-top-right rounded-md border border-gray-100 dark:border-gray-900 bg-white dark:bg-gray-800 shadow-lg',
       {
         block: show,
         hidden: !show,
@@ -118,7 +118,7 @@ export default function SearchInput() {
       <div className='relative w-full max-w-xs'>
         <input
           type='text'
-          className='block h-10 w-full rounded-md border-slate-200 py-3 px-2 text-xs placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:placeholder:text-slate-400 dark:focus:border-blue-900 dark:focus:ring-blue-900 md:text-sm'
+          className='block h-10 w-full rounded-md border-gray-200 py-3 px-2 text-xs placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:placeholder:text-gray-400 dark:focus:border-blue-900 dark:focus:ring-blue-900 md:text-sm'
           placeholder='搜索开源项目'
           value={query}
           onChange={onQueryChange}
@@ -128,7 +128,7 @@ export default function SearchInput() {
 
         <IoIosSearch
           size={24}
-          className='absolute right-1 top-2 mr-2 cursor-pointer text-slate-800 dark:text-slate-300'
+          className='absolute right-1 top-2 mr-2 cursor-pointer text-gray-800 dark:text-gray-300'
           onClick={onSearch}
         />
 
@@ -137,7 +137,7 @@ export default function SearchInput() {
             {dropdownList.map((item) => (
               <a
                 href='#'
-                className='block rounded-lg px-4 py-2 text-sm text-slate-500 hover:bg-slate-50 hover:text-slate-700 dark:hover:bg-slate-700 dark:hover:text-slate-300'
+                className='block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-gray-300'
                 role='menuitem'
                 key={item.id}
                 onClick={() => onClickLenovoWord(item)}

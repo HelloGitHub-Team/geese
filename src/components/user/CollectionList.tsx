@@ -53,7 +53,7 @@ export default function CollectionList(props: Props) {
                   主语言：
                   <span
                     style={{ backgroundColor: `${item.repo.lang_color}` }}
-                    className='relative mr-1 box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px] dark:border-slate-500'
+                    className='relative mr-1 box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px] dark:border-gray-500'
                   ></span>
                   {item.repo.primary_lang}
                 </div>
@@ -65,7 +65,7 @@ export default function CollectionList(props: Props) {
             </div>
             <Link href={`/repository/${item.repo.rid}`} rel='noreferrer'>
               <Button
-                className='h-8 px-2 text-sm font-normal dark:border-slate-500 dark:text-slate-500'
+                className='h-8 px-2 text-sm font-normal dark:border-gray-500 dark:text-gray-500'
                 variant='outline'
               >
                 查看

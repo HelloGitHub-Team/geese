@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useEffect } from 'react';
 
 import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
@@ -11,7 +12,6 @@ import { LoginProvider } from '@/hooks/useLoginContext';
 import Layout from '@/components/layout/Layout';
 import { AlertComp as Alert } from '@/components/message/Alert';
 import PullRefresh from '@/components/PullRefresh';
-import ToTop from '@/components/toTop/ToTop';
 
 /**
  * !STARTERCONF info
@@ -53,7 +53,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Alert />
         </div>
       </LoginProvider>
-      <ToTop />
     </div>
   );
 }

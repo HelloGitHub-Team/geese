@@ -52,41 +52,45 @@ export const RankSearchBar = ({
   }, [router]);
 
   return (
-    <div className='mb-2 flex items-center justify-between rounded-lg border bg-gray-50 py-2 px-2 shadow dark:border-gray-700 dark:bg-gray-700 dark:shadow-gray-900'>
-      <Dropdown
-        options={options}
-        initValue={target}
-        onChange={(opt) => onChange('target', opt.key)}
-      />
-      <div className='flex items-center'>
-        {logo && (
-          <div className='inline h-6 w-6'>
-            <Image className='inline h-6 w-6' src={logo} alt={title}></Image>
-          </div>
-        )}
-        <span className='ml-1'>{title}</span>
+    <div className='mb-2 flex items-center justify-between overflow-hidden rounded-lg border bg-gray-50 py-2 px-2 shadow dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-800'>
+      <div className='grid w-1/3 justify-items-start'>
+        <Dropdown
+          options={options}
+          initValue={target}
+          onChange={(opt) => onChange('target', opt.key)}
+        />
       </div>
-      <Dropdown
-        initValue={month}
-        options={monthList?.map((m) => ({ key: m, value: `${m}月` }))}
-        onChange={(opt: any) => onChange('month', opt.key)}
-      />
+      <div className='grid w-1/3 justify-items-center'>
+        <div className='center flex'>
+          {logo && (
+            <Image className='inline h-6 w-6' src={logo} alt={title}></Image>
+          )}
+          <span className='ml-1 dark:text-gray-300'>{title}</span>
+        </div>
+      </div>
+      <div className='grid w-1/3 justify-items-end'>
+        <Dropdown
+          initValue={month}
+          options={monthList?.map((m) => ({ key: m, value: `${m}月` }))}
+          onChange={(opt: any) => onChange('month', opt.key)}
+        />
+      </div>
     </div>
   );
 };
 
 export const Table = ({ columns, list }: TableProps) => {
   return (
-    <div className='overflow-x-auto rounded-lg border shadow'>
-      <table className='min-w-full divide-y-2 divide-gray-200 text-sm'>
+    <div className='overflow-hidden rounded-lg border shadow dark:border-gray-700 dark:shadow-none'>
+      <table className='w-min	min-w-full table-fixed divide-y-2 divide-gray-200 text-sm dark:divide-gray-700'>
         <thead>
           <tr>
             {columns?.map(({ key, title, width = 'auto' }: column) => (
               <th
                 key={key}
                 scope='col'
-                style={{ minWidth: width }}
-                className='text-xm px-6 py-3 text-left font-medium uppercase text-gray-500 dark:text-gray-400'
+                style={{ width: width }}
+                className='px-4 py-2 text-left text-sm font-medium uppercase text-gray-500 dark:text-gray-300 md:px-6 md:py-3'
               >
                 {title}
               </th>
@@ -94,7 +98,7 @@ export const Table = ({ columns, list }: TableProps) => {
           </tr>
         </thead>
 
-        <tbody className='divide-y divide-gray-200'>
+        <tbody className='divide-y divide-gray-200 dark:divide-gray-700'>
           {list?.map((row: RankDataItem, index) => (
             <tr key={index}>
               {columns.map(({ key, render }) => {
@@ -105,7 +109,7 @@ export const Table = ({ columns, list }: TableProps) => {
                 return (
                   <td
                     key={key}
-                    className='whitespace-nowrap bg-white px-6 py-4 text-left text-sm font-medium text-gray-800 dark:text-gray-200'
+                    className='truncate whitespace-nowrap bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300 md:px-6 md:py-4'
                   >
                     {content}
                   </td>

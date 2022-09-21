@@ -2,7 +2,7 @@ import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-import { RankData } from '@/types/rank';
+import { NetcraftRankData, RankData } from '@/types/rank';
 
 // 编程语言排名
 export const getTiobeRank = async (month?: number): Promise<RankData> => {
@@ -19,16 +19,18 @@ export const getTiobeRank = async (month?: number): Promise<RankData> => {
 };
 
 // 服务器排名
-export const getNetcraftRank = async (month?: number): Promise<RankData> => {
+export const getNetcraftRank = async (
+  month?: number
+): Promise<NetcraftRankData> => {
   let url = '/report/netcraft/';
   if (month) {
     url = `${url}?month=${month}`;
   }
   try {
-    const data = await fetcher<RankData>(makeUrl(url));
+    const data = await fetcher<NetcraftRankData>(makeUrl(url));
     return data;
   } catch (error) {
-    return {} as RankData;
+    return {} as NetcraftRankData;
   }
 };
 

@@ -47,7 +47,7 @@ export default function Ad(props: Props) {
       </a>
 
       <a href={PUTAdURL} target='_blank' rel='noreferrer'>
-        <div className='group absolute right-2 bottom-2 cursor-pointer rounded-sm border border-white bg-[rgba(0,0,0,.2)] px-1.5 text-xs text-white dark:border-slate-500 dark:text-slate-500'>
+        <div className='group absolute right-2 bottom-2 cursor-pointer rounded-sm border border-white bg-[rgba(0,0,0,.2)] px-1.5 text-xs text-white dark:border-gray-500 dark:text-gray-500'>
           <span className='group-hover:hidden'>广告</span>
           <span className='hidden group-hover:inline'>投放广告</span>
         </div>

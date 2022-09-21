@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import clsxm from '@/lib/clsxm';
-
 import useUserDetailInfo from '@/hooks/user/useUserDetailInfo';
 
 import Navbar from '@/components/navbar/Navbar';
@@ -29,7 +28,7 @@ export default function User() {
   return (
     <>
       <Seo templateTitle={userDetailInfo?.nickname} />
-      <div className='h-screen divide-y divide-slate-100 dark:divide-slate-800'>
+      <div className='h-screen divide-y divide-gray-100 dark:divide-gray-800'>
         <Navbar middleText='个人主页'></Navbar>
         {userDetailInfo?.nickname && (
           <>
@@ -46,7 +45,7 @@ export default function User() {
               </div>
               <div className='ml-5 flex flex-1 flex-col justify-center'>
                 <div className='my-2 flex items-center'>
-                  <div className='w-px max-w-fit flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg font-bold dark:text-slate-300'>
+                  <div className='w-px max-w-fit flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg font-bold dark:text-gray-300'>
                     {userDetailInfo?.nickname}
                   </div>
                   <div className='ml-2 text-sm font-bold text-yellow-500'>
@@ -57,11 +56,11 @@ export default function User() {
                   <div>
                     {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
                     社区的第{' '}
-                    <span className='font-bold dark:text-slate-300'>
+                    <span className='font-bold dark:text-gray-300'>
                       {userDetailInfo?.rank}
                     </span>{' '}
                     位小伙伴，于{' '}
-                    <span className='font-bold dark:text-slate-300'>
+                    <span className='font-bold dark:text-gray-300'>
                       {formatZH(
                         userDetailInfo?.first_login,
                         'YYYY 年 MM 月 DD 日'
@@ -71,15 +70,15 @@ export default function User() {
                   </div>
                   <div>
                     已分享{' '}
-                    <span className='font-bold dark:text-slate-300'>
+                    <span className='font-bold dark:text-gray-300'>
                       {userDetailInfo?.share_repo_total}
                     </span>{' '}
                     个开源项目{' '}
-                    <span className='font-bold dark:text-slate-300'>
+                    <span className='font-bold dark:text-gray-300'>
                       {userDetailInfo?.comment_repo_total}
                     </span>{' '}
                     份开源测评，共获得{' '}
-                    <span className='font-bold dark:text-slate-300'>
+                    <span className='font-bold dark:text-gray-300'>
                       {userDetailInfo?.contribute_total}
                     </span>{' '}
                     点贡献值。
@@ -102,7 +101,7 @@ export default function User() {
               </div>
               <div className='flex flex-col'>
                 <div className='mx-auto mt-2 flex w-32 items-center justify-center'>
-                  <div className=' self-end overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold dark:text-slate-300'>
+                  <div className=' self-end overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold dark:text-gray-300'>
                     {userDetailInfo?.nickname}
                   </div>
                   <div className='ml-1 self-end text-sm font-bold text-yellow-500'>
@@ -117,7 +116,7 @@ export default function User() {
                 <p>
                   {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
                   社区的第{' '}
-                  <span className='font-bold dark:text-slate-300'>
+                  <span className='font-bold dark:text-gray-300'>
                     {' '}
                     {userDetailInfo?.rank}{' '}
                   </span>{' '}
@@ -127,18 +126,18 @@ export default function User() {
                   于{' '}
                   {formatZH(userDetailInfo?.first_login, 'YYYY 年 MM 月 DD 日')}{' '}
                   加入共获得{' '}
-                  <span className='font-bold dark:text-slate-300'>
+                  <span className='font-bold dark:text-gray-300'>
                     {userDetailInfo?.contribute_total}
                   </span>{' '}
                   点贡献值
                 </p>
                 <p>
                   已分享{' '}
-                  <span className='font-bold dark:text-slate-300'>
+                  <span className='font-bold dark:text-gray-300'>
                     {userDetailInfo?.share_repo_total}
                   </span>{' '}
                   个开源项目{' '}
-                  <span className='font-bold dark:text-slate-300'>
+                  <span className='font-bold dark:text-gray-300'>
                     {userDetailInfo?.comment_repo_total}
                   </span>{' '}
                   份开源测评

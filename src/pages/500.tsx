@@ -23,8 +23,8 @@ export default function ServerErrorPage() {
               <SVG500 className='md:hidden' width={300} height={300} />
             </div>
             <Link href='/'>
-              <div className='group relative inline-flex cursor-pointer items-center overflow-hidden rounded border border-current px-7 py-2 text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:text-slate-500 dark:active:text-slate-500'>
-                <span className='absolute right-0 translate-x-full transition-transform group-hover:-translate-x-4'>
+              <div className='group relative inline-flex cursor-pointer items-center overflow-hidden rounded border border-current px-7 py-2 text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:text-gray-500 dark:active:text-gray-500'>
+                <span className='trangray-x-full group-hover:-trangray-x-4 absolute right-0 transition-transform'>
                   <IoIosArrowForward size={16} />
                 </span>
 
@@ -33,7 +33,7 @@ export default function ServerErrorPage() {
                 </span>
               </div>
             </Link>
-            <div className='mt-4 block text-xs text-slate-400'>
+            <div className='mt-4 block text-xs text-gray-400'>
               <a
                 target='_blank'
                 className='cursor-pointer hover:underline'

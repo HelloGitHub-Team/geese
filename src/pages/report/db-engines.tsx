@@ -1,24 +1,38 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 
+import Loading from '@/components/loading/Loading';
+import Navbar from '@/components/navbar/Navbar';
 import RankTable, { RankSearchBar } from '@/components/rankTable/RankTable';
-import { ChangeColumnRender } from '@/components/report/Report';
+import {
+  ChangeColumnRender,
+  TrendColumnRender,
+} from '@/components/report/Report';
 import Seo from '@/components/Seo';
 
 import { getDBRank } from '@/services/rank';
 
 import { RankPageProps } from '@/types/rank';
 
+// 排名	数据库	分数	对比上月	类型
 const columns: any[] = [
   { key: 'position', title: '排名', width: 80 },
-  { key: 'name', title: '数据库名称', width: 120 },
+  { key: 'name', title: '数据库' },
   { key: 'rating', title: '分数' },
   {
     key: 'change',
     title: '对比上月',
     render: ChangeColumnRender,
   },
-  { key: 'db_model', title: '数据库类型' },
+  { key: 'db_model', title: '类型' },
+];
+
+// 排名	数据库	流行度
+const md_columns: any[] = [
+  { key: 'position', title: '排名', width: 60 },
+  { key: 'name', title: '数据库' },
+  { key: 'rating', title: '分数', width: 80 },
+  { key: 'change', title: '趋势', render: TrendColumnRender, width: 60 },
 ];
 
 const DBEnginesPage: NextPage<RankPageProps> = ({
@@ -42,44 +56,41 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
   return (
     <>
       <Seo title='数据库排行 | HelloGitHub' />
-      <div className='p-2 text-center'>
-        <h2 className='my-4 font-light'>
-          {year}年{month}月数据库排行榜
-        </h2>
-        <h4 className='my-2 font-light text-gray-400'>
-          最新 DB-Engines 数据库排行榜，关注数据库流行动态
-        </h4>
+      {list ? (
+        <div>
+          <Navbar middleText={`${year} 年 ${month} 月数据库排行榜`}></Navbar>
 
-        <div className='p-4 text-left'>
-          <h2 className='my-8 font-light text-gray-400'>
-            DB-Engines Ranking of database management systems, September 2022
-          </h2>
-          <ul className=''>
-            <li className='leading-loose'>
-              DB-Engines 排名是按人气排名数据库管理系统，涵盖 340 多个系统。
-              排名标准包括搜索系统名称时搜索引擎结果的数量、Google 趋势、 Stack
-              Overflow 网站、LinkedIn、Twitter 等社交网络中的提及的情况，
-              综合比较、排名。该排名每月更新一次。
-            </li>
-          </ul>
+          <div className='my-2 bg-white px-2 pt-2 dark:bg-gray-800 md:rounded-lg'>
+            <RankSearchBar
+              title='DB-Engines'
+              logo='https://img.hellogithub.com/logo/db.jpg'
+              monthList={monthList}
+              onChange={onSearch}
+            />
+            <div className='md:hidden'>
+              <RankTable columns={md_columns} list={list} />
+            </div>
+            <div className='hidden md:block'>
+              <RankTable columns={columns} list={list} />
+            </div>
+            <div className='mt-2 rounded-lg border bg-white p-2 text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'>
+              <div className='whitespace-pre-wrap leading-8'>
+                <p>
+                  <span className='font-bold'>「DB-Engines 排名」</span>
+                  是按流行程度对数据库管理系统进行排名，涵盖 380
+                  多个系统，每月更新一次。
+                  排名标准包括搜索数据库名称时的搜索引擎结果的数量、Google
+                  趋势、Stack
+                  Overflow、社交网络和提及数据库的工作机会等数据，综合比较排名。
+                </p>
+              </div>
+            </div>
+            <div className='h-2'></div>
+          </div>
         </div>
-
-        <RankSearchBar
-          title='DB-Engines'
-          logo='https://img.hellogithub.com/logo/db.jpg'
-          monthList={monthList}
-          onChange={onSearch}
-        />
-        <RankTable columns={columns} list={list} />
-
-        <p className='mt-5 mb-10 text-left leading-loose'>
-          以上内容均来自于 DB-Engines 发布的{' '}
-          <a href='https://db-engines.com/en/ranking' className='text-blue-500'>
-            DB-Engines Ranking of database management systems, September 2022
-          </a>
-          ， 可以阅读原文查看更多详细信息。
-        </p>
-      </div>
+      ) : (
+        <Loading></Loading>
+      )}
     </>
   );
 };

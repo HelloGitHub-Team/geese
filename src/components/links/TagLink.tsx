@@ -15,11 +15,11 @@ export default function TagLink({ tagItems }: TagsProps) {
             <li className='shrink-0 grow-0 basis-auto' key={item.tid}>
               <Link href={`/?sort_by=${sort_by}&tid=${item.tid}`}>
                 {tid == item.tid ? (
-                  <a className='mt-1 mr-1 inline-flex h-6 items-center justify-center rounded-xl bg-slate-100 px-0 pl-2 pr-2 text-blue-500 dark:bg-slate-700 dark:focus:bg-slate-700'>
+                  <a className='mt-1 mr-1 inline-flex h-6 items-center justify-center rounded-xl bg-gray-100 px-0 pl-2 pr-2 text-blue-500 dark:bg-gray-700 dark:focus:bg-gray-700'>
                     {item.name}
                   </a>
                 ) : (
-                  <a className='mt-1 mr-1 inline-flex h-6 items-center justify-center rounded-xl px-0 pl-2 pr-2 text-slate-500 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-700'>
+                  <a className='mt-1 mr-1 inline-flex h-6 items-center justify-center rounded-xl px-0 pl-2 pr-2 text-gray-500 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'>
                     {item.name}
                   </a>
                 )}

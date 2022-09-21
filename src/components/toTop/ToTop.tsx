@@ -39,7 +39,7 @@ export default function ToTop({ cb }: ToTopProps) {
     <div
       onClick={onToTop}
       style={show ? { display: 'flex' } : { display: 'none' }}
-      className='z-99 fixed bottom-10 right-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md dark:bg-gray-800 dark:text-slate-300'
+      className='z-99 fixed bottom-10 right-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md dark:bg-gray-800 dark:text-gray-300'
     >
       <IoIosArrowRoundUp size={22} />
     </div>

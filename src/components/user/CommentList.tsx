@@ -41,7 +41,7 @@ export default function CommentList(props: Props) {
                     <></>
                   ) : (
                     <Button
-                      className='mr-1 h-7 p-2 font-normal dark:border-slate-500 dark:text-slate-500'
+                      className='mr-1 h-7 p-2 font-normal dark:border-gray-500 dark:text-gray-500'
                       variant='outline'
                     >
                       <a
@@ -53,7 +53,7 @@ export default function CommentList(props: Props) {
                       </a>
                     </Button>
                   )}
-                  <Button className='h-7 p-2 font-normal dark:border-slate-500 dark:bg-slate-800 dark:text-slate-500'>
+                  <Button className='h-7 p-2 font-normal dark:border-gray-500 dark:bg-gray-800 dark:text-gray-500'>
                     <a
                       href={`/${item.belong}/${item.belong_id}`}
                       target='_blank'

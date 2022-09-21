@@ -89,7 +89,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {isLoading && (
           <div
             className={clsxm(
-              'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
+              '-trangray-x-1/2 -trangray-y-1/2 absolute top-1/2 left-1/2',
               {
                 'text-white': ['primary', 'dark'].includes(variant),
                 'text-black': ['light'].includes(variant),
