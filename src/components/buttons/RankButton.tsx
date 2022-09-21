@@ -11,9 +11,9 @@ type RankButtonProps = {
 };
 
 const btnList: option[] = [
-  { key: '/report/tiobe', value: '排行榜' },
   { key: '/', value: '首页' },
   { key: 'periodical', value: '月刊' },
+  { key: '/report/tiobe', value: '排行榜' },
 ];
 
 export const RankButton = (props: RankButtonProps) => {
@@ -32,6 +32,8 @@ export const RankButton = (props: RankButtonProps) => {
     return (
       <Dropdown
         size='small'
+        border={false}
+        width={78}
         options={btnList}
         onChange={(opt) => onChange(opt)}
       />

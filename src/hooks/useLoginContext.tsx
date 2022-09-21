@@ -21,6 +21,8 @@ const LoginContext = createContext({
 export const LoginProvider = ({ children }: { children: JSX.Element[] }) => {
   const { token, setToken } = useToken();
   const [isLogin, setIsLogin] = useState(!!token);
+  const [theme, setTheme] = useState('light');
+
   const login = useCallback(async () => {
     try {
       const { url } = await getOAtuhURL();
@@ -36,13 +38,18 @@ export const LoginProvider = ({ children }: { children: JSX.Element[] }) => {
     localStorage.clear();
     setToken(null);
   }, [token, setToken]);
+  const changeTheme = (theme) => {
+    setTheme(theme);
+  };
 
   useEffect(() => {
     setIsLogin(!!token);
   }, [token]);
 
   return (
-    <LoginContext.Provider value={{ isLogin, login, logout }}>
+    <LoginContext.Provider
+      value={{ isLogin, login, logout, changeTheme, theme }}
+    >
       {children}
     </LoginContext.Provider>
   );

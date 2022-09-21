@@ -15,6 +15,8 @@ export function toggleTheme() {
     localStorage.theme === Theme.dark ? Theme.light : Theme.dark;
 
   updateTheme();
+
+  return localStorage.theme;
 }
 
 export function updateTheme() {

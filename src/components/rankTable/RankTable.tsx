@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Image from 'rc-image';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import Dropdown from '@/components/dropdown/Dropdown';
 
@@ -34,16 +34,14 @@ export const RankSearchBar = ({
   title,
   logo,
   monthList = [],
-  options = [
-    { key: '/report/tiobe', value: '编程语言' },
-    { key: '/report/netcraft', value: '服务器' },
-    { key: '/report/db-engines', value: '数据库' },
-  ],
+  options = [],
   onChange,
 }: RankSearchBarProps) => {
   const router = useRouter();
   const [target, setTarget] = useState<string>();
   const [month, setMonth] = useState<string>();
+
+  console.log('rank search bar');
 
   useEffect(() => {
     const { pathname, query } = router;
@@ -51,11 +49,25 @@ export const RankSearchBar = ({
     setTarget(pathname);
   }, [router]);
 
+  const typeOptions = useMemo(() => {
+    return options.length
+      ? options
+      : [
+          { key: '/report/tiobe', value: '编程语言' },
+          { key: '/report/netcraft', value: '服务器' },
+          { key: '/report/db-engines', value: '数据库' },
+        ];
+  }, [options]);
+
+  const monthOptions = useMemo(() => {
+    return monthList?.map((m) => ({ key: m, value: `${m}月` }));
+  }, [monthList]);
+
   return (
     <div className='mb-2 flex items-center justify-between rounded-lg border bg-gray-50 py-2 px-2 shadow dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-800'>
       <div className='grid w-1/3 justify-items-start'>
         <Dropdown
-          options={options}
+          options={typeOptions}
           initValue={target}
           onChange={(opt) => onChange('target', opt.key)}
         />
@@ -71,7 +83,7 @@ export const RankSearchBar = ({
       <div className='grid w-1/3 justify-items-end'>
         <Dropdown
           initValue={month}
-          options={monthList?.map((m) => ({ key: m, value: `${m}月` }))}
+          options={monthOptions}
           onChange={(opt: any) => onChange('month', opt.key)}
         />
       </div>

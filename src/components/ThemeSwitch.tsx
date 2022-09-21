@@ -1,13 +1,33 @@
 import { useEffect } from 'react';
 
 import { toggleTheme, updateTheme } from '@/lib/theme';
+import { useLoginContext } from '@/hooks/useLoginContext';
 
 import Button from './buttons/Button';
 
-export default function ThemeSwitch() {
+type ThemeSwitchProps = {
+  type?: string;
+};
+
+export default function ThemeSwitch(props: ThemeSwitchProps) {
+  const { theme, changeTheme } = useLoginContext();
+
   useEffect(() => {
     updateTheme();
   }, []);
+
+  const onToggle = () => {
+    const theme = toggleTheme();
+    changeTheme(theme);
+  };
+
+  if (props.type === 'text') {
+    return (
+      <span onClick={onToggle}>
+        {theme === 'light' ? '切换黑暗主题' : '切换明亮主题'}
+      </span>
+    );
+  }
 
   return (
     <Button
@@ -17,7 +37,7 @@ export default function ThemeSwitch() {
       variant='ghost'
       aria-label='Toggle dark mode'
       aria-checked
-      onClick={toggleTheme}
+      onClick={onToggle}
     >
       <span className='absolute top-px left-px h-[18px] w-[18px] rounded-full bg-white shadow transition-all duration-300 dark:translate-x-[18px] dark:bg-gray-800'>
         <span>

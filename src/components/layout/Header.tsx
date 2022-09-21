@@ -47,15 +47,19 @@ const AvatarWithDropdown = (props: { className?: string }) => {
         }}
       />
       <div
-        className='absolute right-1 mt-2 w-32 rounded border bg-white py-2 text-gray-500 shadow-md dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400'
+        className='absolute right-1 mt-2 w-32 cursor-pointer rounded border bg-white py-2 text-gray-500 shadow-md dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400'
         hidden={!isOpen}
       >
         <div className='absolute -top-1.5 right-3 h-3 w-3 rotate-45 border-l border-t bg-white dark:border-gray-600 dark:bg-gray-800'></div>
+        <div className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
+          <ThemeSwitch type='text'></ThemeSwitch>
+        </div>
         <Link href={`/user/${userInfo.uid}`} className='block'>
           <div className='block px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
             我的主页
           </div>
         </Link>
+
         <div
           className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'
           onClick={logout}
@@ -86,9 +90,12 @@ const Header = () => {
             }}
           />
         </span>
+        <span className='block md:hidden'>
+          <RankButton type='dropdown' />
+        </span>
         <SearchInput />
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400'>
-          <li className='pl-2 md:px-4'>
+          <li className='hidden pl-2 md:block md:px-4'>
             <ThemeSwitch />
           </li>
           <li className='hidden md:block'>
@@ -109,13 +116,11 @@ const Header = () => {
           <>
             {!isLogin ? (
               <li className='block md:hidden'>
-                <RankButton type='dropdown' />
                 <LoginButton />
               </li>
             ) : (
               <>
-                <li className='md:hidden'>
-                  <RankButton type='dropdown' />
+                <li className='block md:hidden'>
                   <AvatarWithDropdown />
                 </li>
               </>

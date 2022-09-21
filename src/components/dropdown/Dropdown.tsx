@@ -8,6 +8,8 @@ export type option = {
 };
 type DropdownProps = {
   size?: 'small' | 'medium' | 'large' | '';
+  border?: boolean;
+  width?: number;
   initValue?: string;
   options: option[];
   trigger?: string;
@@ -21,6 +23,7 @@ export default function Dropdown(props: DropdownProps) {
   const [width, setWidth] = useState(120);
 
   useEffect(() => {
+    console.log('dropdown effect', props.options, props.initValue);
     // 如果没有 initValue 则默认选中第一个
     const value = props.options.find(
       (opt) => opt.key == props.initValue
@@ -41,18 +44,27 @@ export default function Dropdown(props: DropdownProps) {
     props.onChange(opt);
   };
 
+  const wrapClassName = () =>
+    classNames(
+      'inline-flex items-stretch rounded-md bg-white dark:border-gray-700 dark:bg-gray-800',
+      {
+        border: props.border === false ? false : true,
+      }
+    );
+
   const dropdownClassName = (show: boolean) =>
     classNames(
-      'absolute right-0 z-10 mt-10 origin-top rounded-md border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg',
+      'absolute right-0 z-10 mt-10 origin-top rounded-md border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg',
       {
         block: show,
         hidden: !show,
+        border: props.border,
       }
     );
 
   const btnClassName = () => {
     return classNames(
-      'flex items-center rounded-md px-3 py-1 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-300',
+      'flex items-center rounded-md px-2 py-1 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-300',
       {
         'px-2 py-1': props.size === 'small',
       }
@@ -85,11 +97,9 @@ export default function Dropdown(props: DropdownProps) {
   };
 
   return (
-    <div
-      ref={dropdownBtnRef}
-      className='inline-flex items-stretch rounded-md border bg-white dark:border-gray-700 dark:bg-gray-800'
-    >
+    <div ref={dropdownBtnRef} className={wrapClassName()}>
       <button
+        style={{ width: props.width || 'auto' }}
         className={btnClassName()}
         onFocus={onTrigger('focus')}
         onBlur={onTrigger('blur')}
