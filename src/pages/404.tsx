@@ -24,7 +24,7 @@ export default function NotFoundPage() {
             </div>
             <Link href='/'>
               <div className='group relative inline-flex cursor-pointer items-center overflow-hidden rounded border border-current px-7 py-2 text-blue-500 focus:outline-none focus:ring active:text-blue-400 dark:text-gray-500 dark:active:text-gray-500'>
-                <span className='trangray-x-full group-hover:-trangray-x-4 absolute right-0 transition-transform'>
+                <span className='absolute right-0 translate-x-full transition-transform group-hover:-translate-x-4'>
                   <IoIosArrowForward size={16} />
                 </span>
 

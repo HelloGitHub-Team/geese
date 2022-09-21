@@ -11,14 +11,15 @@ export default function ThemeSwitch() {
 
   return (
     <Button
-      className='relative block h-[22px] w-10 shrink-0 rounded-xl border border-gray-300 bg-gray-100 transition-colors hover:border-gray-400 hover:bg-gray-100 active:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:active:bg-gray-700'
+      className='relative block h-[22px] w-10 shrink-0 rounded-xl border border-gray-300 bg-gray-100 transition-colors hover:border-gray-400 active:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:active:bg-gray-700'
       type='button'
       role='switch'
+      variant='ghost'
       aria-label='Toggle dark mode'
       aria-checked
       onClick={toggleTheme}
     >
-      <span className='dark:trangray-x-[18px] absolute top-px left-px h-[18px] w-[18px] rounded-full bg-white shadow transition-all duration-300 dark:bg-gray-800'>
+      <span className='absolute top-px left-px h-[18px] w-[18px] rounded-full bg-white shadow transition-all duration-300 dark:translate-x-[18px] dark:bg-gray-800'>
         <span>
           <svg
             xmlns='http://www.w3.org/2000/svg'
