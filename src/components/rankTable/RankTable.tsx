@@ -52,7 +52,7 @@ export const RankSearchBar = ({
   }, [router]);
 
   return (
-    <div className='mb-2 flex items-center justify-between overflow-hidden rounded-lg border bg-gray-50 py-2 px-2 shadow dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-800'>
+    <div className='mb-2 flex items-center justify-between rounded-lg border bg-gray-50 py-2 px-2 shadow dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-800'>
       <div className='grid w-1/3 justify-items-start'>
         <Dropdown
           options={options}
@@ -62,11 +62,9 @@ export const RankSearchBar = ({
       </div>
       <div className='grid w-1/3 justify-items-center'>
         <div className='flex items-center'>
-          <Image
-            className='bg-img inline h-5 w-5'
-            src={logo}
-            alt={title}
-          ></Image>
+          <div className='inline h-5 w-5'>
+            <Image src={logo} alt={title}></Image>
+          </div>
           <span className='ml-1 dark:text-gray-300'>{title}</span>
         </div>
       </div>
