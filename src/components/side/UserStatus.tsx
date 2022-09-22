@@ -47,7 +47,7 @@ export default function UserStatus() {
 
   return (
     <>
-      {!isValidating ? (
+      {!isValidating || isLogin ? (
         <div>
           {isLogin && data?.success ? (
             <>
