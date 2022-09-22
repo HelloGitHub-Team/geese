@@ -27,7 +27,7 @@ export default function MDRender({
   );
 }
 
-const getCode = (theme) => {
+const getCode = (theme: string) => {
   return {
     code({
       node: _node,

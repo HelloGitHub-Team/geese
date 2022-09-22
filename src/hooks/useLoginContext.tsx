@@ -16,6 +16,8 @@ const LoginContext = createContext({
   isLogin: false,
   login: NOOP,
   logout: NOOP,
+  theme: 'light',
+  changeTheme: (theme: string) => {},
 });
 
 export const LoginProvider = ({ children }: { children: JSX.Element[] }) => {
@@ -33,12 +35,14 @@ export const LoginProvider = ({ children }: { children: JSX.Element[] }) => {
       log.error(err);
     }
   }, []);
+
   const logout = useCallback(async () => {
     await Logout({ Authorization: `Bearer ${token}` });
     localStorage.clear();
     setToken(null);
   }, [token, setToken]);
-  const changeTheme = (theme) => {
+
+  const changeTheme = (theme: string) => {
     setTheme(theme);
   };
 
