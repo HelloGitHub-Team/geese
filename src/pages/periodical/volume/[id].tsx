@@ -8,6 +8,7 @@ import { MdOutlineRemoveRedEye } from 'react-icons/md';
 
 import ImageWithPreview from '@/components/ImageWithPreview';
 import MDRender from '@/components/mdRender/MDRender';
+import Navbar from '@/components/navbar/Navbar';
 import Pagination from '@/components/pagination/Pagination';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
@@ -142,126 +143,143 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
   }
 
   return (
-    <div className='flex shrink grow flex-row sm:border-l md:border-none'>
-      <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
-        <div className='relative pb-6'>
-          <Seo title={`HelloGitHub 第 ${volume?.current_num} 期`} />
-          <div className='mt-2 mb-2 bg-white p-5 dark:bg-gray-800 md:rounded-lg'>
-            <div className='my-4 flex flex-col items-center px-2'>
-              <h1 className='mb-2 font-medium text-black dark:text-white'>
-                《HelloGitHub》第 {volume?.current_num} 期
-              </h1>
-              <h2 className='text-center text-xl font-normal text-gray-400'>
-                兴趣是最好的老师，HelloGitHub 让你对编程感兴趣！
-              </h2>
-            </div>
-            {categoryList?.map((category: VolumeCategory, _cIndex: number) => {
-              const id = `category-${category.category_id}`;
-              return (
-                <div id={id} key={category.category_id} className='pb-5'>
-                  <h1 className='mt-4 text-xl text-black dark:text-white'>
-                    {category.category_name}
-                  </h1>
-                  {category.items.map((item: VolumeItem) => {
-                    return (
-                      <div key={item.rid}>
-                        <div className='mt-3 mb-2 inline-flex gap-1'>
-                          <span>{itemIndex(item)}.</span>
-                          <a
-                            href={item.github_url}
-                            target='_blank'
-                            onClick={() => onClickLink(item)}
-                            className=' text-blue-600'
-                            rel='noreferrer'
-                          >
-                            <span>{item.name}</span>
-                          </a>
-                        </div>
-                        {/* stars forks watch */}
-                        <div className='mb-2 flex  text-sm text-gray-500 dark:text-gray-400'>
-                          <span className='mr-2 flex '>
-                            <IoIosStarOutline size={16} />
-                            Star {numFormat(item.stars, 1)}
-                          </span>
-                          <span className='mr-2 flex'>
-                            <GoRepoForked size={16} />
-                            Fork {numFormat(item.forks, 1)}
-                          </span>
-                          <span className='flex'>
-                            <MdOutlineRemoveRedEye size={16} />
-                            Watch {numFormat(item.watch, 1)}
-                          </span>
-                        </div>
-                        {/* markdown 内容渲染 */}
-                        <MDRender>{item.description}</MDRender>
+    <>
+      <Seo title={`HelloGitHub 第 ${volume?.current_num} 期`} />
 
-                        {/* 图片预览 */}
-                        {item.image_url && (
-                          <div className='my-2 flex justify-center'>
-                            <ImageWithPreview
-                              className='cursor-zoom-in rounded-lg'
-                              src={item.image_url}
-                              alt={item.name}
-                            />
+      <div className='flex shrink grow flex-row sm:border-l md:border-none'>
+        <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
+          <div className='relative pb-6'>
+            <Navbar
+              middleText={`《HelloGitHub》第 ${volume?.current_num} 期`}
+              endText='月刊'
+            ></Navbar>
+
+            <div className='my-2 bg-white p-5 dark:bg-gray-800 md:rounded-lg'>
+              <div className='text-normal mb-4 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'>
+                <div className='whitespace-pre-wrap rounded-lg border bg-white p-2 font-normal leading-8 text-gray-500 dark:bg-gray-800 dark:text-gray-300'>
+                  <p>
+                    <span className='font-bold'>HelloGitHub 月刊</span>
+                    专注于分享 GitHub 上有趣、入门级的开源项目，每月 28 号更新。
+                    这里的开源项目总能让人大开眼界，勾起你对开源的兴趣。
+                  </p>
+                  <p>
+                    兴趣是最好的老师，它能指引你找到
+                    <span className='font-bold'>「进入开源世界的钥匙」</span>。
+                  </p>
+                </div>
+              </div>
+
+              {categoryList?.map(
+                (category: VolumeCategory, _cIndex: number) => {
+                  const id = `category-${category.category_id}`;
+                  return (
+                    <div id={id} key={category.category_id} className='pb-5'>
+                      <h1 className='text-center text-lg font-semibold text-black dark:text-white'>
+                        {category.category_name}
+                      </h1>
+                      {category.items.map((item: VolumeItem) => {
+                        return (
+                          <div key={item.rid}>
+                            <div className='mt-3 mb-2 inline-flex gap-1 text-base font-medium'>
+                              <span>{itemIndex(item)}.</span>
+                              <a
+                                href={item.github_url}
+                                target='_blank'
+                                onClick={() => onClickLink(item)}
+                                className=' text-blue-600'
+                                rel='noreferrer'
+                              >
+                                <span>{item.name}</span>
+                              </a>
+                            </div>
+                            {/* stars forks watch */}
+                            <div className='mb-2 flex text-sm text-gray-500 dark:text-gray-400'>
+                              <span className='mr-2 flex items-center'>
+                                <IoIosStarOutline size={15} />
+                                Star {numFormat(item.stars, 1)}
+                              </span>
+                              <span className='mr-2 flex items-center'>
+                                <GoRepoForked size={15} />
+                                Fork {numFormat(item.forks, 1)}
+                              </span>
+                              <span className='flex items-center'>
+                                <MdOutlineRemoveRedEye size={15} />
+                                Watch {numFormat(item.watch, 1)}
+                              </span>
+                            </div>
+                            {/* markdown 内容渲染 */}
+                            <MDRender className='markdown-body'>
+                              {item.description}
+                            </MDRender>
+                            {/* 图片预览 */}
+                            {item.image_url && (
+                              <div className='my-2 flex justify-center'>
+                                <ImageWithPreview
+                                  className='cursor-zoom-in rounded-lg'
+                                  src={item.image_url}
+                                  alt={item.name}
+                                />
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }
+              )}
+            </div>
+
+            <Pagination
+              total={volume?.total}
+              current={volume?.current_num}
+              onPageChange={onPageChange}
+            />
+          </div>
+        </div>
+
+        <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
+          {/* 右侧目录 */}
+          <div>
+            <div className='top-15 fixed w-3/12 xl:w-2/12'>
+              <div className='mt-2 ml-3 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
+                <h4 className='mb-2 border-b border-gray-200 pb-2 dark:border-gray-700'>
+                  目录
+                </h4>
+                <ul
+                  className='custom-scrollbar overflow-scroll'
+                  style={{ maxHeight: 550 }}
+                >
+                  {categoryList?.map((category, cIndex) => {
+                    const id = `#category-${category.category_id}`;
+
+                    return (
+                      <li
+                        key={cIndex}
+                        className={linkClassName(id)}
+                        onClick={() => {
+                          setActiveCategory(id);
+                          const { offsetTop } = document.querySelector(
+                            id
+                          ) as HTMLElement;
+                          // 根据 offsetTop 滚动到指定位置
+                          window.scrollTo({
+                            top: offsetTop,
+                          });
+                        }}
+                      >
+                        {category.category_name}
+                      </li>
                     );
                   })}
-                </div>
-              );
-            })}
-          </div>
-
-          <Pagination
-            total={volume?.total}
-            current={volume?.current_num}
-            onPageChange={onPageChange}
-          />
-        </div>
-      </div>
-
-      <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
-        {/* 右侧目录 */}
-        <div>
-          <div className='top-15 fixed w-3/12 xl:w-2/12'>
-            <div className='mt-2 ml-3 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
-              <h4 className='mb-2 border-b border-gray-200 pb-2 dark:border-gray-700'>
-                目录
-              </h4>
-              <ul
-                className='custom-scrollbar overflow-scroll'
-                style={{ maxHeight: 550 }}
-              >
-                {categoryList?.map((category, cIndex) => {
-                  const id = `#category-${category.category_id}`;
-
-                  return (
-                    <li
-                      key={cIndex}
-                      className={linkClassName(id)}
-                      onClick={() => {
-                        setActiveCategory(id);
-                        const { offsetTop } = document.querySelector(
-                          id
-                        ) as HTMLElement;
-                        // 根据 offsetTop 滚动到指定位置
-                        window.scrollTo({
-                          top: offsetTop,
-                        });
-                      }}
-                    >
-                      {category.category_name}
-                    </li>
-                  );
-                })}
-              </ul>
+                </ul>
+              </div>
             </div>
+            <ToTop cb={() => setActiveCategory('')} />
           </div>
-          <ToTop cb={() => setActiveCategory('')} />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -271,7 +289,7 @@ export default PeriodicalPage;
 export async function getStaticPaths() {
   // 调用外部 API 获取月刊的总期数
   const { data } = await getVolumeNum();
-  // const posts = data.map(({ num }) => ({ id: String(num) }));
+  // const posts = data.map(({num}) => ({id: String(num) }));
 
   // 根据博文列表生成所有需要预渲染的路径
   const paths = data.map((item) => ({
@@ -279,7 +297,7 @@ export async function getStaticPaths() {
   }));
 
   // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
+  // {fallback: false } means other routes should 404.
   return { paths, fallback: true };
 }
 

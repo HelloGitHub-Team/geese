@@ -48,7 +48,7 @@ const AvatarWithDropdown = (props: { className?: string }) => {
         }}
       />
       <div
-        className='absolute right-1 mt-2 w-32 cursor-pointer rounded border bg-white py-2 text-gray-500 shadow-md dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400'
+        className='w-26 absolute right-1 mt-2 cursor-pointer rounded border bg-white py-2 text-gray-500 shadow-md dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400'
         hidden={!isOpen}
       >
         <div className='absolute -top-1.5 right-3 h-3 w-3 rotate-45 border-l border-t bg-white dark:border-gray-600 dark:bg-gray-800'></div>

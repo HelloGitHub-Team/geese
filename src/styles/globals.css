@@ -118,6 +118,21 @@
   }
 }
 
+@layer components {
+  .markdown-body {
+    font-size: 1rem;
+    line-height: 1.75rem;
+    word-wrap: break-word;
+  }
+  .markdown-body ul {
+    list-style-type: disc;
+    padding-left: 1.75em;
+  }
+  .markdown-body li + li {
+    margin-top: 0.25em;
+  }
+}
+
 svg {
   vertical-align: baseline;
 }
