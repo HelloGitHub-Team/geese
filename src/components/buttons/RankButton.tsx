@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { AiOutlineTrophy } from 'react-icons/ai';
 
 import { getPeriodicalPath } from '@/components/buttons/Periodical';
 import type { option } from '@/components/dropdown/Dropdown';
@@ -7,7 +8,7 @@ import Dropdown from '@/components/dropdown/Dropdown';
 import Button from './Button';
 
 type RankButtonProps = {
-  type?: 'dropdown' | '';
+  type?: '' | 'dropdown';
 };
 
 const btnList: option[] = [
@@ -19,7 +20,6 @@ const btnList: option[] = [
 export const RankButton = (props: RankButtonProps) => {
   const router = useRouter();
   const onChange = async (opt: option) => {
-    console.log({ opt });
     if (opt.key === 'periodical') {
       const path = await getPeriodicalPath();
       router.push(path);
@@ -29,11 +29,19 @@ export const RankButton = (props: RankButtonProps) => {
   };
 
   if (props.type === 'dropdown') {
+    let key = '/';
+    if (router.isReady) {
+      if (router.pathname.includes('periodical')) {
+        key = 'periodical';
+      } else if (router.pathname.includes('report')) {
+        key = '/report/tiobe';
+      }
+    }
     return (
       <Dropdown
-        size='small'
+        initValue={key}
+        size='medium'
         border={false}
-        width={78}
         options={btnList}
         onChange={(opt) => onChange(opt)}
       />
@@ -42,12 +50,13 @@ export const RankButton = (props: RankButtonProps) => {
 
   return (
     <Button
-      className='font-normal text-gray-500 dark:text-gray-400'
+      className='font-normal text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
       variant='ghost'
       onClick={() => {
         router.push('/report/tiobe');
       }}
     >
+      <AiOutlineTrophy className='mr-0.5' />
       排行榜
     </Button>
   );

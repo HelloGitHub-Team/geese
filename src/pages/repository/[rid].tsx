@@ -30,7 +30,7 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
           <div className='my-2 flex cursor-zoom-in justify-center'>
             <ImageWithPreview
               src={repo?.image_url}
-              className='rounded-lg border border-gray-200'
+              className='rounded-lg border border-gray-200 dark:border-none'
               alt='图片'
             />
           </div>

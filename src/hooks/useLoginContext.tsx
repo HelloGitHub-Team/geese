@@ -17,7 +17,9 @@ const LoginContext = createContext({
   login: NOOP,
   logout: NOOP,
   theme: 'light',
-  changeTheme: (theme: string) => {},
+  changeTheme: (theme: string) => {
+    theme;
+  },
 });
 
 export const LoginProvider = ({ children }: { children: JSX.Element[] }) => {

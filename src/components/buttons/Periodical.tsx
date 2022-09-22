@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { MdOutlineArticle } from 'react-icons/md';
 
 import Button from '@/components/buttons/Button';
 
@@ -18,15 +19,14 @@ const PeriodicalButton = () => {
 
   return (
     <>
-      <li className='block'>
-        <Button
-          className='hidden font-normal text-gray-500 dark:text-gray-400 md:block'
-          variant='ghost'
-          onClick={handlePeriodicalURL}
-        >
-          月刊
-        </Button>
-      </li>
+      <Button
+        className='font-normal text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
+        variant='ghost'
+        onClick={handlePeriodicalURL}
+      >
+        <MdOutlineArticle className='mr-0.5' />
+        月刊
+      </Button>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IoIosArrowRoundUp } from 'react-icons/io';
+import { AiOutlineRocket } from 'react-icons/ai';
 
 interface ToTopProps {
   cb?: () => void;
@@ -41,7 +41,7 @@ export default function ToTop({ cb }: ToTopProps) {
       style={show ? { display: 'flex' } : { display: 'none' }}
       className='z-99 fixed bottom-10 right-10 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md dark:bg-gray-800 dark:text-gray-300'
     >
-      <IoIosArrowRoundUp size={22} />
+      <AiOutlineRocket size={22} />
     </div>
   );
 }

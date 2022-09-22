@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { AiOutlineHome } from 'react-icons/ai';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 import useUserInfo from '@/hooks/useUserInfo';
@@ -95,37 +96,30 @@ const Header = () => {
         </span>
         <SearchInput />
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400'>
-          <li className='hidden pl-2 md:block md:px-4'>
-            <ThemeSwitch />
-          </li>
           <li className='hidden md:block'>
             <Button
-              className='font-normal text-gray-500 dark:text-gray-400'
+              className='font-normal text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
               variant='ghost'
               onClick={() => {
                 router.push('/');
               }}
             >
+              <AiOutlineHome className='mr-0.5' />
               首页
             </Button>
           </li>
-          <PeriodicalButton></PeriodicalButton>
+          <li className='hidden md:block'>
+            <PeriodicalButton></PeriodicalButton>
+          </li>
           <li className='hidden md:block'>
             <RankButton />
           </li>
-          <>
-            {!isLogin ? (
-              <li className='block md:hidden'>
-                <LoginButton />
-              </li>
-            ) : (
-              <>
-                <li className='block md:hidden'>
-                  <AvatarWithDropdown />
-                </li>
-              </>
-            )}
-          </>
+          <li className='hidden md:block'>
+            <ThemeSwitch />
+          </li>
+          <li className='block md:hidden'>
+            {!isLogin ? <LoginButton /> : <AvatarWithDropdown />}
+          </li>
         </ul>
       </nav>
     </div>

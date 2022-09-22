@@ -69,6 +69,7 @@ export const RankSearchBar = ({
         <Dropdown
           options={typeOptions}
           initValue={target}
+          size='small'
           onChange={(opt) => onChange('target', opt.key)}
         />
       </div>
@@ -83,6 +84,7 @@ export const RankSearchBar = ({
       <div className='grid w-1/3 justify-items-end'>
         <Dropdown
           initValue={month}
+          size='small'
           options={monthOptions}
           onChange={(opt: any) => onChange('month', opt.key)}
         />

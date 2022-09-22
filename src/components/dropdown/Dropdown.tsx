@@ -23,7 +23,6 @@ export default function Dropdown(props: DropdownProps) {
   const [width, setWidth] = useState(120);
 
   useEffect(() => {
-    console.log('dropdown effect', props.options, props.initValue);
     // 如果没有 initValue 则默认选中第一个
     const value = props.options.find(
       (opt) => opt.key == props.initValue
@@ -33,9 +32,7 @@ export default function Dropdown(props: DropdownProps) {
   }, [props.options, props.initValue]);
 
   useEffect(() => {
-    console.log({ dropdownBtnRef });
     const width = dropdownBtnRef.current?.clientWidth || 120;
-    console.log({ width });
     setWidth(width);
   }, []);
 
@@ -64,9 +61,10 @@ export default function Dropdown(props: DropdownProps) {
 
   const btnClassName = () => {
     return classNames(
-      'flex items-center rounded-md px-2 py-1 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-300',
+      'flex items-center rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-300',
       {
-        'px-2 py-1': props.size === 'small',
+        'px-2 py-1 text-sm': props.size === 'small',
+        'px-2 py-2 text-base': props.size === 'medium',
       }
     );
   };
@@ -121,7 +119,7 @@ export default function Dropdown(props: DropdownProps) {
             {props.options?.map((opt: option) => (
               <a
                 key={opt.key}
-                className='block cursor-pointer rounded-lg px-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-300'
+                className='block cursor-pointer rounded-lg px-1 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-300'
                 onClick={() => onChange(opt)}
               >
                 {opt.value}
