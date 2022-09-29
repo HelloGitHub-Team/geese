@@ -23,7 +23,7 @@ export const getTags = async (
   sort_by: string | string[]
 ): Promise<TagItems> => {
   const data = await fetcher<TagItems>(
-    makeUrl(`/tag/search/`, { page: 1, pageSize: 10, sort_by, asc: 0 })
+    makeUrl(`/tag/`, { page: 1, pageSize: 10, sort_by })
   );
   return data;
 };

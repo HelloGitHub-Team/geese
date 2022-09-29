@@ -57,7 +57,7 @@ export default function IndexSide() {
         />
         <Ad
           id='ucloud'
-          image='https://img.hellogithub.com/ad/ucloud.png'
+          image='https://img.hellogithub.com/ad/ucloud_side.png'
           url='https://www.ucloud.cn/site/active/kuaijiesale.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display#wulanchabu'
         />
       </div>

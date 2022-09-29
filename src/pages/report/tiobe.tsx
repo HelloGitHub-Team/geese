@@ -63,7 +63,7 @@ const TiobePage: NextPage<RankPageProps> = ({
           <div className='my-2 bg-white px-2 pt-2 dark:bg-gray-800 md:rounded-lg'>
             <RankSearchBar
               title='TIOBE'
-              logo='https://img.hellogithub.com/logo/tiobe.jpg!small'
+              logo='https://img.hellogithub.com/logo/tiobe.png!small'
               monthList={monthList}
               onChange={onSearch}
             />

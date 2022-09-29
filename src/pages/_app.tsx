@@ -25,17 +25,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <div id='root'>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-        strategy='afterInteractive'
-      />
-      <Script id='google-analytics' strategy='afterInteractive'>
+      <Script id='baidu-analytics'>
         {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?${process.env.NEXT_PUBLIC_BAIDU_ANALYTICS}";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
         `}
       </Script>
       <LoginProvider>
