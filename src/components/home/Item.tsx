@@ -32,7 +32,7 @@ const Item: NextPage<ItemProps> = ({ item, index }) => {
               <Image
                 width='20'
                 height='20'
-                src={`https://img.hellogithub.com/github_avatar/${item.author_avatar}!small`}
+                src={item.author_avatar}
                 className='bg-img h-5 w-5 rounded'
                 alt='github_avatar'
               />

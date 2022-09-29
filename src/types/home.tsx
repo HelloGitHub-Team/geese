@@ -1,5 +1,4 @@
 import { TagType } from './tag';
-import { UserType } from './user';
 
 export interface HomeItems {
   success: boolean;
@@ -7,7 +6,6 @@ export interface HomeItems {
   data: HomeItem[];
   tags: TagType[];
   has_more: boolean;
-  page_total: number;
 }
 
 export interface ItemProps {
@@ -27,7 +25,6 @@ export interface HomeItem {
   clicks_total: number;
   comment_total: number;
   updated_at: string;
-  user: UserType;
 }
 
 export interface Stats {
