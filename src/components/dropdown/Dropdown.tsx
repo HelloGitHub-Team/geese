@@ -19,6 +19,11 @@ type DropdownProps = {
 export default function Dropdown(props: DropdownProps) {
   const [activeOption, setActiveOption] = useState(props.options[0]?.value);
   const [show, setShow] = React.useState<boolean>(false);
+
+  // 该状态是为了防止用户点击选项时因为出发按钮的 blur 事件而导致无法触发点击事件的问题。
+  // PC：当鼠标 hover 到下拉框选项时更新状态。
+  // Mobile：当手指触摸到下拉框选项时更新状态。
+  const [isHover, setIsHover] = React.useState(false);
   const dropdownBtnRef = useRef<HTMLDivElement | null>(null);
   const [width, setWidth] = useState(120);
 
@@ -39,6 +44,8 @@ export default function Dropdown(props: DropdownProps) {
   const onChange = (opt: option) => {
     setActiveOption(opt.value);
     props.onChange(opt);
+    setShow(false);
+    setIsHover(false);
   };
 
   const wrapClassName = () =>
@@ -78,7 +85,7 @@ export default function Dropdown(props: DropdownProps) {
         setShow(!show);
       },
       blur: () => {
-        setTimeout(() => setShow(false), 100);
+        isHover || setShow(false);
       },
       mousemove: () => {
         if (props.trigger === 'hover') {
@@ -115,7 +122,12 @@ export default function Dropdown(props: DropdownProps) {
           role='menu'
           onMouseLeave={onTrigger('mouseleave')}
         >
-          <div className='p-2'>
+          <div
+            className='p-2'
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+            onTouchStart={() => setIsHover(true)}
+          >
             {props.options?.map((opt: option) => (
               <a
                 key={opt.key}
