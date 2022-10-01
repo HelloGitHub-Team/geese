@@ -71,8 +71,8 @@ const Result: NextPage = () => {
       <Navbar middleText='搜索结果'></Navbar>
       <div className='h-screen'>
         <div className='divide-y divide-gray-100 overflow-y-hidden bg-white dark:divide-gray-700 md:rounded-lg'>
-          {list.map((item: SearchItemType) => (
-            <SearchResultItem key={item.rid} repo={item} />
+          {list.map((item: SearchItemType, index: number) => (
+            <SearchResultItem key={item.rid} repo={item} index={index} />
           ))}
         </div>
         {(isValidating || hasMore) && (

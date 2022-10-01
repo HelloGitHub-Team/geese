@@ -3,25 +3,22 @@
  */
 export interface SearchItemType {
   rid: string;
-  url: string;
+  title: string;
+  author: string;
+  author_avatar: string;
   name: string;
-  full_name: string;
   description: string;
-  brief: string;
   primary_lang: string;
   lang_color: string;
-  homepage: string | null;
-  license: string | null;
-  volume: string;
-  category: string;
   stars: number;
-  stars_str: string;
   has_chinese: boolean;
-  last_commit_at: string;
+  is_active: string;
+  last_pushed_at: string;
 }
 
 export interface SearchResultItemProps {
   repo: SearchItemType;
+  index: number;
 }
 
 export interface SearchResponse {

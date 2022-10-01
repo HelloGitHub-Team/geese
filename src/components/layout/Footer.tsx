@@ -5,7 +5,7 @@ import { AiFillWechat, AiFillWeiboCircle } from 'react-icons/ai';
 
 const Footer = () => {
   return (
-    <footer className='flex flex-wrap px-3 py-2.5 text-xs text-gray-400'>
+    <footer className='flex flex-wrap items-center px-3 py-2.5 text-xs text-gray-400'>
       <p>
         <Link href='/help/rule'>
           <span className='cursor-pointer hover:text-blue-500'>社区玩法</span>

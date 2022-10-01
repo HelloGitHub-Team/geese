@@ -34,7 +34,7 @@ export default function IndexSide() {
             <Ad
               id='upyun'
               image='https://img.hellogithub.com/ad/upyun_side.png'
-              url='https://www.upyun.com/overseasActivities'
+              url='https://www.upyun.com/league?utm_source=HelloGitHub&utm_medium=adting'
             />
             <Ad
               id='ucloud'
@@ -53,7 +53,7 @@ export default function IndexSide() {
         <Ad
           id='upyun'
           image='https://img.hellogithub.com/ad/upyun_side.png'
-          url='https://www.upyun.com/overseasActivities'
+          url='https://www.upyun.com/league?utm_source=HelloGitHub&utm_medium=adting'
         />
         <Ad
           id='ucloud'

@@ -1,5 +1,9 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { NextPage } from 'next/types';
+
+import { fromNow } from '@/utils/day';
+import { numFormat } from '@/utils/util';
 
 import { SearchResultItemProps } from '@/types/search';
 
@@ -8,27 +12,55 @@ import { SearchResultItemProps } from '@/types/search';
  * @param repo
  * @returns
  */
-const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo }) => {
+const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo, index }) => {
   return (
-    <article>
-      <Link href={`/repository/${repo.rid}`}>
-        <div className='hover-gray relative cursor-pointer bg-white py-3 pl-4 pr-3 hover:bg-gray-50 dark:bg-gray-800'>
+    <Link href={`/repository/${repo.rid}`}>
+      <article>
+        <div className='relative cursor-pointer bg-white py-3 pl-4 pr-3 hover:bg-gray-50 dark:bg-gray-800'>
           <div className='pb-0.5'>
-            <div className='text-color-primary flex justify-between visited:text-gray-500 dark:text-gray-300 '>
+            <div className='text-color-primary flex justify-between visited:text-gray-500 dark:text-gray-300'>
               <span className='truncate pt-1 text-base leading-snug'>
-                {repo.name}
-              </span>
-              <span className='mt-1 ml-1 h-4 whitespace-nowrap rounded-md bg-blue-400 py-0.5 px-2 text-xs font-semibold leading-none text-white dark:text-gray-100'>
-                Star {repo.stars_str}
+                {index + 1}. {repo.title}
               </span>
             </div>
           </div>
-          <div className='truncate pt-1 text-sm text-gray-400 '>
+          <div className='truncate pt-1 text-sm text-gray-400'>
             {repo.description}
           </div>
+          <div className='flex items-center pt-2'>
+            <Image
+              width='20'
+              height='20'
+              src={repo.author_avatar}
+              className='bg-img h-5 w-5 rounded'
+              alt='github_avatar'
+            />
+            <div className='flex shrink grow items-center overflow-x-hidden text-sm text-gray-400 md:pl-1'>
+              <div className='hidden truncate whitespace-nowrap md:block md:max-w-xs'>
+                {repo.author}
+                <span className='pl-1 pr-1'>·</span>
+                {repo.name}
+              </div>
+              <span className='pl-1 pr-1'>·</span>
+              <span>
+                <span
+                  style={{ backgroundColor: `${repo.lang_color}` }}
+                  className='relative box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px] dark:border-gray-500'
+                ></span>
+                <span className='whitespace-nowrap pl-0.5'>
+                  {repo.primary_lang}
+                </span>
+              </span>
+              <span className='pl-1 pr-1'>·</span>
+              <time>{fromNow(repo.last_pushed_at)}</time>
+            </div>
+            <div className='whitespace-nowrap pl-2 text-sm text-gray-400'>
+              ✨Star {numFormat(repo.stars, 1, 1000)}
+            </div>
+          </div>
         </div>
-      </Link>
-    </article>
+      </article>
+    </Link>
   );
 };
 
