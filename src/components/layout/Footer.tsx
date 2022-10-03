@@ -93,12 +93,12 @@ const Footer = () => {
         href='https://beian.miit.gov.cn/'
         rel='noreferrer'
       >
-        <span>京 ICP 备 17046648-1 号</span>
+        <span>京ICP备17046648号-1</span>
       </a>
       <a
         className='mt-2 block cursor-pointer hover:text-blue-500'
         target='_blank'
-        href='https://www.beian.gov.cn/portal/recordQuery'
+        href='http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11011402013237'
         rel='noreferrer'
       >
         <span>
@@ -108,7 +108,7 @@ const Footer = () => {
             height='12'
             alt='filing'
           />
-          京公网安备 11010802023873 号
+          京公网安备11011402013237号
         </span>
       </a>
       <p className='mt-2'>
