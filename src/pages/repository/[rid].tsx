@@ -48,9 +48,22 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  query,
+}) => {
+  let ip;
+  if (req.headers['x-forwarded-for']) {
+    ip = req.headers['x-forwarded-for'] as string;
+    ip = ip.split(',')[0] as string;
+  } else if (req.headers['x-real-ip']) {
+    ip = req.headers['x-real-ip'] as string;
+  } else {
+    ip = req.socket.remoteAddress as string;
+  }
+
   const rid = query?.rid as string;
-  const data = await getDetail(rid);
+  const data = await getDetail(rid, ip);
   if (typeof data.rid === 'undefined') {
     return {
       notFound: true,

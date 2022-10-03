@@ -41,8 +41,6 @@ export const RankSearchBar = ({
   const [target, setTarget] = useState<string>();
   const [month, setMonth] = useState<string>();
 
-  console.log('rank search bar');
-
   useEffect(() => {
     const { pathname, query } = router;
     setMonth(query.month as any as string);

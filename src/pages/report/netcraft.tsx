@@ -73,7 +73,6 @@ const NetcraftPage: NextPage<NetcraftRankPageProps> = ({
   const router = useRouter();
 
   const onSearch = (key: string, value: string) => {
-    console.log({ key, value });
     if (key === 'month') {
       router.push(`/report/netcraft/?month=${value}`);
     }

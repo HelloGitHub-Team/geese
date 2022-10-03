@@ -44,7 +44,6 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
   const router = useRouter();
 
   const onSearch = (key: string, value: string) => {
-    console.log({ key, value });
     if (key === 'month') {
       router.push(`/report/db-engines/?month=${value}`);
     }

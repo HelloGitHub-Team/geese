@@ -15,9 +15,17 @@ import {
   Vote,
 } from '@/types/reppsitory';
 
-export const getDetail = async (rid: string): Promise<Repository> => {
-  const data = await fetcher<Repository>(makeUrl(`/repository/detail/${rid}`));
-  return data;
+export const getDetail = async (
+  rid: string,
+  ip: string
+): Promise<Repository> => {
+  const data: RequestInit = {};
+  data.headers = { 'x-real-ip': ip };
+  const result = await fetcher<Repository>(
+    makeUrl(`/repository/detail/${rid}`),
+    data
+  );
+  return result;
 };
 
 export const userRepoStatus = async (

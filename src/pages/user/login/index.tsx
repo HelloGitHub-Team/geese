@@ -70,11 +70,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     ip = req.headers['x-forwarded-for'] as string;
     ip = ip.split(',')[0] as string;
   } else if (req.headers['x-real-ip']) {
-    ip = req.socket.remoteAddress as string;
+    ip = req.headers['x-real-ip'] as string;
   } else {
     ip = req.socket.remoteAddress as string;
   }
-
   try {
     token = '';
     userInfo = null;

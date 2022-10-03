@@ -62,7 +62,6 @@ export default function Pagination({
           max={total}
           value={page}
           onInput={(e: any) => {
-            console.log(e.target.value);
             const value = e.target.value;
             if (value > total) {
               setPage(total);
