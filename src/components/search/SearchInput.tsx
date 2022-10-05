@@ -40,7 +40,7 @@ export default function SearchInput() {
       setShow(false);
       return;
     }
-    fetcher(makeUrl(`/search/suggest`, { q: query }))
+    fetcher(makeUrl(`/search/suggest/`, { q: query }))
       .then((res: any) => {
         if (res?.length > 0) {
           setDropdownList(res);
