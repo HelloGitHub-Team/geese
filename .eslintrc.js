@@ -21,6 +21,7 @@ module.exports = {
     '@next/next/no-img-element': 0,
 
     'react/display-name': 'off',
+    'jsx-a11y/alt-text': 'off',
     'react/jsx-curly-brace-presence': [
       'warn',
       { props: 'never', children: 'never' },

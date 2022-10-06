@@ -31,7 +31,6 @@ const Item: NextPage<ItemProps> = ({ item, index }) => {
               height='20'
               src={item.author_avatar}
               className='bg-img h-5 w-5 rounded'
-              alt='item_avatar'
             />
             <div className='flex shrink grow items-center overflow-x-hidden text-sm text-gray-400 md:pl-1'>
               <div className='hidden truncate whitespace-nowrap md:block md:max-w-xs'>
