@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -36,12 +35,12 @@ const AvatarWithDropdown = (props: { className?: string }) => {
 
   return (
     <div className={`${props.className} h-7 w-7`}>
-      <Image
-        className='relative overflow-hidden rounded-full'
+      <img
+        className='relative inline overflow-hidden rounded-full'
         src={userInfo.avatar || DEFAULT_AVATAR}
-        alt='头像'
-        width={28}
-        height={28}
+        width='28'
+        height='28'
+        alt='header_avatar'
         onClick={(e) => {
           e.stopPropagation();
           setIsOpen(!isOpen);
@@ -80,12 +79,12 @@ const Header = () => {
     <div className='fixed z-10 h-14 w-full bg-white shadow-sm backdrop-blur dark:border dark:border-gray-50/[0.06] dark:bg-transparent'>
       <nav className='mx-auto flex max-w-5xl items-center justify-between p-2'>
         <span className='hidden md:block'>
-          <Image
-            className='h-8 cursor-pointer dark:invert'
+          <img
+            className='cursor-pointer dark:invert'
             src='https://img.hellogithub.com/logo/logo.png'
             width='28'
             height='28'
-            alt='hellogithub'
+            alt='header_logo'
             onClick={() => {
               router.reload();
             }}

@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
@@ -21,12 +20,12 @@ const RepoDetailNavbar: NextPage<UserAvaterProps> = ({ avatar, uid }) => {
           由
           <Link href={`/user/${uid}`}>
             <a className='m-1 flex items-center'>
-              <Image
+              <img
                 className='rounded-full'
                 src={avatar}
-                width={20}
-                height={20}
-                alt='头像'
+                width='20'
+                height='20'
+                alt='navbar_avatar'
               />
             </a>
           </Link>

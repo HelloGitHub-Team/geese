@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 import { AiFillWechat, AiFillWeiboCircle } from 'react-icons/ai';
@@ -54,13 +53,13 @@ const Footer = () => {
       >
         <div className='mt-2 cursor-pointer hover:text-blue-500'>
           <span>本站服务器由</span>
-          <span className='mx-1 align-[-3px]'>
-            <Image
-              className='object-contain'
+          <span className='mx-0.5 align-[1px]'>
+            <img
+              className='inline-block'
               src='https://img.hellogithub.com/ad/ucloud_footer.png'
               width='86'
               height='16'
-              alt='ucloud'
+              alt='ucloud_footer'
             />
           </span>
           <span>提供</span>
@@ -69,18 +68,18 @@ const Footer = () => {
       <a
         className='block'
         target='_blank'
-        href='https://www.upyun.com/'
+        href='https://www.upyun.com/league?utm_source=HelloGitHub&utm_medium=adting'
         rel='noreferrer'
       >
         <div className='mt-2 cursor-pointer hover:text-blue-500'>
           <span>专业的</span>
-          <span className='mx-1 align-[-3px]'>
-            <Image
-              className='object-contain'
+          <span className='mx-0.5 align-[1px]'>
+            <img
+              className='inline-block'
               src='https://img.hellogithub.com/ad/upyun_footer.png'
               width='42'
               height='16'
-              alt='upyun'
+              alt='upyun_footer'
             />
           </span>
           <span>提供云存储服务</span>
@@ -102,11 +101,12 @@ const Footer = () => {
         rel='noreferrer'
       >
         <span>
-          <Image
+          <img
+            className='inline-block'
             src='https://img.hellogithub.com/ad/filing.png'
             width='12'
             height='12'
-            alt='filing'
+            alt='footer_filing'
           />
           京公网安备11011402013237号
         </span>

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { GoThumbsup } from 'react-icons/go';
 
@@ -77,11 +76,10 @@ const CommentItem = (
     <div className={`flex ${className}`}>
       <div className='mr-4 hidden md:block'>
         <div className='relative h-14 w-14'>
-          <Image
+          <img
             className='rounded-full'
-            layout='fill'
             src={user?.avatar || DEFAULT_AVATAR}
-            alt='头像'
+            alt='comment_avatar'
           />
         </div>
       </div>
@@ -89,12 +87,12 @@ const CommentItem = (
         <div className='flex items-center gap-4'>
           <span className='flex w-px max-w-fit flex-1 items-center overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold md:text-base md:font-normal'>
             <span className='mr-1 h-5 md:hidden'>
-              <Image
+              <img
+                className='h-5 w-5 rounded-full'
                 width='20'
                 height='20'
                 src={user?.avatar || DEFAULT_AVATAR}
-                className='h-5 w-5 rounded-full'
-                alt='github_avatar'
+                alt='comment_avatar'
               />
             </span>
             <Link href={`/user/${user.uid}`}>

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { NextPage } from 'next/types';
 
@@ -28,12 +27,12 @@ const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo, index }) => {
             {repo.description}
           </div>
           <div className='flex items-center pt-2'>
-            <Image
+            <img
               width='20'
               height='20'
               src={repo.author_avatar}
               className='bg-img h-5 w-5 rounded'
-              alt='github_avatar'
+              alt='search_result_item'
             />
             <div className='flex shrink grow items-center overflow-x-hidden text-sm text-gray-400 md:pl-1'>
               <div className='hidden truncate whitespace-nowrap md:block md:max-w-xs'>

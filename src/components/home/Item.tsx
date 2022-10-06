@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 
@@ -27,12 +26,12 @@ const Item: NextPage<ItemProps> = ({ item, index }) => {
             {item.description}
           </div>
           <div className='flex items-center pt-2'>
-            <Image
+            <img
               width='20'
               height='20'
               src={item.author_avatar}
               className='bg-img h-5 w-5 rounded'
-              alt='github_avatar'
+              alt='item_avatar'
             />
             <div className='flex shrink grow items-center overflow-x-hidden text-sm text-gray-400 md:pl-1'>
               <div className='hidden truncate whitespace-nowrap md:block md:max-w-xs'>

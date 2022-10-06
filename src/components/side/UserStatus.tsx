@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 import { useEffect } from 'react';
@@ -54,13 +53,13 @@ export default function UserStatus() {
               <Link href={`/user/${data.uid}`}>
                 <div className='relative cursor-pointer'>
                   <span className='bg-img absolute top-0 left-0 h-10 w-10 shrink-0 grow-0 rounded-lg object-cover'>
-                    <Image
+                    <img
                       className='rounded'
-                      width={40}
-                      height={40}
-                      alt='Picture of the author'
+                      width='40'
+                      height='40'
                       src={data?.avatar || DEFAULT_AVATAR}
-                    ></Image>
+                      alt='side_avatar'
+                    />
                   </span>
                   <div className='shrink grow pl-12'>
                     <div className='flex min-w-0 items-center'>

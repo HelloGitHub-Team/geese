@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { FormEventHandler } from 'react';
 
 import useCommentData from '@/hooks/useCommentData';
@@ -88,10 +87,9 @@ function CommentSubmit(props: {
       <div className='flex items-start'>
         <div className='relative mr-4 hidden sm:inline-flex'>
           <div className='relative aspect-square w-14 overflow-hidden rounded-full'>
-            <Image
-              layout='fill'
+            <img
               src={userInfo.avatar || DEFAULT_AVATAR}
-              alt='头像'
+              alt='comment_submit_avatar'
             />
           </div>
         </div>

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 
@@ -35,12 +34,12 @@ export default function User() {
             {/* PC端 */}
             <div className='hidden rounded-lg bg-white p-4 dark:bg-gray-800 sm:p-6 md:flex'>
               <div className='shrink-0'>
-                <Image
-                  src={userDetailInfo?.avatar}
-                  alt={userDetailInfo?.nickname}
-                  width={90}
-                  height={90}
+                <img
                   className='rounded-full bg-white dark:bg-gray-800'
+                  src={userDetailInfo?.avatar}
+                  width='90'
+                  height='90'
+                  alt='profile_avatar'
                 />
               </div>
               <div className='ml-5 flex flex-1 flex-col justify-center'>
@@ -91,12 +90,12 @@ export default function User() {
             {/* 移动端 */}
             <div className='align-center flex flex-col bg-white p-4 dark:bg-gray-800 sm:p-6 md:hidden md:rounded-lg'>
               <div className='mx-auto flex'>
-                <Image
-                  src={userDetailInfo?.avatar}
-                  alt={userDetailInfo?.nickname}
-                  width={72}
-                  height={72}
+                <img
                   className='rounded-full bg-white dark:bg-gray-800'
+                  src={userDetailInfo?.avatar}
+                  width='72'
+                  height='72'
+                  alt='profile_avatar'
                 />
               </div>
               <div className='flex flex-col'>

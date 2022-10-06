@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import Image from 'rc-image';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import Dropdown from '@/components/dropdown/Dropdown';
@@ -74,7 +73,7 @@ export const RankSearchBar = ({
       <div className='grid w-1/3 justify-items-center'>
         <div className='flex items-center'>
           <div className='inline h-5 w-5'>
-            <Image src={logo} alt={title}></Image>
+            <img src={logo} alt='rank_logo' />
           </div>
           <span className='ml-1 dark:text-gray-300'>{title}</span>
         </div>
