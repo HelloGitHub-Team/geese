@@ -7,6 +7,7 @@ module.exports = {
       2,
       'always',
       [
+        'update',
         'feat',
         'fix',
         'docs',
@@ -17,7 +18,6 @@ module.exports = {
         'test',
         'perf',
         'revert',
-        'vercel',
       ],
     ],
   },

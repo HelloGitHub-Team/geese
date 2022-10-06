@@ -17,7 +17,6 @@ module.exports = {
       log_date_format: 'YYYY-MM-DD HH:mm:ss:SS',
       error_file: '/data/logs/geese_error.log',
       out_file: '/data/logs/geese_out.log',
-
     },
   ],
 };

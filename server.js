@@ -20,7 +20,7 @@ app.prepare().then(() => {
     logger(req, res);
     const parsedUrl = parse(req.url, true);
     const { pathname, query } = parsedUrl;
-    if ( pathname.length > 1 && pathname.endsWith('/')) {
+    if (pathname.length > 1 && pathname.endsWith('/')) {
       return app.render(req, res, pathname.slice(0, -1), query);
     } else {
       return app.render(req, res, pathname, query);

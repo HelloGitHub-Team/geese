@@ -39,6 +39,14 @@ module.exports = {
           '/search/',
         ],
       },
+      {
+        userAgent: 'AhrefsBot',
+        disallow: ['/'],
+      },
+      {
+        userAgent: 'SemrushBot',
+        disallow: ['/'],
+      },
     ],
   },
 };
