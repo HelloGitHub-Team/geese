@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import * as React from 'react';
 import { AiFillWechat, AiFillWeiboCircle } from 'react-icons/ai';
+import { IoLogoRss } from 'react-icons/io';
 
 const Footer = () => {
   return (
@@ -131,6 +132,16 @@ const Footer = () => {
             rel='noreferrer'
           >
             <AiFillWeiboCircle size={14} />
+          </a>
+        </span>
+        <span className='px-1'></span>
+        <span className='inline-block cursor-pointer align-[-2px] hover:text-orange-500'>
+          <a
+            target='_blank'
+            href='https://hellogithub.com/rss'
+            rel='noreferrer'
+          >
+            <IoLogoRss size={14} />
           </a>
         </span>
       </p>
