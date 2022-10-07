@@ -27,7 +27,10 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
   }, [category]);
 
   const onPageChange = (page: number) => {
-    router.push(`/periodical/category/${category?.category_name}?page=${page}`);
+    const name = category?.category_name;
+    router.push(
+      `/periodical/category/${encodeURIComponent(name)}?page=${page}`
+    );
   };
   const onClickLink = (item: CategoryItem) => {
     // 调用接口记录链接点击信息
@@ -146,8 +149,9 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
 export default PeriodicalCategoryPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const name = query['name'] as string;
   const data = await getCategory(
-    query['name'] as unknown as string,
+    encodeURIComponent(name),
     query['page'] as unknown as number
   );
   if (!data.success) {

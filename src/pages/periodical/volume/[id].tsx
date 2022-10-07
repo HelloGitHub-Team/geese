@@ -177,7 +177,9 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                   return (
                     <div id={id} key={category.category_id} className='pb-5'>
                       <Link
-                        href={`/periodical/category/${category.category_name}`}
+                        href={`/periodical/category/${encodeURIComponent(
+                          category.category_name
+                        )}`}
                       >
                         <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 dark:text-white'>
                           <AiFillTags className='mr-0.5' />
