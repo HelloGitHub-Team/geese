@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import { NextPage } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { AiFillTags } from 'react-icons/ai';
 import { GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
@@ -18,10 +20,10 @@ import { getVolume, getVolumeNum } from '@/services/volume';
 import { numFormat } from '@/utils/util';
 
 import {
-  PeriodicalPageProps,
   VolumeCategory,
   VolumeItem,
-} from '@/types/volume';
+  VolumePageProps,
+} from '@/types/periodical';
 
 type CategoryTopRange = {
   id: string;
@@ -29,7 +31,7 @@ type CategoryTopRange = {
   end: number;
 };
 
-const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
+const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<string>('');
   // 月刊列表
@@ -174,9 +176,14 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
                   const id = `category-${category.category_id}`;
                   return (
                     <div id={id} key={category.category_id} className='pb-5'>
-                      <h1 className='text-center text-lg font-semibold text-black dark:text-white'>
-                        {category.category_name}
-                      </h1>
+                      <Link
+                        href={`/periodical/category/${category.category_name}`}
+                      >
+                        <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 dark:text-white'>
+                          <AiFillTags className='mr-0.5' />
+                          {category.category_name}
+                        </div>
+                      </Link>
                       {category.items.map((item: VolumeItem) => {
                         return (
                           <div key={item.rid}>
@@ -186,7 +193,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
                                 href={item.github_url}
                                 target='_blank'
                                 onClick={() => onClickLink(item)}
-                                className=' text-blue-600'
+                                className=' text-blue-600 hover:text-blue-500'
                                 rel='noreferrer'
                               >
                                 <span>{item.name}</span>
@@ -283,7 +290,7 @@ const PeriodicalPage: NextPage<PeriodicalPageProps> = ({ volume }) => {
   );
 };
 
-export default PeriodicalPage;
+export default PeriodicalVolumePage;
 
 // 此函数在构建时被调用
 export async function getStaticPaths() {
@@ -306,7 +313,7 @@ export async function getStaticProps({ params }: any) {
   // params 包含此篇博文的 `id` 信息。
   // 如果路由是 /posts/1，那么 params.id 就是 1
   const volume = await getVolume(params.id);
-  if (!volume) {
+  if (!volume.success) {
     return { notFound: true };
   }
   // 通过 props 参数向页面传递博文的数据

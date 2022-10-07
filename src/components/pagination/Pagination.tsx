@@ -26,21 +26,22 @@ export default function Pagination({
   const handlePageChange = (page: number) => {
     onPageChange?.(page);
   };
+
   const JumpBtnClass = (type: number) => {
     let className = '';
     if (type === -1) {
       className =
         current <= 1
           ? 'pointer-events-none text-gray-400 hidden'
-          : 'pointer-events-auto hover:!text-blue-600 text-gray-600 dark:text-gray-400';
+          : 'pointer-events-auto hover:!text-blue-500 text-gray-600 dark:text-gray-400';
     } else {
       className =
         current >= total
           ? 'pointer-events-none text-gray-400 hidden'
-          : 'pointer-events-auto hover:!text-blue-600 text-gray-600 dark:text-gray-400';
+          : 'pointer-events-auto hover:!text-blue-500 text-gray-600 dark:text-gray-400';
     }
     return clsxm(
-      'inline-flex items-center gap-2 rounded-md p-2 cursor-pointer',
+      'inline-flex font-normal items-center gap-2 rounded-md p-2 cursor-pointer',
       className
     );
   };

@@ -1,13 +1,11 @@
-export interface PeriodicalPageProps {
+export interface VolumePageProps {
   volume: VolumeType;
 }
 
 export interface VolumeType {
+  page_total: number;
   total: number;
-  pre_num: number;
-  next_num: number;
   current_num: number;
-  publish_at: string;
   data: VolumeCategory[];
 }
 
@@ -29,16 +27,41 @@ export interface VolumeItem {
 }
 
 export interface Volume {
-  pre_num: number;
-  next_num: number;
+  success: boolean;
+  page_total: number;
   total: number;
   current_num: number;
-  publish_at: string;
   data: VolumeItem[];
 }
 
 export type VolumeAll = {
+  success: boolean;
   lastNum: number;
   total: number;
   data: any[];
 };
+
+export interface CategoryPageProps {
+  category: CategoryType;
+}
+
+export interface CategoryType {
+  success: boolean;
+  category_name: string;
+  page_total: number;
+  total: number;
+  current_page: number;
+  data: CategoryItem[];
+}
+
+export interface CategoryItem {
+  rid: string;
+  name: string;
+  volume_num: number;
+  description: string;
+  github_url: string;
+  stars: number;
+  forks: number;
+  watch: number;
+  image_url: string | null;
+}
