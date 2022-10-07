@@ -19,7 +19,7 @@ import { HomeItem, HomeItems } from '@/types/home';
 
 const Index: NextPage = () => {
   const router = useRouter();
-  const { sort_by = 'hot', tid = '' } = router.query;
+  const { sort_by = 'last', tid = '' } = router.query;
 
   const { isLogin } = useLoginContext();
   const { data, error, setSize, isValidating, size } =

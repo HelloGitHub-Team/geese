@@ -13,7 +13,7 @@ import { Tag } from '@/types/tag';
 
 const IndexBar = () => {
   const router = useRouter();
-  const { sort_by = 'hot', tid = '' } = router.query;
+  const { sort_by = 'last', tid = '' } = router.query;
 
   const [labelStatus, setLabelStatus] = useState(false);
   const [tagItems, setTagItems] = useState<Tag[]>([]);
@@ -43,8 +43,8 @@ const IndexBar = () => {
   const handleTagButton = () => {
     if (labelStatus) {
       setLabelStatus(false);
-      if (sort_by == 'last') {
-        router.push('/?sort_by=last');
+      if (sort_by == 'hot') {
+        router.push('/?sort_by=hot');
       } else {
         router.push('/');
       }
@@ -89,14 +89,12 @@ const IndexBar = () => {
   return (
     <div className='relative my-2 overflow-hidden bg-white dark:bg-gray-800 md:rounded-lg'>
       <div className='flex h-12 items-center justify-start space-x-2 py-2 px-4'>
+        <Link href={lastURL}>
+          <a className={linkClassName('last')}>最新</a>
+        </Link>
         <Link href={hotURL}>
           <a className={linkClassName('hot')}>热门</a>
         </Link>
-
-        <Link href={lastURL}>
-          <a className={linkClassName('last')}>最近</a>
-        </Link>
-
         <Button
           variant='ghost'
           onClick={handleTagButton}
