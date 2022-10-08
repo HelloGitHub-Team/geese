@@ -34,23 +34,27 @@ export default function SearchInput() {
   const dropdownRef = React.useRef<any>();
 
   // 获取联想关键词
-  const getLenovoWord = debounce((query: string) => {
-    if (!query) {
-      setDropdownList([]);
-      setShow(false);
-      return;
-    }
-    fetcher(makeUrl(`/search/suggest/`, { q: query }))
-      .then((res: any) => {
-        if (res?.length > 0) {
-          setDropdownList(res);
-          setShow(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, 200);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getLenovoWord = React.useCallback(
+    debounce((query: string) => {
+      if (!query) {
+        setDropdownList([]);
+        setShow(false);
+        return;
+      }
+      fetcher(makeUrl(`/search/suggest/`, { q: query }))
+        .then((res: any) => {
+          if (res?.length > 0) {
+            setDropdownList(res);
+            setShow(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 300),
+    []
+  );
 
   // 跳转搜索结果页面
   const jump2Result = React.useCallback(
