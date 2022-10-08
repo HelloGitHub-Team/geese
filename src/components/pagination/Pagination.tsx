@@ -41,7 +41,7 @@ export default function Pagination({
           : 'pointer-events-auto hover:!text-blue-500 text-gray-600 dark:text-gray-400';
     }
     return clsxm(
-      'inline-flex font-normal items-center gap-2 rounded-md p-2 cursor-pointer',
+      'inline-flex font-normal items-center gap-2 rounded-md p-2 cursor-pointer active:text-blue-500',
       className
     );
   };

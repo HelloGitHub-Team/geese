@@ -88,7 +88,7 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
                     href={item.github_url}
                     target='_blank'
                     onClick={() => onClickLink(item)}
-                    className=' text-blue-600 hover:text-blue-500'
+                    className=' text-blue-600 hover:text-blue-500 active:text-blue-500'
                     rel='noreferrer'
                   >
                     <span>{item.name}</span>
@@ -109,7 +109,7 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
                     Watch {numFormat(item.watch, 1)}
                   </span>
                   <Link href={`/periodical/volume/${item.volume_num}`}>
-                    <span className='flex cursor-pointer items-center hover:text-blue-500'>
+                    <span className='flex cursor-pointer items-center hover:text-blue-500 active:text-blue-500'>
                       <MdOutlineArticle size={15} />第 {item.volume_num} 期
                     </span>
                   </Link>

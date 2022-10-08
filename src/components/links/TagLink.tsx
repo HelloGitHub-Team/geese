@@ -5,7 +5,7 @@ import { TagsProps, TagType } from '@/types/tag';
 
 export default function TagLink({ tagItems }: TagsProps) {
   const router = useRouter();
-  const { sort_by = 'hot', tid = '' } = router.query;
+  const { sort_by = 'last', tid = '' } = router.query;
 
   return (
     <div className='custom-scrollbar overflow-y-auto'>

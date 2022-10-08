@@ -181,7 +181,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                           category.category_name
                         )}`}
                       >
-                        <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 dark:text-white'>
+                        <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 active:text-blue-500 dark:text-white'>
                           <AiFillTags className='mr-0.5' />
                           {category.category_name}
                         </div>
@@ -195,7 +195,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                                 href={item.github_url}
                                 target='_blank'
                                 onClick={() => onClickLink(item)}
-                                className=' text-blue-600 hover:text-blue-500'
+                                className=' text-blue-600 hover:text-blue-500 active:text-blue-500'
                                 rel='noreferrer'
                               >
                                 <span>{item.name}</span>
