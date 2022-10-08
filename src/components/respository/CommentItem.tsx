@@ -103,9 +103,7 @@ const CommentItem = (
             评分：
             <Rating value={score} />
           </span>
-          <span className='shrink-0 text-sm'>
-            {isUsed ? '已用过' : '未用过'}
-          </span>
+          <span className='shrink-0 text-sm'>{isUsed ? '用过' : '没用过'}</span>
         </div>
         <div className='mt-2 whitespace-normal break-all text-sm text-gray-900 dark:text-gray-200'>
           <MDRender>{comment}</MDRender>

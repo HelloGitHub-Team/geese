@@ -27,7 +27,7 @@ const BasicDialog = (props: Props) => {
       <div
         className={clsxm(
           className,
-          'fixed left-0 top-0 right-0 bottom-0 z-10 m-auto h-fit w-fit scale-90 bg-white transition-transform dark:bg-gray-800',
+          'fixed left-0 top-0 right-0 bottom-0 z-10 m-auto h-fit scale-90 bg-white transition-transform dark:bg-gray-800',
           {
             'scale-100': startAnimation,
           }

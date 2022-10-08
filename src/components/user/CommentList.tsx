@@ -26,23 +26,23 @@ export default function CommentList(props: Props) {
           return userInfo ? (
             <div className='p-2' key={item.cid}>
               <div className='flex justify-between py-2'>
-                <div className='flex'>
+                <div className='flex items-center'>
                   <span className='mr-4'>
                     {(data.page - 1) * data.pageSize + index + 1}.
                   </span>
-                  <span className='text-gray-600 dark:text-gray-300'>
-                    于 {formatZH(item.created_at, 'YYYY 年 MM 月 DD 日')} 发布的
-                    {belongMap[item.belong]}评论
+                  <span className='text-xs text-gray-600 dark:text-gray-300 md:text-sm'>
+                    在 {formatZH(item.created_at, 'YYYY 年 MM 月 DD 日')}{' '}
+                    发布的评论
                   </span>
                 </div>
 
-                <div className='whitespace-nowrap text-sm'>
+                <div className='whitespace-nowrap text-xs md:text-sm'>
                   {item.is_show ? (
                     <></>
                   ) : (
                     <Button
-                      className='mr-1 h-7 p-2 font-normal dark:border-gray-500 dark:text-gray-500'
-                      variant='outline'
+                      className='mr-1 h-7 p-2 font-normal text-red-500  hover:bg-transparent active:bg-transparent dark:border-gray-500 dark:text-gray-500'
+                      variant='ghost'
                     >
                       <a
                         href='https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb'
@@ -53,7 +53,10 @@ export default function CommentList(props: Props) {
                       </a>
                     </Button>
                   )}
-                  <Button className='h-7 p-2 font-normal dark:border-gray-500 dark:bg-gray-800 dark:text-gray-500'>
+                  <Button
+                    variant='light'
+                    className='h-7 p-2 font-normal dark:border-gray-500 dark:bg-gray-800 dark:text-gray-500'
+                  >
                     <a
                       href={`/${item.belong}/${item.belong_id}`}
                       target='_blank'
@@ -70,7 +73,9 @@ export default function CommentList(props: Props) {
                 {...item}
                 user={userInfo}
                 footerRight={() => (
-                  <span className='text-sm text-gray-400'>
+                  <span className='text-xs text-gray-400 md:text-sm'>
+                    {belongMap[item.belong]}
+                    <span className='mx-1'>·</span>
                     {item.is_show ? '已精选' : '未精选'}
                     <span className='mx-1'>·</span>
                     {item.is_hot ? '热评' : '非热评'}

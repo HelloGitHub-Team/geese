@@ -111,7 +111,7 @@ function CommentSubmit(props: {
                 checked={!commentData.isUsed}
                 onChange={() => handleRadioChange(false)}
               />
-              <span>未用过</span>
+              <span>没用过</span>
             </label>
             <label className='flex cursor-pointer items-center py-2'>
               <input
@@ -122,7 +122,7 @@ function CommentSubmit(props: {
                 checked={commentData.isUsed}
                 onChange={() => handleRadioChange(true)}
               />
-              <span>已用过</span>
+              <span>用过</span>
             </label>
             <div className='h-4 w-[1px] bg-gray-300'></div>
             <div className='flex items-center'>
