@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { IoIosSearch } from 'react-icons/io';
+import { VscChromeClose } from 'react-icons/vsc';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
@@ -28,6 +29,8 @@ export default function SearchInput() {
       setQuery(q);
     }
   }, [q]);
+
+  const clearQuery = () => setQuery('');
 
   // 联想词下拉列表
   const [dropdownList, setDropdownList] = React.useState<DropdownList[]>([]);
@@ -130,11 +133,19 @@ export default function SearchInput() {
           onBlur={onInputBlur}
         ></input>
 
-        <IoIosSearch
-          size={24}
-          className='absolute right-1 top-2 mr-2 cursor-pointer text-gray-800 dark:text-gray-300'
-          onClick={onSearch}
-        />
+        {query ? (
+          <VscChromeClose
+            size={20}
+            className='absolute right-1 top-2.5 mr-2 cursor-pointer text-gray-800 dark:text-gray-300'
+            onClick={clearQuery}
+          />
+        ) : (
+          <IoIosSearch
+            size={24}
+            className='absolute right-1 top-2 mr-2 cursor-pointer text-gray-800 dark:text-gray-300'
+            onClick={onSearch}
+          />
+        )}
 
         <div className={dropdownClassName(show)} role='menu'>
           <div className='p-2'>
