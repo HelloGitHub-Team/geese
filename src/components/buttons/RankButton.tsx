@@ -15,6 +15,7 @@ const btnList: option[] = [
   { key: '/', value: '首页' },
   { key: 'periodical', value: '月刊' },
   { key: '/report/tiobe', value: '排行榜' },
+  { key: '/article', value: '文章' },
 ];
 
 export const RankButton = (props: RankButtonProps) => {
@@ -35,6 +36,8 @@ export const RankButton = (props: RankButtonProps) => {
         key = 'periodical';
       } else if (router.pathname.includes('report')) {
         key = '/report/tiobe';
+      } else if (router.pathname.includes('article')) {
+        key = '/article';
       }
     }
     return (

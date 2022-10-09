@@ -15,7 +15,7 @@ const Navbar = ({ middleText = '', endText }: Props) => {
         <div className='cursor-pointer' onClick={router.back}>
           <AiOutlineArrowLeft className='text-blue-400' size={20} />
         </div>
-        <div className='text-center font-bold dark:text-gray-300'>
+        <div className='w-3/4 truncate text-center font-bold dark:text-gray-300'>
           {middleText}
         </div>
         {endText ? (
