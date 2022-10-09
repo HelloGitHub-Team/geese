@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { MdOutlineArticle } from 'react-icons/md';
+import { AiOutlineBook } from 'react-icons/ai';
 
 import Button from '@/components/buttons/Button';
 
@@ -24,7 +24,7 @@ const PeriodicalButton = () => {
         variant='ghost'
         onClick={handlePeriodicalURL}
       >
-        <MdOutlineArticle className='mr-0.5' />
+        <AiOutlineBook className='mr-0.5' />
         月刊
       </Button>
     </>

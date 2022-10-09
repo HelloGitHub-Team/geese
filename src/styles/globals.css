@@ -246,3 +246,26 @@ svg {
 .dark {
   color-scheme: dark;
 }
+
+.prose :where(img):not(:where([class~='not-prose'] *)) {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.prose
+  :where(blockquote p:last-of-type):not(:where([class~='not-prose'] *))::after {
+  content: none;
+}
+
+.prose
+  :where(blockquote p:last-of-type):not(:where([class~='not-prose']
+      *))::before {
+  content: none;
+}
+
+.prose :where(blockquote):not(:where([class~='not-prose'] *)) {
+  font-weight: 400;
+  line-height: 1.6;
+  font-size: 0.875rem;
+  font-style: normal;
+}

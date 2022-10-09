@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
+import { MdOutlineArticle } from 'react-icons/md';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 import useUserInfo from '@/hooks/useUserInfo';
@@ -108,10 +109,22 @@ const Header = () => {
             </Button>
           </li>
           <li className='hidden md:block'>
-            <PeriodicalButton></PeriodicalButton>
+            <PeriodicalButton />
           </li>
           <li className='hidden md:block'>
             <RankButton />
+          </li>
+          <li className='hidden md:block'>
+            <Button
+              className='font-normal text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
+              variant='ghost'
+              onClick={() => {
+                router.push('/article');
+              }}
+            >
+              <MdOutlineArticle className='mr-0.5' />
+              文章
+            </Button>
           </li>
           <li className='hidden md:block'>
             <ThemeSwitch />

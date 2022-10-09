@@ -31,32 +31,39 @@ const getCode = (theme: string) => {
   return {
     code({ node: _node, inline, className, children, ...props }: any) {
       const match = /language-(\w+)/.exec(className || '') || 'shell';
-      children = String(children).replace(/\n$/, '');
-      if (theme != 'dark') {
-        return !inline && match ? (
-          <SyntaxHighlighter
-            style={vs}
-            language={match[1]}
-            PreTag='div'
-            {...props}
-          >
-            {children}
-          </SyntaxHighlighter>
-        ) : (
-          <code className={className} {...props} />
-        );
+      if (!inline && match) {
+        children = String(children).replace(/\n$/, '');
+        if (theme != 'dark') {
+          return (
+            <SyntaxHighlighter
+              style={vs}
+              language={match[1]}
+              PreTag='div'
+              {...props}
+            >
+              {children}
+            </SyntaxHighlighter>
+          );
+        } else {
+          return (
+            <SyntaxHighlighter
+              style={atomDark}
+              language={match[1]}
+              PreTag='div'
+              {...props}
+            >
+              {children}
+            </SyntaxHighlighter>
+          );
+        }
       } else {
-        return !inline && match ? (
-          <SyntaxHighlighter
-            style={atomDark}
-            language={match[1]}
-            PreTag='div'
+        return (
+          <span
+            className='rounded-sm bg-gray-100 px-1.5 py-0.5  text-sm font-medium'
             {...props}
           >
             {children}
-          </SyntaxHighlighter>
-        ) : (
-          <code className={className} {...props} />
+          </span>
         );
       }
     },

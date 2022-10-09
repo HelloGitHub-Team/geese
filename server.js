@@ -17,6 +17,9 @@ const NODE_PORT = process.env.NODE_PORT | 3000;
 app.prepare().then(() => {
   expressRouter.get('*', (req, res) => {
     // 页面路由
+    if (req.url.includes('//')) {
+      return app.render(req, res, '/404');
+    }
     logger(req, res);
     const parsedUrl = parse(req.url, true);
     const { pathname, query } = parsedUrl;
