@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { IoIosSearch } from 'react-icons/io';
+import { VscChromeClose } from 'react-icons/vsc';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
@@ -29,28 +30,34 @@ export default function SearchInput() {
     }
   }, [q]);
 
+  const clearQuery = () => setQuery('');
+
   // 联想词下拉列表
   const [dropdownList, setDropdownList] = React.useState<DropdownList[]>([]);
   const dropdownRef = React.useRef<any>();
 
   // 获取联想关键词
-  const getLenovoWord = debounce((query: string) => {
-    if (!query) {
-      setDropdownList([]);
-      setShow(false);
-      return;
-    }
-    fetcher(makeUrl(`/search/suggest/`, { q: query }))
-      .then((res: any) => {
-        if (res?.length > 0) {
-          setDropdownList(res);
-          setShow(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, 200);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getLenovoWord = React.useCallback(
+    debounce((query: string) => {
+      if (!query) {
+        setDropdownList([]);
+        setShow(false);
+        return;
+      }
+      fetcher(makeUrl(`/search/suggest/`, { q: query }))
+        .then((res: any) => {
+          if (res?.length > 0) {
+            setDropdownList(res);
+            setShow(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 300),
+    []
+  );
 
   // 跳转搜索结果页面
   const jump2Result = React.useCallback(
@@ -126,11 +133,19 @@ export default function SearchInput() {
           onBlur={onInputBlur}
         ></input>
 
-        <IoIosSearch
-          size={24}
-          className='absolute right-1 top-2 mr-2 cursor-pointer text-gray-800 dark:text-gray-300'
-          onClick={onSearch}
-        />
+        {query ? (
+          <VscChromeClose
+            size={20}
+            className='absolute right-1 top-2.5 mr-2 cursor-pointer text-gray-800 dark:text-gray-300'
+            onClick={clearQuery}
+          />
+        ) : (
+          <IoIosSearch
+            size={24}
+            className='absolute right-1 top-2 mr-2 cursor-pointer text-gray-800 dark:text-gray-300'
+            onClick={onSearch}
+          />
+        )}
 
         <div className={dropdownClassName(show)} role='menu'>
           <div className='p-2'>
