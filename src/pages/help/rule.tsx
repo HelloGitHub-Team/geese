@@ -17,8 +17,10 @@ const RulePage: NextPage<HelpPageProps> = ({ content }) => {
         <div className='mb-10 flex flex-col items-center px-2 text-4xl font-bold '>
           社区规则
         </div>
-        <article className='prose max-w-none'>
-          <MDRender className='dark:invert'>{content}</MDRender>
+        <article>
+          <MDRender className='prose max-w-none dark:invert'>
+            {content}
+          </MDRender>
         </article>
         <ItemBottom endText='END'></ItemBottom>
       </div>

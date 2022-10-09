@@ -18,12 +18,14 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
       <Navbar middleText={article.title} endText='文章'></Navbar>
 
       <div className='mt-2 bg-white py-0.5 px-5 dark:bg-gray-800 md:rounded-lg '>
-        <article className='prose max-w-none'>
-          <MDRender className='dark:invert'>{article.content}</MDRender>
+        <article className='relative'>
+          <MDRender className='mobile:prose-sm prose prose-blue max-w-none dark:invert'>
+            {article.content}
+          </MDRender>
         </article>
         <div className='my-2 flex justify-center'>
           <ImageWithPreview
-            className='cursor-zoom-in rounded-lg'
+            className='hidden cursor-zoom-in rounded-lg md:block'
             src='https://img.hellogithub.com/ad/footer.png'
             alt='weixin_footer'
           />
