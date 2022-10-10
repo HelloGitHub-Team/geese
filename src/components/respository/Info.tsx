@@ -24,7 +24,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
             </div>
             {repo.volume_name ? (
               <Link href={`/periodical/volume/${Number(repo.volume_name)}`}>
-                <div className='mt-1 mr-1 flex h-6 cursor-pointer items-center rounded border border-current px-2.5 text-xs font-medium hover:text-gray-700 dark:hover:text-gray-500 lg:mr-2'>
+                <div className='mt-1 mr-1 flex h-6 cursor-pointer items-center rounded border border-current px-2.5 text-xs font-medium hover:text-blue-500 dark:hover:text-gray-500 lg:mr-2'>
                   第 {repo.volume_name} 期
                 </div>
               </Link>
@@ -34,7 +34,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
 
             {repo.tags.map((item) => (
               <Link href={`/tags/${item.tid}/`} key={item.tid}>
-                <div className='mr-1 mt-1 flex h-6 cursor-pointer items-center rounded border border-current px-2.5 text-xs font-medium hover:text-gray-700 dark:hover:text-gray-500 lg:mr-2'>
+                <div className='mr-1 mt-1 flex h-6 cursor-pointer items-center rounded border border-current px-2.5 text-xs font-medium hover:text-blue-500 dark:hover:text-gray-500 lg:mr-2'>
                   {item.name}
                 </div>
               </Link>

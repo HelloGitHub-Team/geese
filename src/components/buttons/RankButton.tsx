@@ -53,7 +53,7 @@ export const RankButton = (props: RankButtonProps) => {
 
   return (
     <Button
-      className='font-normal text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
+      className='font-normal text-gray-500 hover:bg-transparent hover:text-blue-500 dark:text-gray-400 dark:hover:bg-gray-700'
       variant='ghost'
       onClick={() => {
         router.push('/report/tiobe');

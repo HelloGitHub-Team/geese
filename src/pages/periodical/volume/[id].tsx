@@ -244,6 +244,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
               current={volume?.current_num}
               onPageChange={onPageChange}
             />
+            <ToTop cb={() => setActiveCategory('')} />
           </div>
         </div>
 
@@ -284,7 +285,6 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                 </ul>
               </div>
             </div>
-            <ToTop cb={() => setActiveCategory('')} />
           </div>
         </div>
       </div>

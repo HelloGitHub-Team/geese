@@ -71,7 +71,7 @@ const ArticleIndex: NextPage = () => {
           {articles.map((item: ArticleItem, index: number) => (
             <Link href={`/article/${item.aid}`} key={item.aid}>
               <article>
-                <div className='relative cursor-pointer bg-white py-2 pl-3 pr-3 hover:bg-gray-50 dark:bg-gray-800 md:py-3 md:pl-5'>
+                <div className='relative cursor-pointer bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700 md:py-3 md:pl-5'>
                   <div className='flex-cloume relative flex'>
                     <div className='w-9/12 max-w-full'>
                       <div className='text-color-primary flex justify-between visited:text-gray-500 dark:text-gray-300'>

@@ -264,6 +264,7 @@ svg {
 .prose img {
   margin-top: 1em;
   margin-bottom: 1em;
+  margin-inline: auto;
 }
 
 .prose a {
@@ -272,4 +273,11 @@ svg {
 
 .prose h2 {
   text-align: center;
+}
+
+.prose pre {
+  padding: 0;
+  background-color: transparent;
+  margin-top: 0;
+  margin-bottom: 0;
 }

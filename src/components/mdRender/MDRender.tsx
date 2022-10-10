@@ -59,7 +59,7 @@ const getCode = (theme: string) => {
       } else {
         return (
           <span
-            className='rounded-sm bg-gray-100 px-1.5 py-0.5  text-sm font-medium'
+            className='rounded-sm bg-gray-100 px-1.5 py-0.5 text-sm  font-medium dark:bg-gray-600'
             {...props}
           >
             {children}

@@ -19,7 +19,7 @@ export default function TagLink({ tagItems }: TagsProps) {
                     {item.name}
                   </a>
                 ) : (
-                  <a className='mt-1 mr-1 inline-flex h-6 items-center justify-center rounded-xl px-0 pl-2 pr-2 text-gray-500 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700'>
+                  <a className='mt-1 mr-1 inline-flex h-6 items-center justify-center rounded-xl px-0 pl-2 pr-2 text-gray-500 hover:bg-gray-100 hover:text-blue-500 dark:text-gray-200 dark:hover:bg-gray-700'>
                     {item.name}
                   </a>
                 )}

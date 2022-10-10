@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Header></Header>
+      <Header />
       <main className='container mx-auto px-0 pt-14 xl:px-40'>
         {showIndexSide ? (
           <div>{children}</div>

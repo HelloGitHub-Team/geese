@@ -98,7 +98,7 @@ const Header = () => {
         <ul className='text-md flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400'>
           <li className='hidden md:block'>
             <Button
-              className='font-normal text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
+              className='font-normal text-gray-500 hover:bg-transparent hover:text-blue-500 dark:text-gray-400 dark:hover:bg-gray-700'
               variant='ghost'
               onClick={() => {
                 router.push('/');
@@ -116,7 +116,7 @@ const Header = () => {
           </li>
           <li className='hidden md:block'>
             <Button
-              className='font-normal text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
+              className='font-normal text-gray-500  hover:bg-transparent hover:text-blue-500 dark:text-gray-400 dark:hover:bg-gray-700'
               variant='ghost'
               onClick={() => {
                 router.push('/article');

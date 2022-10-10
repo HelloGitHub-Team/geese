@@ -13,7 +13,10 @@ const Navbar = ({ middleText = '', endText }: Props) => {
     <div className='relative my-2 bg-white dark:bg-gray-800 md:rounded-lg'>
       <div className='flex h-12 items-center justify-between py-2 px-4'>
         <div className='cursor-pointer' onClick={router.back}>
-          <AiOutlineArrowLeft className='text-blue-400' size={20} />
+          <AiOutlineArrowLeft
+            className='text-gray-500 hover:text-blue-400'
+            size={18}
+          />
         </div>
         <div className='w-3/4 truncate text-center font-bold dark:text-gray-300'>
           {middleText}

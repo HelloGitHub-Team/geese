@@ -19,7 +19,7 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
 
       <div className='mt-2 bg-white py-0.5 px-5 dark:bg-gray-800 md:rounded-lg '>
         <article className='relative'>
-          <MDRender className='mobile:prose-sm prose prose-blue max-w-none dark:invert'>
+          <MDRender className='mobile:prose-sm prose prose-blue max-w-none dark:prose-invert'>
             {article.content}
           </MDRender>
         </article>
@@ -31,8 +31,8 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
           />
         </div>
         <ItemBottom endText='END'></ItemBottom>
+        <ToTop />
       </div>
-      <ToTop />
       <div className='h-4'></div>
     </>
   );
