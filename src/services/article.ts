@@ -9,7 +9,7 @@ export const getArticleContent = async (
   ip: string
 ): Promise<ArticleContentItem> => {
   const data: RequestInit = {};
-  data.headers = { 'x-real-ip': ip };
+  data.headers = { 'x-real-ip': ip, 'x-forwarded-for': `${ip}` };
   const result = await fetcher<ArticleContentItem>(
     makeUrl(`/article/${aid}`),
     data

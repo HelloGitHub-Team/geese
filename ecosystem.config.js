@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'geese',
-      script: './server.js|pino-pretty',
+      script: './server.js',
       instances: 2,
       max_restarts: 3,
       env: {
@@ -15,7 +15,7 @@ module.exports = {
       max_memory_restart: '1G',
       instance_var: 'NODE_APP_INSTANCE',
       log_date_format: 'YYYY-MM-DD HH:mm:ss:SS',
-      error_file: '/data/logs/geese_error.log',
+      error_file: '/data/logs/geese_err.log',
       out_file: '/data/logs/geese_out.log',
     },
   ],
