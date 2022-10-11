@@ -8,18 +8,7 @@ export const getServerSideProps: GetServerSideProps = async (
   ctx: GetServerSidePropsContext
 ) => {
   // Method to source urls from cms
-  const { req } = ctx;
-  let ip;
-  if (req.headers['x-forwarded-for']) {
-    ip = req.headers['x-forwarded-for'] as string;
-    ip = ip.split(',')[0] as string;
-  } else if (req.headers['x-real-ip']) {
-    ip = req.headers['x-real-ip'] as string;
-  } else {
-    ip = req.socket.remoteAddress as string;
-  }
-
-  const data = await getURLs(ip);
+  const data = await getURLs();
   return getServerSideSitemapIndex(ctx, data?.data);
 };
 

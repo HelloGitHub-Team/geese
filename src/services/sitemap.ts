@@ -7,10 +7,7 @@ interface URLs {
   data: [];
 }
 
-export const getURLs = async (ip: string): Promise<URLs> => {
-  const req: RequestInit = {};
-  req.headers = { 'x-real-ip': ip, 'x-forwarded-for': ip };
-
-  const data = await fetcher<URLs>(makeUrl(`/sitemap/`), req);
+export const getURLs = async (): Promise<URLs> => {
+  const data = await fetcher<URLs>(makeUrl(`/sitemap/`));
   return data;
 };
