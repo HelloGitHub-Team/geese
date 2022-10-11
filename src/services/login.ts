@@ -24,22 +24,23 @@ export const getOAtuhURL = async (): Promise<OAuthURLResponse> => {
 };
 
 export const OAuthWechatAPI = async (
+  ip: string,
   code: string,
   state: string,
   cookie: string,
-  user_agent: string,
-  ip: string
+  user_agent: string
 ): Promise<User> => {
-  const data: RequestInit = {};
-  data.credentials = 'include';
-  data.headers = {
+  const req: RequestInit = {};
+  req.credentials = 'include';
+  req.headers = {
     'Content-Type': 'application/json',
     Cookie: cookie,
     'User-Agent': user_agent,
     'x-real-ip': ip,
+    'x-forwarded-for': ip,
   };
-  data.method = 'POST';
-  data.body = JSON.stringify({ code: code, state: state });
-  const result: User = await fetcher(makeUrl(`/user/oauth/wechat/`), data);
+  req.method = 'POST';
+  req.body = JSON.stringify({ code: code, state: state });
+  const result: User = await fetcher(makeUrl(`/user/oauth/wechat/`), req);
   return result;
 };

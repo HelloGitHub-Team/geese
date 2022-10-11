@@ -55,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   const aid = query?.aid as string;
-  const data = await getArticleContent(aid, ip);
+  const data = await getArticleContent(ip, aid);
   if (!data.success) {
     return {
       notFound: true,

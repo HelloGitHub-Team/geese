@@ -93,8 +93,21 @@ const TiobePage: NextPage<RankPageProps> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const data = await getTiobeRank(query['month'] as unknown as number);
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  req,
+}) => {
+  let ip;
+  if (req.headers['x-forwarded-for']) {
+    ip = req.headers['x-forwarded-for'] as string;
+    ip = ip.split(',')[0] as string;
+  } else if (req.headers['x-real-ip']) {
+    ip = req.headers['x-real-ip'] as string;
+  } else {
+    ip = req.socket.remoteAddress as string;
+  }
+
+  const data = await getTiobeRank(ip, query['month'] as unknown as number);
   if (!data.success) {
     return {
       notFound: true,

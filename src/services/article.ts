@@ -5,14 +5,14 @@ import { fetcher } from './base';
 import { ArticleContentItem } from '@/types/article';
 
 export const getArticleContent = async (
-  aid: string,
-  ip: string
+  ip: string,
+  aid: string
 ): Promise<ArticleContentItem> => {
-  const data: RequestInit = {};
-  data.headers = { 'x-real-ip': ip, 'x-forwarded-for': `${ip}` };
+  const req: RequestInit = {};
+  req.headers = { 'x-real-ip': ip, 'x-forwarded-for': ip };
   const result = await fetcher<ArticleContentItem>(
     makeUrl(`/article/${aid}`),
-    data
+    req
   );
   return result;
 };

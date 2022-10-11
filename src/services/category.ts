@@ -5,9 +5,13 @@ import { fetcher } from './base';
 import { CategoryType } from '@/types/periodical';
 
 export const getCategory = async (
+  ip: string,
   name: string,
   page: number
 ): Promise<CategoryType> => {
+  const req: RequestInit = {};
+  req.headers = { 'x-real-ip': ip, 'x-forwarded-for': ip };
+
   try {
     let url;
     if (page > 1) {
@@ -15,7 +19,7 @@ export const getCategory = async (
     } else {
       url = makeUrl(`/periodical/category/${name}`);
     }
-    const data = await fetcher<CategoryType>(url);
+    const data = await fetcher<CategoryType>(url, req);
     return data;
   } catch (error) {
     return {

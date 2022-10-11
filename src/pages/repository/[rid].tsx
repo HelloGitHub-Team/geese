@@ -63,7 +63,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   const rid = query?.rid as string;
-  const data = await getDetail(rid, ip);
+  const data = await getDetail(ip, rid);
   if (typeof data.rid === 'undefined') {
     return {
       notFound: true,

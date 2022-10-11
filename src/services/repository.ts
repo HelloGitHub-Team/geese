@@ -16,14 +16,14 @@ import {
 } from '@/types/reppsitory';
 
 export const getDetail = async (
-  rid: string,
-  ip: string
+  ip: string,
+  rid: string
 ): Promise<Repository> => {
-  const data: RequestInit = {};
-  data.headers = { 'x-real-ip': ip };
+  const req: RequestInit = {};
+  req.headers = { 'x-real-ip': ip, 'x-forwarded-for': ip };
   const result = await fetcher<Repository>(
     makeUrl(`/repository/detail/${rid}`),
-    data
+    req
   );
   return result;
 };

@@ -78,11 +78,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     token = '';
     userInfo = null;
     const data: User = await OAuthWechatAPI(
+      ip,
       code,
       state,
       cookie,
-      user_agent,
-      ip
+      user_agent
     );
     if (typeof data.uid === 'undefined') {
       token = '';

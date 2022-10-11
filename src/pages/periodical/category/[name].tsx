@@ -148,9 +148,23 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
 
 export default PeriodicalCategoryPage;
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  req,
+}) => {
+  let ip;
+  if (req.headers['x-forwarded-for']) {
+    ip = req.headers['x-forwarded-for'] as string;
+    ip = ip.split(',')[0] as string;
+  } else if (req.headers['x-real-ip']) {
+    ip = req.headers['x-real-ip'] as string;
+  } else {
+    ip = req.socket.remoteAddress as string;
+  }
+
   const name = query['name'] as string;
   const data = await getCategory(
+    ip,
     encodeURIComponent(name),
     query['page'] as unknown as number
   );

@@ -28,9 +28,22 @@ const TagPage: NextPage<TagPageProps> = ({ items, tag_name }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  req,
+}) => {
+  let ip;
+  if (req.headers['x-forwarded-for']) {
+    ip = req.headers['x-forwarded-for'] as string;
+    ip = ip.split(',')[0] as string;
+  } else if (req.headers['x-real-ip']) {
+    ip = req.headers['x-real-ip'] as string;
+  } else {
+    ip = req.socket.remoteAddress as string;
+  }
+
   const tid = query?.tid as string;
-  const data = await getTagPageItems(tid);
+  const data = await getTagPageItems(ip, tid);
   return {
     props: { items: data.data, tag_name: data.tag_name },
   };
