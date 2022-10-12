@@ -43,7 +43,7 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
         belong='repository'
         belongId={repo.rid}
       />
-      <div className='h-36'></div>
+      <div className='h-8 lg:h-36'></div>
     </>
   );
 };

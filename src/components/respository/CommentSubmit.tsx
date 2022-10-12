@@ -101,7 +101,7 @@ function CommentSubmit(props: {
             value={commentData.comment}
             onInput={handleInput}
           ></textarea>
-          <div className='flex items-center gap-2 text-xs sm:gap-4 sm:text-sm'>
+          <div className='flex flex-wrap items-center gap-2 text-xs sm:gap-4 sm:text-sm'>
             <label className='flex cursor-pointer items-center py-2'>
               <input
                 type='radio'

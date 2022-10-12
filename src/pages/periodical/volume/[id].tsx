@@ -251,7 +251,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
         <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
           {/* 右侧目录 */}
           <div>
-            <div className='top-15 fixed w-3/12 xl:w-2/12'>
+            <div className='top-15 fixed ml-3 w-[180px] space-y-2 lg:w-[244px]'>
               <div className='mt-2 ml-3 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
                 <h4 className='mb-2 border-b border-gray-200 pb-2 dark:border-gray-700'>
                   目录

@@ -5,8 +5,8 @@ import { RepositoryProps } from '@/types/reppsitory';
 
 const Score: NextPage<RepositoryProps> = ({ repo }) => {
   return (
-    <div className='max-h-full w-3/12'>
-      <div className='relative mx-auto my-auto w-20  pt-2 lg:w-24'>
+    <div className='max-full max-h-full w-3/12'>
+      <div className='relative mx-auto my-auto pt-2 sm:w-20 lg:w-24'>
         <div className='h-1/2 rounded-t-xl bg-red-600 text-white'>
           <div className='flex flex-col pt-2 text-center'>
             <div className='text-xs'>HG 评分</div>

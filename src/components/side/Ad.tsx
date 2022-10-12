@@ -30,7 +30,7 @@ export default function Ad(props: Props) {
     >
       <a href={props.url} target='_blank' rel='noreferrer'>
         <div className='group relative h-full'>
-          <img src={props.image} alt='ad' />
+          <img className='h-full w-full' src={props.image} alt='ad' />
           <div
             className='absolute top-0 right-0 hidden cursor-pointer p-1.5 text-inherit opacity-30 group-hover:block'
             onClick={handleClose}
