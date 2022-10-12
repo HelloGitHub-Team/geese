@@ -2,7 +2,7 @@ import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-import { ArticleContentItem } from '@/types/article';
+import { ArticleContentItem, OneItemResp } from '@/types/article';
 
 export const getArticleContent = async (
   ip: string,
@@ -14,5 +14,15 @@ export const getArticleContent = async (
     makeUrl(`/article/${aid}`),
     req
   );
+  return result;
+};
+
+export const getOnefileContent = async (
+  ip: string,
+  oid: string
+): Promise<OneItemResp> => {
+  const req: RequestInit = {};
+  req.headers = { 'x-real-ip': ip, 'x-forwarded-for': ip };
+  const result = await fetcher<OneItemResp>(makeUrl(`/onefile/${oid}`), req);
   return result;
 };
