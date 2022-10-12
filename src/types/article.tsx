@@ -40,3 +40,27 @@ export interface ArticleContentItem {
   success: boolean;
   data: ArticleContent;
 }
+
+export interface OneItemResp {
+  success: boolean;
+  data: OneItem;
+}
+
+export interface OneItem {
+  oid: string;
+  name: string;
+  language: string;
+  suggestions: string;
+  author: string;
+  uv_count: number;
+  source_code: string;
+  repo_url: string;
+  demo_url?: string;
+  package: string;
+  has_depend: boolean;
+  created_at: string;
+}
+
+export interface OneFileProps {
+  onefile: OneItem;
+}
