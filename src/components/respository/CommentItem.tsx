@@ -73,7 +73,7 @@ const CommentItem = (
       ));
 
   return (
-    <div className={`flex ${className}`}>
+    <div className={`flex ${className} truncate`}>
       <div className='mr-4 hidden md:block'>
         <div className='relative h-14 w-14'>
           <img
