@@ -62,7 +62,7 @@ export const RankSearchBar = ({
 
   return (
     <div className='mb-2 flex items-center justify-between rounded-lg border bg-gray-50 py-2 px-2 shadow dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-800'>
-      <div className='grid w-1/3 justify-items-start'>
+      <div className=' justify-items-start'>
         <Dropdown
           options={typeOptions}
           initValue={target}
@@ -70,15 +70,17 @@ export const RankSearchBar = ({
           onChange={(opt) => onChange('target', opt.key)}
         />
       </div>
-      <div className='grid w-1/3 justify-items-center'>
+      <div className=' justify-items-center'>
         <div className='flex items-center'>
           <div className='inline h-5 w-5'>
             <img src={logo} alt='rank_logo' />
           </div>
-          <span className='ml-1 dark:text-gray-300'>{title}</span>
+          <span className='ml-1 hidden dark:text-gray-300 md:block'>
+            {title}
+          </span>
         </div>
       </div>
-      <div className='grid w-1/3 justify-items-end'>
+      <div className=' justify-items-end'>
         <Dropdown
           initValue={month}
           size='small'

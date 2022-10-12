@@ -10,6 +10,7 @@ type DropdownProps = {
   size?: 'small' | 'medium' | 'large' | '';
   border?: boolean;
   width?: number;
+  minWidth?: number;
   initValue?: string;
   options: option[];
   trigger?: string;
@@ -37,6 +38,7 @@ export default function Dropdown(props: DropdownProps) {
   }, [props.options, props.initValue]);
 
   useEffect(() => {
+    console.dir(dropdownBtnRef.current);
     const width = dropdownBtnRef.current?.clientWidth || 120;
     setWidth(width);
   }, []);
@@ -68,11 +70,7 @@ export default function Dropdown(props: DropdownProps) {
 
   const btnClassName = () => {
     return classNames(
-      'flex items-center rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-300',
-      {
-        'px-2 py-1 text-sm': props.size === 'small',
-        'px-2 py-2 text-base': props.size === 'medium',
-      }
+      'flex items-center rounded-md px-2 py-1 sm:py-2 text-sm sm:text-base text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-300'
     );
   };
 
@@ -104,7 +102,10 @@ export default function Dropdown(props: DropdownProps) {
   return (
     <div ref={dropdownBtnRef} className={wrapClassName()}>
       <button
-        style={{ width: props.width || 'auto' }}
+        style={{
+          width: props.width || 'auto',
+          minWidth: props.minWidth || '100%',
+        }}
         className={btnClassName()}
         onFocus={onTrigger('focus')}
         onBlur={onTrigger('blur')}
