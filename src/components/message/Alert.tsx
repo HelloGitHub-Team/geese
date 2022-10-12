@@ -29,7 +29,7 @@ function AlertComp({ id }: AlertProps) {
     mounted.current = true;
 
     // subscribe to new alert notifications
-    const subscription = alertService.onAlert(id).subscribe((alert: Alert) => {
+    const unsubscribe = alertService.onAlert(id).subscribe((alert: Alert) => {
       // clear alerts when an empty alert is received
       if (!alert.message) {
         setAlerts((alerts: Alert[]) => {
@@ -64,7 +64,7 @@ function AlertComp({ id }: AlertProps) {
       mounted.current = false;
 
       // unsubscribe to avoid memory leaks
-      subscription.unsubscribe();
+      unsubscribe();
       router.events.off('routeChangeStart', clearAlerts);
     };
 
