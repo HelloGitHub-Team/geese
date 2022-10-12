@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer({
   eslint: {
     dirs: ['src'],
   },
@@ -41,4 +46,4 @@ module.exports = {
   experimental: {
     scrollRestoration: true,
   },
-};
+});
