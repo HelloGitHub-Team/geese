@@ -105,7 +105,7 @@ const IndexBar = () => {
         <div className='shrink grow'></div>
         <div className='md:hidden'>
           <RepoModal>
-            <a className='flex h-8 items-center rounded-lg bg-blue-500 pl-4 pr-4 text-sm text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900'>
+            <a className='flex h-8 items-center rounded-lg bg-blue-500 px-2 text-sm text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 sm:px-4'>
               提交
             </a>
           </RepoModal>

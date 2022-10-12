@@ -43,9 +43,9 @@ export const RankButton = (props: RankButtonProps) => {
     return (
       <Dropdown
         initValue={key}
-        size='medium'
         border={false}
         options={btnList}
+        minWidth={76}
         onChange={(opt) => onChange(opt)}
       />
     );

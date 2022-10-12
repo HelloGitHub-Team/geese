@@ -122,28 +122,27 @@ export default function SearchInput() {
       className='inline-flex flex-auto items-stretch rounded-md bg-white px-2 dark:bg-transparent'
       ref={dropdownRef}
     >
-      <div className='relative w-full max-w-xs'>
+      <div className='relative w-full max-w-xl'>
         <input
           type='text'
-          className='block h-10 w-full rounded-md border-gray-200 py-3 px-2 text-xs placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:placeholder:text-gray-400 dark:focus:border-blue-900 dark:focus:ring-blue-900 md:text-sm'
+          className='block h-10 w-full rounded-md border-gray-200 py-2 px-2 pr-8 text-xs placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:placeholder:text-gray-400 dark:focus:border-blue-900 dark:focus:ring-blue-900 md:text-sm'
           placeholder='搜索开源项目'
           value={query}
           onChange={onQueryChange}
           onKeyDown={onKeyDown}
           onBlur={onInputBlur}
         ></input>
-
         {query ? (
           <VscChromeClose
-            size={20}
-            className='absolute right-1 top-2.5 mr-2 cursor-pointer text-gray-800 dark:text-gray-300'
+            size={18}
             onClick={clearQuery}
+            className='absolute inset-y-0 right-0 top-3 grid w-10 cursor-pointer place-content-center text-gray-800 dark:text-gray-300'
           />
         ) : (
           <IoIosSearch
-            size={24}
-            className='absolute right-1 top-2 mr-2 cursor-pointer text-gray-800 dark:text-gray-300'
+            size={18}
             onClick={onSearch}
+            className='absolute inset-y-0 right-0 top-3 grid w-10 cursor-pointer place-content-center text-gray-800 dark:text-gray-300'
           />
         )}
 
