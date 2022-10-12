@@ -49,11 +49,11 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
                     )}
                     <span className='px-1'>·</span>
                     {numFormat(onefile.uv_count, 1, 1000)} 次查看
-                    <div className='flex pl-2 md:hidden'>
+                    <div className='flex gap-1 pl-2  md:hidden'>
                       {onefile.demo_url ? (
                         <a
                           className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
-                          href={onefile.repo_url}
+                          href={onefile.demo_url}
                           target='__blank'
                         >
                           <GoPlay className='mr-1' size={14} />
@@ -72,7 +72,7 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
                         访问
                       </a>
                       <a
-                        className='ml-1 flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
+                        className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                         onClick={() => handleCopy(onefile)}
                         target='__blank'
                       >
@@ -81,11 +81,11 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
                       </a>
                     </div>
                   </div>
-                  <div className='hidden text-sm text-gray-400 md:flex'>
+                  <div className='hidden gap-2 text-sm text-gray-400 md:flex'>
                     {onefile.demo_url ? (
                       <a
                         className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
-                        href={onefile.repo_url}
+                        href={onefile.demo_url}
                         target='__blank'
                       >
                         <GoPlay className='mr-1' size={14} />
@@ -103,7 +103,7 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
                       访问
                     </a>
                     <a
-                      className='ml-1 flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
+                      className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                       onClick={() => handleCopy(onefile)}
                       target='__blank'
                     >
