@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import * as React from 'react';
 import { IoIosSearch } from 'react-icons/io';
 import { VscChromeClose } from 'react-icons/vsc';
 
@@ -21,10 +21,10 @@ export default function SearchInput() {
   const router = useRouter();
   const q = router.query?.q as string;
 
-  const [query, setQuery] = useState<string>('');
-  const [show, setShow] = useState<boolean>(false);
+  const [query, setQuery] = React.useState<string>('');
+  const [show, setShow] = React.useState<boolean>(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (q) {
       setQuery(q);
     }
@@ -33,12 +33,12 @@ export default function SearchInput() {
   const clearQuery = () => setQuery('');
 
   // 联想词下拉列表
-  const [dropdownList, setDropdownList] = useState<DropdownList[]>([]);
-  const dropdownRef = useRef<any>();
+  const [dropdownList, setDropdownList] = React.useState<DropdownList[]>([]);
+  const dropdownRef = React.useRef<any>();
 
   // 获取联想关键词
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getLenovoWord = useCallback(
+  const getLenovoWord = React.useCallback(
     debounce((query: string) => {
       if (!query) {
         setDropdownList([]);
@@ -60,7 +60,7 @@ export default function SearchInput() {
   );
 
   // 跳转搜索结果页面
-  const jump2Result = useCallback(
+  const jump2Result = React.useCallback(
     (q: string) => {
       setShow(false);
       if (q) {
@@ -73,7 +73,7 @@ export default function SearchInput() {
   );
 
   // 回车搜索
-  const onKeyDown = useCallback(
+  const onKeyDown = React.useCallback(
     (e: any) => {
       if (e.key === 'Enter') {
         jump2Result(e.target.value);
@@ -83,17 +83,17 @@ export default function SearchInput() {
   );
 
   // 点击搜索图标
-  const onSearch = useCallback(() => {
+  const onSearch = React.useCallback(() => {
     jump2Result(query);
   }, [jump2Result, query]);
 
-  const onQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const q = e.target.value;
     setQuery(q);
     getLenovoWord(q);
   };
 
-  const onClickLenovoWord = useCallback(
+  const onClickLenovoWord = React.useCallback(
     (item: any) => {
       setQuery(item.name);
       setShow(false);

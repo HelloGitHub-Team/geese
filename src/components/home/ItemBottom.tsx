@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import * as React from 'react';
 
 interface Props {
   endText: string;

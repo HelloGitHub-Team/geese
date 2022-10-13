@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { NextPage } from 'next';
+import * as React from 'react';
 import { useState } from 'react';
 
 import MDRender from '../mdRender/MDRender';

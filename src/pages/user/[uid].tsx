@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import * as React from 'react';
 
 import clsxm from '@/lib/clsxm';
 import useUserDetailInfo from '@/hooks/user/useUserDetailInfo';
@@ -22,7 +22,7 @@ export default function User() {
   const router = useRouter();
   const { uid } = router.query;
   const userDetailInfo = useUserDetailInfo(uid as string);
-  const [activeTab, setActiveTab] = useState<number>(1);
+  const [activeTab, setActiveTab] = React.useState<number>(1);
 
   return (
     <>

@@ -1,19 +1,14 @@
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { Suspense, useMemo } from 'react';
+import * as React from 'react';
 
 import Header from '@/components/layout/Header';
-import Loading from '@/components/loading/Loading';
 
-// 延迟加载，提高首次渲染速度
-const IndexSide = dynamic(() => import('../side/IndexSide'), {
-  suspense: true,
-});
+import IndexSide from '../side/IndexSide';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   // Put Header or Footer Here
   const router = useRouter();
-  const showIndexSide = useMemo<boolean>(() => {
+  const showIndexSide = React.useMemo<boolean>(() => {
     const { pathname } = router;
     // 不需要展示右边栏的路由
     const singlePage: string[] = [
@@ -36,9 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               {children}
             </div>
             <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
-              <Suspense fallback={<Loading />}>
-                <IndexSide />
-              </Suspense>
+              <IndexSide></IndexSide>
             </div>
           </div>
         )}

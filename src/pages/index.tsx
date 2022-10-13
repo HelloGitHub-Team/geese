@@ -1,25 +1,21 @@
 import { NextPage } from 'next';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
+import ItemBottom from '@/components/home/ItemBottom';
 import Items from '@/components/home/Items';
 import Loading from '@/components/loading/Loading';
 import IndexBar from '@/components/navbar/IndexBar';
 import Seo from '@/components/Seo';
+import ToTop from '@/components/toTop/ToTop';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
 import { HomeItem, HomeItems } from '@/types/home';
-
-//#region  //*=========== 动态加载,以提高首次加载速度 ===========
-const ItemBottom = dynamic(() => import('@/components/home/ItemBottom'));
-const ToTop = dynamic(() => import('@/components/toTop/ToTop'));
-//#endregion  //*=======动态加载,以提高首次加载速度=  ===========
 
 const Index: NextPage = () => {
   const router = useRouter();

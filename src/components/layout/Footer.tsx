@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import * as React from 'react';
 import { AiFillWechat, AiFillWeiboCircle } from 'react-icons/ai';
 import { IoLogoRss } from 'react-icons/io';
 

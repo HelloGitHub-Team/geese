@@ -1,6 +1,6 @@
 import { AppProps } from 'next/app';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 
 import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
@@ -9,11 +9,8 @@ import '@/styles/colors.css';
 import { LoginProvider } from '@/hooks/useLoginContext';
 
 import Layout from '@/components/layout/Layout';
+import { AlertComp as Alert } from '@/components/message/Alert';
 import PullRefresh from '@/components/PullRefresh';
-
-//#region  //*=========== 动态加载,以提高首页加载速度 ===========
-const Alert = dynamic(() => import('@/components/message/Alert'));
-//#endregion  //*=======动态加载,以提高首页加载速度=  ===========
 
 /**
  * !STARTERCONF info
@@ -28,6 +25,17 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <div id='root'>
+      <Script id='baidu-analytics'>
+        {`
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?${process.env.NEXT_PUBLIC_BAIDU_ANALYTICS}";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+        `}
+      </Script>
       <LoginProvider>
         <PullRefresh>
           {singlePage.includes(pathname) ? (

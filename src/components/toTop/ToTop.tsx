@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import * as React from 'react';
 import { AiOutlineRocket } from 'react-icons/ai';
 
 interface ToTopProps {
@@ -8,8 +8,8 @@ interface ToTopProps {
  * 回到顶部
  */
 export default function ToTop({ cb }: ToTopProps) {
-  const [show, setShow] = useState(false);
-  const ticking = useRef(false);
+  const [show, setShow] = React.useState(false);
+  const ticking = React.useRef(false);
 
   const onToTop = () => {
     window.scrollTo({ top: 0 });
@@ -17,7 +17,7 @@ export default function ToTop({ cb }: ToTopProps) {
   };
 
   // 监听 body 滚动事件, 滚动到指定高度时显示回到顶部按钮
-  useEffect(() => {
+  React.useEffect(() => {
     const handleScroll = (e: Event) => {
       if (!ticking.current) {
         window.requestAnimationFrame(function () {

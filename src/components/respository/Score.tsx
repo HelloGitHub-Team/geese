@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import * as React from 'react';
 
 import { RepositoryProps } from '@/types/reppsitory';
 

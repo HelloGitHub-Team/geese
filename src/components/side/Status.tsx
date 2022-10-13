@@ -1,3 +1,4 @@
+import * as React from 'react';
 import useSWRImmutable from 'swr/immutable';
 
 import { fetcher } from '@/services/base';
