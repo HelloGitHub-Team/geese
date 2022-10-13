@@ -132,4 +132,4 @@ function AlertComp({ id }: AlertProps) {
     </div>
   );
 }
-export { AlertComp };
+export default AlertComp;

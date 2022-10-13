@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import * as React from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 
 import Seo from '@/components/Seo';

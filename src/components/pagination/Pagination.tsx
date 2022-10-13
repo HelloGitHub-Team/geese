@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 
 import clsxm from '@/lib/clsxm';
 
@@ -19,8 +19,8 @@ export default function Pagination({
   onPageChange,
   ...rest
 }: PaginationProps) {
-  const [page, setPage] = React.useState<number>(current);
-  React.useEffect(() => {
+  const [page, setPage] = useState<number>(current);
+  useEffect(() => {
     setPage(current);
   }, [current]);
   const handlePageChange = (page: number) => {

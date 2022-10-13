@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import * as React from 'react';
 import { useState } from 'react';
 
 import { numFormat } from '@/utils/util';
