@@ -1,6 +1,3 @@
-import { Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
-
 export const alertService = {
   onAlert,
   success,
@@ -33,12 +30,31 @@ export type { Alert };
 
 export default alertService;
 
-const alertSubject = new Subject();
+const alertSubject = {
+  id: null,
+  observers: [] as any[],
+  subscribe(ob: any) {
+    this.observers.push(ob);
+    return this.unsubscribe;
+  },
+  next(alert: Partial<Alert>) {
+    this.observers
+      .filter(() => alert && alert.id === this.id)
+      .forEach((observer: any) => observer(alert));
+  },
+  setId(id: any) {
+    this.id = id;
+  },
+  unsubscribe() {
+    this.observers = [];
+  },
+};
 const defaultId = 'default-alert';
 
 // enable subscribing to alerts observable
 function onAlert(id = defaultId) {
-  return alertSubject.asObservable().pipe(filter((x: any) => x && x.id === id));
+  alertSubject.setId(id);
+  return alertSubject;
 }
 
 // convenience methods

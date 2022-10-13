@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import * as React from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 const ArticleNavbar = () => {
