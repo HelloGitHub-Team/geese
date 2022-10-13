@@ -3,14 +3,13 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { AiFillTags } from 'react-icons/ai';
+import { AiFillTags, AiOutlineArrowLeft } from 'react-icons/ai';
 import { GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 
 import ImageWithPreview from '@/components/ImageWithPreview';
 import MDRender from '@/components/mdRender/MDRender';
-import Navbar from '@/components/navbar/Navbar';
 import Pagination from '@/components/pagination/Pagination';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
@@ -151,22 +150,40 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
       <div className='flex shrink grow flex-row sm:border-l md:border-none'>
         <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
           <div className='relative pb-6'>
-            <Navbar
-              middleText={`《HelloGitHub》第 ${volume?.current_num} 期`}
-              endText='月刊'
-            ></Navbar>
+            <div className='relative my-2 bg-white dark:bg-gray-800 md:rounded-lg'>
+              <div className='flex h-12 items-center justify-between py-2 px-4'>
+                <div className='cursor-pointer' onClick={router.back}>
+                  <AiOutlineArrowLeft
+                    className='text-gray-500 hover:text-blue-400'
+                    size={18}
+                  />
+                </div>
+                <div className='text-centerdark:text-gray-300 w-3/4 truncate'>
+                  <Pagination
+                    total={volume?.total}
+                    current={volume?.current_num}
+                    onPageChange={onPageChange}
+                  />
+                </div>
 
-            <div className='my-2 bg-white p-5 dark:bg-gray-800 md:rounded-lg'>
-              <div className='text-normal mb-4 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'>
-                <div className='whitespace-pre-wrap rounded-lg border bg-white p-2 font-normal leading-8 text-gray-500 dark:bg-gray-800 dark:text-gray-300'>
+                <div className='justify-end text-sm text-gray-500 dark:text-gray-400'>
+                  月刊
+                </div>
+              </div>
+            </div>
+
+            <div className='my-2 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
+              <div className='flex items-center justify-center pb-4'>
+                <h2>《HelloGitHub》第 {volume.current_num} 期</h2>
+              </div>
+              <div className='text-normal mb-4  dark:bg-gray-800 dark:text-gray-300'>
+                <div className='whitespace-pre-wrap rounded-sm bg-gray-50 p-2 font-normal leading-8 text-gray-500 dark:bg-gray-800 dark:text-gray-300'>
                   <p>
-                    <span className='font-bold'>HelloGitHub 月刊</span>
-                    专注于分享 GitHub 上有趣、入门级的开源项目，每月 28 号更新。
-                    这里的开源项目总能让人大开眼界，勾起你对开源的兴趣。
-                  </p>
-                  <p>
-                    兴趣是最好的老师，它能指引你找到
-                    <span className='font-bold'>「进入开源世界的钥匙」</span>。
+                    我们专注于分享 GitHub 上有趣、入门级的开源项目，
+                    <span className='font-bold'>每月 28 号</span>
+                    以《HelloGitHub》月刊的形式更新。这里有好玩和入门级的开源项目、开源书籍、实战项目、企业级项目，
+                    让你用极短的时间感受到开源的魅力，对开源产生兴趣。兴趣是最好的老师，让它带你找到
+                    <span className='font-bold'>开源世界的钥匙</span>。
                   </p>
                 </div>
               </div>
@@ -175,7 +192,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                 (category: VolumeCategory, _cIndex: number) => {
                   const id = `category-${category.category_id}`;
                   return (
-                    <div id={id} key={category.category_id} className='pb-5'>
+                    <div id={id} key={category.category_id} className='pb-4'>
                       <Link
                         href={`/periodical/category/${encodeURIComponent(
                           category.category_name
@@ -238,12 +255,6 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                 }
               )}
             </div>
-
-            <Pagination
-              total={volume?.total}
-              current={volume?.current_num}
-              onPageChange={onPageChange}
-            />
             <ToTop cb={() => setActiveCategory('')} />
           </div>
         </div>
@@ -251,8 +262,8 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
         <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
           {/* 右侧目录 */}
           <div>
-            <div className='top-15 fixed ml-3 w-[180px] space-y-2 lg:w-[244px]'>
-              <div className='mt-2 ml-3 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
+            <div className='top-15 fixed w-full max-w-[244px]'>
+              <div className='mt-2 ml-3  bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
                 <h4 className='mb-2 border-b border-gray-200 pb-2 dark:border-gray-700'>
                   目录
                 </h4>

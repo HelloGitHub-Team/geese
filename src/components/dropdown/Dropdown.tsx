@@ -38,7 +38,6 @@ export default function Dropdown(props: DropdownProps) {
   }, [props.options, props.initValue]);
 
   useEffect(() => {
-    console.dir(dropdownBtnRef.current);
     const width = dropdownBtnRef.current?.clientWidth || 120;
     setWidth(width);
   }, []);

@@ -30,7 +30,7 @@ const Header = () => {
 
   return (
     <div className='fixed z-10 h-14 w-full bg-white shadow-sm backdrop-blur dark:border dark:border-gray-50/[0.06] dark:bg-transparent'>
-      <nav className='mx-auto flex max-w-7xl items-center justify-between p-2'>
+      <nav className='mx-auto flex max-w-5xl items-center justify-between p-2 xl:max-w-5xl 2xl:max-w-7xl'>
         <span className='hidden md:block'>
           <img
             className='cursor-pointer dark:invert'

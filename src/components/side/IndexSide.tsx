@@ -26,7 +26,7 @@ export default function IndexSide() {
   return (
     <>
       <div ref={containerRef}>
-        <div className='mt-2 ml-3 w-[180px] lg:w-[244px]'>
+        <div className='relative mt-2 ml-3 max-w-[244px]'>
           <div className='space-y-2'>
             <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5 dark:bg-gray-800'>
               <UserStatus></UserStatus>
@@ -47,7 +47,7 @@ export default function IndexSide() {
         </div>
       </div>
       <div
-        className='fixed top-16 ml-3 w-[180px] space-y-2 lg:w-[244px]'
+        className='fixed top-16 ml-3 max-w-[244px] space-y-2'
         hidden={!displayAdOnly}
       >
         <Ad

@@ -75,7 +75,7 @@ const ArticleIndex: NextPage = () => {
                   <div className='flex-cloume relative flex'>
                     <div className='w-9/12 max-w-full'>
                       <div className='text-color-primary flex justify-between visited:text-gray-500 dark:text-gray-300'>
-                        <span className='truncate pt-1 pr-2 text-sm leading-snug md:pr-0 md:text-base'>
+                        <span className='truncate pr-2 text-sm leading-snug md:pr-0 md:text-base'>
                           {index + 1}. {item.title}
                         </span>
                       </div>
