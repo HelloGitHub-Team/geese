@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import * as React from 'react';
 import { AiFillWechat, AiFillWeiboCircle } from 'react-icons/ai';
 import { IoLogoRss } from 'react-icons/io';
 
@@ -11,10 +10,14 @@ const Footer = () => {
           <span className='cursor-pointer hover:text-blue-500'>社区玩法</span>
         </Link>
         <span className='px-1.5'>·</span>
-
-        <Link href='/server-sitemap-index.xml'>
-          <span className='cursor-pointer hover:text-blue-500'>站点地图</span>
-        </Link>
+        <a
+          target='_blank'
+          className='cursor-pointer hover:text-blue-500'
+          href='/server-sitemap-index.xml'
+          rel='noreferrer'
+        >
+          <span>站点地图</span>
+        </a>
         <span className='px-1.5'>·</span>
         <Link href='/help/ats'>
           <span className='cursor-pointer hover:text-blue-500'>服务协议</span>

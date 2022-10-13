@@ -9,7 +9,7 @@ import '@/styles/colors.css';
 import { LoginProvider } from '@/hooks/useLoginContext';
 
 import Layout from '@/components/layout/Layout';
-import { AlertComp as Alert } from '@/components/message/Alert';
+import Alert from '@/components/message/Alert';
 import PullRefresh from '@/components/PullRefresh';
 
 /**

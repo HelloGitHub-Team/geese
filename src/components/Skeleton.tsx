@@ -1,8 +1,8 @@
-import * as React from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 
 import clsxm from '@/lib/clsxm';
 
-type SkeletonProps = React.ComponentPropsWithoutRef<'div'>;
+type SkeletonProps = ComponentPropsWithoutRef<'div'>;
 
 export default function Skeleton({ className, ...rest }: SkeletonProps) {
   return (

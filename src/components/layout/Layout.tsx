@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router';
-import * as React from 'react';
+import { ReactNode, useMemo } from 'react';
 
 import Header from '@/components/layout/Header';
 
 import IndexSide from '../side/IndexSide';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
   // Put Header or Footer Here
   const router = useRouter();
-  const showIndexSide = React.useMemo<boolean>(() => {
+  const showIndexSide = useMemo<boolean>(() => {
     const { pathname } = router;
     // 不需要展示右边栏的路由
     const singlePage: string[] = [

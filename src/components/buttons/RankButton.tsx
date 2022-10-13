@@ -18,7 +18,7 @@ const btnList: option[] = [
   { key: '/article', value: '文章' },
 ];
 
-export const RankButton = (props: RankButtonProps) => {
+const RankButton = (props: RankButtonProps) => {
   const router = useRouter();
   const onChange = async (opt: option) => {
     if (opt.key === 'periodical') {
@@ -64,3 +64,5 @@ export const RankButton = (props: RankButtonProps) => {
     </Button>
   );
 };
+
+export default RankButton;

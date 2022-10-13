@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
-import * as React from 'react';
 
 import { fromNow } from '@/utils/day';
 import { numFormat } from '@/utils/util';

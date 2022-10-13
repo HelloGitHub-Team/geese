@@ -1,11 +1,8 @@
 import Link from 'next/link';
-import * as React from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 
 import Seo from '@/components/Seo';
 import ThemeSwitch from '@/components/ThemeSwitch';
-
-import SVG500 from '~/images/500.svg';
 
 export default function ServerErrorPage() {
   return (
@@ -19,8 +16,7 @@ export default function ServerErrorPage() {
         <section className='min-h-screen bg-white dark:bg-gray-800'>
           <div className='flex flex-col items-center justify-center'>
             <div className='mx-4 mt-14 mb-2'>
-              <SVG500 className='hidden md:block' width={500} height={500} />
-              <SVG500 className='md:hidden' width={300} height={300} />
+              <img src='https://img.hellogithub.com/svg/500.svg' width={500} />
             </div>
             <Link href='/'>
               <div className='group relative inline-flex cursor-pointer items-center overflow-hidden rounded border border-current px-7 py-2 text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:text-gray-500 dark:active:text-gray-500'>
