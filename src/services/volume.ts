@@ -4,10 +4,17 @@ import { fetcher } from './base';
 
 import { Volume, VolumeAll } from '@/types/periodical';
 
-export const getVolume = async (num: number): Promise<Volume> => {
+export const getVolume = async (num?: number): Promise<Volume> => {
   try {
-    const data = await fetcher<Volume>(makeUrl(`/periodical/volume/${num}`));
-    return data;
+    if (num) {
+      const data = await fetcher<Volume>(
+        makeUrl(`/periodical/volume/`, { num: num })
+      );
+      return data;
+    } else {
+      const data = await fetcher<Volume>(makeUrl(`/periodical/volume/`));
+      return data;
+    }
   } catch (error) {
     return {
       success: false,
@@ -25,10 +32,9 @@ export const getVolumeNum = async (): Promise<VolumeAll> => {
       success = false,
       total = 0,
       data = [],
-      lastNum = 0,
     } = (await fetcher<VolumeAll>(makeUrl(`/periodical/volume/all/`))) || {};
-    return { success, total, data, lastNum };
+    return { success, total, data };
   } catch (error) {
-    return { success: false, total: 0, data: [], lastNum: 0 };
+    return { success: false, total: 0, data: [] };
   }
 };

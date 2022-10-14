@@ -76,11 +76,13 @@ const CommentItem = (
     <div className={`flex ${className} truncate`}>
       <div className='mr-4 hidden md:block'>
         <div className='relative h-14 w-14'>
-          <img
-            className='rounded-full'
-            src={user?.avatar || DEFAULT_AVATAR}
-            alt='comment_avatar'
-          />
+          <Link href={`/user/${user.uid}`}>
+            <img
+              className='rounded-full'
+              src={user?.avatar || DEFAULT_AVATAR}
+              alt='comment_avatar'
+            />
+          </Link>
         </div>
       </div>
       <div className='w-max-full relative flex-1'>

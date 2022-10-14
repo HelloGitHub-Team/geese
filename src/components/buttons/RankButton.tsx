@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { AiOutlineTrophy } from 'react-icons/ai';
 
-import { getPeriodicalPath } from '@/components/buttons/Periodical';
 import type { option } from '@/components/dropdown/Dropdown';
 import Dropdown from '@/components/dropdown/Dropdown';
 
@@ -13,7 +12,7 @@ type RankButtonProps = {
 
 const btnList: option[] = [
   { key: '/', value: '首页' },
-  { key: 'periodical', value: '月刊' },
+  { key: '/periodical/volume', value: '月刊' },
   { key: '/report/tiobe', value: '排行榜' },
   { key: '/article', value: '文章' },
 ];
@@ -21,19 +20,14 @@ const btnList: option[] = [
 const RankButton = (props: RankButtonProps) => {
   const router = useRouter();
   const onChange = async (opt: option) => {
-    if (opt.key === 'periodical') {
-      const path = await getPeriodicalPath();
-      router.push(path);
-    } else {
-      router.push(opt.key as any);
-    }
+    router.push(opt.key as any);
   };
 
   if (props.type === 'dropdown') {
     let key = '/';
     if (router.isReady) {
       if (router.pathname.includes('periodical')) {
-        key = 'periodical';
+        key = '/periodical/volume';
       } else if (router.pathname.includes('report')) {
         key = '/report/tiobe';
       } else if (router.pathname.includes('article')) {

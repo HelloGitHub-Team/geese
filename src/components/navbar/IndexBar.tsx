@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
-import Button from '@/components/buttons/Button';
 import TagLink from '@/components/links/TagLink';
 import { RepoModal } from '@/components/respository/Submit';
 
@@ -88,20 +87,24 @@ const IndexBar = () => {
 
   return (
     <div className='relative my-2 overflow-hidden bg-white dark:bg-gray-800 md:rounded-lg'>
-      <div className='flex h-12 items-center justify-start space-x-2 py-2 px-4'>
+      <div className='flex h-12 items-center justify-start space-x-1 py-2 px-4 md:space-x-2'>
         <Link href={lastURL}>
           <a className={linkClassName('last')}>最新</a>
         </Link>
         <Link href={hotURL}>
           <a className={linkClassName('hot')}>热门</a>
         </Link>
-        <Button
-          variant='ghost'
-          onClick={handleTagButton}
-          className={labelClassName()}
-        >
+        <span onClick={handleTagButton} className={labelClassName()}>
           标签
-        </Button>
+        </span>
+        <div className='md:hidden'>
+          <Link href='/periodical/volume'>
+            <a className='flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold text-gray-500 focus:bg-white dark:text-gray-200'>
+              月刊
+            </a>
+          </Link>
+        </div>
+
         <div className='shrink grow'></div>
         <div className='md:hidden'>
           <RepoModal>

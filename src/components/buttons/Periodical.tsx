@@ -3,18 +3,11 @@ import { AiOutlineBook } from 'react-icons/ai';
 
 import Button from '@/components/buttons/Button';
 
-import { getVolumeNum } from '@/services/volume';
-
 const PeriodicalButton = () => {
   const router = useRouter();
 
   const handlePeriodicalURL = async () => {
-    const { data, lastNum } = await getVolumeNum();
-    if (data) {
-      router.push(`/periodical/volume/${lastNum}`);
-    } else {
-      router.push('/');
-    }
+    router.push('/periodical/volume');
   };
 
   return (
@@ -31,12 +24,3 @@ const PeriodicalButton = () => {
   );
 };
 export default PeriodicalButton;
-
-export const getPeriodicalPath = async () => {
-  const { data, lastNum } = await getVolumeNum();
-  if (data) {
-    return `/periodical/volume/${lastNum}`;
-  } else {
-    return '/';
-  }
-};

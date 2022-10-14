@@ -36,7 +36,6 @@ export interface Volume {
 
 export type VolumeAll = {
   success: boolean;
-  lastNum: number;
   total: number;
   data: any[];
 };
