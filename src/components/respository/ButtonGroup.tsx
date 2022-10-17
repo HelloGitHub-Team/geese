@@ -1,8 +1,13 @@
 import copy from 'copy-to-clipboard';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { GoLink, GoLinkExternal, GoStar } from 'react-icons/go';
-import { IoMdThumbsUp } from 'react-icons/io';
+import {
+  AiFillHeart,
+  AiFillStar,
+  AiOutlineHeart,
+  AiOutlineStar,
+} from 'react-icons/ai';
+import { GoLink, GoLinkExternal } from 'react-icons/go';
 
 import {
   cancelCollectRepo,
@@ -93,28 +98,28 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
     <div className='flex border-t border-solid bg-white text-center text-xs text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 md:rounded-b-lg'>
       {isVoted ? (
         <div className={commonStyle} onClick={() => onCancelVote(repo.rid)}>
-          <IoMdThumbsUp className='mr-1 text-blue-500' size={14} />
+          <AiFillHeart className='mr-1 text-blue-500' size={14} />
           <span className='text-xs text-inherit text-blue-500'>
             {numFormat(likesTotal, 1)}
           </span>
         </div>
       ) : (
         <div className={commonStyle} onClick={() => onClickVote(repo.rid)}>
-          <IoMdThumbsUp className={iconStyle} size={14} />
+          <AiOutlineHeart className={iconStyle} size={14} />
           点赞
         </div>
       )}
 
       {isCollected ? (
         <div className={commonStyle} onClick={() => onCancelCollect(repo.rid)}>
-          <GoStar className='mr-1 text-blue-500' size={14} />
+          <AiFillStar className='mr-1 text-blue-500' size={14} />
           <span className='text-xs text-inherit text-blue-500'>
             {numFormat(collectTotal, 1)}
           </span>
         </div>
       ) : (
         <div className={commonStyle} onClick={() => onClickCollect(repo.rid)}>
-          <GoStar className={iconStyle} size={14} />
+          <AiOutlineStar className={iconStyle} size={14} />
           收藏
         </div>
       )}
