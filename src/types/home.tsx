@@ -32,3 +32,17 @@ export interface Stats {
   user_total: number;
   period_total: number;
 }
+
+export interface AdvertItem {
+  aid: string;
+  url: string;
+  image_url: string;
+  position: string;
+  rank: number;
+  is_ad: boolean;
+}
+
+export interface AdvertItems {
+  success: boolean;
+  data: AdvertItem[];
+}

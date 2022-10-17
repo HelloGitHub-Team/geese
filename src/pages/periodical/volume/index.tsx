@@ -198,7 +198,7 @@ const PeriodicalVolumeIndexPage: NextPage<VolumePageProps> = ({ volume }) => {
                           category.category_name
                         )}`}
                       >
-                        <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 active:text-blue-500 dark:text-white'>
+                        <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 active:text-blue-500 dark:text-white dark:hover:text-blue-500'>
                           <AiFillTags className='mr-0.5' />
                           {category.category_name}
                         </div>
