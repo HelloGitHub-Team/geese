@@ -78,7 +78,7 @@ const CommentItem = (
         <div className='relative h-14 w-14'>
           <Link href={`/user/${user.uid}`}>
             <img
-              className='rounded-full'
+              className='cursor-pointer rounded-full'
               src={user?.avatar || DEFAULT_AVATAR}
               alt='comment_avatar'
             />
@@ -101,11 +101,13 @@ const CommentItem = (
               <a>{user?.nickname}</a>
             </Link>
           </span>
-          <span className='flex shrink-0 items-center text-sm'>
+          <span className='flex shrink-0 items-center text-xs md:text-sm'>
             评分：
             <Rating value={score} />
           </span>
-          <span className='shrink-0 text-sm'>{isUsed ? '用过' : '没用过'}</span>
+          <span className='shrink-0 text-xs md:text-sm'>
+            {isUsed ? '用过' : '没用过'}
+          </span>
         </div>
         <div className='mt-2 whitespace-normal break-all text-sm text-gray-900 dark:text-gray-200'>
           <MDRender>{comment}</MDRender>

@@ -19,7 +19,13 @@ function useCommentData() {
     score: number;
     height?: number;
   }) => {
-    localStorage.setItem(storageKey, JSON.stringify(data));
+    localStorage.setItem(
+      storageKey,
+      JSON.stringify({
+        comment: data.comment,
+        height: data.height ? data.height : 58,
+      })
+    );
     setCommentData({ height: 58, ...data });
   };
 

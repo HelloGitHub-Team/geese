@@ -106,7 +106,7 @@ function CommentSubmit(props: {
               <input
                 type='radio'
                 name='radio-1'
-                className='mr-1 h-5 w-5 flex-shrink-0 cursor-pointer appearance-none rounded-full border text-blue-500 focus:border-blue-500 focus:bg-blue-500'
+                className='mr-1 h-3 w-3 flex-shrink-0 cursor-pointer appearance-none rounded-full border text-blue-500 focus:border-blue-500 focus:bg-blue-500 md:h-5 md:w-5'
                 style={{ boxShadow: 'none' }}
                 checked={!commentData.isUsed}
                 onChange={() => handleRadioChange(false)}
@@ -117,7 +117,7 @@ function CommentSubmit(props: {
               <input
                 type='radio'
                 name='radio-1'
-                className='mr-1 h-5 w-5 flex-shrink-0 cursor-pointer appearance-none rounded-full border text-blue-500 focus:border-blue-500 focus:bg-blue-500'
+                className='mr-1 h-3 w-3 flex-shrink-0 cursor-pointer appearance-none rounded-full border text-blue-500 focus:border-blue-500 focus:bg-blue-500 md:h-5 md:w-5'
                 style={{ boxShadow: 'none' }}
                 checked={commentData.isUsed}
                 onChange={() => handleRadioChange(true)}
