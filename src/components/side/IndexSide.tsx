@@ -1,14 +1,29 @@
 import { useEffect, useRef, useState } from 'react';
+import useSWRImmutable from 'swr/immutable';
 
-import Ad from '@/components/side/Ad';
+import { SideAd, SideFixAd } from '@/components/side/SideAd';
+
+import { fetcher } from '@/services/base';
+import { makeUrl } from '@/utils/api';
 
 import Status from './Status';
 import UserStatus from './UserStatus';
 import Footer from '../layout/Footer';
 
+import { AdvertItems } from '@/types/home';
+
 export default function IndexSide() {
   const [displayAdOnly, setDisplayAdOnly] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { data, isValidating } = useSWRImmutable<AdvertItems>(
+    makeUrl('/advert/', { position: 'side' }),
+    fetcher,
+    {
+      revalidateIfStale: false,
+    }
+  );
+
+  const adverts = data?.success ? data.data : [];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,36 +46,17 @@ export default function IndexSide() {
             <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5 dark:bg-gray-800'>
               <UserStatus></UserStatus>
             </div>
-            <Ad
-              id='upyun'
-              image='https://img.hellogithub.com/ad/upyun_side.png'
-              url='https://www.upyun.com/league?utm_source=HelloGitHub&utm_medium=adting'
-            />
-            <Ad
-              id='ucloud'
-              image='https://img.hellogithub.com/ad/ucloud_side.png'
-              url='https://www.ucloud.cn/site/active/kuaijiesale.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display#wulanchabu'
-            />
+            {!isValidating ? <SideAd data={adverts} /> : <></>}
             <Status />
           </div>
           <Footer />
         </div>
       </div>
-      <div
-        className='fixed top-16 ml-3 max-w-[244px] space-y-2'
-        hidden={!displayAdOnly}
-      >
-        <Ad
-          id='upyun'
-          image='https://img.hellogithub.com/ad/upyun_side.png'
-          url='https://www.upyun.com/league?utm_source=HelloGitHub&utm_medium=adting'
-        />
-        <Ad
-          id='ucloud'
-          image='https://img.hellogithub.com/ad/ucloud_side.png'
-          url='https://www.ucloud.cn/site/active/kuaijiesale.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display#wulanchabu'
-        />
-      </div>
+      {adverts ? (
+        <SideFixAd data={adverts} displayAdOnly={displayAdOnly} />
+      ) : (
+        <></>
+      )}
     </>
   );
 }
