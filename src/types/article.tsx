@@ -46,6 +46,18 @@ export interface OneItemResp {
   data: OneItem;
 }
 
+export interface OneItemsResp {
+  success: boolean;
+  data: TableOneItem[];
+}
+export interface TableOneItem {
+  [key: string]: string | number | undefined;
+  name: string;
+  language: string;
+  suggestions: string;
+  oid: string;
+}
+
 export interface OneItem {
   oid: string;
   name: string;
