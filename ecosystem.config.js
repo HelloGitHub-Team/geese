@@ -9,7 +9,7 @@ module.exports = {
         NEXT_PUBLIC_ENV: 'production',
         NODE_PORT: '3000',
       },
-      watch: true,
+      watch: false,
       merge_logs: true,
       exec_mode: 'cluster',
       max_memory_restart: '1G',
