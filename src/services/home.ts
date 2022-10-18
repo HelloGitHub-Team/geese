@@ -28,5 +28,13 @@ export const getTags = async (
   return data;
 };
 
+export const recordGoAdvert = async (aid: string): Promise<any> => {
+  try {
+    await fetcher(makeUrl(`/go/advert/?aid=${aid}`));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export type HomeItemData = HomeItem[];
 export const DataContext = createContext<HomeItemData>([]);

@@ -1,6 +1,7 @@
 import { MouseEventHandler, useState } from 'react';
 import { VscClose } from 'react-icons/vsc';
 
+import { recordGoAdvert } from '@/services/home';
 import { PUTAdURL } from '@/utils/constants';
 
 interface Props {
@@ -19,6 +20,10 @@ export default function Ad(props: Props) {
     setVisible(false);
   };
 
+  const onClickLink = (rid: string) => {
+    recordGoAdvert(rid);
+  };
+
   // useEffect(() => {
   //   const isHide = localStorage.getItem(props.id);
   //   setVisible(!isHide);
@@ -29,7 +34,12 @@ export default function Ad(props: Props) {
       className={`${props.className} relative h-20 cursor-pointer overflow-hidden rounded-lg bg-white dark:bg-gray-800`}
       hidden={!visible}
     >
-      <a href={props.url} target='_blank' rel='noreferrer'>
+      <a
+        href={props.url}
+        target='_blank'
+        onClick={() => onClickLink(props.id)}
+        rel='noreferrer'
+      >
         <div className='group relative h-full'>
           <img className='h-full w-full' src={props.image} alt='ad' />
           <div

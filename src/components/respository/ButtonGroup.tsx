@@ -21,9 +21,14 @@ import { numFormat } from '@/utils/util';
 
 import message from '../message';
 
-import { Repository, RepositoryProps } from '@/types/reppsitory';
+import { Repository } from '@/types/reppsitory';
 
-const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
+interface Props {
+  repo: Repository;
+  inWechat: boolean;
+}
+
+const ButtonGroup: NextPage<Props> = ({ repo, inWechat }) => {
   const commonStyle =
     'flex flex-1 items-center justify-center cursor-pointer leading-10 hover:text-current md:hover:text-blue-500 active:!text-gray-400';
   const iconStyle = 'mr-1';
@@ -80,7 +85,7 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
   const handleCopy = (repo: Repository) => {
     const text = `${
       repo.name
-    }：${repo.title.trim()}。\n点击查看详情：https://dev.hg.hellogithub.com/repository/${
+    }：${repo.title.trim()}。\n点击查看详情：https://hellogithub.com/repository/${
       repo.rid
     }`;
     if (copy(text)) {
@@ -128,15 +133,26 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
         <GoLinkExternal className={iconStyle} size={14} />
         分享
       </div>
-      <a
-        className={commonStyle}
-        href={repo.url}
-        onClick={() => onClickLink(repo.rid)}
-        target='__blank'
-      >
-        <GoLink className={iconStyle} size={14} />
-        访问
-      </a>
+      {inWechat ? (
+        <a
+          className={commonStyle}
+          href={repo.url}
+          onClick={() => onClickLink(repo.rid)}
+        >
+          <GoLink className={iconStyle} size={14} />
+          访问
+        </a>
+      ) : (
+        <a
+          className={commonStyle}
+          href={repo.url}
+          onClick={() => onClickLink(repo.rid)}
+          target='__blank'
+        >
+          <GoLink className={iconStyle} size={14} />
+          访问
+        </a>
+      )}
     </div>
   );
 };

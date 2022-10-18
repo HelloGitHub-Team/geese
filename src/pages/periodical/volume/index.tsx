@@ -7,7 +7,7 @@ import { getVolume } from '@/services/volume';
 import { VolumePageProps } from '@/types/periodical';
 
 const PeriodicalVolumeIndexPage: NextPage<VolumePageProps> = ({ volume }) => {
-  return <Periodical volume={volume}></Periodical>;
+  return <Periodical volume={volume} />;
 };
 
 export default PeriodicalVolumeIndexPage;
