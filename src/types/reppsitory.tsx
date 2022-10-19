@@ -34,6 +34,10 @@ export interface Repository extends RepoType {
   tid: string | null | undefined;
 }
 
+export interface RepositorySuccessData extends BaseType {
+  data: Repository;
+}
+
 export interface RepoTag {
   name: string;
   tid: string;

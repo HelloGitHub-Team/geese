@@ -7,6 +7,14 @@ const ArticleNavbar = () => {
   const router = useRouter();
   const { sort_by = 'last' } = router.query;
 
+  const goBack = () => {
+    if (window.history.length <= 2) {
+      router.push('/');
+    } else {
+      router.back();
+    }
+  };
+
   const linkClassName = (sortName: string) =>
     classNames(
       'flex items-center whitespace-nowrap rounded-lg px-2 py-1 text-xs hover:text-blue-500 dark:hover:bg-gray-700',
@@ -19,7 +27,7 @@ const ArticleNavbar = () => {
   return (
     <div className='relative my-2 bg-white dark:bg-gray-800 md:rounded-lg'>
       <div className='flex h-12 items-center justify-between py-2 px-4'>
-        <div className='cursor-pointer' onClick={router.back}>
+        <div className='cursor-pointer' onClick={goBack}>
           <AiOutlineArrowLeft
             className='text-gray-500 hover:text-blue-400'
             size={18}

@@ -81,13 +81,16 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const rid = query?.rid as string;
   const data = await getDetail(ip, rid);
-  if (typeof data.rid === 'undefined') {
+  if (data.success) {
     return {
-      notFound: true,
+      props: {
+        repo: data.data,
+        user_agent: user_agent,
+      },
     };
   } else {
     return {
-      props: { repo: data, user_agent: user_agent },
+      notFound: true,
     };
   }
 };

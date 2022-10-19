@@ -37,6 +37,14 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
     return volume?.data || [];
   }, [volume]);
 
+  const goBack = () => {
+    if (window.history.length <= 2) {
+      router.push('/');
+    } else {
+      router.back();
+    }
+  };
+
   const onPageChange = (page: number) => {
     router.push(`/periodical/volume/${page}`);
   };
@@ -151,7 +159,7 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
           <div className='relative pb-6'>
             <div className='relative my-2 bg-white dark:bg-gray-800 md:rounded-lg'>
               <div className='flex h-12 items-center justify-between py-2 px-4'>
-                <div className='cursor-pointer' onClick={router.back}>
+                <div className='cursor-pointer' onClick={goBack}>
                   <AiOutlineArrowLeft
                     className='text-gray-500 hover:text-blue-400'
                     size={18}
@@ -211,7 +219,7 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
                                 href={item.github_url}
                                 target='_blank'
                                 onClick={() => onClickLink(item)}
-                                className=' text-blue-600 hover:text-blue-500 active:text-blue-500'
+                                className='text-blue-600 hover:text-blue-500 active:text-blue-500'
                                 rel='noreferrer'
                               >
                                 <span>{item.name}</span>
