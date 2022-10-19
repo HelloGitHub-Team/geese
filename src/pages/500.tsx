@@ -30,23 +30,26 @@ export default function ServerErrorPage() {
               </div>
             </Link>
             <div className='mt-4 block text-xs text-gray-400'>
-              <a
-                target='_blank'
-                className='cursor-pointer hover:underline'
-                href='https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb'
-                rel='noreferrer'
-              >
-                <span>反馈问题</span>
-              </a>
+              <Link href='https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb'>
+                <a
+                  target='_blank'
+                  className='cursor-pointer hover:underline'
+                  rel='noreferrer'
+                >
+                  <span>反馈问题</span>
+                </a>
+              </Link>
               <span className='px-1'>·</span>
-              <a
-                target='_blank'
-                className='cursor-pointer hover:underline'
-                href='https://github.com/HelloGitHub-Team/geese'
-                rel='noreferrer'
-              >
-                <span>贡献代码</span>
-              </a>
+              <Link href='https://github.com/HelloGitHub-Team/geese'>
+                <a
+                  target='_blank'
+                  className='cursor-pointer hover:underline'
+                  rel='noreferrer'
+                >
+                  <span>贡献代码</span>
+                </a>
+              </Link>
+
               <p className='mt-2'>
                 <span className='cursor-default'>©2022 HelloGitHub</span>
               </p>

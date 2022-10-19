@@ -7,7 +7,9 @@ const Footer = () => {
     <footer className='flex flex-wrap items-center px-3 py-2.5 text-xs text-gray-400'>
       <p>
         <Link href='/help/rule'>
-          <span className='cursor-pointer hover:text-blue-500'>社区玩法</span>
+          <a target='_blank'>
+            <span className='cursor-pointer hover:text-blue-500'>社区玩法</span>
+          </a>
         </Link>
         <span className='px-1.5'>·</span>
         <a
@@ -20,7 +22,9 @@ const Footer = () => {
         </a>
         <span className='px-1.5'>·</span>
         <Link href='/help/ats'>
-          <span className='cursor-pointer hover:text-blue-500'>服务协议</span>
+          <a target='_blank'>
+            <span className='cursor-pointer hover:text-blue-500'>服务协议</span>
+          </a>
         </Link>
       </p>
       <p className='mt-2'>

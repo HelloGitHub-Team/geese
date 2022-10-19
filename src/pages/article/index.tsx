@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
@@ -22,6 +23,7 @@ import { ArticleItem, ArticleItems } from '@/types/article';
 const ArticleIndex: NextPage = () => {
   const router = useRouter();
   const { sort_by = 'last' } = router.query;
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const { isLogin } = useLoginContext();
   const { data, error, setSize, isValidating, size } =
@@ -52,6 +54,16 @@ const ArticleIndex: NextPage = () => {
     rootMargin: '0px 0px 100px 0px',
   });
 
+  const checkMobile = () => {
+    if (
+      navigator.userAgent.match(/Mobi/i) ||
+      navigator.userAgent.match(/Android/i) ||
+      navigator.userAgent.match(/iPhone/i)
+    ) {
+      setIsMobile(true);
+    }
+  };
+
   const handleItemBottom = () => {
     if (!isValidating && !hasMore) {
       if (isLogin) {
@@ -69,57 +81,59 @@ const ArticleIndex: NextPage = () => {
       <div className='h-screen'>
         <div className='divide-y divide-slate-100 bg-white dark:divide-slate-700 dark:bg-slate-800 md:overflow-y-hidden md:rounded-lg'>
           {articles.map((item: ArticleItem, index: number) => (
-            <Link href={`/article/${item.aid}`} key={item.aid}>
-              <article>
-                <div className='relative cursor-pointer bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700 md:py-3 md:pl-5'>
-                  <div className='flex-cloume relative flex'>
-                    <div className='w-9/12 max-w-full'>
-                      <div className='text-color-primary flex justify-between visited:text-gray-500 dark:text-gray-300'>
-                        <span className='truncate pr-2 text-sm leading-snug md:pr-0 md:text-base'>
-                          {index + 1}. {item.title}
-                        </span>
-                      </div>
+            <article key={item.aid}>
+              <Link href={`/article/${item.aid}`}>
+                <a onClick={checkMobile} target={isMobile ? '_self' : '_blank'}>
+                  <div className='relative cursor-pointer bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700 md:py-3 md:pl-5'>
+                    <div className='flex-cloume relative flex'>
+                      <div className='w-9/12 max-w-full'>
+                        <div className='text-color-primary flex justify-between visited:text-gray-500 dark:text-gray-300'>
+                          <span className='truncate pr-2 text-sm leading-snug md:pr-0 md:text-base'>
+                            {index + 1}. {item.title}
+                          </span>
+                        </div>
 
-                      <div className='py-0.5 pr-1 text-xs text-gray-400 line-clamp-2 md:pr-0'>
-                        {item.desc}
-                      </div>
-                      <div className='flex items-center'>
-                        <div className='font-base flex shrink grow items-center overflow-x-hidden text-xs text-gray-800 dark:text-gray-200'>
-                          <div className='hidden md:flex '>
-                            <div className='truncate whitespace-nowrap md:max-w-xs'>
-                              作者 {item.author}
+                        <div className='py-0.5 pr-1 text-xs text-gray-400 line-clamp-2 md:pr-0'>
+                          {item.desc}
+                        </div>
+                        <div className='flex items-center'>
+                          <div className='font-base flex shrink grow items-center overflow-x-hidden text-xs text-gray-800 dark:text-gray-200'>
+                            <div className='hidden md:flex '>
+                              <div className='truncate whitespace-nowrap md:max-w-xs'>
+                                作者 {item.author}
+                              </div>
+                              <span className='px-1'>·</span>
+                              <time>发布于 {fromNow(item.publish_at)}</time>
+                              <span className='px-1'>·</span>
+                              阅读 {numFormat(item.clicks_count, 1, 10000)}
                             </div>
-                            <span className='px-1'>·</span>
-                            <time>发布于 {fromNow(item.publish_at)}</time>
-                            <span className='px-1'>·</span>
-                            阅读 {numFormat(item.clicks_count, 1, 10000)}
-                          </div>
-                          <div className='flex md:hidden'>
-                            <div className='w-fit truncate whitespace-nowrap'>
-                              {item.author}
+                            <div className='flex md:hidden'>
+                              <div className='w-fit truncate whitespace-nowrap'>
+                                {item.author}
+                              </div>
+                              <span className='px-1'>·</span>
+                              <time>{fromNow(item.publish_at)}</time>
+                              <span className='px-1'>·</span>
+                              {numFormat(item.clicks_count, 1, 10000)} 阅读
                             </div>
-                            <span className='px-1'>·</span>
-                            <time>{fromNow(item.publish_at)}</time>
-                            <span className='px-1'>·</span>
-                            {numFormat(item.clicks_count, 1, 10000)} 阅读
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className='relative flex w-3/12 justify-center'>
-                      {item.head_image ? (
-                        <img
-                          className='h-20 rounded-md md:w-32'
-                          src={`${item.head_image}!headimage`}
-                        />
-                      ) : (
-                        <></>
-                      )}
+                      <div className='relative flex w-3/12 justify-center'>
+                        {item.head_image ? (
+                          <img
+                            className='h-20 rounded-md md:w-32'
+                            src={`${item.head_image}!headimage`}
+                          />
+                        ) : (
+                          <></>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </article>
-            </Link>
+                </a>
+              </Link>
+            </article>
           ))}
         </div>
         {(isValidating || hasMore) && (

@@ -1,5 +1,6 @@
 import copy from 'copy-to-clipboard';
 import { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
 import { GoClippy, GoLink, GoPlay } from 'react-icons/go';
 
 import MDRender from '@/components/mdRender/MDRender';
@@ -83,33 +84,34 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
                   </div>
                   <div className='hidden gap-2 text-sm text-gray-400 md:flex'>
                     {onefile.demo_url ? (
-                      <a
-                        className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
-                        href={onefile.demo_url}
-                        target='__blank'
-                      >
-                        <GoPlay className='mr-1' size={14} />
-                        试玩
-                      </a>
+                      <Link href={onefile.demo_url}>
+                        <a
+                          className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
+                          target='__blank'
+                        >
+                          <GoPlay className='mr-1' size={14} />
+                          试玩
+                        </a>
+                      </Link>
                     ) : (
                       <></>
                     )}
-                    <a
-                      className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
-                      href={onefile.repo_url}
-                      target='__blank'
-                    >
-                      <GoLink className='mr-1' size={14} />
-                      访问
-                    </a>
-                    <a
+                    <Link href={onefile.repo_url}>
+                      <a
+                        className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
+                        target='__blank'
+                      >
+                        <GoLink className='mr-1' size={14} />
+                        访问
+                      </a>
+                    </Link>
+                    <span
                       className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                       onClick={() => handleCopy(onefile)}
-                      target='__blank'
                     >
                       <GoClippy className='mr-1' size={14} />
                       复制
-                    </a>
+                    </span>
                   </div>
                 </div>
               </article>

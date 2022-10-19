@@ -47,9 +47,11 @@ const AvatarWithDropdown = (props: { className?: string }) => {
           <ThemeSwitch type='text'></ThemeSwitch>
         </div>
         <Link href={`/user/${userInfo.uid}`} className='block'>
-          <div className='block px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
-            我的主页
-          </div>
+          <a>
+            <div className='block px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
+              我的主页
+            </div>
+          </a>
         </Link>
 
         <div

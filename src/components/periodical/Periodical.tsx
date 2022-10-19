@@ -32,6 +32,8 @@ type CategoryTopRange = {
 export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<string>('');
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
   // 月刊列表
   const categoryList: VolumeCategory[] = useMemo(() => {
     return volume?.data || [];
@@ -45,10 +47,21 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
     }
   };
 
+  const checkMobile = () => {
+    if (
+      navigator.userAgent.match(/Mobi/i) ||
+      navigator.userAgent.match(/Android/i) ||
+      navigator.userAgent.match(/iPhone/i)
+    ) {
+      setIsMobile(true);
+    }
+  };
+
   const onPageChange = (page: number) => {
     router.push(`/periodical/volume/${page}`);
   };
   const onClickLink = (item: VolumeItem) => {
+    checkMobile();
     // 调用接口记录链接点击信息
     recordGoGithub(item.rid);
   };
@@ -205,25 +218,31 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
                           category.category_name
                         )}`}
                       >
-                        <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 active:text-blue-500 dark:text-white'>
-                          <AiFillTags className='mr-0.5' />
-                          {category.category_name}
-                        </div>
+                        <a
+                          onClick={checkMobile}
+                          target={isMobile ? '_self' : '_blank'}
+                        >
+                          <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 active:text-blue-500 dark:text-white'>
+                            <AiFillTags className='mr-0.5' />
+                            {category.category_name}
+                          </div>
+                        </a>
                       </Link>
                       {category.items.map((item: VolumeItem) => {
                         return (
                           <div key={item.rid}>
                             <div className='mt-3 mb-2 inline-flex gap-1 text-base font-medium'>
                               <span>{itemIndex(item)}.</span>
-                              <a
-                                href={item.github_url}
-                                target='_blank'
-                                onClick={() => onClickLink(item)}
-                                className='text-blue-600 hover:text-blue-500 active:text-blue-500'
-                                rel='noreferrer'
-                              >
-                                <span>{item.name}</span>
-                              </a>
+                              <Link href={item.github_url}>
+                                <a
+                                  target={isMobile ? '_self' : '_blank'}
+                                  onClick={() => onClickLink(item)}
+                                  className='text-blue-600 hover:text-blue-500 active:text-blue-500'
+                                  rel='noreferrer'
+                                >
+                                  <span>{item.name}</span>
+                                </a>
+                              </Link>
                             </div>
                             {/* stars forks watch */}
                             <div className='mb-2 flex text-sm text-gray-500 dark:text-gray-400'>

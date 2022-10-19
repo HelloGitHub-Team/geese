@@ -1,5 +1,4 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { useEffect, useState } from 'react';
 
 import ImageWithPreview from '@/components/ImageWithPreview';
 import RepoDetailNavbar from '@/components/navbar/RepoNavbar';
@@ -16,19 +15,9 @@ import { Repository } from '@/types/reppsitory';
 
 interface Props {
   repo: Repository;
-  user_agent: string;
 }
 
-const RepositoryPage: NextPage<Props> = ({ repo, user_agent }) => {
-  const [inWechat, setInWechat] = useState<boolean>(false);
-
-  useEffect(() => {
-    // 微信内浏览器无法新开 tab
-    if (user_agent.match(/MicroMessenger/i)) {
-      setInWechat(true);
-    }
-  }, [setInWechat, user_agent]);
-
+const RepositoryPage: NextPage<Props> = ({ repo }) => {
   return (
     <>
       <Seo title={`开源项目 ${repo.name} 详情`} />
@@ -52,7 +41,7 @@ const RepositoryPage: NextPage<Props> = ({ repo, user_agent }) => {
         )}
         <MoreInfo repo={repo}></MoreInfo>
       </div>
-      <ButtonGroup repo={repo} inWechat={inWechat} />
+      <ButtonGroup repo={repo} />
       <CommentContainer
         className='mt-2 bg-white dark:bg-gray-800 md:rounded-lg'
         belong='repository'
@@ -67,8 +56,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   query,
 }) => {
-  const user_agent = req.headers['user-agent'] as string;
-
   let ip;
   if (req.headers['x-forwarded-for']) {
     ip = req.headers['x-forwarded-for'] as string;
@@ -85,7 +72,6 @@ export const getServerSideProps: GetServerSideProps = async ({
     return {
       props: {
         repo: data.data,
-        user_agent: user_agent,
       },
     };
   } else {

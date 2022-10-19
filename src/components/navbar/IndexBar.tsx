@@ -63,7 +63,7 @@ const IndexBar = () => {
 
   function labelClassName() {
     return classNames(
-      'flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold hover:bg-gray-100 hover:text-blue-500 dark:hover:bg-gray-700',
+      'flex h-8 cursor-pointer items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold hover:bg-gray-100 hover:text-blue-500 dark:hover:bg-gray-700',
       {
         'text-gray-500 focus:bg-white dark:text-gray-200': !labelStatus,
         'bg-gray-100 dark:bg-gray-700 dark:focus:bg-gray-700 text-blue-500':
