@@ -36,5 +36,28 @@ export const recordGoAdvert = async (aid: string): Promise<any> => {
   }
 };
 
+export const redirectRecord = async (
+  target: string,
+  item_id: string,
+  redirect_type: string
+): Promise<any> => {
+  const req: RequestInit = {};
+  req.credentials = 'include';
+  req.headers = {
+    'Content-Type': 'application/json',
+  };
+  req.method = 'POST';
+  req.body = JSON.stringify({
+    target: target,
+    item_id: item_id,
+    redirect_type: redirect_type,
+  });
+  try {
+    await fetcher(makeUrl(`/redirect/`), req);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export type HomeItemData = HomeItem[];
 export const DataContext = createContext<HomeItemData>([]);

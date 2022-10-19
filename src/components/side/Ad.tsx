@@ -1,7 +1,7 @@
 import { MouseEventHandler, useState } from 'react';
 import { VscClose } from 'react-icons/vsc';
 
-import { recordGoAdvert } from '@/services/home';
+import { recordGoAdvert, redirectRecord } from '@/services/home';
 import { PUTAdURL } from '@/utils/constants';
 
 interface Props {
@@ -20,8 +20,9 @@ export default function Ad(props: Props) {
     setVisible(false);
   };
 
-  const onClickLink = (rid: string) => {
-    recordGoAdvert(rid);
+  const onClickLink = (aid: string) => {
+    recordGoAdvert(aid);
+    redirectRecord('', aid, 'ad');
   };
 
   // useEffect(() => {
