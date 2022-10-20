@@ -76,7 +76,7 @@ export default function UserStatus() {
               </Link>
               <div className='flex items-end pt-2 text-sm'>
                 <RepoModal>
-                  <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 pl-1 pr-1 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 xl:pl-4 xl:pr-4 xl:text-sm'>
+                  <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 px-2 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 xl:px-4 xl:text-sm'>
                     分享项目
                   </a>
                 </RepoModal>

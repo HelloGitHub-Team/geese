@@ -87,7 +87,7 @@ const IndexBar = () => {
 
   return (
     <div className='relative my-2 overflow-hidden bg-white dark:bg-gray-800 md:rounded-lg'>
-      <div className='flex h-12 items-center justify-start space-x-1 py-2 px-4 md:space-x-2'>
+      <div className='flex h-12 shrink grow items-center justify-start space-x-1 py-2 px-4 md:space-x-2'>
         <Link href={lastURL}>
           <a className={linkClassName('last')}>最新</a>
         </Link>
@@ -97,18 +97,10 @@ const IndexBar = () => {
         <span onClick={handleTagButton} className={labelClassName()}>
           标签
         </span>
-        <div className='md:hidden'>
-          <Link href='/periodical/volume'>
-            <a className='flex h-8 items-center whitespace-nowrap rounded-lg pl-3 pr-3 text-sm font-bold text-gray-500 focus:bg-white dark:text-gray-200'>
-              月刊
-            </a>
-          </Link>
-        </div>
-
         <div className='shrink grow'></div>
         <div className='md:hidden'>
           <RepoModal>
-            <a className='flex h-8 items-center rounded-lg bg-blue-500 px-2 text-sm text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 sm:px-4'>
+            <a className='flex h-8 items-center rounded-lg bg-blue-500 px-2 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 sm:px-4'>
               提交
             </a>
           </RepoModal>
