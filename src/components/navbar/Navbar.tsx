@@ -10,7 +10,7 @@ const Navbar = ({ middleText = '', endText }: Props) => {
   const router = useRouter();
 
   const goBack = () => {
-    if (window.history.length <= 2) {
+    if (window.history.length < 2) {
       router.push('/');
     } else {
       router.back();

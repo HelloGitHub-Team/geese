@@ -1,12 +1,12 @@
 import { GetServerSideProps, NextPage } from 'next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 import { MdOutlineArticle, MdOutlineRemoveRedEye } from 'react-icons/md';
 
 import ImageWithPreview from '@/components/ImageWithPreview';
+import CustomLink from '@/components/links/CustomLink';
 import MDRender from '@/components/mdRender/MDRender';
 import Navbar from '@/components/navbar/Navbar';
 import Pagination from '@/components/pagination/Pagination';
@@ -21,7 +21,6 @@ import { CategoryItem, CategoryPageProps } from '@/types/periodical';
 
 const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
   const router = useRouter();
-  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   // 项目列表
   const allItems: CategoryItem[] = useMemo(() => {
@@ -35,18 +34,7 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
     );
   };
 
-  const checkMobile = () => {
-    if (
-      navigator.userAgent.match(/Mobi/i) ||
-      navigator.userAgent.match(/Android/i) ||
-      navigator.userAgent.match(/iPhone/i)
-    ) {
-      setIsMobile(true);
-    }
-  };
-
   const onClickLink = (item: CategoryItem) => {
-    checkMobile();
     // 调用接口记录链接点击信息
     recordGoGithub(item.rid);
   };
@@ -95,16 +83,14 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
               <div key={item.rid}>
                 <div className='mt-3 mb-2 inline-flex gap-1 text-base font-medium'>
                   <span>{index + 1}.</span>
-                  <Link href={item.github_url}>
-                    <a
-                      target='_blank'
-                      onClick={() => onClickLink(item)}
-                      className=' text-blue-600 hover:text-blue-500 active:text-blue-500'
-                      rel='noreferrer'
-                    >
-                      <span>{item.name}</span>
-                    </a>
-                  </Link>
+                  <CustomLink
+                    href={item.github_url}
+                    onClick={() => onClickLink(item)}
+                  >
+                    <span className=' text-blue-600 hover:text-blue-500 active:text-blue-500'>
+                      {item.name}
+                    </span>
+                  </CustomLink>
                 </div>
                 {/* stars forks watch */}
                 <div className='mb-2 flex text-sm text-gray-500 dark:text-gray-400'>
@@ -120,16 +106,11 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
                     <MdOutlineRemoveRedEye size={15} />
                     Watch {numFormat(item.watch, 1)}
                   </span>
-                  <Link href={`/periodical/volume/${item.volume_num}`}>
-                    <a
-                      onClick={checkMobile}
-                      target={isMobile ? '_self' : '_blank'}
-                    >
-                      <span className='flex cursor-pointer items-center hover:text-blue-500 active:text-blue-500'>
-                        <MdOutlineArticle size={15} />第 {item.volume_num} 期
-                      </span>
-                    </a>
-                  </Link>
+                  <CustomLink href={`/periodical/volume/${item.volume_num}`}>
+                    <span className='flex cursor-pointer items-center hover:text-blue-500 active:text-blue-500'>
+                      <MdOutlineArticle size={15} />第 {item.volume_num} 期
+                    </span>
+                  </CustomLink>
                 </div>
                 {/* markdown 内容渲染 */}
                 <MDRender className='markdown-body'>

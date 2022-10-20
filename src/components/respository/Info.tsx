@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
-import { useState } from 'react';
 
 import Score from '@/components/respository/Score';
 
@@ -10,20 +9,7 @@ import { format } from '@/utils/day';
 import { RepositoryProps } from '@/types/reppsitory';
 
 const Info: NextPage<RepositoryProps> = ({ repo }) => {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-
-  const checkMobile = () => {
-    if (
-      navigator.userAgent.match(/Mobi/i) ||
-      navigator.userAgent.match(/Android/i) ||
-      navigator.userAgent.match(/iPhone/i)
-    ) {
-      setIsMobile(true);
-    }
-  };
-
   const onClickLink = (rid: string) => {
-    checkMobile();
     // 调用接口记录链接点击信息
     recordGoGithub(rid);
   };
@@ -37,7 +23,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               <a
                 className='hover:text-blue-500 dark:hover:text-blue-500'
                 onClick={() => onClickLink(repo.rid)}
-                target={isMobile ? '_self' : '_blank'}
               >
                 {repo.name}
               </a>
@@ -52,7 +37,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
             </div>
             {repo.volume_name ? (
               <Link href={`/periodical/volume/${Number(repo.volume_name)}`}>
-                <a onClick={checkMobile} target={isMobile ? '_self' : '_blank'}>
+                <a>
                   <div className='mt-1 mr-1 flex h-6 cursor-pointer items-center rounded border border-current px-2.5 text-xs font-medium hover:text-blue-500 dark:hover:text-gray-500 lg:mr-2'>
                     第 {repo.volume_name} 期
                   </div>
@@ -64,7 +49,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
 
             {repo.tags.map((item) => (
               <Link href={`/tags/${item.tid}/`} key={item.tid}>
-                <a onClick={checkMobile} target={isMobile ? '_self' : '_blank'}>
+                <a>
                   <div className='mr-1 mt-1 flex h-6 cursor-pointer items-center rounded border border-current px-2.5 text-xs font-medium hover:text-blue-500 dark:hover:text-gray-500 lg:mr-2'>
                     {item.name}
                   </div>
