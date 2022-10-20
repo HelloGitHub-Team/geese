@@ -50,7 +50,7 @@ export default function UserStatus() {
           {isLogin && data?.success ? (
             <>
               <Link href={`/user/${data.uid}`}>
-                <a target='_blank'>
+                <a>
                   <div className='relative cursor-pointer'>
                     <span className='bg-img absolute top-0 left-0 h-10 w-10 shrink-0 grow-0 rounded-lg object-cover'>
                       <img
@@ -89,7 +89,7 @@ export default function UserStatus() {
 
               <div className='mt-3 flex cursor-pointer justify-between border-t text-xs dark:border-gray-700'>
                 <Link href={`/user/${data.uid}`} className='block'>
-                  <a target='_blank'>
+                  <a>
                     <div className='pl-1 pt-3 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
                       我的主页
                     </div>

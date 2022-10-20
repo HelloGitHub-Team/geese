@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import { NextPage } from 'next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AiFillTags, AiOutlineArrowLeft } from 'react-icons/ai';
@@ -9,6 +8,7 @@ import { IoIosStarOutline } from 'react-icons/io';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 
 import ImageWithPreview from '@/components/ImageWithPreview';
+import CustomLink from '@/components/links/CustomLink';
 import MDRender from '@/components/mdRender/MDRender';
 import Pagination from '@/components/pagination/Pagination';
 import Seo from '@/components/Seo';
@@ -32,7 +32,6 @@ type CategoryTopRange = {
 export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<string>('');
-  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   // 月刊列表
   const categoryList: VolumeCategory[] = useMemo(() => {
@@ -47,21 +46,10 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
     }
   };
 
-  const checkMobile = () => {
-    if (
-      navigator.userAgent.match(/Mobi/i) ||
-      navigator.userAgent.match(/Android/i) ||
-      navigator.userAgent.match(/iPhone/i)
-    ) {
-      setIsMobile(true);
-    }
-  };
-
   const onPageChange = (page: number) => {
     router.push(`/periodical/volume/${page}`);
   };
   const onClickLink = (item: VolumeItem) => {
-    checkMobile();
     // 调用接口记录链接点击信息
     recordGoGithub(item.rid);
   };
@@ -213,36 +201,29 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
                   const id = `category-${category.category_id}`;
                   return (
                     <div id={id} key={category.category_id} className='pb-4'>
-                      <Link
+                      <CustomLink
                         href={`/periodical/category/${encodeURIComponent(
                           category.category_name
                         )}`}
                       >
-                        <a
-                          onClick={checkMobile}
-                          target={isMobile ? '_self' : '_blank'}
-                        >
-                          <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 active:text-blue-500 dark:text-white'>
-                            <AiFillTags className='mr-0.5' />
-                            {category.category_name}
-                          </div>
-                        </a>
-                      </Link>
+                        <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 active:text-blue-500 dark:text-white'>
+                          <AiFillTags className='mr-0.5' />
+                          {category.category_name}
+                        </div>
+                      </CustomLink>
                       {category.items.map((item: VolumeItem) => {
                         return (
                           <div key={item.rid}>
                             <div className='mt-3 mb-2 inline-flex gap-1 text-base font-medium'>
                               <span>{itemIndex(item)}.</span>
-                              <Link href={item.github_url}>
-                                <a
-                                  target={isMobile ? '_self' : '_blank'}
+                              <CustomLink href={item.github_url}>
+                                <span
                                   onClick={() => onClickLink(item)}
                                   className='text-blue-600 hover:text-blue-500 active:text-blue-500'
-                                  rel='noreferrer'
                                 >
-                                  <span>{item.name}</span>
-                                </a>
-                              </Link>
+                                  {item.name}
+                                </span>
+                              </CustomLink>
                             </div>
                             {/* stars forks watch */}
                             <div className='mb-2 flex text-sm text-gray-500 dark:text-gray-400'>

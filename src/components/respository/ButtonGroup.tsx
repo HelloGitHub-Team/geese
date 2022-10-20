@@ -1,6 +1,5 @@
 import copy from 'copy-to-clipboard';
 import { NextPage } from 'next';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import {
   AiFillHeart,
@@ -9,6 +8,8 @@ import {
   AiOutlineStar,
 } from 'react-icons/ai';
 import { GoLink, GoLinkExternal } from 'react-icons/go';
+
+import CustomLink from '@/components/links/CustomLink';
 
 import {
   cancelCollectRepo,
@@ -37,22 +38,10 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
   const [likesTotal, setLikesTotal] = useState<number>(0);
   const [isCollected, setIsCollected] = useState<boolean>(false);
   const [collectTotal, setCollectTotal] = useState<number>(0);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const onClickLink = (rid: string) => {
     // 调用接口记录链接点击信息
-    checkMobile();
     recordGoGithub(rid);
-  };
-
-  const checkMobile = () => {
-    if (
-      navigator.userAgent.match(/Mobi/i) ||
-      navigator.userAgent.match(/Android/i) ||
-      navigator.userAgent.match(/iPhone/i)
-    ) {
-      setIsMobile(true);
-    }
   };
 
   const getUserRepoStatus = async (rid: string) => {
@@ -145,16 +134,14 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
         <GoLinkExternal className={iconStyle} size={14} />
         分享
       </div>
-      <Link href={repo.url}>
-        <a
-          target={isMobile ? '_self' : '_blank'}
-          className={commonStyle}
-          onClick={() => onClickLink(repo.rid)}
-        >
-          <GoLink className={iconStyle} size={14} />
-          访问
-        </a>
-      </Link>
+      <CustomLink
+        href={repo.url}
+        className={commonStyle}
+        onClick={() => onClickLink(repo.rid)}
+      >
+        <GoLink className={iconStyle} size={14} />
+        访问
+      </CustomLink>
     </div>
   );
 };
