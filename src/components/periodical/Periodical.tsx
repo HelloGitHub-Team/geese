@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { AiFillTags, AiOutlineArrowLeft } from 'react-icons/ai';
+import { AiOutlineArrowLeft, AiOutlineRightCircle } from 'react-icons/ai';
 import { GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
@@ -206,9 +206,9 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
                           category.category_name
                         )}`}
                       >
-                        <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 active:text-blue-500 dark:text-white'>
-                          <AiFillTags className='mr-0.5' />
-                          {category.category_name}
+                        <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 hover:underline active:text-blue-500 dark:text-white dark:hover:text-blue-500 dark:active:text-blue-500'>
+                          {category.category_name}{' '}
+                          <AiOutlineRightCircle className='ml-0.5' size={18} />
                         </div>
                       </CustomLink>
                       {category.items.map((item: VolumeItem) => {
@@ -219,7 +219,7 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
                               <CustomLink href={item.github_url}>
                                 <span
                                   onClick={() => onClickLink(item)}
-                                  className='text-blue-600 hover:text-blue-500 active:text-blue-500'
+                                  className='text-blue-500 hover:underline active:text-blue-500'
                                 >
                                   {item.name}
                                 </span>
@@ -272,7 +272,7 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
             <div className='top-15 fixed w-full max-w-[244px]'>
               <div className='mt-2 ml-3  bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
                 <h4 className='mb-2 border-b border-gray-200 pb-2 dark:border-gray-700'>
-                  目录
+                  本期目录
                 </h4>
                 <ul
                   className='custom-scrollbar overflow-scroll'

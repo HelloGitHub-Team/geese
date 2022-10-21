@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react';
 import {
   AiFillHeart,
   AiFillStar,
+  AiOutlineGithub,
   AiOutlineHeart,
   AiOutlineStar,
 } from 'react-icons/ai';
-import { GoLink, GoLinkExternal } from 'react-icons/go';
+import { GoLinkExternal } from 'react-icons/go';
 
 import CustomLink from '@/components/links/CustomLink';
 
@@ -101,37 +102,37 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
   }, [repo]);
 
   return (
-    <div className='flex border-t border-solid bg-white text-center text-xs text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 md:rounded-b-lg'>
+    <div className='flex border-t border-solid bg-white text-center text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 md:rounded-b-lg'>
       {isVoted ? (
         <div className={commonStyle} onClick={() => onCancelVote(repo.rid)}>
-          <AiFillHeart className='mr-1 text-blue-500' size={14} />
-          <span className='text-xs text-inherit text-blue-500'>
+          <AiFillHeart className='mr-1 text-blue-500' size={16} />
+          <span className='text-sm text-inherit text-blue-500'>
             {numFormat(likesTotal, 1)}
           </span>
         </div>
       ) : (
         <div className={commonStyle} onClick={() => onClickVote(repo.rid)}>
-          <AiOutlineHeart className={iconStyle} size={14} />
+          <AiOutlineHeart className={iconStyle} size={16} />
           点赞
         </div>
       )}
 
       {isCollected ? (
         <div className={commonStyle} onClick={() => onCancelCollect(repo.rid)}>
-          <AiFillStar className='mr-1 text-blue-500' size={14} />
-          <span className='text-xs text-inherit text-blue-500'>
+          <AiFillStar className='mr-1 text-blue-500' size={16} />
+          <span className='text-sm text-inherit text-blue-500'>
             {numFormat(collectTotal, 1)}
           </span>
         </div>
       ) : (
         <div className={commonStyle} onClick={() => onClickCollect(repo.rid)}>
-          <AiOutlineStar className={iconStyle} size={14} />
+          <AiOutlineStar className={iconStyle} size={16} />
           收藏
         </div>
       )}
 
       <div className={commonStyle} onClick={() => handleCopy(repo)}>
-        <GoLinkExternal className={iconStyle} size={14} />
+        <GoLinkExternal className={iconStyle} size={16} />
         分享
       </div>
       <CustomLink
@@ -139,7 +140,7 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
         className={commonStyle}
         onClick={() => onClickLink(repo.rid)}
       >
-        <GoLink className={iconStyle} size={14} />
+        <AiOutlineGithub className={iconStyle} size={16} />
         访问
       </CustomLink>
     </div>

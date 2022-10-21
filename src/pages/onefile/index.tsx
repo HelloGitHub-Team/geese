@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -30,6 +31,12 @@ const columns: any[] = [
 ];
 
 const OneFilePage: NextPage<OneItemsResp> = ({ data }) => {
+  const router = useRouter();
+
+  const handleCode = (oid: string) => {
+    router.push(`/onefile/code/${oid}`);
+  };
+
   return (
     <>
       <Seo title='一个文件的开源项目' />
@@ -68,26 +75,26 @@ const OneFilePage: NextPage<OneItemsResp> = ({ data }) => {
 
               <tbody className='divide-y divide-gray-200 dark:divide-gray-700'>
                 {data?.map((row: TableOneItem, index) => (
-                  <Link key={index} href={`/onefile/code/${row.oid}`}>
-                    <a>
-                      <tr className='cursor-pointer hover:bg-gray-100'>
-                        {columns.map(({ key, render }) => {
-                          let content = row[key];
-                          if (render) {
-                            content = render(row, index);
-                          }
-                          return (
-                            <td
-                              key={key}
-                              className='truncate whitespace-nowrap px-3 py-2 text-left text-sm font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300 md:px-6 md:py-4'
-                            >
-                              {content}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    </a>
-                  </Link>
+                  <tr
+                    key={index}
+                    className='cursor-pointer hover:bg-gray-100'
+                    onClick={() => handleCode(row.oid)}
+                  >
+                    {columns.map(({ key, render }) => {
+                      let content = row[key];
+                      if (render) {
+                        content = render(row, index);
+                      }
+                      return (
+                        <td
+                          key={key}
+                          className='truncate whitespace-nowrap px-3 py-2 text-left text-sm font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300 md:px-6 md:py-4'
+                        >
+                          {content}
+                        </td>
+                      );
+                    })}
+                  </tr>
                 ))}
               </tbody>
             </table>

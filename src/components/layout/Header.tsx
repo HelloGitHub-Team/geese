@@ -28,7 +28,7 @@ const Header = () => {
             height='28'
             alt='header_logo'
             onClick={() => {
-              router.reload();
+              router.push('/');
             }}
           />
         </span>
