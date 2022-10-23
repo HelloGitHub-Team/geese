@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { NextPage } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AiOutlineArrowLeft, AiOutlineRightCircle } from 'react-icons/ai';
@@ -187,12 +188,15 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
               <div className='text-normal mb-4  dark:bg-gray-800 dark:text-gray-300'>
                 <div className='whitespace-pre-wrap rounded-sm bg-gray-50 p-2 font-normal leading-8 text-gray-500 dark:bg-gray-800 dark:text-gray-300'>
                   <p>
-                    我们专注于分享 GitHub 上有趣、入门级的开源项目，
-                    <span className='font-bold'>每月 28 号</span>
-                    以《HelloGitHub》月刊的形式更新。这里有好玩和入门级的开源项目、开源书籍、实战项目、企业级项目，
-                    让你用极短的时间感受到开源的魅力，对开源产生兴趣。兴趣是最好的老师，让它带你找到
-                    <span className='font-bold'>开源世界的钥匙</span>。
+                    HelloGitHub 分享 GitHub 上有趣、入门级的开源项目，
+                    <span className='font-bold'>每月 28 号</span>更新一期。
+                    这里有好玩和入门级的开源项目、开源书籍、实战项目、企业级项目，让你用极短的时间感受到开源的魅力，对开源产生兴趣。
                   </p>
+                  <div className='flex items-center '>
+                    <span className='text-lg font-semibold'>提示</span>：点击{' '}
+                    <AiOutlineRightCircle className='text-blue-500' size={18} />{' '}
+                    可以按照对应「分类」查看月刊。
+                  </div>
                 </div>
               </div>
 
@@ -201,16 +205,21 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
                   const id = `category-${category.category_id}`;
                   return (
                     <div id={id} key={category.category_id} className='pb-4'>
-                      <CustomLink
+                      <Link
                         href={`/periodical/category/${encodeURIComponent(
                           category.category_name
                         )}`}
                       >
-                        <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 hover:underline active:text-blue-500 dark:text-white dark:hover:text-blue-500 dark:active:text-blue-500'>
-                          {category.category_name}{' '}
-                          <AiOutlineRightCircle className='ml-0.5' size={18} />
-                        </div>
-                      </CustomLink>
+                        <a>
+                          <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 hover:underline active:text-blue-500 dark:text-white dark:hover:text-blue-500 dark:active:text-blue-500'>
+                            {category.category_name}
+                            <AiOutlineRightCircle
+                              className='ml-0.5'
+                              size={18}
+                            />
+                          </div>
+                        </a>
+                      </Link>
                       {category.items.map((item: VolumeItem) => {
                         return (
                           <div key={item.rid}>

@@ -1,7 +1,10 @@
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import NProgress from 'nprogress';
+import { useEffect } from 'react';
 
+import 'nprogress/nprogress.css';
 import '@/styles/globals.css';
 // !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
 import '@/styles/colors.css';
@@ -22,6 +25,27 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { pathname } = router;
   // 需要单页面展示的路由
   const singlePage: string[] = ['/404', '/500'];
+
+  // 页面跳转时的加载进度条
+  useEffect(() => {
+    const handleStart = () => {
+      NProgress.start();
+    };
+
+    const handleStop = () => {
+      NProgress.done();
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleStop);
+    router.events.on('routeChangeError', handleStop);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleStop);
+      router.events.off('routeChangeError', handleStop);
+    };
+  }, [router]);
 
   return (
     <div id='root'>
