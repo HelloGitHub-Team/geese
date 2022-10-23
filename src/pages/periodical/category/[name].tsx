@@ -67,13 +67,13 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
           <div className='text-normal mb-4 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'>
             <div className='whitespace-pre-wrap rounded-lg border bg-white p-2 font-normal leading-8 text-gray-500 dark:bg-gray-800 dark:text-gray-300'>
               <p>
-                <span className='font-bold'>HelloGitHub 月刊</span>
-                专注于分享 GitHub 上有趣、入门级的开源项目，每月 28 号更新。
-                这里的开源项目总能让人大开眼界，勾起你对开源的兴趣。
-              </p>
-              <p>
-                兴趣是最好的老师，愿它能指引你找到
-                <span className='font-bold'>「进入开源世界的钥匙」</span>。
+                这里是按照「<span className='font-bold'>分类</span>」阅读往期的
+                HelloGitHub 月刊内容， 您目前在查看
+                <span className='font-bold'>
+                  {' '}
+                  HelloGitHub {`${category?.category_name}`}
+                </span>{' '}
+                集合。
               </p>
             </div>
           </div>

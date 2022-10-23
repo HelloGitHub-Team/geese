@@ -283,7 +283,6 @@ svg {
 }
 
 #nprogress .bar {
-  background: #6dd5fa;
-  /* background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59); */
+  background: #3282f6;
   height: 3px;
 }
