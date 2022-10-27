@@ -4,7 +4,7 @@
  * @param wait
  * @returns function
  */
-export function debounce(func: any, wait: number) {
+export function debounce(func: any, wait = 100) {
   return function (this: any, ...args: any[]) {
     if (func.timeout) {
       clearTimeout(func.timeout);
