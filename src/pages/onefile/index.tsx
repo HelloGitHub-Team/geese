@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -22,11 +23,7 @@ const columns: any[] = [
     title: '名称',
     width: 130,
     render: (row: TableOneItem) => {
-      return (
-        <Link href={`/onefile/code/${row.oid}`}>
-          <span className=''>{row.name}</span>
-        </Link>
-      );
+      return <span>{row.name}</span>;
     },
   },
   { key: 'language', title: '语言', width: 100 },
@@ -34,6 +31,12 @@ const columns: any[] = [
 ];
 
 const OneFilePage: NextPage<OneItemsResp> = ({ data }) => {
+  const router = useRouter();
+
+  const handleCode = (oid: string) => {
+    router.push(`/onefile/code/${oid}`);
+  };
+
   return (
     <>
       <Seo title='一个文件的开源项目' />
@@ -72,24 +75,26 @@ const OneFilePage: NextPage<OneItemsResp> = ({ data }) => {
 
               <tbody className='divide-y divide-gray-200 dark:divide-gray-700'>
                 {data?.map((row: TableOneItem, index) => (
-                  <Link key={index} href={`/onefile/code/${row.oid}`}>
-                    <tr className='cursor-pointer hover:bg-gray-100'>
-                      {columns.map(({ key, render }) => {
-                        let content = row[key];
-                        if (render) {
-                          content = render(row, index);
-                        }
-                        return (
-                          <td
-                            key={key}
-                            className='truncate whitespace-nowrap px-3 py-2 text-left text-sm font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300 md:px-6 md:py-4'
-                          >
-                            {content}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  </Link>
+                  <tr
+                    key={index}
+                    className='cursor-pointer hover:bg-gray-100'
+                    onClick={() => handleCode(row.oid)}
+                  >
+                    {columns.map(({ key, render }) => {
+                      let content = row[key];
+                      if (render) {
+                        content = render(row, index);
+                      }
+                      return (
+                        <td
+                          key={key}
+                          className='truncate whitespace-nowrap px-3 py-2 text-left text-sm font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300 md:px-6 md:py-4'
+                        >
+                          {content}
+                        </td>
+                      );
+                    })}
+                  </tr>
                 ))}
               </tbody>
             </table>
@@ -100,9 +105,11 @@ const OneFilePage: NextPage<OneItemsResp> = ({ data }) => {
                 <span className='font-bold'>「OneFile」</span>
                 是一个开源项目，在这里你可以找到有趣运行简单的程序。同时它也是一个编程挑战，你也可以提交一个文件接受挑战。
                 <Link href='/onefile/join'>
-                  <span className='cursor-pointer text-blue-400 underline hover:text-blue-500'>
-                    点击加入
-                  </span>
+                  <a>
+                    <span className='cursor-pointer text-blue-400 underline hover:text-blue-500'>
+                      点击加入
+                    </span>
+                  </a>
                 </Link>{' '}
                 OneFile 编程挑战，一个文件而已就写点有趣的代码吧！
               </p>

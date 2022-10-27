@@ -3,12 +3,13 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { AiFillTags, AiOutlineArrowLeft } from 'react-icons/ai';
+import { AiOutlineArrowLeft, AiOutlineRightCircle } from 'react-icons/ai';
 import { GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 
 import ImageWithPreview from '@/components/ImageWithPreview';
+import CustomLink from '@/components/links/CustomLink';
 import MDRender from '@/components/mdRender/MDRender';
 import Pagination from '@/components/pagination/Pagination';
 import Seo from '@/components/Seo';
@@ -32,10 +33,19 @@ type CategoryTopRange = {
 export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<string>('');
+
   // 月刊列表
   const categoryList: VolumeCategory[] = useMemo(() => {
     return volume?.data || [];
   }, [volume]);
+
+  const goBack = () => {
+    if (window.history.length <= 2) {
+      router.push('/');
+    } else {
+      router.back();
+    }
+  };
 
   const onPageChange = (page: number) => {
     router.push(`/periodical/volume/${page}`);
@@ -151,7 +161,7 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
           <div className='relative pb-6'>
             <div className='relative my-2 bg-white dark:bg-gray-800 md:rounded-lg'>
               <div className='flex h-12 items-center justify-between py-2 px-4'>
-                <div className='cursor-pointer' onClick={router.back}>
+                <div className='cursor-pointer' onClick={goBack}>
                   <AiOutlineArrowLeft
                     className='text-gray-500 hover:text-blue-400'
                     size={18}
@@ -178,12 +188,15 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
               <div className='text-normal mb-4  dark:bg-gray-800 dark:text-gray-300'>
                 <div className='whitespace-pre-wrap rounded-sm bg-gray-50 p-2 font-normal leading-8 text-gray-500 dark:bg-gray-800 dark:text-gray-300'>
                   <p>
-                    我们专注于分享 GitHub 上有趣、入门级的开源项目，
-                    <span className='font-bold'>每月 28 号</span>
-                    以《HelloGitHub》月刊的形式更新。这里有好玩和入门级的开源项目、开源书籍、实战项目、企业级项目，
-                    让你用极短的时间感受到开源的魅力，对开源产生兴趣。兴趣是最好的老师，让它带你找到
-                    <span className='font-bold'>开源世界的钥匙</span>。
+                    HelloGitHub 分享 GitHub 上有趣、入门级的开源项目，
+                    <span className='font-bold'>每月 28 号</span>更新一期。
+                    这里有好玩和入门级的开源项目、开源书籍、实战项目、企业级项目，让你用极短的时间感受到开源的魅力，对开源产生兴趣。
                   </p>
+                  <div className='flex items-center '>
+                    <span className='text-lg font-semibold'>提示</span>：点击{' '}
+                    <AiOutlineRightCircle className='text-blue-500' size={18} />{' '}
+                    可以按照对应「分类」查看月刊。
+                  </div>
                 </div>
               </div>
 
@@ -197,25 +210,29 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
                           category.category_name
                         )}`}
                       >
-                        <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 active:text-blue-500 dark:text-white'>
-                          <AiFillTags className='mr-0.5' />
-                          {category.category_name}
-                        </div>
+                        <a>
+                          <div className='flex cursor-pointer items-center justify-center text-center text-lg font-semibold text-black hover:text-blue-500 hover:underline active:text-blue-500 dark:text-white dark:hover:text-blue-500 dark:active:text-blue-500'>
+                            {category.category_name}
+                            <AiOutlineRightCircle
+                              className='ml-0.5'
+                              size={18}
+                            />
+                          </div>
+                        </a>
                       </Link>
                       {category.items.map((item: VolumeItem) => {
                         return (
                           <div key={item.rid}>
                             <div className='mt-3 mb-2 inline-flex gap-1 text-base font-medium'>
                               <span>{itemIndex(item)}.</span>
-                              <a
-                                href={item.github_url}
-                                target='_blank'
-                                onClick={() => onClickLink(item)}
-                                className=' text-blue-600 hover:text-blue-500 active:text-blue-500'
-                                rel='noreferrer'
-                              >
-                                <span>{item.name}</span>
-                              </a>
+                              <CustomLink href={item.github_url}>
+                                <span
+                                  onClick={() => onClickLink(item)}
+                                  className='text-blue-500 hover:underline active:text-blue-500'
+                                >
+                                  {item.name}
+                                </span>
+                              </CustomLink>
                             </div>
                             {/* stars forks watch */}
                             <div className='mb-2 flex text-sm text-gray-500 dark:text-gray-400'>
@@ -264,7 +281,7 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
             <div className='top-15 fixed w-full max-w-[244px]'>
               <div className='mt-2 ml-3  bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
                 <h4 className='mb-2 border-b border-gray-200 pb-2 dark:border-gray-700'>
-                  目录
+                  本期目录
                 </h4>
                 <ul
                   className='custom-scrollbar overflow-scroll'

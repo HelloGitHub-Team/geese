@@ -10,7 +10,7 @@ import {
   CommentData,
   CommentSuccessData,
   CreateRepoRes,
-  Repository,
+  RepositorySuccessData,
   UserActionStatus,
   Vote,
 } from '@/types/reppsitory';
@@ -18,10 +18,10 @@ import {
 export const getDetail = async (
   ip: string,
   rid: string
-): Promise<Repository> => {
+): Promise<RepositorySuccessData> => {
   const req: RequestInit = {};
   req.headers = { 'x-real-ip': ip, 'x-forwarded-for': ip };
-  const result = await fetcher<Repository>(
+  const result = await fetcher<RepositorySuccessData>(
     makeUrl(`/repository/detail/${rid}`),
     req
   );

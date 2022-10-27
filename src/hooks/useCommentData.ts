@@ -9,7 +9,16 @@ function useCommentData() {
   useEffect(() => {
     const data = localStorage.getItem(storageKey);
     if (data) {
-      setCommentData(JSON.parse(data));
+      const cacheData = JSON.parse(data);
+      if (cacheData.comment) {
+        // 只缓存评论内容和匹配高度，其它值为默认
+        setCommentData({
+          isUsed: false,
+          score: 5,
+          comment: cacheData.comment,
+          height: cacheData.height,
+        });
+      }
     }
   }, []);
 

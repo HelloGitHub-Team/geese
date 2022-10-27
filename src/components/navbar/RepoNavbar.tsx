@@ -8,10 +8,18 @@ import { UserAvaterProps } from '@/types/user';
 const RepoDetailNavbar: NextPage<UserAvaterProps> = ({ avatar, uid }) => {
   const router = useRouter();
 
+  const goBack = () => {
+    if (window.history.length < 2) {
+      router.push('/');
+    } else {
+      router.back();
+    }
+  };
+
   return (
     <div className='my-2 bg-white dark:bg-gray-800 md:rounded-lg'>
       <div className='flex h-12 items-center justify-between py-2 px-4'>
-        <div className='cursor-pointer pr-4' onClick={() => router.back()}>
+        <div className='cursor-pointer pr-4' onClick={goBack}>
           <AiOutlineArrowLeft
             className='text-gray-500 hover:text-blue-400'
             size={18}

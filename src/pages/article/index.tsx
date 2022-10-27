@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
@@ -7,6 +6,7 @@ import useSWRInfinite from 'swr/infinite';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import ItemBottom from '@/components/home/ItemBottom';
+import CustomLink from '@/components/links/CustomLink';
 import Loading from '@/components/loading/Loading';
 import ArticleNavbar from '@/components/navbar/ArticleBar';
 import Seo from '@/components/Seo';
@@ -69,8 +69,8 @@ const ArticleIndex: NextPage = () => {
       <div className='h-screen'>
         <div className='divide-y divide-slate-100 bg-white dark:divide-slate-700 dark:bg-slate-800 md:overflow-y-hidden md:rounded-lg'>
           {articles.map((item: ArticleItem, index: number) => (
-            <Link href={`/article/${item.aid}`} key={item.aid}>
-              <article>
+            <article key={item.aid}>
+              <CustomLink href={`/article/${item.aid}`}>
                 <div className='relative cursor-pointer bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700 md:py-3 md:pl-5'>
                   <div className='flex-cloume relative flex'>
                     <div className='w-9/12 max-w-full'>
@@ -118,8 +118,8 @@ const ArticleIndex: NextPage = () => {
                     </div>
                   </div>
                 </div>
-              </article>
-            </Link>
+              </CustomLink>
+            </article>
           ))}
         </div>
         {(isValidating || hasMore) && (

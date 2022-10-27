@@ -8,10 +8,19 @@ interface Props {
 
 const Navbar = ({ middleText = '', endText }: Props) => {
   const router = useRouter();
+
+  const goBack = () => {
+    if (window.history.length < 2) {
+      router.push('/');
+    } else {
+      router.back();
+    }
+  };
+
   return (
     <div className='relative my-2 bg-white dark:bg-gray-800 md:rounded-lg'>
       <div className='flex h-12 items-center justify-between py-2 px-4'>
-        <div className='cursor-pointer' onClick={router.back}>
+        <div className='cursor-pointer' onClick={goBack}>
           <AiOutlineArrowLeft
             className='text-gray-500 hover:text-blue-400'
             size={18}

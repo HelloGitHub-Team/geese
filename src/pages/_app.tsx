@@ -28,13 +28,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   // 页面跳转时的加载进度条
   useEffect(() => {
-    const handleStart = (url: string) => {
-      console.log(`Loading: ${url}`);
+    const handleStart = () => {
       NProgress.start();
     };
 
     const handleStop = () => {
-      console.log('loading done');
       NProgress.done();
     };
 

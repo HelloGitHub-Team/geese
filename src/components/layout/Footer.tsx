@@ -1,27 +1,23 @@
-import Link from 'next/link';
 import { AiFillWechat, AiFillWeiboCircle } from 'react-icons/ai';
 import { IoLogoRss } from 'react-icons/io';
+
+import CustomLink from '@/components/links/CustomLink';
 
 const Footer = () => {
   return (
     <footer className='flex flex-wrap items-center px-3 py-2.5 text-xs text-gray-400'>
       <p>
-        <Link href='/help/rule'>
+        <CustomLink href='/help/rule'>
           <span className='cursor-pointer hover:text-blue-500'>社区玩法</span>
-        </Link>
+        </CustomLink>
         <span className='px-1.5'>·</span>
-        <a
-          target='_blank'
-          className='cursor-pointer hover:text-blue-500'
-          href='/server-sitemap-index.xml'
-          rel='noreferrer'
-        >
-          <span>站点地图</span>
-        </a>
+        <CustomLink href='/server-sitemap-index.xml'>
+          <span className='cursor-pointer hover:text-blue-500'>站点地图</span>
+        </CustomLink>
         <span className='px-1.5'>·</span>
-        <Link href='/help/ats'>
+        <CustomLink href='/help/ats'>
           <span className='cursor-pointer hover:text-blue-500'>服务协议</span>
-        </Link>
+        </CustomLink>
       </p>
       <p className='mt-2'>
         <a
