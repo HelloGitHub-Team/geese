@@ -11,8 +11,8 @@ import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 import { DEFAULT_AVATAR } from '@/utils/constants';
 
+import SideLoginButton from './SideLoginButton';
 import Loading from '../loading/Loading';
-import SideLoginButton from '../side/SideLoginButton';
 
 import { UserStatusProps } from '@/types/user';
 
@@ -104,7 +104,9 @@ export default function UserStatus() {
               </div>
             </>
           ) : (
-            <SideLoginButton />
+            <>
+              <SideLoginButton />
+            </>
           )}
         </div>
       ) : (

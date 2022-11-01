@@ -167,3 +167,12 @@ export interface CreateRepoRes {
   remaining?: number;
   success: boolean;
 }
+
+type CheckRepoResData = {
+  is_exist: boolean;
+};
+export interface CheckRepoRes {
+  success: boolean;
+  message?: string;
+  data: CheckRepoResData;
+}

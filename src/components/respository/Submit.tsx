@@ -7,9 +7,9 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 import BasicDialog from '@/components/dialog/BasicDialog';
 import Message from '@/components/message';
 
-import { createRepo } from '@/services/repository';
+import { checkRepo, createRepo } from '@/services/repository';
 
-import { CreateRepoRes } from '@/types/reppsitory';
+import { CheckRepoRes, CreateRepoRes } from '@/types/reppsitory';
 
 interface CreateRepoProps {
   response: (res: CreateRepoRes) => void;
@@ -19,6 +19,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [url, setUrl] = useState<string>('');
   const [summary, setSummary] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
 
   const handleCreateRepo = useCallback(
     (e: React.SyntheticEvent<EventTarget>) => {
@@ -47,10 +48,28 @@ export default function CreateRepo({ response }: CreateRepoProps) {
     [loading, url, summary, response]
   );
 
+  const onUrlBlur = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    const url = e.target.value;
+    checkRepo(url)
+      .then((res: CheckRepoRes) => {
+        if (res.data.is_exist) {
+          setMessage(res.message || '该项目已存在，换一个试试吧~');
+        } else {
+          setMessage('');
+        }
+      })
+      .catch((err) => {
+        setMessage('');
+        console.error(err);
+      });
+  }, []);
+
   const onUrlChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value),
     []
   );
+
   const onSummaryChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => setSummary(e.target.value),
     []
@@ -76,9 +95,14 @@ export default function CreateRepo({ response }: CreateRepoProps) {
             type='text'
             id='url'
             onChange={onUrlChange}
+            onBlur={onUrlBlur}
           />
-          <div className='mt-2 text-left text-xs text-gray-400'>
-            👆 仅接受 GitHub 上的开源项目
+          <div className='ml-1 mt-2 text-left text-xs text-gray-400'>
+            {message ? (
+              <span className='text-red-600'>{message}</span>
+            ) : (
+              '👆 仅接受 GitHub 上的开源项目'
+            )}
           </div>
         </div>
 

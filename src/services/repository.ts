@@ -6,6 +6,7 @@ import { fetcher } from './base';
 
 import {
   BaseType,
+  CheckRepoRes,
   Collect,
   CommentData,
   CommentSuccessData,
@@ -171,4 +172,9 @@ export const createRepo = (
     method: 'POST',
     body: JSON.stringify(params),
   });
+};
+
+// /repository/check/?url=123
+export const checkRepo = (url: string): Promise<CheckRepoRes> => {
+  return fetcher<CheckRepoRes>(makeUrl(`/repository/check/?url=${url}`));
 };
