@@ -68,19 +68,19 @@ export interface RepoType {
   publish_at: number;
 }
 
-export interface UserActionStatus {
+export interface UserActionStatus extends BaseType {
   is_voted: boolean;
   is_collected: boolean;
 }
 
-export interface Collect {
+export interface Collect extends BaseType {
   posted: number;
   limit: number;
   remaining: number;
   data: CollectType;
 }
 
-export interface Vote {
+export interface Vote extends BaseType {
   posted: number;
   limit: number;
   remaining: number;
@@ -100,6 +100,7 @@ export interface CollectType {
 
 export interface BaseType {
   success: boolean;
+  message?: string;
 }
 
 export interface CommentItemData {
@@ -171,8 +172,7 @@ export interface CreateRepoRes {
 type CheckRepoResData = {
   is_exist: boolean;
 };
-export interface CheckRepoRes {
-  success: boolean;
-  message?: string;
+
+export interface CheckRepoRes extends BaseType {
   data: CheckRepoResData;
 }

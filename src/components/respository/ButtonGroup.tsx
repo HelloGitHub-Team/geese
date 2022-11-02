@@ -11,6 +11,7 @@ import {
 import { GoLinkExternal } from 'react-icons/go';
 
 import CustomLink from '@/components/links/CustomLink';
+import Message from '@/components/message';
 
 import {
   cancelCollectRepo,
@@ -47,38 +48,44 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
 
   const getUserRepoStatus = async (rid: string) => {
     // 调用接口查看项目是否点赞
-    const data = await userRepoStatus(rid);
-    setIsVoted(data.is_voted);
-    setIsCollected(data.is_collected);
+    const res = await userRepoStatus(rid);
+    if (res.success) {
+      setIsVoted(res.is_voted);
+      setIsCollected(res.is_collected);
+    }
   };
 
   const onClickVote = async (rid: string) => {
-    const data = await voteRepo(rid);
-    if (data?.data) {
-      setLikesTotal(data.data.total);
+    const res = await voteRepo(rid);
+    if (res.success) {
+      setLikesTotal(res.data.total);
       setIsVoted(true);
+    } else {
+      Message.error(res.message as string);
     }
   };
 
   const onClickCollect = async (rid: string) => {
-    const data = await collectRepo(rid);
-    if (data?.data) {
-      setCollectTotal(data.data.total);
+    const res = await collectRepo(rid);
+    if (res.success) {
+      setCollectTotal(res.data.total);
       setIsCollected(true);
+    } else {
+      Message.error(res.message as string);
     }
   };
 
   const onCancelVote = async (rid: string) => {
-    const data = await cancelVoteRepo(rid);
-    if (data?.success) {
+    const res = await cancelVoteRepo(rid);
+    if (res.success) {
       setIsVoted(false);
       setLikesTotal(likesTotal - 1);
     }
   };
 
   const onCancelCollect = async (rid: string) => {
-    const data = await cancelCollectRepo(rid);
-    if (data?.success) {
+    const res = await cancelCollectRepo(rid);
+    if (res.success) {
       setIsCollected(false);
       setCollectTotal(likesTotal - 1);
     }

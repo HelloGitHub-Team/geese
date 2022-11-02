@@ -62,7 +62,6 @@ function AlertComp({ id }: AlertProps) {
     // clean up function that runs when the component unmounts
     return () => {
       mounted.current = false;
-
       // unsubscribe to avoid memory leaks
       unsubscribe();
       router.events.off('routeChangeStart', clearAlerts);

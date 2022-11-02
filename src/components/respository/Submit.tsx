@@ -17,56 +17,115 @@ interface CreateRepoProps {
 
 export default function CreateRepo({ response }: CreateRepoProps) {
   const [loading, setLoading] = useState<boolean>(false);
+  const [paramReady, setParamReady] = useState<boolean>(true);
+
+  const [title, setTitle] = useState<string>('');
   const [url, setUrl] = useState<string>('');
   const [summary, setSummary] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
+  const [urlMessage, setURLMessage] = useState<string>('');
+  const [titleMessage, setTitleMessage] = useState<string>('');
+  const [summaryMessage, setSummaryMessage] = useState<string>('');
 
   const handleCreateRepo = useCallback(
-    (e: React.SyntheticEvent<EventTarget>) => {
+    async (e: React.SyntheticEvent<EventTarget>) => {
       e.preventDefault();
-      if (loading) {
+      let isEmpty = false;
+      if (url.length == 0) {
+        setURLMessage('地址不能为空');
+        isEmpty = true;
+      }
+      if (title.length == 0) {
+        setTitleMessage('标题不能少于 5 个字');
+        isEmpty = true;
+      }
+      if (summary.length == 0) {
+        setSummaryMessage('描述不能少于 10 个字');
+        isEmpty = true;
+      }
+      if (loading || !paramReady || isEmpty) {
         return;
       }
       setLoading(true);
-      if (validateUrl(url)) {
-        createRepo({ url, summary }).then((res) => {
-          if (res.success) {
-            Message.success(`提交成功，您还可以提交 ${res.remaining} 次`);
-          } else {
-            Message.error(res.message);
-          }
-          response(res);
-          setLoading(false);
-        });
+      const res = await createRepo({ url, summary, title });
+      if (res.success) {
+        Message.success(`提交成功，您还可以提交 ${res.remaining} 次`);
       } else {
-        setLoading(false);
-        const message = '地址必须是由 https://github.com 开头';
-        Message.error(message);
-        response({ success: false, message: message });
+        Message.error(res.message);
       }
+      response(res);
+      setLoading(false);
     },
-    [loading, url, summary, response]
+    [loading, url, title, summary, paramReady, response]
   );
 
   const onUrlBlur = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     const url = e.target.value;
+    if (!validateUrl(url)) {
+      setURLMessage('地址必须是 https://github.com 开头');
+      return;
+    }
     checkRepo(url)
       .then((res: CheckRepoRes) => {
-        if (res.data.is_exist) {
-          setMessage(res.message || '该项目已存在，换一个试试吧~');
+        if (res.success) {
+          if (res.data.is_exist) {
+            setURLMessage(res.message || '该项目已存在，换一个试试吧~');
+            setParamReady(false);
+          } else {
+            setURLMessage('');
+          }
         } else {
-          setMessage('');
+          setURLMessage('地址不合规');
+          setParamReady(false);
         }
       })
       .catch((err) => {
-        setMessage('');
+        setURLMessage('');
         console.error(err);
       });
   }, []);
 
+  const onTitleBlur = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const title = e.target.value;
+    if (title.length >= 5 && title.length <= 30) {
+      setTitleMessage('');
+    } else {
+      if (title.length < 5) {
+        setTitleMessage('标题不能少于 5 个字');
+        setParamReady(false);
+      }
+      if (title.length > 30) {
+        setTitleMessage('标题不能超过 30 个字');
+        setParamReady(false);
+      }
+    }
+  }, []);
+
+  const onSummaryBlur = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const summay = e.target.value;
+      if (summay.length >= 5 && summay.length <= 30) {
+        setSummaryMessage('');
+      } else {
+        if (summay.length < 10) {
+          setSummaryMessage('描述不能少于 10 个字');
+          setParamReady(false);
+        }
+        if (summay.length > 30) {
+          setSummaryMessage('描述不能超过 200 个字');
+          setParamReady(false);
+        }
+      }
+    },
+    []
+  );
+
   const onUrlChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value),
+    []
+  );
+
+  const onTitleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value),
     []
   );
 
@@ -98,10 +157,31 @@ export default function CreateRepo({ response }: CreateRepoProps) {
             onBlur={onUrlBlur}
           />
           <div className='ml-1 mt-2 text-left text-xs text-gray-400'>
-            {message ? (
-              <span className='text-red-600'>{message}</span>
+            {urlMessage ? (
+              <span className='text-red-600'>{urlMessage}</span>
             ) : (
               '👆 仅接受 GitHub 上的开源项目'
+            )}
+          </div>
+        </div>
+
+        <div>
+          <label className='sr-only' htmlFor='title'>
+            title
+          </label>
+          <input
+            className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
+            placeholder='一句话描述项目的特点和用途（标题）'
+            type='text'
+            id='title'
+            onChange={onTitleChange}
+            onBlur={onTitleBlur}
+          />
+          <div className='mt-2 text-left text-xs text-gray-400'>
+            {titleMessage ? (
+              <span className='text-red-600'>{titleMessage}</span>
+            ) : (
+              ''
             )}
           </div>
         </div>
@@ -112,13 +192,18 @@ export default function CreateRepo({ response }: CreateRepoProps) {
           </label>
           <textarea
             className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
-            placeholder='请填写项目描述：这是个什么项目、能用来干什么、有什么特点或解决了什么痛点，适用于什么场景、能够让初学者学到什么'
+            placeholder='介绍：你为什么推荐该项目，它能用来干什么、解决了什么痛点、适用于什么场景'
             rows={8}
             id='summary'
             onChange={onSummaryChange}
+            onBlur={onSummaryBlur}
           ></textarea>
           <div className='mt-2 text-left text-xs text-gray-400'>
-            字数限制 10-200 个字符
+            {summaryMessage ? (
+              <span className='text-red-600'>{summaryMessage}</span>
+            ) : (
+              '字数限制 10-200 个字符'
+            )}
           </div>
         </div>
 
