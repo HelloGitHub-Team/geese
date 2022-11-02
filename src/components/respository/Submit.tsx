@@ -42,6 +42,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
         setSummaryMessage('描述不能少于 10 个字');
         isEmpty = true;
       }
+      // 有一个条件不满足就不能提交
       if (loading || !paramReady || isEmpty) {
         return;
       }
@@ -72,6 +73,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
             setParamReady(false);
           } else {
             setURLMessage('');
+            setParamReady(true);
           }
         } else {
           setURLMessage('地址不合规');
@@ -79,22 +81,24 @@ export default function CreateRepo({ response }: CreateRepoProps) {
         }
       })
       .catch((err) => {
-        setURLMessage('');
+        setURLMessage('请求失败，稍后重试');
+        setParamReady(false);
         console.error(err);
       });
   }, []);
 
   const onTitleBlur = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
-    if (title.length >= 5 && title.length <= 30) {
+    if (title.length >= 5 && title.length <= 50) {
       setTitleMessage('');
+      setParamReady(true);
     } else {
       if (title.length < 5) {
         setTitleMessage('标题不能少于 5 个字');
         setParamReady(false);
       }
       if (title.length > 30) {
-        setTitleMessage('标题不能超过 30 个字');
+        setTitleMessage('标题不能超过 50 个字');
         setParamReady(false);
       }
     }
@@ -103,15 +107,16 @@ export default function CreateRepo({ response }: CreateRepoProps) {
   const onSummaryBlur = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       const summay = e.target.value;
-      if (summay.length >= 5 && summay.length <= 30) {
+      if (summay.length >= 10 && summay.length <= 300) {
         setSummaryMessage('');
+        setParamReady(true);
       } else {
         if (summay.length < 10) {
           setSummaryMessage('描述不能少于 10 个字');
           setParamReady(false);
         }
-        if (summay.length > 30) {
-          setSummaryMessage('描述不能超过 200 个字');
+        if (summay.length > 300) {
+          setSummaryMessage('描述不能超过 300 个字');
           setParamReady(false);
         }
       }
@@ -202,7 +207,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
             {summaryMessage ? (
               <span className='text-red-600'>{summaryMessage}</span>
             ) : (
-              '字数限制 10-200 个字符'
+              '字数限制 10-300 个字符'
             )}
           </div>
         </div>
