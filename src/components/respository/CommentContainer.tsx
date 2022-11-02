@@ -69,7 +69,7 @@ const CommentContainer = (props: Props) => {
       {total ? (
         <>
           <div className='my-8 flex items-center justify-between'>
-            <strong>{total} 条评论</strong>
+            <strong>{total} 条精选评论</strong>
             <div className='btn-group'>
               <button
                 className={`${
@@ -107,7 +107,9 @@ const CommentContainer = (props: Props) => {
         </>
       ) : (
         <div className='mt-4 border-t border-gray-300 text-center text-xl dark:border-gray-700'>
-          <div className='py-14 text-gray-300 dark:text-gray-500'>暂无评论</div>
+          <div className='py-14 text-gray-300 dark:text-gray-500'>
+            暂无精选评论
+          </div>
         </div>
       )}
     </div>
