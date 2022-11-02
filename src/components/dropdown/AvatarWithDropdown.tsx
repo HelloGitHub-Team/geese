@@ -43,14 +43,14 @@ const AvatarWithDropdown = (props: { className?: string }) => {
         hidden={!isOpen}
       >
         <div className='absolute -top-1.5 right-3 h-3 w-3 rotate-45 border-l border-t bg-white dark:border-gray-600 dark:bg-gray-800'></div>
-        <div className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
-          <ThemeSwitch type='text'></ThemeSwitch>
-        </div>
         <CustomLink href={`/user/${userInfo.uid}`} className='block'>
           <div className='block px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
             我的主页
           </div>
         </CustomLink>
+        <div className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
+          <ThemeSwitch type='text'></ThemeSwitch>
+        </div>
         <div
           className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'
           onClick={logout}

@@ -12,7 +12,7 @@ type RankButtonProps = {
 const btnList: option[] = [
   { key: '/', value: '首页' },
   { key: '/periodical/volume', value: '月刊' },
-  { key: '/report/tiobe', value: '排行榜' },
+  { key: '/report/tiobe', value: '榜单' },
   { key: '/article', value: '文章' },
 ];
 
@@ -47,7 +47,7 @@ const RankButton = (props: RankButtonProps) => {
   return (
     <HeaderBtn pathname='/report/tiobe'>
       <AiOutlineTrophy className='mr-0.5' />
-      <span>排行榜</span>
+      <span>榜单</span>
     </HeaderBtn>
   );
 };
