@@ -40,7 +40,7 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
   }, [volume]);
 
   const goBack = () => {
-    if (window.history.length <= 2) {
+    if (window.history.length < 2) {
       router.push('/');
     } else {
       router.back();

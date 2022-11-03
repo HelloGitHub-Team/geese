@@ -39,7 +39,7 @@ const RepositoryPage: NextPage<Props> = ({ repo }) => {
             />
           </div>
         )}
-        <MoreInfo repo={repo}></MoreInfo>
+        <MoreInfo repo={repo} />
       </div>
       <ButtonGroup repo={repo} />
       <CommentContainer

@@ -75,9 +75,6 @@ const Header = () => {
               <span>文章</span>
             </HeaderBtn>
           </li>
-          {/* <li className='hidden md:block'>
-            <ThemeSwitch />
-          </li> */}
           {/* 移动端显示的登录按钮和头像 */}
           <li className='block md:hidden'>
             {!isLogin ? <LoginButton /> : <AvatarWithDropdown />}

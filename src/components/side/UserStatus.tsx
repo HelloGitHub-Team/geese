@@ -13,6 +13,7 @@ import { DEFAULT_AVATAR } from '@/utils/constants';
 
 import SideLoginButton from './SideLoginButton';
 import Loading from '../loading/Loading';
+import ThemeSwitch from '../ThemeSwitch';
 
 import { UserStatusProps } from '@/types/user';
 
@@ -49,10 +50,10 @@ export default function UserStatus() {
         <div>
           {isLogin && data?.success ? (
             <>
-              <Link href={`/user/${data.uid}`}>
-                <a>
-                  <div className='relative cursor-pointer'>
-                    <span className='bg-img absolute top-0 left-0 h-10 w-10 shrink-0 grow-0 rounded-lg object-cover'>
+              <div className='relative'>
+                <Link href={`/user/${data.uid}`}>
+                  <a>
+                    <span className='bg-img absolute top-0 left-0 h-10 w-10 shrink-0 grow-0 cursor-pointer rounded-lg object-cover'>
                       <img
                         className='rounded'
                         width='40'
@@ -61,19 +62,21 @@ export default function UserStatus() {
                         alt='side_avatar'
                       />
                     </span>
-                    <div className='shrink grow pl-12'>
-                      <div className='flex min-w-0 items-center'>
-                        <span className='mr-2 block h-5 shrink grow truncate text-sm hover:text-blue-500 hover:underline dark:text-gray-300'>
-                          {data?.nickname}
-                        </span>
-                      </div>
-                      <div className='text-sm font-bold text-yellow-500'>
-                        Lv1
-                      </div>
-                    </div>
+                  </a>
+                </Link>
+                <div className='shrink grow pl-12'>
+                  <div className='flex min-w-0 items-center'>
+                    <span className='mr-2 block h-5 shrink grow truncate text-sm dark:text-gray-300'>
+                      {data?.nickname}
+                    </span>
+                    <span>
+                      <ThemeSwitch />
+                    </span>
                   </div>
-                </a>
-              </Link>
+                  <div className='text-sm font-bold text-yellow-500'>Lv1</div>
+                </div>
+              </div>
+
               <div className='flex items-end pt-2 text-sm'>
                 <RepoModal>
                   <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 px-2 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 xl:px-4 xl:text-sm'>

@@ -6,6 +6,8 @@ import Score from '@/components/respository/Score';
 import { recordGoGithub } from '@/services/repository';
 import { format } from '@/utils/day';
 
+import CustomLink from '../links/CustomLink';
+
 import { RepositoryProps } from '@/types/reppsitory';
 
 const Info: NextPage<RepositoryProps> = ({ repo }) => {
@@ -19,14 +21,13 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       <div className='max-h-full w-9/12 max-w-full'>
         <div className='relative h-full p-2'>
           <div className='w-full text-lg line-clamp-3 dark:text-gray-300 lg:text-2xl lg:line-clamp-2'>
-            <Link href={repo.url}>
-              <a
-                className='hover:text-blue-500 dark:hover:text-blue-500'
-                onClick={() => onClickLink(repo.rid)}
-              >
-                {repo.name}
-              </a>
-            </Link>
+            <CustomLink
+              href={repo.url}
+              className='text-blue-500 hover:border-b-2 hover:border-blue-500 dark:text-blue-500'
+              onClick={() => onClickLink(repo.rid)}
+            >
+              {repo.full_name}
+            </CustomLink>
             ：{repo.title}
           </div>
           <div className='mt-1 mr-1 flex flex-wrap text-gray-500 dark:text-gray-400 lg:mr-2'>
