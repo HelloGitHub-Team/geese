@@ -3435,6 +3435,11 @@ dotgitignore@^2.1.0:
     find-up "^3.0.0"
     minimatch "^3.0.4"
 
+driver.js@^0.9.8:
+  version "0.9.8"
+  resolved "https://registry.npmmirror.com/driver.js/-/driver.js-0.9.8.tgz#4b327f4537b1c9b9fb19419de86174be821ae32a"
+  integrity sha512-bczjyKdX6XmFyCDkwtRmlaORDwfBk1xXmRO0CAe5VwNQTM98aWaG2LAIiIdTe53iV/B7W5lXlIy2xYtf0JRb7Q==
+
 duplexer@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.2.tgz#3abe43aef3835f8ae077d136ddce0f276b0400e6"

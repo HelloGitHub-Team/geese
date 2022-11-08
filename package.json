@@ -29,6 +29,7 @@
     "clsx": "^1.1.1",
     "copy-to-clipboard": "^3.3.2",
     "dayjs": "^1.11.3",
+    "driver.js": "^0.9.8",
     "express": "^4.18.1",
     "next": "^12.1.6",
     "pino-http": "^8.2.1",
