@@ -77,11 +77,13 @@ const CommentItem = (
       <div className='mr-4 hidden md:block'>
         <div className='relative h-14 w-14'>
           <Link href={`/user/${user.uid}`}>
-            <img
-              className='cursor-pointer rounded-full'
-              src={user?.avatar || DEFAULT_AVATAR}
-              alt='comment_avatar'
-            />
+            <a>
+              <img
+                className='cursor-pointer rounded-full'
+                src={user?.avatar || DEFAULT_AVATAR}
+                alt='comment_avatar'
+              />
+            </a>
           </Link>
         </div>
       </div>

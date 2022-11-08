@@ -11,9 +11,13 @@ import Seo from '@/components/Seo';
 
 import { getDetail } from '@/services/repository';
 
-import { RepositoryProps } from '@/types/reppsitory';
+import { Repository } from '@/types/reppsitory';
 
-const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
+interface Props {
+  repo: Repository;
+}
+
+const RepositoryPage: NextPage<Props> = ({ repo }) => {
   return (
     <>
       <Seo title={`开源项目 ${repo.name} 详情`} />
@@ -35,7 +39,7 @@ const RepositoryPage: NextPage<RepositoryProps> = ({ repo }) => {
             />
           </div>
         )}
-        <MoreInfo repo={repo}></MoreInfo>
+        <MoreInfo repo={repo} />
       </div>
       <ButtonGroup repo={repo} />
       <CommentContainer
@@ -64,13 +68,15 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const rid = query?.rid as string;
   const data = await getDetail(ip, rid);
-  if (typeof data.rid === 'undefined') {
+  if (data.success) {
     return {
-      notFound: true,
+      props: {
+        repo: data.data,
+      },
     };
   } else {
     return {
-      props: { repo: data },
+      notFound: true,
     };
   }
 };

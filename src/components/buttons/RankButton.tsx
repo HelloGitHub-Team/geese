@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
 import { AiOutlineTrophy } from 'react-icons/ai';
 
+import HeaderBtn from '@/components/buttons/HeaderBtn';
 import type { option } from '@/components/dropdown/Dropdown';
 import Dropdown from '@/components/dropdown/Dropdown';
-
-import Button from './Button';
 
 type RankButtonProps = {
   type?: '' | 'dropdown';
@@ -13,7 +12,7 @@ type RankButtonProps = {
 const btnList: option[] = [
   { key: '/', value: '首页' },
   { key: '/periodical/volume', value: '月刊' },
-  { key: '/report/tiobe', value: '排行榜' },
+  { key: '/report/tiobe', value: '榜单' },
   { key: '/article', value: '文章' },
 ];
 
@@ -46,16 +45,10 @@ const RankButton = (props: RankButtonProps) => {
   }
 
   return (
-    <Button
-      className='font-normal text-gray-500 hover:bg-transparent hover:text-blue-500 dark:text-gray-400 dark:hover:bg-gray-700'
-      variant='ghost'
-      onClick={() => {
-        router.push('/report/tiobe');
-      }}
-    >
+    <HeaderBtn pathname='/report/tiobe'>
       <AiOutlineTrophy className='mr-0.5' />
-      排行榜
-    </Button>
+      <span>榜单</span>
+    </HeaderBtn>
   );
 };
 

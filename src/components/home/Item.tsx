@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
-import Link from 'next/link';
+
+import CustomLink from '@/components/links/CustomLink';
 
 import { fromNow } from '@/utils/day';
 import { numFormat } from '@/utils/util';
@@ -8,8 +9,8 @@ import { ItemProps } from '@/types/home';
 
 const Item: NextPage<ItemProps> = ({ item, index }) => {
   return (
-    <Link href={`/repository/${item.item_id}`}>
-      <article>
+    <article>
+      <CustomLink href={`/repository/${item.item_id}`}>
         <div className='relative cursor-pointer bg-white py-3 pl-4 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700'>
           <div className='pb-0.5'>
             <div className='text-color-primary flex justify-between visited:text-gray-500 dark:text-gray-300'>
@@ -55,8 +56,8 @@ const Item: NextPage<ItemProps> = ({ item, index }) => {
             </div>
           </div>
         </div>
-      </article>
-    </Link>
+      </CustomLink>
+    </article>
   );
 };
 

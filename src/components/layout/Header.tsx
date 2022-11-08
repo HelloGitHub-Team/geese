@@ -1,26 +1,41 @@
+import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { AiOutlineHome } from 'react-icons/ai';
+import { useEffect, useState } from 'react';
+import { AiOutlineBook, AiOutlineHome } from 'react-icons/ai';
 import { MdOutlineArticle } from 'react-icons/md';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
-import Button from '@/components/buttons/Button';
+import HeaderBtn from '@/components/buttons/HeaderBtn';
 import RankButton from '@/components/buttons/RankButton';
 import AvatarWithDropdown from '@/components/dropdown/AvatarWithDropdown';
-import ThemeSwitch from '@/components/ThemeSwitch';
 
 import LoginButton from '../buttons/LoginButton';
-import PeriodicalButton from '../buttons/Periodical';
 import SearchInput from '../search/SearchInput';
 
 const Header = () => {
   const router = useRouter();
   const { isLogin } = useLoginContext();
+  const [curPath, setCurPath] = useState('');
+
+  useEffect(() => {
+    setCurPath(router.pathname);
+  }, [router.pathname]);
+
+  const liClassName = (path: string) =>
+    classNames(
+      'hidden md:block hover:font-bold hover:text-gray-800 hover:border-blue-500 hover:border-b-2 h-12',
+      {
+        'text-blue-500': curPath === path,
+        'text-gray-500': curPath !== path,
+      }
+    );
 
   return (
     <div className='fixed z-10 h-14 w-full bg-white shadow-sm backdrop-blur dark:border dark:border-gray-50/[0.06] dark:bg-transparent'>
-      <nav className='mx-auto flex max-w-5xl items-center justify-between p-2 xl:max-w-5xl 2xl:max-w-7xl'>
-        <span className='hidden md:block'>
+      <nav className='mx-auto flex max-w-5xl items-center justify-between px-2 py-2 md:py-0 xl:max-w-5xl 2xl:max-w-7xl'>
+        {/* pc 端显示的 logo */}
+        <span className='hidden py-2 md:block'>
           <img
             className='cursor-pointer dark:invert'
             src='https://img.hellogithub.com/logo/logo.png'
@@ -28,48 +43,39 @@ const Header = () => {
             height='28'
             alt='header_logo'
             onClick={() => {
-              router.reload();
+              router.push('/');
             }}
           />
         </span>
-        <span className='block md:hidden'>
+        {/* 移动端显示的[排行榜]等按钮的下拉列表 */}
+        <div className='md:hidden'>
           <RankButton type='dropdown' />
-        </span>
+        </div>
         <SearchInput />
-        <ul className='text-md flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400'>
-          <li className='hidden md:block'>
-            <Button
-              className='font-normal text-gray-500 hover:bg-transparent hover:text-blue-500 dark:text-gray-400 dark:hover:bg-gray-700'
-              variant='ghost'
-              onClick={() => {
-                router.push('/');
-              }}
-            >
+        <ul className='text-md flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400 md:pt-2'>
+          {/* pc 端显示的顶部按钮 */}
+          <li className={liClassName('/')}>
+            <HeaderBtn pathname='/'>
               <AiOutlineHome className='mr-0.5' />
-              首页
-            </Button>
+              <span>首页</span>
+            </HeaderBtn>
           </li>
-          <li className='hidden md:block'>
-            <PeriodicalButton />
+          <li className={liClassName('/periodical/volume')}>
+            <HeaderBtn pathname='/periodical/volume'>
+              <AiOutlineBook className='mr-0.5' />
+              <span>月刊</span>
+            </HeaderBtn>
           </li>
-          <li className='hidden md:block'>
+          <li className={liClassName('/report/tiobe')}>
             <RankButton />
           </li>
-          <li className='hidden md:block'>
-            <Button
-              className='font-normal text-gray-500  hover:bg-transparent hover:text-blue-500 dark:text-gray-400 dark:hover:bg-gray-700'
-              variant='ghost'
-              onClick={() => {
-                router.push('/article');
-              }}
-            >
+          <li className={liClassName('/article')}>
+            <HeaderBtn pathname='/article'>
               <MdOutlineArticle className='mr-0.5' />
-              文章
-            </Button>
+              <span>文章</span>
+            </HeaderBtn>
           </li>
-          <li className='hidden md:block'>
-            <ThemeSwitch />
-          </li>
+          {/* 移动端显示的登录按钮和头像 */}
           <li className='block md:hidden'>
             {!isLogin ? <LoginButton /> : <AvatarWithDropdown />}
           </li>

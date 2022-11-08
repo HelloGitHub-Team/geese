@@ -281,3 +281,8 @@ svg {
   margin-top: 0;
   margin-bottom: 0;
 }
+
+#nprogress .bar {
+  background: #3282f6;
+  height: 3px;
+}

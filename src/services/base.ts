@@ -1,7 +1,5 @@
 import { getCurrentToken } from '@/hooks/useToken';
 
-import Message from '@/components/message';
-
 export const fetcher = async function fetcher<T>(
   input: RequestInfo,
   init?: RequestInit
@@ -23,8 +21,8 @@ export const fetcher = async function fetcher<T>(
     init = { headers: defaultHeaders };
   }
 
+  let message = '请求接口失败';
   const res = await fetch(input, init);
-
   try {
     const json = await res.json();
     if (!res.ok) {
@@ -32,33 +30,33 @@ export const fetcher = async function fetcher<T>(
         if (typeof window !== 'undefined') {
           window.location.href = '/500';
         } else {
-          Message.error('服务器发生错误');
+          message = '服务器发生错误';
         }
       } else if (res.status === 404) {
         if (typeof window !== 'undefined') {
           window.location.href = '/404';
         } else {
-          Message.error('未找到该资源');
+          message = '未找到该资源';
         }
       } else if (res.status === 400) {
-        Message.error(json.message);
+        message = json.message;
       } else if (res.status === 401) {
         if (!res.url.includes('/me/')) {
-          Message.error('请先登录');
+          message = '请先登录';
         }
       } else {
-        if (json.detail) {
-          Message.error(json.detail);
+        if (json.message) {
+          message = json.message;
         } else {
-          Message.error(json.message);
+          console.log(json);
         }
       }
-      return Object({ success: false, data: null });
+      return Object({ success: false, message: message });
     } else {
       return json;
     }
   } catch (error) {
     console.log(error);
-    return Object({ success: false, data: null });
+    return Object({ success: false, message: message });
   }
 };

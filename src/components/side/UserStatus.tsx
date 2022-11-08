@@ -11,8 +11,9 @@ import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 import { DEFAULT_AVATAR } from '@/utils/constants';
 
+import SideLoginButton from './SideLoginButton';
 import Loading from '../loading/Loading';
-import SideLoginButton from '../side/SideLoginButton';
+import ThemeSwitch from '../ThemeSwitch';
 
 import { UserStatusProps } from '@/types/user';
 
@@ -49,30 +50,36 @@ export default function UserStatus() {
         <div>
           {isLogin && data?.success ? (
             <>
-              <Link href={`/user/${data.uid}`}>
-                <div className='relative cursor-pointer'>
-                  <span className='bg-img absolute top-0 left-0 h-10 w-10 shrink-0 grow-0 rounded-lg object-cover'>
-                    <img
-                      className='rounded'
-                      width='40'
-                      height='40'
-                      src={data?.avatar || DEFAULT_AVATAR}
-                      alt='side_avatar'
-                    />
-                  </span>
-                  <div className='shrink grow pl-12'>
-                    <div className='flex min-w-0 items-center'>
-                      <span className='mr-2 block h-5 shrink grow truncate text-sm hover:text-blue-500 hover:underline dark:text-gray-300'>
-                        {data?.nickname}
-                      </span>
-                    </div>
-                    <div className='text-sm font-bold text-yellow-500'>Lv1</div>
+              <div className='relative'>
+                <Link href={`/user/${data.uid}`}>
+                  <a>
+                    <span className='bg-img absolute top-0 left-0 h-10 w-10 shrink-0 grow-0 cursor-pointer rounded-lg object-cover'>
+                      <img
+                        className='rounded'
+                        width='40'
+                        height='40'
+                        src={data?.avatar || DEFAULT_AVATAR}
+                        alt='side_avatar'
+                      />
+                    </span>
+                  </a>
+                </Link>
+                <div className='shrink grow pl-12'>
+                  <div className='flex min-w-0 items-center'>
+                    <span className='mr-2 block h-5 shrink grow truncate text-sm dark:text-gray-300'>
+                      {data?.nickname}
+                    </span>
+                    <span>
+                      <ThemeSwitch />
+                    </span>
                   </div>
+                  <div className='text-sm font-bold text-yellow-500'>Lv1</div>
                 </div>
-              </Link>
+              </div>
+
               <div className='flex items-end pt-2 text-sm'>
                 <RepoModal>
-                  <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 pl-1 pr-1 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 xl:pl-4 xl:pr-4 xl:text-sm'>
+                  <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 px-2 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 xl:px-4 xl:text-sm'>
                     分享项目
                   </a>
                 </RepoModal>
@@ -85,9 +92,11 @@ export default function UserStatus() {
 
               <div className='mt-3 flex cursor-pointer justify-between border-t text-xs dark:border-gray-700'>
                 <Link href={`/user/${data.uid}`} className='block'>
-                  <div className='pl-1 pt-3 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
-                    我的主页
-                  </div>
+                  <a>
+                    <div className='pl-1 pt-3 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
+                      我的主页
+                    </div>
+                  </a>
                 </Link>
                 <div
                   className='pr-1 pt-3 pb-1 text-gray-400 hover:text-blue-500 hover:underline'
@@ -98,7 +107,9 @@ export default function UserStatus() {
               </div>
             </>
           ) : (
-            <SideLoginButton />
+            <>
+              <SideLoginButton />
+            </>
           )}
         </div>
       ) : (

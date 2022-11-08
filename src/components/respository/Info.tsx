@@ -6,6 +6,8 @@ import Score from '@/components/respository/Score';
 import { recordGoGithub } from '@/services/repository';
 import { format } from '@/utils/day';
 
+import CustomLink from '../links/CustomLink';
+
 import { RepositoryProps } from '@/types/reppsitory';
 
 const Info: NextPage<RepositoryProps> = ({ repo }) => {
@@ -19,14 +21,13 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       <div className='max-h-full w-9/12 max-w-full'>
         <div className='relative h-full p-2'>
           <div className='w-full text-lg line-clamp-3 dark:text-gray-300 lg:text-2xl lg:line-clamp-2'>
-            <a
-              className='hover:text-blue-500 dark:hover:text-blue-500'
+            <CustomLink
               href={repo.url}
+              className='text-blue-500 hover:border-b-2 hover:border-blue-500 dark:text-blue-500'
               onClick={() => onClickLink(repo.rid)}
-              target='__blank'
             >
-              {repo.name}
-            </a>
+              {repo.full_name}
+            </CustomLink>
             ：{repo.title}
           </div>
           <div className='mt-1 mr-1 flex flex-wrap text-gray-500 dark:text-gray-400 lg:mr-2'>
@@ -37,9 +38,11 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
             </div>
             {repo.volume_name ? (
               <Link href={`/periodical/volume/${Number(repo.volume_name)}`}>
-                <div className='mt-1 mr-1 flex h-6 cursor-pointer items-center rounded border border-current px-2.5 text-xs font-medium hover:text-blue-500 dark:hover:text-gray-500 lg:mr-2'>
-                  第 {repo.volume_name} 期
-                </div>
+                <a>
+                  <div className='mt-1 mr-1 flex h-6 cursor-pointer items-center rounded border border-current px-2.5 text-xs font-medium hover:text-blue-500 dark:hover:text-gray-500 lg:mr-2'>
+                    第 {repo.volume_name} 期
+                  </div>
+                </a>
               </Link>
             ) : (
               <></>
@@ -47,9 +50,11 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
 
             {repo.tags.map((item) => (
               <Link href={`/tags/${item.tid}/`} key={item.tid}>
-                <div className='mr-1 mt-1 flex h-6 cursor-pointer items-center rounded border border-current px-2.5 text-xs font-medium hover:text-blue-500 dark:hover:text-gray-500 lg:mr-2'>
-                  {item.name}
-                </div>
+                <a>
+                  <div className='mr-1 mt-1 flex h-6 cursor-pointer items-center rounded border border-current px-2.5 text-xs font-medium hover:text-blue-500 dark:hover:text-gray-500 lg:mr-2'>
+                    {item.name}
+                  </div>
+                </a>
               </Link>
             ))}
           </div>

@@ -6,11 +6,12 @@ import { fetcher } from './base';
 
 import {
   BaseType,
+  CheckRepoRes,
   Collect,
   CommentData,
   CommentSuccessData,
   CreateRepoRes,
-  Repository,
+  RepositorySuccessData,
   UserActionStatus,
   Vote,
 } from '@/types/reppsitory';
@@ -18,10 +19,10 @@ import {
 export const getDetail = async (
   ip: string,
   rid: string
-): Promise<Repository> => {
+): Promise<RepositorySuccessData> => {
   const req: RequestInit = {};
   req.headers = { 'x-real-ip': ip, 'x-forwarded-for': ip };
-  const result = await fetcher<Repository>(
+  const result = await fetcher<RepositorySuccessData>(
     makeUrl(`/repository/detail/${rid}`),
     req
   );
@@ -47,8 +48,8 @@ export const voteRepo = async (rid: string): Promise<Vote> => {
   data.credentials = 'include';
   data.method = 'POST';
   data.body = JSON.stringify({ belong_id: rid, belong: 'repository' });
-  const resp = await fetcher<Vote>(makeUrl('/vote/'), data);
-  return resp;
+  const result = await fetcher<Vote>(makeUrl('/vote/'), data);
+  return result;
 };
 
 export const collectRepo = async (rid: string): Promise<Collect> => {
@@ -56,28 +57,26 @@ export const collectRepo = async (rid: string): Promise<Collect> => {
   data.credentials = 'include';
   data.method = 'POST';
   data.body = JSON.stringify({ rid: rid });
-  const resp = await fetcher<Collect>(makeUrl('/repository/collect/'), data);
-  return resp;
+  const result = await fetcher<Collect>(makeUrl('/repository/collect/'), data);
+  return result;
 };
 
-export const cancelVoteRepo = async (rid: string): Promise<BaseType | null> => {
+export const cancelVoteRepo = async (rid: string): Promise<BaseType> => {
   const data: RequestInit = {};
   data.credentials = 'include';
   data.method = 'DELETE';
   data.body = JSON.stringify({ belong_id: rid, belong: 'repository' });
-  const resp = await fetcher<BaseType>(makeUrl('/vote/'), data);
-  return resp;
+  const result = await fetcher<BaseType>(makeUrl('/vote/'), data);
+  return result;
 };
 
-export const cancelCollectRepo = async (
-  rid: string
-): Promise<BaseType | null> => {
+export const cancelCollectRepo = async (rid: string): Promise<BaseType> => {
   const data: RequestInit = {};
   data.credentials = 'include';
   data.method = 'DELETE';
   data.body = JSON.stringify({ rid: rid });
-  const resp = await fetcher<BaseType>(makeUrl('/repository/collect/'), data);
-  return resp;
+  const result = await fetcher<BaseType>(makeUrl('/repository/collect/'), data);
+  return result;
 };
 
 // 记录 github 访问次数 /v1/repository/go/github/
@@ -98,7 +97,7 @@ export const submitComment = async (
   }
 ) => {
   const url = makeUrl(`/comment/repository/${belongId}`);
-  const res = await fetcher<CommentSuccessData>(url, {
+  const result = await fetcher<CommentSuccessData>(url, {
     method: 'POST',
     body: JSON.stringify({
       is_used: data.isUsed,
@@ -106,7 +105,7 @@ export const submitComment = async (
       comment: data.comment,
     }),
   });
-  return res;
+  return result;
 };
 
 export const getComments = async (
@@ -118,8 +117,8 @@ export const getComments = async (
   const url = makeUrl(
     `/comment/${belong}/${belongId}?page=${page}&sort_by=${sortType}`
   );
-  const res = await fetcher<CommentData>(url);
-  return res;
+  const result = await fetcher<CommentData>(url);
+  return result;
 };
 
 // 点赞
@@ -129,7 +128,7 @@ export const like = async (data: {
   cid: string;
 }) => {
   const url = makeUrl(`/vote/comment/`);
-  const res = await fetcher<{ success: boolean; message?: string }>(url, {
+  const result = await fetcher<{ success: boolean; message?: string }>(url, {
     method: 'POST',
     body: JSON.stringify({
       belong: data.belong,
@@ -140,7 +139,7 @@ export const like = async (data: {
     Message.error(err.message || '点赞失败');
     throw err;
   });
-  return res;
+  return result;
 };
 
 // 取消点赞
@@ -150,7 +149,7 @@ export const unlike = async (data: {
   cid: string;
 }) => {
   const url = makeUrl('/vote/comment/');
-  const res = await fetcher<{ success: boolean; message?: string }>(url, {
+  const result = await fetcher<{ success: boolean; message?: string }>(url, {
     method: 'DELETE',
     body: JSON.stringify({
       belong: data.belong,
@@ -161,14 +160,17 @@ export const unlike = async (data: {
     Message.error(err.message || '取消点赞失败');
     throw err;
   });
-  return res;
+  return result;
 };
 
-export const createRepo = (
-  params: Record<string, any>
-): Promise<CreateRepoRes> => {
-  return fetcher<CreateRepoRes>(makeUrl('/repository/'), {
+export const createRepo = async (params: Record<string, any>) => {
+  const result = await fetcher<CreateRepoRes>(makeUrl('/repository/'), {
     method: 'POST',
     body: JSON.stringify(params),
   });
+  return result;
+};
+
+export const checkRepo = (url: string): Promise<CheckRepoRes> => {
+  return fetcher<CheckRepoRes>(makeUrl(`/repository/check/?url=${url}`));
 };

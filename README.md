@@ -1,24 +1,16 @@
 ## 介绍
 
-Geese 译为「惊鸿」可理解为轻盈、快速的形态。
+Geese 译为「惊鸿」可理解为轻盈、快速的形态。希望焕然一新的 HelloGitHub 官网，可以给你带来「惊鸿」一般的访问体验。
 
-希望焕然一新的 HelloGitHub 官网，可以给你带来「惊鸿」一般的访问体验。
+![](docs/img/2022-10-18.png)
 
-**正在全力以赴的开发中，敬请期待！**
-
-![](docs/img/2022-09-05.png)
-
-感谢每一位贡献代码的[小伙伴](https://github.com/HelloGitHub-Team/geese/graphs/contributors)，很开心能够和大家一起做开源项目～
+已上线！！！欢迎[访问](https://hellogithub.com)和[反馈](https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb)，感谢每一位参与贡献的[小伙伴](https://github.com/HelloGitHub-Team/geese/graphs/contributors)，很开心能够和大家一起做开源项目～
 
 ## 技术栈
-
-Geese 采用：
 
 - [Next.js](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [SWR](https://swr.vercel.app/zh-CN)
-
-重新构建 [HelloGiHub.com](https://hellogithub.com) 官网，期待您的加入。
 
 ## 待认领
 

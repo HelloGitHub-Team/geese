@@ -64,12 +64,14 @@ export default function CollectionList(props: Props) {
               </div>
             </div>
             <Link href={`/repository/${item.repo.rid}`}>
-              <Button
-                className='h-8 px-2 text-sm font-normal dark:border-gray-500 dark:text-gray-500'
-                variant='outline'
-              >
-                查看
-              </Button>
+              <a>
+                <Button
+                  className='h-8 px-2 text-sm font-normal dark:border-gray-500 dark:text-gray-500'
+                  variant='outline'
+                >
+                  查看
+                </Button>
+              </a>
             </Link>
           </div>
         ))}

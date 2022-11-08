@@ -4,10 +4,14 @@ import { useEffect, useState } from 'react';
 import {
   AiFillHeart,
   AiFillStar,
+  AiOutlineGithub,
   AiOutlineHeart,
   AiOutlineStar,
 } from 'react-icons/ai';
-import { GoLink, GoLinkExternal } from 'react-icons/go';
+import { GoLinkExternal } from 'react-icons/go';
+
+import CustomLink from '@/components/links/CustomLink';
+import Message from '@/components/message';
 
 import {
   cancelCollectRepo,
@@ -21,9 +25,13 @@ import { numFormat } from '@/utils/util';
 
 import message from '../message';
 
-import { Repository, RepositoryProps } from '@/types/reppsitory';
+import { Repository } from '@/types/reppsitory';
 
-const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
+interface Props {
+  repo: Repository;
+}
+
+const ButtonGroup: NextPage<Props> = ({ repo }) => {
   const commonStyle =
     'flex flex-1 items-center justify-center cursor-pointer leading-10 hover:text-current md:hover:text-blue-500 active:!text-gray-400';
   const iconStyle = 'mr-1';
@@ -40,38 +48,44 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
 
   const getUserRepoStatus = async (rid: string) => {
     // 调用接口查看项目是否点赞
-    const data = await userRepoStatus(rid);
-    setIsVoted(data.is_voted);
-    setIsCollected(data.is_collected);
+    const res = await userRepoStatus(rid);
+    if (res.success) {
+      setIsVoted(res.is_voted);
+      setIsCollected(res.is_collected);
+    }
   };
 
   const onClickVote = async (rid: string) => {
-    const data = await voteRepo(rid);
-    if (data?.data) {
-      setLikesTotal(data.data.total);
+    const res = await voteRepo(rid);
+    if (res.success) {
+      setLikesTotal(res.data.total);
       setIsVoted(true);
+    } else {
+      Message.error(res.message as string);
     }
   };
 
   const onClickCollect = async (rid: string) => {
-    const data = await collectRepo(rid);
-    if (data?.data) {
-      setCollectTotal(data.data.total);
+    const res = await collectRepo(rid);
+    if (res.success) {
+      setCollectTotal(res.data.total);
       setIsCollected(true);
+    } else {
+      Message.error(res.message as string);
     }
   };
 
   const onCancelVote = async (rid: string) => {
-    const data = await cancelVoteRepo(rid);
-    if (data?.success) {
+    const res = await cancelVoteRepo(rid);
+    if (res.success) {
       setIsVoted(false);
       setLikesTotal(likesTotal - 1);
     }
   };
 
   const onCancelCollect = async (rid: string) => {
-    const data = await cancelCollectRepo(rid);
-    if (data?.success) {
+    const res = await cancelCollectRepo(rid);
+    if (res.success) {
       setIsCollected(false);
       setCollectTotal(likesTotal - 1);
     }
@@ -80,7 +94,7 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
   const handleCopy = (repo: Repository) => {
     const text = `${
       repo.name
-    }：${repo.title.trim()}。\n点击查看详情：https://dev.hg.hellogithub.com/repository/${
+    }：${repo.title.trim()}。\n点击查看详情：https://hellogithub.com/repository/${
       repo.rid
     }`;
     if (copy(text)) {
@@ -95,48 +109,47 @@ const ButtonGroup: NextPage<RepositoryProps> = ({ repo }) => {
   }, [repo]);
 
   return (
-    <div className='flex border-t border-solid bg-white text-center text-xs text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 md:rounded-b-lg'>
+    <div className='flex border-t border-solid bg-white text-center text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 md:rounded-b-lg'>
       {isVoted ? (
         <div className={commonStyle} onClick={() => onCancelVote(repo.rid)}>
-          <AiFillHeart className='mr-1 text-blue-500' size={14} />
-          <span className='text-xs text-inherit text-blue-500'>
+          <AiFillHeart className='mr-1 text-blue-500' size={16} />
+          <span className='text-sm text-inherit text-blue-500'>
             {numFormat(likesTotal, 1)}
           </span>
         </div>
       ) : (
         <div className={commonStyle} onClick={() => onClickVote(repo.rid)}>
-          <AiOutlineHeart className={iconStyle} size={14} />
+          <AiOutlineHeart className={iconStyle} size={16} />
           点赞
         </div>
       )}
 
       {isCollected ? (
         <div className={commonStyle} onClick={() => onCancelCollect(repo.rid)}>
-          <AiFillStar className='mr-1 text-blue-500' size={14} />
-          <span className='text-xs text-inherit text-blue-500'>
+          <AiFillStar className='mr-1 text-blue-500' size={16} />
+          <span className='text-sm text-inherit text-blue-500'>
             {numFormat(collectTotal, 1)}
           </span>
         </div>
       ) : (
         <div className={commonStyle} onClick={() => onClickCollect(repo.rid)}>
-          <AiOutlineStar className={iconStyle} size={14} />
+          <AiOutlineStar className={iconStyle} size={16} />
           收藏
         </div>
       )}
 
       <div className={commonStyle} onClick={() => handleCopy(repo)}>
-        <GoLinkExternal className={iconStyle} size={14} />
+        <GoLinkExternal className={iconStyle} size={16} />
         分享
       </div>
-      <a
-        className={commonStyle}
+      <CustomLink
         href={repo.url}
+        className={commonStyle}
         onClick={() => onClickLink(repo.rid)}
-        target='__blank'
       >
-        <GoLink className={iconStyle} size={14} />
+        <AiOutlineGithub className={iconStyle} size={16} />
         访问
-      </a>
+      </CustomLink>
     </div>
   );
 };
