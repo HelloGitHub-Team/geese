@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import useSWR from 'swr';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -27,6 +27,19 @@ export default function UserStatus() {
       return fetcher(key, { headers });
     }
   );
+  const levelPercent = useMemo(() => {
+    if (
+      typeof data?.contribute === 'number' &&
+      typeof data?.next_level_score === 'number'
+    ) {
+      return (data?.contribute / data?.next_level_score) * 100;
+    }
+    // next_level_score 为 null 时则达到了最大等级
+    if (!data?.next_level_score) {
+      return 100;
+    }
+    return 0;
+  }, [data]);
 
   useEffect(() => {
     // 校验 token 过期的话，则清理本地存储的 token
@@ -73,7 +86,23 @@ export default function UserStatus() {
                       <ThemeSwitch />
                     </span>
                   </div>
-                  <div className='text-sm font-bold text-yellow-500'>Lv1</div>
+                </div>
+                {/* 等级展示 */}
+                <div className='mt-5'>
+                  <div className='flex justify-between text-sm font-bold text-yellow-500'>
+                    <span>Lv{data.level}</span>
+                    <span className='font-normal'>{`${data.contribute}/${
+                      data.next_level_score || 'Max'
+                    }`}</span>
+                  </div>
+                  <div className='flex h-1.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700'>
+                    <div
+                      className='flex flex-col justify-center overflow-hidden bg-blue-500'
+                      style={{
+                        width: `${levelPercent}%`,
+                      }}
+                    ></div>
+                  </div>
                 </div>
               </div>
 
