@@ -24,7 +24,7 @@ export interface UserStatusProps {
   avatar: string;
   permission: Permission;
   contribute: number;
-  level: string;
+  level: number;
   next_level_score: number;
   first_login: string;
   last_login: string;

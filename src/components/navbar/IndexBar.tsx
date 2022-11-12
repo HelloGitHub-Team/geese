@@ -100,13 +100,19 @@ const IndexBar = () => {
         <div className='shrink grow'></div>
         <div className='md:hidden'>
           <RepoModal>
-            <a className='flex h-8 items-center rounded-lg bg-blue-500 px-2 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 sm:px-4'>
+            <a className='flex h-8 items-center rounded-lg bg-blue-500 px-3 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 sm:px-4'>
               提交
             </a>
           </RepoModal>
         </div>
+        <div className='hidden md:block'>
+          <RepoModal>
+            <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 px-2 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 xl:px-4 xl:text-sm'>
+              提交项目
+            </a>
+          </RepoModal>
+        </div>
       </div>
-
       <div className={labelStatus ? 'flex px-4 pb-2.5' : 'hidden'}>
         <TagLink tagItems={tagItems}></TagLink>
       </div>

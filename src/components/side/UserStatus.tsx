@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import { useEffect, useMemo } from 'react';
+import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import useSWR from 'swr';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 import useToken from '@/hooks/useToken';
-
-import { RepoModal } from '@/components/respository/Submit';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
@@ -64,36 +63,53 @@ export default function UserStatus() {
           {isLogin && data?.success ? (
             <>
               <div className='relative'>
-                <Link href={`/user/${data.uid}`}>
-                  <a>
-                    <span className='bg-img absolute top-0 left-0 h-10 w-10 shrink-0 grow-0 cursor-pointer rounded-lg object-cover'>
-                      <img
-                        className='rounded'
-                        width='40'
-                        height='40'
-                        src={data?.avatar || DEFAULT_AVATAR}
-                        alt='side_avatar'
-                      />
-                    </span>
-                  </a>
-                </Link>
-                <div className='shrink grow pl-12'>
-                  <div className='flex min-w-0 items-center'>
-                    <span className='mr-2 block h-5 shrink grow truncate text-sm dark:text-gray-300'>
-                      {data?.nickname}
-                    </span>
-                    <span>
-                      <ThemeSwitch />
-                    </span>
+                <div className='flex'>
+                  <Link href={`/user/${data.uid}`}>
+                    <a>
+                      <div className='bg-img top-0 left-0 h-10 w-10 shrink-0 grow-0 cursor-pointer rounded-lg object-cover'>
+                        <img
+                          className='rounded'
+                          width='40'
+                          height='40'
+                          src={data?.avatar || DEFAULT_AVATAR}
+                          alt='side_avatar'
+                        />
+                      </div>
+                    </a>
+                  </Link>
+                  <div className='ml-2 w-full shrink grow'>
+                    <div className='relative flex h-5 min-w-0 items-center'>
+                      <div className='block w-24 truncate align-baseline dark:text-gray-300'>
+                        {data?.nickname}
+                      </div>
+                      <div className='shrink grow'></div>
+                      <div className='flex justify-end'>
+                        <ThemeSwitch />
+                      </div>
+                    </div>
+                    <div className='text-sm font-bold text-blue-500'>Lv.1</div>
                   </div>
                 </div>
                 {/* 等级展示 */}
-                <div className='mt-5'>
-                  <div className='flex justify-between text-sm font-bold text-yellow-500'>
-                    <span>Lv{data.level}</span>
-                    <span className='font-normal'>{`${data.contribute}/${
-                      data.next_level_score || 'Max'
-                    }`}</span>
+                <div className='mt-1'>
+                  <div className='flex justify-between text-sm'>
+                    <div className='cursor-pointer text-gray-400'>
+                      <Link href='/help/level'>
+                        <a>
+                          <span className='align-[-5px] text-xs'>
+                            <span className='mr-0.5'>贡献值</span>
+                            <span className='inline-block align-[-2px]'>
+                              <AiOutlineQuestionCircle />
+                            </span>
+                          </span>
+                        </a>
+                      </Link>
+                    </div>
+                    <span className='text-xl text-blue-500'>
+                      {data.contribute}
+                      <span className='mx-0.5'>/</span>
+                      {data.next_level_score || 'Max'}
+                    </span>
                   </div>
                   <div className='flex h-1.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700'>
                     <div
@@ -105,30 +121,16 @@ export default function UserStatus() {
                   </div>
                 </div>
               </div>
-
-              <div className='flex items-end pt-2 text-sm'>
-                <RepoModal>
-                  <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 px-2 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 xl:px-4 xl:text-sm'>
-                    分享项目
-                  </a>
-                </RepoModal>
-                <div className='shrink grow'></div>
-                <div className='pr-2 pb-0.5 text-gray-400'>贡献值</div>
-                <div className='text-3xl font-bold text-yellow-500 xl:text-3xl'>
-                  {data?.contribute}
-                </div>
-              </div>
-
               <div className='mt-3 flex cursor-pointer justify-between border-t text-xs dark:border-gray-700'>
                 <Link href={`/user/${data.uid}`} className='block'>
                   <a>
-                    <div className='pl-1 pt-3 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
+                    <div className='pl-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
                       我的主页
                     </div>
                   </a>
                 </Link>
                 <div
-                  className='pr-1 pt-3 pb-1 text-gray-400 hover:text-blue-500 hover:underline'
+                  className='pr-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'
                   onClick={logout}
                 >
                   退出登录
