@@ -2,9 +2,11 @@
 
 Geese 译为「惊鸿」可理解为轻盈、快速的形态。希望焕然一新的 HelloGitHub 官网，可以给你带来「惊鸿」一般的访问体验。
 
-![](docs/img/2022-10-18.png)
+目前**第一版已完成上线**，欢迎[访问](https://hellogithub.com)和[反馈](https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb)
 
-已上线！！！欢迎[访问](https://hellogithub.com)和[反馈](https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb)，感谢每一位参与贡献的[小伙伴](https://github.com/HelloGitHub-Team/geese/graphs/contributors)，很开心能够和大家一起做开源项目～
+![](docs/img/2022-11-12.png)
+
+感谢每一位参与贡献的[小伙伴](https://github.com/HelloGitHub-Team/geese/graphs/contributors)，十分开心可以和各位一起做开源项目，这段经历让我受益匪浅。
 
 ## 技术栈
 
