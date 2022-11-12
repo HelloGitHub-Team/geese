@@ -30,7 +30,7 @@ export default function CollectionList(props: Props) {
               <div className='font-bold'>{item.repo.name}</div>
               <div className='my-2 flex'>
                 <span className='w-px max-w-fit flex-1 items-stretch overflow-hidden text-ellipsis whitespace-nowrap text-gray-400 dark:text-gray-300'>
-                  {item.repo.description}
+                  {item.repo.description || '-'}
                 </span>
               </div>
               {/* 移动端 */}

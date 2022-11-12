@@ -23,7 +23,7 @@ const Item: NextPage<ItemProps> = ({ item, index }) => {
             </div>
           </div>
           <div className='truncate pt-1 text-sm text-gray-400'>
-            {item.description}
+            {item.description || '-'}
           </div>
           <div className='flex items-center pt-2'>
             <img
