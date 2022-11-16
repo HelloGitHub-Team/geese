@@ -64,7 +64,7 @@ export default function SearchInput() {
     (q: string) => {
       setShow(false);
       if (q) {
-        router.push(`/search/result?q=${q}`);
+        router.push(`/search/result?q=${encodeURIComponent(q)}`);
       } else {
         router.push(`/`);
       }
