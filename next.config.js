@@ -43,7 +43,7 @@ module.exports = withBundleAnalyzer({
     return config;
   },
 
-  experimental: {
-    scrollRestoration: true,
-  },
+  // experimental: {
+  //   scrollRestoration: true,
+  // },
 });

@@ -97,7 +97,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
         setTitleMessage('标题不能少于 5 个字');
         setParamReady(false);
       }
-      if (title.length > 30) {
+      if (title.length > 50) {
         setTitleMessage('标题不能超过 50 个字');
         setParamReady(false);
       }
