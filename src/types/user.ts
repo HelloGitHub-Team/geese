@@ -54,8 +54,14 @@ export interface UserDetailInfo {
   in_person: boolean;
 }
 
+export interface DynamicRecordItem {
+  name: string;
+  item_id: string;
+}
+
 export interface DynamicRecord {
   uid: string;
+  item: DynamicRecordItem;
   created_at: string;
   dynamic_type: string;
   value: number;
