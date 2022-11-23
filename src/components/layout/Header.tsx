@@ -1,11 +1,8 @@
 import classNames from 'classnames';
-import introJs from 'intro.js';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { AiOutlineBook, AiOutlineHome } from 'react-icons/ai';
 import { MdOutlineArticle } from 'react-icons/md';
-
-import 'intro.js/introjs.css';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
@@ -24,70 +21,6 @@ const Header = () => {
   useEffect(() => {
     setCurPath(router.pathname);
   }, [router.pathname]);
-
-  useEffect(() => {
-    console.log({ isLogin });
-
-    const hasGuided = localStorage.getItem('hasGuided');
-    if (!hasGuided && !isLogin) {
-      // 定义引导步骤
-      const steps = [
-        {
-          element: '#searchInput',
-          description: '在这里搜索开源项目',
-        },
-        {
-          element: '#headMenu',
-          description: '在这里访问月刊、排行榜、文章',
-        },
-        {
-          element: '#PCLoginBtn',
-          description: '立即登录解锁更多内容，我的主页可以管理收藏项目和评论',
-        },
-        {
-          element: '#labelBar',
-          description: '可按照最新、热门、标签查看项目',
-        },
-        {
-          element: '#repositoryItems',
-          description: '项目简介，点击可查看项目详情',
-        },
-      ];
-
-      const intro = introJs();
-
-      setTimeout(() => {
-        intro
-          .setOptions({
-            nextLabel: '下一步',
-            prevLabel: '上一步',
-            doneLabel: '立即体验',
-            showProgress: false,
-            showBullets: true,
-            hidePrev: true,
-            steps: [
-              {
-                title: 'Welcome',
-                intro: '欢迎访问 HelloGitHub 👋',
-              },
-              ...steps.map((step) => {
-                return {
-                  ...step,
-                  element: document.querySelector(`${step.element}`),
-                  intro: step.description,
-                };
-              }),
-            ],
-          })
-          .onbeforeexit(() => {
-            console.log('退出');
-            // 弹出信封, 点击跳转网站说明
-          })
-          .start();
-        localStorage.setItem('hasGuided', 'true');
-      }, 1000);
-    }
-  }, [isLogin]);
 
   const liClassName = (path: string) =>
     classNames(
@@ -119,12 +52,9 @@ const Header = () => {
           <RankButton type='dropdown' />
         </div>
         <SearchInput />
-        <ul
-          id='headMenu'
-          className='text-md flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400 md:pt-2'
-        >
+        <ul className='text-md flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400 md:pt-2'>
           {/* pc 端显示的顶部按钮 */}
-          <li id='home' className={liClassName('/')}>
+          <li className={liClassName('/')}>
             <HeaderBtn pathname='/'>
               <AiOutlineHome className='mr-0.5' />
               <span>首页</span>
