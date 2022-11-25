@@ -333,20 +333,18 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
         </div>
 
         {/* 移动端展示的底部目录 */}
-        <div className='relative md:hidden'>
-          <Drawer
-            title='目录'
-            visible={drawerVisible}
-            placement='bottom'
-            onClose={() => setDrawerVisible(false)}
-          >
-            <div className=' h-full dark:bg-gray-800'>
-              <ul className='overflow-auto' style={{ maxHeight: '90%' }}>
-                {directoryList()}
-              </ul>
-            </div>
-          </Drawer>
-        </div>
+        <Drawer
+          title='目录'
+          visible={drawerVisible}
+          placement='bottom'
+          onClose={() => setDrawerVisible(false)}
+        >
+          <div className=' h-full dark:bg-gray-800'>
+            <ul className='overflow-auto' style={{ maxHeight: '90%' }}>
+              {directoryList()}
+            </ul>
+          </div>
+        </Drawer>
       </div>
     </>
   );

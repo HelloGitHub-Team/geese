@@ -7,7 +7,7 @@ type DrawerProps = {
   visible: boolean;
   closable?: boolean;
   destroyOnClose?: boolean; // 关闭时销毁里面的子元素
-  getContainer?: HTMLElement; // 指定 Drawer 挂载的 HTML 节点, false 为挂载在当前 dom
+  getContainer?: HTMLElement | boolean; // 指定 Drawer 挂载的 HTML 节点, false 为挂载在当前 dom
   maskClosable?: boolean; // 点击蒙层是否允许关闭抽屉
   mask?: boolean; // 是否展示遮罩
   drawerStyle?: any; // 用来设置抽屉弹出层样式
@@ -38,8 +38,13 @@ function Drawer(props: DrawerProps) {
   const [container, setContainer] = useState<HTMLElement>();
 
   useEffect(() => {
-    if (!props.getContainer) {
+    // getContainer 有三种取值: undefined false HTMLElement
+    if (props.getContainer === false) {
+      setContainer(undefined);
+    } else if (props.getContainer === undefined) {
       setContainer(document.body);
+    } else if (typeof props.getContainer !== 'boolean') {
+      setContainer(props.getContainer);
     }
   }, [props.getContainer]);
 
@@ -93,7 +98,7 @@ function Drawer(props: DrawerProps) {
         className='absolute top-0 bg-white shadow-md transition-all duration-200'
         style={{
           width: ['top', 'bottom'].includes(placement) ? '100vw' : width,
-          height: ['top', 'bottom'].includes(placement) ? width : '100vn',
+          height: ['top', 'bottom'].includes(placement) ? width : '100vh',
           top: ['top'].includes(placement) ? 0 : 'auto',
           bottom: ['bottom'].includes(placement) ? 0 : 'auto',
           borderRadius: ['bottom'].includes(placement) ? '8px 8px 0 0' : 0,
