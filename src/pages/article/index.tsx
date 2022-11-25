@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { FcIdea } from 'react-icons/fc';
+import { AiFillFire } from 'react-icons/ai';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
@@ -74,7 +74,7 @@ const ArticleIndex: NextPage = () => {
               <CustomLink href={`/article/${item.aid}`} className='relative'>
                 {item.is_hot && (
                   <div className='absolute top-2 right-2 z-10'>
-                    <FcIdea size={20} />
+                    <AiFillFire size={20} style={{ color: 'rgb(226,17,12)' }} />
                   </div>
                 )}
                 <div className='relative cursor-pointer bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700 md:py-3 md:pl-5'>

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { AiFillFire } from 'react-icons/ai';
 import { GoThumbsup } from 'react-icons/go';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -88,28 +89,35 @@ const CommentItem = (
         </div>
       </div>
       <div className='w-max-full relative flex-1'>
-        <div className='flex items-center gap-4'>
-          <span className='flex w-px max-w-fit flex-1 items-center overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold md:text-base md:font-normal'>
-            <span className='mr-1 h-5 md:hidden'>
-              <img
-                className='h-5 w-5 rounded-full'
-                width='20'
-                height='20'
-                src={user?.avatar || DEFAULT_AVATAR}
-                alt='comment_avatar'
-              />
+        <div className='flex items-center justify-between gap-4'>
+          <div className='flex items-center gap-4'>
+            <span className='flex max-w-fit flex-1 items-center overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold md:text-base md:font-normal'>
+              <span className='mr-1 h-5 md:hidden'>
+                <img
+                  className='h-5 w-5 rounded-full'
+                  width='20'
+                  height='20'
+                  src={user?.avatar || DEFAULT_AVATAR}
+                  alt='comment_avatar'
+                />
+              </span>
+              <Link href={`/user/${user.uid}`}>
+                <a>{user?.nickname}</a>
+              </Link>
             </span>
-            <Link href={`/user/${user.uid}`}>
-              <a>{user?.nickname}</a>
-            </Link>
-          </span>
-          <span className='flex shrink-0 items-center text-xs md:text-sm'>
-            评分：
-            <Rating value={score} />
-          </span>
-          <span className='shrink-0 text-xs md:text-sm'>
-            {isUsed ? '用过' : '没用过'}
-          </span>
+            <span className='flex shrink-0 items-center text-xs md:text-sm'>
+              评分：
+              <Rating value={score} />
+            </span>
+            <span className='shrink-0 text-xs md:text-sm'>
+              {isUsed ? '用过' : '没用过'}
+            </span>
+          </div>
+          {props.is_hot && (
+            <span>
+              <AiFillFire size={20} style={{ color: 'rgb(226,17,12)' }} />
+            </span>
+          )}
         </div>
         <div className='mt-2 whitespace-normal break-all text-sm text-gray-900 dark:text-gray-200'>
           <MDRender>{comment}</MDRender>
