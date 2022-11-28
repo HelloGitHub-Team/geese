@@ -4,10 +4,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AiOutlineArrowLeft, AiOutlineRightCircle } from 'react-icons/ai';
-import { GoRepoForked } from 'react-icons/go';
+import { GoListUnordered, GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 
+import Drawer from '@/components/drawer/Drawer';
 import ImageWithPreview from '@/components/ImageWithPreview';
 import CustomLink from '@/components/links/CustomLink';
 import MDRender from '@/components/mdRender/MDRender';
@@ -33,7 +34,7 @@ type CategoryTopRange = {
 export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<string>('');
-
+  const [drawerVisible, setDrawerVisible] = useState<boolean>(false);
   // 月刊列表
   const categoryList: VolumeCategory[] = useMemo(() => {
     return volume?.data || [];
@@ -152,6 +153,33 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
     );
   }
 
+  // 渲染目录列表
+  const directoryList = () => {
+    return categoryList?.map((category, cIndex) => {
+      const id = `#category-${category.category_id}`;
+
+      return (
+        <li
+          key={cIndex}
+          className={linkClassName(id)}
+          style={{
+            paddingBottom: cIndex === categoryList.length - 1 ? '40px' : '8px',
+          }}
+          onClick={() => {
+            setActiveCategory(id);
+            const { offsetTop } = document.querySelector(id) as HTMLElement;
+            // 根据 offsetTop 滚动到指定位置
+            window.scrollTo({
+              top: offsetTop,
+            });
+          }}
+        >
+          {category.category_name}
+        </li>
+      );
+    });
+  };
+
   return (
     <>
       <Seo title={`HelloGitHub 第 ${volume?.current_num} 期`} />
@@ -175,8 +203,18 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
                   />
                 </div>
 
-                <div className='justify-end text-sm text-gray-500 dark:text-gray-400'>
+                <div className='hidden justify-end text-sm text-gray-500 dark:text-gray-400 md:block'>
                   月刊
+                </div>
+                <div
+                  className='flex cursor-pointer items-center justify-end text-sm text-gray-500 dark:text-gray-400 md:hidden'
+                  onClick={() => {
+                    // 打开目录弹窗
+                    setDrawerVisible(true);
+                  }}
+                >
+                  <GoListUnordered />
+                  目录
                 </div>
               </div>
             </div>
@@ -287,33 +325,26 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
                   className='custom-scrollbar overflow-scroll'
                   style={{ maxHeight: 550 }}
                 >
-                  {categoryList?.map((category, cIndex) => {
-                    const id = `#category-${category.category_id}`;
-
-                    return (
-                      <li
-                        key={cIndex}
-                        className={linkClassName(id)}
-                        onClick={() => {
-                          setActiveCategory(id);
-                          const { offsetTop } = document.querySelector(
-                            id
-                          ) as HTMLElement;
-                          // 根据 offsetTop 滚动到指定位置
-                          window.scrollTo({
-                            top: offsetTop,
-                          });
-                        }}
-                      >
-                        {category.category_name}
-                      </li>
-                    );
-                  })}
+                  {directoryList()}
                 </ul>
               </div>
             </div>
           </div>
         </div>
+
+        {/* 移动端展示的底部目录 */}
+        <Drawer
+          title='目录'
+          visible={drawerVisible}
+          placement='bottom'
+          onClose={() => setDrawerVisible(false)}
+        >
+          <div className=' h-full dark:bg-gray-800'>
+            <ul className='overflow-auto' style={{ maxHeight: '90%' }}>
+              {directoryList()}
+            </ul>
+          </div>
+        </Drawer>
       </div>
     </>
   );

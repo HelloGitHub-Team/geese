@@ -28,6 +28,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   // 页面跳转时的加载进度条
   useEffect(() => {
+    // 不显示右上角的加载转圈图标
+    NProgress.configure({ showSpinner: false });
     const handleStart = () => {
       NProgress.start();
     };
