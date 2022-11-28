@@ -87,10 +87,7 @@ const IndexBar = () => {
 
   return (
     <div className='relative my-2 overflow-hidden bg-white dark:bg-gray-800 md:rounded-lg'>
-      <div
-        id='labelBar'
-        className='flex h-12 shrink grow items-center justify-start space-x-1 py-2 px-4 md:space-x-2'
-      >
+      <div className='flex h-12 shrink grow items-center justify-start space-x-1 py-2 px-4 md:space-x-2'>
         <Link href={lastURL}>
           <a className={linkClassName('last')}>最新</a>
         </Link>

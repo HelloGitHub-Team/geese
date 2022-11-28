@@ -5,10 +5,7 @@ const SideLoginButton = () => {
 
   return (
     <>
-      <div
-        id='PCLoginBtn'
-        className='box-border py-6 text-center align-middle text-base'
-      >
+      <div className='box-border py-6 text-center align-middle text-base'>
         <button
           onClick={login}
           type='button'

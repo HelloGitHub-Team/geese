@@ -9,7 +9,6 @@ export interface HomeItems {
 }
 
 export interface ItemProps {
-  id: string;
   item: HomeItem;
   index: number;
 }
