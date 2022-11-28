@@ -92,7 +92,7 @@ const CommentItem = (
         <div className='flex items-center justify-between gap-4'>
           <div className='flex items-center gap-4'>
             <span className='flex max-w-fit flex-1 items-center overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold md:text-base md:font-normal'>
-              <span className='mr-1 h-5 md:hidden'>
+              <span className='mr-0 h-5 md:mr-1 md:hidden'>
                 <img
                   className='h-5 w-5 rounded-full'
                   width='20'
