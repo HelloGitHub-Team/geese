@@ -154,7 +154,7 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
   }
 
   // 渲染目录列表
-  const directoryList = () => {
+  const directoryList = (isPhone = false) => {
     return categoryList?.map((category, cIndex) => {
       const id = `#category-${category.category_id}`;
 
@@ -163,7 +163,8 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
           key={cIndex}
           className={linkClassName(id)}
           style={{
-            paddingBottom: cIndex === categoryList.length - 1 ? '40px' : '8px',
+            paddingBottom:
+              isPhone && cIndex === categoryList.length - 1 ? '40px' : '8px',
           }}
           onClick={() => {
             setActiveCategory(id);
@@ -341,7 +342,7 @@ export const Periodical: NextPage<VolumePageProps> = ({ volume }) => {
         >
           <div className=' h-full dark:bg-gray-800'>
             <ul className='overflow-auto' style={{ maxHeight: '90%' }}>
-              {directoryList()}
+              {directoryList(true)}
             </ul>
           </div>
         </Drawer>
