@@ -8,17 +8,17 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。希望焕然一�
 
 感谢每一位参与贡献的[小伙伴](https://github.com/HelloGitHub-Team/geese/graphs/contributors)，十分开心可以和各位一起做开源项目，这段经历让我受益匪浅。
 
-## 技术栈
-
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [SWR](https://swr.vercel.app/zh-CN)
-
 ## 待认领
 
 等待认领的功能：
 
-- [待优化的问题集合](https://github.com/HelloGitHub-Team/geese/issues/38)
+- [(简单)月刊增加项目详情入口](https://github.com/HelloGitHub-Team/geese/issues/72)
+- [(复杂)增加收藏夹功能](https://github.com/HelloGitHub-Team/geese/issues/81)
+- [(中等)增加开源协议专栏](https://github.com/HelloGitHub-Team/geese/issues/78)
+- [(讨论）动态生成 svg 文件的功能](https://github.com/HelloGitHub-Team/geese/issues/82)
+- [(讨论）README 生成器](https://github.com/HelloGitHub-Team/geese/issues/83)
+- [(内容）如何发起/加入开源项目教程](https://github.com/HelloGitHub-Team/geese/issues/84)
+
 
 **要求**
 
@@ -27,6 +27,12 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。希望焕然一�
 3. 有任何问题可在对应需求的 `issues` 进行沟通。
 
 [查看](https://github.com/orgs/HelloGitHub-Team/projects/1/views/1)需求和进度，开发须知[在这里](./docs/content.md)。
+
+## 技术栈
+
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [SWR](https://swr.vercel.app/zh-CN)
 
 ## 鸣谢
 
