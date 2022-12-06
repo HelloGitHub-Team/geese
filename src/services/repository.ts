@@ -11,6 +11,7 @@ import {
   CommentData,
   CommentSuccessData,
   CreateRepoRes,
+  FavoritesRes,
   RepositorySuccessData,
   UserActionStatus,
   Vote,
@@ -52,11 +53,20 @@ export const voteRepo = async (rid: string): Promise<Vote> => {
   return result;
 };
 
-export const collectRepo = async (rid: string): Promise<Collect> => {
+// 获取用户收藏夹列表 /v1/favorites/options/
+export const getFavorites = async (): Promise<FavoritesRes> => {
+  const result = await fetcher<FavoritesRes>(makeUrl('/favorites/options/'));
+  return result;
+};
+
+export const collectRepo = async (params: {
+  fid: string;
+  rid: string;
+}): Promise<Collect> => {
   const data: RequestInit = {};
   data.credentials = 'include';
   data.method = 'POST';
-  data.body = JSON.stringify({ rid: rid });
+  data.body = JSON.stringify(params);
   const result = await fetcher<Collect>(makeUrl('/repository/collect/'), data);
   return result;
 };

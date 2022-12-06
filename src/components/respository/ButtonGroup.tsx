@@ -1,15 +1,18 @@
 import copy from 'copy-to-clipboard';
 import { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   AiFillHeart,
   AiFillStar,
   AiOutlineGithub,
   AiOutlineHeart,
+  AiOutlinePlus,
   AiOutlineStar,
 } from 'react-icons/ai';
 import { GoLinkExternal } from 'react-icons/go';
 
+import BasicDialog from '@/components/dialog/BasicDialog';
+import Dropdown, { option } from '@/components/dropdown/Dropdown';
 import CustomLink from '@/components/links/CustomLink';
 import Message from '@/components/message';
 
@@ -17,6 +20,7 @@ import {
   cancelCollectRepo,
   cancelVoteRepo,
   collectRepo,
+  getFavorites,
   recordGoGithub,
   userRepoStatus,
   voteRepo,
@@ -40,10 +44,26 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
   const [likesTotal, setLikesTotal] = useState<number>(0);
   const [isCollected, setIsCollected] = useState<boolean>(false);
   const [collectTotal, setCollectTotal] = useState<number>(0);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [favorites, setFavorites] = useState<option[]>([]);
+  const dropdownRef = useRef<any>();
 
   const onClickLink = (rid: string) => {
     // 调用接口记录链接点击信息
     recordGoGithub(rid);
+  };
+
+  // 获取用户收藏夹列表
+  const getUserFavorites = async () => {
+    const res = await getFavorites();
+    if (res.success) {
+      const options: option[] =
+        res.data?.map((item) => {
+          return { key: item.fid, value: item.name };
+        }) || [];
+      options.unshift({ key: '', value: '默认收藏夹' });
+      setFavorites(options);
+    }
   };
 
   const getUserRepoStatus = async (rid: string) => {
@@ -65,14 +85,8 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
     }
   };
 
-  const onClickCollect = async (rid: string) => {
-    const res = await collectRepo(rid);
-    if (res.success) {
-      setCollectTotal(res.data.total);
-      setIsCollected(true);
-    } else {
-      Message.error(res.message as string);
-    }
+  const onClickCollect = () => {
+    setOpenModal(true);
   };
 
   const onCancelVote = async (rid: string) => {
@@ -88,6 +102,7 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
     if (res.success) {
       setIsCollected(false);
       setCollectTotal(likesTotal - 1);
+      message.success('取消收藏');
     }
   };
 
@@ -102,55 +117,115 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
     } else message.error('复制失败');
   };
 
+  // 收藏-确定
+  const onFavoritesSave = async (rid: string) => {
+    const fid = dropdownRef.current?.activeOption.key;
+    const res = await collectRepo({ rid, fid });
+    if (res.success) {
+      message.success('收藏成功~');
+      setOpenModal(false);
+      setCollectTotal(res.data.total);
+      setIsCollected(true);
+    } else {
+      message.error(res.message || '收藏失败');
+    }
+  };
+
   useEffect(() => {
     getUserRepoStatus(repo.rid);
     setLikesTotal(repo.likes);
     setCollectTotal(repo.collect_total);
+    getUserFavorites();
   }, [repo]);
 
   return (
-    <div className='flex border-t border-solid bg-white text-center text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 md:rounded-b-lg'>
-      {isVoted ? (
-        <div className={commonStyle} onClick={() => onCancelVote(repo.rid)}>
-          <AiFillHeart className='mr-1 text-blue-500' size={16} />
-          <span className='text-sm text-inherit text-blue-500'>
-            {numFormat(likesTotal, 1)}
-          </span>
-        </div>
-      ) : (
-        <div className={commonStyle} onClick={() => onClickVote(repo.rid)}>
-          <AiOutlineHeart className={iconStyle} size={16} />
-          点赞
-        </div>
-      )}
+    <>
+      <div className='flex border-t border-solid bg-white text-center text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 md:rounded-b-lg'>
+        {isVoted ? (
+          <div className={commonStyle} onClick={() => onCancelVote(repo.rid)}>
+            <AiFillHeart className='mr-1 text-blue-500' size={16} />
+            <span className='text-sm text-inherit text-blue-500'>
+              {numFormat(likesTotal, 1)}
+            </span>
+          </div>
+        ) : (
+          <div className={commonStyle} onClick={() => onClickVote(repo.rid)}>
+            <AiOutlineHeart className={iconStyle} size={16} />
+            点赞
+          </div>
+        )}
 
-      {isCollected ? (
-        <div className={commonStyle} onClick={() => onCancelCollect(repo.rid)}>
-          <AiFillStar className='mr-1 text-blue-500' size={16} />
-          <span className='text-sm text-inherit text-blue-500'>
-            {numFormat(collectTotal, 1)}
-          </span>
-        </div>
-      ) : (
-        <div className={commonStyle} onClick={() => onClickCollect(repo.rid)}>
-          <AiOutlineStar className={iconStyle} size={16} />
-          收藏
-        </div>
-      )}
+        {isCollected ? (
+          <div
+            className={commonStyle}
+            onClick={() => onCancelCollect(repo.rid)}
+          >
+            <AiFillStar className='mr-1 text-blue-500' size={16} />
+            <span className='text-sm text-inherit text-blue-500'>
+              {numFormat(collectTotal, 1)}
+            </span>
+          </div>
+        ) : (
+          <div className={commonStyle} onClick={onClickCollect}>
+            <AiOutlineStar className={iconStyle} size={16} />
+            收藏
+          </div>
+        )}
 
-      <div className={commonStyle} onClick={() => handleCopy(repo)}>
-        <GoLinkExternal className={iconStyle} size={16} />
-        分享
+        <div className={commonStyle} onClick={() => handleCopy(repo)}>
+          <GoLinkExternal className={iconStyle} size={16} />
+          分享
+        </div>
+        <CustomLink
+          href={repo.url}
+          className={commonStyle}
+          onClick={() => onClickLink(repo.rid)}
+        >
+          <AiOutlineGithub className={iconStyle} size={16} />
+          访问
+        </CustomLink>
       </div>
-      <CustomLink
-        href={repo.url}
-        className={commonStyle}
-        onClick={() => onClickLink(repo.rid)}
+      {/* 选择收藏夹的弹窗 */}
+      <BasicDialog
+        className='w-5/6 max-w-sm rounded-lg p-6'
+        visible={openModal}
+        maskClosable={false}
+        title={
+          <>
+            选择收藏夹
+            <p className='mt-3 text-xs text-gray-500'>
+              选择或创建你想添加的收藏夹
+            </p>
+          </>
+        }
+        onClose={() => setOpenModal(false)}
       >
-        <AiOutlineGithub className={iconStyle} size={16} />
-        访问
-      </CustomLink>
-    </div>
+        <div className='my-4 text-center'>
+          <Dropdown
+            ref={dropdownRef}
+            width={220}
+            trigger='click'
+            options={favorites}
+          />
+        </div>
+        {/* footer */}
+        <div className='flex justify-between'>
+          <button
+            type='button'
+            className='inline-flex items-center justify-center gap-2 rounded-md border border-transparent py-1 px-4 text-sm font-semibold text-blue-500 ring-offset-white transition-all hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+          >
+            <AiOutlinePlus /> 新建收藏夹
+          </button>
+          <button
+            onClick={() => onFavoritesSave(repo.rid)}
+            type='button'
+            className='inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-500 py-1 px-4 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800'
+          >
+            确定
+          </button>
+        </div>
+      </BasicDialog>
+    </>
   );
 };
 

@@ -176,3 +176,11 @@ type CheckRepoResData = {
 export interface CheckRepoRes extends BaseType {
   data: CheckRepoResData;
 }
+
+export type Favorite = {
+  fid: string;
+  name: string;
+};
+export interface FavoritesRes extends BaseType {
+  data: Favorite[];
+}

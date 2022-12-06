@@ -10,6 +10,7 @@ import {
 interface MessageProps {
   type: string;
   content: string;
+  autoClose?: boolean;
   onClose: () => void;
 }
 
@@ -17,7 +18,7 @@ function Message(props: MessageProps) {
   const { type, content, onClose } = props;
   const wrapClassName = (type: string) =>
     classNames(
-      'inline-block rounded border border-green-900/10 bg-green-50 p-4 text-green-700',
+      'inline-block rounded border border-green-900/10 bg-green-50 p-2 text-green-700',
       {
         'text-green-700 border-green-900/10 bg-green-50': type === 'success',
         'text-amber-700 border-amber-900/10 bg-amber-50': type === 'warning',
@@ -29,27 +30,21 @@ function Message(props: MessageProps) {
   const icon = (type = 'success'): ReactNode => {
     const iconMap = {
       success: (
-        <span className='op rounded-full bg-green-600 p-2 text-white'>
-          <IoMdCheckmarkCircleOutline className='h-5 w-5' />
-        </span>
+        <IoMdCheckmarkCircleOutline size={18} className='text-green-600' />
       ),
       warning: (
-        <span className='rounded-full bg-amber-600 p-2 text-white'>
-          <IoIosInformationCircleOutline className='h-5 w-5' />
-        </span>
+        <IoIosInformationCircleOutline size={18} className='text-amber-600' />
       ),
-      error: (
-        <span className='rounded-full bg-red-600 p-2 text-white'>
-          <IoMdCloseCircleOutline className='h-5 w-5' />
-        </span>
-      ),
+      error: <IoMdCloseCircleOutline size={18} className='text-red-600' />,
       info: (
-        <span className='rounded-full bg-sky-600 p-2 text-white'>
-          <IoIosInformationCircleOutline className='h-5 w-5' />
-        </span>
+        <IoIosInformationCircleOutline size={18} className='text-sky-600' />
       ),
     };
-    return iconMap[type as keyof typeof iconMap];
+    return (
+      <span className='p-1 text-white'>
+        {iconMap[type as keyof typeof iconMap]}
+      </span>
+    );
   };
 
   return (
@@ -60,10 +55,12 @@ function Message(props: MessageProps) {
           <span className='block text-base opacity-90'>{content}</span>
         </div>
 
-        <button className='opacity-90' type='button' onClick={onClose}>
-          <span className='sr-only'> Close </span>
-          <IoMdClose className='h-4 w-4' />
-        </button>
+        {!props.autoClose && (
+          <button className='opacity-90' type='button' onClick={onClose}>
+            <span className='sr-only'> Close </span>
+            <IoMdClose className='h-4 w-4' />
+          </button>
+        )}
       </div>
     </div>
   );
