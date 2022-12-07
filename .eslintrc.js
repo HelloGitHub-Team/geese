@@ -13,8 +13,11 @@ module.exports = {
     'prettier',
   ],
   rules: {
-    '@typescript-eslint/no-empty-function': 0,
+    // 'no-undef': 2,
     'no-unused-vars': 'off',
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': 'warn',
+    '@typescript-eslint/no-empty-function': 0,
     'no-console': 0,
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 0,

@@ -6,11 +6,12 @@ import {
   AiFillStar,
   AiOutlineGithub,
   AiOutlineHeart,
-  AiOutlinePlus,
   AiOutlineStar,
 } from 'react-icons/ai';
 import { GoLinkExternal } from 'react-icons/go';
 
+import Button from '@/components/buttons/Button';
+import AddCollection from '@/components/collection/AddCollection';
 import BasicDialog from '@/components/dialog/BasicDialog';
 import Dropdown, { option } from '@/components/dropdown/Dropdown';
 import CustomLink from '@/components/links/CustomLink';
@@ -57,11 +58,12 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
   const getUserFavorites = async () => {
     const res = await getFavorites();
     if (res.success) {
-      const options: option[] =
-        res.data?.map((item) => {
+      let options: option[] = [{ key: '', value: '默认收藏夹' }];
+      if (res.data?.length) {
+        options = res.data?.map((item) => {
           return { key: item.fid, value: item.name };
-        }) || [];
-      options.unshift({ key: '', value: '默认收藏夹' });
+        });
+      }
       setFavorites(options);
     }
   };
@@ -210,19 +212,19 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
         </div>
         {/* footer */}
         <div className='flex justify-between'>
-          <button
-            type='button'
-            className='inline-flex items-center justify-center gap-2 rounded-md border border-transparent py-1 px-4 text-sm font-semibold text-blue-500 ring-offset-white transition-all hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
-          >
-            <AiOutlinePlus /> 新建收藏夹
-          </button>
-          <button
+          <AddCollection
+            onFinish={() => {
+              // 刷新收藏夹下拉列表
+              getUserFavorites();
+            }}
+          />
+          <Button
+            className='py-0 px-3'
+            variant='primary'
             onClick={() => onFavoritesSave(repo.rid)}
-            type='button'
-            className='inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-500 py-1 px-4 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800'
           >
             确定
-          </button>
+          </Button>
         </div>
       </BasicDialog>
     </>

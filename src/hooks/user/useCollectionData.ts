@@ -7,12 +7,18 @@ import { makeUrl } from '@/utils/api';
 
 import { FavoritesRes } from '@/types/reppsitory';
 
-export default function useCollectionData(): FavoritesRes {
-  const { data, error } = useSWR<FavoritesRes>(makeUrl(`/favorites/`), fetcher);
+export default function useCollectionData(): {
+  data?: FavoritesRes;
+  mutate: any;
+} {
+  const { data, error, mutate } = useSWR<FavoritesRes>(
+    makeUrl(`/favorites/`),
+    fetcher
+  );
 
   if (error) {
     Message.error(error.message || '获取收藏数据失败');
   }
 
-  return data as FavoritesRes;
+  return { data, mutate };
 }
