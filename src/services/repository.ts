@@ -184,3 +184,15 @@ export const createRepo = async (params: Record<string, any>) => {
 export const checkRepo = (url: string): Promise<CheckRepoRes> => {
   return fetcher<CheckRepoRes>(makeUrl(`/repository/check/?url=${url}`));
 };
+
+// 删除收藏夹
+export const deleteCollection = async (fid: string) => {
+  const url = makeUrl(`/favorites/${fid}`);
+  const result = await fetcher<{ success: boolean; message?: string }>(url, {
+    method: 'DELETE',
+  }).catch((err) => {
+    Message.error(err.message || '删除失败');
+    throw err;
+  });
+  return result;
+};

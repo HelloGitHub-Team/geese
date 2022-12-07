@@ -177,9 +177,19 @@ export interface CheckRepoRes extends BaseType {
   data: CheckRepoResData;
 }
 
+// 收藏夹的类型
 export type Favorite = {
   fid: string;
   name: string;
+  description?: string;
+  uid?: string;
+  status?: number;
+  pv?: number;
+  uv?: number;
+  featured?: boolean;
+  created_at?: string;
+  updated_at?: string;
+  publish_at?: string;
 };
 export interface FavoritesRes extends BaseType {
   data: Favorite[];

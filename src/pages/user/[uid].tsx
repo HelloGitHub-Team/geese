@@ -14,7 +14,7 @@ import { formatZH } from '@/utils/day';
 
 const tabList = [
   { key: 1, title: '动态' },
-  { key: 2, title: '收藏' },
+  { key: 2, title: '收藏夹' },
   { key: 3, title: '评论' },
 ];
 
@@ -173,9 +173,7 @@ export default function User() {
             {activeTab === 1 && (
               <DynamicRecordList uid={uid as string}></DynamicRecordList>
             )}
-            {activeTab === 2 && (
-              <CollectionList uid={uid as string}></CollectionList>
-            )}
+            {activeTab === 2 && <CollectionList />}
             {activeTab === 3 && <CommentList uid={uid as string}></CommentList>}
           </div>
         </div>
