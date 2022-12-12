@@ -1,7 +1,7 @@
 import User from '@/components/user/User';
 
-const UserProfilePage = () => {
+const UserIndexPage = () => {
   return <User />;
 };
 
-export default UserProfilePage;
+export default UserIndexPage;

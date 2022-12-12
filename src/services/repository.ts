@@ -11,7 +11,6 @@ import {
   CommentData,
   CommentSuccessData,
   CreateRepoRes,
-  FavoritesRes,
   RepositorySuccessData,
   UserActionStatus,
   Vote,
@@ -50,12 +49,6 @@ export const voteRepo = async (rid: string): Promise<Vote> => {
   data.method = 'POST';
   data.body = JSON.stringify({ belong_id: rid, belong: 'repository' });
   const result = await fetcher<Vote>(makeUrl('/vote/'), data);
-  return result;
-};
-
-// 获取用户收藏夹列表 /v1/favorites/options/
-export const getFavorites = async (): Promise<FavoritesRes> => {
-  const result = await fetcher<FavoritesRes>(makeUrl('/favorites/options/'));
   return result;
 };
 
@@ -183,42 +176,4 @@ export const createRepo = async (params: Record<string, any>) => {
 
 export const checkRepo = (url: string): Promise<CheckRepoRes> => {
   return fetcher<CheckRepoRes>(makeUrl(`/repository/check/?url=${url}`));
-};
-
-// 删除收藏夹
-export const deleteCollection = async (fid: string) => {
-  const url = makeUrl(`/favorites/${fid}`);
-  const result = await fetcher<{ success: boolean; message?: string }>(url, {
-    method: 'DELETE',
-  }).catch((err) => {
-    Message.error(err.message || '删除失败');
-    throw err;
-  });
-  return result;
-};
-
-// 新建收藏夹
-export const addFavorites = async (params: {
-  name: string;
-  description: string;
-}): Promise<BaseType> => {
-  const data: RequestInit = {};
-  data.credentials = 'include';
-  data.method = 'POST';
-  data.body = JSON.stringify(params);
-  const result = await fetcher<BaseType>(makeUrl('/favorites/'), data);
-  return result;
-};
-
-// 编辑收藏夹
-export const editFavorites = async (
-  fid: string,
-  params: { name: string; description: string; status: number }
-): Promise<BaseType> => {
-  const data: RequestInit = {};
-  data.credentials = 'include';
-  data.method = 'PATCH';
-  data.body = JSON.stringify(params);
-  const result = await fetcher<BaseType>(makeUrl(`/favorites/${fid}`), data);
-  return result;
 };

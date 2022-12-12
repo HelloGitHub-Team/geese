@@ -7,7 +7,7 @@ import Button from '@/components/buttons/Button';
 import BasicDialog from '@/components/dialog/BasicDialog';
 import Message from '@/components/message';
 
-import { addFavorites, editFavorites } from '@/services/repository';
+import { addFavorite, editFavorite } from '@/services/favorite';
 
 export type EditCollectionFormData = {
   fid?: string;
@@ -23,6 +23,7 @@ type EditCollectionProps = {
   onFinish?: () => void;
   onClose: () => void;
 };
+
 export const EditCollectionMoal = (props: EditCollectionProps) => {
   const { visible, title = '新建收藏夹' } = props;
   const initFormData = React.useMemo(
@@ -65,7 +66,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
     setLoading(true);
     if (props.type === 'edit') {
       const req = { name, description, status };
-      const res = await editFavorites(props.initValue?.fid as string, req);
+      const res = await editFavorite(props.initValue?.fid as string, req);
       setLoading(false);
       if (res.success) {
         Message.success('修改成功');
@@ -77,7 +78,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
     }
     if (props.type === 'add') {
       const req = { name, description };
-      const res = await addFavorites(req);
+      const res = await addFavorite(req);
       setLoading(false);
       if (res.success) {
         Message.success('新建成功');

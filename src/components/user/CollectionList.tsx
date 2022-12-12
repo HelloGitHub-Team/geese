@@ -13,8 +13,9 @@ import {
 import { BsThreeDots } from 'react-icons/bs';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
-import useCollectionData, {
-  useCollectionList,
+import {
+  useCollectionData,
+  useFavoriteList,
 } from '@/hooks/user/useCollectionData';
 
 import Button from '@/components/buttons/Button';
@@ -27,7 +28,7 @@ import Loading from '@/components/loading/Loading';
 import Message from '@/components/message';
 import Pagination from '@/components/pagination/Pagination';
 
-import { deleteCollection } from '@/services/repository';
+import { deleteFavorite } from '@/services/favorite';
 import { numFormat } from '@/utils/util';
 
 import { Page } from '@/types/help';
@@ -55,7 +56,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
   const router = useRouter();
   const { uid } = router.query;
 
-  const { data, mutate: updateCollection } = useCollectionList(uid as string);
+  const { data, mutate: updateCollection } = useFavoriteList(uid as string);
 
   const [activeItem, setActiveItem] = useState<Favorite>({} as Favorite);
   const [openModal, setOpenModal] = useState<ModalEnum>(false);
@@ -74,7 +75,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
     setCurItem(item);
     const actionMap = {
       view: () => {
-        router.push(`/user/${uid}/favorites/?fid=${item.fid}`);
+        router.push(`/user/${uid}/favorite/?fid=${item.fid}`);
       },
       edit: () => {
         setOpenModal('edit');
@@ -88,7 +89,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
   };
 
   const onDelete = async (item: Favorite) => {
-    const res = await deleteCollection(item.fid);
+    const res = await deleteFavorite(item.fid);
     console.log({ res });
     if (res.success) {
       Message.success('删除成功');
@@ -276,7 +277,7 @@ const ProjectList = (props: ProjectListProps) => {
   const fName = data?.favorite?.name;
   const fStatus = data?.favorite?.status;
   const onShare = () => {
-    const text = `收藏夹 ${fName}\n点击查看详情：https://hellogithub.com/user/${props.uid}/favorites/?fid=${props.fid}`;
+    const text = `收藏夹 ${fName}\n点击查看详情：https://hellogithub.com/user/${props.uid}/favorite/?fid=${props.fid}`;
     if (copy(text)) {
       Message.success('已复制收藏夹链接，快去分享给小伙伴吧~');
     } else {
@@ -298,7 +299,7 @@ const ProjectList = (props: ProjectListProps) => {
       {/* 面包屑和分享按钮 */}
       <div className='flex justify-between'>
         <div className='flex items-center'>
-          <Link href={`/user/${props.uid}/favorites`}>
+          <Link href={`/user/${props.uid}/favorite`}>
             <span className='cursor-pointer text-gray-500 hover:text-blue-500'>
               收藏夹
             </span>

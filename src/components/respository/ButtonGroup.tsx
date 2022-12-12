@@ -17,11 +17,11 @@ import Dropdown, { option } from '@/components/dropdown/Dropdown';
 import CustomLink from '@/components/links/CustomLink';
 import Message from '@/components/message';
 
+import { getFavoriteOptions } from '@/services/favorite';
 import {
   cancelCollectRepo,
   cancelVoteRepo,
   collectRepo,
-  getFavorites,
   recordGoGithub,
   userRepoStatus,
   voteRepo,
@@ -46,7 +46,7 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
   const [isCollected, setIsCollected] = useState<boolean>(false);
   const [collectTotal, setCollectTotal] = useState<number>(0);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [favorites, setFavorites] = useState<option[]>([]);
+  const [favoriteOptions, setFavoriteOptions] = useState<option[]>([]);
   const dropdownRef = useRef<any>();
 
   const onClickLink = (rid: string) => {
@@ -55,8 +55,8 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
   };
 
   // 获取用户收藏夹列表
-  const getUserFavorites = async () => {
-    const res = await getFavorites();
+  const getUserFavoriteOptions = async () => {
+    const res = await getFavoriteOptions();
     if (res.success) {
       let options: option[] = [{ key: '', value: '默认收藏夹' }];
       if (res.data?.length) {
@@ -64,7 +64,7 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
           return { key: item.fid, value: item.name };
         });
       }
-      setFavorites(options);
+      setFavoriteOptions(options);
     }
   };
 
@@ -120,7 +120,7 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
   };
 
   // 收藏-确定
-  const onFavoritesSave = async (rid: string) => {
+  const onFavoriteSave = async (rid: string) => {
     const fid = dropdownRef.current?.activeOption.key;
     const res = await collectRepo({ rid, fid });
     if (res.success) {
@@ -137,7 +137,7 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
     getUserRepoStatus(repo.rid);
     setLikesTotal(repo.likes);
     setCollectTotal(repo.collect_total);
-    getUserFavorites();
+    getUserFavoriteOptions();
   }, [repo]);
 
   return (
@@ -207,7 +207,7 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
             ref={dropdownRef}
             width={220}
             trigger='click'
-            options={favorites}
+            options={favoriteOptions}
           />
         </div>
         {/* footer */}
@@ -215,13 +215,13 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
           <AddCollection
             onFinish={() => {
               // 刷新收藏夹下拉列表
-              getUserFavorites();
+              getFavoriteOptions();
             }}
           />
           <Button
             className='py-0 px-3'
             variant='primary'
-            onClick={() => onFavoritesSave(repo.rid)}
+            onClick={() => onFavoriteSave(repo.rid)}
           >
             确定
           </Button>

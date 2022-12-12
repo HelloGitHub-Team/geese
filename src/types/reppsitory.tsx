@@ -192,6 +192,7 @@ export type Favorite = {
   updated_at?: string;
   publish_at?: string;
 };
-export interface FavoritesRes extends BaseType {
+
+export interface FavoriteRes extends BaseType {
   data: Favorite[];
 }

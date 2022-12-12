@@ -7,18 +7,18 @@ import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
 import { Page } from '@/types/help';
-import { FavoritesRes } from '@/types/reppsitory';
+import { FavoriteRes } from '@/types/reppsitory';
 import { CollectItem } from '@/types/user';
 
 // 获取用户的收藏夹列表
-export const useCollectionList = (
+export const useFavoriteList = (
   uid: string
 ): {
-  data?: FavoritesRes;
+  data?: FavoriteRes;
   mutate: any;
 } => {
-  const { data, error, mutate } = useSWR<FavoritesRes>(
-    makeUrl(`/user/${uid}/favorites/`),
+  const { data, error, mutate } = useSWR<FavoriteRes>(
+    makeUrl(`/user/${uid}/favorite/`),
     fetcher
   );
 
@@ -30,7 +30,7 @@ export const useCollectionList = (
 };
 
 // 获取指定收藏夹的项目列表
-const useCollectionData = (uid: string, fid: string) => {
+export const useCollectionData = (uid: string, fid: string) => {
   const [page, setPage] = useState(1);
   const { data, error } = useSWR<Page<CollectItem>>(
     uid
@@ -48,4 +48,3 @@ const useCollectionData = (uid: string, fid: string) => {
     setPage,
   };
 };
-export default useCollectionData;
