@@ -15,4 +15,6 @@ export interface Page<T> {
   total: number;
   /** 每一条数据详情 */
   data: T[];
+  success: boolean;
+  favorite?: { fid: string; name: string; status: number };
 }

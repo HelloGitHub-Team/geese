@@ -186,6 +186,7 @@ export type Favorite = {
   status?: number;
   pv?: number;
   uv?: number;
+  total: number;
   featured?: boolean;
   created_at?: string;
   updated_at?: string;
