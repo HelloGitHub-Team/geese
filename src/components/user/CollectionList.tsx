@@ -111,7 +111,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
 
   return (
     <div className='my-4'>
-      {isLogin && (
+      {isLogin && data.in_person && (
         <div className='text-right'>
           <AddCollection
             onFinish={() => {
@@ -157,7 +157,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
                 <span>共有 {item.total} 个项目</span>
               </div>
               {/* footer-right */}
-              {isLogin && activeItem?.fid === item.fid && (
+              {isLogin && data.in_person && activeItem?.fid === item.fid && (
                 <div
                   className='hidden md:inline-flex'
                   onClick={(e: any) => {
@@ -181,7 +181,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
                 </div>
               )}
               {/* 移动端 footer-right */}
-              {isLogin && (
+              {isLogin && data.in_person && (
                 <div className='md:hidden'>
                   <BsThreeDots
                     onClick={(e: any) => {

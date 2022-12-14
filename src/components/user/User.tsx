@@ -160,7 +160,10 @@ const User = () => {
           <div className='border-b border-gray-200 dark:border-gray-700'>
             <nav className='-mb-0.5 flex space-x-6'>
               {tabList
-                .filter((_, index) => index === 0 || userDetailInfo?.in_person)
+                .filter(
+                  (_, index) =>
+                    [0, 1].includes(index) || userDetailInfo?.in_person
+                )
                 .map((tab) => {
                   console.log('tab:', tab);
                   return (

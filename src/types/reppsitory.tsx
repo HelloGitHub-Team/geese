@@ -195,4 +195,5 @@ export type Favorite = {
 
 export interface FavoriteRes extends BaseType {
   data: Favorite[];
+  in_person: boolean;
 }
