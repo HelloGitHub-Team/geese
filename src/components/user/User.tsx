@@ -1,5 +1,6 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import clsxm from '@/lib/clsxm';
 import useUserDetailInfo from '@/hooks/user/useUserDetailInfo';
@@ -13,16 +14,26 @@ import DynamicRecordList from '@/components/user/DynamicRecordList';
 import { formatZH } from '@/utils/day';
 
 const tabList = [
-  { key: 1, title: '动态' },
-  { key: 2, title: '收藏' },
-  { key: 3, title: '评论' },
+  { key: 'dynamic', title: '动态' },
+  { key: 'favorite', title: '收藏夹' },
+  { key: 'comment', title: '评论' },
 ];
 
-export default function User() {
+const User = () => {
   const router = useRouter();
-  const { uid } = router.query;
+  console.log({ router });
+  const { uid, tab, fid } = router.query;
+  console.log(uid, tab, fid);
   const userDetailInfo = useUserDetailInfo(uid as string);
-  const [activeTab, setActiveTab] = useState<number>(1);
+  const [activeTab, setActiveTab] = useState<string>(tab as string);
+
+  useEffect(() => {
+    if (tab) {
+      setActiveTab(tab as string);
+    } else {
+      setActiveTab('dynamic');
+    }
+  }, [tab]);
 
   return (
     <>
@@ -149,38 +160,47 @@ export default function User() {
           <div className='border-b border-gray-200 dark:border-gray-700'>
             <nav className='-mb-0.5 flex space-x-6'>
               {tabList
-                .filter((_, index) => index === 0 || userDetailInfo?.in_person)
+                .filter(
+                  (_, index) =>
+                    [0, 1].includes(index) || userDetailInfo?.in_person
+                )
                 .map((tab) => {
+                  console.log('tab:', tab);
                   return (
-                    <span
-                      key={tab.key}
-                      className={clsxm(
-                        'text-xm inline-flex cursor-pointer items-center gap-2 whitespace-nowrap border-b-2 border-transparent py-2 px-1 text-gray-500 hover:text-blue-600 dark:text-gray-400',
-                        {
-                          '!border-blue-500 font-bold !text-blue-500':
-                            activeTab === tab.key,
-                        }
-                      )}
-                      onClick={() => setActiveTab(tab.key)}
-                    >
-                      {tab.title}
-                    </span>
+                    <Link key={tab.key} href={`/user/${uid}/${tab.key}`}>
+                      <span
+                        key={tab.key}
+                        className={clsxm(
+                          'text-xm inline-flex cursor-pointer items-center gap-2 whitespace-nowrap border-b-2 border-transparent py-2 px-1 text-gray-500 hover:text-blue-600 dark:text-gray-400',
+                          {
+                            '!border-blue-500 font-bold !text-blue-500':
+                              activeTab === tab.key,
+                          }
+                        )}
+                      >
+                        {tab.title}
+                      </span>
+                    </Link>
                   );
                 })}
             </nav>
           </div>
           <div>
-            {activeTab === 1 && (
-              <DynamicRecordList uid={uid as string}></DynamicRecordList>
+            {activeTab === tabList[0].key && (
+              <DynamicRecordList uid={uid as string} />
             )}
-            {activeTab === 2 && (
-              <CollectionList uid={uid as string}></CollectionList>
+            {activeTab === tabList[1].key && (
+              <CollectionList uid={uid as string} fid={fid as string} />
             )}
-            {activeTab === 3 && <CommentList uid={uid as string}></CommentList>}
+            {activeTab === tabList[2].key && (
+              <CommentList uid={uid as string} />
+            )}
           </div>
         </div>
         <div className='h-2'></div>
       </div>
     </>
   );
-}
+};
+
+export default User;

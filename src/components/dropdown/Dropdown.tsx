@@ -1,5 +1,11 @@
 import classNames from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import { IoMdArrowDropdown } from 'react-icons/io';
 
 export type option = {
@@ -14,11 +20,11 @@ type DropdownProps = {
   initValue?: string;
   options: option[];
   trigger?: string;
-  onChange: (opt: any) => void;
+  onChange?: (opt: any) => void;
 };
 
-export default function Dropdown(props: DropdownProps) {
-  const [activeOption, setActiveOption] = useState(props.options[0]?.value);
+function Dropdown(props: DropdownProps, ref: any) {
+  const [activeOption, setActiveOption] = useState<option>();
   const [show, setShow] = React.useState<boolean>(false);
 
   // 该状态是为了防止用户点击选项时因为出发按钮的 blur 事件而导致无法触发点击事件的问题。
@@ -28,13 +34,20 @@ export default function Dropdown(props: DropdownProps) {
   const dropdownBtnRef = useRef<HTMLDivElement | null>(null);
   const [width, setWidth] = useState(120);
 
+  useImperativeHandle(ref, () => {
+    return {
+      activeOption,
+    };
+  });
+
   useEffect(() => {
     // 如果没有 initValue 则默认选中第一个
-    const value = props.options.find(
-      (opt) => opt.key == props.initValue
-    )?.value;
+    const option =
+      props.options.find((opt) => opt.key == props.initValue) ||
+      props.options[0] ||
+      {};
 
-    setActiveOption(value ? value : props.options[0]?.value);
+    setActiveOption(option);
   }, [props.options, props.initValue]);
 
   useEffect(() => {
@@ -43,8 +56,8 @@ export default function Dropdown(props: DropdownProps) {
   }, []);
 
   const onChange = (opt: option) => {
-    setActiveOption(opt.value);
-    props.onChange(opt);
+    setActiveOption(opt);
+    props.onChange?.(opt);
     setShow(false);
     setIsHover(false);
   };
@@ -104,6 +117,8 @@ export default function Dropdown(props: DropdownProps) {
         style={{
           width: props.width || 'auto',
           minWidth: props.minWidth || '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
         }}
         className={btnClassName()}
         onFocus={onTrigger('focus')}
@@ -111,7 +126,7 @@ export default function Dropdown(props: DropdownProps) {
         onMouseMove={onTrigger('mousemove')}
         onMouseLeave={onTrigger('mouseleave')}
       >
-        {activeOption}
+        {activeOption?.value}
         <IoMdArrowDropdown className='ml-1' />
       </button>
 
@@ -131,7 +146,7 @@ export default function Dropdown(props: DropdownProps) {
             {props.options?.map((opt: option) => (
               <a
                 key={opt.key}
-                className='block cursor-pointer rounded-lg px-1 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-300'
+                className='block cursor-pointer rounded-lg px-1 py-2 text-left text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-300'
                 onClick={() => onChange(opt)}
               >
                 {opt.value}
@@ -143,3 +158,5 @@ export default function Dropdown(props: DropdownProps) {
     </div>
   );
 }
+
+export default forwardRef(Dropdown);

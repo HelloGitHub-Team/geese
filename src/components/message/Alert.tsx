@@ -116,13 +116,14 @@ function AlertComp({ id }: AlertProps) {
   if (!alerts.length) return null;
 
   return (
-    <div className='pointer-events-none fixed top-4 left-0 z-50 w-full'>
+    <div className='pointer-events-none fixed top-8 left-0 z-50 w-full'>
       <div>
         {alerts.map((alert, index) => (
           <div key={index} className={cssClasses(alert)}>
             <Message
               type={alert.type}
               content={alert.message}
+              autoClose={alert.autoClose}
               onClose={() => removeAlert(alert, 0)}
             />
           </div>
