@@ -97,7 +97,7 @@ function CommentSubmit(props: {
           <textarea
             className='min-h-[3rem] w-full flex-shrink rounded-lg bg-white py-2 px-4 text-sm dark:bg-gray-800 dark:placeholder:text-gray-400 dark:focus:border-blue-800'
             style={{ height: commentData.height }}
-            placeholder='写评论...'
+            placeholder='比如：项目的使用体验、优点或吐槽、帮你解决了什么问题、惊艳到你的地方...'
             value={commentData.comment}
             onInput={handleInput}
           ></textarea>

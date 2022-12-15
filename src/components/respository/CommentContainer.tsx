@@ -99,7 +99,7 @@ const CommentContainer = (props: Props) => {
           ))}
           <div
             hidden={!hasMore}
-            className='cursor-pointer rounded-md bg-gray-50 text-center text-sm leading-10 hover:bg-gray-200 active:bg-gray-50'
+            className='cursor-pointer rounded-md bg-gray-50 text-center text-sm leading-10 hover:bg-gray-200 active:bg-gray-50 dark:bg-gray-700'
             onClick={loadMore}
           >
             加载更多...
