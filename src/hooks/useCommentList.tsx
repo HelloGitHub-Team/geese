@@ -44,7 +44,7 @@ function useCommentList({
 
   const loadMore = async () => {
     const nextPage = page + 1;
-    const data = await getComments(belong, belongId, nextPage);
+    const data = await getComments(belong, belongId, nextPage, sortType);
     setPage(nextPage);
     setList([...list, ...data.data]);
     setHasMore(data.has_more);
