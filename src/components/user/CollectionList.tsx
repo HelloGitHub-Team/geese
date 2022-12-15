@@ -143,12 +143,9 @@ export default function CollectionList(props: { uid: string; fid: string }) {
                 {collectionStatus[item.status as number]?.name}
               </span>
             </div>
-            {item.description && (
-              <div className='mt-2 text-sm text-gray-600'>
-                {item.description}
-              </div>
-            )}
-
+            <div className='mt-2 text-sm text-gray-600'>
+              {item.description || ' 暂无收藏夹描述'}
+            </div>
             {/* footer */}
             <div className='mt-2 flex justify-between text-xs text-gray-500'>
               {/* footer-left */}
