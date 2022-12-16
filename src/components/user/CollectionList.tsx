@@ -50,9 +50,155 @@ const collectionStatus: CollectionStatusMap = {
 
 type ModalEnum = boolean | 'delete' | 'edit' | 'action';
 
-export default function CollectionList(props: { uid: string; fid: string }) {
-  console.log({ props });
+type ProjectListProps = {
+  uid: string;
+  fid: string;
+};
 
+const CollectionData = ({
+  data,
+  setPage,
+}: {
+  data: Page<CollectItem>;
+  setPage: Dispatch<SetStateAction<number>>;
+}) => {
+  return data ? (
+    data.data.length ? (
+      <div>
+        {data.data.map((item, index: number) => (
+          <div
+            className='flex items-center border-t py-4 first:border-t-0 dark:border-gray-700'
+            key={item.repo.rid}
+          >
+            <div className='mr-4 self-start'>
+              {(data.page - 1) * data.pageSize + index + 1}.
+            </div>
+            <div className='flex-1 pr-2'>
+              <div className='font-bold'>{item.repo.name}</div>
+              <div className='my-2 flex'>
+                <span className='w-px max-w-fit flex-1 items-stretch overflow-hidden text-ellipsis whitespace-nowrap text-gray-400 dark:text-gray-300'>
+                  {item.repo.description || '-'}
+                </span>
+              </div>
+              {/* 移动端 */}
+              <div className='flex items-center text-sm text-gray-500 dark:text-gray-400 sm:hidden'>
+                <div>
+                  <span
+                    style={{ backgroundColor: `${item.repo.lang_color}` }}
+                    className='relative mr-1 box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px]'
+                  ></span>
+                  {item.repo.primary_lang}
+                </div>
+                <div className='px-1'>·</div>
+                <div>{numFormat(item.repo.stars, 1)}</div>
+                <div className='px-1'>·</div>
+                <div>{item.repo.has_chinese ? '中文' : '非中文'}</div>
+              </div>
+              {/* PC端 */}
+              <div className='hidden items-center text-sm text-gray-500 dark:text-gray-400 sm:flex'>
+                <div>
+                  主语言：
+                  <span
+                    style={{ backgroundColor: `${item.repo.lang_color}` }}
+                    className='relative mr-1 box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px] dark:border-gray-500'
+                  ></span>
+                  {item.repo.primary_lang}
+                </div>
+                <div className='px-1'>·</div>
+                <div>Star：{numFormat(item.repo.stars, 1)}</div>
+                <div className='px-1'>·</div>
+                <div>中文：{item.repo.has_chinese ? '是' : '否'}</div>
+              </div>
+            </div>
+            <Link href={`/repository/${item.repo.rid}`}>
+              <a>
+                <Button
+                  className='h-8 px-2 text-sm font-normal dark:border-gray-500 dark:text-gray-500'
+                  variant='outline'
+                >
+                  查看
+                </Button>
+              </a>
+            </Link>
+          </div>
+        ))}
+        <div className='mt-4'>
+          <Pagination
+            hidden={data.total <= 10}
+            PreviousText='上一页'
+            NextText='下一页'
+            current={data.page}
+            total={data.page_total}
+            onPageChange={setPage}
+          />
+        </div>
+      </div>
+    ) : (
+      <div className='mt-4 text-center text-xl'>
+        <div className='py-14 text-gray-300 dark:text-gray-500'>
+          当前收藏夹暂无项目
+        </div>
+      </div>
+    )
+  ) : (
+    <Loading />
+  );
+};
+
+const ProjectList = (props: ProjectListProps) => {
+  const { data, setPage } = useCollectionData(props.uid, props.fid);
+  const fName = data?.favorite?.name;
+  const fStatus = data?.favorite?.status;
+  const onShare = () => {
+    const text = `收藏夹 ${fName}\n点击查看详情：https://hellogithub.com/user/${props.uid}/favorite/?fid=${props.fid}`;
+    if (copy(text)) {
+      Message.success('已复制收藏夹链接，快去分享给小伙伴吧~');
+    } else {
+      Message.error('收藏夹链接复制失败');
+    }
+  };
+
+  if (!data?.success) {
+    return (
+      <div className='mt-4 text-center text-xl'>
+        <div className='py-14 text-gray-300 dark:text-gray-500'>
+          该收藏夹暂时未公开
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className='mt-5'>
+      {/* 面包屑和分享按钮 */}
+      <div className='flex justify-between'>
+        <div className='flex items-center'>
+          <Link href={`/user/${props.uid}/favorite`}>
+            <span className='cursor-pointer text-gray-500 hover:text-blue-500'>
+              收藏夹
+            </span>
+          </Link>
+          <AiOutlineRight className='mx-2'></AiOutlineRight>
+          <span>{fName}</span>
+        </div>
+        {/* 公开状态才显示分享按钮 */}
+        {fStatus === collectionStatus[2].status && (
+          <div>
+            <Button
+              className='flex items-center border-0 py-1'
+              onClick={onShare}
+            >
+              <AiOutlineShareAlt className='mr-2' /> 分享
+            </Button>
+          </div>
+        )}
+      </div>
+      {/* 项目列表 */}
+      <CollectionData data={data} setPage={setPage} />
+    </div>
+  );
+};
+
+export default function CollectionList(props: { uid: string; fid: string }) {
   const router = useRouter();
   const { uid } = router.query;
 
@@ -90,7 +236,6 @@ export default function CollectionList(props: { uid: string; fid: string }) {
 
   const onDelete = async (item: Favorite) => {
     const res = await deleteFavorite(item.fid);
-    console.log({ res });
     if (res.success) {
       Message.success('删除成功');
       // 刷新收藏夹列表
@@ -264,150 +409,3 @@ export default function CollectionList(props: { uid: string; fid: string }) {
     </div>
   );
 }
-
-type ProjectListProps = {
-  uid: string;
-  fid: string;
-};
-const ProjectList = (props: ProjectListProps) => {
-  const { data, setPage } = useCollectionData(props.uid, props.fid);
-  const fName = data?.favorite?.name;
-  const fStatus = data?.favorite?.status;
-  const onShare = () => {
-    const text = `收藏夹 ${fName}\n点击查看详情：https://hellogithub.com/user/${props.uid}/favorite/?fid=${props.fid}`;
-    if (copy(text)) {
-      Message.success('已复制收藏夹链接，快去分享给小伙伴吧~');
-    } else {
-      Message.error('收藏夹链接复制失败');
-    }
-  };
-
-  if (!data?.success) {
-    return (
-      <div className='mt-4 text-center text-xl'>
-        <div className='py-14 text-gray-300 dark:text-gray-500'>
-          该收藏夹暂时未公开
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className='mt-5'>
-      {/* 面包屑和分享按钮 */}
-      <div className='flex justify-between'>
-        <div className='flex items-center'>
-          <Link href={`/user/${props.uid}/favorite`}>
-            <span className='cursor-pointer text-gray-500 hover:text-blue-500'>
-              收藏夹
-            </span>
-          </Link>
-          <AiOutlineRight className='mx-2'></AiOutlineRight>
-          <span>{fName}</span>
-        </div>
-        {/* 公开状态才显示分享按钮 */}
-        {fStatus === collectionStatus[2].status && (
-          <div>
-            <Button
-              className='flex items-center border-0 py-1'
-              onClick={onShare}
-            >
-              <AiOutlineShareAlt className='mr-2' /> 分享
-            </Button>
-          </div>
-        )}
-      </div>
-      {/* 项目列表 */}
-      <CollectionData data={data} setPage={setPage} />
-    </div>
-  );
-};
-
-const CollectionData = ({
-  data,
-  setPage,
-}: {
-  data: Page<CollectItem>;
-  setPage: Dispatch<SetStateAction<number>>;
-}) => {
-  return data ? (
-    data.data.length ? (
-      <div>
-        {data.data.map((item, index: number) => (
-          <div
-            className='flex items-center border-t py-4 first:border-t-0 dark:border-gray-700'
-            key={item.repo.rid}
-          >
-            <div className='mr-4 self-start'>
-              {(data.page - 1) * data.pageSize + index + 1}.
-            </div>
-            <div className='flex-1 pr-2'>
-              <div className='font-bold'>{item.repo.name}</div>
-              <div className='my-2 flex'>
-                <span className='w-px max-w-fit flex-1 items-stretch overflow-hidden text-ellipsis whitespace-nowrap text-gray-400 dark:text-gray-300'>
-                  {item.repo.description || '-'}
-                </span>
-              </div>
-              {/* 移动端 */}
-              <div className='flex items-center text-sm text-gray-500 dark:text-gray-400 sm:hidden'>
-                <div>
-                  <span
-                    style={{ backgroundColor: `${item.repo.lang_color}` }}
-                    className='relative mr-1 box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px]'
-                  ></span>
-                  {item.repo.primary_lang}
-                </div>
-                <div className='px-1'>·</div>
-                <div>{numFormat(item.repo.stars, 1)}</div>
-                <div className='px-1'>·</div>
-                <div>{item.repo.has_chinese ? '中文' : '非中文'}</div>
-              </div>
-              {/* PC端 */}
-              <div className='hidden items-center text-sm text-gray-500 dark:text-gray-400 sm:flex'>
-                <div>
-                  主语言：
-                  <span
-                    style={{ backgroundColor: `${item.repo.lang_color}` }}
-                    className='relative mr-1 box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px] dark:border-gray-500'
-                  ></span>
-                  {item.repo.primary_lang}
-                </div>
-                <div className='px-1'>·</div>
-                <div>Star：{numFormat(item.repo.stars, 1)}</div>
-                <div className='px-1'>·</div>
-                <div>中文：{item.repo.has_chinese ? '是' : '否'}</div>
-              </div>
-            </div>
-            <Link href={`/repository/${item.repo.rid}`}>
-              <a>
-                <Button
-                  className='h-8 px-2 text-sm font-normal dark:border-gray-500 dark:text-gray-500'
-                  variant='outline'
-                >
-                  查看
-                </Button>
-              </a>
-            </Link>
-          </div>
-        ))}
-        <div className='mt-4'>
-          <Pagination
-            hidden={data.total <= 10}
-            PreviousText='上一页'
-            NextText='下一页'
-            current={data.page}
-            total={data.page_total}
-            onPageChange={setPage}
-          />
-        </div>
-      </div>
-    ) : (
-      <div className='mt-4 text-center text-xl'>
-        <div className='py-14 text-gray-300 dark:text-gray-500'>
-          当前收藏夹暂无项目
-        </div>
-      </div>
-    )
-  ) : (
-    <Loading />
-  );
-};

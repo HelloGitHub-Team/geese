@@ -40,7 +40,6 @@ export const useCollectionData = (uid: string, fid: string) => {
       : null,
     fetcher
   );
-  console.log({ data, error });
   if (error) {
     Message.error(error.message || '获取收藏夹数据失败');
   }

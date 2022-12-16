@@ -6,16 +6,6 @@ import type { Alert } from './alert.service';
 import { alertService } from './alert.service';
 import Message from './Message';
 
-AlertComp.propTypes = {
-  id: PropTypes.string,
-  fade: PropTypes.bool,
-};
-
-AlertComp.defaultProps = {
-  id: 'default-alert',
-  fade: false,
-};
-
 interface AlertProps {
   id?: string;
 }
@@ -24,6 +14,35 @@ function AlertComp({ id }: AlertProps) {
   const mounted = useRef(false);
   const router = useRouter();
   const [alerts, setAlerts] = useState<Alert[]>([]);
+
+  function omit(arr: Alert[], key: string): Alert[] {
+    return arr.map((obj: Alert) => {
+      const { [key]: _omitted, ...rest } = obj;
+      return rest as Alert;
+    }) as Alert[];
+  }
+
+  function removeAlert(alert: Alert, duration = 1000 * 2) {
+    if (!mounted.current) return;
+    const remove = () => {
+      // 先给待删除的元素加上一个动画
+      setAlerts((alerts) =>
+        alerts.map((x) =>
+          x.itemId === alert.itemId ? { ...x, fadeIn: false, fadeOut: true } : x
+        )
+      );
+
+      // 延迟删除
+      setTimeout(() => {
+        setAlerts((alerts) => alerts.filter((x) => x.itemId !== alert.itemId));
+      }, 250);
+    };
+    if (duration) {
+      setTimeout(remove, duration);
+    } else {
+      remove();
+    }
+  }
 
   useEffect(() => {
     mounted.current = true;
@@ -70,35 +89,6 @@ function AlertComp({ id }: AlertProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function omit(arr: Alert[], key: string): Alert[] {
-    return arr.map((obj: Alert) => {
-      const { [key]: _omitted, ...rest } = obj;
-      return rest as Alert;
-    }) as Alert[];
-  }
-
-  function removeAlert(alert: Alert, duration = 1000 * 2) {
-    if (!mounted.current) return;
-    const remove = () => {
-      // 先给待删除的元素加上一个动画
-      setAlerts((alerts) =>
-        alerts.map((x) =>
-          x.itemId === alert.itemId ? { ...x, fadeIn: false, fadeOut: true } : x
-        )
-      );
-
-      // 延迟删除
-      setTimeout(() => {
-        setAlerts((alerts) => alerts.filter((x) => x.itemId !== alert.itemId));
-      }, 250);
-    };
-    if (duration) {
-      setTimeout(remove, duration);
-    } else {
-      remove();
-    }
-  }
-
   function cssClasses(alert: Alert) {
     if (!alert) return;
 
@@ -132,4 +122,15 @@ function AlertComp({ id }: AlertProps) {
     </div>
   );
 }
+
+AlertComp.propTypes = {
+  id: PropTypes.string,
+  fade: PropTypes.bool,
+};
+
+AlertComp.defaultProps = {
+  id: 'default-alert',
+  fade: false,
+};
+
 export default AlertComp;

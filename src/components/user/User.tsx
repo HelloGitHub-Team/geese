@@ -21,9 +21,7 @@ const tabList = [
 
 const User = () => {
   const router = useRouter();
-  console.log({ router });
   const { uid, tab, fid } = router.query;
-  console.log(uid, tab, fid);
   const userDetailInfo = useUserDetailInfo(uid as string);
   const [activeTab, setActiveTab] = useState<string>(tab as string);
 
@@ -165,7 +163,6 @@ const User = () => {
                     [0, 1].includes(index) || userDetailInfo?.in_person
                 )
                 .map((tab) => {
-                  console.log('tab:', tab);
                   return (
                     <Link key={tab.key} href={`/user/${uid}/${tab.key}`}>
                       <span

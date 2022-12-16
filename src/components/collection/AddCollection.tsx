@@ -44,7 +44,6 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
   const [formData, setFormData] = React.useState({ ...initFormData });
 
   const onFormChange = (key: string, value: string | number) => {
-    console.log({ key, value });
     setFormData({
       ...formData,
       [key]: value,
@@ -66,7 +65,6 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
   }, [props.initValue, formData.status, initialStatus]);
 
   React.useEffect(() => {
-    console.log(props.initValue);
     if (props.initValue?.name) {
       const { name, description, status } = props.initValue;
       setFormData({ name, description, status });

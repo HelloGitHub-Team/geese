@@ -20,6 +20,31 @@ const defaultConfig: Config = {
   fn: defaultStringifyFunction,
 };
 
+// encode the key and add prefix if necessary
+const getKey = (key: string, prefix = ''): string => {
+  const encodedKey = encodeURIComponent(key);
+  if (prefix) return `${prefix}[${encodedKey}]`;
+  return encodedKey;
+};
+
+// encode the key and value of a query object
+const encode = (
+  key: string,
+  value: any,
+  { eq = defaultEq, fn = defaultStringifyFunction, prefix = '' }
+): string => {
+  const newValue = encodeURIComponent(fn(key, value));
+  const newKey = getKey(key, prefix);
+
+  return [newKey, newValue].join(eq);
+};
+
+// check if the given value is an object
+function isObject(obj: QueryObject) {
+  const type = typeof obj;
+  return (obj && (type === 'object' || type === 'function')) || false;
+}
+
 /**
  * Given a query object, return the query string
  * See qs-stringify.test.ts for examples
@@ -50,31 +75,6 @@ function stringify(obj: QueryObject, config = defaultConfig): string {
       return encode(key, value, { eq, fn, prefix });
     })
     .join(sep);
-}
-
-// encode the key and add prefix if necessary
-const getKey = (key: string, prefix = ''): string => {
-  const encodedKey = encodeURIComponent(key);
-  if (prefix) return `${prefix}[${encodedKey}]`;
-  return encodedKey;
-};
-
-// encode the key and value of a query object
-const encode = (
-  key: string,
-  value: any,
-  { eq = defaultEq, fn = defaultStringifyFunction, prefix = '' }
-): string => {
-  const newValue = encodeURIComponent(fn(key, value));
-  const newKey = getKey(key, prefix);
-
-  return [newKey, newValue].join(eq);
-};
-
-// check if the given value is an object
-function isObject(obj: QueryObject) {
-  const type = typeof obj;
-  return (obj && (type === 'object' || type === 'function')) || false;
 }
 
 export default stringify;

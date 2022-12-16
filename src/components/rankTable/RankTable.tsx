@@ -17,6 +17,50 @@ type TableProps = {
   list: RankDataItem[];
 };
 
+export const Table = ({ columns, list }: TableProps) => {
+  return (
+    <div className='overflow-hidden rounded-lg border shadow dark:border-gray-700 dark:shadow-none'>
+      <table className='w-min	min-w-full table-fixed divide-y-2 divide-gray-200 text-sm dark:divide-gray-700'>
+        <thead>
+          <tr>
+            {columns?.map(({ key, title, width = 'auto' }: column) => (
+              <th
+                key={key}
+                scope='col'
+                style={{ width: width }}
+                className='px-4 py-2 text-left text-sm font-medium uppercase text-gray-500 dark:text-gray-300 md:px-6 md:py-3'
+              >
+                {title}
+              </th>
+            ))}
+          </tr>
+        </thead>
+
+        <tbody className='divide-y divide-gray-200 dark:divide-gray-700'>
+          {list?.map((row: RankDataItem, index) => (
+            <tr key={index}>
+              {columns.map(({ key, render }) => {
+                let content = row[key];
+                if (render) {
+                  content = render(row, index);
+                }
+                return (
+                  <td
+                    key={key}
+                    className='truncate whitespace-nowrap bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300 md:px-6 md:py-4'
+                  >
+                    {content}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 export default function RankTable({ columns = [], list = [] }: TableProps) {
   return <Table columns={columns} list={list} />;
 }
@@ -88,50 +132,6 @@ export const RankSearchBar = ({
           onChange={(opt: any) => onChange('month', opt.key)}
         />
       </div>
-    </div>
-  );
-};
-
-export const Table = ({ columns, list }: TableProps) => {
-  return (
-    <div className='overflow-hidden rounded-lg border shadow dark:border-gray-700 dark:shadow-none'>
-      <table className='w-min	min-w-full table-fixed divide-y-2 divide-gray-200 text-sm dark:divide-gray-700'>
-        <thead>
-          <tr>
-            {columns?.map(({ key, title, width = 'auto' }: column) => (
-              <th
-                key={key}
-                scope='col'
-                style={{ width: width }}
-                className='px-4 py-2 text-left text-sm font-medium uppercase text-gray-500 dark:text-gray-300 md:px-6 md:py-3'
-              >
-                {title}
-              </th>
-            ))}
-          </tr>
-        </thead>
-
-        <tbody className='divide-y divide-gray-200 dark:divide-gray-700'>
-          {list?.map((row: RankDataItem, index) => (
-            <tr key={index}>
-              {columns.map(({ key, render }) => {
-                let content = row[key];
-                if (render) {
-                  content = render(row, index);
-                }
-                return (
-                  <td
-                    key={key}
-                    className='truncate whitespace-nowrap bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300 md:px-6 md:py-4'
-                  >
-                    {content}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   );
 };

@@ -7,18 +7,6 @@ enum Theme {
   os = 'os',
 }
 
-export function toggleTheme() {
-  if (localStorage.theme === Theme.os) {
-    return localStorage.removeItem('theme');
-  }
-  localStorage.theme =
-    localStorage.theme === Theme.dark ? Theme.light : Theme.dark;
-
-  updateTheme();
-
-  return localStorage.theme;
-}
-
 export function updateTheme() {
   if (
     localStorage.theme === Theme.dark ||
@@ -29,4 +17,16 @@ export function updateTheme() {
   } else {
     document.documentElement.classList.remove('dark');
   }
+}
+
+export function toggleTheme() {
+  if (localStorage.theme === Theme.os) {
+    return localStorage.removeItem('theme');
+  }
+  localStorage.theme =
+    localStorage.theme === Theme.dark ? Theme.light : Theme.dark;
+
+  updateTheme();
+
+  return localStorage.theme;
 }

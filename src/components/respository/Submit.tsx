@@ -59,6 +59,13 @@ export default function CreateRepo({ response }: CreateRepoProps) {
     [loading, url, title, summary, paramReady, response]
   );
 
+  function validateUrl(url: string) {
+    if (/^https:\/\/github.com.*/.test(url)) {
+      return true;
+    }
+    return false;
+  }
+
   const onUrlBlur = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value;
     if (!validateUrl(url)) {
@@ -138,13 +145,6 @@ export default function CreateRepo({ response }: CreateRepoProps) {
     (e: React.ChangeEvent<HTMLTextAreaElement>) => setSummary(e.target.value),
     []
   );
-
-  function validateUrl(url: string) {
-    if (/^https:\/\/github.com.*/.test(url)) {
-      return true;
-    }
-    return false;
-  }
 
   return (
     <div className='overflow-hidden p-1'>

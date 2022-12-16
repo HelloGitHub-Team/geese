@@ -79,11 +79,11 @@ export default function UserStatus() {
                   </Link>
                   <div className='ml-2 w-full shrink grow'>
                     <div className='relative flex h-5 min-w-0 items-center'>
-                      <div className='block w-24 truncate align-baseline dark:text-gray-300'>
+                      <div className='block w-14 truncate align-baseline dark:text-gray-300 lg:w-24'>
                         {data?.nickname}
                       </div>
                       <div className='shrink grow'></div>
-                      <div className='flex justify-end'>
+                      <div className='justify-end'>
                         <ThemeSwitch />
                       </div>
                     </div>

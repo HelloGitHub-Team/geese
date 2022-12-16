@@ -16,6 +16,26 @@ import {
 
 import { CommentSuccessData } from '@/types/reppsitory';
 
+function getErrMessage(commentData: {
+  comment: string;
+  isUsed: boolean;
+  score: number;
+}) {
+  if (!commentData.comment) {
+    return '评论内容不能为空';
+  }
+  if (commentData.comment.length < 10) {
+    return '评论内容不能少于 10 个字';
+  }
+  if (commentData.comment.length > 500) {
+    return '评论内容不能超过 500 个字';
+  }
+  if (!commentData.score) {
+    return '请评分';
+  }
+  return '';
+}
+
 function CommentSubmit(props: {
   belongId: string;
   className?: string;
@@ -143,26 +163,6 @@ function CommentSubmit(props: {
       </div>
     </div>
   );
-}
-
-function getErrMessage(commentData: {
-  comment: string;
-  isUsed: boolean;
-  score: number;
-}) {
-  if (!commentData.comment) {
-    return '评论内容不能为空';
-  }
-  if (commentData.comment.length < 10) {
-    return '评论内容不能少于 10 个字';
-  }
-  if (commentData.comment.length > 500) {
-    return '评论内容不能超过 500 个字';
-  }
-  if (!commentData.score) {
-    return '请评分';
-  }
-  return '';
 }
 
 export default CommentSubmit;

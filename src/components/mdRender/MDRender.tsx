@@ -9,23 +9,6 @@ type MDRenderProps = {
   mdString?: any; // markdown 格式的字符串
 } & React.ComponentPropsWithoutRef<'div'>;
 
-export default function MDRender({
-  className,
-  mdString,
-  children,
-  ...rest
-}: MDRenderProps) {
-  const { theme } = useLoginContext();
-
-  return (
-    <div className={clsxm('', className)} {...rest}>
-      <ReactMarkdown components={getCode(theme)}>
-        {mdString || children}
-      </ReactMarkdown>
-    </div>
-  );
-}
-
 const getCode = (theme: string) => {
   return {
     code({ node: _node, inline, className, children, ...props }: any) {
@@ -68,3 +51,20 @@ const getCode = (theme: string) => {
     },
   };
 };
+
+export default function MDRender({
+  className,
+  mdString,
+  children,
+  ...rest
+}: MDRenderProps) {
+  const { theme } = useLoginContext();
+
+  return (
+    <div className={clsxm('', className)} {...rest}>
+      <ReactMarkdown components={getCode(theme)}>
+        {mdString || children}
+      </ReactMarkdown>
+    </div>
+  );
+}

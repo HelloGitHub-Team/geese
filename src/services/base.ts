@@ -56,7 +56,6 @@ export const fetcher = async function fetcher<T>(
       return json;
     }
   } catch (error) {
-    console.log(error);
     return Object({ success: false, message: message });
   }
 };
