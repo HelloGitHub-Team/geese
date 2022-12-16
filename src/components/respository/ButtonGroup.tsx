@@ -10,6 +10,8 @@ import {
 } from 'react-icons/ai';
 import { GoLinkExternal } from 'react-icons/go';
 
+import { useLoginContext } from '@/hooks/useLoginContext';
+
 import Button from '@/components/buttons/Button';
 import AddCollection from '@/components/collection/AddCollection';
 import BasicDialog from '@/components/dialog/BasicDialog';
@@ -41,6 +43,7 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
     'flex flex-1 items-center justify-center cursor-pointer leading-10 hover:text-current md:hover:text-blue-500 active:!text-gray-400';
   const iconStyle = 'mr-1';
 
+  const { isLogin } = useLoginContext();
   const [isVoted, setIsVoted] = useState<boolean>(false);
   const [likesTotal, setLikesTotal] = useState<number>(0);
   const [isCollected, setIsCollected] = useState<boolean>(false);
@@ -78,6 +81,10 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
   };
 
   const onClickVote = async (rid: string) => {
+    if (!isLogin) {
+      Message.error('请先登录~');
+      return;
+    }
     const res = await voteRepo(rid);
     if (res.success) {
       setLikesTotal(res.data.total);
@@ -88,7 +95,11 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
   };
 
   const onClickCollect = () => {
-    setOpenModal(true);
+    if (isLogin) {
+      setOpenModal(true);
+    } else {
+      Message.error('请先登录~');
+    }
   };
 
   const onCancelVote = async (rid: string) => {
