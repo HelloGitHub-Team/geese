@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { AiFillFire } from 'react-icons/ai';
 import { GoThumbsup } from 'react-icons/go';
 
@@ -41,6 +42,23 @@ const CommentItem = (
     onChangeVote = NOOP,
   } = props;
   const { isLogin } = useLoginContext();
+  const visibleCommentLength = 120;
+
+  // 控制评论展开收起
+  const [expand, setExpand] = useState(false);
+  const [visibleComment, setVisibleComment] = useState(comment);
+
+  useEffect(() => {
+    if (expand) {
+      setVisibleComment(comment);
+    } else {
+      if (comment.length > visibleCommentLength) {
+        setVisibleComment(comment.substring(0, visibleCommentLength) + '...');
+      } else {
+        setVisibleComment(comment);
+      }
+    }
+  }, [comment, expand]);
 
   const handleVote = async () => {
     if (isVoted) {
@@ -120,7 +138,15 @@ const CommentItem = (
           )}
         </div>
         <div className='mt-2 whitespace-normal break-all text-sm text-gray-900 dark:text-gray-200'>
-          <MDRender>{comment}</MDRender>
+          <MDRender>{visibleComment}</MDRender>
+          {comment.length > visibleCommentLength && (
+            <button
+              className='text-blue-500'
+              onClick={() => setExpand(!expand)}
+            >
+              {expand ? '收起' : '展开'}
+            </button>
+          )}
         </div>
         <div className='mt-2 flex items-center justify-between'>
           <span className='text-sm text-gray-400'>{fromNow(createdAt)}</span>
