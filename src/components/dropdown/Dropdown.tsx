@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, {
   forwardRef,
+  useCallback,
   useEffect,
   useImperativeHandle,
   useRef,
@@ -50,10 +51,17 @@ function Dropdown(props: DropdownProps, ref: any) {
     setActiveOption(option);
   }, [props.options, props.initValue]);
 
+  const setDropdownWidth = useCallback(() => {
+    const { offsetWidth, clientWidth } = dropdownBtnRef.current || {};
+    const nWidth = offsetWidth || clientWidth || 120;
+    if (nWidth !== width) {
+      setWidth(nWidth);
+    }
+  }, [dropdownBtnRef, width]);
+
   useEffect(() => {
-    const width = dropdownBtnRef.current?.clientWidth || 120;
-    setWidth(width);
-  }, []);
+    setDropdownWidth();
+  }, [setDropdownWidth]);
 
   const onChange = (opt: option) => {
     setActiveOption(opt);
@@ -62,11 +70,11 @@ function Dropdown(props: DropdownProps, ref: any) {
     setIsHover(false);
   };
 
-  const wrapClassName = () =>
+  const wrapClassName = (border = true) =>
     classNames(
       'inline-flex items-stretch rounded-md bg-white dark:border-gray-700 dark:bg-gray-800',
       {
-        border: props.border === false ? false : true,
+        border: !!border,
       }
     );
 
@@ -92,6 +100,9 @@ function Dropdown(props: DropdownProps, ref: any) {
         if (props.trigger === 'hover') {
           return;
         }
+        if (!show) {
+          setDropdownWidth();
+        }
         setShow(!show);
       },
       blur: () => {
@@ -112,16 +123,16 @@ function Dropdown(props: DropdownProps, ref: any) {
   };
 
   return (
-    <div ref={dropdownBtnRef} className={wrapClassName()}>
+    <div ref={dropdownBtnRef} className={wrapClassName(props.border)}>
       <button
         style={{
-          width: props.width || 'auto',
+          width: props.width || '100%',
           minWidth: props.minWidth || '100%',
           display: 'flex',
           justifyContent: 'space-between',
         }}
         className={btnClassName()}
-        onFocus={onTrigger('focus')}
+        onClick={onTrigger('focus')}
         onBlur={onTrigger('blur')}
         onMouseMove={onTrigger('mousemove')}
         onMouseLeave={onTrigger('mouseleave')}
@@ -132,7 +143,7 @@ function Dropdown(props: DropdownProps, ref: any) {
 
       <div className='relative'>
         <div
-          style={{ width: width }}
+          style={{ width }}
           className={dropdownClassName(show)}
           role='menu'
           onMouseLeave={onTrigger('mouseleave')}
