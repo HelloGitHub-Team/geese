@@ -12,6 +12,7 @@ import AvatarWithDropdown from '@/components/dropdown/AvatarWithDropdown';
 
 import LoginButton from '../buttons/LoginButton';
 import SearchInput from '../search/SearchInput';
+import { BsFileEarmarkCode } from 'react-icons/bs';
 
 const Header = () => {
   const router = useRouter();
@@ -73,6 +74,12 @@ const Header = () => {
             <HeaderBtn pathname='/article'>
               <MdOutlineArticle className='mr-0.5' />
               <span>文章</span>
+            </HeaderBtn>
+          </li>
+          <li className={liClassName('/onefile')}>
+            <HeaderBtn pathname='/onefile'>
+              <BsFileEarmarkCode className='mr-0.5' />
+              <span>OneFile</span>
             </HeaderBtn>
           </li>
           {/* 移动端显示的登录按钮和头像 */}
