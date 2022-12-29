@@ -14,6 +14,7 @@ const btnList: option[] = [
   { key: '/periodical/volume', value: '月刊' },
   { key: '/report/tiobe', value: '榜单' },
   { key: '/article', value: '文章' },
+  { key: '/onefile', value: 'OneFile' },
 ];
 
 const RankButton = (props: RankButtonProps) => {

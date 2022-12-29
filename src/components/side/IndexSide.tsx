@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 
@@ -13,6 +14,8 @@ import Footer from '../layout/Footer';
 import { AdvertItems } from '@/types/home';
 
 export default function IndexSide() {
+  const router = useRouter();
+  const { pathname } = router;
   const [displayAdOnly, setDisplayAdOnly] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { data, isValidating } = useSWRImmutable<AdvertItems>(
@@ -47,7 +50,7 @@ export default function IndexSide() {
               <UserStatus></UserStatus>
             </div>
             {!isValidating ? <SideAd data={adverts} /> : <></>}
-            <Status />
+            {pathname == '/' ? <Status /> : <></>}
           </div>
           <Footer />
         </div>
