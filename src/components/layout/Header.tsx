@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { AiOutlineBook, AiOutlineHome } from 'react-icons/ai';
+import { BsFileEarmarkCode } from 'react-icons/bs';
 import { MdOutlineArticle } from 'react-icons/md';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -12,7 +13,6 @@ import AvatarWithDropdown from '@/components/dropdown/AvatarWithDropdown';
 
 import LoginButton from '../buttons/LoginButton';
 import SearchInput from '../search/SearchInput';
-import { BsFileEarmarkCode } from 'react-icons/bs';
 
 const Header = () => {
   const router = useRouter();
