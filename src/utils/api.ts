@@ -5,7 +5,7 @@ export const ITEMS_PER_PAGE = 10;
 const LOCAL_API_HOST = 'https://local.api.hellogithub.com';
 const PRODUCTION_API_HOST = 'https://api.hellogithub.com';
 
-const API_ROOT_PATH = '/v1';
+export const API_ROOT_PATH = '/v1';
 
 export const API_HOST =
   process.env.NEXT_PUBLIC_ENV === 'development'
