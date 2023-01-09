@@ -33,7 +33,7 @@ const Item: NextPage<ItemProps> = ({ item, index }) => {
               className='bg-img h-5 w-5 rounded'
             />
             <div className='flex shrink grow items-center overflow-x-hidden text-sm text-gray-400 md:pl-1'>
-              <div className='hidden truncate whitespace-nowrap md:block md:max-w-xs'>
+              <div className='hidden truncate whitespace-nowrap md:block md:max-w-xxs'>
                 {item.author}
                 <span className='pl-1 pr-1'>·</span>
                 {item.name}

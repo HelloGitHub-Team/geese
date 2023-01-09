@@ -12,6 +12,7 @@ import Seo from '@/components/Seo';
 import { getDetail } from '@/services/repository';
 
 import { Repository } from '@/types/reppsitory';
+import Score from '@/components/respository/Score';
 
 interface Props {
   repo: Repository;
@@ -28,7 +29,27 @@ const RepositoryPage: NextPage<Props> = ({ repo }) => {
       />
 
       <div className='mt-2 bg-white px-2 pb-10 pt-2 dark:bg-gray-800 md:rounded-t-lg'>
-        <Info repo={repo}></Info>
+        <div className='flex flex-col'>
+          <div className='flex flex-row'>
+            <div className=' bg-blue-50 '>
+              <a className='flex items-center'>
+                <img
+                  className='rounded-sm'
+                  src='https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEK6Whg0ZPBnfj6ay705PsibyqAibW1JIH3xXFjtIoTfficqtySAQuXPNf8D1eqwoY8OzMC8MJy2NFeibg/132'
+                  width='72'
+                  height='72'
+                  alt='repo_avatar'
+                />
+              </a>
+            </div>
+            <div className='flex flex-1 justify-end bg-blue-200'>
+              {/* <Score repo={repo}></Score> */}
+              #1
+            </div>
+          </div>
+          <div className='flex flex-row gap-x-6 '></div>
+        </div>
+        {/* <Info repo={repo}></Info> */}
         <Tabs repo={repo}></Tabs>
         {repo.image_url && (
           <div className='my-2 flex cursor-zoom-in justify-center'>

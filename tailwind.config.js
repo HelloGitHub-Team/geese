@@ -18,6 +18,9 @@ module.exports = {
     hoverOnlyWhenSupported: true,
   },
   theme: {
+    maxWidth: {
+      'xxs': '14rem',
+    },
     extend: {
       fontFamily: {
         primary: [...fontFamily.sans],
