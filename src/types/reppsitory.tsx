@@ -20,6 +20,7 @@ export interface Repository extends RepoType {
   summary: string;
   code: string;
   image_url: string | null;
+  author_avatar: string;
   homepage: string | null;
   document: string | null;
   download: string | null;
@@ -27,6 +28,7 @@ export interface Repository extends RepoType {
   other_url: string | null;
 
   score: number;
+  score_str: string | null;
   likes: number;
   collect_total: number;
   comment_total: number;

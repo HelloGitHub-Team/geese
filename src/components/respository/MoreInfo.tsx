@@ -26,8 +26,8 @@ const MoreInfo: NextPage<RepositoryProps> = ({ repo }) => {
       value: repo.is_active ? '是' : '否',
     },
     {
-      title: '许可',
-      value: repo.license || '无',
+      title: 'Issues',
+      value: numFormat(repo.open_issues),
     },
     {
       title: '组织',
@@ -38,17 +38,13 @@ const MoreInfo: NextPage<RepositoryProps> = ({ repo }) => {
       value: numFormat(repo.forks),
     },
     {
-      title: 'Issues',
-      value: numFormat(repo.open_issues),
-    },
-    {
-      title: '订阅数',
-      value: numFormat(repo.subscribers),
+      title: '协议',
+      value: repo.license || '无',
     },
   ];
 
   return (
-    <div className='relative mt-2'>
+    <div className='relative mt-1 mb-4'>
       <div
         className={`relative overflow-hidden rounded-lg ${
           isShowMore ? '' : 'h-20'

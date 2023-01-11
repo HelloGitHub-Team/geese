@@ -53,7 +53,7 @@ const User = () => {
               </div>
               <div className='ml-5 flex flex-1 flex-col justify-center'>
                 <div className='my-2 flex items-center'>
-                  <div className='w-px max-w-fit flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg font-bold dark:text-gray-300'>
+                  <div className='max-w-fit w-px flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg font-bold dark:text-gray-300'>
                     {userDetailInfo?.nickname}
                   </div>
                   <div className='ml-2 text-sm font-bold text-yellow-500'>

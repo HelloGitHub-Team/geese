@@ -251,7 +251,7 @@ export function RepoModal({ children }: { children: JSX.Element }) {
     <>
       <div onClick={openModal}>{children}</div>
       <BasicDialog
-        className='w-5/6 max-w-xl rounded-lg p-5'
+        className='max-w-xl w-5/6 rounded-lg p-5'
         visible={isOpen}
         hideClose={true}
         onClose={closeModal}

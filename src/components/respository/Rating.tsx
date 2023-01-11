@@ -5,10 +5,10 @@ import { NOOP } from '@/utils/constants';
 
 function Rating(props: {
   value: number;
+  size?: number;
   onRateChange?: (value: number) => void;
 }) {
-  const { value = 5, onRateChange = NOOP } = props;
-  const size = 18;
+  const { value = 5, onRateChange = NOOP, size = 18 } = props;
 
   return (
     <div className='flex items-center'>

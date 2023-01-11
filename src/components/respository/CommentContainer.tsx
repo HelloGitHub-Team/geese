@@ -51,7 +51,7 @@ const CommentContainer = (props: Props) => {
   const btnActive = '!bg-blue-500 dark:!bg-blue-800';
 
   return (
-    <div className={`p-4 ${className}`}>
+    <div id='comment' className={`p-4 ${className}`}>
       <h3 className='mb-4'>评论</h3>
       {currentUserComment ? (
         <CommentItem

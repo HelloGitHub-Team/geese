@@ -6,6 +6,9 @@ import clsxm from '@/lib/clsxm';
 enum ButtonVariant {
   'primary',
   'outline',
+  'white-outline',
+  'blue-outline',
+  'gradient',
   'ghost',
   'light',
   'dark',
@@ -59,12 +62,27 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               isDarkBg &&
                 'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
             ],
+            variant === 'white-outline' && [
+              'bg-white text-black',
+              'border border-gray-200',
+              'hover:border-blue-500 active:bg-white',
+              'dark:hover:border-blue-700 dark:hover:bg-white dark:hover:text-blue-500',
+            ],
+            variant === 'blue-outline' && [
+              'bg-white text-black',
+              'border border-blue-500',
+              'hover:border-blue-500 active:bg-white',
+              'dark:bg-white dark:hover:bg-white dark:focus:bg-white',
+            ],
+            variant === 'gradient' && [
+              'bg-gradient-to-r from-blue-500 to-blue-500',
+              'border border-blue-500 text-white',
+              'hover:border-blue-600 hover:from-blue-500 hover:to-blue-700',
+            ],
             variant === 'ghost' && [
               'text-primary-500',
               'shadow-none',
               'hover:bg-primary-50 active:bg-primary-100 disabled:bg-primary-100',
-              isDarkBg &&
-                'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
             ],
             variant === 'light' && [
               'bg-white text-dark ',

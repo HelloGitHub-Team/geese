@@ -19,7 +19,7 @@ module.exports = {
   },
   theme: {
     maxWidth: {
-      'xxs': '14rem',
+      xxs: '14rem',
     },
     extend: {
       fontFamily: {
