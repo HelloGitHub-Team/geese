@@ -2,7 +2,7 @@ import copy from 'copy-to-clipboard';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { AiFillCaretUp, AiOutlineCaretUp } from 'react-icons/ai';
+import { AiFillCaretUp, AiOutlineCaretUp, AiOutlineDown } from 'react-icons/ai';
 import {
   BsBookmark,
   BsFileEarmarkCode,
@@ -42,6 +42,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
   const [isCollected, setIsCollected] = useState<boolean>(false);
   const [collectTotal, setCollectTotal] = useState<number>(0);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [showSelect, setShowSelect] = useState<boolean>(false);
   const [favoriteOptions, setFavoriteOptions] = useState<option[]>([]);
   const dropdownRef = useRef<any>();
 
@@ -145,6 +146,12 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     });
   };
 
+  const handleSelect = () => {
+    setTimeout(() => {
+      setShowSelect(false);
+    }, 3000);
+  };
+
   useEffect(() => {
     getUserRepoStatus(repo.rid);
     setLikesTotal(repo.likes);
@@ -182,13 +189,43 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           </div>
           <div className='mt-4 flex w-full flex-row items-end gap-x-2 md:mt-0 md:w-64 lg:w-72'>
             <CustomLink href={repo.url} onClick={() => onClickLink(repo.rid)}>
-              <Button variant='white-outline'>
-                <div className='p-3 text-sm font-medium'>访问</div>
-                {/* <div className='py-3 px-2 flex flex-row items-center'>
-                  <div className='pl-1 pr-1 text-sm font-medium'>访问</div>
-                  <AiOutlineDown size={10} />
-                </div> */}
-              </Button>
+              <div
+                onMouseEnter={() => setShowSelect(true)}
+                onMouseLeave={handleSelect}
+              >
+                <Button variant='white-outline'>
+                  {/* <div className='p-3 text-sm font-medium'>访问</div> */}
+                  <div className='flex flex-row items-center py-3 px-2'>
+                    <div className='pl-1 pr-1 text-sm font-medium'>访问</div>
+                    <AiOutlineDown size={10} />
+                  </div>
+                </Button>
+                {showSelect ? (
+                  <>
+                    <div
+                      className='relative'
+                      onMouseEnter={() => setShowSelect(true)}
+                    >
+                      <div
+                        className='absolute right-2 z-10 mt-2 w-72 origin-top-right rounded-md border border-gray-100 bg-white shadow-lg'
+                        role='menu'
+                      >
+                        <div className='p-2'>
+                          <a
+                            href='#'
+                            className='block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700'
+                            role='menuitem'
+                          >
+                            View on Storefront
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
             </CustomLink>
 
             {isVoted ? (
