@@ -33,8 +33,9 @@ src
 
 因为是协同开发，所以 `main` 分支可能一直在更新，每次开发前需要拉取最新的代码，以保证是基于最新的 `main` 分支开发。
 
-- 测试环境预览：https://dev.hg.hellogithub.com/
 - 接口文档：https://local.api.hellogithub.com/docs#/
+
+如果遇到跨域问题，请检查前端服务启动端口为：`3000`、host 为 `localhost`、`127.0.0.1` 或 `dev.hg.com`（需改本地 hosts）
 
 具体需求开发时建议，将代码拆分到对应的目录中：
 

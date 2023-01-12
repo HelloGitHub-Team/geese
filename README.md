@@ -4,7 +4,7 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。希望焕然一�
 
 目前**第一版已完成上线**，欢迎[访问](https://hellogithub.com)和[反馈](https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb)
 
-![](docs/img/2022-11-12.png)
+![](docs/img/2023-01-11.png)
 
 感谢每一位参与贡献的[小伙伴](https://github.com/HelloGitHub-Team/geese/graphs/contributors)，十分开心可以和各位一起做开源项目，这段经历让我受益匪浅。
 
@@ -12,7 +12,6 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。希望焕然一�
 
 - [ ] [(简单)月刊增加项目详情入口](https://github.com/HelloGitHub-Team/geese/issues/72)
 - [ ] [(中等)增加开源协议专栏](https://github.com/HelloGitHub-Team/geese/issues/78)
-- [ ] [(讨论）动态生成 svg 文件的功能](https://github.com/HelloGitHub-Team/geese/issues/82)
 - [ ] [(讨论）README 生成器](https://github.com/HelloGitHub-Team/geese/issues/83)
 - [ ] [(内容）如何发起/加入开源项目教程](https://github.com/HelloGitHub-Team/geese/issues/84)
 
@@ -34,7 +33,6 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。希望焕然一�
 
 - 脚手架：[ts-nextjs-tailwind-starter](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter)
 - 组件样式：[hyperui](https://github.com/markmead/hyperui)
-- 样式参考：[hackertalk](https://hackertalk.net/)
 
 ## 声明
 
