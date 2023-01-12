@@ -33,6 +33,24 @@ export interface Stats {
   period_total: number;
 }
 
+export interface RecomemndItem {
+  rid: string;
+  name: string;
+  full_name: string;
+  author_avatar: string;
+  description: string;
+  primary_lang: string;
+  lang_color: string;
+  stars: number;
+  stars_str: string;
+}
+
+export interface RecomemndItems {
+  success: boolean;
+  total: number;
+  data: RecomemndItem[];
+}
+
 export interface AdvertItem {
   aid: string;
   url: string;

@@ -3,13 +3,15 @@ import { ReactNode, useMemo } from 'react';
 
 import Header from '@/components/layout/Header';
 
+import CommonSide from '../side/Common';
 import IndexSide from '../side/IndexSide';
 
 export default function Layout({ children }: { children: ReactNode }) {
   // Put Header or Footer Here
   const router = useRouter();
+  const { pathname } = router;
+
   const showIndexSide = useMemo<boolean>(() => {
-    const { pathname } = router;
     // 不需要展示右边栏的路由
     const singlePage: string[] = [
       '/help/ats',
@@ -18,7 +20,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       '/periodical/volume',
     ];
     return singlePage.includes(pathname);
-  }, [router]);
+  }, [pathname]);
 
   return (
     <>
@@ -32,7 +34,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               {children}
             </div>
             <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
-              <IndexSide></IndexSide>
+              {pathname == '/' ? <IndexSide /> : <CommonSide />}
             </div>
           </div>
         )}

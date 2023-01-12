@@ -4,7 +4,7 @@ import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-import { HomeItem, HomeItems, Stats } from '@/types/home';
+import { HomeItem, HomeItems, RecomemndItems, Stats } from '@/types/home';
 import { TagItems } from '@/types/tag';
 
 export const getItems = async (
@@ -17,6 +17,17 @@ export const getItems = async (
 export const getStats = async (): Promise<Stats> => {
   const data = await fetcher<Stats>(makeUrl(`/stats/`));
   return data;
+};
+
+export const getRecommend = async (): Promise<any> => {
+  try {
+    const data = await fetcher<RecomemndItems>(
+      makeUrl('/repository/recommend/')
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getTags = async (

@@ -6,13 +6,12 @@ import { SideAd, SideFixAd } from '@/components/side/SideAd';
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
-import Status from './Status';
+import Recommend from './Recommend';
 import UserStatus from './UserStatus';
-import Footer from '../layout/Footer';
 
 import { AdvertItems } from '@/types/home';
 
-export default function IndexSide() {
+export default function CommonSide() {
   const [displayAdOnly, setDisplayAdOnly] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { data, isValidating } = useSWRImmutable<AdvertItems>(
@@ -47,9 +46,8 @@ export default function IndexSide() {
               <UserStatus></UserStatus>
             </div>
             {!isValidating ? <SideAd data={adverts} /> : <></>}
-            <Status />
+            <Recommend />
           </div>
-          <Footer />
         </div>
       </div>
       {adverts ? (
