@@ -18,7 +18,7 @@ const RulePage: NextPage<HelpPageProps> = ({ content }) => {
 
       <div className='mt-2 bg-white p-5 dark:bg-gray-800 md:rounded-lg '>
         <article>
-          <MDRender className='max-w-none prose dark:prose-invert'>
+          <MDRender className='prose max-w-none dark:prose-invert'>
             {content}
           </MDRender>
         </article>

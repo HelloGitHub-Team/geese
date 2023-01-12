@@ -36,7 +36,7 @@ const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo, index }) => {
               alt='search_result_item'
             />
             <div className='flex shrink grow items-center overflow-x-hidden text-sm text-gray-400 md:pl-1'>
-              <div className='md:max-w-xs hidden truncate whitespace-nowrap md:block'>
+              <div className='hidden truncate whitespace-nowrap md:block md:max-w-xs'>
                 {repo.author}
                 <span className='pl-1 pr-1'>·</span>
                 {repo.name}

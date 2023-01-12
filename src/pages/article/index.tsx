@@ -75,7 +75,7 @@ const ArticleIndex: NextPage = () => {
                 <a>
                   <div className='relative cursor-pointer bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700 md:py-3 md:pl-5'>
                     <div className='flex-cloume relative flex items-center'>
-                      <div className='max-w-full w-9/12'>
+                      <div className='w-9/12 max-w-full'>
                         <div className='text-color-primary flex visited:text-gray-500 dark:text-gray-300'>
                           {item.is_hot && (
                             <span className='text-center'>
@@ -97,7 +97,7 @@ const ArticleIndex: NextPage = () => {
                         <div className='flex items-center'>
                           <div className='font-base flex shrink grow items-center overflow-x-hidden text-xs text-gray-800 dark:text-gray-200'>
                             <div className='hidden md:flex '>
-                              <div className='md:max-w-xs truncate whitespace-nowrap'>
+                              <div className='truncate whitespace-nowrap md:max-w-xs'>
                                 作者 {item.author}
                               </div>
                               <span className='px-1'>·</span>

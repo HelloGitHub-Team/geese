@@ -2,7 +2,16 @@ import copy from 'copy-to-clipboard';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { AiFillCaretUp, AiOutlineCaretUp, AiOutlineDown } from 'react-icons/ai';
+import {
+  AiFillCaretUp,
+  AiOutlineCaretUp,
+  AiOutlineCloudDownload,
+  AiOutlineDown,
+  AiOutlineFileText,
+  AiOutlineGithub,
+  AiOutlineGlobal,
+  AiOutlineHome,
+} from 'react-icons/ai';
 import {
   BsBookmark,
   BsFileEarmarkCode,
@@ -35,6 +44,12 @@ import Message from '../message';
 
 import { Repository, RepositoryProps } from '@/types/reppsitory';
 
+type URLoption = {
+  url: string;
+  key: string;
+  name: string;
+};
+
 const Info: NextPage<RepositoryProps> = ({ repo }) => {
   const { isLogin } = useLoginContext();
   const [isVoted, setIsVoted] = useState<boolean>(false);
@@ -42,13 +57,15 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
   const [isCollected, setIsCollected] = useState<boolean>(false);
   const [collectTotal, setCollectTotal] = useState<number>(0);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [showSelect, setShowSelect] = useState<boolean>(false);
   const [favoriteOptions, setFavoriteOptions] = useState<option[]>([]);
+  const [urlOptions, setURLOptions] = useState<URLoption[]>([]);
+
   const dropdownRef = useRef<any>();
 
-  const onClickLink = (rid: string) => {
-    // 调用接口记录链接点击信息
-    recordGoGithub(rid);
+  const onClickLink = (clickType: string, rid: string) => {
+    if (clickType == 'github') {
+      recordGoGithub(rid);
+    }
   };
 
   // 获取用户收藏夹列表
@@ -146,10 +163,61 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     });
   };
 
-  const handleSelect = () => {
-    setTimeout(() => {
-      setShowSelect(false);
-    }, 3000);
+  const getIcon = (name: string) => {
+    switch (name) {
+      case 'github':
+        return (
+          <>
+            <AiOutlineGithub />
+            <div className='pl-1'>项目</div>
+          </>
+        );
+      case 'home':
+        return (
+          <>
+            <AiOutlineHome />
+            <div className='pl-1'>官网</div>
+          </>
+        );
+      case 'document':
+        return (
+          <>
+            <AiOutlineFileText />
+            <div className='pl-1'>文档</div>
+          </>
+        );
+      case 'online':
+        return (
+          <>
+            <AiOutlineGlobal />
+            <div className='pl-1'>演示</div>
+          </>
+        );
+      case 'download':
+        return (
+          <>
+            <AiOutlineCloudDownload />
+            <div className='pl-1'>下载</div>
+          </>
+        );
+    }
+  };
+
+  const handleURLOptions = (repo: Repository) => {
+    const options: URLoption[] = [];
+    if (repo.homepage != null) {
+      options.push({ key: 'home', name: '官网', url: repo.homepage });
+    } else if (repo.document != null) {
+      options.push({ key: 'document', name: '文档', url: repo.document });
+    } else if (repo.online != null) {
+      options.push({ key: 'online', name: '演示', url: repo.online });
+    } else if (repo.download != null) {
+      options.push({ key: 'download', name: '下载', url: repo.download });
+    }
+    if (options.length > 0) {
+      options.unshift({ key: 'github', name: 'GitHub', url: repo.url });
+      setURLOptions(options);
+    }
   };
 
   useEffect(() => {
@@ -157,6 +225,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     setLikesTotal(repo.likes);
     setCollectTotal(repo.collect_total);
     getUserFavoriteOptions();
+    handleURLOptions(repo);
   }, [repo]);
 
   return (
@@ -188,50 +257,66 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
             </h2>
           </div>
           <div className='mt-4 flex w-full flex-row items-end gap-x-2 md:mt-0 md:w-64 lg:w-72'>
-            <CustomLink href={repo.url} onClick={() => onClickLink(repo.rid)}>
-              <div
-                onMouseEnter={() => setShowSelect(true)}
-                onMouseLeave={handleSelect}
+            <div className='group hidden lg:block'>
+              <CustomLink
+                href={repo.url}
+                onClick={() => onClickLink('github', repo.rid)}
               >
-                <Button variant='white-outline'>
-                  {/* <div className='p-3 text-sm font-medium'>访问</div> */}
-                  <div className='flex flex-row items-center py-3 px-2'>
-                    <div className='pl-1 pr-1 text-sm font-medium'>访问</div>
-                    <AiOutlineDown size={10} />
-                  </div>
-                </Button>
-                {showSelect ? (
-                  <>
-                    <div
-                      className='relative'
-                      onMouseEnter={() => setShowSelect(true)}
-                    >
-                      <div
-                        className='absolute right-2 z-10 mt-2 w-72 origin-top-right rounded-md border border-gray-100 bg-white shadow-lg'
-                        role='menu'
-                      >
-                        <div className='p-2'>
-                          <a
-                            href='#'
-                            className='block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700'
-                            role='menuitem'
-                          >
-                            View on Storefront
-                          </a>
-                        </div>
-                      </div>
+                <Button
+                  variant='white-outline'
+                  className='origin-top scale-95 transition duration-200 ease-in-out hover:scale-100'
+                >
+                  {urlOptions.length > 0 ? (
+                    <div className='flex flex-row items-center py-3 px-1'>
+                      <div className='pl-1 pr-1 text-sm font-medium'>访问</div>
+                      <AiOutlineDown size={10} />
                     </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-              </div>
-            </CustomLink>
+                  ) : (
+                    <div className='p-3 text-sm font-medium'>访问</div>
+                  )}
+                </Button>
+              </CustomLink>
+              {urlOptions.length > 0 ? (
+                <div className='absolute hidden group-hover:block'>
+                  <div className='relative z-10 mt-2 w-fit origin-top-right rounded-md border border-gray-100 bg-white shadow-lg'>
+                    {urlOptions.map((item) => (
+                      <CustomLink
+                        href={item.url}
+                        key={item.key}
+                        onClick={() => onClickLink(item.name, repo.rid)}
+                      >
+                        <div className='py-2 px-1'>
+                          <div className='flex flex-row items-center rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-700'>
+                            {getIcon(item.key)}
+                          </div>
+                        </div>
+                      </CustomLink>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
+
+            <div className='block lg:hidden'>
+              <CustomLink
+                href={repo.url}
+                onClick={() => onClickLink('github', repo.rid)}
+              >
+                <Button
+                  variant='white-outline'
+                  className='origin-top scale-95 transition duration-200 ease-in-out hover:scale-100'
+                >
+                  <div className='p-3 text-sm font-medium'>访问</div>
+                </Button>
+              </CustomLink>
+            </div>
 
             {isVoted ? (
               <Button
                 variant='blue-outline'
-                className='flex-1 justify-center'
+                className='flex-1 origin-top scale-95 justify-center transition duration-200 ease-in-out hover:scale-100'
                 onClick={() => onCancelVote(repo.rid)}
               >
                 <div className='w-40 py-3 px-6 text-sm font-medium'>
@@ -244,7 +329,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
             ) : (
               <Button
                 variant='gradient'
-                className='flex-1 justify-center'
+                className='flex-1 origin-top scale-95 justify-center transition duration-200 ease-in-out hover:scale-100'
                 onClick={() => onClickVote(repo.rid)}
               >
                 <div className='w-40 py-3 px-6 text-sm font-medium'>
@@ -317,7 +402,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
 
       {/* 选择收藏夹的弹窗 */}
       <BasicDialog
-        className='max-w-sm w-5/6 rounded-lg p-6'
+        className='w-5/6 max-w-sm rounded-lg p-6'
         visible={openModal}
         maskClosable={false}
         title={

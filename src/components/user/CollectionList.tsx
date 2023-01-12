@@ -76,7 +76,7 @@ const CollectionData = ({
             <div className='flex-1 pr-2'>
               <div className='font-bold'>{item.repo.name}</div>
               <div className='my-2 flex'>
-                <span className='max-w-fit w-px flex-1 items-stretch overflow-hidden text-ellipsis whitespace-nowrap text-gray-400 dark:text-gray-300'>
+                <span className='w-px max-w-fit flex-1 items-stretch overflow-hidden text-ellipsis whitespace-nowrap text-gray-400 dark:text-gray-300'>
                   {item.repo.description || '-'}
                 </span>
               </div>
@@ -344,7 +344,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
       )}
       {/* 删除弹窗 */}
       <BasicDialog
-        className='max-w-xs w-5/6 rounded-md p-6'
+        className='w-5/6 max-w-xs rounded-md p-6'
         visible={openModal === 'delete'}
         maskClosable={false}
         hideClose={true}
@@ -384,7 +384,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
       />
       {/* 移动端操作弹窗 */}
       <BasicDialog
-        className='max-w-xs w-4/6 rounded-md p-4'
+        className='w-4/6 max-w-xs rounded-md p-4'
         visible={openModal === 'action'}
         maskClosable={true}
         hideClose={true}

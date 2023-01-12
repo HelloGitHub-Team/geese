@@ -64,7 +64,7 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
       );
     } else if (selectTab === 'code') {
       return (
-        <div className='text-md w-full p-2 leading-7 lg:text-lg'>
+        <div className='text-md w-full p-2 leading-7 subpixel-antialiased lg:text-lg'>
           <MDRender>{repo.code}</MDRender>
         </div>
       );

@@ -19,7 +19,7 @@ const OneFileJoinPage: NextPage<HelpPageProps> = ({ content }) => {
         <div className='my-2 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
           <div className='my-2'>
             <article>
-              <MDRender className='max-w-none prose dark:prose-invert'>
+              <MDRender className='prose max-w-none dark:prose-invert'>
                 {content}
               </MDRender>
             </article>

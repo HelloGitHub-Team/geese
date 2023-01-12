@@ -200,7 +200,7 @@ const ButtonGroup: NextPage<Props> = ({ repo }) => {
       </div>
       {/* 选择收藏夹的弹窗 */}
       <BasicDialog
-        className='max-w-sm w-5/6 rounded-lg p-6'
+        className='w-5/6 max-w-sm rounded-lg p-6'
         visible={openModal}
         maskClosable={false}
         title={

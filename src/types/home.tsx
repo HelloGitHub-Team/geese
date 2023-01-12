@@ -10,7 +10,6 @@ export interface HomeItems {
 
 export interface ItemProps {
   item: HomeItem;
-  index: number;
 }
 
 export interface HomeItem {
@@ -22,6 +21,7 @@ export interface HomeItem {
   description: string;
   primary_lang: string;
   lang_color: string;
+  is_hot: boolean;
   clicks_total: number;
   comment_total: number;
   updated_at: string;
