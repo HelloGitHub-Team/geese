@@ -12,11 +12,7 @@ import {
   AiOutlineGlobal,
   AiOutlineHome,
 } from 'react-icons/ai';
-import {
-  BsBookmark,
-  BsFileEarmarkCode,
-  BsFillBookmarkFill,
-} from 'react-icons/bs';
+import { BsBookmark, BsFileEarmarkCode } from 'react-icons/bs';
 import { GoComment, GoLinkExternal } from 'react-icons/go';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -370,7 +366,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                 onClick={() => onCancelCollect(repo.rid)}
               >
                 <div className='flex cursor-pointer items-center justify-center hover:text-current active:!text-gray-400 md:hover:text-blue-500'>
-                  <BsFillBookmarkFill className='mr-2' size={16} />
+                  <BsBookmark className='mr-2' size={16} />
                   {numFormat(collectTotal, 1)}
                 </div>
               </div>

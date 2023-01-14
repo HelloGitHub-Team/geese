@@ -17,7 +17,6 @@ export default function Layout({ children }: { children: ReactNode }) {
       '/help/ats',
       '/help/rule',
       '/periodical/volume/[id]',
-      '/periodical/volume',
     ];
     return singlePage.includes(pathname);
   }, [pathname]);

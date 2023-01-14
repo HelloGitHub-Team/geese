@@ -15,6 +15,10 @@ export interface VolumeCategory {
   items: VolumeItem[];
 }
 
+export interface VolumeNum {
+  num: number;
+}
+
 export interface VolumeItem {
   rid: string;
   name: string;
@@ -53,6 +57,10 @@ export interface CategoryType {
   data: CategoryItem[];
 }
 
+export interface CategroyName {
+  name: string;
+}
+
 export interface CategoryItem {
   rid: string;
   name: string;
@@ -64,3 +72,10 @@ export interface CategoryItem {
   watch: number;
   image_url: string | null;
 }
+
+export type AllItems = {
+  success: boolean;
+  repo_total: number;
+  categories: CategroyName[];
+  volumes: VolumeNum[];
+};

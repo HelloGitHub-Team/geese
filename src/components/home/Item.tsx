@@ -15,7 +15,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
         <div className='relative cursor-pointer bg-white py-3 pl-4 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700'>
           <div className='pb-0.5'>
             <div className='text-color-primary flex justify-between visited:text-gray-500 dark:text-gray-300'>
-              <span className='truncate pt-1 text-lg leading-snug'>
+              <span className='truncate pt-1 text-base leading-snug  lg:text-lg'>
                 {item.is_hot && (
                   <span className='text-center'>
                     <AiFillFire

@@ -61,8 +61,8 @@ const Header = () => {
               <span>首页</span>
             </HeaderBtn>
           </li>
-          <li className={liClassName('/periodical/volume')}>
-            <HeaderBtn pathname='/periodical/volume'>
+          <li className={liClassName('/periodical')}>
+            <HeaderBtn pathname='/periodical'>
               <AiOutlineBook className='mr-0.5' />
               <span>月刊</span>
             </HeaderBtn>

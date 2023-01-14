@@ -66,7 +66,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               'bg-white text-black',
               'border border-gray-200',
               'hover:border-blue-500 active:bg-white',
-              'dark:hover:border-blue-700 dark:hover:bg-white dark:hover:text-blue-500',
+              'dark:hover:border-blue-700 dark:hover:bg-white dark:hover:text-blue-500 dark:focus:bg-white dark:active:bg-white',
             ],
             variant === 'blue-outline' && [
               'bg-white text-black',

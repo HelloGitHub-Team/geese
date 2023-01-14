@@ -30,7 +30,6 @@ export interface HomeItem {
 export interface Stats {
   repo_total: number;
   user_total: number;
-  period_total: number;
 }
 
 export interface RecomemndItem {
