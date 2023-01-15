@@ -79,7 +79,9 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
           NextText='下一页'
         />
       </div>
-      <ToTop />
+      <div className='hidden md:block'>
+        <ToTop />
+      </div>
     </>
   );
 };

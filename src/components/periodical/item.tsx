@@ -24,19 +24,19 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
     <div key={item.rid} className='pb-4'>
       <div className='mb-2 flex flex-row pt-3'>
         <div className='flex w-4/5 flex-col'>
-          <div className='flex flex-row gap-1 pb-2'>
-            <span className='text-lg'>{index + 1}.</span>
-            <CustomLink href={item.github_url}>
-              <span
+          <div className='flex w-full flex-row items-center gap-1 pb-2'>
+            <div className='text-lg'>{index + 1}.</div>
+            <CustomLink href={item.github_url} className='truncate'>
+              <div
                 onClick={() => onClickLink(item)}
-                className='text-xl capitalize text-blue-500 hover:underline active:text-blue-500'
+                className='truncate text-ellipsis text-xl capitalize text-blue-500 hover:underline active:text-blue-500'
               >
                 {item.name}
-              </span>
+              </div>
             </CustomLink>
           </div>
           {/* stars forks watch */}
-          <div className='flex flex-row truncate text-ellipsis text-base text-gray-500 dark:text-gray-400'>
+          <div className='flex flex-row text-sm text-gray-500  dark:text-gray-400 md:text-base'>
             <div className='mr-2 flex items-center'>
               <IoIosStarOutline size={15} />
               Star {numFormat(item.stars, 1)}
@@ -45,7 +45,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
               <GoRepoForked size={15} />
               Fork {numFormat(item.forks, 1)}
             </div>
-            <div className='flex items-center'>
+            <div className='hidden items-center md:flex'>
               <MdOutlineRemoveRedEye size={15} />
               Watch {numFormat(item.watch, 1)}
             </div>
@@ -53,7 +53,10 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
         </div>
         <div className='flex h-14 flex-1 flex-row items-center justify-end pr-1'>
           <CustomLink href={`/repository/${item.rid}`}>
-            <Button variant='white-outline'>
+            <Button
+              variant='white-outline'
+              className='font-normal text-gray-700'
+            >
               <div className='flex flex-col items-center px-2'>
                 <div>
                   <AiFillCaretUp size={18} />

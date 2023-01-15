@@ -23,8 +23,13 @@ export default function Pagination({
   useEffect(() => {
     setPage(current);
   }, [current]);
+
   const handlePageChange = (page: number) => {
-    onPageChange?.(page);
+    if (page <= 0) {
+      onPageChange?.(1);
+    } else {
+      onPageChange?.(page);
+    }
   };
 
   const JumpBtnClass = (type: number) => {
@@ -66,11 +71,12 @@ export default function Pagination({
             const value = e.target.value;
             if (value > total) {
               setPage(total);
-            } else if (value < 1) {
-              setPage(1);
             } else {
               setPage(value);
             }
+          }}
+          onBlur={() => {
+            handlePageChange(page);
           }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {

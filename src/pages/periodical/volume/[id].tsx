@@ -245,7 +245,16 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                 }
               )}
             </div>
-            <ToTop cb={() => setActiveCategory('')} />
+
+            <Pagination
+              total={volume?.total}
+              current={volume?.current_num}
+              onPageChange={onPageChange}
+            />
+
+            <div className='hidden md:block'>
+              <ToTop cb={() => setActiveCategory('')} />
+            </div>
           </div>
         </div>
 

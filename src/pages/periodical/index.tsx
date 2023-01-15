@@ -58,7 +58,7 @@ const PeriodicalIndexPage: NextPage = () => {
       <div className='relative'>
         <Navbar middleText='HelloGitHub 月刊'></Navbar>
         <div className='my-2 bg-white px-4 pt-2 dark:bg-gray-800 md:rounded-lg'>
-          <div className='flex flex-col items-center py-2'>
+          <div className='flex flex-col items-center'>
             <img src='https://img.hellogithub.com/logo/readme.gif'></img>
             <p className='py-2 leading-7'>
               「HelloGitHub 月刊」分享 GitHub 上有趣、入门级的开源项目，每月{' '}
@@ -184,7 +184,7 @@ const PeriodicalIndexPage: NextPage = () => {
               </div>
             </dl>
           )}
-          <div className='h-2 lg:h-4'></div>
+          <div className='h-4 lg:h-2'></div>
         </div>
       </div>
     </>
