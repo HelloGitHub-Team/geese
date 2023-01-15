@@ -46,7 +46,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
     .map((item: PeriodicalItem) => item.rid);
 
   const itemIndex = (item: PeriodicalItem) => {
-    return allItems.indexOf(item.rid) + 1;
+    return allItems.indexOf(item.rid);
   };
 
   const onPageChange = (page: number) => {

@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { AiFillCaretUp } from 'react-icons/ai';
+import Link from 'next/link';
 import { GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
@@ -52,19 +52,18 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
           </div>
         </div>
         <div className='flex h-14 flex-1 flex-row items-center justify-end pr-1'>
-          <CustomLink href={`/repository/${item.rid}`}>
+          <Link href={`/repository/${item.rid}`}>
             <Button
               variant='white-outline'
               className='font-normal text-gray-700'
             >
               <div className='flex flex-col items-center px-2'>
-                <div>
-                  <AiFillCaretUp size={18} />
+                <div className='py-2 text-sm font-medium md:text-base'>
+                  详情
                 </div>
-                <div className='text-base'>{item.vote_total}</div>
               </div>
             </Button>
-          </CustomLink>
+          </Link>
         </div>
       </div>
 
