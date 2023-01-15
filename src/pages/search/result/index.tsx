@@ -67,7 +67,7 @@ const Result: NextPage = () => {
 
   return (
     <>
-      <Seo templateTitle='Search' />
+      <Seo title='HelloGitHub｜搜索' />
       <Navbar middleText='搜索结果'></Navbar>
       <div className='h-screen'>
         <div className='divide-y divide-gray-100 overflow-y-hidden bg-white dark:divide-gray-700 md:rounded-lg'>

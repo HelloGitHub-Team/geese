@@ -12,7 +12,7 @@ import { HelpPageProps } from '@/types/help';
 const RulePage: NextPage<HelpPageProps> = ({ content }) => {
   return (
     <>
-      <Seo title='社区玩法' />
+      <Seo title='HelloGitHub｜社区玩法' />
       <div className='mt-2 bg-white p-5 dark:bg-gray-800 md:rounded-lg '>
         <div className='mb-10 flex flex-col items-center px-2 text-4xl font-bold '>
           社区玩法

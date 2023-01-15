@@ -17,7 +17,7 @@ interface Props {
 const RepositoryPage: NextPage<Props> = ({ repo }) => {
   return (
     <>
-      <Seo title={`开源项目 ${repo.name} 详情`} />
+      <Seo title={`HelloGitHub｜详情 ${repo.name}`} />
 
       <RepoDetailNavbar
         avatar={repo.share_user.avatar}

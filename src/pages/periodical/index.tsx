@@ -53,7 +53,7 @@ const PeriodicalIndexPage: NextPage = () => {
 
   return (
     <>
-      <Seo title='HelloGitHub|月刊' />
+      <Seo title='HelloGitHub｜月刊' />
 
       <div className='relative'>
         <Navbar middleText='HelloGitHub 月刊'></Navbar>

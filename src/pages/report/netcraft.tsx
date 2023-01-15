@@ -83,7 +83,7 @@ const NetcraftPage: NextPage<NetcraftRankPageProps> = ({
 
   return (
     <>
-      <Seo title='服务器排行 | HelloGitHub' />
+      <Seo title='HelloGitHub｜服务器排行' />
       {all_list ? (
         <div>
           <Navbar middleText={`${year} 年 ${month} 月服务器排行榜`}></Navbar>

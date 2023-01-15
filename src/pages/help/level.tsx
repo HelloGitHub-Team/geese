@@ -13,7 +13,7 @@ import { HelpPageProps } from '@/types/help';
 const RulePage: NextPage<HelpPageProps> = ({ content }) => {
   return (
     <>
-      <Seo title='HelloGitHub 社区等级介绍' />
+      <Seo title='HelloGitHub｜社区等级介绍' />
       <Navbar middleText='社区等级' endText='介绍' />
 
       <div className='mt-2 bg-white p-5 dark:bg-gray-800 md:rounded-lg '>

@@ -45,7 +45,7 @@ const EmbedPage: NextPage = () => {
 
   return (
     <>
-      <Seo title='HelloGitHub' />
+      <Seo title='HelloGitHub｜网站挂件' />
       <div className='relative pb-6'>
         <Navbar middleText='HelloGitHub 徽章'></Navbar>
         <div className='my-2 bg-white px-4 py-2 dark:bg-gray-800 md:rounded-lg'>

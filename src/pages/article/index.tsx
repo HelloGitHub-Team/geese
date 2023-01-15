@@ -65,7 +65,7 @@ const ArticleIndex: NextPage = () => {
 
   return (
     <>
-      <Seo />
+      <Seo title='HelloGitHub｜文章' />
       <ArticleNavbar />
       <div className='h-screen'>
         <div className='divide-y divide-slate-100 bg-white dark:divide-slate-700 dark:bg-slate-800 md:overflow-y-hidden md:rounded-lg'>
