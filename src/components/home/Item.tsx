@@ -14,8 +14,8 @@ const Item: NextPage<ItemProps> = ({ item }) => {
       <CustomLink href={`/repository/${item.item_id}`}>
         <div className='relative cursor-pointer bg-white py-3 pl-4 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700'>
           <div className='pb-0.5'>
-            <div className='text-color-primary flex justify-between visited:text-gray-500 dark:text-gray-300'>
-              <span className='truncate pt-1 text-base leading-snug  lg:text-lg'>
+            <div className='text-color-primary flex items-center justify-between visited:text-gray-500 dark:text-gray-300'>
+              <span className='truncate text-base leading-snug'>
                 {item.is_hot && (
                   <span className='text-center'>
                     <AiFillFire
@@ -27,7 +27,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                 )}
                 {item.title}
               </span>
-              <span className='mt-1 ml-1 h-4 whitespace-nowrap rounded-md bg-blue-400 py-0.5 px-2 text-xs font-semibold leading-none text-white dark:text-gray-100'>
+              <span className='h-4 whitespace-nowrap rounded-md bg-blue-400 py-0.5 px-2 text-xs font-semibold leading-none text-white dark:text-gray-100'>
                 {item.comment_total}
               </span>
             </div>

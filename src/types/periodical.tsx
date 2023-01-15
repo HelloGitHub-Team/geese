@@ -12,14 +12,14 @@ export interface VolumeType {
 export interface VolumeCategory {
   category_id: number;
   category_name: string;
-  items: VolumeItem[];
+  items: PeriodicalItem[];
 }
 
 export interface VolumeNum {
   num: number;
 }
 
-export interface VolumeItem {
+export interface PeriodicalItem {
   rid: string;
   name: string;
   description: string;
@@ -28,6 +28,12 @@ export interface VolumeItem {
   forks: number;
   watch: number;
   image_url: string | null;
+  vote_total: number;
+}
+
+export interface PeriodicalItemProps {
+  index: number;
+  item: PeriodicalItem;
 }
 
 export interface Volume {
@@ -35,7 +41,7 @@ export interface Volume {
   page_total: number;
   total: number;
   current_num: number;
-  data: VolumeItem[];
+  data: PeriodicalItem[];
 }
 
 export type VolumeAll = {
@@ -45,32 +51,20 @@ export type VolumeAll = {
 };
 
 export interface CategoryPageProps {
-  category: CategoryType;
+  category: Category;
 }
 
-export interface CategoryType {
+export interface Category {
   success: boolean;
   category_name: string;
   page_total: number;
   total: number;
   current_page: number;
-  data: CategoryItem[];
+  data: PeriodicalItem[];
 }
 
 export interface CategroyName {
   name: string;
-}
-
-export interface CategoryItem {
-  rid: string;
-  name: string;
-  volume_num: number;
-  description: string;
-  github_url: string;
-  stars: number;
-  forks: number;
-  watch: number;
-  image_url: string | null;
 }
 
 export type AllItems = {

@@ -2,13 +2,13 @@ import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-import { CategoryType } from '@/types/periodical';
+import { Category } from '@/types/periodical';
 
 export const getCategory = async (
   ip: string,
   name: string,
   page: number
-): Promise<CategoryType> => {
+): Promise<Category> => {
   const req: RequestInit = {};
   req.headers = { 'x-real-ip': ip, 'x-forwarded-for': ip };
 
@@ -19,7 +19,7 @@ export const getCategory = async (
     } else {
       url = makeUrl(`/periodical/category/${name}`);
     }
-    const data = await fetcher<CategoryType>(url, req);
+    const data = await fetcher<Category>(url, req);
     return data;
   } catch (error) {
     return {
