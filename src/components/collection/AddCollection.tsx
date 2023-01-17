@@ -202,7 +202,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
           取消
         </Button>
         <Button
-          variant='primary'
+          variant='gradient'
           className='ml-4'
           disabled={disabled}
           isLoading={loading}
@@ -232,7 +232,7 @@ export default function AddCollection({
         onClick={() => {
           setOpenModal(true);
         }}
-        className='inline-flex items-center justify-center gap-2 rounded-md border border-transparent py-1 px-0 text-sm font-semibold text-blue-500 ring-offset-white transition-all hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+        className='inline-flex items-center justify-center gap-2 rounded-md border border-transparent py-1 px-0 text-sm font-medium text-blue-500 ring-offset-white transition-all hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
       >
         <AiOutlinePlus /> 新建收藏夹
       </button>

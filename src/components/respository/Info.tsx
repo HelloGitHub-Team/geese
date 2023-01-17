@@ -405,7 +405,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           <>
             选择收藏夹
             <p className='mt-3 text-xs text-gray-500'>
-              选择或创建你想添加的收藏夹
+              收藏的项目在「我的主页」可以找到
             </p>
           </>
         }
@@ -424,12 +424,12 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           <AddCollection
             onFinish={() => {
               // 刷新收藏夹下拉列表
-              getFavoriteOptions();
+              getUserFavoriteOptions();
             }}
           />
           <Button
             className='py-0 px-3'
-            variant='primary'
+            variant='gradient'
             onClick={() => onFavoriteSave(repo.rid)}
           >
             确定
