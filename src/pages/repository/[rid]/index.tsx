@@ -23,7 +23,7 @@ const RepositoryPage: NextPage<Props> = ({ repo }) => {
         avatar={repo.share_user.avatar}
         uid={repo.share_user.uid}
       />
-      <div className='mt-2 bg-white px-2 pb-4 pt-2 dark:bg-gray-800 md:rounded-lg'>
+      <div className='mt-2 bg-white px-2 pb-3 pt-2 dark:bg-gray-800 md:rounded-lg'>
         <Info repo={repo} />
         <Tabs repo={repo} />
       </div>

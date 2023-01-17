@@ -34,6 +34,12 @@ export default function DynamicRecordList(props: Props) {
               {`被精选，收获 ${item.value} 点贡献值`}
             </span>
           );
+        } else if (item.remark == '发布恶意评测' && item.value == -2) {
+          return (
+            <span>{`${fromNow(
+              item.created_at
+            )}，因发布无意义/灌水评论，扣除 2 点贡献值。`}</span>
+          );
         } else if (item.remark == '提交项目' && item.value == 5) {
           return (
             <span>

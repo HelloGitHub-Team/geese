@@ -57,7 +57,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
               variant='white-outline'
               className='font-normal text-gray-700'
             >
-              <div className='flex flex-col items-center px-2'>
+              <div className='flex flex-col items-center px-1 md:px-2'>
                 <div className='py-2 text-sm font-medium md:text-base'>
                   详情
                 </div>
