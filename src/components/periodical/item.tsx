@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { AiOutlineLike } from 'react-icons/ai';
 import { GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
-import { MdOutlineRemoveRedEye } from 'react-icons/md';
 
 import { recordGoGithub } from '@/services/repository';
 import { numFormat } from '@/utils/util';
@@ -24,8 +24,8 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
     <div key={item.rid} className='pb-4'>
       <div className='mb-2 flex flex-row pt-3'>
         <div className='flex w-4/5 flex-col'>
-          <div className='flex w-full flex-row items-center gap-1 pb-2'>
-            <div className='text-lg'>{index + 1}.</div>
+          <div className='flex w-full flex-row items-center pb-2'>
+            <div className='text-lg'>{index + 1}、</div>
             <CustomLink href={item.github_url} className='truncate'>
               <div
                 onClick={() => onClickLink(item)}
@@ -38,17 +38,19 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
           {/* stars forks watch */}
           <div className='flex flex-row text-sm text-gray-500  dark:text-gray-400 md:text-base'>
             <div className='mr-2 flex items-center'>
-              <IoIosStarOutline size={15} />
+              <IoIosStarOutline size={15} className='mr-0.5' />
               Star {numFormat(item.stars, 1)}
             </div>
             <div className='mr-2 flex items-center'>
-              <GoRepoForked size={15} />
+              <GoRepoForked size={15} className='mr-0.5' />
               Fork {numFormat(item.forks, 1)}
             </div>
-            <div className='hidden items-center md:flex'>
-              <MdOutlineRemoveRedEye size={15} />
-              Watch {numFormat(item.watch, 1)}
-            </div>
+            <Link href={`/repository/${item.rid}`}>
+              <div className='hidden cursor-pointer items-center hover:text-blue-500 md:flex'>
+                <AiOutlineLike size={15} className='mr-0.5' />
+                Vote {numFormat(item.vote_total, 1)}
+              </div>
+            </Link>
           </div>
         </div>
         <div className='flex h-14 flex-1 flex-row items-center justify-end pr-1'>
