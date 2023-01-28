@@ -26,7 +26,10 @@ export default function DynamicRecordList(props: Props) {
           return (
             <span>
               {`${fromNow(item.created_at)}，因评论`}
-              <CustomLink href={`/repository/${item.item.item_id}`}>
+              <CustomLink
+                className='inline'
+                href={`/repository/${item.item.item_id}`}
+              >
                 <span className='mx-1 cursor-pointer hover:text-blue-500'>
                   {item.item.name}
                 </span>
@@ -44,7 +47,10 @@ export default function DynamicRecordList(props: Props) {
           return (
             <span>
               {`${fromNow(item.created_at)}，因提交优秀的开源项目`}
-              <CustomLink href={`/repository/${item.item.item_id}`}>
+              <CustomLink
+                className='inline'
+                href={`/repository/${item.item.item_id}`}
+              >
                 <span className='mx-1 cursor-pointer hover:text-blue-500'>
                   {item.item.name}
                 </span>
