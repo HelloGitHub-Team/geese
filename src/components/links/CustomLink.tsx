@@ -25,7 +25,7 @@ const CustomLink = ({ href, className, children, onClick }: Props) => {
       <a
         onClick={onClick}
         target={isMobile ? '_self' : '_blank'}
-        className={clsxm('', className)}
+        className={clsxm('block', className)}
         rel='noopener noreferrer'
       >
         {children}

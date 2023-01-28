@@ -258,7 +258,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           <div className='mt-4 flex w-full flex-row items-end gap-x-2 md:mt-0 md:w-64 lg:w-72'>
             <div className='group hidden lg:block'>
               <CustomLink
-                className='block'
                 href={repo.url}
                 onClick={() => onClickLink('github', repo.rid)}
               >
