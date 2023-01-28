@@ -24,8 +24,8 @@ function getErrMessage(commentData: {
   if (!commentData.comment) {
     return '评论内容不能为空';
   }
-  if (commentData.comment.length < 10) {
-    return '评论内容不能少于 10 个字';
+  if (commentData.comment.length < 5) {
+    return '评论内容不能少于 5 个字';
   }
   if (commentData.comment.length > 500) {
     return '评论内容不能超过 500 个字';

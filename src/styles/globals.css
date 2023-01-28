@@ -271,10 +271,6 @@ svg {
   font-weight: 400;
 }
 
-.prose h2 {
-  text-align: center;
-}
-
 .prose pre {
   padding: 0;
   background-color: transparent;

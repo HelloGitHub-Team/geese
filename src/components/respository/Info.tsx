@@ -203,11 +203,14 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     const options: URLoption[] = [];
     if (repo.homepage != null) {
       options.push({ key: 'home', name: '官网', url: repo.homepage });
-    } else if (repo.document != null) {
+    }
+    if (repo.document != null) {
       options.push({ key: 'document', name: '文档', url: repo.document });
-    } else if (repo.online != null) {
+    }
+    if (repo.online != null) {
       options.push({ key: 'online', name: '演示', url: repo.online });
-    } else if (repo.download != null) {
+    }
+    if (repo.download != null) {
       options.push({ key: 'download', name: '下载', url: repo.download });
     }
     if (options.length > 0) {
@@ -255,6 +258,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           <div className='mt-4 flex w-full flex-row items-end gap-x-2 md:mt-0 md:w-64 lg:w-72'>
             <div className='group hidden lg:block'>
               <CustomLink
+                className='block'
                 href={repo.url}
                 onClick={() => onClickLink('github', repo.rid)}
               >
@@ -264,7 +268,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                 >
                   {urlOptions.length > 0 ? (
                     <div className='flex flex-row items-center py-3 px-1'>
-                      <div className='pl-1 pr-1 text-sm font-medium'>访问</div>
+                      <div className='px-1 text-sm font-medium'>访问</div>
                       <AiOutlineDown size={10} />
                     </div>
                   ) : (

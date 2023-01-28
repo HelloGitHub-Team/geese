@@ -106,11 +106,11 @@ const CommentItem = (
           </Link>
         </div>
       </div>
-      <div className='w-max-full relative flex-1'>
-        <div className='flex items-center justify-between gap-4'>
-          <div className='flex items-center gap-4'>
-            <span className='flex max-w-fit flex-1 items-center overflow-hidden text-ellipsis whitespace-nowrap text-sm font-bold md:text-base md:font-normal'>
-              <span className='mr-0 h-5 md:mr-1 md:hidden'>
+      <div className='relative max-w-full flex-1'>
+        <div className='flex flex-row items-center justify-between gap-4'>
+          <div className='flex w-full flex-row items-center gap-4'>
+            <div className='flex max-w-fit flex-1 items-center overflow-hidden text-sm font-bold md:text-base md:font-normal'>
+              <div className='mr-0 h-5 md:mr-1 md:hidden'>
                 <img
                   className='h-5 w-5 rounded-full'
                   width='20'
@@ -118,11 +118,15 @@ const CommentItem = (
                   src={user?.avatar || DEFAULT_AVATAR}
                   alt='comment_avatar'
                 />
-              </span>
+              </div>
               <Link href={`/user/${user.uid}`}>
-                <a>{user?.nickname}</a>
+                <a>
+                  <div className='w-24 truncate text-ellipsis whitespace-nowrap md:w-fit'>
+                    {user?.nickname}
+                  </div>
+                </a>
               </Link>
-            </span>
+            </div>
             <span className='flex shrink-0 items-center text-xs md:text-sm'>
               评分：
               <Rating value={score} />

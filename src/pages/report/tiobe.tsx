@@ -54,7 +54,7 @@ const TiobePage: NextPage<RankPageProps> = ({
 
   return (
     <>
-      <Seo title='HelloGitHub｜编程语言排行' />
+      <Seo title='HelloGitHub｜编程语言排名' />
       {list ? (
         <div>
           <Navbar middleText={`${year} 年 ${month} 月编程语言排行榜`}></Navbar>
