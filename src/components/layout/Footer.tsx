@@ -7,15 +7,15 @@ const Footer = () => {
   return (
     <footer className='flex flex-wrap items-center px-3 py-2.5 text-xs text-gray-400'>
       <p>
-        <CustomLink href='/help/rule'>
+        <CustomLink className='inline' href='/help/rule'>
           <span className='cursor-pointer hover:text-blue-500'>社区玩法</span>
         </CustomLink>
         <span className='px-1.5'>·</span>
-        <CustomLink href='/server-sitemap-index.xml'>
+        <CustomLink className='inline' href='/server-sitemap-index.xml'>
           <span className='cursor-pointer hover:text-blue-500'>站点地图</span>
         </CustomLink>
         <span className='px-1.5'>·</span>
-        <CustomLink href='/help/ats'>
+        <CustomLink className='inline' href='/help/ats'>
           <span className='cursor-pointer hover:text-blue-500'>服务协议</span>
         </CustomLink>
       </p>

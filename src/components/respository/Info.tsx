@@ -201,16 +201,16 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
 
   const handleURLOptions = (repo: Repository) => {
     const options: URLoption[] = [];
-    if (repo.homepage != null) {
+    if (repo.homepage != null && repo.homepage.length > 0) {
       options.push({ key: 'home', name: '官网', url: repo.homepage });
     }
-    if (repo.document != null) {
+    if (repo.document != null && repo.document.length > 0) {
       options.push({ key: 'document', name: '文档', url: repo.document });
     }
-    if (repo.online != null) {
+    if (repo.online != null && repo.online.length > 0) {
       options.push({ key: 'online', name: '演示', url: repo.online });
     }
-    if (repo.download != null) {
+    if (repo.download != null && repo.download.length > 0) {
       options.push({ key: 'download', name: '下载', url: repo.download });
     }
     if (options.length > 0) {

@@ -35,7 +35,7 @@ const User = () => {
 
   return (
     <>
-      <Seo title={`HelloGitHub｜用户 ${userDetailInfo?.nickname}`} />
+      <Seo title='HelloGitHub｜用户首页' />
       <div className='h-screen divide-y divide-gray-100 dark:divide-gray-800'>
         <Navbar middleText='个人主页'></Navbar>
         {userDetailInfo?.nickname && (

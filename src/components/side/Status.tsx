@@ -30,7 +30,7 @@ export default function Status() {
               开源项目
             </div>
             <div className='text-3xl dark:text-gray-300'>
-              {numFormat(stats?.repo_total, 1)}
+              {numFormat(stats?.repo_total, 1, 10000)}
             </div>
           </div>
         </div>

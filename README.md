@@ -10,8 +10,8 @@ Geese 译为「惊鸿」可理解为轻盈、快速的形态。希望焕然一�
 
 ## 待认领
 
-- [ ] [(简单)月刊增加项目详情入口](https://github.com/HelloGitHub-Team/geese/issues/72)
-- [ ] [(中等)增加开源协议专栏](https://github.com/HelloGitHub-Team/geese/issues/78)
+- [ ] [(中等)优化首页 item 样式](https://github.com/HelloGitHub-Team/geese/issues/94)
+- [ ] [(复杂)增加开源协议专栏](https://github.com/HelloGitHub-Team/geese/issues/78)
 - [ ] [(讨论）README 生成器](https://github.com/HelloGitHub-Team/geese/issues/83)
 - [ ] [(内容）如何发起/加入开源项目教程](https://github.com/HelloGitHub-Team/geese/issues/84)
 

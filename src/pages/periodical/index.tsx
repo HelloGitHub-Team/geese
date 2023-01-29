@@ -60,9 +60,9 @@ const PeriodicalIndexPage: NextPage = () => {
         <div className='my-2 bg-white px-4 pt-2 dark:bg-gray-800 md:rounded-lg'>
           <div className='flex flex-col items-center'>
             <img src='https://img.hellogithub.com/logo/readme.gif'></img>
-            <p className='py-2 leading-7'>
-              「HelloGitHub 月刊」分享 GitHub 上有趣、入门级的开源项目，每月{' '}
-              <strong>28</strong>{' '}
+            <p className='px-1 py-3 leading-7'>
+              <strong>「HelloGitHub 月刊」</strong>分享 GitHub
+              上有趣、入门级的开源项目，每月 28
               号发布最新一期。内容包括开发利器、开源书籍、教程、企业级项目等，
               让发现编程的乐趣、你爱上开源！
             </p>
@@ -71,7 +71,7 @@ const PeriodicalIndexPage: NextPage = () => {
             <Loading />
           ) : (
             <dl className='grid grid-cols-3 gap-2'>
-              <div className='flex flex-col rounded-lg border border-gray-200 px-4 pt-6 pb-4 text-center dark:border-gray-700'>
+              <div className='flex flex-col rounded-lg border border-gray-200 px-2 pt-4 pb-4 text-center dark:border-gray-700 md:px-4 md:pt-6'>
                 <dt className='order-first pb-3 text-base font-medium text-gray-500'>
                   已发布
                 </dt>
@@ -88,7 +88,7 @@ const PeriodicalIndexPage: NextPage = () => {
                     </span>
                     <select
                       onChange={selectVolume}
-                      className='w-full truncate text-ellipsis rounded-md border border-opacity-0 py-1 pr-7 text-sm dark:bg-gray-700 md:w-fit'
+                      className='w-fit truncate text-ellipsis rounded-md border border-opacity-0 py-1 pr-7 text-sm dark:bg-gray-700'
                     >
                       {volumes.map((item: VolumeNum) => (
                         <option key={item.num} value={item.num}>
@@ -108,7 +108,7 @@ const PeriodicalIndexPage: NextPage = () => {
                   </Button>
                 </div>
               </div>
-              <div className='flex flex-col rounded-lg border border-gray-200 px-4 pt-6 pb-4 text-center dark:border-gray-700'>
+              <div className='flex flex-col rounded-lg border border-gray-200 px-2 pt-4 pb-4 text-center dark:border-gray-700 md:px-4 md:pt-6'>
                 <dt className='order-first pb-3 text-base font-medium text-gray-500'>
                   共包含
                 </dt>
@@ -150,13 +150,13 @@ const PeriodicalIndexPage: NextPage = () => {
                   </Button>
                 </div>
               </div>
-              <div className='flex flex-col rounded-lg border border-gray-200 px-4 pt-6 pb-4 text-center dark:border-gray-700'>
+              <div className='flex flex-col rounded-lg border border-gray-200 px-2 pt-4 pb-4 text-center dark:border-gray-700 md:px-4 md:pt-6'>
                 <dt className='order-first pb-3 text-base font-medium text-gray-500'>
                   项目数
                 </dt>
 
                 <dd className='text-4xl font-extrabold text-blue-600 md:text-5xl'>
-                  {numFormat(repo_total)}
+                  {numFormat(repo_total, 1)}
                 </dd>
 
                 <span className='pt-3 text-base font-medium text-gray-500'>
