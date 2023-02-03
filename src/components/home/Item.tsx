@@ -44,8 +44,6 @@ const Item: NextPage<ItemProps> = ({ item }) => {
             />
             <div className='flex shrink grow items-center overflow-x-hidden text-sm text-gray-400 md:pl-1'>
               <div className='hidden truncate whitespace-nowrap md:block md:max-w-[14rem]'>
-                {item.author}
-                <span className='pl-1 pr-1'>·</span>
                 {item.name}
               </div>
               <span className='pl-1 pr-1'>·</span>

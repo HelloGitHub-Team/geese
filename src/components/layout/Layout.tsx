@@ -5,6 +5,7 @@ import Header from '@/components/layout/Header';
 
 import CommonSide from '../side/Common';
 import IndexSide from '../side/IndexSide';
+import TagList from '../side/TagList';
 
 export default function Layout({ children }: { children: ReactNode }) {
   // Put Header or Footer Here
@@ -29,9 +30,18 @@ export default function Layout({ children }: { children: ReactNode }) {
           <div>{children}</div>
         ) : (
           <div className='flex shrink grow flex-row sm:border-l md:border-none'>
-            <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
-              {children}
-            </div>
+            {pathname == '/' ? (
+              <>
+                <TagList />
+                <div className='relative w-0 shrink grow lg:w-7/12 lg:grow-0'>
+                  {children}
+                </div>
+              </>
+            ) : (
+              <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
+                {children}
+              </div>
+            )}
             <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
               {pathname == '/' ? <IndexSide /> : <CommonSide />}
             </div>

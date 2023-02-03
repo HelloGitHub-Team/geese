@@ -49,7 +49,7 @@ const EmbedPage: NextPage = () => {
       <div className='relative pb-6'>
         <Navbar middleText='HelloGitHub 徽章'></Navbar>
         <div className='my-2 bg-white px-4 py-2 dark:bg-gray-800 md:rounded-lg'>
-          <div className='my-4 text-xl font-bold '>众星捧月</div>
+          <div className='my-4 text-xl font-bold '>星星之火</div>
           <div>
             <p className='my-4 '>
               使用 HelloGitHub 网站徽章不仅可以

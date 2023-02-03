@@ -1,0 +1,101 @@
+@font-face {
+  font-family: 'iconfont'; /* Project id 3877448 */
+  src: url('../../public/font/iconfont.woff2?t=1675331844139') format('woff2'),
+    url('../../public/font/iconfont.woff?t=1675331844139') format('woff'),
+    url('../../public/font/iconfont.ttf?t=1675331844139') format('truetype');
+}
+
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-c:before {
+  content: '\e607';
+}
+
+.icon-cplusplus:before {
+  content: '\e608';
+}
+
+.icon-golang:before {
+  content: '\e606';
+}
+
+.icon-terminal:before {
+  content: '\e864';
+}
+
+.icon-csharp:before {
+  content: '\e8f8';
+}
+
+.icon-swift:before {
+  content: '\e7ca';
+}
+
+.icon-web:before {
+  content: '\e935';
+}
+
+.icon-book:before {
+  content: '\e809';
+}
+
+.icon-game:before {
+  content: '\e69d';
+}
+
+.icon-tutorial:before {
+  content: '\e62b';
+}
+
+.icon-javascript:before {
+  content: '\e810';
+}
+
+.icon-safe:before {
+  content: '\e8ab';
+}
+
+.icon-linux:before {
+  content: '\e65c';
+}
+
+.icon-spider:before {
+  content: '\e774';
+}
+
+.icon-ios:before {
+  content: '\e85a';
+}
+
+.icon-python:before {
+  content: '\e615';
+}
+
+.icon-typescript:before {
+  content: '\ecef';
+}
+
+.icon-database:before {
+  content: '\e940';
+}
+
+.icon-windows:before {
+  content: '\e68b';
+}
+
+.icon-android:before {
+  content: '\e629';
+}
+
+.icon-java:before {
+  content: '\ec0a';
+}
+
+.icon-rust:before {
+  content: '\ec1c';
+}

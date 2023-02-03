@@ -13,17 +13,17 @@ export interface TagPage {
   has_more: boolean;
 }
 
-export interface TagsProps {
-  tagItems: TagType[];
-}
-
 export interface TagItems {
+  success: boolean;
   page: number;
   data: Tag[];
   has_more: boolean;
 }
 
-export interface Tag extends TagType {
+export interface Tag {
+  name: string;
+  tid: string;
+  icon_name: string;
   repo_total: number;
   created_at: string;
   udpated_at: string;

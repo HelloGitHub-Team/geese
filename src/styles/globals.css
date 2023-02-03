@@ -1,4 +1,5 @@
 @import url(./fix-rc-image.css);
+@import url(./iconfont.css);
 
 @tailwind base;
 @tailwind components;

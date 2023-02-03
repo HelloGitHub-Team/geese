@@ -5,16 +5,16 @@ import CustomLink from '@/components/links/CustomLink';
 
 const Footer = () => {
   return (
-    <footer className='flex flex-wrap items-center px-3 py-2.5 text-xs text-gray-400'>
+    <footer className='flex flex-wrap items-center px-1 py-2.5 text-xs text-gray-400 lg:px-3'>
       <p>
         <CustomLink className='inline' href='/help/rule'>
           <span className='cursor-pointer hover:text-blue-500'>社区玩法</span>
         </CustomLink>
-        <span className='px-1.5'>·</span>
+        <span className='px-1 lg:px-1.5'>·</span>
         <CustomLink className='inline' href='/server-sitemap-index.xml'>
           <span className='cursor-pointer hover:text-blue-500'>站点地图</span>
         </CustomLink>
-        <span className='px-1.5'>·</span>
+        <span className='px-1 lg:px-1.5'>·</span>
         <CustomLink className='inline' href='/help/ats'>
           <span className='cursor-pointer hover:text-blue-500'>服务协议</span>
         </CustomLink>
@@ -28,7 +28,7 @@ const Footer = () => {
         >
           <span>建议反馈</span>
         </a>
-        <span className='px-1.5'>·</span>
+        <span className='px-1 lg:px-1.5'>·</span>
 
         <a
           target='_blank'
@@ -38,7 +38,7 @@ const Footer = () => {
         >
           <span>贡献代码</span>
         </a>
-        <span className='px-1.5'>·</span>
+        <span className='px-1 lg:px-1.5'>·</span>
         <a
           className='cursor-pointer hover:text-blue-500'
           href='mailto:595666367@qq.com'
@@ -52,7 +52,7 @@ const Footer = () => {
         rel='noreferrer'
       >
         <div className='mt-2 cursor-pointer hover:text-blue-500'>
-          <span>本站服务器由</span>
+          <span>服务器由</span>
           <span className='mx-0.5 align-[1px]'>
             <img
               className='inline-block'
@@ -112,8 +112,8 @@ const Footer = () => {
         </span>
       </a>
       <p className='mt-2'>
-        <span className='cursor-default'>©2022 HelloGitHub</span>
-        <span className='px-1.5'>·</span>
+        <span className='cursor-default'>©2023 HelloGitHub</span>
+        <span className='px-1 lg:px-1.5'>·</span>
         <span className='inline-block cursor-pointer align-[-2px] hover:text-green-500'>
           <a
             target='_blank'
@@ -123,7 +123,7 @@ const Footer = () => {
             <AiFillWechat size={14} />
           </a>
         </span>
-        <span className='px-1'></span>
+        <span className='px-0.5 lg:px-1'></span>
         <span className='inline-block cursor-pointer align-[-2px] hover:text-red-500'>
           <a
             target='_blank'
@@ -133,7 +133,7 @@ const Footer = () => {
             <AiFillWeiboCircle size={14} />
           </a>
         </span>
-        <span className='px-1'></span>
+        <span className='px-0.5 lg:px-1'></span>
         <span className='inline-block cursor-pointer align-[-2px] hover:text-orange-500'>
           <a
             target='_blank'

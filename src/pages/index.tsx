@@ -63,7 +63,7 @@ const Index: NextPage = () => {
   return (
     <>
       <Seo title='HelloGitHub' />
-      <IndexBar />
+      <IndexBar tid={tid as string} sort_by={sort_by as string} />
       <div className='h-screen'>
         <Items repositories={repositories}></Items>
         {(isValidating || hasMore) && (

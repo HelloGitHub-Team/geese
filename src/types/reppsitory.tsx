@@ -29,7 +29,7 @@ export interface Repository extends RepoType {
 
   score: number;
   score_str: string | null;
-  likes: number;
+  votes: number;
   collect_total: number;
   comment_total: number;
   praise_rate: number;

@@ -49,7 +49,7 @@ type URLoption = {
 const Info: NextPage<RepositoryProps> = ({ repo }) => {
   const { isLogin } = useLoginContext();
   const [isVoted, setIsVoted] = useState<boolean>(false);
-  const [likesTotal, setLikesTotal] = useState<number>(0);
+  const [voteTotal, setVoteTotal] = useState<number>(0);
   const [isCollected, setIsCollected] = useState<boolean>(false);
   const [collectTotal, setCollectTotal] = useState<number>(0);
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -94,7 +94,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     }
     const res = await voteRepo(rid);
     if (res.success) {
-      setLikesTotal(res.data.total);
+      setVoteTotal(res.data.total);
       setIsVoted(true);
     } else {
       Message.error(res.message as string);
@@ -113,7 +113,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     const res = await cancelVoteRepo(rid);
     if (res.success) {
       setIsVoted(false);
-      setLikesTotal(likesTotal - 1);
+      setVoteTotal(voteTotal - 1);
     }
   };
 
@@ -121,7 +121,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     const res = await cancelCollectRepo(rid);
     if (res.success) {
       setIsCollected(false);
-      setCollectTotal(likesTotal - 1);
+      setCollectTotal(collectTotal - 1);
       Message.success('取消收藏');
     }
   };
@@ -221,7 +221,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
 
   useEffect(() => {
     getUserRepoStatus(repo.rid);
-    setLikesTotal(repo.likes);
+    setVoteTotal(repo.votes);
     setCollectTotal(repo.collect_total);
     getUserFavoriteOptions();
     handleURLOptions(repo);
@@ -321,7 +321,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                 <div className='w-40 py-3 px-6 text-sm font-medium'>
                   <div className='flex flex-1 items-center justify-center'>
                     <AiFillCaretUp className='text-xl text-blue-500' />
-                    <div className='pl-2'>点赞 {likesTotal}</div>
+                    <div className='pl-2'>投票 {voteTotal}</div>
                   </div>
                 </div>
               </Button>
@@ -334,7 +334,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                 <div className='w-40 py-3 px-6 text-sm font-medium'>
                   <div className='flex flex-1 items-center justify-center'>
                     <AiOutlineCaretUp className='text-lg' />
-                    <div className='pl-2'>点赞 {likesTotal}</div>
+                    <div className='pl-2'>投票 {voteTotal}</div>
                   </div>
                 </div>
               </Button>

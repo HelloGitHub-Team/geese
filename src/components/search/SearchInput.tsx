@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { IoIosSearch } from 'react-icons/io';
-import { VscChromeClose } from 'react-icons/vsc';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
@@ -125,25 +125,26 @@ export default function SearchInput() {
       <div className='relative w-full max-w-xs 2xl:max-w-sm'>
         <input
           type='text'
-          className='block h-10 w-full rounded-md border-gray-200 py-2 pl-2 pr-8 text-xs placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:placeholder:text-gray-400 dark:focus:border-blue-900 dark:focus:ring-blue-900 md:text-sm'
+          className='block h-10 w-full rounded-md border-gray-200 py-2 pl-2 pr-14 text-xs placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:placeholder:text-gray-400 dark:focus:border-blue-900 dark:focus:ring-blue-900 md:text-sm'
           placeholder='搜索开源项目'
           value={query}
           onChange={onQueryChange}
           onKeyDown={onKeyDown}
           onBlur={onInputBlur}
         ></input>
+        <IoIosSearch
+          size={18}
+          onClick={onSearch}
+          className='absolute inset-y-0 right-0 top-3 grid w-10 cursor-pointer place-content-center text-gray-800 dark:text-gray-300'
+        />
         {query ? (
-          <VscChromeClose
-            size={18}
+          <AiOutlineCloseCircle
+            size={17}
             onClick={clearQuery}
-            className='absolute inset-y-0 right-0 top-3 grid w-10 cursor-pointer place-content-center text-gray-800 dark:text-gray-300'
+            className='absolute inset-y-0 right-6 top-3 grid w-10 cursor-pointer place-content-center text-gray-800 dark:text-gray-300'
           />
         ) : (
-          <IoIosSearch
-            size={18}
-            onClick={onSearch}
-            className='absolute inset-y-0 right-0 top-3 grid w-10 cursor-pointer place-content-center text-gray-800 dark:text-gray-300'
-          />
+          <></>
         )}
 
         <div className={dropdownClassName(show)} role='menu'>
