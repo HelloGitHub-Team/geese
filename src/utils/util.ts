@@ -48,3 +48,8 @@ export function numFormat(n: number | undefined, digits = 0, threshold = 1000) {
  * 是否是在浏览器端运行
  */
 export const isClient = () => typeof window !== 'undefined';
+
+// 格式化日期为 2022.12.23
+export const formatDate = (date: Date): string => {
+  return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
+};

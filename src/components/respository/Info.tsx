@@ -349,7 +349,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               {repo.license ? (
                 <div className='hidden md:block'>
                   开源<span className='mx-1.5'>•</span>
-                  {repo.license}
+                  <Link href={`/license/${repo.license}`}>{repo.license}</Link>
                 </div>
               ) : (
                 <></>
