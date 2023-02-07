@@ -234,7 +234,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           <div className='flex items-center'>
             <a>
               <img
-                className='rounded-sm border border-gray-100 dark:border-gray-800'
+                className='rounded-sm border border-gray-100 bg-white dark:border-gray-800'
                 src={repo.author_avatar}
                 width='72'
                 height='72'
@@ -346,7 +346,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
         <div className='flex flex-row justify-between align-middle'>
           <div className='flex flex-row gap-x-1'>
             <div className='flex items-center  justify-center text-sm text-gray-500'>
-              {repo.license ? (
+              {repo.license_lid ? (
                 <div className='hidden md:block'>
                   开源<span className='mx-1.5'>•</span>
                   {repo.license}
