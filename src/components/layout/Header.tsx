@@ -11,7 +11,7 @@ import HeaderBtn from '@/components/buttons/HeaderBtn';
 import RankButton from '@/components/buttons/RankButton';
 import AvatarWithDropdown from '@/components/dropdown/AvatarWithDropdown';
 
-import LoginButton from '../buttons/LoginButton';
+import { LoginButton } from '../buttons/LoginButton';
 import SearchInput from '../search/SearchInput';
 
 const Header = () => {

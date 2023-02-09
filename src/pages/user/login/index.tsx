@@ -7,7 +7,7 @@ import useUserInfo from '@/hooks/useUserInfo';
 
 import RedirectBar from '@/components/navbar/RedirectBar';
 
-import { OAuthWechatAPI } from '@/services/login';
+import { OAuthLoginAPI } from '@/services/login';
 
 import { User, UserType } from '@/types/user';
 
@@ -60,7 +60,6 @@ const Index = ({ token, userInfo, user_agent }: IProps) => {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, query } = context;
   let token, userInfo, ip;
-
   const code = query.code as string;
   const state = query.state as string;
   const cookie = req.headers.cookie as string;
@@ -76,13 +75,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     token = '';
     userInfo = null;
-    const data: User = await OAuthWechatAPI(
-      ip,
-      code,
-      state,
-      cookie,
-      user_agent
-    );
+    const data: User = await OAuthLoginAPI(ip, code, state, cookie, user_agent);
     if (typeof data.uid === 'undefined') {
       token = '';
       userInfo = null;

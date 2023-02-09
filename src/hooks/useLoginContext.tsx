@@ -6,10 +6,11 @@ import {
   useState,
 } from 'react';
 
-import log from '@/lib/log';
 import useToken from '@/hooks/useToken';
 
-import { getOAtuhURL, Logout } from '@/services/login';
+import { LoginModal } from '@/components/user/Login';
+
+import { Logout } from '@/services/login';
 import { NOOP } from '@/utils/constants';
 
 const LoginContext = createContext({
@@ -22,21 +23,19 @@ const LoginContext = createContext({
   },
 });
 
-export const LoginProvider = ({ children }: { children: JSX.Element[] }) => {
+export const LoginProvider = ({
+  children,
+}: {
+  children: JSX.Element[] | any;
+}) => {
   const { token, setToken } = useToken();
   const [isLogin, setIsLogin] = useState(!!token);
   const [theme, setTheme] = useState('light');
 
-  const login = useCallback(async () => {
-    try {
-      const { url } = await getOAtuhURL();
-      if (url) {
-        window.location.href = url;
-      }
-    } catch (err) {
-      log.error(err);
-    }
-  }, []);
+  const login = () => {
+    console.log(children);
+    return <LoginModal>{children}</LoginModal>;
+  };
 
   const logout = useCallback(async () => {
     await Logout({ Authorization: `Bearer ${token}` });

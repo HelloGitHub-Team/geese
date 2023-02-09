@@ -10,20 +10,23 @@ export const Logout = async (headers: any): Promise<Response> =>
 export const CurrentUser = async (headers: any): Promise<Response> =>
   fetcher<Response>(makeUrl(`/user/me/`), { headers: headers });
 
-export const getOAtuhURL = async (): Promise<OAuthURLResponse> => {
+export const getOAuthURL = async (
+  platform: string
+): Promise<OAuthURLResponse> => {
   const reqData: RequestInit = {
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
   };
+
   const res = await fetch(
-    makeUrl(`/user/oauth/wechat/url/`, { url_type: 'geese' }),
+    makeUrl(`/user/oauth/${platform}/url/`, { url_type: 'geese' }),
     reqData
   );
   const data = await res.json();
   return data;
 };
 
-export const OAuthWechatAPI = async (
+export const OAuthLoginAPI = async (
   ip: string,
   code: string,
   state: string,
@@ -41,6 +44,6 @@ export const OAuthWechatAPI = async (
   };
   req.method = 'POST';
   req.body = JSON.stringify({ code: code, state: state });
-  const result: User = await fetcher(makeUrl(`/user/oauth/wechat/`), req);
+  const result: User = await fetcher(makeUrl(`/user/oauth/success/`), req);
   return result;
 };
