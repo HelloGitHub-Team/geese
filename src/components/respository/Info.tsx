@@ -282,7 +282,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                       <CustomLink
                         href={item.url}
                         key={item.key}
-                        onClick={() => onClickLink(item.name, repo.rid)}
+                        onClick={() => onClickLink(item.key, repo.rid)}
                       >
                         <div className='py-2 px-1'>
                           <div className='flex flex-row items-center rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-700'>

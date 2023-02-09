@@ -16,16 +16,16 @@ const Item: NextPage<ItemProps> = ({ item }) => {
           <div className='flex w-full flex-row'>
             <div className='mr-2.5 hidden min-w-fit md:block'>
               <img
-                width='70'
-                height='70'
+                width='68'
+                height='68'
                 src={item.author_avatar}
                 className='bg-img block rounded bg-white'
               />
             </div>
             <div className='relative flex w-full flex-col'>
               <div className='flex flex-row pb-0.5'>
-                <div className='text-color-primary flex shrink grow flex-row items-center visited:text-gray-500 dark:text-gray-300'>
-                  <div className='w-80 truncate text-base leading-snug'>
+                <div className='text-color-primary flex w-full shrink grow flex-row items-center visited:text-gray-500 dark:text-gray-300'>
+                  <div className='truncate text-base leading-snug lg:w-80'>
                     {item.is_hot && (
                       <span className='text-center'>
                         <AiFillFire
@@ -76,10 +76,10 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                   <span className='pl-1 pr-1'>·</span>
                   <time>{fromNow(item.updated_at)}</time>
                 </div>
-                <div className='flex flex-row items-center whitespace-nowrap text-sm text-gray-500'>
+                <div className='flex flex-row items-center whitespace-nowrap text-sm text-gray-400'>
                   <AiOutlineEye />
                   <span className='ml-0.5'>
-                    {numFormat(item.clicks_total, 2, 10000)}
+                    {numFormat(item.clicks_total, 1, 1000)}
                   </span>
                 </div>
               </div>
