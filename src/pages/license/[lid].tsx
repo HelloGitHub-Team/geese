@@ -2,7 +2,8 @@ import classNames from 'classnames';
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { AiFillCopy } from 'react-icons/ai';
+import { AiOutlineShareAlt } from 'react-icons/ai';
+import { MdOutlineFeedback } from 'react-icons/md';
 
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -10,7 +11,7 @@ import Seo from '@/components/Seo';
 import { getLicenseDetail } from '@/services/license';
 import { formatDate } from '@/utils/util';
 
-import { LicenseDetailData } from '@/types/license';
+import { LicenseDetailData, TagListItem } from '@/types/license';
 
 type LicenseDetailProps = {
   detail: LicenseDetailData;
@@ -19,76 +20,125 @@ type LicenseDetailProps = {
 const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
   const router = useRouter();
   console.log({ detail, router });
-  const [languageBtn, setLanguageBtn] = useState<'en' | 'zh'>('en');
-  const [licenseText, setLicenseText] = useState(detail.html);
+  const [licenseText, setLicenseText] = useState();
+  const [expand, setExpand] = useState(false);
+  const [tagList, setTagList] = useState<TagListItem[]>([]);
+
   useEffect(() => {
-    setLicenseText(languageBtn === 'en' ? detail.html : detail.text_zh);
-  }, [languageBtn, setLicenseText, detail]);
+    const others = [];
+    if (detail.is_fsf) others.push({ name_zh: 'FSF' });
+    if (detail.is_osi) others.push({ name_zh: 'OSI' });
+    if (detail.is_deprecate) others.push({ name_zh: '弃用' });
+    // 协议的权限等标签数据
+    const list: TagListItem[] = [
+      {
+        title: '权限',
+        key: 'permissions',
+        color: 'bg-green-400',
+        content: detail.permissions || [],
+      },
+      {
+        title: '条件',
+        key: 'conditions',
+        color: 'bg-blue-400',
+        content: detail.conditions || [],
+      },
+      {
+        title: '限制',
+        key: 'limitations',
+        color: 'bg-red-400',
+        content: detail.limitations || [],
+      },
+      {
+        title: '其他',
+        key: 'others',
+        color: 'bg-yellow-400',
+        content: others,
+      },
+    ];
+
+    setTagList(list);
+  }, [detail]);
+
+  useEffect(() => {
+    if (expand) {
+      setLicenseText(detail.text);
+    } else {
+      setLicenseText(detail.text?.slice(0, 1200) + '...');
+    }
+  }, [expand, detail]);
 
   return (
     <>
       <Seo title='HelloGitHub｜开源协议' />
       <div className='relative'>
         {/* 顶部标题 */}
-        <Navbar middleText={detail.spdx_id} endText='由xxx翻译'></Navbar>
+        <Navbar middleText={detail.spdx_id}></Navbar>
         {/* 协议简介 */}
         <div className='my-4 bg-white px-6 py-4 dark:bg-gray-800 md:rounded-lg'>
           <h2>{detail.name}</h2>
           <div className='mt-1 mb-2 text-xs text-gray-500'>
             <span>{detail.spdx_id}</span>
-            <span className='ml-1'>
+            <span className='ml-2'>
               更新于 {formatDate(new Date(detail.updated_at))}
             </span>
+            <a
+              target='_blank'
+              className='ml-2 cursor-pointer hover:text-blue-500'
+              href='https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb'
+              rel='noreferrer'
+            >
+              <MdOutlineFeedback className='inline align-middle' />
+              <span>建议反馈</span>
+            </a>
           </div>
-          <div>{detail.header_text}</div>
-          <div className='mt-2 flex justify-between text-lg font-bold'>
-            <div>权限</div>
-            <div>条件</div>
-            <div>限制</div>
-            <div>XX</div>
+          <div>{detail.description}</div>
+          <div className='mt-4 flex justify-between text-lg font-bold'>
+            {tagList.map((tag) => {
+              return (
+                <div key={tag.key}>
+                  <div className='mb-1'>{tag.title}</div>
+                  {tag.content.map((ct) => {
+                    return (
+                      <div
+                        className='flex cursor-pointer items-center text-sm font-normal'
+                        key={ct.name}
+                      >
+                        <div
+                          className={classNames(
+                            `mr-2 h-3 w-3 rounded-full`,
+                            tag.color
+                          )}
+                        ></div>
+                        {ct['name_zh']}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
         </div>
-        {/* 内容翻译 */}
+        {/* 协议内容 */}
         <div className='my-4 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
           <div className='mb-2 flex items-center justify-between'>
+            <div></div>
             <div className='flex cursor-pointer items-center hover:text-blue-500'>
-              <AiFillCopy className='text-blue-500' />
-              <span className='ml-1'>一键复制</span>
-            </div>
-            <div className='inline-flex rounded-md shadow-sm'>
-              <button
-                type='button'
-                onClick={() => setLanguageBtn('en')}
-                className={classNames(
-                  '-ml-px inline-flex items-center justify-center gap-2 border bg-white py-2 px-4 align-middle text-sm font-medium transition-all first:ml-0 first:rounded-l-lg last:rounded-r-lg  dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-slate-800',
-                  {
-                    'bg-blue-400': languageBtn === 'en',
-                  }
-                )}
-              >
-                英文
-              </button>
-              <button
-                type='button'
-                onClick={() => setLanguageBtn('zh')}
-                className={classNames(
-                  '-ml-px inline-flex items-center justify-center gap-2 border bg-white py-2 px-4 align-middle text-sm font-medium transition-all first:ml-0 first:rounded-l-lg last:rounded-r-lg  dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-slate-800',
-                  {
-                    'bg-blue-400': languageBtn === 'zh',
-                  }
-                )}
-              >
-                中文
-              </button>
+              <AiOutlineShareAlt className='text-blue-500' />
+              <span className='ml-1'>一键分享</span>
             </div>
           </div>
-          <div className='text-center'>
+          <div className='text-left'>
             {licenseText ? (
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: licenseText,
-                }}
-              ></div>
+              <div>
+                {licenseText}
+                <span
+                  className='ml-2 cursor-pointer text-blue-400'
+                  onClick={() => setExpand(!expand)}
+                >
+                  {!expand ? '查看更多' : '收起'}
+                </span>
+              </div>
             ) : (
               <div className='my-4'>暂无内容</div>
             )}
