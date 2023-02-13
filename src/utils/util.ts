@@ -53,3 +53,9 @@ export const isClient = () => typeof window !== 'undefined';
 export const formatDate = (date: Date): string => {
   return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
 };
+
+export const isMobile = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+};

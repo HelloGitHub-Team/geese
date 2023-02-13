@@ -1,6 +1,11 @@
-import { licenseDetail, licenseList, licenseTags } from './license.data';
+import { fetcher } from '@/services/base';
+import { makeUrl } from '@/utils/api';
 
-import { LicenseDetailFetchData, LicenseListFetchData } from '@/types/license';
+import {
+  LicenseDetailFetchData,
+  LicenseListFetchData,
+  LicenseTagsFetchData,
+} from '@/types/license';
 
 // 获取协议详情
 export const getLicenseDetail = async (
@@ -10,12 +15,12 @@ export const getLicenseDetail = async (
   const req: RequestInit = {};
   req.headers = { 'x-real-ip': ip, 'x-forwarded-for': ip };
 
-  const url = `/licenses/${lid}`;
+  const url = `/license/${lid}`;
   try {
-    // const data = await fetcher<LicenseDetailFetchData>(makeUrl(url), req);
-    // return data;
-    return licenseDetail;
+    const data = await fetcher<LicenseDetailFetchData>(makeUrl(url), req);
+    return data;
   } catch (error) {
+    console.log(error);
     return {} as LicenseDetailFetchData;
   }
 };
@@ -25,41 +30,40 @@ export const getLicenseList = async (query: {
   page: number;
   pageSize: number;
   sort_by: string;
-  tid: string[];
+  tids: string[];
 }): Promise<LicenseListFetchData> => {
-  let url = '/licenses/?';
-  Object.keys(query).forEach((key) => {
-    const value = query[key];
+  let url = '/license/?';
+  Object.keys(query).forEach((key: string) => {
+    const value = query[key as string];
     if (!Array.isArray(value)) {
       url += `${key}=${value}&`;
     }
   });
-  Array.isArray(query.tid) &&
-    query.tid.forEach((key) => {
-      const value = query[key];
-      url += `${tid}=${value}&`;
+  Array.isArray(query.tids) &&
+    query.tids.forEach((key) => {
+      url += `tid=${key}&`;
     });
 
   console.log({ url });
 
   try {
-    // const data = await fetcher<LicenseDetailFetchData>(makeUrl(url), req);
-    // return data;
-    return licenseList;
+    const data = await fetcher<LicenseListFetchData>(makeUrl(url));
+    return data;
   } catch (error) {
-    return {} as LicenseDetailFetchData;
+    console.log(error);
+    return {} as LicenseListFetchData;
   }
 };
 
 // 获取筛选标签
 export const getLicenseTags = async (): Promise<LicenseTagsFetchData> => {
-  const url = '/licenses/tags';
+  const url = '/license/tags/?tag_type=permissions';
 
   try {
-    // const data = await fetcher<LicenseDetailFetchData>(makeUrl(url), req);
-    // return data;
-    return licenseTags;
+    const data = await fetcher<LicenseTagsFetchData>(makeUrl(url));
+    return data;
   } catch (error) {
+    console.log(error);
     return {} as LicenseTagsFetchData;
   }
 };

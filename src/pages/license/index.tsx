@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import Pagination from '@/components/pagination/Pagination';
@@ -5,32 +7,52 @@ import Seo from '@/components/Seo';
 
 import { getLicenseList, getLicenseTags } from '@/services/license';
 
+import { LicenseListFetchData } from '@/types/license';
+import { Tag } from '@/types/license';
+
 export default function LicenseIndex() {
-  const [list, setList] = React.useState([]);
-  const [tags, setTags] = React.useState([]);
+  const [list, setList] = React.useState<LicenseListFetchData>();
+  const [tags, setTags] = React.useState<Tag[]>([]);
   const [page, setPage] = React.useState(1);
+  const [query, setQuery] = React.useState({
+    page,
+    pageSize: 20,
+    sort_by: 'last',
+    tids: [],
+  });
 
   React.useEffect(() => {
-    async function getList() {
-      try {
-        const tagResult = await getLicenseTags();
-        if (tagResult.success) {
-          setTags(tagResult.data);
-        }
-        const listResult = await getLicenseList({});
+    console.log({ query });
+    getLicenseList({ ...query })
+      .then((listResult) => {
         console.log(listResult);
         if (listResult.success) {
-          setList(listResult.data);
+          setList(listResult);
         }
-      } catch (error) {
-        console.log({ error });
-      }
-    }
-    getList();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [query]);
+
+  React.useEffect(() => {
+    getLicenseTags()
+      .then((result) => {
+        if (result.success) {
+          setTags(result.data);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   const onPageChange = (page: number) => {
     setPage(page);
+    setQuery({
+      ...query,
+      page,
+    });
   };
 
   return (
@@ -39,30 +61,67 @@ export default function LicenseIndex() {
       <div className='my-2 bg-white px-6 py-4 dark:bg-gray-800 md:rounded-lg'>
         {/* 顶部筛选栏 */}
         <div className='mt-4 mb-8 flex items-center justify-between'>
-          <div>
-            <span>
-              标签：
-              {tags.map((t) => {
-                return (
-                  <span
-                    className='mr-2 cursor-pointer rounded bg-slate-100 py-1 px-2 text-sm text-gray-500 hover:bg-blue-200'
-                    key={t.name}
-                  >
-                    {t.name_zh}
-                  </span>
-                );
-              })}
-            </span>
+          <div className='flex'>
+            <div className='hidden md:block'>标签：</div>
+            {tags.map((t) => {
+              return (
+                <div
+                  onClick={() => {
+                    let { tids } = query;
+                    if (tids.includes(t.tid)) {
+                      tids = tids.filter((tid) => tid !== t.tid);
+                    } else {
+                      tids.push(t.tid);
+                    }
+                    setQuery({
+                      ...query,
+                      tids,
+                    });
+                  }}
+                  className={classNames(
+                    'mr-2 cursor-pointer rounded bg-slate-100 py-1 px-2 text-sm text-gray-500 hover:bg-blue-200',
+                    { 'bg-blue-200': query.tids.includes(t.tid) }
+                  )}
+                  key={t.tid}
+                >
+                  {t.name_zh}
+                </div>
+              );
+            })}
           </div>
-          <div className='flex w-20 cursor-pointer justify-between text-gray-700'>
-            <span className='hover:text-blue-500'>最新</span>
-            <span>|</span>
-            <span className='hover:text-blue-500'>最热</span>
+          <div className='flex w-24 cursor-pointer justify-between text-gray-700'>
+            <span
+              className={classNames('hover:text-blue-500', {
+                'text-blue-500': query.sort_by === 'last',
+              })}
+              onClick={() => {
+                setQuery({
+                  ...query,
+                  sort_by: 'last',
+                });
+              }}
+            >
+              最新
+            </span>
+            <span className='mx-1'>|</span>
+            <span
+              className={classNames('hover:text-blue-500', {
+                'text-blue-500': query.sort_by === 'hot',
+              })}
+              onClick={() => {
+                setQuery({
+                  ...query,
+                  sort_by: 'hot',
+                });
+              }}
+            >
+              最热
+            </span>
           </div>
         </div>
         {/* 协议列表 */}
         <div className='grid grid-cols-2 gap-4 md:grid-cols-4'>
-          {list.map((item) => {
+          {list?.data?.map((item) => {
             return <LicenseCard key={item.name} {...item} />;
           })}
         </div>
@@ -72,7 +131,7 @@ export default function LicenseIndex() {
         <Pagination
           PreviousText='上一页'
           NextText='下一页'
-          total={5}
+          total={list?.page_total || 0}
           current={page}
           onPageChange={onPageChange}
         />
@@ -82,13 +141,21 @@ export default function LicenseIndex() {
 }
 
 type LicenseCardProps = {
+  lid: string;
   spdx_id: string;
   name: string;
-  tags: string[];
+  tags: Tag[];
 };
 function LicenseCard(props: LicenseCardProps) {
+  const router = useRouter();
+
   return (
-    <div className='flex h-40 w-full cursor-pointer flex-col justify-between rounded-xl border bg-white px-2 py-4 shadow-sm hover:border-blue-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:shadow-slate-700/[.7] md:p-4'>
+    <div
+      onClick={() => {
+        router.push(`/license/${props.lid}?spdx=${props.spdx_id}`);
+      }}
+      className='flex h-40 w-full cursor-pointer flex-col justify-between rounded-xl border bg-white px-2 py-4 shadow-sm hover:border-blue-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:shadow-slate-700/[.7] md:p-4'
+    >
       <div>{props.spdx_id}</div>
       <div className='text-xs text-gray-500'>{props.name}</div>
       <div className='flex flex-wrap'>

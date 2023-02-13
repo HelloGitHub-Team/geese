@@ -3,12 +3,12 @@ type User = {
   nickname: string;
   avatar: string;
 };
-type Tag = {
+export type Tag = {
   tid?: string;
-  name: string;
-  'name_zh?': string;
-  'description?': string;
-  'description_zh?': string;
+  name?: string;
+  name_zh?: string;
+  description?: string;
+  description_zh?: string;
   show?: boolean;
 };
 
@@ -27,9 +27,9 @@ export type LicenseDetailData = {
   description: string;
   status: number;
   featured: boolean;
-  permissions: Tag;
-  conditions: Tag;
-  limitations: Tag;
+  permissions: Tag[];
+  conditions: Tag[];
+  limitations: Tag[];
   is_osi: boolean;
   is_fsf: boolean;
   is_deprecate: boolean;
@@ -46,6 +46,7 @@ export type LicenseDetailFetchData = {
 export type TagListItem = {
   title: string;
   key: string;
+  bgColor: string;
   content: Tag[];
 };
 

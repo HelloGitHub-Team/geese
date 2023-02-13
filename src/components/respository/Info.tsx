@@ -47,6 +47,7 @@ type URLoption = {
 };
 
 const Info: NextPage<RepositoryProps> = ({ repo }) => {
+  console.log({ repo });
   const { isLogin } = useLoginContext();
   const [isVoted, setIsVoted] = useState<boolean>(false);
   const [voteTotal, setVoteTotal] = useState<number>(0);
@@ -349,7 +350,11 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               {repo.license ? (
                 <div className='hidden md:block'>
                   开源<span className='mx-1.5'>•</span>
-                  <Link href={`/license/${repo.license}`}>{repo.license}</Link>
+                  <Link
+                    href={`/license/${repo.license_lid}?spdx=${repo.license}`}
+                  >
+                    {repo.license}
+                  </Link>
                 </div>
               ) : (
                 <></>

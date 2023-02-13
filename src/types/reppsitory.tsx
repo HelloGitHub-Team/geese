@@ -62,6 +62,7 @@ export interface RepoType {
   lang_color: string;
 
   license: string;
+  license_lid: string;
   has_chinese: boolean;
   is_org: boolean;
 

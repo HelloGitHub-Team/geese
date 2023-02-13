@@ -20,7 +20,7 @@ export default function Recommend() {
   }, [pathname]);
   // 协议spdxId,即协议名称
   const spdxId = useMemo(() => {
-    return query.spdx;
+    return query.spdx as string;
   }, [query]);
 
   const refreshRecommend = useCallback(async () => {
@@ -38,8 +38,8 @@ export default function Recommend() {
     <>
       <div className='space-y-1.5 rounded-lg bg-white px-4 pt-3 pb-2 dark:bg-gray-800'>
         <div className='flex flex-row items-center justify-between border-b border-gray-100 pb-2 dark:border-gray-700'>
-          <div className='text-base font-medium text-gray-600 dark:text-gray-300'>
-            {isLicenseDetail ? `使用${spdxId}的开源项目` : '推荐项目'}
+          <div className='text-sm font-medium text-gray-600 dark:text-gray-300'>
+            {isLicenseDetail ? `${spdxId}协议的开源项目` : '推荐项目'}
           </div>
           {!isLicenseDetail && (
             <div

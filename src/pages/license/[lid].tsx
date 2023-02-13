@@ -1,15 +1,16 @@
-import classNames from 'classnames';
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { AiOutlineShareAlt } from 'react-icons/ai';
 import { MdOutlineFeedback } from 'react-icons/md';
 
+import Drawer from '@/components/drawer/Drawer';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
+import Tooltip from '@/components/tooltip/Tooltip';
 
 import { getLicenseDetail } from '@/services/license';
-import { formatDate } from '@/utils/util';
+import { formatDate, isMobile } from '@/utils/util';
 
 import { LicenseDetailData, TagListItem } from '@/types/license';
 
@@ -19,40 +20,47 @@ type LicenseDetailProps = {
 
 const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
   const router = useRouter();
-  console.log({ detail, router });
-  const [licenseText, setLicenseText] = useState();
+  // console.log({ detail, router });
+  const [licenseText, setLicenseText] = useState<string>();
   const [expand, setExpand] = useState(false);
   const [tagList, setTagList] = useState<TagListItem[]>([]);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [tagInfo, setTagInfo] = useState<{
+    title: string;
+    desc: string;
+    desc_zh: string;
+  }>({ title: '', desc: '', desc_zh: '' });
 
   useEffect(() => {
     const others = [];
-    if (detail.is_fsf) others.push({ name_zh: 'FSF' });
-    if (detail.is_osi) others.push({ name_zh: 'OSI' });
-    if (detail.is_deprecate) others.push({ name_zh: '弃用' });
+    if (detail.is_fsf) others.push({ name_zh: 'FSF', description: 'FSF' });
+    if (detail.is_osi) others.push({ name_zh: 'OSI', description: 'OSI' });
+    if (detail.is_deprecate)
+      others.push({ name_zh: '弃用', description: '该协议已弃用' });
     // 协议的权限等标签数据
     const list: TagListItem[] = [
       {
         title: '权限',
         key: 'permissions',
-        color: 'bg-green-400',
+        bgColor: 'bg-green-500',
         content: detail.permissions || [],
       },
       {
         title: '条件',
         key: 'conditions',
-        color: 'bg-blue-400',
+        bgColor: 'bg-blue-500',
         content: detail.conditions || [],
       },
       {
         title: '限制',
         key: 'limitations',
-        color: 'bg-red-400',
+        bgColor: 'bg-red-500',
         content: detail.limitations || [],
       },
       {
         title: '其他',
         key: 'others',
-        color: 'bg-yellow-400',
+        bgColor: 'bg-yellow-500',
         content: others,
       },
     ];
@@ -67,6 +75,18 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
       setLicenseText(detail.text?.slice(0, 1200) + '...');
     }
   }, [expand, detail]);
+
+  const onTagClick = (tag, ct) => {
+    if (isMobile()) {
+      console.log({ tag, ct });
+      setTagInfo({
+        title: ct.name_zh,
+        desc: ct.description,
+        desc_zh: ct.description_zh,
+      });
+      setDrawerVisible(true);
+    }
+  };
 
   return (
     <>
@@ -99,19 +119,29 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
                 <div key={tag.key}>
                   <div className='mb-1'>{tag.title}</div>
                   {tag.content.map((ct) => {
-                    return (
-                      <div
-                        className='flex cursor-pointer items-center text-sm font-normal'
-                        key={ct.name}
-                      >
+                    const tipContent = (
+                      <div className='w-80 border'>
+                        <div className={`${tag.bgColor} p-1`}>{ct.name_zh}</div>
                         <div
-                          className={classNames(
-                            `mr-2 h-3 w-3 rounded-full`,
-                            tag.color
-                          )}
-                        ></div>
-                        {ct['name_zh']}
+                          className={`${tag.bgColor} bg-opacity-25 p-1 text-sm font-normal`}
+                        >
+                          <p>{ct.description}</p>
+                          <p>{ct.description_zh}</p>
+                        </div>
                       </div>
+                    );
+                    return (
+                      <Tooltip key={ct.name_zh} content={tipContent}>
+                        <div
+                          onClick={() => onTagClick(tag, ct)}
+                          className='mb-2 flex cursor-pointer items-center text-sm font-normal'
+                        >
+                          <div
+                            className={`${tag.bgColor} mr-2 h-3 w-3 rounded-full`}
+                          ></div>
+                          {ct.name_zh}
+                        </div>
+                      </Tooltip>
                     );
                   })}
                 </div>
@@ -144,6 +174,18 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
             )}
           </div>
         </div>
+        {/* 移动端展示协议标签信息的抽屉 */}
+        <Drawer
+          title={tagInfo.title}
+          visible={drawerVisible}
+          placement='bottom'
+          onClose={() => setDrawerVisible(false)}
+        >
+          <div className=' h-full dark:bg-gray-800'>
+            <p>{tagInfo.desc}</p>
+            <p>{tagInfo.desc_zh}</p>
+          </div>
+        </Drawer>
       </div>
     </>
   );
@@ -152,8 +194,7 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
 export default LicenseDetail;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req, params } = context;
-  console.log(params);
+  const { req, params = {} } = context;
 
   let ip;
   if (req.headers['x-forwarded-for']) {
@@ -165,8 +206,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     ip = req.socket.remoteAddress as string;
   }
 
-  // const data = await getLicenseDetail(ip, params['lid'] as string);
-  const data = await getLicenseDetail(ip, 'be22da96170c4ce4b15c8f5f22761e4c');
+  const data = await getLicenseDetail(ip, params['lid'] as string);
 
   if (!data.success) {
     return {

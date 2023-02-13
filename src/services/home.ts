@@ -1,11 +1,10 @@
 import { createContext } from 'react';
 
-import { licenseRecommendProjectList } from '@/services/license.data';
 import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-import { HomeItem, HomeItems, Stats } from '@/types/home';
+import { HomeItem, HomeItems, RecomemndItems, Stats } from '@/types/home';
 import { TagItems } from '@/types/tag';
 
 export const getItems = async (
@@ -23,11 +22,8 @@ export const getStats = async (): Promise<Stats> => {
 export const getRecommend = async (spdxId?: string): Promise<any> => {
   try {
     const url = `/repository/recommend/?spdx_id=${spdxId}`;
-    // const data = await fetcher<RecomemndItems>(
-    //   makeUrl(url)
-    // );
-    // return data;
-    return licenseRecommendProjectList;
+    const data = await fetcher<RecomemndItems>(makeUrl(url));
+    return data;
   } catch (error) {
     console.error(error);
   }

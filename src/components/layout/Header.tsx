@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { AiOutlineBook, AiOutlineHome } from 'react-icons/ai';
-import { BsFileEarmarkCode } from 'react-icons/bs';
+import { BsFileEarmarkCode, BsVectorPen } from 'react-icons/bs';
 import { MdOutlineArticle } from 'react-icons/md';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -80,6 +80,12 @@ const Header = () => {
             <HeaderBtn pathname='/onefile'>
               <BsFileEarmarkCode className='mr-0.5' />
               <span>OneFile</span>
+            </HeaderBtn>
+          </li>
+          <li className={liClassName('/license')}>
+            <HeaderBtn pathname='/license'>
+              <BsVectorPen className='mr-0.5' />
+              <span>开源协议</span>
             </HeaderBtn>
           </li>
           {/* 移动端显示的登录按钮和头像 */}
