@@ -43,7 +43,7 @@ export const LoginProvider = ({
     }
     const LoginDialog = (
       <BasicDialog
-        className='max-w-xs rounded-lg p-5'
+        className='login-dialog max-w-xs rounded-lg p-5'
         visible
         hideClose
         onClose={closeModal}
@@ -80,6 +80,16 @@ export const LoginProvider = ({
 
     render(LoginDialog, div);
     document.body.appendChild(div);
+
+    // 使弹窗有过度动画
+    const dialog = div.querySelector('.login-dialog');
+    if (dialog) {
+      dialog.classList.add('scale-90');
+      dialog.classList.remove('scale-100');
+      requestAnimationFrame(() => {
+        dialog.classList.add('scale-100');
+      });
+    }
   };
 
   const logout = useCallback(async () => {
