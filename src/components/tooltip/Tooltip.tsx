@@ -4,7 +4,8 @@ import { isMobile } from '@/utils/util';
 
 type TooltipProps = {
   content: string | ReactNode;
-} & React.ReactPropTypes;
+  children: ReactNode;
+};
 
 function Tooltip({ content, children }: TooltipProps) {
   const [visibility, setVisibility] = useState(false);

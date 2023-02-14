@@ -5,6 +5,7 @@ import {
   LicenseDetailFetchData,
   LicenseListFetchData,
   LicenseTagsFetchData,
+  ListQuery,
 } from '@/types/license';
 
 // 获取协议详情
@@ -26,15 +27,12 @@ export const getLicenseDetail = async (
 };
 
 // 获取协议列表
-export const getLicenseList = async (query: {
-  page: number;
-  pageSize: number;
-  sort_by: string;
-  tids: string[];
-}): Promise<LicenseListFetchData> => {
+export const getLicenseList = async (
+  query: ListQuery
+): Promise<LicenseListFetchData> => {
   let url = '/license/?';
-  Object.keys(query).forEach((key: string) => {
-    const value = query[key as string];
+  Object.keys(query).forEach((key) => {
+    const value = query[key];
     if (!Array.isArray(value)) {
       url += `${key}=${value}&`;
     }

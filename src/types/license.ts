@@ -4,11 +4,12 @@ type User = {
   avatar: string;
 };
 export type Tag = {
-  tid?: string;
-  name?: string;
-  name_zh?: string;
-  description?: string;
-  description_zh?: string;
+  tid: string;
+  name: string;
+  name_zh: string;
+  description: string;
+  description_zh: string;
+  tag_type?: string;
   show?: boolean;
 };
 
@@ -80,4 +81,12 @@ export type LicenseListFetchData = {
 export type LicenseTagsFetchData = {
   success: boolean;
   data: Tag[];
+};
+
+export type ListQuery = {
+  page: number;
+  pageSize: number;
+  sort_by: string;
+  tids: string[];
+  [key: string]: string | number | string[];
 };

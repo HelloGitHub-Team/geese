@@ -1,3 +1,4 @@
+import copy from 'copy-to-clipboard';
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -5,6 +6,7 @@ import { AiOutlineShareAlt } from 'react-icons/ai';
 import { MdOutlineFeedback } from 'react-icons/md';
 
 import Drawer from '@/components/drawer/Drawer';
+import Message from '@/components/message';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
 import Tooltip from '@/components/tooltip/Tooltip';
@@ -12,7 +14,7 @@ import Tooltip from '@/components/tooltip/Tooltip';
 import { getLicenseDetail } from '@/services/license';
 import { formatDate, isMobile } from '@/utils/util';
 
-import { LicenseDetailData, TagListItem } from '@/types/license';
+import { LicenseDetailData, Tag, TagListItem } from '@/types/license';
 
 type LicenseDetailProps = {
   detail: LicenseDetailData;
@@ -32,11 +34,31 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
   }>({ title: '', desc: '', desc_zh: '' });
 
   useEffect(() => {
-    const others = [];
-    if (detail.is_fsf) others.push({ name_zh: 'FSF', description: 'FSF' });
-    if (detail.is_osi) others.push({ name_zh: 'OSI', description: 'OSI' });
+    const others: Tag[] = [];
+    if (detail.is_fsf)
+      others.push({
+        tid: 'FSF',
+        name: 'FSF',
+        name_zh: 'FSF',
+        description: 'FSF',
+        description_zh: 'FSF',
+      });
+    if (detail.is_osi)
+      others.push({
+        tid: 'OSI',
+        name: 'OSI',
+        name_zh: 'OSI',
+        description: 'OSI',
+        description_zh: 'OSI',
+      });
     if (detail.is_deprecate)
-      others.push({ name_zh: '弃用', description: '该协议已弃用' });
+      others.push({
+        tid: 'disable',
+        name: 'disable',
+        name_zh: '弃用',
+        description: 'the license is disabled',
+        description_zh: '该协议已经启用',
+      });
     // 协议的权限等标签数据
     const list: TagListItem[] = [
       {
@@ -76,15 +98,23 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
     }
   }, [expand, detail]);
 
-  const onTagClick = (tag, ct) => {
+  const onTagClick = (ct: Tag) => {
     if (isMobile()) {
-      console.log({ tag, ct });
       setTagInfo({
         title: ct.name_zh,
         desc: ct.description,
         desc_zh: ct.description_zh,
       });
       setDrawerVisible(true);
+    }
+  };
+
+  const onShare = () => {
+    const text = `<a href="https://hellogithub.com/license/${detail.lid}?spdx=${detail.spdx_id}" rel="nofollow">${detail.name}</a>`;
+    if (copy(text)) {
+      Message.success('协议信息已复制，快去分享吧！');
+    } else {
+      Message.error('复制失败');
     }
   };
 
@@ -133,7 +163,7 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
                     return (
                       <Tooltip key={ct.name_zh} content={tipContent}>
                         <div
-                          onClick={() => onTagClick(tag, ct)}
+                          onClick={() => onTagClick(ct)}
                           className='mb-2 flex cursor-pointer items-center text-sm font-normal'
                         >
                           <div
@@ -153,7 +183,10 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
         <div className='my-4 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
           <div className='mb-2 flex items-center justify-between'>
             <div></div>
-            <div className='flex cursor-pointer items-center hover:text-blue-500'>
+            <div
+              onClick={onShare}
+              className='flex cursor-pointer items-center hover:text-blue-500'
+            >
               <AiOutlineShareAlt className='text-blue-500' />
               <span className='ml-1'>一键分享</span>
             </div>

@@ -2,31 +2,34 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 
+import Loading from '@/components/loading/Loading';
 import Pagination from '@/components/pagination/Pagination';
 import Seo from '@/components/Seo';
 
 import { getLicenseList, getLicenseTags } from '@/services/license';
 
-import { LicenseListFetchData } from '@/types/license';
-import { Tag } from '@/types/license';
+import { LicenseListFetchData, ListQuery, Tag } from '@/types/license';
 
 export default function LicenseIndex() {
   const [list, setList] = React.useState<LicenseListFetchData>();
   const [tags, setTags] = React.useState<Tag[]>([]);
   const [page, setPage] = React.useState(1);
-  const [query, setQuery] = React.useState({
+  const [query, setQuery] = React.useState<ListQuery>({
     page,
     pageSize: 20,
     sort_by: 'last',
     tids: [],
   });
+  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     console.log({ query });
+    setLoading(true);
     getLicenseList({ ...query })
       .then((listResult) => {
         console.log(listResult);
         if (listResult.success) {
+          setLoading(false);
           setList(listResult);
         }
       })
@@ -79,7 +82,7 @@ export default function LicenseIndex() {
                     });
                   }}
                   className={classNames(
-                    'mr-2 cursor-pointer rounded bg-slate-100 py-1 px-2 text-sm text-gray-500 hover:bg-blue-200',
+                    'mr-2 cursor-pointer rounded bg-slate-100 py-1 px-2 text-sm text-gray-500 hover:text-blue-400',
                     { 'bg-blue-200': query.tids.includes(t.tid) }
                   )}
                   key={t.tid}
@@ -120,11 +123,15 @@ export default function LicenseIndex() {
           </div>
         </div>
         {/* 协议列表 */}
-        <div className='grid grid-cols-2 gap-4 md:grid-cols-4'>
-          {list?.data?.map((item) => {
-            return <LicenseCard key={item.name} {...item} />;
-          })}
-        </div>
+        {!loading ? (
+          <div className='grid grid-cols-2 gap-4 md:grid-cols-4'>
+            {list?.data?.map((item) => {
+              return <LicenseCard key={item.name} {...item} />;
+            })}
+          </div>
+        ) : (
+          <Loading />
+        )}
       </div>
       {/* 分页 */}
       <div className='my-2 bg-white px-6 py-4 dark:bg-gray-800 md:rounded-lg'>

@@ -34,7 +34,9 @@ const alertSubject = {
     this.id = id;
   },
   unsubscribe() {
-    this.observers = [];
+    if (this) {
+      this.observers = [];
+    }
   },
 };
 const defaultId = 'default-alert';
