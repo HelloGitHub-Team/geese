@@ -8,16 +8,16 @@ import useUserInfo from '@/hooks/useUserInfo';
 import RedirectBar from '@/components/navbar/RedirectBar';
 
 import { OAuthLoginAPI } from '@/services/login';
+import { OAUTH_LOGIN_KEY } from '@/utils/constants';
 
 import { User, UserType } from '@/types/user';
 
 interface IProps {
   token: string;
   userInfo: UserType;
-  user_agent: string;
 }
 
-const Index = ({ token, userInfo, user_agent }: IProps) => {
+const Index = ({ token, userInfo }: IProps) => {
   const router = useRouter();
   const { setToken } = useToken();
   const { setUserInfo } = useUserInfo();
@@ -27,24 +27,12 @@ const Index = ({ token, userInfo, user_agent }: IProps) => {
       // Perform localStorage action
       setToken(token);
       setUserInfo(userInfo);
-    }
-    // 微信内浏览器无法跳转 history
-    if (user_agent.match(/MicroMessenger/i)) {
-      router.push('/');
+      router.push(localStorage.getItem(OAUTH_LOGIN_KEY) as string);
     } else {
-      if (token) {
-        // 返回触发登录时的页面。
-        // 1.登录的流程需要触发 2 次页面跳转。
-        // 2.一次是从触发登录的页面跳转到二维码页面。
-        // 3.一次是从二维码页面跳转到本页面。
-        // 4.所以返回 2 次正好是回到触发登录时的页面。
-        window.history.go(-2);
-      } else {
-        // 登录失败则回到首页
-        router.push('/');
-      }
+      // 登录失败则回到首页
+      router.push('/');
     }
-  }, [token, userInfo, setUserInfo, setToken, user_agent, router]);
+  }, [token, userInfo, setUserInfo, setToken, router]);
 
   return (
     <>

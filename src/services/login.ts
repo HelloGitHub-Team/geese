@@ -19,7 +19,9 @@ export const getOAuthURL = async (
   };
 
   const res = await fetch(
-    makeUrl(`/user/oauth/${platform}/url/`, { url_type: 'geese' }),
+    makeUrl(`/user/oauth/${platform.toLowerCase()}/url/`, {
+      url_type: 'geese',
+    }),
     reqData
   );
   const data = await res.json();

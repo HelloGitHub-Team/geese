@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import {
   createContext,
   useCallback,
@@ -5,12 +6,12 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { VscChromeClose } from 'react-icons/vsc';
 
 import useToken from '@/hooks/useToken';
 
-import { GitHubButton, WechatButton } from '@/components/buttons/LoginButton';
+import { OAuthButton } from '@/components/buttons/LoginButton';
 import BasicDialog from '@/components/dialog/BasicDialog';
 import CustomLink from '@/components/links/CustomLink';
 
@@ -32,6 +33,7 @@ export const LoginProvider = ({
 }: {
   children: JSX.Element[] | any;
 }) => {
+  const router = useRouter();
   const { token, setToken } = useToken();
   const [isLogin, setIsLogin] = useState(!!token);
   const [theme, setTheme] = useState('light');
@@ -46,13 +48,12 @@ export const LoginProvider = ({
         className='login-dialog max-w-xs rounded-lg p-5'
         visible
         hideClose
-        onClose={closeModal}
       >
         <div
-          className='mb-4 flex flex-row justify-between border-b pb-2 '
+          className='mb-4 flex flex-row justify-between border-b pb-2 dark:border-b-gray-600 dark:text-gray-300'
           onClick={closeModal}
         >
-          <div className='font-medium '>选择登录方式</div>
+          <div className='font-medium'>选择登录方式</div>
           <div>
             <VscChromeClose
               size={18}
@@ -62,8 +63,8 @@ export const LoginProvider = ({
         </div>
         <div className='mx-auto px-10'>
           <div className='flex flex-col gap-3'>
-            <GitHubButton />
-            <WechatButton />
+            <OAuthButton platform='WeChat' backURL={router.asPath} />
+            <OAuthButton platform='GitHub' backURL={router.asPath} />
           </div>
 
           <div className='mt-4 flex flex-row px-1 text-xs text-gray-500'>
@@ -78,7 +79,8 @@ export const LoginProvider = ({
       </BasicDialog>
     );
 
-    render(LoginDialog, div);
+    const root = createRoot(div);
+    root.render(LoginDialog);
     document.body.appendChild(div);
 
     // 使弹窗有过度动画

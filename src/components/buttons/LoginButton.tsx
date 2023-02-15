@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { AiOutlineWechat } from 'react-icons/ai';
 import { IoLogoGithub } from 'react-icons/io';
 
@@ -7,55 +7,50 @@ import log from '@/lib/log';
 import Button from '@/components/buttons/Button';
 
 import { getOAuthURL } from '@/services/login';
+import { OAUTH_LOGIN_KEY } from '@/utils/constants';
 
 import { LoginModal } from '../user/Login';
 
-export function GitHubButton() {
-  const githubLogin = useCallback(async () => {
+type Props = {
+  platform: 'GitHub' | 'WeChat';
+  backURL: string;
+};
+
+export function OAuthButton({ platform, backURL }: Props) {
+  const [buttonState, setButtonState] = useState(true);
+  const [buttonText, setButtonText] = useState(`通过 ${platform} 登录`);
+
+  const Login = useCallback(async () => {
     try {
-      const { url } = await getOAuthURL('github');
-      console.log(url);
+      setButtonState(false);
+      const { url } = await getOAuthURL(platform);
       if (url) {
+        localStorage.setItem(OAUTH_LOGIN_KEY, backURL);
+        setButtonText('等待跳转中...');
         window.location.href = url;
       }
     } catch (err) {
       log.error(err);
     }
-  }, []);
+  }, [platform, backURL]);
 
-  return (
-    <Button
-      className='font-normal text-current hover:bg-transparent dark:text-gray-400 dark:hover:bg-gray-700'
-      variant='white-outline'
-      onClick={githubLogin}
-    >
-      <IoLogoGithub size={18} />
-      <span className='ml-2 text-sm'>通过 GitHub 登录</span>
-    </Button>
-  );
-}
-
-export function WechatButton() {
-  const wechatLogin = useCallback(async () => {
-    try {
-      const { url } = await getOAuthURL('wechat');
-      console.log(url);
-      if (url) {
-        window.location.href = url;
-      }
-    } catch (err) {
-      log.error(err);
+  const getIcon = () => {
+    if (platform == 'GitHub') {
+      return <IoLogoGithub size={18} />;
+    } else {
+      return <AiOutlineWechat className='text-green-500' size={18} />;
     }
-  }, []);
+  };
 
   return (
     <Button
-      className='font-normal text-current hover:bg-transparent dark:text-gray-400 dark:hover:bg-gray-700'
+      className='font-normal text-current hover:bg-transparent dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-800'
       variant='white-outline'
-      onClick={wechatLogin}
+      disabled={!buttonState}
+      onClick={Login}
     >
-      <AiOutlineWechat className='text-green-500' size={18} />
-      <span className='ml-2 text-sm'>通过 Wechat 登录</span>
+      {getIcon()}
+      <span className='ml-2 text-sm'>{buttonText}</span>
     </Button>
   );
 }

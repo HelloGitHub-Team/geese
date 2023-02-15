@@ -56,7 +56,7 @@ const User = () => {
                   <div className='w-px max-w-fit flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg font-bold dark:text-gray-300'>
                     {userDetailInfo?.nickname}
                   </div>
-                  <div className='ml-2 text-sm font-bold text-yellow-500'>
+                  <div className='ml-2 text-sm font-bold text-blue-500'>
                     Lv{userDetailInfo?.level}
                   </div>
                 </div>
@@ -112,7 +112,7 @@ const User = () => {
                   <div className=' self-end overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold dark:text-gray-300'>
                     {userDetailInfo?.nickname}
                   </div>
-                  <div className='ml-1 self-end text-sm font-bold text-yellow-500'>
+                  <div className='ml-1 self-end text-sm font-bold text-blue-500'>
                     <span className='align-[0.4px]'>
                       Lv{userDetailInfo?.level}
                     </span>
