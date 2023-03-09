@@ -87,7 +87,9 @@ export default function UserStatus() {
                         <ThemeSwitch />
                       </div>
                     </div>
-                    <div className='text-sm font-bold text-blue-500'>Lv.1</div>
+                    <div className='text-sm font-bold text-blue-500'>
+                      Lv.{data?.level}
+                    </div>
                   </div>
                 </div>
                 {/* 等级展示 */}

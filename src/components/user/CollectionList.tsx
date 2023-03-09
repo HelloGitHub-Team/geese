@@ -43,7 +43,7 @@ type CollectionStatusMap = {
 };
 
 const collectionStatus: CollectionStatusMap = {
-  0: { status: 0, name: '隐私' },
+  0: { status: 0, name: '私有' },
   1: { status: 1, name: '审核中' },
   2: { status: 2, name: '公开' },
 };

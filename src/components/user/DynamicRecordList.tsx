@@ -22,10 +22,10 @@ export default function DynamicRecordList(props: Props) {
               item.value
             } 点贡献值`}</span>
           );
-        } else if (item.remark == '评论被精选' && item.value == 10) {
+        } else if (item.remark == '评论被置顶' && item.value == 10) {
           return (
             <span>
-              {`${fromNow(item.created_at)}，因评论`}
+              {`${fromNow(item.created_at)}，因对开源项目`}
               <CustomLink
                 className='inline'
                 href={`/repository/${item.item.item_id}`}
@@ -34,7 +34,7 @@ export default function DynamicRecordList(props: Props) {
                   {item.item.name}
                 </span>
               </CustomLink>
-              {`被精选，收获 ${item.value} 点贡献值`}
+              {`的评论被选为热评，收获 ${item.value} 点贡献值`}
             </span>
           );
         } else if (item.remark == '发布恶意评测' && item.value == -2) {
@@ -46,7 +46,7 @@ export default function DynamicRecordList(props: Props) {
         } else if (item.remark == '提交项目' && item.value == 5) {
           return (
             <span>
-              {`${fromNow(item.created_at)}，因提交优秀的开源项目`}
+              {`${fromNow(item.created_at)}，因分享优秀的开源项目`}
               <CustomLink
                 className='inline'
                 href={`/repository/${item.item.item_id}`}
