@@ -74,6 +74,8 @@ export default function CommentList(props: Props) {
                 user={userInfo}
                 footerRight={() => (
                   <span className='text-xs text-gray-400 md:text-sm'>
+                    {belongMap[item.belong]}
+                    <span className='mx-1'>·</span>
                     {item.is_show ? '已展示' : '未展示'}
                     <span className='mx-1'>·</span>
                     {item.is_hot ? '热评' : '非热评'}
