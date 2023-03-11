@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
+import { AiOutlineGithub } from 'react-icons/ai';
 
 import TagLink from '@/components/links/TagLink';
 import { RepoModal } from '@/components/respository/Submit';
@@ -113,9 +114,12 @@ const IndexBar = (props: Props) => {
         </div>
         <div className='hidden md:block'>
           <RepoModal>
-            <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 px-2 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 xl:px-4 xl:text-sm'>
-              提交项目
-            </a>
+            <button className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 px-2 text-sm text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:text-blue-500 dark:active:bg-gray-900 xl:px-2'>
+              <div className='flex items-center'>
+                <AiOutlineGithub size={16} className='mr-0.5' />
+                提交项目
+              </div>
+            </button>
           </RepoModal>
         </div>
       </div>

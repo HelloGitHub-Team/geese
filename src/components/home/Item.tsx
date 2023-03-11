@@ -12,7 +12,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
   return (
     <article>
       <CustomLink href={`/repository/${item.item_id}`}>
-        <div className='relative cursor-pointer bg-white py-3 px-4 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700'>
+        <div className='relative cursor-pointer bg-white py-3 px-4 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'>
           <div className='flex w-full flex-row'>
             <div className='mr-2.5 hidden min-w-fit md:block'>
               <img
@@ -24,7 +24,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
             </div>
             <div className='relative flex w-full flex-col'>
               <div className='flex flex-row pb-0.5'>
-                <div className='text-color-primary flex w-full shrink grow flex-row items-center visited:text-gray-500 dark:text-gray-300'>
+                <div className='text-color-primary flex w-full shrink grow flex-row items-center'>
                   <div className='truncate text-base leading-snug lg:w-80'>
                     {item.is_hot && (
                       <span className='text-center'>

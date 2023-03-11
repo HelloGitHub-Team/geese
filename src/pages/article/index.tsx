@@ -73,10 +73,10 @@ const ArticleIndex: NextPage = () => {
             <article key={item.aid}>
               <Link href={`/article/${item.aid}`} className='relative'>
                 <a>
-                  <div className='relative cursor-pointer bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700 md:py-3 md:pl-5'>
+                  <div className='text-color-primary relative cursor-pointer bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500  dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:py-3 md:pl-5'>
                     <div className='flex-cloume relative flex items-center'>
                       <div className='w-9/12 max-w-full'>
-                        <div className='text-color-primary flex visited:text-gray-500 dark:text-gray-300'>
+                        <div className='flex'>
                           {item.is_hot && (
                             <span className='text-center'>
                               <AiFillFire

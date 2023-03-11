@@ -24,7 +24,7 @@ const columns: any[] = [
     title: '对比上月',
     render: ChangePercentColumnRender,
   },
-  { key: 'star', title: '年度明星语言' },
+  { key: 'star', title: '年度明星' },
 ];
 
 // 排名	编程语言	流行度
