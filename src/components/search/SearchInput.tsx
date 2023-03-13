@@ -119,7 +119,7 @@ export default function SearchInput() {
 
   return (
     <div
-      className='inline-flex flex-auto items-stretch rounded-md bg-white px-2 dark:bg-transparent'
+      className='inline-flex flex-auto items-stretch rounded-md bg-white px-2 dark:bg-transparent md:flex-none'
       ref={dropdownRef}
     >
       <div className='relative w-full max-w-xs 2xl:max-w-sm'>

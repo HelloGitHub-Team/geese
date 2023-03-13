@@ -1,9 +1,7 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { AiOutlineBook, AiOutlineHome } from 'react-icons/ai';
-import { BsFileEarmarkCode } from 'react-icons/bs';
-import { MdOutlineArticle } from 'react-icons/md';
+import { AiOutlineBell, AiOutlineGithub } from 'react-icons/ai';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
@@ -12,6 +10,7 @@ import RankButton from '@/components/buttons/RankButton';
 import AvatarWithDropdown from '@/components/dropdown/AvatarWithDropdown';
 
 import { LoginButton } from '../buttons/LoginButton';
+import { RepoModal } from '../respository/Submit';
 import SearchInput from '../search/SearchInput';
 
 const Header = () => {
@@ -34,7 +33,7 @@ const Header = () => {
 
   return (
     <div className='fixed z-10 h-14 w-full bg-white shadow-sm backdrop-blur dark:border dark:border-gray-50/[0.06] dark:bg-transparent'>
-      <nav className='mx-auto flex max-w-5xl items-center justify-between px-2 py-2 md:py-0 xl:max-w-5xl 2xl:max-w-7xl'>
+      <nav className='mx-auto flex max-w-5xl items-center justify-between px-2 py-2 md:py-0 lg:px-0 xl:max-w-5xl 2xl:max-w-7xl'>
         {/* pc 端显示的 logo */}
         <span className='hidden py-2 md:block'>
           <img
@@ -53,40 +52,49 @@ const Header = () => {
           <RankButton type='dropdown' />
         </div>
         <SearchInput />
-        <ul className='text-md flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400 md:pt-2'>
+        <ul className='text-md ml-5 flex items-center space-x-2 font-medium text-gray-500 dark:text-gray-400 md:pt-2'>
           {/* pc 端显示的顶部按钮 */}
           <li className={liClassName('/')}>
-            <HeaderBtn pathname='/'>
-              <AiOutlineHome className='mr-0.5' />
-              <span>首页</span>
-            </HeaderBtn>
+            <HeaderBtn pathname='/'>首页</HeaderBtn>
           </li>
           <li className={liClassName('/periodical')}>
-            <HeaderBtn pathname='/periodical'>
-              <AiOutlineBook className='mr-0.5' />
-              <span>月刊</span>
-            </HeaderBtn>
+            <HeaderBtn pathname='/periodical'>月刊</HeaderBtn>
           </li>
           <li className={liClassName('/report/tiobe')}>
             <RankButton />
           </li>
           <li className={liClassName('/article')}>
-            <HeaderBtn pathname='/article'>
-              <MdOutlineArticle className='mr-0.5' />
-              <span>文章</span>
-            </HeaderBtn>
+            <HeaderBtn pathname='/article'>文章</HeaderBtn>
           </li>
           <li className={liClassName('/onefile')}>
-            <HeaderBtn pathname='/onefile'>
-              <BsFileEarmarkCode className='mr-0.5' />
-              <span>OneFile</span>
-            </HeaderBtn>
+            <HeaderBtn pathname='/onefile'>OneFile</HeaderBtn>
           </li>
           {/* 移动端显示的登录按钮和头像 */}
           <li className='block md:hidden'>
             {!isLogin ? <LoginButton /> : <AvatarWithDropdown />}
           </li>
         </ul>
+        <div className='shrink grow'></div>
+        <div className='hidden cursor-pointer space-x-2 md:flex'>
+          <RepoModal>
+            <button className='flex h-9 cursor-pointer items-center rounded-lg bg-blue-500 px-2 text-sm text-white hover:bg-blue-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:text-blue-500 dark:active:bg-gray-900 lg:mr-2'>
+              <div className='flex items-center'>
+                <AiOutlineGithub size={16} className='mr-0.5' />
+                提交项目
+              </div>
+            </button>
+          </RepoModal>
+
+          <div className='flex flex-row items-center'>
+            <span className='relative inline-flex'>
+              <AiOutlineBell
+                size={25}
+                className='text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500'
+              />
+              <span className='relative right-1 inline-flex h-2 w-2 rounded-full bg-red-500'></span>
+            </span>
+          </div>
+        </div>
       </nav>
     </div>
   );
