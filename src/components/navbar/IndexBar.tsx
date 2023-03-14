@@ -80,7 +80,6 @@ const IndexBar = (props: Props) => {
   }
 
   useEffect(() => {
-    handleTags();
     if (props.tid) {
       setHotURL(`/?sort_by=hot&tid=${props.tid}`);
       setLastURL(`/?sort_by=last&tid=${props.tid}`);
