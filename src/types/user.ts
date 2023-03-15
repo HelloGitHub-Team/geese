@@ -18,16 +18,17 @@ export interface UserType {
 }
 
 export interface UserStatusProps {
-  success: string;
+  success: boolean;
   uid: string;
   nickname: string;
   avatar: string;
-  permission: Permission;
+  permission?: Permission;
   contribute: number;
   level: number;
+  unread_total: number;
   next_level_score: number;
-  first_login: string;
-  last_login: string;
+  first_login?: string;
+  last_login?: string;
 }
 
 export interface OAuthURLResponse {

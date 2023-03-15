@@ -1,31 +1,17 @@
 import Link from 'next/link';
 import { useEffect, useMemo } from 'react';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
-import useSWR from 'swr';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
-import useToken from '@/hooks/useToken';
 
-import { fetcher } from '@/services/base';
-import { makeUrl } from '@/utils/api';
 import { DEFAULT_AVATAR } from '@/utils/constants';
 
 import SideLoginButton from './SideLoginButton';
 import Loading from '../loading/Loading';
 import ThemeSwitch from '../ThemeSwitch';
 
-import { UserStatusProps } from '@/types/user';
-
 export default function UserStatus() {
-  const { token } = useToken();
-  const { isLogin, logout } = useLoginContext();
-  const { data, isValidating } = useSWR<UserStatusProps>(
-    token ? makeUrl('/user/me/') : null,
-    (key) => {
-      const headers = { Authorization: `Bearer ${token}` };
-      return fetcher(key, { headers });
-    }
-  );
+  const { data, isValidating, isLogin, logout } = useLoginContext();
   const levelPercent = useMemo(() => {
     if (
       typeof data?.contribute === 'number' &&

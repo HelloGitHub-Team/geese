@@ -15,7 +15,7 @@ import SearchInput from '../search/SearchInput';
 
 const Header = () => {
   const router = useRouter();
-  const { isLogin } = useLoginContext();
+  const { isLogin, data, isValidating } = useLoginContext();
   const [curPath, setCurPath] = useState('');
 
   useEffect(() => {
@@ -30,6 +30,17 @@ const Header = () => {
         'text-gray-500': curPath !== path,
       }
     );
+
+  const hasNewMessage = () => {
+    if (!isValidating) {
+      if (data && data.unread_total > 0) {
+        return (
+          <span className='relative right-1 inline-flex h-2 w-2 rounded-full bg-red-500'></span>
+        );
+      }
+    }
+    return <span className='w-2'></span>;
+  };
 
   return (
     <div className='fixed z-10 h-14 w-full bg-white shadow-sm backdrop-blur dark:border dark:border-gray-50/[0.06] dark:bg-transparent'>
@@ -88,10 +99,10 @@ const Header = () => {
           <div className='flex flex-row items-center'>
             <span className='relative inline-flex'>
               <AiOutlineBell
-                size={25}
+                size={22}
                 className='text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500'
               />
-              <span className='relative right-1 inline-flex h-2 w-2 rounded-full bg-red-500'></span>
+              {hasNewMessage()}
             </span>
           </div>
         </div>

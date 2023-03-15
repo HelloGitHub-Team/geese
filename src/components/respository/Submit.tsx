@@ -264,3 +264,48 @@ export function RepoModal({ children }: { children: JSX.Element }) {
     </>
   );
 }
+
+export function NewRepoModal({ children }: { children: JSX.Element }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const { isLogin, login } = useLoginContext();
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    if (!isLogin) {
+      return login();
+    }
+    setIsOpen(true);
+  }
+
+  const handleResponse = (res: CreateRepoRes) => {
+    if (res.success) {
+      closeModal();
+    }
+  };
+
+  const SubmitDialog = (
+    <BasicDialog
+      className='submit-repo-dialog w-5/6 max-w-xl rounded-lg p-5'
+      visible={isOpen}
+      hideClose={true}
+      onClose={closeModal}
+    >
+      <div className='ml-auto box-content w-6 pb-4 pl-4' onClick={closeModal}>
+        <VscChromeClose size={24} className='cursor-pointer text-gray-500' />
+      </div>
+      <CreateRepo response={handleResponse}></CreateRepo>
+    </BasicDialog>
+  );
+
+  const submitRepo = () => {};
+
+  return (
+    <>
+      <div onClick={openModal}>{children}</div>
+      {submitRepo()}
+    </>
+  );
+}

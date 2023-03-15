@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { createRoot } from 'react-dom/client';
 import { VscChromeClose } from 'react-icons/vsc';
+import useSWR from 'swr';
 
 import useToken from '@/hooks/useToken';
 
@@ -15,14 +16,29 @@ import { OAuthButton } from '@/components/buttons/LoginButton';
 import BasicDialog from '@/components/dialog/BasicDialog';
 import CustomLink from '@/components/links/CustomLink';
 
+import { fetcher } from '@/services/base';
 import { Logout } from '@/services/login';
+import { makeUrl } from '@/utils/api';
 import { NOOP } from '@/utils/constants';
+
+import { UserStatusProps } from '@/types/user';
 
 const LoginContext = createContext({
   isLogin: false,
+  isValidating: true,
   login: NOOP,
   logout: NOOP,
   theme: 'light',
+  data: {
+    success: true,
+    uid: '',
+    nickname: '',
+    avatar: '',
+    contribute: 0,
+    unread_total: 0,
+    level: 1,
+    next_level_score: 0,
+  } as any,
   changeTheme: (theme: string) => {
     theme;
   },
@@ -94,6 +110,15 @@ export const LoginProvider = ({
     }
   };
 
+  const { data, isValidating } = useSWR<UserStatusProps>(
+    token ? makeUrl('/user/me/') : null,
+    (key) => {
+      const headers = { Authorization: `Bearer ${token}` };
+      console.log('content');
+      return fetcher(key, { headers });
+    }
+  );
+
   const logout = useCallback(async () => {
     await Logout({ Authorization: `Bearer ${token}` });
     localStorage.clear();
@@ -110,7 +135,7 @@ export const LoginProvider = ({
 
   return (
     <LoginContext.Provider
-      value={{ isLogin, login, logout, changeTheme, theme }}
+      value={{ isLogin, login, logout, changeTheme, theme, data, isValidating }}
     >
       {children}
     </LoginContext.Provider>
