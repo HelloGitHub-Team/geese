@@ -1,5 +1,5 @@
-import { ReactNode, useState } from 'react';
-import { useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { VscChromeClose } from 'react-icons/vsc';
 
 import clsxm from '@/lib/clsxm';
@@ -29,7 +29,7 @@ const BasicDialog = (props: Props) => {
     setStartAnimation(visible);
   }, [visible]);
 
-  return visible ? (
+  const Template = (
     <>
       <div
         className='fixed left-0 top-0 right-0 bottom-0 z-10 bg-black bg-opacity-60'
@@ -59,7 +59,11 @@ const BasicDialog = (props: Props) => {
         {children}
       </div>
     </>
-  ) : null;
+  );
+
+  // document 在服务端渲染时不存在，不过一般在服务端渲染时 visible 的值为 false
+  // 所以这里不需要做特殊处理
+  return visible ? createPortal(Template, document.body) : null;
 };
 
 export default BasicDialog;

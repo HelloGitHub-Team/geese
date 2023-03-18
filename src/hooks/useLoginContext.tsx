@@ -4,9 +4,9 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
-import { createRoot } from 'react-dom/client';
 import { VscChromeClose } from 'react-icons/vsc';
 import useSWR from 'swr';
 
@@ -23,7 +23,17 @@ import { NOOP } from '@/utils/constants';
 
 import { UserStatusProps } from '@/types/user';
 
-const LoginContext = createContext({
+interface LoginContextProps {
+  isLogin: boolean;
+  isValidating: boolean;
+  login: () => void;
+  logout: () => void;
+  theme: string;
+  changeTheme: (theme: string) => void;
+  data?: UserStatusProps;
+}
+
+const LoginContext = createContext<LoginContextProps>({
   isLogin: false,
   isValidating: true,
   login: NOOP,
@@ -38,10 +48,8 @@ const LoginContext = createContext({
     unread_total: 0,
     level: 1,
     next_level_score: 0,
-  } as any,
-  changeTheme: (theme: string) => {
-    theme;
   },
+  changeTheme: NOOP as any,
 });
 
 export const LoginProvider = ({
@@ -53,16 +61,59 @@ export const LoginProvider = ({
   const { token, setToken } = useToken();
   const [isLogin, setIsLogin] = useState(!!token);
   const [theme, setTheme] = useState('light');
+  const [visibleDialog, setVisibleDialog] = useState(false);
+
+  const closeModal = () => {
+    setVisibleDialog(false);
+  };
 
   const login = () => {
-    const div = document.createElement('div');
-    function closeModal() {
-      document.body.removeChild(div);
+    setVisibleDialog(true);
+  };
+
+  const { data, isValidating } = useSWR<UserStatusProps>(
+    token ? makeUrl('/user/me/') : null,
+    (key) => {
+      const headers = { Authorization: `Bearer ${token}` };
+      console.log('content');
+      return fetcher(key, { headers });
     }
-    const LoginDialog = (
+  );
+
+  const logout = useCallback(async () => {
+    await Logout({ Authorization: `Bearer ${token}` });
+    localStorage.clear();
+    setToken(null);
+  }, [token, setToken]);
+
+  const changeTheme = (theme: string) => {
+    setTheme(theme);
+  };
+
+  useEffect(() => {
+    setIsLogin(!!token);
+  }, [token]);
+
+  const value = useMemo(
+    () => ({
+      isLogin,
+      login,
+      logout,
+      changeTheme,
+      theme,
+      data,
+      isValidating,
+    }),
+    [data, isLogin, isValidating, logout, theme]
+  );
+
+  return (
+    <>
+      <LoginContext.Provider value={value}>{children}</LoginContext.Provider>
+      {/* 登录弹窗 */}
       <BasicDialog
         className='login-dialog max-w-xs rounded-lg p-5'
-        visible
+        visible={visibleDialog}
         hideClose
       >
         <div
@@ -93,52 +144,7 @@ export const LoginProvider = ({
           </div>
         </div>
       </BasicDialog>
-    );
-
-    const root = createRoot(div);
-    root.render(LoginDialog);
-    document.body.appendChild(div);
-
-    // 使弹窗有过度动画
-    const dialog = div.querySelector('.login-dialog');
-    if (dialog) {
-      dialog.classList.add('scale-90');
-      dialog.classList.remove('scale-100');
-      requestAnimationFrame(() => {
-        dialog.classList.add('scale-100');
-      });
-    }
-  };
-
-  const { data, isValidating } = useSWR<UserStatusProps>(
-    token ? makeUrl('/user/me/') : null,
-    (key) => {
-      const headers = { Authorization: `Bearer ${token}` };
-      console.log('content');
-      return fetcher(key, { headers });
-    }
-  );
-
-  const logout = useCallback(async () => {
-    await Logout({ Authorization: `Bearer ${token}` });
-    localStorage.clear();
-    setToken(null);
-  }, [token, setToken]);
-
-  const changeTheme = (theme: string) => {
-    setTheme(theme);
-  };
-
-  useEffect(() => {
-    setIsLogin(!!token);
-  }, [token]);
-
-  return (
-    <LoginContext.Provider
-      value={{ isLogin, login, logout, changeTheme, theme, data, isValidating }}
-    >
-      {children}
-    </LoginContext.Provider>
+    </>
   );
 };
 
