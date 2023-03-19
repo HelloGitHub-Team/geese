@@ -25,10 +25,16 @@ export interface UserStatusProps {
   permission?: Permission;
   contribute: number;
   level: number;
-  unread_total: number;
+  unread: UserUnreadaType;
   next_level_score: number;
   first_login?: string;
   last_login?: string;
+}
+
+export interface UserUnreadaType {
+  total: number;
+  comment: number;
+  system: number;
 }
 
 export interface OAuthURLResponse {

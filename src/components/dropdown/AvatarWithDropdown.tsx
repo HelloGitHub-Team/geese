@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
-import useUserInfo from '@/hooks/useUserInfo';
 
 import CustomLink from '@/components/links/CustomLink';
 import ThemeSwitch from '@/components/ThemeSwitch';
@@ -10,8 +9,7 @@ import { DEFAULT_AVATAR } from '@/utils/constants';
 
 const AvatarWithDropdown = (props: { className?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { logout } = useLoginContext();
-  const { userInfo } = useUserInfo();
+  const { logout, data } = useLoginContext();
 
   useEffect(() => {
     const handleDocumentClick = () => {
@@ -29,7 +27,7 @@ const AvatarWithDropdown = (props: { className?: string }) => {
     <div className={`${props.className} h-7 w-7`}>
       <img
         className='relative inline overflow-hidden rounded-full'
-        src={userInfo.avatar || DEFAULT_AVATAR}
+        src={data?.avatar || DEFAULT_AVATAR}
         width='28'
         height='28'
         alt='header_avatar'
@@ -43,7 +41,7 @@ const AvatarWithDropdown = (props: { className?: string }) => {
         hidden={!isOpen}
       >
         <div className='absolute -top-1.5 right-3 h-3 w-3 rotate-45 border-l border-t bg-white dark:border-gray-600 dark:bg-gray-800'></div>
-        <CustomLink href={`/user/${userInfo.uid}`}>
+        <CustomLink href={`/user/${data?.uid}`}>
           <div className='block px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
             我的主页
           </div>

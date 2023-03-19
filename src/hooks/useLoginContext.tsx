@@ -45,7 +45,11 @@ const LoginContext = createContext<LoginContextProps>({
     nickname: '',
     avatar: '',
     contribute: 0,
-    unread_total: 0,
+    unread: {
+      total: 0,
+      comment: 0,
+      system: 0,
+    },
     level: 1,
     next_level_score: 0,
   },

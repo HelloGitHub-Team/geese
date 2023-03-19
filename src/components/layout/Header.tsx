@@ -33,7 +33,7 @@ const Header = () => {
 
   const hasNewMessage = () => {
     if (!isValidating) {
-      if (data && data.unread_total > 0) {
+      if (data && data.unread.total > 0) {
         return (
           <span className='relative right-1 inline-flex h-2 w-2 rounded-full bg-red-500'></span>
         );

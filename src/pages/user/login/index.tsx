@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import useToken from '@/hooks/useToken';
-import useUserInfo from '@/hooks/useUserInfo';
 
 import RedirectBar from '@/components/navbar/RedirectBar';
 
@@ -20,19 +19,17 @@ interface IProps {
 const Index = ({ token, userInfo }: IProps) => {
   const router = useRouter();
   const { setToken } = useToken();
-  const { setUserInfo } = useUserInfo();
 
   useEffect(() => {
     if (token) {
       // Perform localStorage action
       setToken(token);
-      setUserInfo(userInfo);
       router.push(localStorage.getItem(OAUTH_LOGIN_KEY) as string);
     } else {
       // 登录失败则回到首页
       router.push('/');
     }
-  }, [token, userInfo, setUserInfo, setToken, router]);
+  }, [token, userInfo, setToken, router]);
 
   return (
     <>

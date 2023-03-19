@@ -155,7 +155,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
           </label>
           <input
             className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
-            placeholder='项目地址（如：https://github.com/521xueweihan/HelloGitHub）'
+            placeholder='项目地址'
             type='text'
             id='url'
             onChange={onUrlChange}
@@ -176,7 +176,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
           </label>
           <input
             className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
-            placeholder='一句话描述项目的特点和用途（标题）'
+            placeholder='标题：一句话描述它是什么项目'
             type='text'
             id='title'
             onChange={onTitleChange}
@@ -197,7 +197,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
           </label>
           <textarea
             className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
-            placeholder='介绍：你为什么推荐该项目，它能用来干什么、解决了什么痛点、适用于什么场景'
+            placeholder='描述：它能用来做什么以及亮点、解决了哪些痛点、适用于什么场景，请认真编写项目介绍并介绍特点。'
             rows={8}
             id='summary'
             onChange={onSummaryChange}
@@ -207,7 +207,7 @@ export default function CreateRepo({ response }: CreateRepoProps) {
             {summaryMessage ? (
               <span className='text-red-600'>{summaryMessage}</span>
             ) : (
-              '字数限制 10-300 个字符'
+              '请认真介绍项目，字数限制 10-300 字符'
             )}
           </div>
         </div>

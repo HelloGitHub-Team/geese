@@ -17,7 +17,6 @@ export default function Ad(props: Props) {
   const [visible, setVisible] = useState(true);
   const handleClose: MouseEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
-    // localStorage.setItem(props.id, 'true');
     setVisible(false);
   };
 
@@ -25,11 +24,6 @@ export default function Ad(props: Props) {
     recordGoAdvert(aid);
     redirectRecord('', aid, 'ad');
   };
-
-  // useEffect(() => {
-  //   const isHide = localStorage.getItem(props.id);
-  //   setVisible(!isHide);
-  // }, [props.id, setVisible]);
 
   return (
     <div

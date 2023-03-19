@@ -17,11 +17,28 @@ export default function DynamicRecordList(props: Props) {
     if (item.dynamic_type == 'contribute') {
       if (item.item) {
         if (item.remark == '发布项目评论' && item.value == 2) {
-          return (
-            <span>{`${fromNow(item.created_at)}，因评论开源项目，收获 ${
-              item.value
-            } 点贡献值`}</span>
-          );
+          if (item.item) {
+            return (
+              <span>
+                {`${fromNow(item.created_at)}，因评论开源项目`}
+                <CustomLink
+                  className='inline'
+                  href={`/repository/${item.item.item_id}`}
+                >
+                  <span className='mx-1 cursor-pointer hover:text-blue-500'>
+                    {item.item.name}
+                  </span>
+                </CustomLink>
+                {`，收获 ${item.value} 点贡献值`}
+              </span>
+            );
+          } else {
+            return (
+              <span>{`${fromNow(item.created_at)}，因评论开源项目，收获 ${
+                item.value
+              } 点贡献值`}</span>
+            );
+          }
         } else if (item.remark == '评论被置顶' && item.value == 10) {
           return (
             <span>
