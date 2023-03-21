@@ -30,6 +30,7 @@ interface LoginContextProps {
   logout: () => void;
   theme: string;
   changeTheme: (theme: string) => void;
+  updateUnread: () => void;
   data?: UserStatusProps;
 }
 
@@ -47,12 +48,13 @@ const LoginContext = createContext<LoginContextProps>({
     contribute: 0,
     unread: {
       total: 0,
-      comment: 0,
+      repository: 0,
       system: 0,
     },
     level: 1,
     next_level_score: 0,
   },
+  updateUnread: NOOP as any,
   changeTheme: NOOP as any,
 });
 
@@ -75,11 +77,10 @@ export const LoginProvider = ({
     setVisibleDialog(true);
   };
 
-  const { data, isValidating } = useSWR<UserStatusProps>(
+  const { data, isValidating, mutate } = useSWR<UserStatusProps>(
     token ? makeUrl('/user/me/') : null,
     (key) => {
       const headers = { Authorization: `Bearer ${token}` };
-      console.log('content');
       return fetcher(key, { headers });
     }
   );
@@ -94,6 +95,10 @@ export const LoginProvider = ({
     setTheme(theme);
   };
 
+  const updateUnread = useCallback(async () => {
+    mutate(data);
+  }, [data, mutate]);
+
   useEffect(() => {
     setIsLogin(!!token);
   }, [token]);
@@ -104,11 +109,12 @@ export const LoginProvider = ({
       login,
       logout,
       changeTheme,
+      updateUnread,
       theme,
       data,
       isValidating,
     }),
-    [data, isLogin, isValidating, logout, theme]
+    [data, isLogin, isValidating, updateUnread, logout, theme]
   );
 
   return (

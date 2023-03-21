@@ -46,6 +46,17 @@ const AvatarWithDropdown = (props: { className?: string }) => {
             我的主页
           </div>
         </CustomLink>
+        <CustomLink href='/notification'>
+          <div className='block px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
+            消息中心
+            {data && data.unread.total > 0 ? (
+              <span className='relative ml-1 inline-flex h-2 w-2 rounded-full bg-red-500' />
+            ) : (
+              <></>
+            )}
+          </div>
+        </CustomLink>
+
         <div className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
           <ThemeSwitch type='text'></ThemeSwitch>
         </div>

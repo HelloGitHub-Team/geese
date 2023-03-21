@@ -154,7 +154,7 @@ const User = () => {
             </div>
           </>
         )}
-        <div className='mt-2 bg-white p-4 dark:bg-gray-800 sm:p-6 md:rounded-lg'>
+        <div className='mt-2 bg-white px-6 py-3 dark:bg-gray-800 md:rounded-lg'>
           <div className='border-b border-gray-200 dark:border-gray-700'>
             <nav className='-mb-0.5 flex space-x-6'>
               {tabList
@@ -168,9 +168,9 @@ const User = () => {
                       <span
                         key={tab.key}
                         className={clsxm(
-                          'text-xm inline-flex cursor-pointer items-center gap-2 whitespace-nowrap border-b-2 border-transparent py-2 px-1 text-gray-500 hover:text-blue-600 dark:text-gray-400',
+                          'inline-flex cursor-pointer items-center gap-1 whitespace-nowrap border-b-2 border-transparent py-2 px-1 text-gray-500 hover:text-blue-600 dark:text-gray-400',
                           {
-                            '!border-blue-500 font-bold !text-blue-500':
+                            '!border-blue-500 !text-blue-500':
                               activeTab === tab.key,
                           }
                         )}

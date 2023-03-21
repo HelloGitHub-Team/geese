@@ -33,7 +33,7 @@ export interface UserStatusProps {
 
 export interface UserUnreadaType {
   total: number;
-  comment: number;
+  repository: number;
   system: number;
 }
 
@@ -79,4 +79,17 @@ export interface CollectItem {
   uid: string;
   created_at: string;
   repo: RepoType;
+}
+
+export interface MessageItems {
+  success: boolean;
+  page: number;
+  data: MessageRecord[];
+  has_more: boolean;
+}
+
+export interface MessageRecord {
+  mid: string;
+  content: string;
+  publish_at: string;
 }

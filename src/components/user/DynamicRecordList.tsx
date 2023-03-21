@@ -25,7 +25,7 @@ export default function DynamicRecordList(props: Props) {
                   className='inline'
                   href={`/repository/${item.item.item_id}`}
                 >
-                  <span className='mx-1 cursor-pointer hover:text-blue-500'>
+                  <span className='mx-1 cursor-pointer text-blue-500'>
                     {item.item.name}
                   </span>
                 </CustomLink>
@@ -47,7 +47,7 @@ export default function DynamicRecordList(props: Props) {
                 className='inline'
                 href={`/repository/${item.item.item_id}`}
               >
-                <span className='mx-1 cursor-pointer hover:text-blue-500'>
+                <span className='mx-1 cursor-pointer text-blue-500'>
                   {item.item.name}
                 </span>
               </CustomLink>
@@ -68,7 +68,7 @@ export default function DynamicRecordList(props: Props) {
                 className='inline'
                 href={`/repository/${item.item.item_id}`}
               >
-                <span className='mx-1 cursor-pointer hover:text-blue-500'>
+                <span className='mx-1 cursor-pointer text-blue-500'>
                   {item.item.name}
                 </span>
               </CustomLink>
