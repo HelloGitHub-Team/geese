@@ -9,13 +9,13 @@ import CustomLink from '@/components/links/CustomLink';
 import Loading from '@/components/loading/Loading';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
+import ToTop from '@/components/toTop/ToTop';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 import { fromNow } from '@/utils/day';
 
 import { MessageItems, MessageRecord } from '@/types/user';
-import ToTop from '@/components/toTop/ToTop';
 
 const tabList = [
   { key: 'repository', title: '开源项目' },
@@ -40,7 +40,7 @@ const Notification = () => {
 
   const messages = data2
     ? data2.reduce((pre: MessageRecord[], curr) => {
-        if (curr.data.length > 0) {
+        if (curr.data?.length > 0) {
           pre.push(...curr.data);
         }
         return pre;
@@ -107,15 +107,13 @@ const Notification = () => {
                       )}
                     >
                       {tab.title}
-                      <span>
-                        {data?.unread[tab.key as ObjectKey] ? (
-                          <span className='rounded-lg bg-red-500 px-1.5 text-[2px] text-white'>
-                            {data?.unread[tab.key as ObjectKey]}
-                          </span>
-                        ) : (
-                          <></>
-                        )}
-                      </span>
+                      {data?.unread[tab.key as ObjectKey] ? (
+                        <span className='rounded-lg bg-red-500 px-1.5 text-xs text-white'>
+                          {data?.unread[tab.key as ObjectKey]}
+                        </span>
+                      ) : (
+                        <></>
+                      )}
                     </div>
                   );
                 })}
