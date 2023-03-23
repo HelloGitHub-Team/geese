@@ -15,7 +15,7 @@ import SearchInput from '../search/SearchInput';
 
 const Header = () => {
   const router = useRouter();
-  const { isLogin, data } = useLoginContext();
+  const { isLogin, userInfo } = useLoginContext();
   const [curPath, setCurPath] = useState('');
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const Header = () => {
               </div>
             </button>
           </RepoModal>
-          {isLogin ? (
+          {isLogin && userInfo?.success ? (
             <div
               className='flex flex-row items-center'
               onClick={() => {
@@ -96,7 +96,7 @@ const Header = () => {
                   size={22}
                   className='text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500'
                 />
-                {data && data.unread.total > 0 ? (
+                {userInfo?.unread.total > 0 ? (
                   <span className='relative right-1 inline-flex h-2 w-2 rounded-full bg-red-500' />
                 ) : (
                   <span className='w-2' />

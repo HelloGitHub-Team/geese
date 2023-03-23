@@ -24,30 +24,25 @@ const tabList = [
 
 const Notification = () => {
   const [activeTab, setActiveTab] = useState<string>('repository');
-  const { data, updateUnread } = useLoginContext();
-  const {
-    data: data2,
-    error,
-    setSize,
-    isValidating,
-    size,
-  } = useSWRInfinite<MessageItems>(
-    (index) =>
-      makeUrl(`/message/`, { message_type: activeTab, page: index + 1 }),
-    fetcher,
-    { revalidateFirstPage: true }
-  );
+  const { userInfo, updateUnread } = useLoginContext();
+  const { data, error, setSize, isValidating, size } =
+    useSWRInfinite<MessageItems>(
+      (index) =>
+        makeUrl(`/message/`, { message_type: activeTab, page: index + 1 }),
+      fetcher,
+      { revalidateFirstPage: true }
+    );
 
-  const messages = data2
-    ? data2.reduce((pre: MessageRecord[], curr) => {
+  const messages = data
+    ? data.reduce((pre: MessageRecord[], curr) => {
         if (curr.data?.length > 0) {
           pre.push(...curr.data);
         }
         return pre;
       }, [])
     : [];
-  const hasMore = data2 ? data2[data2.length - 1].has_more : false;
-  const pageIndex = data2 ? size : 0;
+  const hasMore = data ? data[data.length - 1].has_more : false;
+  const pageIndex = data ? size : 0;
 
   const [sentryRef] = useInfiniteScroll({
     loading: isValidating,
@@ -65,7 +60,7 @@ const Notification = () => {
     }
   }, [isValidating, updateUnread]);
 
-  type ObjectKey = keyof typeof data;
+  type ObjectKey = keyof typeof userInfo;
 
   const autoLink = (content: string) => {
     const reg =
@@ -107,9 +102,9 @@ const Notification = () => {
                       )}
                     >
                       {tab.title}
-                      {data?.unread[tab.key as ObjectKey] ? (
+                      {userInfo?.unread[tab.key as ObjectKey] ? (
                         <span className='rounded-lg bg-red-500 px-1.5 text-xs text-white'>
-                          {data?.unread[tab.key as ObjectKey]}
+                          {userInfo?.unread[tab.key as ObjectKey]}
                         </span>
                       ) : (
                         <></>

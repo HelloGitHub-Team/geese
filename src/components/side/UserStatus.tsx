@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -11,53 +11,37 @@ import Loading from '../loading/Loading';
 import ThemeSwitch from '../ThemeSwitch';
 
 export default function UserStatus() {
-  const { data, isValidating, isLogin, logout } = useLoginContext();
+  const { userInfo, isValidating, isLogin, logout } = useLoginContext();
   const levelPercent = useMemo(() => {
     if (
-      typeof data?.contribute === 'number' &&
-      typeof data?.next_level_score === 'number'
+      typeof userInfo?.contribute === 'number' &&
+      typeof userInfo?.next_level_score === 'number'
     ) {
-      return (data?.contribute / data?.next_level_score) * 100;
+      return (userInfo?.contribute / userInfo?.next_level_score) * 100;
     }
     // next_level_score 为 null 时则达到了最大等级
-    if (!data?.next_level_score) {
+    if (!userInfo?.next_level_score) {
       return 100;
     }
     return 0;
-  }, [data]);
-
-  useEffect(() => {
-    // 校验 token 过期的话，则清理本地存储的 token
-    if (
-      !isValidating &&
-      isLogin &&
-      typeof data?.success !== 'undefined' &&
-      !data?.success
-    ) {
-      // 1. 请求 me 接口得到结果
-      // 2. isLogin 为登录状态（这时有可能为过期token）
-      // 3. 根据 me 接口的结果判断 token 是否过期
-      // 4. isLogin 为 true 但 token 校验失败，则清理 localStorage
-      localStorage.clear();
-    }
-  }, [data, isLogin, isValidating]);
+  }, [userInfo]);
 
   return (
     <>
       {!isValidating || isLogin ? (
         <div>
-          {isLogin && data?.success ? (
+          {isLogin && userInfo?.success ? (
             <>
               <div className='relative'>
                 <div className='flex'>
-                  <Link href={`/user/${data.uid}`}>
+                  <Link href={`/user/${userInfo.uid}`}>
                     <a>
                       <div className='bg-img top-0 left-0 h-10 w-10 shrink-0 grow-0 cursor-pointer rounded-lg object-cover'>
                         <img
                           className='rounded'
                           width='40'
                           height='40'
-                          src={data?.avatar || DEFAULT_AVATAR}
+                          src={userInfo?.avatar || DEFAULT_AVATAR}
                           alt='side_avatar'
                         />
                       </div>
@@ -66,7 +50,7 @@ export default function UserStatus() {
                   <div className='ml-2 w-full shrink grow'>
                     <div className='relative flex h-5 min-w-0 items-center'>
                       <div className='block w-14 truncate align-baseline dark:text-gray-300 lg:w-24'>
-                        {data?.nickname}
+                        {userInfo?.nickname}
                       </div>
                       <div className='shrink grow'></div>
                       <div className='justify-end'>
@@ -74,7 +58,7 @@ export default function UserStatus() {
                       </div>
                     </div>
                     <div className='text-sm font-bold text-blue-500'>
-                      Lv.{data?.level}
+                      Lv.{userInfo?.level}
                     </div>
                   </div>
                 </div>
@@ -94,9 +78,9 @@ export default function UserStatus() {
                       </Link>
                     </div>
                     <span className='text-xl text-blue-500'>
-                      {data.contribute}
+                      {userInfo.contribute}
                       <span className='mx-0.5'>/</span>
-                      {data.next_level_score || 'Max'}
+                      {userInfo.next_level_score || 'Max'}
                     </span>
                   </div>
                   <div className='flex h-1.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700'>
@@ -110,7 +94,7 @@ export default function UserStatus() {
                 </div>
               </div>
               <div className='mt-3 flex cursor-pointer justify-between border-t text-xs dark:border-gray-700'>
-                <Link href={`/user/${data.uid}`} className='block'>
+                <Link href={`/user/${userInfo?.uid}`} className='block'>
                   <a>
                     <div className='pl-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
                       我的主页

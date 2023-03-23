@@ -268,7 +268,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                 </h4>
                 <ul
                   className='custom-scrollbar overflow-scroll'
-                  style={{ maxHeight: 550 }}
+                  style={{ maxHeight: 560 }}
                 >
                   {directoryList()}
                 </ul>

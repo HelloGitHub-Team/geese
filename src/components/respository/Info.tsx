@@ -103,6 +103,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
 
   const onClickCollect = () => {
     if (isLogin) {
+      getUserFavoriteOptions();
       setOpenModal(true);
     } else {
       Message.error('请先登录~');
@@ -165,7 +166,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
         return (
           <>
             <AiOutlineGithub />
-            <div className='pl-1'>项目</div>
+            <div className='pl-1'>源码</div>
           </>
         );
       case 'home':
@@ -223,7 +224,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     getUserRepoStatus(repo.rid);
     setVoteTotal(repo.votes);
     setCollectTotal(repo.collect_total);
-    getUserFavoriteOptions();
     handleURLOptions(repo);
   }, [repo]);
 
@@ -321,7 +321,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                 <div className='w-40 py-3 px-6 text-sm font-medium'>
                   <div className='flex flex-1 items-center justify-center'>
                     <AiFillCaretUp className='text-xl text-blue-500' />
-                    <div className='pl-2'>投票 {voteTotal}</div>
+                    <div className='pl-2'>点赞 {voteTotal}</div>
                   </div>
                 </div>
               </Button>
@@ -334,7 +334,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                 <div className='w-40 py-3 px-6 text-sm font-medium'>
                   <div className='flex flex-1 items-center justify-center'>
                     <AiOutlineCaretUp className='text-lg' />
-                    <div className='pl-2'>投票 {voteTotal}</div>
+                    <div className='pl-2'>点赞 {voteTotal}</div>
                   </div>
                 </div>
               </Button>

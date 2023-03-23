@@ -31,7 +31,7 @@ interface LoginContextProps {
   theme: string;
   changeTheme: (theme: string) => void;
   updateUnread: () => void;
-  data?: UserStatusProps;
+  userInfo?: UserStatusProps;
 }
 
 const LoginContext = createContext<LoginContextProps>({
@@ -40,7 +40,7 @@ const LoginContext = createContext<LoginContextProps>({
   login: NOOP,
   logout: NOOP,
   theme: 'light',
-  data: {
+  userInfo: {
     success: true,
     uid: '',
     nickname: '',
@@ -77,13 +77,14 @@ export const LoginProvider = ({
     setVisibleDialog(true);
   };
 
-  const { data, isValidating, mutate } = useSWR<UserStatusProps>(
-    token ? makeUrl('/user/me/') : null,
-    (key) => {
-      const headers = { Authorization: `Bearer ${token}` };
-      return fetcher(key, { headers });
-    }
-  );
+  const {
+    data: userInfo,
+    isValidating,
+    mutate,
+  } = useSWR<UserStatusProps>(token ? makeUrl('/user/me/') : null, (key) => {
+    const headers = { Authorization: `Bearer ${token}` };
+    return fetcher(key, { headers });
+  });
 
   const logout = useCallback(async () => {
     await Logout({ Authorization: `Bearer ${token}` });
@@ -96,12 +97,25 @@ export const LoginProvider = ({
   };
 
   const updateUnread = useCallback(async () => {
-    mutate(data);
-  }, [data, mutate]);
+    mutate(userInfo);
+  }, [userInfo, mutate]);
 
   useEffect(() => {
     setIsLogin(!!token);
-  }, [token]);
+    // 校验 token 过期的话，则清理本地存储的 token
+    if (
+      !isValidating &&
+      !!token &&
+      typeof userInfo?.success !== 'undefined' &&
+      !userInfo?.success
+    ) {
+      // 1. 请求 me 接口得到结果
+      // 2. isLogin 为登录状态（这时有可能为过期token）
+      // 3. 根据 me 接口的结果判断 token 是否过期
+      // 4. isLogin 为 true 但 token 校验失败，则清理 localStorage
+      localStorage.clear();
+    }
+  }, [token, userInfo, isValidating]);
 
   const value = useMemo(
     () => ({
@@ -111,10 +125,10 @@ export const LoginProvider = ({
       changeTheme,
       updateUnread,
       theme,
-      data,
+      userInfo,
       isValidating,
     }),
-    [data, isLogin, isValidating, updateUnread, logout, theme]
+    [userInfo, isLogin, isValidating, updateUnread, logout, theme]
   );
 
   return (
