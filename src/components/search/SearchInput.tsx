@@ -55,37 +55,31 @@ export default function SearchInput() {
         .catch((err) => {
           console.log(err);
         });
-    }, 300),
+    }, 100),
     []
   );
 
   // 跳转搜索结果页面
-  const jump2Result = useCallback(
-    (q: string) => {
-      setShow(false);
-      if (q) {
-        router.push(`/search/result?q=${encodeURIComponent(q)}`);
-      } else {
-        router.push(`/`);
-      }
-    },
-    [router]
-  );
+  const jump2Result = (q: string) => {
+    setShow(false);
+    if (q) {
+      router.push(`/search/result?q=${encodeURIComponent(q)}`);
+    } else {
+      router.push(`/`);
+    }
+  };
 
   // 回车搜索
-  const onKeyDown = useCallback(
-    (e: any) => {
-      if (e.key === 'Enter') {
-        jump2Result(e.target.value);
-      }
-    },
-    [jump2Result]
-  );
+  const onKeyDown = (e: any) => {
+    if (e.key === 'Enter') {
+      jump2Result(e.target.value);
+    }
+  };
 
   // 点击搜索图标
-  const onSearch = useCallback(() => {
+  const onSearch = () => {
     jump2Result(query);
-  }, [jump2Result, query]);
+  };
 
   const onQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
     const q = e.target.value;
@@ -93,19 +87,16 @@ export default function SearchInput() {
     getLenovoWord(q);
   };
 
-  const onClickLenovoWord = useCallback(
-    (item: any) => {
-      setQuery(item.name);
-      setShow(false);
-      jump2Result(item.name);
-    },
-    [jump2Result]
-  );
+  const onClickLenovoWord = (keyword: string) => {
+    setQuery(keyword);
+    setShow(false);
+    jump2Result(keyword);
+  };
 
   const onInputBlur = () => {
     setTimeout(() => {
       setShow(false);
-    }, 100);
+    }, 150);
   };
 
   const dropdownClassName = (show: boolean) =>
@@ -155,7 +146,7 @@ export default function SearchInput() {
                 className='block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-gray-300'
                 role='menuitem'
                 key={item.id}
-                onClick={() => onClickLenovoWord(item)}
+                onClick={() => onClickLenovoWord(item.name)}
               >
                 {item.name}
               </a>
