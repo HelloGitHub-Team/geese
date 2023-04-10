@@ -25,7 +25,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
             <div className='relative flex w-full flex-col'>
               <div className='flex flex-row pb-0.5'>
                 <div className='text-color-primary flex w-full shrink grow flex-row items-center'>
-                  <div className='truncate text-base leading-snug lg:w-80'>
+                  <div className='w-80 truncate text-base leading-snug md:w-96'>
                     {item.is_hot && (
                       <span className='text-center'>
                         <AiFillFire

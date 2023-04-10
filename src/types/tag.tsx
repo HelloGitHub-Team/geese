@@ -29,6 +29,17 @@ export interface Tag {
   udpated_at: string;
 }
 
+export interface SelectTag {
+  name: string;
+  tid: string;
+  is_selected: boolean;
+}
+
+export interface SelectTagItems {
+  success: boolean;
+  data: SelectTag[];
+}
+
 export interface TagType {
   name: string;
   tid: string;

@@ -68,10 +68,6 @@
   content: '\e774';
 }
 
-.icon-ios:before {
-  content: '\e85a';
-}
-
 .icon-python:before {
   content: '\e615';
 }
@@ -84,10 +80,6 @@
   content: '\e940';
 }
 
-.icon-windows:before {
-  content: '\e68b';
-}
-
 .icon-android:before {
   content: '\e629';
 }
@@ -98,4 +90,24 @@
 
 .icon-rust:before {
   content: '\ec1c';
+}
+
+.icon-desktop:before {
+  content: '\e842';
+}
+
+.icon-tool:before {
+  content: '\e638';
+}
+
+.icon-ai:before {
+  content: '\ec5f';
+}
+
+.icon-collection:before {
+  content: '\e796';
+}
+
+.icon-algo:before {
+  content: '\e76e';
 }
