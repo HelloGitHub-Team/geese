@@ -15,6 +15,7 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 import { getSelectTags, getTags, saveSelectTags } from '@/services/tag';
 
 import BasicDialog from '../dialog/BasicDialog';
+import Loading from '../loading/Loading';
 import Message from '../message';
 
 import { SelectTag, Tag } from '@/types/tag';
@@ -221,6 +222,7 @@ export default function TagList() {
             </div>
           </div>
           <div className='custom-scrollbar max-h-[444px] overflow-y-auto'>
+            {!tags.length && <Loading />}
             {tags.map((item: Tag) => (
               <Link key={item.tid} href={`/?sort_by=last&tid=${item.tid}`}>
                 <div className={tagClassName(item.tid)}>
@@ -231,7 +233,7 @@ export default function TagList() {
             ))}
           </div>
           <TagModal updateTags={setTags}>
-            <div className='flex cursor-pointer flex-row items-center border-t border-t-gray-200 px-1.5 pt-2 hover:text-blue-500 dark:border-t-gray-600 dark:text-gray-300 dark:hover:text-blue-500'>
+            <div className='flex cursor-pointer flex-row items-center border-t border-t-gray-200 px-2 pt-2 pb-1 hover:text-blue-500 dark:border-t-gray-600 dark:text-gray-300 dark:hover:text-blue-500'>
               <AiOutlineSetting size={15} />
               <div className='ml-0.5 text-sm'>管理标签</div>
             </div>

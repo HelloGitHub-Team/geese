@@ -36,7 +36,7 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
 
           <div className='flex flex-row flex-wrap items-center pt-1'>
             {repo.volume_name ? (
-              <div className='mr-2 flex items-center'>
+              <>
                 <div className='mb-1 px-2 text-sm font-medium'>收录于：</div>
                 <Link href={`/periodical/volume/${Number(repo.volume_name)}`}>
                   <a>
@@ -45,12 +45,12 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
                     </div>
                   </a>
                 </Link>
-              </div>
+              </>
             ) : (
               <></>
             )}
             {repo.tags.length > 0 ? (
-              <div className='flex flex-row'>
+              <>
                 <div className='mb-1 px-2 text-sm font-medium'>标签：</div>
                 {repo.tags.map((item) => (
                   <Link href={`/tags/${item.tid}/`} key={item.tid}>
@@ -61,7 +61,7 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
                     </a>
                   </Link>
                 ))}
-              </div>
+              </>
             ) : (
               <></>
             )}
