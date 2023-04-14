@@ -13,22 +13,20 @@ import { RecomemndItem } from '@/types/home';
 export default function Recommend() {
   const [repositories, setRepositories] = useState<RecomemndItem[]>([]);
   const router = useRouter();
+
   const { pathname, query } = router;
 
   const isLicenseDetail = useMemo(() => {
     return pathname === '/license/[lid]';
   }, [pathname]);
-  // 协议spdxId,即协议名称
-  const spdxId = useMemo(() => {
-    return query.spdx as string;
-  }, [query]);
 
   const refreshRecommend = useCallback(async () => {
-    const res = await getRecommend(spdxId);
+    const lid = query?.lid as string;
+    const res = await getRecommend(lid);
     if (res?.success) {
       setRepositories(res.data);
     }
-  }, [spdxId]);
+  }, [query]);
 
   useEffect(() => {
     refreshRecommend();
@@ -39,17 +37,15 @@ export default function Recommend() {
       <div className='space-y-1.5 rounded-lg bg-white px-4 pt-3 pb-2 dark:bg-gray-800'>
         <div className='flex flex-row items-center justify-between border-b border-gray-100 pb-2 dark:border-gray-700'>
           <div className='text-sm font-medium text-gray-600 dark:text-gray-300'>
-            {isLicenseDetail ? `${spdxId}协议的开源项目` : '推荐项目'}
+            推荐项目
           </div>
-          {!isLicenseDetail && (
-            <div
-              className='flex cursor-pointer flex-row items-center text-xs text-gray-400 hover:text-blue-500'
-              onClick={refreshRecommend}
-            >
-              <MdRefresh />
-              <span className='pl-0.5'>换一换</span>
-            </div>
-          )}
+          <div
+            className='flex cursor-pointer flex-row items-center text-xs text-gray-400 hover:text-blue-500'
+            onClick={refreshRecommend}
+          >
+            <MdRefresh />
+            <span className='pl-0.5'>换一换</span>
+          </div>
         </div>
         {repositories.length == 0 ? (
           <Loading />
@@ -94,8 +90,17 @@ export default function Recommend() {
         )}
       </div>
       {isLicenseDetail && (
-        <div className='space-y-1.5 rounded-lg bg-white px-4 pt-3 pb-2 text-xs dark:bg-gray-800'>
-          协议的原始数据来自 spdx，并参考了 Github 的 chooselicense 内容。
+        <div className='space-y-1.5 rounded-lg bg-white px-4 pt-3 pb-2 text-sm dark:bg-gray-800'>
+          内容整理自 spdx 和 GitHub 网站，并遵循
+          <a
+            target='_blank'
+            className='cursor-pointer px-1 hover:text-blue-500'
+            href='https://creativecommons.org/licenses/by/3.0/deed.zh'
+            rel='noreferrer'
+          >
+            CC-BY-3.0
+          </a>
+          协议。
         </div>
       )}
     </>

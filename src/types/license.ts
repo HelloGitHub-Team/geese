@@ -51,42 +51,7 @@ export type TagListItem = {
   content: Tag[];
 };
 
-type LicenseListItem = {
-  lid: string;
-  spdx_id: string;
-  name: string;
-  pv: string;
-  uv: number;
-  featured: boolean;
-  tags: any[];
-  status: number;
-  is_show: boolean;
-  is_osi: boolean;
-  is_fsf: boolean;
-  is_deprecate: boolean;
-  created_at: string;
-  updated_at: string;
-  publish_at: string;
-};
-export type LicenseListFetchData = {
-  success: boolean;
-  page: number;
-  pageSize: number;
-  data: LicenseListItem[];
-  has_more: boolean;
-  page_total: number;
-  total: number;
-};
-
 export type LicenseTagsFetchData = {
   success: boolean;
   data: Tag[];
-};
-
-export type ListQuery = {
-  page: number;
-  pageSize: number;
-  sort_by: string;
-  tids: string[];
-  [key: string]: string | number | string[];
 };

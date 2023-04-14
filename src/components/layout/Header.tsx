@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { BsVectorPen } from 'react-icons/bs';
 import { AiOutlineBell, AiOutlineGithub } from 'react-icons/ai';
+
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import HeaderBtn from '@/components/buttons/HeaderBtn';
@@ -68,12 +68,6 @@ const Header = () => {
           </li>
           <li className={liClassName('/onefile')}>
             <HeaderBtn pathname='/onefile'>OneFile</HeaderBtn>
-          </li>
-          <li className={liClassName('/license')}>
-            <HeaderBtn pathname='/license'>
-              <BsVectorPen className='mr-0.5' />
-              <span>开源协议</span>
-            </HeaderBtn>
           </li>
           {/* 移动端显示的登录按钮和头像 */}
           <li className='block md:hidden'>

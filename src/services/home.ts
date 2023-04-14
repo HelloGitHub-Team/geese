@@ -19,9 +19,12 @@ export const getStats = async (): Promise<Stats> => {
   return data;
 };
 
-export const getRecommend = async (spdxId?: string): Promise<any> => {
+export const getRecommend = async (lid?: string): Promise<any> => {
   try {
-    const url = `/repository/recommend/?spdx_id=${spdxId}`;
+    let url = '/repository/recommend/';
+    if (lid) {
+      url = `/repository/recommend/?lid=${lid}`;
+    }
     const data = await fetcher<RecomemndItems>(makeUrl(url));
     return data;
   } catch (error) {

@@ -346,14 +346,15 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       <div className='mt-6 flex flex-col pb-4'>
         <div className='flex flex-row justify-between align-middle'>
           <div className='flex flex-row gap-x-1'>
-            <div className='flex items-center  justify-center text-sm text-gray-500'>
+            <div className='flex items-center justify-center text-sm text-gray-500'>
               {repo.license_lid ? (
-                <div className='hidden md:block'>
-                  开源<span className='mx-1.5'>•</span>
-                  <Link
-                    href={`/license/${repo.license_lid}?spdx=${repo.license}`}
-                  >
-                    {repo.license}
+                <div className='hidden flex-row items-center md:flex'>
+                  <span>开源</span>
+                  <span className='mx-1.5'>•</span>
+                  <Link href={`/license/${repo.license_lid}`}>
+                    <span className='cursor-pointer text-blue-500'>
+                      {repo.license}
+                    </span>
                   </Link>
                 </div>
               ) : (

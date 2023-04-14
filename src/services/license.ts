@@ -1,12 +1,7 @@
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
-import {
-  LicenseDetailFetchData,
-  LicenseListFetchData,
-  LicenseTagsFetchData,
-  ListQuery,
-} from '@/types/license';
+import { LicenseDetailFetchData } from '@/types/license';
 
 // 获取协议详情
 export const getLicenseDetail = async (
@@ -23,45 +18,5 @@ export const getLicenseDetail = async (
   } catch (error) {
     console.log(error);
     return {} as LicenseDetailFetchData;
-  }
-};
-
-// 获取协议列表
-export const getLicenseList = async (
-  query: ListQuery
-): Promise<LicenseListFetchData> => {
-  let url = '/license/?';
-  Object.keys(query).forEach((key) => {
-    const value = query[key];
-    if (!Array.isArray(value)) {
-      url += `${key}=${value}&`;
-    }
-  });
-  Array.isArray(query.tids) &&
-    query.tids.forEach((key) => {
-      url += `tid=${key}&`;
-    });
-
-  console.log({ url });
-
-  try {
-    const data = await fetcher<LicenseListFetchData>(makeUrl(url));
-    return data;
-  } catch (error) {
-    console.log(error);
-    return {} as LicenseListFetchData;
-  }
-};
-
-// 获取筛选标签
-export const getLicenseTags = async (): Promise<LicenseTagsFetchData> => {
-  const url = '/license/tags/?tag_type=permissions';
-
-  try {
-    const data = await fetcher<LicenseTagsFetchData>(makeUrl(url));
-    return data;
-  } catch (error) {
-    console.log(error);
-    return {} as LicenseTagsFetchData;
   }
 };
