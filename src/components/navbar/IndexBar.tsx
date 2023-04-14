@@ -111,13 +111,6 @@ const IndexBar = (props: Props) => {
             </a>
           </RepoModal>
         </div>
-        <div className='hidden md:block'>
-          <RepoModal>
-            <a className='flex h-8 cursor-pointer items-center rounded-lg bg-blue-500 px-2 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 xl:px-4 xl:text-sm'>
-              提交项目
-            </a>
-          </RepoModal>
-        </div>
       </div>
       <div className={labelStatus ? 'flex px-4 pb-2.5 lg:hidden' : 'hidden'}>
         <TagLink items={tagItems} tid={props.tid} sort_by={props.sort_by} />

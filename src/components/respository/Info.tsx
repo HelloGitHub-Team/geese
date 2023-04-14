@@ -104,6 +104,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
 
   const onClickCollect = () => {
     if (isLogin) {
+      getUserFavoriteOptions();
       setOpenModal(true);
     } else {
       Message.error('请先登录~');
@@ -166,7 +167,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
         return (
           <>
             <AiOutlineGithub />
-            <div className='pl-1'>项目</div>
+            <div className='pl-1'>源码</div>
           </>
         );
       case 'home':
@@ -224,7 +225,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     getUserRepoStatus(repo.rid);
     setVoteTotal(repo.votes);
     setCollectTotal(repo.collect_total);
-    getUserFavoriteOptions();
     handleURLOptions(repo);
   }, [repo]);
 
@@ -235,7 +235,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           <div className='flex items-center'>
             <a>
               <img
-                className='rounded-sm border border-gray-100 dark:border-gray-800'
+                className='rounded-sm border border-gray-100 bg-white dark:border-gray-800'
                 src={repo.author_avatar}
                 width='72'
                 height='72'
@@ -283,7 +283,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                       <CustomLink
                         href={item.url}
                         key={item.key}
-                        onClick={() => onClickLink(item.name, repo.rid)}
+                        onClick={() => onClickLink(item.key, repo.rid)}
                       >
                         <div className='py-2 px-1'>
                           <div className='flex flex-row items-center rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-700'>
@@ -322,7 +322,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                 <div className='w-40 py-3 px-6 text-sm font-medium'>
                   <div className='flex flex-1 items-center justify-center'>
                     <AiFillCaretUp className='text-xl text-blue-500' />
-                    <div className='pl-2'>投票 {voteTotal}</div>
+                    <div className='pl-2'>点赞 {voteTotal}</div>
                   </div>
                 </div>
               </Button>
@@ -335,7 +335,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                 <div className='w-40 py-3 px-6 text-sm font-medium'>
                   <div className='flex flex-1 items-center justify-center'>
                     <AiOutlineCaretUp className='text-lg' />
-                    <div className='pl-2'>投票 {voteTotal}</div>
+                    <div className='pl-2'>点赞 {voteTotal}</div>
                   </div>
                 </div>
               </Button>
@@ -347,7 +347,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
         <div className='flex flex-row justify-between align-middle'>
           <div className='flex flex-row gap-x-1'>
             <div className='flex items-center  justify-center text-sm text-gray-500'>
-              {repo.license ? (
+              {repo.license_lid ? (
                 <div className='hidden md:block'>
                   开源<span className='mx-1.5'>•</span>
                   <Link

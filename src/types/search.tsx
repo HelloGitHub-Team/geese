@@ -7,7 +7,7 @@ export interface SearchItemType {
   author: string;
   author_avatar: string;
   name: string;
-  description: string;
+  summary: string;
   primary_lang: string;
   lang_color: string;
   stars: number;

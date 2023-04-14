@@ -15,7 +15,7 @@ const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo, index }) => {
   return (
     <article>
       <Link href={`/repository/${repo.rid}`}>
-        <div className='relative cursor-pointer bg-white py-3 pl-4 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700'>
+        <div className='relative cursor-pointer bg-white py-3 px-4 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700'>
           <div className='pb-0.5'>
             <div className='text-color-primary flex justify-between visited:text-gray-500 dark:text-gray-300'>
               <span className='truncate pt-1 text-base leading-snug'>
@@ -24,7 +24,7 @@ const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo, index }) => {
             </div>
           </div>
           <div className='truncate pt-1 text-sm text-gray-400'>
-            {repo.description || '-'}
+            {repo.summary || '-'}
           </div>
           <div className='flex items-center pt-2'>
             <img

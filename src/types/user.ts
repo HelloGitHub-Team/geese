@@ -18,16 +18,23 @@ export interface UserType {
 }
 
 export interface UserStatusProps {
-  success: string;
+  success: boolean;
   uid: string;
   nickname: string;
   avatar: string;
-  permission: Permission;
+  permission?: Permission;
   contribute: number;
   level: number;
+  unread: UserUnreadaType;
   next_level_score: number;
-  first_login: string;
-  last_login: string;
+  first_login?: string;
+  last_login?: string;
+}
+
+export interface UserUnreadaType {
+  total: number;
+  repository: number;
+  system: number;
 }
 
 export interface OAuthURLResponse {
@@ -72,4 +79,17 @@ export interface CollectItem {
   uid: string;
   created_at: string;
   repo: RepoType;
+}
+
+export interface MessageItems {
+  success: boolean;
+  page: number;
+  data: MessageRecord[];
+  has_more: boolean;
+}
+
+export interface MessageRecord {
+  mid: string;
+  content: string;
+  publish_at: string;
 }

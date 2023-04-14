@@ -48,7 +48,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
             <Link href={`/repository/${item.rid}`}>
               <div className='hidden cursor-pointer items-center hover:text-blue-500 md:flex'>
                 <AiOutlineLike size={15} className='mr-0.5' />
-                Vote {numFormat(item.vote_total, 1)}
+                Like {numFormat(item.vote_total, 1)}
               </div>
             </Link>
           </div>

@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { AiOutlineTrophy } from 'react-icons/ai';
 
 import HeaderBtn from '@/components/buttons/HeaderBtn';
 import type { option } from '@/components/dropdown/Dropdown';
@@ -47,7 +46,7 @@ const RankButton = (props: RankButtonProps) => {
 
   return (
     <HeaderBtn pathname='/report/tiobe'>
-      <AiOutlineTrophy className='mr-0.5' />
+      <span className='mr-0.5'>🏆</span>
       <span>榜单</span>
     </HeaderBtn>
   );

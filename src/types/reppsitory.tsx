@@ -26,6 +26,7 @@ export interface Repository extends RepoType {
   download: string | null;
   online: string | null;
   other_url: string | null;
+  license_lid: string | null;
 
   score: number;
   score_str: string | null;

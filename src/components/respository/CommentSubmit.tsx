@@ -2,7 +2,6 @@ import { FormEventHandler } from 'react';
 
 import useCommentData from '@/hooks/useCommentData';
 import { useLoginContext } from '@/hooks/useLoginContext';
-import useUserInfo from '@/hooks/useUserInfo';
 
 import Message from '@/components/message';
 import Modal from '@/components/modal';
@@ -43,8 +42,7 @@ function CommentSubmit(props: {
   onFail?: (error: any) => void;
 }) {
   const { commentData, setCommentData } = useCommentData();
-  const { userInfo } = useUserInfo();
-  const { login, isLogin } = useLoginContext();
+  const { login, userInfo, isLogin } = useLoginContext();
   const { belongId, className, onSuccess, onFail } = props;
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
@@ -108,7 +106,7 @@ function CommentSubmit(props: {
         <div className='relative mr-4 hidden sm:inline-flex'>
           <div className='relative aspect-square w-14 overflow-hidden rounded-full'>
             <img
-              src={userInfo.avatar || DEFAULT_AVATAR}
+              src={userInfo?.avatar || DEFAULT_AVATAR}
               alt='comment_submit_avatar'
             />
           </div>

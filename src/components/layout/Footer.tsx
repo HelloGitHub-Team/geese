@@ -117,7 +117,7 @@ const Footer = () => {
         <span className='inline-block cursor-pointer align-[-2px] hover:text-green-500'>
           <a
             target='_blank'
-            href='https://img.hellogithub.com/ad/weixin_footer.png'
+            href='https://hellogithub.com/weixin_footer.png'
             rel='noreferrer'
           >
             <AiFillWechat size={14} />

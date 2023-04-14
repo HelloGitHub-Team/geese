@@ -19,6 +19,7 @@ export interface HomeItem {
   title: string;
   name: string;
   description: string;
+  summary: string;
   primary_lang: string;
   lang_color: string;
   is_hot: boolean;
