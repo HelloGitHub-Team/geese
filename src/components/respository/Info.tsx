@@ -348,9 +348,9 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           <div className='flex flex-row gap-x-1'>
             <div className='flex items-center justify-center text-sm text-gray-500'>
               {repo.license_lid ? (
-                <div className='hidden flex-row items-center md:flex'>
+                <div className='flex-row items-center md:flex'>
                   <span>开源</span>
-                  <span className='mx-1.5'>•</span>
+                  <span className='mx-0.5 md:mx-1.5'>•</span>
                   <Link href={`/license/${repo.license_lid}`}>
                     <span className='cursor-pointer text-blue-500'>
                       {repo.license}
@@ -388,7 +388,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               </div>
             )}
             <Link href={`/repository/${repo.rid}/embed`}>
-              <div className='flex cursor-pointer items-center justify-center hover:text-current active:!text-gray-400 md:hover:text-blue-500'>
+              <div className='hidden cursor-pointer items-center justify-center hover:text-current active:!text-gray-400 md:flex md:hover:text-blue-500'>
                 <BsFileEarmarkCode className='mr-2' size={16} />
                 嵌入
               </div>

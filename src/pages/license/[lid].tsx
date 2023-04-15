@@ -134,7 +134,7 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
             </a>
           </div>
           <div className='flex flex-col'>
-            <p className='text-justify'>
+            <p className='md:text-justify'>
               {translate ? detail.description_zh : detail.description}
               <span
                 className='inline-flex cursor-pointer items-center pl-0.5 text-xs text-blue-500'
@@ -184,14 +184,14 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
             <div className='shrink grow'></div>
             <div
               onClick={onCopy}
-              className='hover: flex cursor-pointer items-center justify-self-end border-blue-500 text-sm hover:text-blue-500'
+              className='flex cursor-pointer items-center justify-self-end border-blue-500 text-sm hover:text-blue-500'
             >
               <MdOutlineFileCopy className='text-blue-500' />
               <span className='ml-1'>复制</span>
             </div>
           </div>
           {licenseText ? (
-            <div className='whitespace-pre-wrap text-justify'>
+            <div className='whitespace-pre-wrap md:text-justify'>
               {licenseText}
               <span
                 className='ml-2 cursor-pointer text-sm font-medium text-blue-400'
