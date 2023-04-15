@@ -93,7 +93,7 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
     if (expand) {
       setLicenseText(detail.text);
     } else {
-      setLicenseText(detail.text?.slice(0, 500) + '...');
+      setLicenseText(detail.text?.slice(0, 600) + '...');
     }
   }, [expand, detail]);
 
@@ -134,7 +134,7 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
             </a>
           </div>
           <div className='flex flex-col'>
-            <p className='md:text-justify'>
+            <p className='items-center md:text-justify'>
               {translate ? detail.description_zh : detail.description}
               <span
                 className='inline-flex cursor-pointer items-center pl-0.5 text-xs text-blue-500'
