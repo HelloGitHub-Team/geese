@@ -1,6 +1,7 @@
 import copy from 'copy-to-clipboard';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
+import { BsTranslate } from 'react-icons/bs';
 import { MdOutlineFileCopy } from 'react-icons/md';
 
 import Message from '@/components/message';
@@ -19,6 +20,7 @@ type LicenseDetailProps = {
 
 const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
   const [licenseText, setLicenseText] = useState<string>();
+  const [translate, setTranslate] = useState(false);
   const [expand, setExpand] = useState(false);
   const [tagList, setTagList] = useState<TagListItem[]>([]);
 
@@ -106,6 +108,10 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
     }
   };
 
+  const onTranslate = () => {
+    setTranslate(!translate);
+  };
+
   return (
     <>
       <Seo title='HelloGitHub｜开源协议' />
@@ -124,10 +130,21 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
               href='https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb'
               rel='noreferrer'
             >
-              <span>反馈问题</span>
+              <span>反馈</span>
             </a>
           </div>
-          <div className='flex flex-col'>{detail.description}</div>
+          <div className='flex flex-col'>
+            <p className='text-justify'>
+              {translate ? detail.description_zh : detail.description}
+              <span
+                className='inline-flex cursor-pointer items-center pl-0.5 text-xs text-blue-500'
+                onClick={onTranslate}
+              >
+                <BsTranslate className='pr-0.5 font-medium' />
+                {translate ? '原文' : '翻译'}
+              </span>
+            </p>
+          </div>
           <div className='mt-4 flex text-lg font-bold md:mx-3 md:text-xl'>
             {tagList.map((tag) => {
               return (
@@ -174,7 +191,7 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
             </div>
           </div>
           {licenseText ? (
-            <div className='whitespace-pre-wrap text-left'>
+            <div className='whitespace-pre-wrap text-justify'>
               {licenseText}
               <span
                 className='ml-2 cursor-pointer text-sm font-medium text-blue-400'

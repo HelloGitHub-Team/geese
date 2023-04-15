@@ -21,13 +21,8 @@ export type LicenseDetailData = {
   user: User;
   text: string;
   text_zh: string;
-  header_text: string;
-  header_text_zh: string;
-  html: string;
-  header_html: string;
   description: string;
-  status: number;
-  featured: boolean;
+  description_zh: string;
   permissions: Tag[];
   conditions: Tag[];
   limitations: Tag[];
