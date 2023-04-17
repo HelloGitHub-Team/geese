@@ -54,6 +54,7 @@ export interface RepoType {
 
   title: string;
   description: string;
+  summary: string;
   forks: number;
   stars: number;
   stars_str: string;
@@ -105,6 +106,12 @@ export interface CollectType {
 export interface BaseType {
   success: boolean;
   message?: string;
+}
+
+export interface VoteItemData {
+  uid: string;
+  repo: RepoType;
+  created_at: string;
 }
 
 export interface CommentItemData {

@@ -34,10 +34,9 @@ export const userRepoStatus = async (
 ): Promise<UserActionStatus> => {
   const data: RequestInit = {};
   data.credentials = 'include';
-  data.method = 'POST';
-  data.body = JSON.stringify({ item_id: rid, item_type: 'repository' });
+  data.method = 'GET';
   const result = await fetcher<UserActionStatus>(
-    makeUrl(`/user/action/status/`),
+    makeUrl(`/user/action/status/`, { item_id: rid, item_type: 'repository' }),
     data
   );
   return result;

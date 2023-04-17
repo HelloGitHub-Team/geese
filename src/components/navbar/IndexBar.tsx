@@ -7,6 +7,7 @@ import TagLink from '@/components/links/TagLink';
 import { RepoModal } from '@/components/respository/Submit';
 
 import { getTags } from '@/services/home';
+import { isMobile } from '@/utils/util';
 
 import { Tag } from '@/types/tag';
 
@@ -79,7 +80,9 @@ const IndexBar = (props: Props) => {
   }
 
   useEffect(() => {
-    handleTags();
+    if (isMobile()) {
+      handleTags();
+    }
     if (props.tid) {
       setHotURL(`/?sort_by=hot&tid=${props.tid}`);
       setLastURL(`/?sort_by=last&tid=${props.tid}`);

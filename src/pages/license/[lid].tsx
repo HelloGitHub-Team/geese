@@ -164,7 +164,7 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
                     );
                     return (
                       <Tooltip key={ct.name_zh} content={tipContent}>
-                        <div className='mb-2 flex cursor-pointer items-center text-sm font-normal md:text-base'>
+                        <div className='mb-2 flex items-center text-sm font-normal md:text-base lg:cursor-pointer'>
                           <div
                             className={`${tag.bgColor} mr-2 h-3 w-3 rounded-full`}
                           ></div>

@@ -13,7 +13,6 @@ function Tooltip({ content, children }: TooltipProps) {
   return (
     <div>
       <div
-        // onClick={() => setVisibility(true)}
         onMouseEnter={() => {
           !isMobile() && setVisibility(true);
         }}
@@ -34,19 +33,7 @@ function Tooltip({ content, children }: TooltipProps) {
             zIndex: 99,
           }}
         >
-          <div style={{ position: 'relative' }}>
-            <div
-            // style={{
-            //   border: '5px solid black',
-            //   borderColor: 'transparent transparent black transparent',
-            //   position: 'absolute',
-            //   top: '-10px',
-            //   left: '10%',
-            //   transform: 'translateX(-10%)',
-            // }}
-            />
-            {content}
-          </div>
+          <div style={{ position: 'relative' }}>{content}</div>
         </div>
       )}
     </div>

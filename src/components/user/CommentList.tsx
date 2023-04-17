@@ -27,11 +27,11 @@ export default function CommentList(props: Props) {
             <div className='p-2' key={item.cid}>
               <div className='flex justify-between py-2'>
                 <div className='flex items-center'>
-                  <span className='mr-4'>
+                  <span className='mr-2'>
                     {(data.page - 1) * data.pageSize + index + 1}.
                   </span>
                   <span className='text-xs text-gray-600 dark:text-gray-300 md:text-sm'>
-                    在 {formatZH(item.created_at, 'YYYY 年 MM 月 DD 日')}{' '}
+                    在 {formatZH(item.created_at, 'YYYY 年 MM 月 DD 日 ')}{' '}
                     发布的评论
                   </span>
                 </div>

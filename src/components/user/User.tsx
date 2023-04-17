@@ -13,10 +13,13 @@ import DynamicRecordList from '@/components/user/DynamicRecordList';
 
 import { formatZH } from '@/utils/day';
 
+import VoteList from './VoteList';
+
 const tabList = [
   { key: 'dynamic', title: '动态' },
   { key: 'favorite', title: '收藏夹' },
   { key: 'comment', title: '评论' },
+  { key: 'vote', title: '点赞' },
 ];
 
 const User = () => {
@@ -192,6 +195,7 @@ const User = () => {
             {activeTab === tabList[2].key && (
               <CommentList uid={uid as string} />
             )}
+            {activeTab === tabList[3].key && <VoteList uid={uid as string} />}
           </div>
         </div>
         <div className='h-2'></div>

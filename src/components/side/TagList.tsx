@@ -13,6 +13,7 @@ import { VscChromeClose } from 'react-icons/vsc';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import { getSelectTags, getTags, saveSelectTags } from '@/services/tag';
+import { isMobile } from '@/utils/util';
 
 import BasicDialog from '../dialog/BasicDialog';
 import Loading from '../loading/Loading';
@@ -185,7 +186,9 @@ export default function TagList() {
   };
 
   useEffect(() => {
-    initTags();
+    if (!isMobile()) {
+      initTags();
+    }
   }, []);
 
   const iconClassName = (iconName: string) =>
