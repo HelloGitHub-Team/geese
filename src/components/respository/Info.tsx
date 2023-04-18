@@ -218,6 +218,8 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     if (options.length > 0) {
       options.unshift({ key: 'github', name: 'GitHub', url: repo.url });
       setURLOptions(options);
+    } else {
+      setURLOptions([]);
     }
   };
 

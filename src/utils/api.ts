@@ -2,7 +2,7 @@ import stringify from './qs-stringify';
 
 export const ITEMS_PER_PAGE = 10;
 
-const LOCAL_API_HOST = 'http://127.0.0.1:8001';
+const LOCAL_API_HOST = 'https://hg-api.lcl101.cn';
 const PRODUCTION_API_HOST = 'https://api.hellogithub.com';
 
 export const API_ROOT_PATH = '/v1';
