@@ -1,38 +1,27 @@
 ## 介绍
 
-Geese 译为「惊鸿」可理解为轻盈、快速的形态。希望焕然一新的 HelloGitHub 官网，可以给你带来「惊鸿」一般的访问体验。
+Geese 译为「惊鸿」可理解为轻盈、快速的形态，希望它清爽、简约的界面可以带给你「惊鸿」一般的访问体验。
 
-目前**第一版已完成上线**，欢迎[访问](https://hellogithub.com)和[反馈](https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb)
+我想让玩开源的人有个“家”，所以就用 Next.js+Tailwind CSS 构建了一个轻量级的开源社区，也就是「HelloGitHub 社区」的源码。
 
-![](docs/img/2023-01-11.png)
+![](docs/img/2023-04-18.png)
 
-感谢每一位参与贡献的[小伙伴](https://github.com/HelloGitHub-Team/geese/graphs/contributors)，十分开心可以和各位一起做开源项目，这段经历让我受益匪浅。
+该社区提供了不同 **编程语言/类别/标签** 有趣、入门级的开源项目，用户可以这里 **发现/搜索/收藏/评论/分享** 感兴趣的开源项目，还可以 **点赞/提交/打分** 开源项目，让优秀的开源项目脱颖而出。围绕开源项目，社区聚集了一群热爱开源的玩家、技术精湛的大牛、热衷分享的作者，感谢**开源**让我们相识，或许开源精神就是一种交朋友的方式吧！
+
+目前，该社区 **已上线** [在线体验](https://hellogithub.com) 如遇到问题或发现 BUG 可以[一键反馈](https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb)。
 
 ## 待认领
 
-- [ ] [(中等)优化首页 item 样式](https://github.com/HelloGitHub-Team/geese/issues/94)
-- [ ] [(复杂)增加开源协议专栏](https://github.com/HelloGitHub-Team/geese/issues/78)
-- [ ] [(讨论）README 生成器](https://github.com/HelloGitHub-Team/geese/issues/83)
-- [ ] [(内容）如何发起/加入开源项目教程](https://github.com/HelloGitHub-Team/geese/issues/84)
+- [ ] [【复杂】减小项目打包的体积](https://github.com/HelloGitHub-Team/geese/issues/101)
+- [ ] [【简单】待解决的问题](https://github.com/HelloGitHub-Team/geese/issues/38)
+
+开发须知[在这里](./docs/content.md)，感谢每一位参与贡献的[小伙伴](https://github.com/HelloGitHub-Team/geese/graphs/contributors)，十分开心可以和各位一起做开源项目，这段经历让我受益匪浅。
 
 **要求**
 
-1. 相信你：**热爱开源**、**有始有终**、**靠谱**！
+1. 拥有 **热爱开源**、**有始有终**、**靠谱** 的性格。
 2. 完成时间：可根据自己的实际情况而定，参考：简单（7 天）、中等（14 天）、复杂（30 天）。
-3. 有任何问题可在对应需求的 `issues` 进行沟通。
-
-[查看](https://github.com/orgs/HelloGitHub-Team/projects/1/views/1)需求和进度，开发须知[在这里](./docs/content.md)。
-
-## 技术栈
-
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [SWR](https://swr.vercel.app/zh-CN)
-
-## 鸣谢
-
-- 脚手架：[ts-nextjs-tailwind-starter](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter)
-- 组件样式：[hyperui](https://github.com/markmead/hyperui)
+3. 有任何问题可在对应需求下的 `issues` 中进行沟通。
 
 ## 声明
 
