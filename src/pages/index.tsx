@@ -8,6 +8,7 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 import ItemBottom from '@/components/home/ItemBottom';
 import Items from '@/components/home/Items';
 import Loading from '@/components/loading/Loading';
+import { HomeSkeleton } from '@/components/loading/skeleton';
 import IndexBar from '@/components/navbar/IndexBar';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
@@ -66,14 +67,13 @@ const Index: NextPage = () => {
       <IndexBar tid={tid as string} sort_by={sort_by as string} />
       <div className='h-screen'>
         <Items repositories={repositories}></Items>
-        {(isValidating || hasMore) && (
-          <div
-            className='divide-y divide-gray-100 overflow-hidden dark:divide-gray-700'
-            ref={sentryRef}
-          >
-            <Loading></Loading>
-          </div>
-        )}
+        <div
+          className='divide-y divide-gray-100 overflow-hidden dark:divide-gray-700'
+          ref={sentryRef}
+        >
+          {isValidating && size <= 1 && <HomeSkeleton />}
+          {(isValidating || hasMore) && size > 1 && <Loading />}
+        </div>
         {handleItemBottom()}
         <div className='hidden border-none md:block'>
           <ToTop />

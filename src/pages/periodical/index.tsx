@@ -4,7 +4,7 @@ import { useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 
 import Button from '@/components/buttons/Button';
-import Loading from '@/components/loading/Loading';
+import { PeriodicalSkeleton } from '@/components/loading/skeleton';
 import Navbar from '@/components/navbar/Navbar';
 import { RepoModal } from '@/components/respository/Submit';
 import Seo from '@/components/Seo';
@@ -68,7 +68,7 @@ const PeriodicalIndexPage: NextPage = () => {
             </p>
           </div>
           {isValidating ? (
-            <Loading />
+            <PeriodicalSkeleton />
           ) : (
             <dl className='grid grid-cols-3 gap-2'>
               <div className='flex flex-col rounded-lg border border-gray-200 px-2 pt-4 pb-4 text-center dark:border-gray-700 md:px-4 md:pt-6'>

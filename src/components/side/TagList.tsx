@@ -12,6 +12,7 @@ import { getSelectTags, getTags, saveSelectTags } from '@/services/tag';
 import { isMobile } from '@/utils/util';
 
 import BasicDialog from '../dialog/BasicDialog';
+import { TagListSkeleton } from '../loading/skeleton';
 import Message from '../message';
 
 import { SelectTag, Tag } from '@/types/tag';
@@ -214,15 +215,7 @@ export default function TagList() {
             </div>
           </div>
           <div className='custom-scrollbar max-h-[444px] overflow-y-auto'>
-            {!tags.length && (
-              <div className='mt-1 mb-2 animate-pulse'>
-                <ul className='space-y-2'>
-                  <li className='h-6 rounded bg-gray-100 dark:bg-gray-700' />
-                  <li className='h-6 rounded bg-gray-100 dark:bg-gray-700' />
-                  <li className='h-6 rounded bg-gray-100 dark:bg-gray-700' />
-                </ul>
-              </div>
-            )}
+            {!tags.length && <TagListSkeleton />}
             {tags.map((item: Tag) => (
               <Link key={item.tid} href={`/?sort_by=last&tid=${item.tid}`}>
                 <div className={tagClassName(item.tid)}>

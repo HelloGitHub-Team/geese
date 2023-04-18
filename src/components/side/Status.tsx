@@ -4,7 +4,7 @@ import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 import { numFormat } from '@/utils/util';
 
-import Loading from '../loading/Loading';
+import { StatusSkeleton } from '../loading/skeleton';
 
 import { Stats } from '@/types/home';
 
@@ -35,7 +35,7 @@ export default function Status() {
           </div>
         </div>
       ) : (
-        <Loading></Loading>
+        <StatusSkeleton />
       )}
 
       <div className='text-base text-gray-400'>关于本站</div>

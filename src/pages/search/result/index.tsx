@@ -6,7 +6,7 @@ import useSWRInfinite from 'swr/infinite';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import ItemBottom from '@/components/home/ItemBottom';
-import Loading from '@/components/loading/Loading';
+import { SearchSkeleton } from '@/components/loading/skeleton';
 import Navbar from '@/components/navbar/Navbar';
 import SearchResultItem from '@/components/search/SearchResultItem';
 import Seo from '@/components/Seo';
@@ -77,10 +77,10 @@ const Result: NextPage = () => {
         </div>
         {(isValidating || hasMore) && (
           <div
-            className='bg-content divide-y divide-gray-100 overflow-hidden dark:divide-gray-700'
+            className='bg-content divide-y divide-gray-100 overflow-hidden dark:divide-gray-700 md:rounded-lg'
             ref={sentryRef}
           >
-            <Loading></Loading>
+            <SearchSkeleton />
           </div>
         )}
         {handleItemBottom()}

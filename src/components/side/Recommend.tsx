@@ -6,7 +6,7 @@ import { MdRefresh } from 'react-icons/md';
 
 import { getRecommend } from '@/services/home';
 
-import Loading from '../loading/Loading';
+import { RecommendSkeleton } from '../loading/skeleton';
 
 import { RecomemndItem } from '@/types/home';
 
@@ -48,7 +48,7 @@ export default function Recommend() {
           </div>
         </div>
         {repositories.length == 0 ? (
-          <Loading />
+          <RecommendSkeleton />
         ) : (
           <div className='dark:text-gray-300'>
             {repositories.map((item) => (

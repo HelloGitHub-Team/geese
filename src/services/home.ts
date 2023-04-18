@@ -35,9 +35,7 @@ export const getRecommend = async (lid?: string): Promise<any> => {
 export const getTags = async (
   sort_by: string | string[]
 ): Promise<TagItems> => {
-  const data = await fetcher<TagItems>(
-    makeUrl(`/tag/`, { page: 1, pageSize: 10, sort_by })
-  );
+  const data = await fetcher<TagItems>(makeUrl(`/tag/`, { sort_by }));
   return data;
 };
 
