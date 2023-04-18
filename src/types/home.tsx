@@ -55,9 +55,11 @@ export interface AdvertItem {
   aid: string;
   url: string;
   image_url: string;
-  position: string;
-  rank: number;
   is_ad: boolean;
+  is_reward: boolean;
+  year?: number;
+  day?: number;
+  percent?: number;
 }
 
 export interface AdvertItems {

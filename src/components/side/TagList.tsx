@@ -2,11 +2,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import {
-  AiOutlineAppstore,
-  AiOutlineCloseSquare,
-  AiOutlineSetting,
-} from 'react-icons/ai';
+import { AiOutlineAppstore, AiOutlineSetting } from 'react-icons/ai';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 import { VscChromeClose } from 'react-icons/vsc';
 
@@ -16,12 +12,12 @@ import { getSelectTags, getTags, saveSelectTags } from '@/services/tag';
 import { isMobile } from '@/utils/util';
 
 import BasicDialog from '../dialog/BasicDialog';
-import Loading from '../loading/Loading';
 import Message from '../message';
 
 import { SelectTag, Tag } from '@/types/tag';
 
 const maxTotal = 15;
+const defaultTag = { name: '综合', tid: '', icon_name: 'find' };
 
 export function TagModal({
   children,
@@ -70,6 +66,7 @@ export function TagModal({
         selectTags.push(allTags[i]);
       }
     }
+    selectTags.unshift(defaultTag);
     const res = await saveSelectTags(tids);
     if (res.success) {
       Message.success('保存成功！');
@@ -181,6 +178,7 @@ export default function TagList() {
   const initTags = async () => {
     const res = await getTags();
     if (res.success) {
+      res.data.unshift(defaultTag);
       setTags(res.data);
     }
   };
@@ -209,23 +207,22 @@ export default function TagList() {
         <div className='rounded-lg bg-white px-3 py-2 dark:bg-gray-800'>
           <div className='px-1 pb-1'>
             <div className='border-b border-b-gray-200 pb-2 dark:border-b-gray-600 dark:text-gray-300'>
-              <Link href='/?sort_by=last'>
-                {tid.length > 0 ? (
-                  <div className='flex w-[104px] cursor-pointer flex-row items-center rounded p-1 hover:bg-gray-100 hover:text-blue-500 dark:hover:bg-gray-700'>
-                    <AiOutlineCloseSquare size={16} />
-                    <div className='ml-1 font-medium'>取消选择</div>
-                  </div>
-                ) : (
-                  <div className='flex w-[104px] flex-row items-center p-1'>
-                    <AiOutlineAppstore size={16} />
-                    <div className='ml-1 font-medium'>热门标签</div>
-                  </div>
-                )}
-              </Link>
+              <div className='flex w-[104px] flex-row items-center p-1'>
+                <AiOutlineAppstore size={16} />
+                <div className='ml-1 font-medium'>热门标签</div>
+              </div>
             </div>
           </div>
           <div className='custom-scrollbar max-h-[444px] overflow-y-auto'>
-            {!tags.length && <Loading />}
+            {!tags.length && (
+              <div className='mt-1 mb-2 animate-pulse'>
+                <ul className='space-y-2'>
+                  <li className='h-6 rounded bg-gray-100 dark:bg-gray-700' />
+                  <li className='h-6 rounded bg-gray-100 dark:bg-gray-700' />
+                  <li className='h-6 rounded bg-gray-100 dark:bg-gray-700' />
+                </ul>
+              </div>
+            )}
             {tags.map((item: Tag) => (
               <Link key={item.tid} href={`/?sort_by=last&tid=${item.tid}`}>
                 <div className={tagClassName(item.tid)}>
@@ -236,9 +233,9 @@ export default function TagList() {
             ))}
           </div>
           <TagModal updateTags={setTags}>
-            <div className='flex cursor-pointer flex-row items-center border-t border-t-gray-200 px-2 pt-2 pb-1 hover:text-blue-500 dark:border-t-gray-600 dark:text-gray-300 dark:hover:text-blue-500'>
+            <div className='flex cursor-pointer flex-row items-center border-t border-t-gray-200 px-3 pt-2 pb-1 hover:text-blue-500 dark:border-t-gray-600 dark:text-gray-300 dark:hover:text-blue-500'>
               <AiOutlineSetting size={15} />
-              <div className='ml-0.5 text-sm'>管理标签</div>
+              <div className='ml-1 text-sm'>管理标签</div>
             </div>
           </TagModal>
         </div>

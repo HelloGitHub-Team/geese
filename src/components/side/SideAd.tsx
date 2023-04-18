@@ -13,13 +13,7 @@ export const SideAd: NextPage<Props> = ({ data }) => {
   return (
     <div className='space-y-1'>
       {data.map((item: AdvertItem) => (
-        <Ad
-          key={item.aid}
-          id={item.aid}
-          image={item.image_url}
-          url={item.url}
-          is_ad={item.is_ad}
-        ></Ad>
+        <Ad key={item.aid} data={item} />
       ))}
     </div>
   );
@@ -32,13 +26,7 @@ export const SideFixAd: NextPage<Props> = ({ data, displayAdOnly }) => {
       hidden={!displayAdOnly}
     >
       {data.map((item: AdvertItem) => (
-        <Ad
-          key={item.aid}
-          id={item.aid}
-          image={item.image_url}
-          url={item.url}
-          is_ad={item.is_ad}
-        ></Ad>
+        <Ad key={item.aid} data={item} />
       ))}
     </div>
   );
