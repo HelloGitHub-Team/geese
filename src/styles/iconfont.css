@@ -12,6 +12,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-find:before {
+  content: '\e620';
+}
+
 .icon-c:before {
   content: '\e607';
 }

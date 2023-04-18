@@ -24,9 +24,6 @@ export interface Tag {
   name: string;
   tid: string;
   icon_name: string;
-  repo_total: number;
-  created_at: string;
-  udpated_at: string;
 }
 
 export interface SelectTag {

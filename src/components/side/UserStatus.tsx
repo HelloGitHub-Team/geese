@@ -93,7 +93,7 @@ export default function UserStatus() {
                   </div>
                 </div>
               </div>
-              <div className='mt-3 flex cursor-pointer justify-between border-t text-xs dark:border-gray-700'>
+              <div className='mt-3 flex justify-between border-t text-xs dark:border-gray-700'>
                 <Link href={`/user/${userInfo?.uid}`} className='block'>
                   <a>
                     <div className='pl-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
@@ -102,7 +102,7 @@ export default function UserStatus() {
                   </a>
                 </Link>
                 <div
-                  className='pr-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'
+                  className='cursor-pointer pr-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'
                   onClick={logout}
                 >
                   退出登录

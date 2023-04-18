@@ -33,9 +33,6 @@ const IndexBar = (props: Props) => {
             name: '全部',
             tid: '',
             icon_name: '',
-            repo_total: 0,
-            created_at: '',
-            udpated_at: '',
           });
           setTagItems(data.data);
         }
