@@ -29,7 +29,7 @@ export default function UserStatus() {
   return (
     <>
       {!isValidating || isLogin ? (
-        <div>
+        <>
           {isLogin && userInfo?.success ? (
             <>
               <div className='relative'>
@@ -101,12 +101,22 @@ export default function UserStatus() {
                     </div>
                   </a>
                 </Link>
-                <div
-                  className='cursor-pointer pr-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'
-                  onClick={logout}
-                >
-                  退出登录
-                </div>
+                {userInfo.permission?.code == 'super' ? (
+                  <Link href='/taichi/'>
+                    <a>
+                      <div className='cursor-pointer pr-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
+                        管理后台
+                      </div>
+                    </a>
+                  </Link>
+                ) : (
+                  <div
+                    className='cursor-pointer pr-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'
+                    onClick={logout}
+                  >
+                    退出登录
+                  </div>
+                )}
               </div>
             </>
           ) : (
@@ -114,9 +124,9 @@ export default function UserStatus() {
               <SideLoginButton />
             </>
           )}
-        </div>
+        </>
       ) : (
-        <Loading></Loading>
+        <Loading />
       )}
     </>
   );

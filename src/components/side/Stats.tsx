@@ -4,11 +4,11 @@ import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 import { numFormat } from '@/utils/util';
 
-import { StatusSkeleton } from '../loading/skeleton';
+import { StatsSkeleton } from '../loading/skeleton';
 
 import { Stats } from '@/types/home';
 
-export default function Status() {
+export default function SiteStats() {
   const { data: stats } = useSWRImmutable<Stats>(makeUrl('/stats/'), fetcher, {
     revalidateIfStale: false,
   });
@@ -35,12 +35,12 @@ export default function Status() {
           </div>
         </div>
       ) : (
-        <StatusSkeleton />
+        <StatsSkeleton />
       )}
 
       <div className='text-base text-gray-400'>关于本站</div>
       <div className='text-sm leading-7 dark:text-gray-300'>
-        HelloGitHub 是一个分享有趣、 入门级开源项目的平台。
+        HelloGitHub 是一个发现和分享有趣、入门级开源项目的平台。
         希望大家能够在这里找到编程的快乐、 轻松搞定问题的技术方案、
         大呼过瘾的开源神器， 顺其自然地开启开源之旅。
       </div>

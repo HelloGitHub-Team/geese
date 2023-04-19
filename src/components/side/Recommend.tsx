@@ -21,6 +21,7 @@ export default function Recommend() {
   }, [pathname]);
 
   const refreshRecommend = useCallback(async () => {
+    setRepositories([]);
     const lid = query?.lid as string;
     const res = await getRecommend(lid);
     if (res?.success) {

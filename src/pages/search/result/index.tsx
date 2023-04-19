@@ -6,6 +6,7 @@ import useSWRInfinite from 'swr/infinite';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import ItemBottom from '@/components/home/ItemBottom';
+import Loading from '@/components/loading/Loading';
 import { SearchSkeleton } from '@/components/loading/skeleton';
 import Navbar from '@/components/navbar/Navbar';
 import SearchResultItem from '@/components/search/SearchResultItem';
@@ -47,7 +48,7 @@ const Result: NextPage = () => {
   const handleItemBottom = () => {
     if (!isValidating && !hasMore) {
       if (isLogin) {
-        return <ItemBottom endText='以上就是搜索的全部内容'></ItemBottom>;
+        return <ItemBottom endText='END'></ItemBottom>;
       } else {
         return <ItemBottom endText='到底啦！登录可获得更多内容'></ItemBottom>;
       }
@@ -77,10 +78,11 @@ const Result: NextPage = () => {
         </div>
         {(isValidating || hasMore) && (
           <div
-            className='bg-content divide-y divide-gray-100 overflow-hidden dark:divide-gray-700 md:rounded-lg'
+            className='bg-content divide-y divide-gray-100 overflow-hidden dark:divide-gray-700'
             ref={sentryRef}
           >
-            <SearchSkeleton />
+            {isValidating && size <= 1 && <SearchSkeleton />}
+            {(isValidating || hasMore) && size > 1 && <Loading />}
           </div>
         )}
         {handleItemBottom()}

@@ -47,7 +47,6 @@ type URLoption = {
 };
 
 const Info: NextPage<RepositoryProps> = ({ repo }) => {
-  console.log({ repo });
   const { isLogin } = useLoginContext();
   const [isVoted, setIsVoted] = useState<boolean>(false);
   const [voteTotal, setVoteTotal] = useState<number>(0);

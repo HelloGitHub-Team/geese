@@ -6,7 +6,7 @@ import { SideAd, SideFixAd } from '@/components/side/SideAd';
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
-import Status from './Status';
+import SiteStats from './Stats';
 import UserStatus from './UserStatus';
 import Footer from '../layout/Footer';
 
@@ -44,10 +44,10 @@ export default function IndexSide() {
         <div className='relative mt-2 ml-3 max-w-[244px]'>
           <div className='space-y-2'>
             <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5 dark:bg-gray-800'>
-              <UserStatus></UserStatus>
+              <UserStatus />
             </div>
             {!isValidating ? <SideAd data={adverts} /> : <></>}
-            <Status />
+            <SiteStats />
           </div>
           <Footer />
         </div>

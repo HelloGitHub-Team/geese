@@ -8,6 +8,7 @@ import useSWRInfinite from 'swr/infinite';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import ItemBottom from '@/components/home/ItemBottom';
+import Loading from '@/components/loading/Loading';
 import { ArticleSkeleton } from '@/components/loading/skeleton';
 import ArticleNavbar from '@/components/navbar/ArticleBar';
 import Seo from '@/components/Seo';
@@ -136,10 +137,11 @@ const ArticleIndex: NextPage = () => {
         </div>
         {(isValidating || hasMore) && (
           <div
-            className='divide-y divide-gray-100 overflow-hidden dark:divide-gray-700'
+            className='divide-y divide-gray-100 overflow-hidden dark:divide-gray-700 md:rounded-lg'
             ref={sentryRef}
           >
-            <ArticleSkeleton />
+            {isValidating && size <= 1 && <ArticleSkeleton />}
+            {(isValidating || hasMore) && size > 1 && <Loading />}
           </div>
         )}
         {handleItemBottom()}
