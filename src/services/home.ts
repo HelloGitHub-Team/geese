@@ -70,5 +70,28 @@ export const redirectRecord = async (
   }
 };
 
+export const createFeedback = async (data: {
+  content: string;
+  selectOption: number;
+  contact?: string;
+}): Promise<any> => {
+  const req: RequestInit = {};
+  req.credentials = 'include';
+  req.headers = {
+    'Content-Type': 'application/json',
+  };
+  req.method = 'POST';
+  req.body = JSON.stringify({
+    content: data.content,
+    cause: data.selectOption,
+    contact: data.contact,
+  });
+  try {
+    const result = await fetcher(makeUrl(`/feedback/`), req);
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
 export type HomeItemData = HomeItem[];
 export const DataContext = createContext<HomeItemData>([]);

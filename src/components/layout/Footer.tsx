@@ -1,43 +1,20 @@
 import { AiFillWechat, AiFillWeiboCircle } from 'react-icons/ai';
 import { IoLogoRss } from 'react-icons/io';
 
+import { FeedbackModal } from '@/components/dialog/Feedback';
 import CustomLink from '@/components/links/CustomLink';
 
 const Footer = () => {
   return (
     <footer className='flex flex-wrap items-center px-1 py-2.5 text-xs text-gray-400 lg:px-3'>
-      <p>
-        <CustomLink className='inline' href='/help/rule'>
-          <span className='cursor-pointer hover:text-blue-500'>社区玩法</span>
-        </CustomLink>
+      <div className='inline-flex'>
+        <FeedbackModal feedbackType={2}>
+          <div className='cursor-pointer hover:text-blue-500'>问题反馈</div>
+        </FeedbackModal>
         <span className='px-1 lg:px-1.5'>·</span>
-        <CustomLink className='inline' href='/server-sitemap-index.xml'>
-          <span className='cursor-pointer hover:text-blue-500'>站点地图</span>
-        </CustomLink>
-        <span className='px-1 lg:px-1.5'>·</span>
-        <CustomLink className='inline' href='/help/ats'>
-          <span className='cursor-pointer hover:text-blue-500'>服务协议</span>
-        </CustomLink>
-      </p>
-      <p className='mt-2'>
-        <a
-          target='_blank'
-          className='cursor-pointer hover:text-blue-500'
-          href='https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb'
-          rel='noreferrer'
-        >
-          <span>建议反馈</span>
-        </a>
-        <span className='px-1 lg:px-1.5'>·</span>
-
-        <a
-          target='_blank'
-          className='cursor-pointer hover:text-blue-500'
-          href='https://github.com/HelloGitHub-Team/geese'
-          rel='noreferrer'
-        >
-          <span>贡献代码</span>
-        </a>
+        <FeedbackModal feedbackType={3}>
+          <div className='cursor-pointer hover:text-blue-500'>商务合作</div>
+        </FeedbackModal>
         <span className='px-1 lg:px-1.5'>·</span>
         <a
           className='cursor-pointer hover:text-blue-500'
@@ -45,6 +22,24 @@ const Footer = () => {
         >
           联系我们
         </a>
+      </div>
+      <p className='mt-2'>
+        <CustomLink className='inline' href='/help/ats'>
+          <span className='cursor-pointer hover:text-blue-500'>服务协议</span>
+        </CustomLink>
+        <span className='px-1 lg:px-1.5'>·</span>
+        <a
+          target='_blank'
+          className='cursor-pointer hover:text-blue-500'
+          href='https://github.com/HelloGitHub-Team/geese'
+          rel='noreferrer'
+        >
+          <span>社区源码</span>
+        </a>
+        <span className='px-1 lg:px-1.5'>·</span>
+        <CustomLink className='inline' href='/server-sitemap-index.xml'>
+          <span className='cursor-pointer hover:text-blue-500'>站点地图</span>
+        </CustomLink>
       </p>
       <a
         target='_blank'

@@ -7,10 +7,10 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 
 import HeaderBtn from '@/components/buttons/HeaderBtn';
 import RankButton from '@/components/buttons/RankButton';
+import { RepoModal } from '@/components/dialog/RepoModal';
 import AvatarWithDropdown from '@/components/dropdown/AvatarWithDropdown';
 
 import { LoginButton } from '../buttons/LoginButton';
-import { RepoModal } from '../respository/Submit';
 import SearchInput from '../search/SearchInput';
 
 const Header = () => {
@@ -77,11 +77,9 @@ const Header = () => {
         <div className='shrink grow'></div>
         <div className='hidden cursor-pointer space-x-2 md:flex'>
           <RepoModal>
-            <button className='flex h-9 cursor-pointer items-center rounded-lg bg-blue-500 px-2 text-sm text-white hover:bg-blue-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:text-blue-500 dark:active:bg-gray-900 lg:mr-2'>
-              <div className='flex items-center'>
-                <AiOutlineGithub size={16} className='mr-0.5' />
-                提交项目
-              </div>
+            <button className='flex h-8 cursor-pointer items-center rounded-lg border border-blue-500 bg-blue-500 px-2 text-sm text-white hover:border-blue-600 hover:bg-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:border-blue-500 dark:hover:bg-gray-800 dark:active:bg-gray-900 lg:mr-2'>
+              <AiOutlineGithub size={16} className='mr-0.5' />
+              提交项目
             </button>
           </RepoModal>
           {isLogin && userInfo?.success ? (

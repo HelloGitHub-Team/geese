@@ -32,13 +32,13 @@ export default function NotFoundPage() {
               </a>
             </Link>
             <div className='mt-4 block text-xs text-gray-400'>
-              <Link href='https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb'>
+              <Link href='mailto:595666367@qq.com'>
                 <a
                   target='_blank'
                   className='cursor-pointer hover:underline'
                   rel='noreferrer'
                 >
-                  <span>反馈问题</span>
+                  <span>问题反馈</span>
                 </a>
               </Link>
               <span className='px-1'>·</span>
@@ -48,11 +48,11 @@ export default function NotFoundPage() {
                   className='cursor-pointer hover:underline'
                   rel='noreferrer'
                 >
-                  <span>贡献代码</span>
+                  <span>社区源码</span>
                 </a>
               </Link>
               <p className='mt-2'>
-                <span className='cursor-default'>©2022 HelloGitHub</span>
+                <span className='cursor-default'>©2023 HelloGitHub</span>
               </p>
             </div>
           </div>

@@ -16,7 +16,6 @@ enum ButtonVariant {
 
 type ButtonProps = {
   isLoading?: boolean;
-  isDarkBg?: boolean;
   variant?: keyof typeof ButtonVariant;
 } & React.ComponentPropsWithRef<'button'>;
 
@@ -28,7 +27,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       disabled: buttonDisabled,
       isLoading,
       variant = 'primary',
-      isDarkBg = false,
       ...rest
     },
     ref
@@ -45,22 +43,17 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
           'shadow-sm',
           'transition-colors duration-75',
-          'dark:hover:bg-gray-700 dark:focus:bg-gray-800 dark:active:bg-gray-800',
+          'dark:hover:bg-gray-700',
           //#region  //*=========== Variants ===========
           [
             variant === 'primary' && [
-              'bg-primary-500 text-white',
-              'border border-primary-600',
-              'hover:bg-primary-600 hover:text-white',
-              'active:bg-primary-500',
-              'disabled:bg-primary-400 disabled:hover:bg-primary-400',
+              'bg-blue-500 text-white',
+              'dark:bg-gray-600 dark:text-gray-300',
             ],
             variant === 'outline' && [
               'text-primary-500',
               'border border-primary-500',
               'hover:bg-primary-50 active:bg-primary-100 disabled:bg-primary-100',
-              isDarkBg &&
-                'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
             ],
             variant === 'white-outline' && [
               'bg-white text-black',
@@ -99,7 +92,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           //#endregion  //*======== Variants ===========
           'disabled:cursor-not-allowed',
           isLoading &&
-            'relative text-transparent transition-none hover:text-transparent disabled:cursor-wait',
+            'relative text-transparent transition-none hover:text-transparent disabled:cursor-wait dark:text-transparent',
           className
         )}
         {...rest}

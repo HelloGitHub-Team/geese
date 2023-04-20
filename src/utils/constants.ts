@@ -1,9 +1,6 @@
 export const DEFAULT_AVATAR =
   'https://img.hellogithub.com/github_avatar/default.jpeg';
 
-export const PUTAdURL =
-  'https://hellogithub.yuque.com/forms/share/ecbba03f-3e35-44db-99af-a664d24b539f';
-
 export const OAUTH_LOGIN_KEY = 'OAUTH_LOGIN_URL';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function

@@ -47,7 +47,7 @@ type URLoption = {
 };
 
 const Info: NextPage<RepositoryProps> = ({ repo }) => {
-  const { isLogin } = useLoginContext();
+  const { isLogin, login } = useLoginContext();
   const [isVoted, setIsVoted] = useState<boolean>(false);
   const [voteTotal, setVoteTotal] = useState<number>(0);
   const [isCollected, setIsCollected] = useState<boolean>(false);
@@ -89,8 +89,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
 
   const onClickVote = async (rid: string) => {
     if (!isLogin) {
-      Message.error('请先登录~');
-      return;
+      return login();
     }
     const res = await voteRepo(rid);
     if (res.success) {

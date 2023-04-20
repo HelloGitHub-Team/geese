@@ -2,6 +2,7 @@ import useCommentHistory from '@/hooks/user/useCommentHistory';
 import useUserDetailInfo from '@/hooks/user/useUserDetailInfo';
 
 import Button from '@/components/buttons/Button';
+import { FeedbackModal } from '@/components/dialog/Feedback';
 import Pagination from '@/components/pagination/Pagination';
 import CommentItem from '@/components/respository/CommentItem';
 
@@ -11,7 +12,7 @@ interface Props {
   uid: string;
 }
 
-export default function CommentList(props: Props) {
+export const CommentList = (props: Props) => {
   const { data, setPage } = useCommentHistory(props.uid);
   const userInfo = useUserDetailInfo(props.uid);
   const belongMap = {
@@ -36,22 +37,18 @@ export default function CommentList(props: Props) {
                   </span>
                 </div>
 
-                <div className='whitespace-nowrap text-xs md:text-sm'>
+                <div className='flex flex-row whitespace-nowrap text-xs md:text-sm'>
                   {item.is_show ? (
                     <></>
                   ) : (
-                    <Button
-                      className='mr-1 h-7 p-2 font-normal text-red-500  hover:bg-transparent active:bg-transparent dark:border-gray-500 dark:text-gray-500'
-                      variant='ghost'
-                    >
-                      <a
-                        href='https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb'
-                        target='_blank'
-                        rel='noreferrer'
+                    <FeedbackModal feedbackType={4}>
+                      <Button
+                        className='mr-1 h-7 p-2 font-normal text-red-500 hover:bg-transparent active:bg-transparent dark:border-gray-500 dark:text-gray-500'
+                        variant='ghost'
                       >
                         申诉
-                      </a>
-                    </Button>
+                      </Button>
+                    </FeedbackModal>
                   )}
                   <Button
                     variant='light'
@@ -101,4 +98,4 @@ export default function CommentList(props: Props) {
       </div>
     )
   ) : null;
-}
+};

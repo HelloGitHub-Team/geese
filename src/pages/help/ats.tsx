@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 
 import ItemBottom from '@/components/home/ItemBottom';
-import MDRender from '@/components/mdRender/MDRender';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
 
@@ -18,11 +17,7 @@ const ATSPage: NextPage<HelpPageProps> = ({ content }) => {
         <div className='mb-10 flex flex-col items-center px-2 text-4xl font-bold '>
           用户服务协议
         </div>
-        <article>
-          <MDRender className='prose max-w-none dark:prose-invert'>
-            {content}
-          </MDRender>
-        </article>
+        <article className=' whitespace-pre-line'>{content}</article>
         <ItemBottom endText='END'></ItemBottom>
       </div>
       <ToTop />

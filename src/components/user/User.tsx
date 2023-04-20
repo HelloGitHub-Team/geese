@@ -8,7 +8,7 @@ import useUserDetailInfo from '@/hooks/user/useUserDetailInfo';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
 import CollectionList from '@/components/user/CollectionList';
-import CommentList from '@/components/user/CommentList';
+import { CommentList } from '@/components/user/CommentList';
 import DynamicRecordList from '@/components/user/DynamicRecordList';
 
 import { formatZH } from '@/utils/day';
@@ -22,7 +22,7 @@ const tabList = [
   { key: 'vote', title: '点赞' },
 ];
 
-const User = () => {
+export const User = () => {
   const router = useRouter();
   const { uid, tab, fid } = router.query;
   const userDetailInfo = useUserDetailInfo(uid as string);

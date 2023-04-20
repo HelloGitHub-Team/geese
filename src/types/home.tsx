@@ -66,3 +66,8 @@ export interface AdvertItems {
   success: boolean;
   data: AdvertItem[];
 }
+
+export interface CreateFeedbackRes {
+  message: string;
+  success: boolean;
+}

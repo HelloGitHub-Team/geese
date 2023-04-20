@@ -4,9 +4,9 @@ import { useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 
 import Button from '@/components/buttons/Button';
+import { RepoModal } from '@/components/dialog/RepoModal';
 import { PeriodicalSkeleton } from '@/components/loading/skeleton';
 import Navbar from '@/components/navbar/Navbar';
-import { RepoModal } from '@/components/respository/Submit';
 import Seo from '@/components/Seo';
 
 import { fetcher } from '@/services/base';

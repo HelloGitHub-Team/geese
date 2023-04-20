@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
+import { RepoModal } from '@/components/dialog/RepoModal';
 import TagLink from '@/components/links/TagLink';
-import { RepoModal } from '@/components/respository/Submit';
 
 import { getTags } from '@/services/home';
 import { isMobile } from '@/utils/util';

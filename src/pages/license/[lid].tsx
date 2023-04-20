@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { BsTranslate } from 'react-icons/bs';
 import { MdOutlineFileCopy } from 'react-icons/md';
 
+import { FeedbackModal } from '@/components/dialog/Feedback';
 import Message from '@/components/message';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -121,17 +122,12 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
         {/* 协议简介 */}
         <div className='my-2 bg-white px-4 py-3 dark:bg-gray-800 md:rounded-lg'>
           <h2 className='pb-1'>{detail.name}</h2>
-          <div className='my-2 text-xs text-gray-500'>
+          <div className='my-2 flex text-xs text-gray-500'>
             <span>{detail.spdx_id}</span>
             <span className='px-1 lg:px-2'>·</span>
-            <a
-              target='_blank'
-              className='cursor-pointer hover:text-blue-500'
-              href='https://hellogithub.yuque.com/forms/share/d268c0c0-283f-482a-9ac8-939aa8027dfb'
-              rel='noreferrer'
-            >
-              <span>反馈</span>
-            </a>
+            <FeedbackModal feedbackType={1}>
+              <span className=' cursor-pointer'>反馈</span>
+            </FeedbackModal>
           </div>
           <div className='flex flex-col'>
             <p className='items-center md:text-justify'>
@@ -167,7 +163,7 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
                         <div className='mb-2 flex items-center text-sm font-normal md:text-base lg:cursor-pointer'>
                           <div
                             className={`${tag.bgColor} mr-2 h-3 w-3 rounded-full`}
-                          ></div>
+                          />
                           {ct.name_zh}
                         </div>
                       </Tooltip>

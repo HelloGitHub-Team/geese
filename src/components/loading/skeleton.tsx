@@ -18,6 +18,91 @@ export const HomeSkeleton = () => {
           </div>
         </div>
       </div>
+      <div className='relative animate-pulse bg-white py-3 px-4 dark:bg-gray-800 '>
+        <div className='flex w-full flex-row'>
+          <div className='mr-2.5 hidden min-w-fit md:block'>
+            <div className='h-[70px] w-[70px] rounded bg-gray-100 dark:bg-gray-700' />
+          </div>
+          <div className='relative flex w-full flex-col'>
+            <div className='flex flex-row pb-0.5'>
+              <div className='h-5 w-40 bg-gray-100 dark:bg-gray-700 md:w-60' />
+            </div>
+            <div className='mt-2 h-4 bg-gray-100 dark:bg-gray-700' />
+            <div className='mt-1.5 flex flex-row'>
+              <div className='mr-1 h-[20px] w-[20px] rounded bg-gray-100 dark:bg-gray-700 md:hidden' />
+              <div className='h-5 w-4/5 bg-gray-100 dark:bg-gray-700 md:h-4' />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='relative animate-pulse bg-white py-3 px-4 dark:bg-gray-800 '>
+        <div className='flex w-full flex-row'>
+          <div className='mr-2.5 hidden min-w-fit md:block'>
+            <div className='h-[70px] w-[70px] rounded bg-gray-100 dark:bg-gray-700' />
+          </div>
+          <div className='relative flex w-full flex-col'>
+            <div className='flex flex-row pb-0.5'>
+              <div className='h-5 w-40 bg-gray-100 dark:bg-gray-700 md:w-60' />
+            </div>
+            <div className='mt-2 h-4 bg-gray-100 dark:bg-gray-700' />
+            <div className='mt-1.5 flex flex-row'>
+              <div className='mr-1 h-[20px] w-[20px] rounded bg-gray-100 dark:bg-gray-700 md:hidden' />
+              <div className='h-5 w-4/5 bg-gray-100 dark:bg-gray-700 md:h-4' />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='relative animate-pulse bg-white py-3 px-4 dark:bg-gray-800 '>
+        <div className='flex w-full flex-row'>
+          <div className='mr-2.5 hidden min-w-fit md:block'>
+            <div className='h-[70px] w-[70px] rounded bg-gray-100 dark:bg-gray-700' />
+          </div>
+          <div className='relative flex w-full flex-col'>
+            <div className='flex flex-row pb-0.5'>
+              <div className='h-5 w-40 bg-gray-100 dark:bg-gray-700 md:w-60' />
+            </div>
+            <div className='mt-2 h-4 bg-gray-100 dark:bg-gray-700' />
+            <div className='mt-1.5 flex flex-row'>
+              <div className='mr-1 h-[20px] w-[20px] rounded bg-gray-100 dark:bg-gray-700 md:hidden' />
+              <div className='h-5 w-4/5 bg-gray-100 dark:bg-gray-700 md:h-4' />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='relative animate-pulse bg-white py-3 px-4 dark:bg-gray-800 '>
+        <div className='flex w-full flex-row'>
+          <div className='mr-2.5 hidden min-w-fit md:block'>
+            <div className='h-[70px] w-[70px] rounded bg-gray-100 dark:bg-gray-700' />
+          </div>
+          <div className='relative flex w-full flex-col'>
+            <div className='flex flex-row pb-0.5'>
+              <div className='h-5 w-40 bg-gray-100 dark:bg-gray-700 md:w-60' />
+            </div>
+            <div className='mt-2 h-4 bg-gray-100 dark:bg-gray-700' />
+            <div className='mt-1.5 flex flex-row'>
+              <div className='mr-1 h-[20px] w-[20px] rounded bg-gray-100 dark:bg-gray-700 md:hidden' />
+              <div className='h-5 w-4/5 bg-gray-100 dark:bg-gray-700 md:h-4' />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='relative animate-pulse bg-white py-3 px-4 dark:bg-gray-800 '>
+        <div className='flex w-full flex-row'>
+          <div className='mr-2.5 hidden min-w-fit md:block'>
+            <div className='h-[70px] w-[70px] rounded bg-gray-100 dark:bg-gray-700' />
+          </div>
+          <div className='relative flex w-full flex-col'>
+            <div className='flex flex-row pb-0.5'>
+              <div className='h-5 w-40 bg-gray-100 dark:bg-gray-700 md:w-60' />
+            </div>
+            <div className='mt-2 h-4 bg-gray-100 dark:bg-gray-700' />
+            <div className='mt-1.5 flex flex-row'>
+              <div className='mr-1 h-[20px] w-[20px] rounded bg-gray-100 dark:bg-gray-700 md:hidden' />
+              <div className='h-5 w-4/5 bg-gray-100 dark:bg-gray-700 md:h-4' />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
