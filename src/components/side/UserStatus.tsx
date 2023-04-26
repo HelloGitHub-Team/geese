@@ -102,13 +102,11 @@ export default function UserStatus() {
                   </a>
                 </Link>
                 {userInfo.permission?.code == 'super' ? (
-                  <Link href='/taichi/'>
-                    <a>
-                      <div className='cursor-pointer pr-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
-                        管理后台
-                      </div>
-                    </a>
-                  </Link>
+                  <a href='/taichi/'>
+                    <div className='cursor-pointer pr-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
+                      管理后台
+                    </div>
+                  </a>
                 ) : (
                   <div
                     className='cursor-pointer pr-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'
