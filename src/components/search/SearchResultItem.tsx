@@ -51,7 +51,7 @@ const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo, index }) => {
                 </span>
               </span>
               <span className='pl-1 pr-1'>·</span>
-              <time>{fromNow(repo.last_pushed_at)}</time>
+              <time>{fromNow(repo.publish_at)}</time>
             </div>
             <div className='whitespace-nowrap pl-2 text-sm text-gray-400'>
               ✨Star {numFormat(repo.stars, 1, 1000)}

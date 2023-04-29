@@ -13,7 +13,7 @@ export interface SearchItemType {
   stars: number;
   has_chinese: boolean;
   is_active: string;
-  last_pushed_at: string;
+  publish_at: string;
 }
 
 export interface SearchResultItemProps {

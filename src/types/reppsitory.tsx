@@ -67,6 +67,7 @@ export interface RepoType {
   license_lid: string;
   has_chinese: boolean;
   is_org: boolean;
+  is_show: boolean;
 
   repo_created_at: string;
   updated_at: string;

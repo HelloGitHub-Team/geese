@@ -20,7 +20,7 @@ export const CommentList = (props: Props) => {
     repository: '项目',
   };
 
-  return data ? (
+  return data?.data ? (
     data.data.length ? (
       <>
         {data.data.map((item, index) => {
@@ -43,25 +43,25 @@ export const CommentList = (props: Props) => {
                   ) : (
                     <FeedbackModal feedbackType={4}>
                       <Button
-                        className='mr-1 h-7 p-2 font-normal text-red-500 hover:bg-transparent active:bg-transparent dark:border-gray-500 dark:text-gray-500'
+                        className='mr-1 h-7 p-2 font-normal text-red-500 hover:bg-transparent active:bg-transparent'
                         variant='ghost'
                       >
                         申诉
                       </Button>
                     </FeedbackModal>
                   )}
-                  <Button
-                    variant='light'
-                    className='h-7 p-2 font-normal dark:border-gray-500 dark:bg-gray-800 dark:text-gray-500'
+                  <a
+                    href={`/${item.belong}/${item.belong_id}`}
+                    target='_blank'
+                    rel='noreferrer'
                   >
-                    <a
-                      href={`/${item.belong}/${item.belong_id}`}
-                      target='_blank'
-                      rel='noreferrer'
+                    <Button
+                      variant='light'
+                      className='h-7 p-2 font-normal dark:border-gray-300 dark:bg-gray-800 dark:text-gray-300'
                     >
                       查看
-                    </a>
-                  </Button>
+                    </Button>
+                  </a>
                 </div>
               </div>
               <CommentItem
@@ -76,7 +76,7 @@ export const CommentList = (props: Props) => {
                     {item.is_show ? '已展示' : '未展示'}
                     <span className='mx-1'>·</span>
                     {item.is_hot ? '热评' : '非热评'}
-                    <span className='mx-1'>·</span>点赞数：{item.votes}
+                    <span className='mx-1'>·</span>点赞 {item.votes}
                   </span>
                 )}
               />

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 
 import Button from '@/components/buttons/Button';
@@ -9,7 +9,7 @@ import { formatZH } from '@/utils/day';
 import { numFormat } from '@/utils/util';
 
 import { Page } from '@/types/help';
-import { VoteItemData } from '@/types/reppsitory';
+import { RepoType, VoteItemData } from '@/types/reppsitory';
 import { CollectItem } from '@/types/user';
 
 export const RepoData = ({
@@ -19,80 +19,78 @@ export const RepoData = ({
   data: Page<CollectItem | VoteItemData>;
   setPage: Dispatch<SetStateAction<number>>;
 }) => {
+  const router = useRouter();
+
+  const onClickRepo = (item: RepoType) => {
+    if (item.is_show) {
+      router.push(`/repository/${item.rid}`);
+    } else {
+      router.push(item.url);
+    }
+  };
+
   return data ? (
     data.data.length ? (
       <div>
         {data.data.map((item, index: number) => (
           <div
-            className='flex items-center border-t py-4 first:border-t-0 dark:border-gray-700'
             key={item.repo.rid}
+            className='flex items-center border-t py-3 first:border-t-0 dark:border-gray-700'
           >
             <div className='mr-3 self-start'>
               {(data.page - 1) * data.pageSize + index + 1}.
             </div>
             <div className='flex-1 pr-2'>
-              <div className='font-bold'>{item.repo.name}</div>
+              <div className='font-bold'>{item.repo.name || item.repo.url}</div>
               <div className='my-2 flex'>
                 <span className='w-px max-w-fit flex-1 items-stretch overflow-hidden text-ellipsis whitespace-nowrap text-gray-400 dark:text-gray-300'>
                   {item.repo.summary || '-'}
                 </span>
               </div>
-              {/* 移动端 */}
-              <div className='flex items-center text-sm text-gray-500 dark:text-gray-400 sm:hidden'>
-                <div>
-                  <span
-                    style={{ backgroundColor: `${item.repo.lang_color}` }}
-                    className='relative mr-1 box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px]'
-                  ></span>
-                  {item.repo.primary_lang}
-                </div>
-                <div className='px-1'>·</div>
-                <div>{numFormat(item.repo.stars, 1)}</div>
-                <div className='px-1'>·</div>
-                <div>{formatZH(item.created_at, 'YYYY-MM-DD')}</div>
-              </div>
-              {/* PC端 */}
-              <div className='hidden items-center text-sm text-gray-500 dark:text-gray-400 sm:flex'>
-                <div>
-                  <span
-                    style={{ backgroundColor: `${item.repo.lang_color}` }}
-                    className='relative mr-1 box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px] dark:border-gray-500'
-                  ></span>
-                  {item.repo.primary_lang}
-                </div>
-                <div className='px-1'>·</div>
-                <div>{numFormat(item.repo.stars, 1)}</div>
+              <div className='flex items-center text-sm text-gray-500 dark:text-gray-400'>
+                {item.repo.is_show ? (
+                  <>
+                    <div>
+                      <span
+                        style={{ backgroundColor: `${item.repo.lang_color}` }}
+                        className='relative mr-1 box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px] dark:border-gray-500'
+                      />
+                      {item.repo.primary_lang}
+                    </div>
+                    <div className='px-1'>·</div>
+                    <div>{numFormat(item.repo.stars, 1)}</div>
+                  </>
+                ) : (
+                  <span className='text-red-500'>审核中</span>
+                )}
                 <div className='px-1'>·</div>
                 <div>{formatZH(item.created_at, 'YYYY-MM-DD')}</div>
               </div>
             </div>
-
-            <Link href={`/repository/${item.repo.rid}`}>
-              <a>
-                <Button
-                  variant='light'
-                  className='h-10 p-2 font-normal dark:border-gray-500 dark:bg-gray-800 dark:text-gray-500'
-                >
-                  查看
-                </Button>
-              </a>
-            </Link>
+            <Button
+              variant='light'
+              className='h-10 p-2 font-normal dark:border-gray-300 dark:bg-gray-800 dark:text-gray-300'
+              onClick={() => onClickRepo(item.repo)}
+            >
+              查看
+            </Button>
           </div>
         ))}
-        <div className='mt-4'>
-          <Pagination
-            hidden={data.total <= 10}
-            PreviousText='上一页'
-            NextText='下一页'
-            current={data.page}
-            total={data.page_total}
-            onPageChange={setPage}
-          />
-        </div>
+        <Pagination
+          className='mt-2'
+          hidden={data.total <= 10}
+          PreviousText='上一页'
+          NextText='下一页'
+          current={data.page}
+          total={data.page_total}
+          onPageChange={setPage}
+        />
       </div>
     ) : (
       <div className='mt-4 text-center text-xl'>
-        <div className='py-14 text-gray-300 dark:text-gray-500'>暂无项目</div>
+        <div className='py-14 text-gray-300 dark:text-gray-500'>
+          暂无提交的项目
+        </div>
       </div>
     )
   ) : (

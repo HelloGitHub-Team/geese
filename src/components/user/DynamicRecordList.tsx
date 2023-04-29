@@ -91,7 +91,7 @@ export default function DynamicRecordList(props: Props) {
       {list?.length ? (
         <div className='text-sm'>
           {list?.map((item, index) => (
-            <div className='my-4 last:mb-0 md:my-8' key={index}>
+            <div className='mt-4 md:mt-5' key={index}>
               <span className='mr-4 dark:text-gray-300'>{index + 1}.</span>
               <span className='text-gray-600 dark:text-gray-400'>
                 {handleText(item)}

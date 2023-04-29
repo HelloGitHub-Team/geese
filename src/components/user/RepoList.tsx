@@ -1,4 +1,4 @@
-import useVoteHistory from '@/hooks/user/useVoteHistory';
+import useRepoHistory from '@/hooks/user/useRepoHistory';
 
 import { RepoData } from './RepoRecord';
 
@@ -6,8 +6,8 @@ interface Props {
   uid: string;
 }
 
-export default function VoteList(props: Props) {
-  const { data, setPage } = useVoteHistory(props.uid);
+export default function RepoList(props: Props) {
+  const { data, setPage } = useRepoHistory(props.uid);
 
   return data?.data ? (
     data.data.length ? (
@@ -16,7 +16,7 @@ export default function VoteList(props: Props) {
       </div>
     ) : (
       <div className='mt-4 text-center text-xl'>
-        <div className='py-14 text-gray-300 dark:text-gray-500'>暂无点赞</div>
+        <div className='py-14 text-gray-300 dark:text-gray-500'>暂无项目</div>
       </div>
     )
   ) : null;

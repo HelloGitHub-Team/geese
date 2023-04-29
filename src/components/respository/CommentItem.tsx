@@ -110,7 +110,7 @@ const CommentItem = (
         <div className='flex flex-row items-center justify-between gap-4'>
           <div className='flex w-full flex-row items-center gap-4'>
             <div className='flex max-w-fit flex-1 items-center overflow-hidden text-sm font-bold md:text-base md:font-normal'>
-              <div className='mr-0 h-5 md:mr-1 md:hidden'>
+              <div className='hidden md:mr-1'>
                 <img
                   className='h-5 w-5 rounded-full'
                   width='20'
