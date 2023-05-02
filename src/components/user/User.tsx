@@ -42,109 +42,103 @@ export const User = () => {
     <>
       <Seo title='HelloGitHub｜用户首页' />
       <div className='h-screen divide-y divide-gray-100 dark:divide-gray-800'>
-        <Navbar middleText='个人主页'></Navbar>
+        <Navbar middleText='个人主页' />
         {userDetailInfo?.nickname && (
-          <>
-            {/* PC端 */}
-            <div className='flex flex-col bg-white  p-4 dark:bg-gray-800 sm:p-6 md:flex-row md:rounded-lg'>
-              <div className='hidden shrink-0 md:block'>
-                <img
-                  className='rounded-full bg-white dark:bg-gray-800'
-                  src={userDetailInfo?.avatar}
-                  width='80'
-                  height='80'
-                  alt='profile_avatar'
-                />
-              </div>
-              <div className='mx-auto flex md:hidden'>
-                <img
-                  className='rounded-full bg-white dark:bg-gray-800'
-                  src={userDetailInfo?.avatar}
-                  width='72'
-                  height='72'
-                  alt='profile_avatar'
-                />
-              </div>
+          <div className='flex flex-col bg-white p-4 dark:bg-gray-800 sm:p-6 md:flex-row md:rounded-lg'>
+            <div className='hidden shrink-0 md:block'>
+              <img
+                className='rounded-full bg-white dark:bg-gray-800'
+                src={userDetailInfo?.avatar}
+                width='80'
+                height='80'
+                alt='profile_avatar'
+              />
+            </div>
+            <div className='mx-auto flex md:hidden'>
+              <img
+                className='rounded-full bg-white dark:bg-gray-800'
+                src={userDetailInfo?.avatar}
+                width='72'
+                height='72'
+                alt='profile_avatar'
+              />
+            </div>
 
-              <div className='flex flex-col md:ml-4 md:flex-1 md:justify-center'>
-                <div className='mx-auto mt-2 flex w-32 items-center justify-center md:mx-0 md:mb-1 md:mt-0 md:w-80 md:justify-start'>
-                  <div className='self-end overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold dark:text-gray-300 md:w-px md:max-w-fit md:flex-1 md:self-center  md:text-lg'>
-                    {userDetailInfo?.nickname}
-                  </div>
-                  <div className='ml-1 self-end  text-sm font-bold text-blue-500 md:ml-2 md:self-center'>
-                    Lv{userDetailInfo?.level}
-                  </div>
+            <div className='flex flex-col md:ml-4 md:flex-1 md:justify-center'>
+              <div className='mx-auto mt-2 flex w-32 items-center justify-center md:mx-0 md:mb-1 md:mt-0 md:w-80 md:justify-start'>
+                <div className='self-end overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold dark:text-gray-300 md:w-px md:max-w-fit md:flex-1 md:self-center  md:text-lg'>
+                  {userDetailInfo?.nickname}
                 </div>
-                <div className='hidden text-sm leading-6 text-gray-500 dark:text-gray-400 md:block'>
-                  <div>
-                    {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
-                    社区的第{' '}
-                    <span className='font-bold dark:text-gray-300'>
-                      {userDetailInfo?.rank}
-                    </span>{' '}
-                    位小伙伴，于{' '}
-                    <span className='font-bold dark:text-gray-300'>
-                      {formatZH(
-                        userDetailInfo?.first_login,
-                        'YYYY 年 MM 月 DD 日'
-                      )}
-                    </span>{' '}
-                    加入。
-                  </div>
-                  <div>
-                    已分享{' '}
-                    <span className='font-bold dark:text-gray-300'>
-                      {userDetailInfo?.share_repo_total}
-                    </span>{' '}
-                    个开源项目{' '}
-                    <span className='font-bold dark:text-gray-300'>
-                      {userDetailInfo?.comment_repo_total}
-                    </span>{' '}
-                    份开源测评，共获得{' '}
-                    <span className='font-bold dark:text-gray-300'>
-                      {userDetailInfo?.contribute_total}
-                    </span>{' '}
-                    点贡献值。
-                  </div>
-                  <div>{userDetailInfo?.last_login}</div>
+                <div className='ml-1 self-end  text-sm font-bold text-blue-500 md:ml-2 md:self-center'>
+                  Lv{userDetailInfo?.level}
                 </div>
-                <div className='flex flex-col items-center justify-center text-sm leading-6 text-gray-500 dark:text-gray-400 md:hidden'>
-                  <p>
-                    {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
-                    社区的第{' '}
-                    <span className='font-bold dark:text-gray-300'>
-                      {' '}
-                      {userDetailInfo?.rank}{' '}
-                    </span>{' '}
-                    位小伙伴
-                  </p>
-                  <p>
-                    于{' '}
-                    {formatZH(
-                      userDetailInfo?.first_login,
-                      'YYYY 年 MM 月 DD 日'
-                    )}{' '}
-                    加入共获得{' '}
-                    <span className='font-bold dark:text-gray-300'>
-                      {userDetailInfo?.contribute_total}
-                    </span>{' '}
-                    点贡献值
-                  </p>
-                  <p>
-                    已分享{' '}
-                    <span className='font-bold dark:text-gray-300'>
-                      {userDetailInfo?.share_repo_total}
-                    </span>{' '}
-                    个开源项目{' '}
-                    <span className='font-bold dark:text-gray-300'>
-                      {userDetailInfo?.comment_repo_total}
-                    </span>{' '}
-                    份开源测评
-                  </p>
+              </div>
+              <div className='hidden text-sm leading-6 text-gray-500 dark:text-gray-400 md:block'>
+                <div>
+                  {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
+                  社区的第
+                  <span className='mx-1 font-bold dark:text-gray-300'>
+                    {userDetailInfo?.rank}
+                  </span>
+                  位用户，于
+                  {formatZH(
+                    userDetailInfo?.first_login,
+                    ' YYYY 年 MM 月 DD 日 '
+                  )}
+                  加入。
                 </div>
+                <div>
+                  已分享
+                  <span className='mx-1 font-bold dark:text-gray-300'>
+                    {userDetailInfo?.share_repo_total}
+                  </span>
+                  个开源项目
+                  <span className='mx-1 font-bold dark:text-gray-300'>
+                    {userDetailInfo?.comment_repo_total}
+                  </span>
+                  份项目评价，共获得
+                  <span className='mx-1 font-bold dark:text-gray-300'>
+                    {userDetailInfo?.contribute_total}
+                  </span>
+                  点贡献值。
+                </div>
+                <div>{userDetailInfo?.last_login}</div>
+              </div>
+              <div className='flex flex-col items-center justify-center text-sm leading-6 text-gray-500 dark:text-gray-400 md:hidden'>
+                <p>
+                  {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
+                  社区的第
+                  <span className='mx-1 font-bold dark:text-gray-300'>
+                    {userDetailInfo?.rank}
+                  </span>
+                  位用户
+                </p>
+                <p>
+                  于
+                  {formatZH(
+                    userDetailInfo?.first_login,
+                    ' YYYY 年 MM 月 DD 日 '
+                  )}
+                  加入共获得
+                  <span className='mx-1 font-bold dark:text-gray-300'>
+                    {userDetailInfo?.contribute_total}
+                  </span>
+                  点贡献值
+                </p>
+                <p>
+                  已分享
+                  <span className='mx-1 font-bold dark:text-gray-300'>
+                    {userDetailInfo?.share_repo_total}
+                  </span>
+                  个开源项目
+                  <span className='mx-1 font-bold dark:text-gray-300'>
+                    {userDetailInfo?.comment_repo_total}
+                  </span>
+                  份项目评价
+                </p>
               </div>
             </div>
-          </>
+          </div>
         )}
         <div className='mt-2 bg-white px-6 py-3 dark:bg-gray-800 md:rounded-lg'>
           <div className='border-b border-gray-200 dark:border-gray-700'>
@@ -188,7 +182,7 @@ export const User = () => {
             {activeTab === tabList[4].key && <RepoList uid={uid as string} />}
           </div>
         </div>
-        <div className='h-2'></div>
+        <div className='h-2' />
       </div>
     </>
   );

@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { Dispatch, SetStateAction } from 'react';
 
 import Button from '@/components/buttons/Button';
-import Loading from '@/components/loading/Loading';
 import Pagination from '@/components/pagination/Pagination';
 
 import { formatZH } from '@/utils/day';
@@ -29,7 +28,7 @@ export const RepoData = ({
     }
   };
 
-  return data ? (
+  return data?.data ? (
     data.data.length ? (
       <div>
         {data.data.map((item, index: number) => (
@@ -93,7 +92,5 @@ export const RepoData = ({
         </div>
       </div>
     )
-  ) : (
-    <Loading />
-  );
+  ) : null;
 };

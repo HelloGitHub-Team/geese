@@ -49,7 +49,7 @@ export default function Recommend() {
           </div>
         </div>
         {repositories.length == 0 ? (
-          <RecommendSkeleton />
+          <RecommendSkeleton loop={3} />
         ) : (
           <div className='dark:text-gray-300'>
             {repositories.map((item) => (

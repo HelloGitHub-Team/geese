@@ -71,7 +71,7 @@ const Index: NextPage = () => {
           className='divide-y divide-gray-100 overflow-hidden dark:divide-gray-700'
           ref={sentryRef}
         >
-          {isValidating && size <= 1 && <HomeSkeleton />}
+          {isValidating && size <= 1 && <HomeSkeleton loop={6} />}
           {(isValidating || hasMore) && size > 1 && <Loading />}
         </div>
         {handleItemBottom()}

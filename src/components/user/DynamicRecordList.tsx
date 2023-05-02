@@ -3,6 +3,7 @@ import useUserDynamicRecord from '@/hooks/useUserDynamicRecord';
 import { fromNow } from '@/utils/day';
 
 import CustomLink from '../links/CustomLink';
+import Loading from '../loading/Loading';
 
 import { DynamicRecord } from '@/types/user';
 
@@ -86,6 +87,9 @@ export default function DynamicRecordList(props: Props) {
     }
   };
 
+  if (!list) {
+    return <Loading />;
+  }
   return (
     <>
       {list?.length ? (
