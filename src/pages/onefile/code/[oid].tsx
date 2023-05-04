@@ -3,7 +3,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import { GoClippy, GoLink, GoPlay } from 'react-icons/go';
 
-import MDRender from '@/components/mdRender/MDRender';
+import { CodeRender } from '@/components/mdRender/MDRender';
 import message from '@/components/message';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -120,11 +120,10 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
               </article>
             </div>
           </div>
-          <MDRender className='markdown-body'>
-            {`\`\`\`${onefile.language.toLowerCase()}\n${
-              onefile.source_code
-            }\n\`\`\``}
-          </MDRender>
+          <CodeRender
+            lanuage={onefile.language.toLowerCase()}
+            code={onefile.source_code}
+          />
         </div>
       </div>
       <ToTop />

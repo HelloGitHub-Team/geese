@@ -115,6 +115,9 @@ export const LoginProvider = ({
       // 4. isLogin 为 true 但 token 校验失败，则清理 localStorage
       localStorage.clear();
     }
+    if (localStorage.theme) {
+      setTheme(localStorage.theme);
+    }
   }, [token, userInfo, isValidating]);
 
   const value = useMemo(

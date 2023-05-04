@@ -10,7 +10,7 @@ import { numFormat } from '@/utils/util';
 import Button from '../buttons/Button';
 import ImageWithPreview from '../ImageWithPreview';
 import CustomLink from '../links/CustomLink';
-import MDRender from '../mdRender/MDRender';
+import { MDRender } from '../mdRender/MDRender';
 
 import { PeriodicalItem, PeriodicalItemProps } from '@/types/periodical';
 

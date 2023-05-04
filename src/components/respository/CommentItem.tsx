@@ -12,7 +12,7 @@ import { like, unlike } from '@/services/repository';
 import { DEFAULT_AVATAR, NOOP } from '@/utils/constants';
 import { fromNow } from '@/utils/day';
 
-import MDRender from '../mdRender/MDRender';
+import { MDRender } from '../mdRender/MDRender';
 
 import { CommentItemData } from '@/types/reppsitory';
 

@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 
 import ItemBottom from '@/components/home/ItemBottom';
 import ImageWithPreview from '@/components/ImageWithPreview';
-import MDRender from '@/components/mdRender/MDRender';
+import { MDRender } from '@/components/mdRender/MDRender';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';

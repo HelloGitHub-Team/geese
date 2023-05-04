@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 
 import ItemBottom from '@/components/home/ItemBottom';
-import MDRender from '@/components/mdRender/MDRender';
+import { MDRender } from '@/components/mdRender/MDRender';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';

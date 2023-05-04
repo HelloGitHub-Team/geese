@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import ImageWithPreview from '../ImageWithPreview';
-import MDRender from '../mdRender/MDRender';
+import { MDRender } from '../mdRender/MDRender';
 
 import { RepositoryProps } from '@/types/reppsitory';
 
