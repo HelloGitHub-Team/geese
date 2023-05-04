@@ -151,3 +151,25 @@ export const SearchSkeleton = () => {
     </article>
   );
 };
+
+export const ProfileSkeleton = () => {
+  return (
+    <div className='flex w-full animate-pulse flex-col md:flex-row'>
+      <div className='mx-auto flex md:block md:shrink-0'>
+        <div className='h-[72px] w-[72px] rounded-full bg-gray-100 dark:bg-gray-700 md:h-20 md:w-20' />
+      </div>
+      <div className='flex flex-col md:ml-4 md:flex-1'>
+        <div className='mx-auto mt-2 flex h-6 w-32 bg-gray-100 dark:bg-gray-700 md:mx-0 md:mb-2 md:mt-0 md:w-36 md:justify-start'></div>
+        <div className='hidden space-y-2 md:block'>
+          <div className='h-4 w-5/6 bg-gray-100 dark:bg-gray-700' />
+          <div className='h-4 w-4/6  bg-gray-100 dark:bg-gray-700' />
+        </div>
+        <div className='flex flex-col items-center space-y-1 md:hidden'>
+          <div className='mt-2 h-4 w-60 bg-gray-100 dark:bg-gray-700' />
+          <div className='h-4 w-80 bg-gray-100 dark:bg-gray-700' />
+          <div className='h-4 w-60 bg-gray-100 dark:bg-gray-700' />
+        </div>
+      </div>
+    </div>
+  );
+};

@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import useSWRImmutable from 'swr/immutable';
 
 import clsxm from '@/lib/clsxm';
-import useUserDetailInfo from '@/hooks/user/useUserDetailInfo';
 
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -11,10 +11,15 @@ import CollectionList from '@/components/user/CollectionList';
 import { CommentList } from '@/components/user/CommentList';
 import DynamicRecordList from '@/components/user/DynamicRecordList';
 
+import { fetcher } from '@/services/base';
+import { makeUrl } from '@/utils/api';
 import { formatZH } from '@/utils/day';
 
 import RepoList from './RepoList';
 import VoteList from './VoteList';
+import { ProfileSkeleton } from '../loading/skeleton';
+
+import { UserDetailInfo } from '@/types/user';
 
 const tabList = [
   { key: 'dynamic', title: '动态' },
@@ -27,8 +32,15 @@ const tabList = [
 export const User = () => {
   const router = useRouter();
   const { uid, tab, fid } = router.query;
-  const userDetailInfo = useUserDetailInfo(uid as string);
   const [activeTab, setActiveTab] = useState<string>(tab as string);
+
+  const { data, isValidating } = useSWRImmutable<UserDetailInfo>(
+    uid ? makeUrl(`/user/${uid}`) : null,
+    fetcher
+  );
+
+  const userDetailInfo = data?.userInfo;
+  const dynamicRecord = data?.dynamicRecord || [];
 
   useEffect(() => {
     if (tab) {
@@ -43,103 +55,96 @@ export const User = () => {
       <Seo title='HelloGitHub｜用户首页' />
       <div className='h-screen divide-y divide-gray-100 dark:divide-gray-800'>
         <Navbar middleText='个人主页' />
-        {userDetailInfo?.nickname && (
-          <div className='flex flex-col bg-white p-4 dark:bg-gray-800 sm:p-6 md:flex-row md:rounded-lg'>
-            <div className='hidden shrink-0 md:block'>
-              <img
-                className='rounded-full bg-white dark:bg-gray-800'
-                src={userDetailInfo?.avatar}
-                width='80'
-                height='80'
-                alt='profile_avatar'
-              />
-            </div>
-            <div className='mx-auto flex md:hidden'>
-              <img
-                className='rounded-full bg-white dark:bg-gray-800'
-                src={userDetailInfo?.avatar}
-                width='72'
-                height='72'
-                alt='profile_avatar'
-              />
-            </div>
+        <div className='flex flex-col bg-white p-4 dark:bg-gray-800 sm:p-6 md:flex-row md:rounded-lg'>
+          {!isValidating && userDetailInfo ? (
+            <>
+              <div className='mx-auto flex h-[72px] w-[72px] md:block md:h-20 md:w-20 md:shrink-0 '>
+                <img
+                  className='rounded-full bg-white dark:bg-gray-800'
+                  src={userDetailInfo.avatar}
+                  alt='profile_avatar'
+                />
+              </div>
 
-            <div className='flex flex-col md:ml-4 md:flex-1 md:justify-center'>
-              <div className='mx-auto mt-2 flex w-32 items-center justify-center md:mx-0 md:mb-1 md:mt-0 md:w-80 md:justify-start'>
-                <div className='self-end overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold dark:text-gray-300 md:w-px md:max-w-fit md:flex-1 md:self-center  md:text-lg'>
-                  {userDetailInfo?.nickname}
+              <div className='flex flex-col md:ml-4 md:flex-1 md:justify-center'>
+                <div className='mx-auto mt-2 flex w-32 items-center justify-center md:mx-0 md:mb-1 md:mt-0 md:w-80 md:justify-start'>
+                  <div className='self-end overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold dark:text-gray-300 md:w-px md:max-w-fit md:flex-1 md:self-center  md:text-lg'>
+                    {userDetailInfo?.nickname}
+                  </div>
+                  <div className='ml-1 self-end  text-sm font-bold text-blue-500 md:ml-2 md:self-center'>
+                    Lv{userDetailInfo?.level}
+                  </div>
                 </div>
-                <div className='ml-1 self-end  text-sm font-bold text-blue-500 md:ml-2 md:self-center'>
-                  Lv{userDetailInfo?.level}
+                <div className='hidden text-sm leading-6 text-gray-500 dark:text-gray-400 md:block'>
+                  <div>
+                    {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
+                    社区的第
+                    <span className='mx-1 font-bold dark:text-gray-300'>
+                      {userDetailInfo.rank}
+                    </span>
+                    位用户，于
+                    {formatZH(
+                      userDetailInfo.first_login,
+                      ' YYYY 年 MM 月 DD 日 '
+                    )}
+                    加入。
+                  </div>
+                  <div>
+                    已分享
+                    <span className='mx-1 font-bold dark:text-gray-300'>
+                      {userDetailInfo?.share_repo_total}
+                    </span>
+                    个开源项目
+                    <span className='mx-1 font-bold dark:text-gray-300'>
+                      {userDetailInfo?.comment_repo_total}
+                    </span>
+                    份项目评价，共获得
+                    <span className='mx-1 font-bold dark:text-gray-300'>
+                      {userDetailInfo?.contribute_total}
+                    </span>
+                    点贡献值。
+                  </div>
+                  <div>{userDetailInfo?.last_login}</div>
+                </div>
+                <div className='flex flex-col items-center justify-center text-sm leading-6 text-gray-500 dark:text-gray-400 md:hidden'>
+                  <p>
+                    {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
+                    社区的第
+                    <span className='mx-1 font-bold dark:text-gray-300'>
+                      {userDetailInfo?.rank}
+                    </span>
+                    位用户
+                  </p>
+                  <p>
+                    于
+                    {formatZH(
+                      userDetailInfo?.first_login,
+                      ' YYYY 年 MM 月 DD 日 '
+                    )}
+                    加入共获得
+                    <span className='mx-1 font-bold dark:text-gray-300'>
+                      {userDetailInfo?.contribute_total}
+                    </span>
+                    点贡献值
+                  </p>
+                  <p>
+                    已分享
+                    <span className='mx-1 font-bold dark:text-gray-300'>
+                      {userDetailInfo?.share_repo_total}
+                    </span>
+                    个开源项目
+                    <span className='mx-1 font-bold dark:text-gray-300'>
+                      {userDetailInfo?.comment_repo_total}
+                    </span>
+                    份项目评价
+                  </p>
                 </div>
               </div>
-              <div className='hidden text-sm leading-6 text-gray-500 dark:text-gray-400 md:block'>
-                <div>
-                  {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
-                  社区的第
-                  <span className='mx-1 font-bold dark:text-gray-300'>
-                    {userDetailInfo?.rank}
-                  </span>
-                  位用户，于
-                  {formatZH(
-                    userDetailInfo?.first_login,
-                    ' YYYY 年 MM 月 DD 日 '
-                  )}
-                  加入。
-                </div>
-                <div>
-                  已分享
-                  <span className='mx-1 font-bold dark:text-gray-300'>
-                    {userDetailInfo?.share_repo_total}
-                  </span>
-                  个开源项目
-                  <span className='mx-1 font-bold dark:text-gray-300'>
-                    {userDetailInfo?.comment_repo_total}
-                  </span>
-                  份项目评价，共获得
-                  <span className='mx-1 font-bold dark:text-gray-300'>
-                    {userDetailInfo?.contribute_total}
-                  </span>
-                  点贡献值。
-                </div>
-                <div>{userDetailInfo?.last_login}</div>
-              </div>
-              <div className='flex flex-col items-center justify-center text-sm leading-6 text-gray-500 dark:text-gray-400 md:hidden'>
-                <p>
-                  {userDetailInfo.in_person ? '你' : '他'}是 HelloGitHub
-                  社区的第
-                  <span className='mx-1 font-bold dark:text-gray-300'>
-                    {userDetailInfo?.rank}
-                  </span>
-                  位用户
-                </p>
-                <p>
-                  于
-                  {formatZH(
-                    userDetailInfo?.first_login,
-                    ' YYYY 年 MM 月 DD 日 '
-                  )}
-                  加入共获得
-                  <span className='mx-1 font-bold dark:text-gray-300'>
-                    {userDetailInfo?.contribute_total}
-                  </span>
-                  点贡献值
-                </p>
-                <p>
-                  已分享
-                  <span className='mx-1 font-bold dark:text-gray-300'>
-                    {userDetailInfo?.share_repo_total}
-                  </span>
-                  个开源项目
-                  <span className='mx-1 font-bold dark:text-gray-300'>
-                    {userDetailInfo?.comment_repo_total}
-                  </span>
-                  份项目评价
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
+            </>
+          ) : (
+            <ProfileSkeleton />
+          )}
+        </div>
         <div className='mt-2 bg-white px-6 py-3 dark:bg-gray-800 md:rounded-lg'>
           <div className='border-b border-gray-200 dark:border-gray-700'>
             <nav className='-mb-0.5 flex space-x-6'>
@@ -170,7 +175,7 @@ export const User = () => {
           </div>
           <div>
             {activeTab === tabList[0].key && (
-              <DynamicRecordList uid={uid as string} />
+              <DynamicRecordList items={dynamicRecord} />
             )}
             {activeTab === tabList[1].key && (
               <CollectionList uid={uid as string} fid={fid as string} />

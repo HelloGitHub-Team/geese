@@ -247,7 +247,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
             </div>
           ))
         ) : (
-          <div className='text-center text-xl'>
+          <div className='mt-4 text-center text-xl'>
             <div className='py-14 text-gray-300 dark:text-gray-500'>
               暂无收藏
             </div>

@@ -1,5 +1,5 @@
+import { useLoginContext } from '@/hooks/useLoginContext';
 import useCommentHistory from '@/hooks/user/useCommentHistory';
-import useUserDetailInfo from '@/hooks/user/useUserDetailInfo';
 
 import Button from '@/components/buttons/Button';
 import { FeedbackModal } from '@/components/dialog/Feedback';
@@ -14,7 +14,7 @@ interface Props {
 
 export const CommentList = (props: Props) => {
   const { data, setPage } = useCommentHistory(props.uid);
-  const userInfo = useUserDetailInfo(props.uid);
+  const { userInfo, isLogin } = useLoginContext();
   const belongMap = {
     article: '文章',
     repository: '项目',
@@ -24,7 +24,7 @@ export const CommentList = (props: Props) => {
     data.data.length ? (
       <>
         {data.data.map((item, index) => {
-          return userInfo ? (
+          return isLogin && userInfo ? (
             <div className='p-2' key={item.cid}>
               <div className='flex justify-between py-2'>
                 <div className='flex items-center'>

@@ -46,7 +46,7 @@ export interface Permission {
   code: string;
 }
 
-export interface UserDetailInfo {
+export interface UserDetail {
   uid: string;
   nickname: string;
   avatar: string;
@@ -59,6 +59,12 @@ export interface UserDetailInfo {
   rank: number;
   level: number;
   in_person: boolean;
+}
+
+export interface UserDetailInfo {
+  success: boolean;
+  userInfo: UserDetail;
+  dynamicRecord: DynamicRecord[];
 }
 
 export interface DynamicRecordItem {
