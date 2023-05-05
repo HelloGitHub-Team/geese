@@ -25,6 +25,9 @@ export default function Pagination({
   }, [current]);
 
   const handlePageChange = (page: number) => {
+    if (current == page) {
+      return;
+    }
     if (page <= 0) {
       onPageChange?.(1);
     } else {

@@ -28,6 +28,7 @@ import Loading from '@/components/loading/Loading';
 import Message from '@/components/message';
 
 import { deleteFavorite } from '@/services/favorite';
+import { format } from '@/utils/day';
 
 import { RepoData } from './RepoRecord';
 
@@ -187,7 +188,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
               <div className='flex justify-between'>
                 <span
                   className={classNames({
-                    'text-blue-400': activeItem?.fid === item.fid,
+                    'text-blue-500': activeItem?.fid === item.fid,
                   })}
                 >
                   {item.name}
@@ -204,7 +205,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
               <div className='mt-2 flex justify-between text-xs text-gray-500'>
                 {/* footer-left */}
                 <div>
-                  <span>{item.updated_at?.replace('T', ' ')} 更新 · </span>
+                  <span>{format(item?.created_at as string)} · </span>
                   <span>共有 {item.total} 个项目</span>
                 </div>
                 {/* footer-right */}
@@ -225,7 +226,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
                     </span>
                     <span
                       id='delete'
-                      className='ml-4 inline-flex items-center hover:text-blue-400'
+                      className='ml-4 inline-flex items-center hover:text-blue-500'
                     >
                       <AiFillDelete /> 删除
                     </span>

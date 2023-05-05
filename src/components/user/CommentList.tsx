@@ -84,7 +84,7 @@ export const CommentList = (props: Props) => {
           ) : null;
         })}
         <Pagination
-          hidden={data.total <= 10}
+          hidden={!data.has_more}
           NextText='下一页'
           PreviousText='上一页'
           current={data.page}
