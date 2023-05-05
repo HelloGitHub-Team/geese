@@ -14,7 +14,7 @@ import Message from '../message';
 
 import { SelectTag } from '@/types/tag';
 
-const maxTotal = 15;
+const maxTotal = 20;
 const defaultTag = { name: '综合', tid: '', icon_name: 'find' };
 
 export function TagModal({
@@ -80,7 +80,7 @@ export function TagModal({
 
   const handleOnChange = (position: number) => {
     if (total >= maxTotal && !allTags[position].is_selected) {
-      Message.error(`标签不能超过${maxTotal}个`);
+      Message.error(`标签不能超过 ${maxTotal} 个`);
       return;
     }
     allTags[position].is_selected = !allTags[position].is_selected;
@@ -148,14 +148,10 @@ export function TagModal({
         </div>
 
         <div className='mt-4 flex flex-row items-center text-sm text-gray-500'>
-          <div className='ml-1'>
-            <span className=' font-medium'>已选：</span>
-            <span className='font-medium'>
-              {total}/{maxTotal}
-            </span>
+          <div className='ml-1 font-medium'>
+            已选：{total}/{maxTotal}
           </div>
-          <div className='shrink grow'></div>
-
+          <div className='shrink grow' />
           <Button
             variant='primary'
             className='inline-flex w-fit items-center justify-center rounded-lg px-4 py-1.5'

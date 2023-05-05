@@ -16,15 +16,15 @@ const Item: NextPage<ItemProps> = ({ item }) => {
           <div className='flex w-full flex-row'>
             <div className='mr-2.5 hidden min-w-fit md:block'>
               <img
-                width='68'
-                height='68'
+                width='70'
+                height='70'
                 src={item.author_avatar}
                 className='bg-img block rounded bg-white'
               />
             </div>
-            <div className='relative flex w-full flex-col'>
+            <div className='relative flex w-full flex-col truncate'>
               <div className='flex flex-row pb-0.5'>
-                <div className='text-color-primary flex w-full shrink grow flex-row items-center'>
+                <div className='flex w-full shrink grow flex-row items-center'>
                   <div className='w-80 truncate text-base leading-snug md:w-96'>
                     {item.is_hot && (
                       <span className='text-center'>
@@ -49,7 +49,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                   </div>
                 </div>
               </div>
-              <div className='mt-0.5 max-w-[410px] truncate whitespace-nowrap text-sm text-gray-400'>
+              <div className='mt-0.5 truncate text-sm text-gray-400'>
                 {item.summary || '-'}
               </div>
               <div className='mt-1 flex items-center'>
@@ -76,7 +76,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                   <span className='pl-1 pr-1'>·</span>
                   <time>{fromNow(item.updated_at)}</time>
                 </div>
-                <div className='flex flex-row items-center whitespace-nowrap text-sm text-gray-400'>
+                <div className='flex flex-row items-center text-sm text-gray-400'>
                   <AiOutlineEye />
                   <span className='ml-0.5'>
                     {numFormat(item.clicks_total, 1, 1000)}

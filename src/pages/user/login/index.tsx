@@ -31,15 +31,7 @@ const Index = ({ token, userInfo }: IProps) => {
     }
   }, [token, userInfo, setToken, router]);
 
-  return (
-    <>
-      {token ? (
-        <RedirectBar text='登录成功，跳转中...' />
-      ) : (
-        <RedirectBar text='登录失败，返回首页...' />
-      )}
-    </>
-  );
+  return <RedirectBar text='正在登录，等待跳转中...' />;
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -65,18 +57,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       token = '';
       userInfo = null;
       return {
-        props: { token, userInfo, user_agent },
+        props: { token, userInfo },
       };
     } else {
       token = data.token;
       userInfo = data.userInfo;
       return {
-        props: { token, userInfo, user_agent },
+        props: { token, userInfo },
       };
     }
   } catch (error) {
     return {
-      props: { token, userInfo, user_agent },
+      props: { token, userInfo },
     };
   }
 }

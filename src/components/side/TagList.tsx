@@ -72,7 +72,7 @@ export default function TagList() {
           <TagModal updateTags={setTags}>
             <div className='flex cursor-pointer flex-row items-center border-t border-t-gray-200 px-3 pt-2 pb-1 text-gray-500 hover:text-blue-500 dark:border-t-gray-600 dark:text-gray-300 dark:hover:text-blue-500'>
               <AiOutlineSetting size={15} />
-              <div className='ml-0.5 text-sm '>管理标签</div>
+              <div className='ml-0.5 text-sm'>管理标签</div>
             </div>
           </TagModal>
         </div>

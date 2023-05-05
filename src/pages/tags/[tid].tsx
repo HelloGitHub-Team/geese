@@ -13,11 +13,11 @@ import { TagPageProps } from '@/types/tag';
 const TagPage: NextPage<TagPageProps> = ({ items, tag_name }) => {
   return (
     <>
-      <Seo title={`HelloGitHub｜标签 ${tag_name}`} />
+      <Seo title={`HelloGitHub｜${tag_name}`} />
       <Navbar middleText={tag_name} endText='标签' />
       <div className='h-screen'>
         <Items repositories={items} />
-        <ItemBottom endText='你不经意间触碰到了底线' />
+        <ItemBottom endText='到底了，目前只开放了这些' />
         <div className='hidden md:block'>
           <ToTop />
         </div>
