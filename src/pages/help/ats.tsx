@@ -17,7 +17,7 @@ const ATSPage: NextPage<HelpPageProps> = ({ content }) => {
         <div className='mb-10 flex flex-col items-center px-2 text-4xl font-bold '>
           用户服务协议
         </div>
-        <article className=' whitespace-pre-line'>{content}</article>
+        <article className='whitespace-pre-line'>{content}</article>
         <ItemBottom endText='END'></ItemBottom>
       </div>
       <ToTop />

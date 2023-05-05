@@ -24,9 +24,13 @@ const Footer = () => {
         </a>
       </div>
       <p className='mt-2'>
-        <CustomLink className='inline' href='/help/ats'>
+        <a
+          target='_blank'
+          href='https://hellogithub.com/help/ats'
+          rel='noreferrer'
+        >
           <span className='cursor-pointer hover:text-blue-500'>服务协议</span>
-        </CustomLink>
+        </a>
         <span className='px-1 lg:px-1.5'>·</span>
         <a
           target='_blank'

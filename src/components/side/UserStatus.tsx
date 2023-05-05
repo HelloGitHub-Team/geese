@@ -66,7 +66,7 @@ export default function UserStatus() {
                 <div className='mt-1'>
                   <div className='flex justify-between text-sm'>
                     <div className='cursor-pointer text-gray-400'>
-                      <Link href='/help/level'>
+                      <Link prefetch={false} href='/help/level'>
                         <a>
                           <span className='align-[-5px] text-xs'>
                             <span className='mr-0.5'>贡献值</span>
