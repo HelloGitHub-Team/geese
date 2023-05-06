@@ -2,9 +2,8 @@ import { useRouter } from 'next/router';
 import { ReactNode, useMemo } from 'react';
 
 import Header from '@/components/layout/Header';
+import { Side } from '@/components/side/Side';
 
-import CommonSide from '../side/Common';
-import IndexSide from '../side/IndexSide';
 import TagList from '../side/TagList';
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -43,7 +42,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               </div>
             )}
             <div className='relative hidden w-3/12 shrink-0 md:block md:grow-0'>
-              {pathname == '/' ? <IndexSide /> : <CommonSide />}
+              {pathname == '/' ? <Side index={true} /> : <Side index={false} />}
             </div>
           </div>
         )}

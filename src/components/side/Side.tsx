@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 
+import Footer from '@/components/layout/Footer';
 import { SideAd, SideFixAd } from '@/components/side/SideAd';
+import SiteStats from '@/components/side/Stats';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
@@ -11,7 +13,11 @@ import UserStatus from './UserStatus';
 
 import { AdvertItems } from '@/types/home';
 
-export default function CommonSide() {
+interface Props {
+  index: boolean;
+}
+
+export const Side = ({ index }: Props) => {
   const [displayAdOnly, setDisplayAdOnly] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { data, isValidating } = useSWRImmutable<AdvertItems>(
@@ -43,11 +49,12 @@ export default function CommonSide() {
         <div className='relative mt-2 ml-3 max-w-[244px]'>
           <div className='space-y-2'>
             <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5 dark:bg-gray-800'>
-              <UserStatus></UserStatus>
+              <UserStatus />
             </div>
             {!isValidating ? <SideAd data={adverts} /> : <></>}
-            <Recommend />
+            {index ? <SiteStats /> : <Recommend />}
           </div>
+          {index ? <Footer /> : <></>}
         </div>
       </div>
       {adverts ? (
@@ -57,4 +64,4 @@ export default function CommonSide() {
       )}
     </>
   );
-}
+};
