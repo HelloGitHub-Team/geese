@@ -1,19 +1,16 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { openGraph } from '@/lib/helper';
-
 // !STARTERCONF Change these default meta
 const defaultMeta = {
   title: 'HelloGitHub',
   siteName: 'HelloGitHub',
-  description: '分享 GitHub 上有趣入门级的开源项目',
+  description: '分享 GitHub 上有趣入门级的开源项目，找开源项目就上 HelloGitHub',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
   url: 'https://hellogithub.com',
   type: 'website',
   robots: 'follow, index',
-  /** No need to be filled, will be populated with openGraph function */
-  image: '',
+  image: 'https://img.hellogithub.com/logo/logo.png',
 };
 
 type SeoProps = {
@@ -115,13 +112,7 @@ export default function Seo(props: SeoProps) {
     ? `${props.templateTitle} | ${meta.siteName}`
     : meta.title;
 
-  // Use siteName if there is templateTitle
-  // but show full title if there is none
-  meta['image'] = openGraph({
-    description: meta.description,
-    siteName: props.templateTitle ? meta.siteName : meta.title,
-    templateTitle: props.templateTitle,
-  });
+  meta['image'] = 'https://img.hellogithub.com/logo/logo.png';
 
   return (
     <Head>
@@ -138,27 +129,10 @@ export default function Seo(props: SeoProps) {
       <meta name='image' property='og:image' content={meta.image} />
       {/* Twitter */}
       <meta name='twitter:card' content='summary_large_image' />
-      <meta name='twitter:site' content='@th_clarence' />
+      <meta name='twitter:site' content='@HelloGitHub' />
       <meta name='twitter:title' content={meta.title} />
       <meta name='twitter:description' content={meta.description} />
       <meta name='twitter:image' content={meta.image} />
-      {/* <meta name='referrer' content='no-referrer' /> */}
-      {meta.date && (
-        <>
-          <meta property='article:published_time' content={meta.date} />
-          <meta
-            name='publish_date'
-            property='og:publish_date'
-            content={meta.date}
-          />
-          <meta
-            name='author'
-            property='article:author'
-            content='Theodorus Clarence'
-          />
-        </>
-      )}
-
       {/* Favicons */}
       {favicons.map((linkProps) => (
         <link key={linkProps.href} {...linkProps} />

@@ -20,7 +20,7 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
   const tabContent = () => {
     if (selectTab === 'summary') {
       return (
-        <div>
+        <>
           {repo.image_url && (
             <div className='my-2 flex cursor-zoom-in justify-center'>
               <ImageWithPreview
@@ -35,7 +35,7 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
           </div>
 
           <div className='flex flex-row flex-wrap items-center pt-1'>
-            {repo.volume_name ? (
+            {repo.volume_name && (
               <>
                 <div className='mb-1 px-2 text-sm font-medium'>收录于：</div>
                 <Link href={`/periodical/volume/${Number(repo.volume_name)}`}>
@@ -46,10 +46,8 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
                   </a>
                 </Link>
               </>
-            ) : (
-              <></>
             )}
-            {repo.tags.length > 0 ? (
+            {repo.tags.length > 0 && (
               <>
                 <div className='mb-1 px-2 text-sm font-medium'>标签：</div>
                 {repo.tags.map((item) => (
@@ -62,11 +60,9 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
                   </Link>
                 ))}
               </>
-            ) : (
-              <></>
             )}
           </div>
-        </div>
+        </>
       );
     } else if (selectTab === 'code') {
       return (
@@ -86,15 +82,13 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
         >
           介绍
         </span>
-        {repo.code ? (
+        {repo.code && (
           <span
             className={tabClassName('code')}
             onClick={() => setSelectTab('code')}
           >
             代码
           </span>
-        ) : (
-          <></>
         )}
       </nav>
       {tabContent()}

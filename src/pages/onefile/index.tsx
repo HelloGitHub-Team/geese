@@ -39,9 +39,12 @@ const OneFilePage: NextPage<OneItemsResp> = ({ data }) => {
 
   return (
     <>
-      <Seo title='HelloGitHub｜一个文件的开源项目' />
+      <Seo
+        title='HelloGitHub｜一个文件的开源项目'
+        description='一个文件、复制即可运行的开源项目集合'
+      />
 
-      <div className='relative pb-6'>
+      <div className='relative'>
         <Navbar middleText='OneFile'></Navbar>
         <div className='my-2 bg-white px-2 pt-2 dark:bg-gray-800 md:rounded-lg'>
           <div className='my-2'>

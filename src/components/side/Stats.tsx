@@ -9,9 +9,7 @@ import { StatsSkeleton } from '../loading/skeleton';
 import { Stats } from '@/types/home';
 
 export default function SiteStats() {
-  const { data: stats } = useSWRImmutable<Stats>(makeUrl('/stats/'), fetcher, {
-    revalidateIfStale: false,
-  });
+  const { data: stats } = useSWRImmutable<Stats>(makeUrl('/stats/'), fetcher);
 
   return (
     <div className='space-y-1.5 rounded-lg bg-white px-3 py-2.5 dark:bg-gray-800'>

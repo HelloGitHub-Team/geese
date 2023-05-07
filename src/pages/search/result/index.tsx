@@ -68,8 +68,11 @@ const Result: NextPage = () => {
 
   return (
     <>
-      <Seo title='HelloGitHub｜搜索' />
-      <Navbar middleText='搜索结果'></Navbar>
+      <Seo
+        title='HelloGitHub｜搜索'
+        description='找有趣、入门级的开源项目就上 HelloGitHub'
+      />
+      <Navbar middleText='搜索结果' />
       <div className='h-screen'>
         <div className='divide-y divide-gray-100 overflow-y-hidden bg-white dark:divide-gray-700 md:rounded-lg'>
           {list.map((item: SearchItemType, index: number) => (

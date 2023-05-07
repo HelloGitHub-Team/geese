@@ -1,10 +1,10 @@
+import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import {
   AiFillCaretUp,
-  AiOutlineCaretUp,
   AiOutlineCloudDownload,
   AiOutlineDown,
   AiOutlineFileText,
@@ -20,11 +20,11 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 import Score from '@/components/respository/Score';
 
 import { getFavoriteOptions } from '@/services/favorite';
+import { redirectRecord } from '@/services/home';
 import {
   cancelCollectRepo,
   cancelVoteRepo,
   collectRepo,
-  recordGoGithub,
   userRepoStatus,
   voteRepo,
 } from '@/services/repository';
@@ -58,9 +58,43 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
 
   const dropdownRef = useRef<any>();
 
-  const onClickLink = (clickType: string, rid: string) => {
-    if (clickType == 'github') {
-      recordGoGithub(rid);
+  const getUserRepoStatus = async (rid: string) => {
+    // 调用接口查看项目是否点赞
+    const res = await userRepoStatus(rid);
+    if (res.success) {
+      setIsVoted(res.is_voted);
+      setIsCollected(res.is_collected);
+    }
+  };
+
+  const onClickLink = (clickType: string, item_id: string) => {
+    redirectRecord('', item_id, clickType);
+  };
+
+  const voteClassName = () =>
+    classNames('', {
+      'text-xl text-blue-500': isVoted,
+      'text-lg': !isVoted,
+    });
+
+  const onClickVote = async (rid: string) => {
+    if (!isLogin) {
+      return login();
+    }
+    if (!isVoted) {
+      const res = await voteRepo(rid);
+      if (res.success) {
+        setVoteTotal(res.data.total);
+        setIsVoted(true);
+      } else {
+        Message.error(res.message as string);
+      }
+    } else {
+      const res = await cancelVoteRepo(rid);
+      if (res.success) {
+        setIsVoted(false);
+        setVoteTotal(voteTotal - 1);
+      }
     }
   };
 
@@ -78,51 +112,21 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     }
   };
 
-  const getUserRepoStatus = async (rid: string) => {
-    // 调用接口查看项目是否点赞
-    const res = await userRepoStatus(rid);
-    if (res.success) {
-      setIsVoted(res.is_voted);
-      setIsCollected(res.is_collected);
-    }
-  };
-
-  const onClickVote = async (rid: string) => {
+  const onClickCollect = async (rid: string) => {
     if (!isLogin) {
       return login();
     }
-    const res = await voteRepo(rid);
-    if (res.success) {
-      setVoteTotal(res.data.total);
-      setIsVoted(true);
-    } else {
-      Message.error(res.message as string);
-    }
-  };
 
-  const onClickCollect = () => {
-    if (isLogin) {
+    if (!isCollected) {
       getUserFavoriteOptions();
       setOpenModal(true);
     } else {
-      Message.error('请先登录~');
-    }
-  };
-
-  const onCancelVote = async (rid: string) => {
-    const res = await cancelVoteRepo(rid);
-    if (res.success) {
-      setIsVoted(false);
-      setVoteTotal(voteTotal - 1);
-    }
-  };
-
-  const onCancelCollect = async (rid: string) => {
-    const res = await cancelCollectRepo(rid);
-    if (res.success) {
-      setIsCollected(false);
-      setCollectTotal(collectTotal - 1);
-      Message.success('取消收藏');
+      const res = await cancelCollectRepo(rid);
+      if (res.success) {
+        setIsCollected(false);
+        setCollectTotal(collectTotal - 1);
+        Message.success('取消收藏');
+      }
     }
   };
 
@@ -159,43 +163,18 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     });
   };
 
-  const getIcon = (name: string) => {
-    switch (name) {
-      case 'github':
-        return (
-          <>
-            <AiOutlineGithub />
-            <div className='pl-1'>源码</div>
-          </>
-        );
+  const getIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'source':
+        return <AiOutlineGithub />;
       case 'home':
-        return (
-          <>
-            <AiOutlineHome />
-            <div className='pl-1'>官网</div>
-          </>
-        );
+        return <AiOutlineHome />;
       case 'document':
-        return (
-          <>
-            <AiOutlineFileText />
-            <div className='pl-1'>文档</div>
-          </>
-        );
+        return <AiOutlineFileText />;
       case 'online':
-        return (
-          <>
-            <AiOutlineGlobal />
-            <div className='pl-1'>演示</div>
-          </>
-        );
+        return <AiOutlineGlobal />;
       case 'download':
-        return (
-          <>
-            <AiOutlineCloudDownload />
-            <div className='pl-1'>下载</div>
-          </>
-        );
+        return <AiOutlineCloudDownload />;
     }
   };
 
@@ -214,7 +193,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       options.push({ key: 'download', name: '下载', url: repo.download });
     }
     if (options.length > 0) {
-      options.unshift({ key: 'github', name: 'GitHub', url: repo.url });
+      options.unshift({ key: 'source', name: '源码', url: repo.url });
       setURLOptions(options);
     } else {
       setURLOptions([]);
@@ -233,18 +212,16 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       <div className='flex flex-col gap-y-3'>
         <div className='flex flex-row'>
           <div className='flex items-center'>
-            <a>
-              <img
-                className='rounded-sm border border-gray-100 bg-white dark:border-gray-800'
-                src={repo.author_avatar}
-                width='72'
-                height='72'
-                alt='repo_avatar'
-              />
-            </a>
+            <img
+              className='rounded border border-gray-100 bg-white dark:border-gray-800'
+              src={repo.author_avatar}
+              width='72'
+              height='72'
+              alt='repo_avatar'
+            />
           </div>
           <div className='flex flex-1 justify-end'>
-            <Score repo={repo}></Score>
+            <Score repo={repo} />
           </div>
         </div>
         <div className='flex flex-1 flex-row flex-wrap justify-between'>
@@ -260,7 +237,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
             <div className='group hidden lg:block'>
               <CustomLink
                 href={repo.url}
-                onClick={() => onClickLink('github', repo.rid)}
+                onClick={() => onClickLink('source', repo.rid)}
               >
                 <Button
                   variant='white-outline'
@@ -276,9 +253,9 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                   )}
                 </Button>
               </CustomLink>
-              {urlOptions.length > 0 ? (
+              {urlOptions.length > 0 && (
                 <div className='absolute hidden group-hover:block'>
-                  <div className='relative z-10 mt-2 w-fit origin-top-right rounded-md border border-gray-100 bg-white shadow-lg'>
+                  <div className='relative z-10 mt-1 w-fit origin-top-right rounded-md border border-gray-100 bg-white shadow-lg'>
                     {urlOptions.map((item) => (
                       <CustomLink
                         href={item.url}
@@ -288,21 +265,20 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                         <div className='py-2 px-1'>
                           <div className='flex flex-row items-center rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-700'>
                             {getIcon(item.key)}
+                            <div className='pl-1'>{item.name}</div>
                           </div>
                         </div>
                       </CustomLink>
                     ))}
                   </div>
                 </div>
-              ) : (
-                <></>
               )}
             </div>
 
             <div className='block lg:hidden'>
               <CustomLink
                 href={repo.url}
-                onClick={() => onClickLink('github', repo.rid)}
+                onClick={() => onClickLink('source', repo.rid)}
               >
                 <Button
                   variant='white-outline'
@@ -313,33 +289,18 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               </CustomLink>
             </div>
 
-            {isVoted ? (
-              <Button
-                variant='blue-outline'
-                className='flex-1 origin-top scale-95 justify-center transition duration-200 ease-in-out hover:scale-100'
-                onClick={() => onCancelVote(repo.rid)}
-              >
-                <div className='w-40 py-3 px-6 text-sm font-medium'>
-                  <div className='flex flex-1 items-center justify-center'>
-                    <AiFillCaretUp className='text-xl text-blue-500' />
-                    <div className='pl-2'>点赞 {voteTotal}</div>
-                  </div>
+            <Button
+              variant={isVoted ? 'blue-outline' : 'gradient'}
+              className='flex-1 origin-top scale-95 justify-center transition duration-200 ease-in-out hover:scale-100'
+              onClick={() => onClickVote(repo.rid)}
+            >
+              <div className='w-40 py-3 px-6 text-sm font-medium'>
+                <div className='flex flex-1 items-center justify-center'>
+                  <AiFillCaretUp className={voteClassName()} />
+                  <div className='pl-2'>点赞 {voteTotal}</div>
                 </div>
-              </Button>
-            ) : (
-              <Button
-                variant='gradient'
-                className='flex-1 origin-top scale-95 justify-center transition duration-200 ease-in-out hover:scale-100'
-                onClick={() => onClickVote(repo.rid)}
-              >
-                <div className='w-40 py-3 px-6 text-sm font-medium'>
-                  <div className='flex flex-1 items-center justify-center'>
-                    <AiOutlineCaretUp className='text-lg' />
-                    <div className='pl-2'>点赞 {voteTotal}</div>
-                  </div>
-                </div>
-              </Button>
-            )}
+              </div>
+            </Button>
           </div>
         </div>
       </div>
@@ -347,7 +308,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
         <div className='flex flex-row justify-between align-middle'>
           <div className='flex flex-row gap-x-1'>
             <div className='flex items-center justify-center text-sm text-gray-500'>
-              {repo.license_lid ? (
+              {repo.license_lid && (
                 <div className='flex-row items-center md:flex'>
                   <span>开源</span>
                   <span className='mx-0.5 md:mx-1.5'>•</span>
@@ -357,8 +318,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                     </span>
                   </Link>
                 </div>
-              ) : (
-                <></>
               )}
             </div>
           </div>
@@ -369,24 +328,17 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                 讨论
               </div>
             </div>
-            {isCollected ? (
-              <div
-                className='text-blue-500'
-                onClick={() => onCancelCollect(repo.rid)}
-              >
-                <div className='flex cursor-pointer items-center justify-center hover:text-current active:!text-gray-400 md:hover:text-blue-500'>
-                  <BsBookmark className='mr-2' size={16} />
-                  {numFormat(collectTotal, 1)}
-                </div>
+
+            <div
+              className={isCollected ? 'text-blue-500' : ''}
+              onClick={() => onClickCollect(repo.rid)}
+            >
+              <div className='flex cursor-pointer items-center justify-center hover:text-current active:!text-gray-400 md:hover:text-blue-500'>
+                <BsBookmark className='mr-2' size={16} />
+                {isCollected ? numFormat(collectTotal, 1) : '收藏'}
               </div>
-            ) : (
-              <div onClick={onClickCollect}>
-                <div className='flex cursor-pointer items-center justify-center hover:text-current active:!text-gray-400 md:hover:text-blue-500'>
-                  <BsBookmark className='mr-2' size={16} />
-                  收藏
-                </div>
-              </div>
-            )}
+            </div>
+
             <Link href={`/repository/${repo.rid}/embed`}>
               <div className='hidden cursor-pointer items-center justify-center hover:text-current active:!text-gray-400 md:flex md:hover:text-blue-500'>
                 <BsFileEarmarkCode className='mr-2' size={16} />

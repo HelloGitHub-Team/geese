@@ -23,10 +23,7 @@ const PeriodicalIndexPage: NextPage = () => {
 
   const { data, isValidating } = useSWRImmutable<AllItems>(
     makeUrl('/periodical/'),
-    fetcher,
-    {
-      revalidateIfStale: false,
-    }
+    fetcher
   );
   const categories = data?.success ? data.categories : [];
   const volumes = data?.success ? data.volumes : [];
@@ -53,10 +50,13 @@ const PeriodicalIndexPage: NextPage = () => {
 
   return (
     <>
-      <Seo title='HelloGitHub｜月刊' />
+      <Seo
+        title='HelloGitHub｜月刊'
+        description='这里有内容包括开发利器、开源书籍、教程、企业级的开源项目，让发现编程的乐趣你爱上开源！'
+      />
 
       <div className='relative'>
-        <Navbar middleText='HelloGitHub 月刊'></Navbar>
+        <Navbar middleText='HelloGitHub 月刊' />
         <div className='my-2 bg-white px-4 pt-2 dark:bg-gray-800 md:rounded-lg'>
           <div className='flex flex-col items-center'>
             <img src='https://img.hellogithub.com/logo/readme.gif'></img>
@@ -64,7 +64,7 @@ const PeriodicalIndexPage: NextPage = () => {
               <strong>「HelloGitHub 月刊」</strong>分享 GitHub
               上有趣、入门级的开源项目，每月 28
               号发布最新一期。内容包括开发利器、开源书籍、教程、企业级项目等，
-              让发现编程的乐趣、你爱上开源！
+              让你发现编程的乐趣、爱上开源！
             </p>
           </div>
           {isValidating ? (

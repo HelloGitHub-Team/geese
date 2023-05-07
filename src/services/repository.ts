@@ -81,15 +81,6 @@ export const cancelCollectRepo = async (rid: string): Promise<BaseType> => {
   return result;
 };
 
-// 记录 github 访问次数 /v1/repository/go/github/
-export const recordGoGithub = async (rid: string): Promise<any> => {
-  try {
-    await fetcher(makeUrl(`/repository/go/github/?rid=${rid}`));
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const submitComment = async (
   belongId: string,
   data: {

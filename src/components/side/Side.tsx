@@ -22,10 +22,7 @@ export const Side = ({ index }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { data, isValidating } = useSWRImmutable<AdvertItems>(
     makeUrl('/advert/', { position: 'side' }),
-    fetcher,
-    {
-      revalidateIfStale: false,
-    }
+    fetcher
   );
 
   const adverts = data?.success ? data.data : [];

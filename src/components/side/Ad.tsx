@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { MouseEventHandler, useState } from 'react';
 import { VscClose } from 'react-icons/vsc';
 
-import { recordGoAdvert, redirectRecord } from '@/services/home';
+import { redirectRecord } from '@/services/home';
 
 import { AdvertItem } from '@/types/home';
 
@@ -19,7 +19,6 @@ export default function Ad(props: Props) {
   };
 
   const onClickLink = (aid: string) => {
-    recordGoAdvert(aid);
     redirectRecord('', aid, 'ad');
   };
 

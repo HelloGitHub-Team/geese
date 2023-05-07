@@ -84,7 +84,7 @@ function Dropdown(props: DropdownProps, ref: any) {
       {
         block: show,
         hidden: !show,
-        border: props.border,
+        'border top-1': props.border,
       }
     );
 
@@ -137,7 +137,7 @@ function Dropdown(props: DropdownProps, ref: any) {
         onMouseMove={onTrigger('mousemove')}
         onMouseLeave={onTrigger('mouseleave')}
       >
-        {activeOption?.value}
+        <span className='truncate'>{activeOption?.value}</span>
         <IoMdArrowDropdown className='ml-1' />
       </button>
 
@@ -149,7 +149,7 @@ function Dropdown(props: DropdownProps, ref: any) {
           onMouseLeave={onTrigger('mouseleave')}
         >
           <div
-            className='p-2'
+            className='hidden-scrollbar max-h-64 overflow-y-auto p-2'
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
             onTouchStart={() => setIsHover(true)}
@@ -157,7 +157,7 @@ function Dropdown(props: DropdownProps, ref: any) {
             {props.options?.map((opt: option) => (
               <a
                 key={opt.key}
-                className='block cursor-pointer rounded-lg px-1 py-2 text-left text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-300'
+                className='block cursor-pointer truncate rounded-lg px-1 py-2 text-left text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-300'
                 onClick={() => onChange(opt)}
               >
                 {opt.value}

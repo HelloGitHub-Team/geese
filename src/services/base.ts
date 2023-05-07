@@ -44,6 +44,8 @@ export const fetcher = async function fetcher<T>(
         if (!res.url.includes('/me/')) {
           message = '请先登录';
         }
+      } else if (res.status === 422) {
+        message = `${message}：${json.detail[0].msg}`;
       } else {
         if (json.message) {
           message = json.message;

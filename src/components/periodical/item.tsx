@@ -4,7 +4,7 @@ import { AiOutlineLike } from 'react-icons/ai';
 import { GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 
-import { recordGoGithub } from '@/services/repository';
+import { redirectRecord } from '@/services/home';
 import { numFormat } from '@/utils/util';
 
 import Button from '../buttons/Button';
@@ -16,8 +16,7 @@ import { PeriodicalItem, PeriodicalItemProps } from '@/types/periodical';
 
 const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
   const onClickLink = (item: PeriodicalItem) => {
-    // 调用接口记录链接点击信息
-    recordGoGithub(item.rid);
+    redirectRecord('', item.rid, 'source');
   };
 
   return (
