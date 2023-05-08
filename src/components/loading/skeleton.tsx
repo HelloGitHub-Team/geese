@@ -64,8 +64,10 @@ export const RecommendSkeleton = ({ loop }: Props) => {
       {[...Array(loop)].map((x, i) => (
         <div key={i} className='flex flex-row rounded-md py-2'>
           <div className='flex w-full items-center px-1'>
-            <div className='h-10 w-10 rounded-full bg-gray-100 dark:bg-gray-700' />
-            <div className='ml-2 flex w-4/5 flex-col'>
+            <div className='rounded-full bg-gray-100 dark:bg-gray-700'>
+              <div className='h-10 w-10' />
+            </div>
+            <div className='flex w-4/5 flex-col pl-2'>
               <div className='h-3 w-3/5 bg-gray-100 dark:bg-gray-700' />
               <div className='mt-2.5 flex h-3 flex-row bg-gray-100 dark:bg-gray-700' />
             </div>

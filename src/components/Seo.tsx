@@ -11,6 +11,7 @@ const defaultMeta = {
   type: 'website',
   robots: 'follow, index',
   image: 'https://img.hellogithub.com/logo/logo.png',
+  content: 'text/html;charset=utf-8',
 };
 
 type SeoProps = {
@@ -25,7 +26,6 @@ type Favicons = {
   type?: string;
 };
 
-// !STARTERCONF this is the default favicon, you can generate your own from https://www.favicon-generator.org/ then replace the whole /public/favicon folder
 const favicons: Array<Favicons> = [
   {
     rel: 'apple-touch-icon',
