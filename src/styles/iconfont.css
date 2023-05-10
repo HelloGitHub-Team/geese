@@ -1,8 +1,11 @@
 @font-face {
   font-family: 'iconfont'; /* Project id 3877448 */
-  src: url('../../public/font/iconfont.woff2?t=1675331844139') format('woff2'),
-    url('../../public/font/iconfont.woff?t=1675331844139') format('woff'),
-    url('../../public/font/iconfont.ttf?t=1675331844139') format('truetype');
+  src: url('//static.hellogithub.com/font/iconfont.woff2?t=1683688701564')
+      format('woff2'),
+    url('//static.hellogithub.com/font/iconfont.woff?t=1683688701564')
+      format('woff'),
+    url('//static.hellogithub.com/font/iconfont.ttf?t=1683688701564')
+      format('truetype');
 }
 
 .iconfont {
@@ -114,4 +117,8 @@
 
 .icon-algo:before {
   content: '\e76e';
+}
+
+.icon-kotlin:before {
+  content: '\ebed';
 }

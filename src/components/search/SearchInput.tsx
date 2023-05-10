@@ -40,11 +40,6 @@ export default function SearchInput() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getLenovoWord = useCallback(
     debounce((query: string) => {
-      if (!query) {
-        setDropdownList([]);
-        setShow(false);
-        return;
-      }
       fetcher(makeUrl(`/search/suggest/`, { q: query }))
         .then((res: any) => {
           if (res?.length > 0) {
@@ -84,7 +79,12 @@ export default function SearchInput() {
   const onQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
     const q = e.target.value;
     setQuery(q);
-    getLenovoWord(q);
+    setShow(false);
+    setDropdownList([]);
+    const patrn = /[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/gi;
+    if (q.length > 1 && patrn.exec(q) == null) {
+      getLenovoWord(q);
+    }
   };
 
   const onClickLenovoWord = (keyword: string) => {
