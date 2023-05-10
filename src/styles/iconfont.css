@@ -1,11 +1,8 @@
 @font-face {
   font-family: 'iconfont'; /* Project id 3877448 */
-  src: url('//static.hellogithub.com/font/iconfont.woff2?t=1683688701564')
-      format('woff2'),
-    url('//static.hellogithub.com/font/iconfont.woff?t=1683688701564')
-      format('woff'),
-    url('//static.hellogithub.com/font/iconfont.ttf?t=1683688701564')
-      format('truetype');
+  src: url('../../public/font/iconfont.woff2?t=1683688876540') format('woff2'),
+    url('../../public/font/iconfont.woff?t=1683688876540') format('woff'),
+    url('../../public/font/iconfont.ttf?t=1683688876540') format('truetype');
 }
 
 .iconfont {

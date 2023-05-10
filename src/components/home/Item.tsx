@@ -39,7 +39,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                   </div>
                   <div className='shrink grow' />
                   <div className='justify-end'>
-                    {item.comment_total ? (
+                    {item.comment_total > 0 ? (
                       <div className='h-4 whitespace-nowrap rounded-md bg-blue-400 py-0.5 px-2 text-xs font-semibold leading-none text-white dark:text-gray-100'>
                         {item.comment_total}
                       </div>
@@ -57,7 +57,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                   <img
                     width='20'
                     height='20'
-                    src={`${item.author_avatar}!small`}
+                    src={item.author_avatar}
                     className='bg-img mr-1 h-5 w-5 rounded bg-white md:hidden'
                   />
                   <div className='max-w-[6rem] truncate whitespace-nowrap md:block md:max-w-[10rem]'>
