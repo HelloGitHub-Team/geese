@@ -5,6 +5,7 @@ import clsxm from '@/lib/clsxm';
 
 type Props = {
   href: string;
+  prefetch?: boolean;
   onClick?: any;
 } & React.ComponentPropsWithoutRef<'div'>;
 
@@ -21,7 +22,7 @@ const CustomLink = ({ href, className, children, onClick }: Props) => {
   }, [setIsMobile]);
 
   return (
-    <Link href={href}>
+    <Link prefetch={false} href={href}>
       <a
         onClick={onClick}
         target={isMobile ? '_self' : '_blank'}

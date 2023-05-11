@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
-import { AiOutlineLike } from 'react-icons/ai';
 import { GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 
@@ -44,16 +43,10 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
               <GoRepoForked size={15} className='mr-0.5' />
               Fork {numFormat(item.forks, 1)}
             </div>
-            <Link href={`/repository/${item.rid}`}>
-              <div className='hidden cursor-pointer items-center hover:text-blue-500 md:flex'>
-                <AiOutlineLike size={15} className='mr-0.5' />
-                Like {numFormat(item.vote_total, 1)}
-              </div>
-            </Link>
           </div>
         </div>
         <div className='flex h-14 flex-1 flex-row items-center justify-end pr-1'>
-          <Link href={`/repository/${item.rid}`}>
+          <Link prefetch={false} href={`/repository/${item.rid}`}>
             <Button
               variant='white-outline'
               className='font-normal text-gray-700'
