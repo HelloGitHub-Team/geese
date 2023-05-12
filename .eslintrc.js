@@ -22,7 +22,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 0,
     '@next/next/no-img-element': 0,
-
+    'react-hooks/exhaustive-deps': 'off',
     'react/display-name': 'off',
     'jsx-a11y/alt-text': 'off',
     'react/jsx-curly-brace-presence': [

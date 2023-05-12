@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AiOutlineStar } from 'react-icons/ai';
 import { MdRefresh } from 'react-icons/md';
 
@@ -11,27 +11,27 @@ import { RecommendSkeleton } from '../loading/skeleton';
 import { RecomemndItem } from '@/types/home';
 
 export default function Recommend() {
-  const [repositories, setRepositories] = useState<RecomemndItem[]>([]);
   const router = useRouter();
-
   const { pathname, query } = router;
+  const [repositories, setRepositories] = useState<RecomemndItem[]>([]);
 
   const isLicenseDetail = useMemo(() => {
     return pathname === '/license/[lid]';
   }, [pathname]);
 
-  const refreshRecommend = useCallback(async () => {
+  const refreshRecommend = async () => {
     setRepositories([]);
     const lid = query?.lid as string;
     const res = await getRecommend(lid);
     if (res?.success) {
       setRepositories(res.data);
     }
-  }, [query]);
+  };
 
   useEffect(() => {
+    // path 变化就会刷新推荐项目列表
     refreshRecommend();
-  }, [refreshRecommend]);
+  }, [pathname]);
 
   return (
     <>
