@@ -37,7 +37,7 @@ const Header = () => {
         {/* pc 端显示的 logo */}
         <span className='hidden py-2 md:block'>
           <img
-            className='cursor-pointer dark:invert'
+            className='cursor-pointer hover:animate-spin dark:invert'
             src='https://img.hellogithub.com/logo/logo.png'
             width='28'
             height='28'

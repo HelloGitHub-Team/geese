@@ -31,7 +31,7 @@ const RepoDetailNavbar: NextPage<UserAvaterProps> = ({ avatar, uid }) => {
             由
             <a className='m-1 flex items-center'>
               <img
-                className='rounded-full'
+                className='rounded-full hover:animate-spin'
                 src={avatar}
                 width='20'
                 height='20'
