@@ -28,6 +28,7 @@ export interface Repository extends RepoType {
   other_url: string | null;
   license_lid: string;
 
+  contributors: number | null;
   score: number;
   score_str: string | null;
   votes: number;

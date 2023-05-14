@@ -26,6 +26,10 @@ const MoreInfo: NextPage<RepositoryProps> = ({ repo }) => {
       value: repo.is_active ? '是' : '否',
     },
     {
+      title: '贡献者',
+      value: repo.contributors ? numFormat(repo.contributors) : '无',
+    },
+    {
       title: 'Issues',
       value: numFormat(repo.open_issues),
     },
