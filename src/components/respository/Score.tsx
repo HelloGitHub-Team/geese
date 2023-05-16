@@ -19,7 +19,7 @@ const Score: NextPage<RepositoryProps> = ({ repo }) => {
         <div className='flex flex-row text-sm text-gray-500'>
           HelloGitHub 评分
         </div>
-        <div className='mt-0.5 flex flex-row items-center'>
+        <div className='mt-1 flex flex-row items-center'>
           {repo.score ? (
             <div className='mr-2 text-3xl font-medium'>{repo.score_str}</div>
           ) : (

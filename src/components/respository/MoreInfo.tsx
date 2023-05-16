@@ -38,6 +38,10 @@ const MoreInfo: NextPage<RepositoryProps> = ({ repo }) => {
       value: repo.is_org ? '是' : '否',
     },
     {
+      title: '最新版本',
+      value: repo.release_tag || '无',
+    },
+    {
       title: 'Forks',
       value: numFormat(repo.forks),
     },

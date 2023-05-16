@@ -10,6 +10,13 @@ export interface RepositoryProps {
   repo: Repository;
 }
 
+export interface StarHistory {
+  increment: number;
+  max_increment: number;
+  y: [];
+  x: [];
+}
+
 export interface Repository extends RepoType {
   author: string;
   share_user: UserType;
@@ -28,6 +35,9 @@ export interface Repository extends RepoType {
   other_url: string | null;
   license_lid: string;
 
+  star_history: StarHistory;
+
+  release_tag: string | null;
   contributors: number | null;
   score: number;
   score_str: string | null;

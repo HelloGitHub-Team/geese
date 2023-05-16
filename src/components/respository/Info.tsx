@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
+import ReactECharts from 'echarts-for-react';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -207,11 +208,94 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     handleURLOptions(repo);
   }, [repo]);
 
+  const option = {
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: repo.star_history.x,
+      axisTick: {
+        show: false,
+      },
+      axisLine: {
+        show: false,
+      },
+    },
+    yAxis: {
+      type: 'value',
+      splitLine: {
+        show: false,
+      },
+      axisLabel: {
+        show: false,
+      },
+      axisTick: {
+        show: false,
+      },
+      axisLine: {
+        show: false,
+      },
+    },
+    series: [
+      {
+        data: repo.star_history.y,
+        type: 'line',
+        areaStyle: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [
+              { offset: 0, color: 'rgba(59, 130, 246,.8)' },
+              { offset: 0.5, color: 'rgba(59, 130, 246,.6)' },
+              { offset: 0.8, color: 'rgba(59, 130, 246,.4)' },
+              { offset: 0.9, color: 'rgba(59, 130, 246,.2)' },
+              { offset: 0.95, color: 'rgba(59, 130, 246,.1)' },
+              { offset: 0.98, color: 'rgba(59, 130, 246,.05)' },
+              { offset: 0.99, color: 'rgba(59, 130, 246,.01)' },
+              { offset: 1, color: 'rgba(59, 130, 246,.01)' },
+            ],
+          },
+        },
+        showSymbol: false,
+        smooth: true,
+      },
+    ],
+    tooltip: {
+      trigger: 'axis',
+      formatter: function (params: any[]) {
+        let result = params[0].name + '<br>';
+        params.forEach(function (item) {
+          result +=
+            item.marker + ' Star 变化：' + numFormat(item.value, 1) + '<br>';
+        });
+        return result;
+      },
+      backgroundColor: 'rgba(32, 33, 36,.7)',
+      borderColor: 'rgba(32, 33, 36,0.20)',
+      borderWidth: 1,
+      axisPointer: {
+        type: 'none',
+      },
+      textStyle: {
+        color: '#fff',
+        fontSize: '12',
+      },
+    },
+    grid: {
+      left: '2%',
+      right: '2%',
+      top: '20%',
+      bottom: '10%',
+    },
+  };
+
   return (
     <div className='p-1'>
       <div className='flex flex-col gap-y-3'>
         <div className='flex flex-row'>
-          <div className='flex items-center'>
+          <div className='flex min-w-[72px] items-center'>
             <img
               className='rounded border border-gray-100 bg-white dark:border-gray-800'
               src={repo.author_avatar}
@@ -220,20 +304,52 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               alt='repo_avatar'
             />
           </div>
+          <div className='ml-3 hidden max-w-[440px] flex-col gap-y-2 md:flex'>
+            <CustomLink
+              href={repo.url}
+              onClick={() => onClickLink('source', repo.rid)}
+            >
+              <div className='cursor-pointer truncate text-ellipsis text-3xl font-semibold hover:text-blue-500'>
+                {repo.full_name}
+              </div>
+            </CustomLink>
+
+            <div className='truncate text-ellipsis text-xl font-normal text-gray-500'>
+              {repo.title}
+            </div>
+          </div>
+
           <div className='flex flex-1 justify-end'>
             <Score repo={repo} />
           </div>
         </div>
         <div className='flex flex-1 flex-row flex-wrap justify-between'>
-          <div className='flex w-full flex-col gap-y-2 md:w-6/12 lg:w-7/12'>
-            <h1 className='truncate text-ellipsis text-3xl font-semibold'>
-              {repo.name}
-            </h1>
-            <h2 className='truncate text-ellipsis whitespace-pre-wrap text-xl font-normal text-gray-500'>
+          <div className='mb-2 flex w-full flex-col gap-y-2 md:hidden'>
+            <span className='truncate text-ellipsis text-3xl font-semibold'>
+              {repo.full_name}
+            </span>
+            <span className='text-ellipsis whitespace-pre-wrap text-xl font-normal text-gray-500'>
               {repo.title}
-            </h2>
+            </span>
           </div>
-          <div className='mt-4 flex w-full flex-row items-end gap-x-2 md:mt-0 md:w-64 lg:w-72'>
+          <div className='hidden md:flex'>
+            {repo.star_history && (
+              <div className='flex flex-col items-center'>
+                <ReactECharts
+                  option={option}
+                  style={{ height: 54, width: 320 }}
+                  opts={{ renderer: 'svg' }}
+                />
+                <div className='text-xs text-gray-500'>{`过去 ${
+                  repo.star_history.x.length
+                } 天共收获 ${numFormat(
+                  repo.star_history.increment,
+                  1
+                )} 颗 Star ✨`}</div>
+              </div>
+            )}
+          </div>
+          <div className='flex h-[72px] w-full flex-row items-end gap-x-2 md:mt-0 md:w-64 lg:w-72'>
             <div className='group hidden lg:block'>
               <CustomLink
                 href={repo.url}
@@ -304,7 +420,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           </div>
         </div>
       </div>
-      <div className='mt-6 flex flex-col pb-4'>
+      <div className='my-6 mb-4 flex flex-col'>
         <div className='flex flex-row justify-between align-middle'>
           <div className='flex flex-row gap-x-1'>
             <div className='flex items-center justify-center text-sm text-gray-500'>
