@@ -325,9 +325,14 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
         </div>
         <div className='flex flex-1 flex-row flex-wrap justify-between'>
           <div className='mb-2 flex w-full flex-col gap-y-2 md:hidden'>
-            <span className='truncate text-ellipsis text-3xl font-semibold'>
-              {repo.full_name}
-            </span>
+            <CustomLink
+              href={repo.url}
+              onClick={() => onClickLink('source', repo.rid)}
+            >
+              <span className='truncate text-ellipsis text-3xl font-semibold'>
+                @{repo.author.length > 10 ? repo.name : repo.full_name}
+              </span>
+            </CustomLink>
             <span className='text-ellipsis whitespace-pre-wrap text-xl font-normal text-gray-500'>
               {repo.title}
             </span>
@@ -413,7 +418,9 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               <div className='w-40 py-3 px-6 text-sm font-medium'>
                 <div className='flex flex-1 items-center justify-center'>
                   <AiFillCaretUp className={voteClassName()} />
-                  <div className='pl-2'>点赞 {voteTotal}</div>
+                  <div className='pl-2'>
+                    {isVoted ? '已赞' : '点赞'} {voteTotal}
+                  </div>
                 </div>
               </div>
             </Button>
