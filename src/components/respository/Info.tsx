@@ -275,7 +275,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       formatter: function (params: any[]) {
         let result = params[0].name + '<br>';
         params.forEach(function (item) {
-          result += item.marker + ' Star：' + item.value + '<br>';
+          result += item.marker + ' Star：' + numFormat(item.value, 1) + '<br>';
         });
         return result;
       },

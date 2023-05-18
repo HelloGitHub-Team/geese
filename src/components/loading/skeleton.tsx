@@ -47,12 +47,12 @@ export const StatsSkeleton = () => {
   return (
     <div className='flex flex-wrap border-b border-b-gray-300 pb-3 dark:border-b-gray-700'>
       <div className='flex-1 pr-4'>
-        <div className='text-base text-gray-400'>用户总数</div>
-        <div className='mt-1 h-8 w-20 animate-pulse bg-gray-100 dark:bg-gray-700' />
+        <div className='text-sm text-gray-400 lg:text-base'>用户总数</div>
+        <div className='mt-1  h-6 w-14 animate-pulse bg-gray-100 dark:bg-gray-700 lg:h-8 lg:w-20' />
       </div>
       <div className='flex-1'>
-        <div className='text-base text-gray-400'>开源项目</div>
-        <div className='mt-1 h-8 w-20 animate-pulse bg-gray-100 dark:bg-gray-700' />
+        <div className='text-sm text-gray-400 lg:text-base'>开源项目</div>
+        <div className='mt-1 h-6 w-14 animate-pulse bg-gray-100 dark:bg-gray-700 lg:h-8 lg:w-20' />
       </div>
     </div>
   );

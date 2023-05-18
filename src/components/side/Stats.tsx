@@ -16,18 +16,18 @@ export default function SiteStats() {
       {stats ? (
         <div className='flex flex-wrap border-b border-b-gray-300 pb-3 dark:border-b-gray-700'>
           <div className='flex-1 pr-4'>
-            <div className='whitespace-nowrap text-base text-gray-400'>
+            <div className='whitespace-nowrap text-sm text-gray-400 lg:text-base'>
               用户总数
             </div>
-            <div className='text-3xl dark:text-gray-300'>
+            <div className='text-2xl dark:text-gray-300 lg:text-3xl'>
               {numFormat(stats?.user_total, 1, 10000)}
             </div>
           </div>
           <div className='flex-1'>
-            <div className='whitespace-nowrap text-base text-gray-400'>
+            <div className='whitespace-nowrap text-sm text-gray-400 lg:text-base'>
               开源项目
             </div>
-            <div className='text-3xl dark:text-gray-300'>
+            <div className='text-2xl dark:text-gray-300 lg:text-3xl'>
               {numFormat(stats?.repo_total, 1, 10000)}
             </div>
           </div>

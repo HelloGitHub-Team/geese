@@ -35,26 +35,28 @@ export default function Ad(props: Props) {
             alt='ad'
           />
           <div className='ml-3'>
-            <div className='text-base font-medium tracking-wider'>
+            <div className='font-medium tracking-wider md:text-sm lg:text-base'>
               微信扫码赞助本站
             </div>
-            <div className='mt-1.5 mb-1 text-xs text-gray-500'>
-              <span>
-                服务器还剩<strong className='mx-1'>{props.data.day}</strong>天
-              </span>
-              <div className='relative left-0.5 bottom-1 inline-flex w-fit'>
-                <span className='text-xs font-medium text-blue-500 '>
-                  <span className='mr-[0.5px]'>+{props.data.year}</span>年
+            <div className='hidden lg:block'>
+              <div className='mt-1.5 mb-1 text-xs text-gray-500'>
+                <span>
+                  服务器还剩<strong className='mx-1'>{props.data.day}</strong>天
                 </span>
+                <div className='relative left-0.5 bottom-1 inline-flex w-fit'>
+                  <span className='text-xs font-medium text-blue-500 '>
+                    <span className='mr-[0.5px]'>+{props.data.year}</span>年
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className='flex h-1 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700'>
-              <div
-                className='flex flex-col justify-center overflow-hidden bg-blue-500'
-                style={{
-                  width: `${props.data.percent}%`,
-                }}
-              />
+              <div className='flex h-1 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700'>
+                <div
+                  className='flex flex-col justify-center overflow-hidden bg-blue-500'
+                  style={{
+                    width: `${props.data.percent}%`,
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
