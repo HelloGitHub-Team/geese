@@ -219,9 +219,17 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       axisLine: {
         show: false,
       },
+      axisLabel: {
+        show: false,
+      },
     },
     yAxis: {
       type: 'value',
+      min: repo.star_history.min,
+      max:
+        repo.star_history.increment > 10
+          ? repo.star_history.max
+          : repo.star_history.min + 10,
       splitLine: {
         show: false,
       },
@@ -267,8 +275,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       formatter: function (params: any[]) {
         let result = params[0].name + '<br>';
         params.forEach(function (item) {
-          result +=
-            item.marker + ' Star 变化：' + numFormat(item.value, 1) + '<br>';
+          result += item.marker + ' Star：' + item.value + '<br>';
         });
         return result;
       },
@@ -330,7 +337,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               onClick={() => onClickLink('source', repo.rid)}
             >
               <span className='truncate text-ellipsis text-3xl font-semibold'>
-                @{repo.author.length > 10 ? repo.name : repo.full_name}
+                {repo.full_name.length >= 20 ? repo.name : repo.full_name}
               </span>
             </CustomLink>
             <span className='text-ellipsis whitespace-pre-wrap text-xl font-normal text-gray-500'>

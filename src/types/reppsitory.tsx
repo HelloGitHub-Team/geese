@@ -12,7 +12,8 @@ export interface RepositoryProps {
 
 export interface StarHistory {
   increment: number;
-  max_increment: number;
+  max: number;
+  min: number;
   y: [];
   x: [];
 }
