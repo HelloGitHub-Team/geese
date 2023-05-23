@@ -80,6 +80,7 @@ export interface RepoType {
   has_chinese: boolean;
   is_org: boolean;
   is_show: boolean;
+  is_deleted?: boolean;
 
   repo_created_at: string;
   updated_at: string;

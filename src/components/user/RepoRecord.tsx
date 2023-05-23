@@ -7,6 +7,8 @@ import Pagination from '@/components/pagination/Pagination';
 import { formatZH } from '@/utils/day';
 import { numFormat } from '@/utils/util';
 
+import { FeedbackModal } from '../dialog/Feedback';
+
 import { Page } from '@/types/help';
 import { RepoType, VoteItemData } from '@/types/reppsitory';
 import { CollectItem } from '@/types/user';
@@ -25,6 +27,38 @@ export const RepoData = ({
       router.push(`/repository/${item.rid}`);
     } else {
       router.push(item.url);
+    }
+  };
+
+  const handleRepoStatus = (item: RepoType) => {
+    if (item.is_show) {
+      return (
+        <>
+          <div>
+            <span
+              style={{ backgroundColor: `${item.lang_color}` }}
+              className='relative mr-1 box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px] dark:border-gray-500'
+            />
+            {item.primary_lang}
+          </div>
+          <div className='px-1'>·</div>
+          <div>{numFormat(item.stars, 1)}</div>
+        </>
+      );
+    } else {
+      if (item.is_deleted) {
+        return (
+          <>
+            <span className='text-red-500'>未精选</span>
+            <div className='px-1'>·</div>
+            <FeedbackModal feedbackType={1}>
+              <span className=' cursor-pointer'>反馈</span>
+            </FeedbackModal>
+          </>
+        );
+      } else {
+        return <span className='text-yellow-500'>审核中</span>;
+      }
     }
   };
 
@@ -47,21 +81,7 @@ export const RepoData = ({
                 </span>
               </div>
               <div className='flex items-center text-sm text-gray-500 dark:text-gray-400'>
-                {item.repo.is_show ? (
-                  <>
-                    <div>
-                      <span
-                        style={{ backgroundColor: `${item.repo.lang_color}` }}
-                        className='relative mr-1 box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px] dark:border-gray-500'
-                      />
-                      {item.repo.primary_lang}
-                    </div>
-                    <div className='px-1'>·</div>
-                    <div>{numFormat(item.repo.stars, 1)}</div>
-                  </>
-                ) : (
-                  <span className='text-red-500'>审核中</span>
-                )}
+                {handleRepoStatus(item.repo)}
                 <div className='px-1'>·</div>
                 <div>{formatZH(item.created_at, 'YYYY-MM-DD')}</div>
               </div>

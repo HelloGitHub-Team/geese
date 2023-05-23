@@ -127,17 +127,15 @@ export function CreateFeedback({
           )}
         </div>
       </div>
-      {selectOption == 3 && (
-        <div>
-          <input
-            className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
-            placeholder='联系方式：微信/手机号/邮箱'
-            type='text'
-            id='contact'
-            onChange={onContactChange}
-          />
-        </div>
-      )}
+      <div>
+        <input
+          className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
+          placeholder='联系方式：微信/手机号/邮箱'
+          type='text'
+          id='contact'
+          onChange={onContactChange}
+        />
+      </div>
 
       <div className='mt-4 text-right'>
         <Button
