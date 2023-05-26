@@ -208,7 +208,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     handleURLOptions(repo);
   }, [repo]);
 
-  const option = {
+  const option = repo.star_history && {
     xAxis: {
       type: 'category',
       boundaryGap: false,
@@ -345,7 +345,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
             </span>
           </div>
           <div className='hidden md:flex'>
-            {repo.star_history && (
+            {repo.star_history ? (
               <div className='flex flex-col items-center'>
                 <ReactECharts
                   option={option}
@@ -358,6 +358,10 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                   repo.star_history.increment,
                   1
                 )} 颗 Star ✨`}</div>
+              </div>
+            ) : (
+              <div className='flex flex-col justify-end px-1 pb-1 text-xs text-gray-500'>
+                <div>暂无 Star 历史数据</div>
               </div>
             )}
           </div>
