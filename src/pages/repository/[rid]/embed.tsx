@@ -18,7 +18,9 @@ const EmbedPage: NextPage = () => {
   const [svgFile, setSVGFile] = useState<string>('');
   useEffect(() => {
     if (rid) {
-      setSVGFile(`${API_HOST}${API_ROOT_PATH}/widgets/featured.svg?rid=${rid}`);
+      setSVGFile(
+        `${API_HOST}${API_ROOT_PATH}/widgets/recommend.svg?rid=${rid}`
+      );
     }
   }, [rid]);
 
@@ -31,7 +33,7 @@ const EmbedPage: NextPage = () => {
   const handleTheme = (themeName: string) => {
     setTheme(themeName);
     setSVGFile(
-      `${API_HOST}${API_ROOT_PATH}/widgets/featured.svg?rid=${rid}&theme=${themeName}`
+      `${API_HOST}${API_ROOT_PATH}/widgets/recommend.svg?rid=${rid}&theme=${themeName}`
     );
   };
 
@@ -51,13 +53,16 @@ const EmbedPage: NextPage = () => {
         <div className='my-2 bg-white px-4 py-2 dark:bg-gray-800 md:rounded-lg'>
           <div className='my-4 text-xl font-bold '>星星之火</div>
           <div>
-            <p className='my-4 '>
-              使用 HelloGitHub 网站徽章不仅可以
-              <strong>帮助宣传 HelloGitHub 社区</strong>还能为
-              <strong>开源项目拉票</strong>，
-              徽章不仅可以实时展示开源项目的点赞数，点击后还可以直达项目详情页进行点赞、评论、收藏等操作。
-              重点是<strong>一键复制代码就能嵌入网页或开源项目首页</strong>
-              ，无需额外的开发工作十分方便。
+            <p className='mt-2'>
+              这个徽章代表项目已被 <strong>HelloGitHub 推荐</strong>
+              ，仅限收录到本社区的项目使用。
+              上面有开源项目收获的点赞数，点击后能直达项目详情页，进行点赞、评论、收藏等反馈操作。
+              不仅可以<strong>为开源项目拉票</strong>，还可以积累/展示
+              <strong>用户体验后的反馈</strong>。
+            </p>
+            <p className='my-2'>
+              直接点击<strong>「复制代码」</strong>到 README 文件，为项目带上
+              HelloGitHub 徽章吧！
             </p>
             <div className='flex flex-col rounded-lg bg-gray-100 dark:bg-gray-700'>
               <div className='flex rounded-t-lg bg-gray-200 dark:bg-slate-900'>
