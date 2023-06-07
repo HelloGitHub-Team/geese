@@ -10,7 +10,7 @@ const RedirectPage: NextPage = () => {
   const router = useRouter();
   const { target = '/' } = router.query;
   const trackRedirect = (target: string) => {
-    redirectRecord(target, '', 'repo');
+    redirectRecord(target, '', 'external');
   };
 
   useEffect(() => {
