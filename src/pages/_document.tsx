@@ -27,7 +27,6 @@ class MyDocument extends Document {
                 window.matchMedia &&
                 window.matchMedia('(prefers-color-scheme: dark)').matches;
               const isLocalDark = localStorage.getItem('theme') === 'dark';
-              console.log("isLocalDark",isLocalDark)
               // 用户选择主题颜色优先级大于系统
               if(!isLocalDark) return
               if(isOSDark || isLocalDark) {
