@@ -14,7 +14,7 @@ export default function SiteStats() {
   return (
     <div className='space-y-1.5 rounded-lg bg-white px-3 py-2.5 dark:bg-gray-800'>
       {stats ? (
-        <div className='flex flex-wrap border-b border-b-gray-300 pb-3 dark:border-b-gray-700'>
+        <div className='flex flex-wrap border-b border-b-gray-300 pb-2 dark:border-b-gray-700 lg:pb-3'>
           <div className='flex-1 pr-4'>
             <div className='whitespace-nowrap text-sm text-gray-400 lg:text-base'>
               用户总数
@@ -37,7 +37,7 @@ export default function SiteStats() {
       )}
 
       <div className='text-base text-gray-400'>关于本站</div>
-      <div className='text-sm leading-7 dark:text-gray-300'>
+      <div className='text-sm dark:text-gray-300 lg:leading-7'>
         HelloGitHub 是一个发现和分享有趣、入门级开源项目的平台。
         希望大家能够在这里找到编程的快乐、 轻松搞定问题的技术方案、
         大呼过瘾的开源神器， 顺其自然地开启开源之旅。

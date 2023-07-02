@@ -41,7 +41,7 @@ export default function Ad(props: Props) {
                 alt='ad'
               />
               <div className='ml-3'>
-                <div className='font-medium tracking-wider md:text-sm lg:text-base'>
+                <div className='font-medium tracking-wider md:text-sm lg:w-[135px] lg:truncate lg:whitespace-nowrap lg:text-base'>
                   微信扫码赞助本站
                 </div>
                 <div className='hidden lg:block'>
