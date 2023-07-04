@@ -39,7 +39,7 @@ export default function TagList() {
 
   const tagClassName = (itemTid: string) =>
     classNames(
-      'flex flex-row w-[114px] items-center my-1 py-2 px-3 rounded text-[14px] cursor-pointer hover:bg-gray-100 hover:text-blue-500 dark:hover:bg-gray-700',
+      'flex flex-row w-[115px] items-center my-1 py-2 px-3 rounded text-[14px] cursor-pointer hover:bg-gray-100 hover:text-blue-500 dark:hover:bg-gray-700',
       {
         'text-gray-500 dark:text-gray-400': tid !== itemTid,
         'bg-gray-100 dark:bg-gray-700 text-blue-500': tid == itemTid,
@@ -49,7 +49,7 @@ export default function TagList() {
   return (
     <div className='hidden max-w-[162px] shrink-0 lg:block lg:w-2/12 lg:grow-0'>
       <div className='fixed top-16 pl-2'>
-        <div className='rounded-lg bg-white px-3 py-2 dark:bg-gray-800'>
+        <div className='w-[140px] rounded-lg bg-white px-3 py-2 dark:bg-gray-800'>
           <div className='px-1 pb-1'>
             <div className='border-b border-b-gray-200 pb-2 dark:border-b-gray-600 dark:text-gray-300'>
               <div className='flex w-[104px] flex-row items-center p-1'>
