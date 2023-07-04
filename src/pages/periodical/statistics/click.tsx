@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 import RedirectBar from '@/components/navbar/RedirectBar';
+import Seo from '@/components/Seo';
 
 import { redirectRecord } from '@/services/home';
 
@@ -21,10 +22,13 @@ const RedirectPage: NextPage = () => {
   }, [router]);
 
   return (
-    <RedirectBar
-      text='即将离开 HelloGitHub 社区，跳转到👇'
-      target={target as string}
-    />
+    <>
+      <Seo robots='noindex, nofollow' />
+      <RedirectBar
+        text='即将离开 HelloGitHub 社区，跳转到👇'
+        target={target as string}
+      />
+    </>
   );
 };
 

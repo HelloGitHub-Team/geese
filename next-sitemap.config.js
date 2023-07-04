@@ -9,7 +9,7 @@ module.exports = {
   changefreq: 'daily',
   priority: 0.7,
   generateRobotsTxt: true,
-  exclude: ['/tachi', '/user', '/help', '/search'],
+  exclude: ['/tachi', '/help', '/search'],
 
   robotsTxtOptions: {
     additionalSitemaps: [
@@ -37,6 +37,7 @@ module.exports = {
           '/user/',
           '/help/',
           '/search/',
+          '/periodical/statistics/click/',
         ],
       },
       {
