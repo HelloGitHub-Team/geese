@@ -336,9 +336,9 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               href={repo.url}
               onClick={() => onClickLink('source', repo.rid)}
             >
-              <span className='truncate text-ellipsis text-3xl font-semibold'>
+              <div className='truncate text-ellipsis text-3xl font-semibold'>
                 {repo.full_name.length >= 20 ? repo.name : repo.full_name}
-              </span>
+              </div>
             </CustomLink>
             <span className='text-ellipsis whitespace-pre-wrap text-xl font-normal text-gray-500'>
               {repo.title}
