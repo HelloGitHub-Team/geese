@@ -8,7 +8,7 @@ const ImageWithPreview = (props: ImageProps) => {
     <RcImage
       {...props}
       preview={{
-        icons: { close: <AiOutlineClose></AiOutlineClose> },
+        icons: { close: <AiOutlineClose style={{ fontSize: 13 }} /> },
         toolbarRender: () => <></>,
       }}
     />
