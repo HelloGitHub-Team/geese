@@ -21,7 +21,7 @@ export const Side = ({ index }: Props) => {
   const [displayAdOnly, setDisplayAdOnly] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { data, isValidating } = useSWRImmutable<AdvertItems>(
-    makeUrl('/advert/', { position: 'side' }),
+    makeUrl('/sponsor/', { position: 'side' }),
     fetcher
   );
 
