@@ -34,7 +34,7 @@ export default function Ad(props: Props) {
           rel='noreferrer'
         >
           {props.data.is_reward ? (
-            <div className='flex flex-row p-3'>
+            <div className='group flex flex-row p-3'>
               <img
                 className='h-[55px] w-[55px]'
                 src={props.data.image_url}
@@ -45,24 +45,50 @@ export default function Ad(props: Props) {
                   微信扫码赞助本站
                 </div>
                 <div className='hidden lg:block'>
-                  <div className='mt-1.5 mb-1 text-xs text-gray-500'>
-                    <span>
-                      服务器还剩
-                      <strong className='mx-1'>{props.data.day}</strong>天
-                    </span>
-                    <div className='relative left-0.5 bottom-1 inline-flex w-fit'>
-                      <span className='text-xs font-medium text-blue-500 '>
-                        <span className='mr-[0.5px]'>+{props.data.year}</span>年
+                  <div className='group-hover:hidden'>
+                    <div className='mt-1.5 mb-1 text-xs text-gray-500'>
+                      <span>
+                        服务器还剩
+                        <strong className='mx-1'>{props.data.day}</strong>天
                       </span>
+                      <div className='relative left-0.5 bottom-1 inline-flex w-fit'>
+                        <span className='text-xs font-medium text-blue-500 '>
+                          <span className='mr-[0.5px]'>+{props.data.year}</span>
+                          年
+                        </span>
+                      </div>
+                    </div>
+                    <div className='flex h-1 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700'>
+                      <div
+                        className='flex flex-col justify-center overflow-hidden bg-blue-500'
+                        style={{
+                          width: `${props.data.percent}%`,
+                        }}
+                      />
                     </div>
                   </div>
-                  <div className='flex h-1 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700'>
-                    <div
-                      className='flex flex-col justify-center overflow-hidden bg-blue-500'
-                      style={{
-                        width: `${props.data.percent}%`,
-                      }}
-                    />
+                  <div className='hidden group-hover:block'>
+                    <div className='mt-1.5 mb-1 text-xs text-gray-500'>
+                      <span>
+                        距离目标还差
+                        <strong className='mx-1'>
+                          {100 - props.data.percent}%
+                        </strong>
+                      </span>
+                      <div className='relative left-0.5 bottom-1 inline-flex w-fit'>
+                        <span className='text-xs font-medium text-blue-500 '>
+                          <span className='mr-[0.5px]'>+{props.data.year}</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div className='flex h-1 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700'>
+                      <div
+                        className='flex flex-col justify-center overflow-hidden bg-blue-500'
+                        style={{
+                          width: `${props.data.percent}%`,
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

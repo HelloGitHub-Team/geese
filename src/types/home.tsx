@@ -59,7 +59,7 @@ export interface AdvertItem {
   is_reward: boolean;
   year?: number;
   day?: number;
-  percent?: number;
+  percent: number;
 }
 
 export interface AdvertItems {
