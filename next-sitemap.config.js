@@ -48,6 +48,10 @@ module.exports = {
         userAgent: 'SemrushBot',
         disallow: ['/'],
       },
+      {
+        userAgent: 'GPTBot',
+        disallow: ['/'],
+      },
     ],
   },
 };
