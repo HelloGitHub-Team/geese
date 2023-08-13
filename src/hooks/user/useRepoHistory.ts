@@ -7,7 +7,7 @@ import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
 import { Page } from '@/types/help';
-import { VoteItemData } from '@/types/reppsitory';
+import { VoteItemData } from '@/types/repository';
 
 export default function useRepoHistory(uid: string) {
   const [page, setPage] = useState(1);

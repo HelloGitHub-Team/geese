@@ -4,7 +4,7 @@ import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-import { BaseType, FavoriteRes } from '@/types/reppsitory';
+import { BaseType, FavoriteRes } from '@/types/repository';
 
 // 获取用户收藏夹列表
 export const getFavoriteOptions = async (): Promise<FavoriteRes> => {

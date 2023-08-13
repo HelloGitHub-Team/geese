@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { numFormat } from '@/utils/util';
 
-import { RepositoryProps } from '@/types/reppsitory';
+import { RepositoryProps } from '@/types/repository';
 
 const MoreInfo: NextPage<RepositoryProps> = ({ repo }) => {
   const [isShowMore, setIsShowMore] = useState(false);

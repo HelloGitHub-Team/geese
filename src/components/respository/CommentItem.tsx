@@ -14,7 +14,7 @@ import { fromNow } from '@/utils/day';
 
 import { MDRender } from '../mdRender/MDRender';
 
-import { CommentItemData } from '@/types/reppsitory';
+import { CommentItemData } from '@/types/repository';
 
 const CommentItem = (
   props: CommentItemData & {

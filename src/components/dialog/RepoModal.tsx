@@ -9,7 +9,7 @@ import Message from '@/components/message';
 
 import { checkRepo, createRepo } from '@/services/repository';
 
-import { CheckRepoRes, CreateRepoRes } from '@/types/reppsitory';
+import { CheckRepoRes, CreateRepoRes } from '@/types/repository';
 
 interface CreateRepoProps {
   response: (res: CreateRepoRes) => void;

@@ -39,7 +39,7 @@ import Dropdown, { option } from '../dropdown/Dropdown';
 import CustomLink from '../links/CustomLink';
 import Message from '../message';
 
-import { Repository, RepositoryProps } from '@/types/reppsitory';
+import { Repository, RepositoryProps } from '@/types/repository';
 
 type URLoption = {
   url: string;
@@ -105,7 +105,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     if (res.success) {
       let options: option[] = [{ key: '', value: '默认收藏夹' }];
       if (res.data?.length) {
-        options = res.data?.map((item) => {
+        options = res.data?.map((item: { fid: any; name: any }) => {
           return { key: item.fid, value: item.name };
         });
       }

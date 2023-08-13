@@ -7,7 +7,7 @@ import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
 import { Page } from '@/types/help';
-import { FavoriteRes } from '@/types/reppsitory';
+import { FavoriteRes } from '@/types/repository';
 import { CollectItem } from '@/types/user';
 
 // 获取用户的收藏夹列表

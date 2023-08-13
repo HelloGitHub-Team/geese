@@ -14,7 +14,7 @@ import {
   RepositorySuccessData,
   UserActionStatus,
   Vote,
-} from '@/types/reppsitory';
+} from '@/types/repository';
 
 export const getDetail = async (
   ip: string,

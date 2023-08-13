@@ -7,7 +7,7 @@ import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
 import { Page } from '@/types/help';
-import { CommentItemData } from '@/types/reppsitory';
+import { CommentItemData } from '@/types/repository';
 
 export default function useCommentHistory(uid: string) {
   const [page, setPage] = useState(1);

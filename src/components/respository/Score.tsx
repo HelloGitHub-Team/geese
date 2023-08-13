@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 
 import Rating from './Rating';
 
-import { RepositoryProps } from '@/types/reppsitory';
+import { RepositoryProps } from '@/types/repository';
 
 const Score: NextPage<RepositoryProps> = ({ repo }) => {
   const jumpComment = () => {

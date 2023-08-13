@@ -2,7 +2,7 @@ import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-import { BaseType } from '@/types/reppsitory';
+import { BaseType } from '@/types/repository';
 import { SelectTagItems, TagItems, TagPage } from '@/types/tag';
 
 export const getTagPageItems = async (

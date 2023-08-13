@@ -4,7 +4,7 @@ import log from '@/lib/log';
 
 import { getComments } from '@/services/repository';
 
-import { CommentItemData } from '@/types/reppsitory';
+import { CommentItemData } from '@/types/repository';
 
 function useCommentList({
   belong,

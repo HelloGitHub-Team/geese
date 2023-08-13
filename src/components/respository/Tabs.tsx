@@ -6,7 +6,7 @@ import { useState } from 'react';
 import ImageWithPreview from '../ImageWithPreview';
 import { MDRender } from '../mdRender/MDRender';
 
-import { RepositoryProps } from '@/types/reppsitory';
+import { RepositoryProps } from '@/types/repository';
 
 const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
   const [selectTab, setSelectTab] = useState<string>('summary');

@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import Item from './Item';
 
 import { HomeItem } from '@/types/home';
-import { RepositoryItems } from '@/types/reppsitory';
+import { RepositoryItems } from '@/types/repository';
 
 const Items: NextPage<RepositoryItems> = ({ repositories }) => {
   return (

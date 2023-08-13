@@ -13,7 +13,7 @@ import {
   DEFAULT_INITITAL_COMMENT_DATA,
 } from '@/utils/constants';
 
-import { CommentSuccessData } from '@/types/reppsitory';
+import { CommentSuccessData } from '@/types/repository';
 
 function getErrMessage(commentData: {
   comment: string;

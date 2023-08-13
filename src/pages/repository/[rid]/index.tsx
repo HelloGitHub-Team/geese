@@ -8,7 +8,7 @@ import Seo from '@/components/Seo';
 
 import { getDetail } from '@/services/repository';
 
-import { Repository } from '@/types/reppsitory';
+import { Repository } from '@/types/repository';
 
 interface Props {
   repo: Repository;

@@ -10,7 +10,7 @@ import { numFormat } from '@/utils/util';
 import { FeedbackModal } from '../dialog/Feedback';
 
 import { Page } from '@/types/help';
-import { RepoType, VoteItemData } from '@/types/reppsitory';
+import { RepoType, VoteItemData } from '@/types/repository';
 import { CollectItem } from '@/types/user';
 
 export const RepoData = ({
