@@ -64,14 +64,37 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
 
   const ticking = useRef(false);
   const categoryEles = useRef<CategoryTopRange[]>([]);
-  const detectInVision = (el: Element) => {
-    const topCurrentHeight = el.getBoundingClientRect().top;
-    const bottomCurrentHeight = el.getBoundingClientRect().bottom;
-    const windowHeight = window.innerHeight;
-    return (
-      (topCurrentHeight < 0 && bottomCurrentHeight > windowHeight) ||
-      (topCurrentHeight > 0 && topCurrentHeight < windowHeight)
-    );
+  const detectInVision = (elementList: Element[]) => {
+    /*优先匹配元素 完全包含当前可视区域，以及完全处在当前可视区域*/
+    const strongMatch: Element | undefined = elementList.find((el: Element) => {
+      const topCurrentHeight = el.getBoundingClientRect().top;
+      const bottomCurrentHeight = el.getBoundingClientRect().bottom;
+      const windowHeight = window.innerHeight;
+      return (
+        (topCurrentHeight < 0 && bottomCurrentHeight > windowHeight) ||
+        (topCurrentHeight > 0 && bottomCurrentHeight < windowHeight)
+      );
+    });
+    if (strongMatch) {
+      return strongMatch;
+    } else {
+      /*优先匹配未果时，查找非理想状态匹配 一部分在当前可视区域，而可视区域的另一部分被另一个category占据，此时比大小占用是否过半*/
+      const weakMatch: Element | undefined = elementList.find((el: Element) => {
+        const topCurrentHeight = el.getBoundingClientRect().top;
+        const bottomCurrentHeight = el.getBoundingClientRect().bottom;
+        const windowHeight = window.innerHeight;
+        return (
+          (topCurrentHeight < 0 && bottomCurrentHeight > windowHeight / 2) ||
+          (topCurrentHeight < windowHeight / 2 &&
+            bottomCurrentHeight > windowHeight)
+        );
+      });
+      if (weakMatch) {
+        return weakMatch;
+      } else {
+        return null;
+      }
+    }
   };
   // 设置每个段落的top值范围, 用于滚动时判断对应目录标题高亮
   useEffect(() => {
@@ -113,12 +136,12 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
       'body'
     )[0] as HTMLElement;
 
-    body.onscroll = (e: Event) => {
+    body.onscroll = () => {
       if (!ticking.current) {
         window.requestAnimationFrame(function () {
-          const inVisionElement = Array.from(
-            document.querySelectorAll('.language-hash')
-          ).find((el: Element) => detectInVision(el));
+          const inVisionElement = detectInVision(
+            Array.from(document.querySelectorAll('.language-hash'))
+          );
           if (inVisionElement) {
             setActiveCategory('#' + inVisionElement.id);
           }
