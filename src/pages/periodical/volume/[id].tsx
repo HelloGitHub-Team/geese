@@ -64,7 +64,15 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
 
   const ticking = useRef(false);
   const categoryEles = useRef<CategoryTopRange[]>([]);
-
+  const detectInVision = (el: Element) => {
+    const topCurrentHeight = el.getBoundingClientRect().top;
+    const bottomCurrentHeight = el.getBoundingClientRect().bottom;
+    const windowHeight = window.innerHeight;
+    return (
+      (topCurrentHeight < 0 && bottomCurrentHeight > windowHeight) ||
+      (topCurrentHeight > 0 && topCurrentHeight < windowHeight)
+    );
+  };
   // 设置每个段落的top值范围, 用于滚动时判断对应目录标题高亮
   useEffect(() => {
     categoryEles.current = [];
@@ -108,13 +116,11 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
     body.onscroll = (e: Event) => {
       if (!ticking.current) {
         window.requestAnimationFrame(function () {
-          const top = (e.target as any)?.documentElement.scrollTop || 0;
-          const category: CategoryTopRange | undefined =
-            categoryEles.current.find(
-              (cate) => cate.start <= top && cate.end > top
-            );
-          if (category) {
-            setActiveCategory((category as CategoryTopRange).id);
+          const inVisionElement = Array.from(
+            document.querySelectorAll('.language-hash')
+          ).find((el: Element) => detectInVision(el));
+          if (inVisionElement) {
+            setActiveCategory('#' + inVisionElement.id);
           }
           ticking.current = false;
         });
@@ -226,7 +232,11 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                 (category: VolumeCategory, _cIndex: number) => {
                   const id = `category-${category.category_id}`;
                   return (
-                    <div id={id} key={category.category_id} className='pb-4'>
+                    <div
+                      id={id}
+                      key={category.category_id}
+                      className='language-hash pb-4'
+                    >
                       <div className='text-center text-xl font-semibold text-black dark:text-white'>
                         {category.category_name}
                       </div>
