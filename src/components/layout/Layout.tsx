@@ -28,7 +28,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         {showIndexSide ? (
           <div>{children}</div>
         ) : (
-          <div className='flex shrink grow flex-row sm:border-l md:border-none'>
+          <div className='flex shrink grow flex-row md:border-none'>
             {pathname == '/' ? (
               <>
                 <TagList />

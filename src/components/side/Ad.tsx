@@ -69,17 +69,21 @@ export default function Ad(props: Props) {
                   </div>
                   <div className='hidden group-hover:block'>
                     <div className='mt-1.5 mb-1 text-xs text-gray-500'>
-                      <span>
-                        距离目标还差
-                        <strong className='mx-1'>
-                          {100 - props.data.percent}%
-                        </strong>
-                      </span>
-                      <div className='relative left-0.5 bottom-1 inline-flex w-fit'>
-                        <span className='text-xs font-medium text-blue-500 '>
-                          <span className='mr-[0.5px]'>+{props.data.year}</span>
+                      {props.data.year ? (
+                        <span>
+                          距离下个目标还差
+                          <strong className='mx-1'>
+                            {100 - props.data.percent}%
+                          </strong>
                         </span>
-                      </div>
+                      ) : (
+                        <span>
+                          距离目标还差
+                          <strong className='mx-1'>
+                            {100 - props.data.percent}%
+                          </strong>
+                        </span>
+                      )}
                     </div>
                     <div className='flex h-1 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700'>
                       <div
