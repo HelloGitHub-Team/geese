@@ -11,6 +11,7 @@
 
 1. 跨域问题：请检查前端服务启动端口为：`3000`、host 为 `localhost`、`127.0.0.1`
 2. 图片无法展示：在本地 hosts 文件末尾添加一行 `127.0.0.1 dev.hg.com`，随后访问 `http://dev.hg.com:3000/`
+3. 登陆状态：找 @521xueweihan 拿到测试环境登陆的 token 后，手动修改浏览器 LocalStorage 的 item 添加 Authorization: token
 
 **技术栈**
 
