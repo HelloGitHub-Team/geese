@@ -135,7 +135,7 @@ export function TagModal({
   };
   useEffect(() => {
     fetchPortalTagGroups();
-  }, [fetchPortalTagGroups]);
+  }, []);
 
   useEffect(() => {
     initDND();
