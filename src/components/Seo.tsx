@@ -143,10 +143,6 @@ export default function Seo(props: SeoProps) {
         content='/favicon/ms-icon-144x144.png'
       />
       <meta name='theme-color' content='#ffffff' />
-      <script
-        async
-        src='https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js'
-      ></script>
     </Head>
   );
 }
