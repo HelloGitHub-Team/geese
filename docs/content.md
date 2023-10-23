@@ -1,6 +1,8 @@
 ## 开发前
 
-首先，要把「Geese」项目在本地跑起来，详细步骤如下：
+首先，项目用的是 yarn 安装可自行搜索，安装完成后通过 `yarn set version v1.22.19` 命令设置版本号。
+
+然后，要把「Geese」项目在本地跑起来，详细步骤如下：
 
 1. 克隆项目：`git clone git@github.com:HelloGitHub-Team/geese.git`
 2. 安装依赖：`yarn install`
@@ -12,6 +14,7 @@
 1. 跨域问题：请检查前端服务启动端口为：`3000`、host 为 `localhost`、`127.0.0.1`
 2. 图片无法展示：在本地 hosts 文件末尾添加一行 `127.0.0.1 dev.hg.com`，随后访问 `http://dev.hg.com:3000/`
 3. 登陆状态：找 @521xueweihan 拿到测试环境登陆的 token 后，手动修改浏览器 LocalStorage 的 item 添加 Authorization: token
+4. 如果 build 时机器卡死，可以通过 yarn 设置并发数来解决：`yarn config set cloneConcurrency 1`
 
 **技术栈**
 

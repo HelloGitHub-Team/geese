@@ -141,6 +141,7 @@ export const LoginProvider = ({
       <BasicDialog
         className='login-dialog max-w-xs rounded-lg p-5'
         visible={visibleDialog}
+        onClose={closeModal}
         hideClose
       >
         <div
