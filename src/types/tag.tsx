@@ -41,3 +41,13 @@ export interface TagType {
   name: string;
   tid: string;
 }
+export interface PortalTag {
+  name: string;
+  tid: string;
+  icon_name: string;
+}
+
+export interface PortalTagGroup {
+  groupName: string;
+  tags: PortalTag[];
+}
