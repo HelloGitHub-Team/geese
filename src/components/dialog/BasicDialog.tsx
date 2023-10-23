@@ -6,6 +6,7 @@ import clsxm from '@/lib/clsxm';
 
 export interface Props {
   visible: boolean;
+  lockScroll?: boolean;
   title?: string | React.ReactNode;
   hideClose?: boolean; // 是否隐藏右上角关闭按钮
   maskClosable?: boolean; // 是否允许点击蒙层关闭
@@ -21,11 +22,16 @@ const BasicDialog = (props: Props) => {
     className,
     onClose,
     maskClosable = true,
+    lockScroll = true,
     hideClose = false,
   } = props;
   const [startAnimation, setStartAnimation] = useState(false);
 
   useEffect(() => {
+    if (lockScroll) {
+      document.body.style.overflow = visible ? 'hidden' : 'unset';
+    }
+
     setStartAnimation(visible);
   }, [visible]);
 
