@@ -29,7 +29,16 @@ const BasicDialog = (props: Props) => {
 
   useEffect(() => {
     if (lockScroll) {
+      const scrollBarWidth = window.innerWidth - document.body.clientWidth;
       document.body.style.overflow = visible ? 'hidden' : 'unset';
+      document.body.style.paddingRight = visible
+        ? `${scrollBarWidth}px`
+        : 'unset';
+      const header: HTMLDivElement | null =
+        document.querySelector('div.hg-header');
+      if (header) {
+        header.style.paddingRight = visible ? `${scrollBarWidth}px` : 'unset';
+      }
     }
 
     setStartAnimation(visible);
@@ -40,6 +49,7 @@ const BasicDialog = (props: Props) => {
       <div
         className='fixed left-0 top-0 right-0 bottom-0 z-10 bg-black bg-opacity-60'
         onClick={() => {
+          console.log('maskClosable', maskClosable);
           if (maskClosable) onClose?.();
         }}
       ></div>
