@@ -1,10 +1,10 @@
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 
 import Button from '@/components/buttons/Button';
 import { RepoModal } from '@/components/dialog/RepoModal';
+import CustomLink from '@/components/links/CustomLink';
 import { PeriodicalSkeleton } from '@/components/loading/skeleton';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -16,8 +16,6 @@ import { numFormat } from '@/utils/util';
 import { AllItems, CategroyName, VolumeNum } from '@/types/periodical';
 
 const PeriodicalIndexPage: NextPage = () => {
-  const router = useRouter();
-
   const [category, setCategory] = useState('C 项目');
   const [volume, setVolume] = useState('');
 
@@ -35,17 +33,6 @@ const PeriodicalIndexPage: NextPage = () => {
 
   const selectCategory = (e: any) => {
     setCategory(e.target.value);
-  };
-
-  const handleVolume = () => {
-    if (volume == '') {
-      router.push(`/periodical/volume/${volumes.length}`);
-    } else {
-      router.push(`/periodical/volume/${volume}`);
-    }
-  };
-  const handleCategory = () => {
-    router.push(`/periodical/category/${encodeURIComponent(category)}`);
   };
 
   return (
@@ -99,13 +86,20 @@ const PeriodicalIndexPage: NextPage = () => {
                   </div>
                 </div>
                 <div className='order-last mt-4'>
-                  <Button
-                    onClick={handleVolume}
-                    variant='white-outline'
-                    className='px-4 py-1 font-medium'
+                  <CustomLink
+                    href={
+                      volume == ''
+                        ? `/periodical/volume/${volumes.length}`
+                        : `periodical/volume/${volume}`
+                    }
                   >
-                    阅读
-                  </Button>
+                    <Button
+                      variant='white-outline'
+                      className='px-4 py-1 font-medium'
+                    >
+                      阅读
+                    </Button>
+                  </CustomLink>
                 </div>
               </div>
               <div className='flex flex-col rounded-lg border border-gray-200 px-2 pt-4 pb-4 text-center dark:border-gray-700 md:px-4 md:pt-6'>
@@ -141,13 +135,18 @@ const PeriodicalIndexPage: NextPage = () => {
                 </div>
 
                 <div className='order-last mt-4'>
-                  <Button
-                    onClick={handleCategory}
-                    variant='white-outline'
-                    className='px-4 py-1 font-medium'
+                  <CustomLink
+                    href={`/periodical/category/${encodeURIComponent(
+                      category
+                    )}`}
                   >
-                    查看
-                  </Button>
+                    <Button
+                      variant='white-outline'
+                      className='px-4 py-1 font-medium'
+                    >
+                      查看
+                    </Button>
+                  </CustomLink>
                 </div>
               </div>
               <div className='flex flex-col rounded-lg border border-gray-200 px-2 pt-4 pb-4 text-center dark:border-gray-700 md:px-4 md:pt-6'>
