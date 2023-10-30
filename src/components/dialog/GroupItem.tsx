@@ -34,7 +34,7 @@ const GroupItem = (props: IProps) => {
     <div
       ref={sortItemRef}
       className={`${
-        effectedTags.includes(item.tid) ? 'exist-tag opacity-25' : ''
+        effectedTags.includes(item.tid) ? 'exist-tag flex opacity-25' : ''
       }`}
     >
       <div
@@ -46,7 +46,7 @@ const GroupItem = (props: IProps) => {
         <div className='w-full border-gray-200 dark:border-gray-600'>
           <label
             htmlFor={item.tid}
-            className='ml-2 w-full py-3 text-sm font-medium dark:text-gray-300'
+            className='w-full truncate text-ellipsis py-3 pl-2 text-sm font-medium dark:text-gray-300'
           >
             {item.name}
           </label>

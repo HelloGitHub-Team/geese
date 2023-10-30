@@ -200,6 +200,7 @@ export const getPortalTagGroups = async (): Promise<PortalTagGroup[]> => {
     });
   return await virtualGetGroups();
 };
+
 export const getEffectedTags = async (): Promise<string[]> => {
   const virtualGetTagIdList = () =>
     new Promise<string[]>((resolve) => {
