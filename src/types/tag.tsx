@@ -44,11 +44,11 @@ export interface TagType {
   name: string;
   tid: string;
 }
+
 export interface PortalTag {
   name: string;
   tid: string;
   icon_name: string;
-  is_selected: boolean;
 }
 
 export interface PortalTagGroup {
