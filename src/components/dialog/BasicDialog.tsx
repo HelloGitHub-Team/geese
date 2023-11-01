@@ -49,7 +49,6 @@ const BasicDialog = (props: Props) => {
       <div
         className='fixed left-0 top-0 right-0 bottom-0 z-10 bg-black bg-opacity-60'
         onClick={() => {
-          console.log('maskClosable', maskClosable);
           if (maskClosable) onClose?.();
         }}
       ></div>

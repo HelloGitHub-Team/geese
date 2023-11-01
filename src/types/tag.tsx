@@ -1,6 +1,6 @@
 import { HomeItem } from '@/types/home';
 
-export const maxTotal = 15;
+export const maxTotal = 20;
 
 export interface TagPageProps {
   tag_name: string;

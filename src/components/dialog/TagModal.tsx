@@ -48,7 +48,6 @@ export function TagModal({
       return login();
     } else {
       const res = await getSelectTags();
-      console.log(res.effected);
       if (res.success) {
         setPortalTagGroups(res.data);
         setEffectedTidList(res.effected);

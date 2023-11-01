@@ -123,3 +123,51 @@
 .icon-kotlin:before {
   content: '\ebed';
 }
+
+.icon-php:before {
+  content: '\e600';
+}
+
+.icon-hardware:before {
+  content: '\e69e';
+}
+
+.icon-docker:before {
+  content: '\e689';
+}
+
+.icon-k8s:before {
+  content: '\e9ef';
+}
+
+.icon-vue:before {
+  content: '\e7d1';
+}
+
+.icon-ruby:before {
+  content: '\ec86';
+}
+
+.icon-react:before {
+  content: '\ec1a';
+}
+
+.icon-flutter:before {
+  content: '\e7ed';
+}
+
+.icon-funny:before {
+  content: '\e609';
+}
+
+.icon-mac:before {
+  content: '\e640';
+}
+
+.icon-windows:before {
+  content: '\eccf';
+}
+
+.icon-selfhost:before {
+  content: '\e86d';
+}
