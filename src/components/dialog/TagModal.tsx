@@ -136,14 +136,14 @@ export function TagModal({
     <>
       <div onClick={openModal}>{children}</div>
       <BasicDialog
-        className='w-10/12 xl:w-8/12 2xl:w-7/12 rounded-lg p-5'
+        className='w-10/12 rounded-lg p-5 xl:w-8/12 2xl:w-7/12'
         visible={isOpen}
         onClose={closeModal}
       >
-        <div className='flex items-center mb-4 text-gray-500 dark:text-gray-200'>
+        <div className='mb-4 flex items-center text-gray-500 dark:text-gray-200'>
           <IoMdBulb />
           <span className='text-sm'>
-            操作提示：点击或拖拽标签到右边侧为「选择」，拖拽已选标签可「排序」
+            操作提示：点击左侧标签为「选择」，拖拽右侧已选标签可「排序」
           </span>
         </div>
         <div className='flex flex-wrap'>
