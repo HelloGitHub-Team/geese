@@ -67,6 +67,13 @@ export function TagModal({
     setTotal(tidList.length);
   };
 
+  const addTag = (tid: string) => {
+    if (effectedTidList.includes(tid)) return;
+    if (effectedTidList.length >= maxTotal) return;
+    const tidList = [...effectedTidList, tid];
+    setEffectedTidList(tidList);
+  };
+
   const removeTag = (tid?: string) => {
     if (tid) {
       const newTidList = effectedTidList.filter((f) => f !== tid);
@@ -158,6 +165,7 @@ export function TagModal({
                     effectedTidList={effectedTidList}
                     groupName={group.group_name}
                     portalTagGroupsRef={portalTagGroupsRef}
+                    handleAddTag={addTag}
                   />
                 ))}
               </div>,

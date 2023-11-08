@@ -10,10 +10,12 @@ interface IProps {
   effectedTidList: string[];
   groupName: string;
   portalTagGroupsRef: MutableRefObject<PortalTagGroup[]>;
+  handleAddTag: (tid: string) => void;
 }
 
 const GroupItem = (props: IProps) => {
-  const { item, effectedTidList, groupName, portalTagGroupsRef } = props;
+  const { item, effectedTidList, groupName, portalTagGroupsRef, handleAddTag } =
+    props;
   const sortItemRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,12 +38,14 @@ const GroupItem = (props: IProps) => {
       };
     }
   }, [groupName, portalTagGroupsRef, effectedTidList]);
+
   return (
     <div
       ref={sortItemRef}
       className={`${
         effectedTidList.includes(item.tid) ? 'exist-tag flex opacity-30' : ''
       }`}
+      onClick={() => handleAddTag(item.tid)}
     >
       <div
         key={item.tid}
