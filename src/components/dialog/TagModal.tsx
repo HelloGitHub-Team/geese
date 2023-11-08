@@ -136,7 +136,7 @@ export function TagModal({
     <>
       <div onClick={openModal}>{children}</div>
       <BasicDialog
-        className='w-3/5 rounded-lg p-5'
+        className='w-10/12 xl:w-8/12 2xl:w-7/12 rounded-lg p-5'
         visible={isOpen}
         onClose={closeModal}
       >
