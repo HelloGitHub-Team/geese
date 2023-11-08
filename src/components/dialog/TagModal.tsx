@@ -4,7 +4,6 @@ import {
   IoMdAddCircleOutline,
   IoMdBulb,
 } from 'react-icons/io';
-import { VscChromeClose } from 'react-icons/vsc';
 import Sortable from 'sortablejs';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -138,11 +137,13 @@ export function TagModal({
       <BasicDialog
         className='w-3/5 rounded-lg p-5'
         visible={isOpen}
-        hideClose={true}
         onClose={closeModal}
       >
-        <div className='ml-auto box-content w-6 pb-1 pl-4' onClick={closeModal}>
-          <VscChromeClose size={24} className='cursor-pointer text-gray-500' />
+        <div className='flex items-center mb-4 text-gray-500 dark:text-gray-200'>
+          <IoMdBulb />
+          <span className='text-sm'>
+            操作提示：点击或拖拽标签到右边侧为「选择」，拖拽已选标签可「排序」
+          </span>
         </div>
         <div className='flex flex-wrap'>
           <div className='w-2/3 pr-3'>
@@ -221,12 +222,6 @@ export function TagModal({
           </div>
         </div>
         <div className='mt-4 flex flex-row items-center gap-4 text-sm text-gray-500'>
-          <div className='flex items-center'>
-            <IoMdBulb />
-            <span className='dark:text-gray-200'>
-              操作提示：拖拽标签到右边侧为「选择」，拖拽已选标签可「排序」
-            </span>
-          </div>
           <div className='shrink grow' />
           <FeedbackModal feedbackType={1}>
             <div className='flex w-full cursor-pointer flex-row items-center rounded-lg border border-gray-200 bg-white hover:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:border-blue-500'>
