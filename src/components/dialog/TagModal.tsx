@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   IoIosCloseCircleOutline,
   IoMdAddCircleOutline,
@@ -63,21 +63,22 @@ export function TagModal({
       (m) => (m as HTMLElement).dataset.tid ?? ''
     );
     setEffectedTidList(tidList);
-    setTotal(tidList.length);
   };
 
-  const addTag = (tid: string) => {
-    if (effectedTidList.includes(tid)) return;
-    if (effectedTidList.length >= maxTotal) return;
-    const tidList = [...effectedTidList, tid];
-    setEffectedTidList(tidList);
-  };
+  const addTag = useCallback(
+    (tid: string) => {
+      if (effectedTidList.includes(tid)) return;
+      if (effectedTidList.length >= maxTotal) return;
+      const tidList = [...effectedTidList, tid];
+      setEffectedTidList(tidList);
+    },
+    [effectedTidList]
+  );
 
   const removeTag = (tid?: string) => {
     if (tid) {
       const newTidList = effectedTidList.filter((f) => f !== tid);
       setEffectedTidList(newTidList);
-      setTotal(newTidList.length);
     }
   };
 
