@@ -5,13 +5,21 @@ export const ITEMS_PER_PAGE = 10;
 const LOCAL_API_HOST = 'https://frp.hellogithub.com';
 // const LOCAL_API_HOST = 'http://127.0.0.1:8001';
 const PRODUCTION_API_HOST = 'https://api.hellogithub.com';
+const ABROAD_API_HOST = 'https://abroad.hellogithub.com';
 
 export const API_ROOT_PATH = '/v1';
 
-export const API_HOST =
-  process.env.NEXT_PUBLIC_ENV === 'development'
-    ? LOCAL_API_HOST
-    : PRODUCTION_API_HOST;
+export const makeAPI = (): string => {
+  if (process.env.NEXT_PUBLIC_ENV === 'production') {
+    return PRODUCTION_API_HOST;
+  } else if (process.env.NEXT_PUBLIC_ENV === 'abroad') {
+    return ABROAD_API_HOST;
+  } else {
+    return LOCAL_API_HOST;
+  }
+};
+
+export const API_HOST = makeAPI();
 
 /**
  * Generates a url to make an api call to our backend
