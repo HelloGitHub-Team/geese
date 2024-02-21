@@ -24,7 +24,7 @@
 - 脚手架：[ts-nextjs-tailwind-starter](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter)
 - 组件样式：[hyperui](https://github.com/markmead/hyperui)
 
-最后，附上接口文档：https://hg-api.lcl101.cn/docs#
+最后，附上接口文档：[https://hg-api.lcl101.cn/docs#](https://frp.hellogithub.com/docs#)
 
 将项目跑起来后，可以在本地把玩一番，觉得有意思的话就[点击](https://github.com/orgs/HelloGitHub-Team/projects/1/views/1)查看待认领的需求，找到自己感兴趣的功能、Bug、待优化后，在对应的 issues 下告知 @521xueweihan 「认领任务」再进行开发，**防止重复开发**。
 
