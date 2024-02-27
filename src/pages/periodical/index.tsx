@@ -16,7 +16,7 @@ import { numFormat } from '@/utils/util';
 import { AllItems, CategroyName, VolumeNum } from '@/types/periodical';
 
 const PeriodicalIndexPage: NextPage = () => {
-  const [category, setCategory] = useState('C 项目');
+  const [category, setCategory] = useState('');
   const [volume, setVolume] = useState('');
 
   const { data, isValidating } = useSWRImmutable<AllItems>(
@@ -136,9 +136,11 @@ const PeriodicalIndexPage: NextPage = () => {
 
                 <div className='order-last mt-4'>
                   <CustomLink
-                    href={`/periodical/category/${encodeURIComponent(
-                      category
-                    )}`}
+                    href={
+                      volume == ''
+                        ? `/periodical/category/${categories[0].name}`
+                        : `periodical/category/${category}`
+                    }
                   >
                     <Button
                       variant='white-outline'
