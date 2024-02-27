@@ -5,7 +5,7 @@ FROM node:alpine
 WORKDIR /usr/app
 
 # Install PM2 globally
-RUN npm install --global pm2 --registry=https://registry.npm.taobao.org
+RUN npm install --global pm2 --registry=https://registry.npmmirror.com/
 
 # Copy package.json and package-lock.json before other files
 # Utilise Docker cache to save re-installing dependencies if unchanged
@@ -15,7 +15,7 @@ COPY ./package*.json ./
 COPY ./ ./
 
 # Build app
-RUN yarn config set registry https://registry.npm.taobao.org/
+RUN yarn config set registry https://registry.npmmirror.com/
 RUN yarn
 RUN yarn build
 
