@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import useCommentList from '@/hooks/useCommentList';
 
 import CommentItem from '@/components/respository/CommentItem';
@@ -50,6 +52,9 @@ const CommentContainer = (props: Props) => {
   };
   const btnActive = '!bg-blue-500 dark:!bg-blue-800';
 
+  // 当前回复的Id
+  const [replyId, setReplyId] = useState<string>();
+
   return (
     <div id='comment' className={`p-4 ${className}`}>
       <h3 className='mb-4'>评论</h3>
@@ -90,12 +95,23 @@ const CommentContainer = (props: Props) => {
             </div>
           </div>
           {list.map((item, index) => (
-            <CommentItem
-              className='mb-6'
-              {...item}
-              key={item.cid}
-              onChangeVote={(value) => handleChangeVote(index, value)}
-            />
+            <>
+              <CommentItem
+                className='mb-6'
+                {...item}
+                key={item.cid}
+                onReply={(cid) => setReplyId(cid)}
+                onChangeVote={(value) => handleChangeVote(index, value)}
+              />
+
+              {item.cid === replyId && (
+                <CommentSubmit
+                  replyUser={item}
+                  belongId={belongId}
+                  onCancelReply={() => setReplyId(undefined)}
+                />
+              )}
+            </>
           ))}
           <div
             hidden={!hasMore}

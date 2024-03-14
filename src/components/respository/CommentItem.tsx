@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { AiFillFire } from 'react-icons/ai';
-import { GoThumbsup } from 'react-icons/go';
+import { GoComment, GoThumbsup } from 'react-icons/go';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
@@ -23,6 +23,8 @@ const CommentItem = (
     alone?: boolean;
     footerRight?: (data: CommentItemData) => React.ReactNode;
     onChangeVote?: (value: boolean) => void;
+    onReply?: (cid: string) => void;
+    reply?: boolean;
   }
 ) => {
   const {
@@ -80,14 +82,24 @@ const CommentItem = (
           {isShow ? '已精选' : '未精选'}
         </span>
       ) : (
-        <div
-          className={`flex cursor-pointer items-center leading-10 text-gray-400 hover:text-gray-900 active:text-gray-400 ${
-            isVoted ? '!text-blue-500' : ''
-          }`}
-          onClick={handleVote}
-        >
-          <GoThumbsup className='mr-1' size={14} />
-          <span className='text-sm'>{votes || '点赞'}</span>
+        <div className='flex justify-end space-x-4 text-gray-400'>
+          <div
+            className={`flex cursor-pointer items-center leading-10 text-gray-400 hover:text-gray-900 active:text-gray-400 ${
+              isVoted ? '!text-blue-500' : ''
+            }`}
+            onClick={handleVote}
+          >
+            <GoThumbsup className='mr-1' size={14} />
+            <span className='text-sm'>{votes || '点赞'}</span>
+          </div>
+
+          <div
+            className='flex cursor-pointer items-center hover:text-gray-900 active:text-gray-400'
+            onClick={() => props.onReply?.(cid)}
+          >
+            <GoComment className='mr-1' size={14} />
+            <span>{props.reply ? '取消回复' : '回复'}</span>
+          </div>
         </div>
       ));
 

@@ -13,7 +13,7 @@ import {
   DEFAULT_INITITAL_COMMENT_DATA,
 } from '@/utils/constants';
 
-import { CommentSuccessData } from '@/types/repository';
+import { CommentItemData, CommentSuccessData } from '@/types/repository';
 
 function getErrMessage(commentData: {
   comment: string;
@@ -38,8 +38,10 @@ function getErrMessage(commentData: {
 function CommentSubmit(props: {
   belongId: string;
   className?: string;
+  replyUser?: CommentItemData;
   onSuccess?: (data: CommentSuccessData) => void;
   onFail?: (error: any) => void;
+  onCancelReply?: () => void;
 }) {
   const { commentData, setCommentData } = useCommentData();
   const { login, userInfo, isLogin } = useLoginContext();
@@ -100,6 +102,10 @@ function CommentSubmit(props: {
     });
   };
 
+  const placeholder = props.replyUser
+    ? `正在回复：${props.replyUser.user.nickname}`
+    : '写评论：项目的使用体验、优点或吐槽、帮你解决了什么问题、惊艳到你的地方...';
+
   return (
     <div className={`${className}`}>
       <div className='flex items-start'>
@@ -115,47 +121,70 @@ function CommentSubmit(props: {
           <textarea
             className='min-h-[3rem] w-full flex-shrink rounded-lg bg-white py-2 px-4 text-sm dark:bg-gray-800 dark:placeholder:text-gray-400 dark:focus:border-blue-800'
             style={{ height: commentData.height }}
-            placeholder='写评论：项目的使用体验、优点或吐槽、帮你解决了什么问题、惊艳到你的地方...'
+            placeholder={placeholder}
             value={commentData.comment}
             onInput={handleInput}
           ></textarea>
           <div className='flex flex-wrap items-center gap-2 text-xs sm:gap-4 sm:text-sm'>
-            <label className='flex cursor-pointer items-center py-2'>
-              <input
-                type='radio'
-                name='radio-1'
-                className='mr-1 h-3 w-3 flex-shrink-0 cursor-pointer appearance-none rounded-full border text-blue-500 focus:border-blue-500 focus:bg-blue-500 md:h-5 md:w-5'
-                style={{ boxShadow: 'none' }}
-                checked={!commentData.isUsed}
-                onChange={() => handleRadioChange(false)}
-              />
-              <span>没用过</span>
-            </label>
-            <label className='flex cursor-pointer items-center py-2'>
-              <input
-                type='radio'
-                name='radio-1'
-                className='mr-1 h-3 w-3 flex-shrink-0 cursor-pointer appearance-none rounded-full border text-blue-500 focus:border-blue-500 focus:bg-blue-500 md:h-5 md:w-5'
-                style={{ boxShadow: 'none' }}
-                checked={commentData.isUsed}
-                onChange={() => handleRadioChange(true)}
-              />
-              <span>用过</span>
-            </label>
-            <div className='h-4 w-[1px] bg-gray-300'></div>
-            <div className='flex items-center'>
-              <span>评分：</span>
-              <Rating
-                value={commentData.score}
-                onRateChange={handleChangeRating}
-              />
-            </div>
-            <button
-              className='ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90'
-              onClick={handleSubmit}
-            >
-              发布
-            </button>
+            {!props.replyUser && (
+              <>
+                <label className='flex cursor-pointer items-center py-2'>
+                  <input
+                    type='radio'
+                    name='radio-1'
+                    className='mr-1 h-3 w-3 flex-shrink-0 cursor-pointer appearance-none rounded-full border text-blue-500 focus:border-blue-500 focus:bg-blue-500 md:h-5 md:w-5'
+                    style={{ boxShadow: 'none' }}
+                    checked={!commentData.isUsed}
+                    onChange={() => handleRadioChange(false)}
+                  />
+                  <span>没用过</span>
+                </label>
+                <label className='flex cursor-pointer items-center py-2'>
+                  <input
+                    type='radio'
+                    name='radio-1'
+                    className='mr-1 h-3 w-3 flex-shrink-0 cursor-pointer appearance-none rounded-full border text-blue-500 focus:border-blue-500 focus:bg-blue-500 md:h-5 md:w-5'
+                    style={{ boxShadow: 'none' }}
+                    checked={commentData.isUsed}
+                    onChange={() => handleRadioChange(true)}
+                  />
+                  <span>用过</span>
+                </label>
+                <div className='h-4 w-[1px] bg-gray-300'></div>
+                <div className='flex items-center'>
+                  <span>评分：</span>
+                  <Rating
+                    value={commentData.score}
+                    onRateChange={handleChangeRating}
+                  />
+                </div>
+              </>
+            )}
+            <>
+              {props.replyUser ? (
+                <div className='flex flex-1 justify-end space-x-4'>
+                  <button
+                    onClick={props.onCancelReply}
+                    className='inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg border border-gray-300 pl-3 pr-3 text-sm font-semibold text-gray-500 transition-transform focus:outline-none active:scale-90'
+                  >
+                    取消回复
+                  </button>
+                  <button
+                    className='inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90'
+                    onClick={handleSubmit}
+                  >
+                    回复
+                  </button>
+                </div>
+              ) : (
+                <button
+                  className='ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90'
+                  onClick={handleSubmit}
+                >
+                  发布
+                </button>
+              )}
+            </>
           </div>
         </div>
       </div>
