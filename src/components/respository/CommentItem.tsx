@@ -9,7 +9,7 @@ import Message from '@/components/message';
 import Rating from '@/components/respository/Rating';
 
 import { like, unlike } from '@/services/repository';
-import { DEFAULT_AVATAR, NOOP } from '@/utils/constants';
+import { NOOP } from '@/utils/constants';
 import { fromNow } from '@/utils/day';
 
 import { MDRender } from '../mdRender/MDRender';
@@ -23,7 +23,7 @@ const CommentItem = (
     alone?: boolean;
     footerRight?: (data: CommentItemData) => React.ReactNode;
     onChangeVote?: (value: boolean) => void;
-    onReply?: (cid: string) => void;
+    onReply?: (cid: string, reply_id?: string) => void;
     reply?: boolean;
   }
 ) => {
@@ -95,7 +95,7 @@ const CommentItem = (
 
           <div
             className='flex cursor-pointer items-center hover:text-gray-900 active:text-gray-400'
-            onClick={() => props.onReply?.(cid)}
+            onClick={() => props.onReply?.(cid, props.reply_id)}
           >
             <GoComment className='mr-1' size={14} />
             <span>{props.reply ? '取消回复' : '回复'}</span>
@@ -111,7 +111,8 @@ const CommentItem = (
             <a>
               <img
                 className='cursor-pointer rounded-full'
-                src={user?.avatar || DEFAULT_AVATAR}
+                src='https://picsum.photos/100/100'
+                // src={user?.avatar || DEFAULT_AVATAR}
                 alt='comment_avatar'
               />
             </a>
@@ -127,7 +128,8 @@ const CommentItem = (
                   className='h-5 w-5 rounded-full'
                   width='20'
                   height='20'
-                  src={user?.avatar || DEFAULT_AVATAR}
+                  src='https://picsum.photos/100/100'
+                  // src={user?.avatar || DEFAULT_AVATAR}
                   alt='comment_avatar'
                 />
               </div>

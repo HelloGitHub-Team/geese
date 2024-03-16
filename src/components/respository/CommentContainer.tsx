@@ -5,6 +5,8 @@ import useCommentList from '@/hooks/useCommentList';
 import CommentItem from '@/components/respository/CommentItem';
 import CommentSubmit from '@/components/respository/CommentSubmit';
 
+import { CommentItemData } from '@/types/repository';
+
 interface Props {
   belong: string;
   belongId: string;
@@ -53,7 +55,63 @@ const CommentContainer = (props: Props) => {
   const btnActive = '!bg-blue-500 dark:!bg-blue-800';
 
   // 当前回复的Id
-  const [replyId, setReplyId] = useState<string>();
+  const [commentId, setCommentId] = useState<string>();
+
+  /**
+   * 评论项包裹组件
+   */
+  const CommentWrapper = ({
+    item,
+    index,
+  }: {
+    item: CommentItemData;
+    index: number;
+  }) => {
+    // 如果是回复的评论
+    if (item.reply_id) {
+      return (
+        <>
+          <CommentItem
+            className='mb-6'
+            {...item}
+            key={item.cid}
+            onReply={(_, reply_id) => setCommentId(reply_id)}
+            onChangeVote={(value) => handleChangeVote(index, value)}
+          />
+
+          {item.reply_id === commentId && (
+            <CommentSubmit
+              replyUser={item}
+              key={item.reply_id}
+              belongId={belongId}
+              onCancelReply={() => setCommentId(undefined)}
+            />
+          )}
+        </>
+      );
+    }
+
+    return (
+      <>
+        <CommentItem
+          className='mb-6'
+          {...item}
+          key={item.cid}
+          onReply={(cid) => setCommentId(cid)}
+          onChangeVote={(value) => handleChangeVote(index, value)}
+        />
+
+        {item.cid === commentId && (
+          <CommentSubmit
+            replyUser={item}
+            key={item.cid}
+            belongId={belongId}
+            onCancelReply={() => setCommentId(undefined)}
+          />
+        )}
+      </>
+    );
+  };
 
   return (
     <div id='comment' className={`p-4 ${className}`}>
@@ -95,23 +153,14 @@ const CommentContainer = (props: Props) => {
             </div>
           </div>
           {list.map((item, index) => (
-            <>
-              <CommentItem
-                className='mb-6'
-                {...item}
-                key={item.cid}
-                onReply={(cid) => setReplyId(cid)}
-                onChangeVote={(value) => handleChangeVote(index, value)}
-              />
-
-              {item.cid === replyId && (
-                <CommentSubmit
-                  replyUser={item}
-                  belongId={belongId}
-                  onCancelReply={() => setReplyId(undefined)}
-                />
-              )}
-            </>
+            <div key={item.cid}>
+              <CommentWrapper item={item} index={index} />
+              <div className='pl-16'>
+                {item.replies?.data.map((reply) =>
+                  CommentWrapper({ item: reply, index })
+                )}
+              </div>
+            </div>
           ))}
           <div
             hidden={!hasMore}

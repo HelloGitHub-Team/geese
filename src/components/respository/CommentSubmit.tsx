@@ -111,10 +111,12 @@ function CommentSubmit(props: {
       <div className='flex items-start'>
         <div className='relative mr-4 hidden sm:inline-flex'>
           <div className='relative aspect-square w-14 overflow-hidden rounded-full'>
-            <img
-              src={userInfo?.avatar || DEFAULT_AVATAR}
-              alt='comment_submit_avatar'
-            />
+            {!props.replyUser && (
+              <img
+                src={userInfo?.avatar || DEFAULT_AVATAR}
+                alt='comment_submit_avatar'
+              />
+            )}
           </div>
         </div>
         <div className='flex-1'>
