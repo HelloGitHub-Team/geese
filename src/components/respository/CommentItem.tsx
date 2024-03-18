@@ -141,13 +141,17 @@ const CommentItem = (
                 </a>
               </Link>
             </div>
-            <span className='flex shrink-0 items-center text-xs md:text-sm'>
-              评分：
-              <Rating value={score} />
-            </span>
-            <span className='shrink-0 text-xs md:text-sm'>
-              {isUsed ? '用过' : '没用过'}
-            </span>
+            {!props.reply_id && (
+              <>
+                <span className='flex shrink-0 items-center text-xs md:text-sm'>
+                  评分：
+                  <Rating value={score} />
+                </span>
+                <span className='shrink-0 text-xs md:text-sm'>
+                  {isUsed ? '用过' : '没用过'}
+                </span>
+              </>
+            )}
           </div>
           {props.is_hot && (
             <span>

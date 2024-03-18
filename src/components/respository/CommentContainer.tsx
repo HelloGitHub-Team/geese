@@ -78,13 +78,16 @@ const CommentContainer = (props: Props) => {
             onReply={(_, reply_id) => setCommentId(reply_id)}
             onChangeVote={(value) => handleChangeVote(index, value)}
           />
-
           {item.reply_id === commentId && (
             <CommentSubmit
               replyUser={item}
               key={item.reply_id}
               belongId={belongId}
               onCancelReply={() => setCommentId(undefined)}
+              onSuccess={() => {
+                setCommentId(undefined);
+                refreshList();
+              }}
             />
           )}
         </>
@@ -107,6 +110,10 @@ const CommentContainer = (props: Props) => {
             key={item.cid}
             belongId={belongId}
             onCancelReply={() => setCommentId(undefined)}
+            onSuccess={() => {
+              setCommentId(undefined);
+              refreshList();
+            }}
           />
         )}
       </>
@@ -156,9 +163,13 @@ const CommentContainer = (props: Props) => {
             <div key={item.cid}>
               <CommentWrapper item={item} index={index} />
               <div className='pl-16'>
-                {item.replies?.data.map((reply) =>
-                  CommentWrapper({ item: reply, index })
-                )}
+                {item.replies?.data.map((reply) => (
+                  <CommentWrapper
+                    key={item.reply_id}
+                    item={reply}
+                    index={index}
+                  />
+                ))}
               </div>
             </div>
           ))}

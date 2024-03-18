@@ -7,7 +7,7 @@ import Message from '@/components/message';
 import Modal from '@/components/modal';
 import Rating from '@/components/respository/Rating';
 
-import { submitComment } from '@/services/repository';
+import { submitComment, submitReplyComment } from '@/services/repository';
 import {
   DEFAULT_AVATAR,
   DEFAULT_INITITAL_COMMENT_DATA,
@@ -85,9 +85,21 @@ function CommentSubmit(props: {
         '评论提交后：无法修改、重新提交和删除，请发布有价值的内容共建社区。',
       okText: '确认发布',
       onOk() {
-        submitComment(belongId, commentData)
+        let request;
+
+        if (props.replyUser) {
+          request = submitReplyComment(props.replyUser.cid, {
+            comment: commentData.comment,
+            reply_id: props.replyUser.reply_id,
+          });
+        } else {
+          request = submitComment(belongId, commentData);
+        }
+
+        request
           .then((data) => {
             setCommentData(DEFAULT_INITITAL_COMMENT_DATA);
+
             if (data.success) {
               onSuccess && onSuccess(data);
               Message.success('发布评论成功');

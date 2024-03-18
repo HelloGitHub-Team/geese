@@ -101,6 +101,21 @@ export const submitComment = async (
   return result;
 };
 
+export const submitReplyComment = async (
+  commentId: string,
+  data: {
+    comment: string;
+    reply_id?: string;
+  }
+) => {
+  const url = makeUrl(`/reply/${commentId}`);
+  const result = await fetcher<CommentSuccessData>(url, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  return result;
+};
+
 export const getComments = async (
   belong: string,
   belongId: string,
