@@ -101,6 +101,7 @@ export const submitComment = async (
   return result;
 };
 
+/** 提交回复 */
 export const submitReplyComment = async (
   commentId: string,
   data: {
@@ -113,6 +114,13 @@ export const submitReplyComment = async (
     method: 'POST',
     body: JSON.stringify(data),
   });
+  return result;
+};
+
+/** 获取更多回复 */
+export const getMoreReply = async (commentId: string) => {
+  const url = makeUrl(`/reply/${commentId}/list?page=1&pageSize=50`);
+  const result = await fetcher<CommentData>(url);
   return result;
 };
 

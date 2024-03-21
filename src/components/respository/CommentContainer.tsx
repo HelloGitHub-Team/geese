@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { GoChevronDown } from 'react-icons/go';
 
 import useCommentList from '@/hooks/useCommentList';
 
 import CommentItem from '@/components/respository/CommentItem';
 import CommentSubmit from '@/components/respository/CommentSubmit';
+
+import { getMoreReply } from '@/services/repository';
 
 import { CommentItemData } from '@/types/repository';
 
@@ -30,6 +33,16 @@ const CommentContainer = (props: Props) => {
     belong,
     belongId,
   });
+
+  const [replyList, setReplyList] = useState<Record<string, CommentItemData[]>>(
+    {}
+  );
+
+  const loadMoreReply = (cid: string) => {
+    getMoreReply(cid).then((res) => {
+      setReplyList({ [cid]: res.data });
+    });
+  };
 
   const handleChangeVote = (index: number, value: boolean) => {
     list[index].is_voted = value;
@@ -78,6 +91,7 @@ const CommentContainer = (props: Props) => {
             onReply={(_, reply_id) => setCommentId(reply_id)}
             onChangeVote={(value) => handleChangeVote(index, value)}
           />
+
           {item.reply_id === commentId && (
             <CommentSubmit
               replyUser={item}
@@ -85,8 +99,11 @@ const CommentContainer = (props: Props) => {
               belongId={belongId}
               onCancelReply={() => setCommentId(undefined)}
               onSuccess={() => {
+                replyList[item.cid].length > 0
+                  ? loadMoreReply(item.cid)
+                  : refreshList();
+
                 setCommentId(undefined);
-                refreshList();
               }}
             />
           )}
@@ -117,6 +134,39 @@ const CommentContainer = (props: Props) => {
           />
         )}
       </>
+    );
+  };
+
+  /**
+   * 回复列表
+   */
+  const ReplyList = ({
+    item,
+    cIndex,
+  }: {
+    item: CommentItemData;
+    cIndex: number;
+  }) => {
+    if (!item.replies) return null;
+
+    const list = replyList[item.cid] || item.replies.data;
+
+    return (
+      <div className='pl-16'>
+        {list.map((reply) => (
+          <CommentWrapper key={item.reply_id} item={reply} index={cIndex} />
+        ))}
+
+        {item.replies.has_more && item.replies.total > list.length && (
+          <div
+            className='mb-8 flex cursor-pointer items-center justify-center rounded-md bg-gray-50 text-sm leading-10 hover:bg-gray-200 active:bg-gray-50 dark:bg-gray-700'
+            onClick={() => loadMoreReply(item.cid)}
+          >
+            查看全部 {item.replies?.total} 条回复
+            <GoChevronDown />
+          </div>
+        )}
+      </div>
     );
   };
 
@@ -162,15 +212,8 @@ const CommentContainer = (props: Props) => {
           {list.map((item, index) => (
             <div key={item.cid}>
               <CommentWrapper item={item} index={index} />
-              <div className='pl-16'>
-                {item.replies?.data.map((reply) => (
-                  <CommentWrapper
-                    key={item.reply_id}
-                    item={reply}
-                    index={index}
-                  />
-                ))}
-              </div>
+              {/* 回复 */}
+              <ReplyList item={item} cIndex={index} />
             </div>
           ))}
           <div

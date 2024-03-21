@@ -83,15 +83,17 @@ const CommentItem = (
         </span>
       ) : (
         <div className='flex justify-end space-x-4 text-gray-400'>
-          <div
-            className={`flex cursor-pointer items-center leading-10 text-gray-400 hover:text-gray-900 active:text-gray-400 ${
-              isVoted ? '!text-blue-500' : ''
-            }`}
-            onClick={handleVote}
-          >
-            <GoThumbsup className='mr-1' size={14} />
-            <span className='text-sm'>{votes || '点赞'}</span>
-          </div>
+          {props.replies && (
+            <div
+              className={`flex cursor-pointer items-center leading-10 text-gray-400 hover:text-gray-900 active:text-gray-400 ${
+                isVoted ? '!text-blue-500' : ''
+              }`}
+              onClick={handleVote}
+            >
+              <GoThumbsup className='mr-1' size={14} />
+              <span className='text-sm'>{votes || '点赞'}</span>
+            </div>
+          )}
 
           <div
             className='flex cursor-pointer items-center hover:text-gray-900 active:text-gray-400'
@@ -141,7 +143,7 @@ const CommentItem = (
                 </a>
               </Link>
             </div>
-            {!props.reply_id && (
+            {!props.reply_id ? (
               <>
                 <span className='flex shrink-0 items-center text-xs md:text-sm'>
                   评分：
@@ -151,6 +153,11 @@ const CommentItem = (
                   {isUsed ? '用过' : '没用过'}
                 </span>
               </>
+            ) : (
+              <span>
+                回复：
+                <span className='text-neutral-500'>{props.user.nickname}</span>
+              </span>
             )}
           </div>
           {props.is_hot && (
