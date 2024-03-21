@@ -9,7 +9,7 @@ import Message from '@/components/message';
 import Rating from '@/components/respository/Rating';
 
 import { like, unlike } from '@/services/repository';
-import { NOOP } from '@/utils/constants';
+import { DEFAULT_AVATAR, NOOP } from '@/utils/constants';
 import { fromNow } from '@/utils/day';
 
 import { MDRender } from '../mdRender/MDRender';
@@ -113,8 +113,7 @@ const CommentItem = (
             <a>
               <img
                 className='cursor-pointer rounded-full'
-                src='https://picsum.photos/100/100'
-                // src={user?.avatar || DEFAULT_AVATAR}
+                src={user?.avatar || DEFAULT_AVATAR}
                 alt='comment_avatar'
               />
             </a>
@@ -130,8 +129,7 @@ const CommentItem = (
                   className='h-5 w-5 rounded-full'
                   width='20'
                   height='20'
-                  src='https://picsum.photos/100/100'
-                  // src={user?.avatar || DEFAULT_AVATAR}
+                  src={user?.avatar || DEFAULT_AVATAR}
                   alt='comment_avatar'
                 />
               </div>
