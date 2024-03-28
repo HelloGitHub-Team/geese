@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { AiFillFire } from 'react-icons/ai';
-import { GoThumbsup } from 'react-icons/go';
+import { GoComment, GoThumbsup } from 'react-icons/go';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
@@ -23,6 +23,8 @@ const CommentItem = (
     alone?: boolean;
     footerRight?: (data: CommentItemData) => React.ReactNode;
     onChangeVote?: (value: boolean) => void;
+    onReply?: (cid: string, reply_id?: string) => void;
+    reply?: boolean;
   }
 ) => {
   const {
@@ -80,14 +82,26 @@ const CommentItem = (
           {isShow ? '已精选' : '未精选'}
         </span>
       ) : (
-        <div
-          className={`flex cursor-pointer items-center leading-10 text-gray-400 hover:text-gray-900 active:text-gray-400 ${
-            isVoted ? '!text-blue-500' : ''
-          }`}
-          onClick={handleVote}
-        >
-          <GoThumbsup className='mr-1' size={14} />
-          <span className='text-sm'>{votes || '点赞'}</span>
+        <div className='flex justify-end space-x-4 text-gray-400'>
+          {props.replies && (
+            <div
+              className={`flex cursor-pointer items-center leading-10 text-gray-400 hover:text-gray-900 active:text-gray-400 ${
+                isVoted ? '!text-blue-500' : ''
+              }`}
+              onClick={handleVote}
+            >
+              <GoThumbsup className='mr-1' size={14} />
+              <span className='text-sm'>{votes || '点赞'}</span>
+            </div>
+          )}
+
+          <div
+            className='flex cursor-pointer items-center hover:text-gray-900 active:text-gray-400'
+            onClick={() => props.onReply?.(cid, props.reply_id)}
+          >
+            <GoComment className='mr-1' size={14} />
+            <span>{props.reply ? '取消回复' : '回复'}</span>
+          </div>
         </div>
       ));
 
@@ -127,13 +141,22 @@ const CommentItem = (
                 </a>
               </Link>
             </div>
-            <span className='flex shrink-0 items-center text-xs md:text-sm'>
-              评分：
-              <Rating value={score} />
-            </span>
-            <span className='shrink-0 text-xs md:text-sm'>
-              {isUsed ? '用过' : '没用过'}
-            </span>
+            {!props.reply_id ? (
+              <>
+                <span className='flex shrink-0 items-center text-xs md:text-sm'>
+                  评分：
+                  <Rating value={score} />
+                </span>
+                <span className='shrink-0 text-xs md:text-sm'>
+                  {isUsed ? '用过' : '没用过'}
+                </span>
+              </>
+            ) : (
+              <span>
+                回复：
+                <span className='text-neutral-500'>{props.user.nickname}</span>
+              </span>
+            )}
           </div>
           {props.is_hot && (
             <span>
