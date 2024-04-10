@@ -152,10 +152,14 @@ const CommentItem = (
                 </span>
               </>
             ) : (
-              <span>
-                回复：
-                <span className='text-neutral-500'>{props.user.nickname}</span>
-              </span>
+              props.reply_uid && (
+                <span>
+                  回复：
+                  <span className='text-neutral-500'>
+                    {props.reply_user?.nickname}
+                  </span>
+                </span>
+              )
             )}
           </div>
           {props.is_hot && (

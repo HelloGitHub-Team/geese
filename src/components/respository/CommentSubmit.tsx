@@ -90,7 +90,7 @@ function CommentSubmit(props: {
         if (props.replyUser) {
           request = submitReplyComment(props.replyUser.cid, {
             comment: commentData.comment,
-            reply_id: props.replyUser.reply_id,
+            reply_uid: props.replyUser.user.uid,
           });
         } else {
           request = submitComment(belongId, commentData);

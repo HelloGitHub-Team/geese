@@ -106,7 +106,7 @@ export const submitReplyComment = async (
   commentId: string,
   data: {
     comment: string;
-    reply_id?: string;
+    reply_uid: string;
   }
 ) => {
   const url = makeUrl(`/reply/${commentId}`);

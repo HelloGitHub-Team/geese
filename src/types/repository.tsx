@@ -157,8 +157,16 @@ export interface CommentItemData {
   created_at: string;
   /** 是否已点赞 */
   is_voted?: boolean;
-  /** 回复的评论 ID */
+  /** 回复 ID */
   reply_id?: string;
+  /** 回复的用户 ID */
+  reply_uid?: string;
+  // 回复的用户信息
+  reply_user?: {
+    uid: string;
+    nickname: string;
+    avatar: string;
+  };
   /** 回复列表 */
   replies?: {
     total: number;
