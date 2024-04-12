@@ -84,7 +84,7 @@ const Notification = () => {
   const messageShow = (activeTab: string, item: MessageRecord) => {
     if (activeTab == 'repository') {
       return (
-        <span className='text-gray-600 dark:text-gray-500'>
+        <span className='truncate text-gray-600 dark:text-gray-500'>
           你提交的开源项目
           <CustomLink
             className='mx-1 inline cursor-pointer text-blue-500'
@@ -98,7 +98,7 @@ const Notification = () => {
     } else if (activeTab == 'comment') {
       return (
         <div className='mb-2 flex items-center'>
-          <div className='w-full dark:text-gray-500'>
+          <div className='w-full truncate dark:text-gray-500'>
             <span className='pr-2 font-semibold text-gray-900 dark:text-gray-500'>
               {item.user_info?.nickname}
             </span>
@@ -132,7 +132,7 @@ const Notification = () => {
                     {item.repository?.full_name}
                   </CustomLink>
                   开源项目：
-                </span>{' '}
+                </span>
                 <p className='mt-2 truncate'>{item.content}</p>
               </>
             )}
@@ -142,7 +142,7 @@ const Notification = () => {
     } else {
       return (
         <span
-          className='text-gray-600 dark:text-gray-500'
+          className='truncate text-gray-600 dark:text-gray-500'
           dangerouslySetInnerHTML={{
             __html: autoLink(item.content),
           }}
@@ -216,17 +216,17 @@ const Notification = () => {
           ) : (
             <div className='mt-4 text-center text-xl'>
               <div className='py-14 text-gray-300 dark:text-gray-500'>
-                暂无消息
+                {!isValidating ? '暂无消息' : <Loading />}
               </div>
             </div>
           )}
         </div>
-        {isValidating && hasMore ? (
+        {hasMore ? (
           <div
             className='divide-y divide-gray-100 overflow-hidden dark:divide-gray-700'
             ref={sentryRef}
           >
-            <Loading></Loading>
+            <Loading />
           </div>
         ) : (
           <div className='h-4'></div>
