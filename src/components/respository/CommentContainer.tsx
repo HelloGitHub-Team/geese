@@ -152,14 +152,14 @@ const CommentContainer = (props: Props) => {
     const list = replyList[item.cid] || item.replies.data;
 
     return (
-      <div className='pl-16'>
+      <div className='pl-8 md:pl-16'>
         {list.map((reply) => (
           <CommentWrapper key={item.reply_id} item={reply} index={cIndex} />
         ))}
 
         {item.replies.has_more && item.replies.total > list.length && (
           <div
-            className='mb-8 flex cursor-pointer items-center justify-center rounded-md bg-gray-50 text-sm leading-10 hover:bg-gray-200 active:bg-gray-50 dark:bg-gray-700'
+            className='mb-6 flex cursor-pointer items-center justify-center rounded-md bg-gray-50 text-sm leading-10 hover:bg-gray-200 active:bg-gray-50 dark:bg-gray-700'
             onClick={() => loadMoreReply(item.cid)}
           >
             查看全部 {item.replies?.total} 条回复

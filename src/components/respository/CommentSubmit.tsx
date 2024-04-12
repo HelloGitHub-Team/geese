@@ -4,7 +4,6 @@ import useCommentData from '@/hooks/useCommentData';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import Message from '@/components/message';
-import Modal from '@/components/modal';
 import Rating from '@/components/respository/Rating';
 
 import { submitComment, submitReplyComment } from '@/services/repository';
@@ -79,44 +78,36 @@ function CommentSubmit(props: {
     if (!isLogin) {
       return login();
     }
-    Modal.confirm({
-      title: '提交评论',
-      content:
-        '评论提交后：无法修改、重新提交和删除，请发布有价值的内容共建社区。',
-      okText: '确认发布',
-      onOk() {
-        let request;
+    let request;
 
-        if (props.replyUser) {
-          request = submitReplyComment(props.replyUser.cid, {
-            comment: commentData.comment,
-            reply_uid: props.replyUser.user.uid,
-          });
+    if (props.replyUser) {
+      request = submitReplyComment(props.replyUser.cid, {
+        comment: commentData.comment,
+        reply_uid: props.replyUser.user.uid,
+      });
+    } else {
+      request = submitComment(belongId, commentData);
+    }
+
+    request
+      .then((data) => {
+        setCommentData(DEFAULT_INITITAL_COMMENT_DATA);
+
+        if (data.success) {
+          onSuccess && onSuccess(data);
+          Message.success('发布成功，通过审核后展示...');
         } else {
-          request = submitComment(belongId, commentData);
+          onFail && onFail(data);
         }
-
-        request
-          .then((data) => {
-            setCommentData(DEFAULT_INITITAL_COMMENT_DATA);
-
-            if (data.success) {
-              onSuccess && onSuccess(data);
-              Message.success('发布评论成功');
-            } else {
-              onFail && onFail(data);
-            }
-          })
-          .catch((err) => {
-            Message.error(err.message || '提交评论失败');
-          });
-      },
-    });
+      })
+      .catch((err) => {
+        Message.error(err.message || '提交失败');
+      });
   };
 
   const placeholder = props.replyUser
     ? `正在回复：${props.replyUser.user.nickname}`
-    : '写评论：项目的使用体验、优点或吐槽、帮你解决了什么问题、惊艳到你的地方...';
+    : '写评论：欢迎分享项目的使用体验、优点/吐槽、适用的场景、惊艳的地方...';
 
   return (
     <div className={`${className}`}>
@@ -131,7 +122,7 @@ function CommentSubmit(props: {
             )}
           </div>
         </div>
-        <div className='flex-1'>
+        <div className='mb-1 flex-1'>
           <textarea
             className='min-h-[3rem] w-full flex-shrink rounded-lg bg-white py-2 px-4 text-sm dark:bg-gray-800 dark:placeholder:text-gray-400 dark:focus:border-blue-800'
             style={{ height: commentData.height }}
@@ -146,7 +137,7 @@ function CommentSubmit(props: {
                   <input
                     type='radio'
                     name='radio-1'
-                    className='mr-1 h-3 w-3 flex-shrink-0 cursor-pointer appearance-none rounded-full border text-blue-500 focus:border-blue-500 focus:bg-blue-500 md:h-5 md:w-5'
+                    className='mr-1 h-3 w-3 flex-shrink-0 cursor-pointer appearance-none rounded-full border text-blue-500 focus:border-blue-500 focus:bg-blue-500'
                     style={{ boxShadow: 'none' }}
                     checked={!commentData.isUsed}
                     onChange={() => handleRadioChange(false)}
@@ -157,7 +148,7 @@ function CommentSubmit(props: {
                   <input
                     type='radio'
                     name='radio-1'
-                    className='mr-1 h-3 w-3 flex-shrink-0 cursor-pointer appearance-none rounded-full border text-blue-500 focus:border-blue-500 focus:bg-blue-500 md:h-5 md:w-5'
+                    className='mr-1 h-3 w-3 flex-shrink-0 cursor-pointer appearance-none rounded-full border text-blue-500 focus:border-blue-500 focus:bg-blue-500'
                     style={{ boxShadow: 'none' }}
                     checked={commentData.isUsed}
                     onChange={() => handleRadioChange(true)}

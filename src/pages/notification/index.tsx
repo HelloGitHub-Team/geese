@@ -18,12 +18,13 @@ import { fromNow } from '@/utils/day';
 import { MessageItems, MessageRecord } from '@/types/user';
 
 const tabList = [
+  { key: 'comment', title: '评论' },
   { key: 'repository', title: '开源项目' },
-  { key: 'system', title: '系统消息' },
+  { key: 'system', title: '系统通知' },
 ];
 
 const Notification = () => {
-  const [activeTab, setActiveTab] = useState<string>('repository');
+  const [activeTab, setActiveTab] = useState<string>('comment');
   const { userInfo, updateUnread } = useLoginContext();
   const { data, error, setSize, isValidating, size } =
     useSWRInfinite<MessageItems>(
@@ -35,6 +36,9 @@ const Notification = () => {
 
   const messages = data
     ? data.reduce((pre: MessageRecord[], curr) => {
+        if (curr.page == 1) {
+          pre = [];
+        }
         if (curr.data?.length > 0) {
           pre.push(...curr.data);
         }
@@ -76,6 +80,77 @@ const Notification = () => {
       return content;
     }
   };
+
+  const messageShow = (activeTab: string, item: MessageRecord) => {
+    if (activeTab == 'repository') {
+      return (
+        <span className='text-gray-600 dark:text-gray-500'>
+          你提交的开源项目
+          <CustomLink
+            className='mx-1 inline cursor-pointer text-blue-500'
+            href={`/repository/${item.mid}`}
+          >
+            {item.content}
+          </CustomLink>
+          已被推荐到首页。
+        </span>
+      );
+    } else if (activeTab == 'comment') {
+      return (
+        <div className='mb-2 flex items-center'>
+          <div className='w-full dark:text-gray-500'>
+            <span className='pr-2 font-semibold text-gray-900 dark:text-gray-500'>
+              {item.user_info?.nickname}
+            </span>
+            {item.message_type == 'reply' ? (
+              <>
+                <span>
+                  在
+                  <CustomLink
+                    className='inline cursor-pointer px-1 text-blue-500'
+                    href={`/repository/${item.repository?.rid}`}
+                  >
+                    {item.repository?.full_name}
+                  </CustomLink>
+                  项目下回复你：
+                </span>
+                <p className='mt-2 truncate'>{item.content}</p>
+                {item.more_content && (
+                  <div className='mt-2.5 flex items-center border-l-4 text-gray-400 dark:border-gray-600 dark:text-gray-500'>
+                    <span className='truncate pl-2'>{item.more_content}</span>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <span>
+                  评论你分享的
+                  <CustomLink
+                    className='inline cursor-pointer px-1 text-blue-500'
+                    href={`/repository/${item.repository?.rid}`}
+                  >
+                    {item.repository?.full_name}
+                  </CustomLink>
+                  开源项目：
+                </span>{' '}
+                <p className='mt-2 truncate'>{item.content}</p>
+              </>
+            )}
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <span
+          className='text-gray-600 dark:text-gray-500'
+          dangerouslySetInnerHTML={{
+            __html: autoLink(item.content),
+          }}
+        />
+      );
+    }
+  };
+
   return (
     <>
       <Seo title='HelloGitHub｜消息中心' />
@@ -85,7 +160,7 @@ const Notification = () => {
           <div className='border-b border-gray-200 dark:border-gray-700'>
             <nav className='-mb-0.5 flex space-x-6'>
               {tabList
-                .filter((_, index) => [0, 1].includes(index))
+                .filter((_, index) => [0, 1, 2].includes(index))
                 .map((tab) => {
                   return (
                     <div
@@ -122,29 +197,15 @@ const Notification = () => {
                   <div className='flex w-full flex-row truncate whitespace-normal border-b border-gray-100 py-3.5 dark:border-gray-700 md:px-1.5'>
                     <img
                       className='mr-3 h-10 rounded-full'
-                      src='https://img.hellogithub.com/avatar/oTtM-59ZSm1se2ZOMfiT11KzgevQ.jpeg'
+                      src={
+                        activeTab == 'comment'
+                          ? item.user_info?.avatar
+                          : 'https://img.hellogithub.com/avatar/oTtM-59ZSm1se2ZOMfiT11KzgevQ.jpeg'
+                      }
                     />
-                    <div className='flex flex-col'>
-                      {activeTab == 'repository' ? (
-                        <span className='text-gray-600 dark:text-gray-500'>
-                          你提交的开源项目
-                          <CustomLink
-                            className='mx-1 inline cursor-pointer text-blue-500'
-                            href={`/repository/${item.mid}`}
-                          >
-                            {item.content}
-                          </CustomLink>
-                          已被推荐到首页。
-                        </span>
-                      ) : (
-                        <span
-                          className='text-gray-600 dark:text-gray-500'
-                          dangerouslySetInnerHTML={{
-                            __html: autoLink(item.content),
-                          }}
-                        ></span>
-                      )}
-                      <div className='flex flex-row pt-1.5 text-sm text-gray-400 dark:text-gray-600'>
+                    <div className='flex flex-col truncate'>
+                      {messageShow(activeTab, item)}
+                      <div className='mt-1.5 flex flex-row text-sm text-gray-400 dark:text-gray-600'>
                         {fromNow(item.publish_at)}
                       </div>
                     </div>
@@ -160,7 +221,7 @@ const Notification = () => {
             </div>
           )}
         </div>
-        {isValidating || hasMore ? (
+        {isValidating && hasMore ? (
           <div
             className='divide-y divide-gray-100 overflow-hidden dark:divide-gray-700'
             ref={sentryRef}
