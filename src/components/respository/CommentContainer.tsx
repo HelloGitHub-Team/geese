@@ -87,7 +87,7 @@ const CommentContainer = (props: Props) => {
           <CommentItem
             className='mb-6'
             {...item}
-            key={item.cid}
+            key={`reply-item-${item.cid}`}
             onReply={(_, reply_id) => setCommentId(reply_id)}
             onChangeVote={(value) => handleChangeVote(index, value)}
           />
@@ -95,15 +95,11 @@ const CommentContainer = (props: Props) => {
           {item.reply_id === commentId && (
             <CommentSubmit
               replyUser={item}
-              key={item.reply_id}
               belongId={belongId}
               onCancelReply={() => setCommentId(undefined)}
               onSuccess={() => {
-                replyList[item.cid].length > 0
-                  ? loadMoreReply(item.cid)
-                  : refreshList();
-
                 setCommentId(undefined);
+                refreshList();
               }}
             />
           )}
@@ -116,7 +112,7 @@ const CommentContainer = (props: Props) => {
         <CommentItem
           className='mb-6'
           {...item}
-          key={item.cid}
+          key={`commet-item-${item.cid}`}
           onReply={(cid) => setCommentId(cid)}
           onChangeVote={(value) => handleChangeVote(index, value)}
         />
@@ -148,13 +144,11 @@ const CommentContainer = (props: Props) => {
     cIndex: number;
   }) => {
     if (!item.replies) return null;
-
     const list = replyList[item.cid] || item.replies.data;
-
     return (
       <div className='pl-8 md:pl-16'>
         {list.map((reply) => (
-          <CommentWrapper key={item.reply_id} item={reply} index={cIndex} />
+          <CommentWrapper key={reply.reply_id} item={reply} index={cIndex} />
         ))}
 
         {item.replies.has_more && item.replies.total > list.length && (
