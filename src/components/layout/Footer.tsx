@@ -111,7 +111,7 @@ const Footer = () => {
         </span>
       </a>
       <p className='mt-2'>
-        <span className='cursor-default'>©2023 HelloGitHub</span>
+        <span className='cursor-default'>©2024 HelloGitHub</span>
         <span className='px-1 lg:px-1.5'>·</span>
         <span className='inline-block cursor-pointer align-[-2px] hover:text-green-500'>
           <a

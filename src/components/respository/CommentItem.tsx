@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { AiFillFire } from 'react-icons/ai';
-import { GoThumbsup } from 'react-icons/go';
+import { GoCommentDiscussion, GoThumbsup } from 'react-icons/go';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
@@ -23,6 +23,8 @@ const CommentItem = (
     alone?: boolean;
     footerRight?: (data: CommentItemData) => React.ReactNode;
     onChangeVote?: (value: boolean) => void;
+    onReply?: (cid: string, reply_id?: string) => void;
+    reply?: boolean;
   }
 ) => {
   const {
@@ -80,21 +82,33 @@ const CommentItem = (
           {isShow ? '已精选' : '未精选'}
         </span>
       ) : (
-        <div
-          className={`flex cursor-pointer items-center leading-10 text-gray-400 hover:text-gray-900 active:text-gray-400 ${
-            isVoted ? '!text-blue-500' : ''
-          }`}
-          onClick={handleVote}
-        >
-          <GoThumbsup className='mr-1' size={14} />
-          <span className='text-sm'>{votes || '点赞'}</span>
+        <div className='flex justify-end space-x-4 text-gray-400'>
+          {props.replies && (
+            <div
+              className={`flex cursor-pointer items-center leading-10 text-gray-400 hover:text-gray-900 active:text-gray-400 dark:hover:text-white ${
+                isVoted ? '!text-blue-500' : ''
+              }`}
+              onClick={handleVote}
+            >
+              <GoThumbsup className='mr-1' size={12} />
+              <span className='text-xs'>{votes || '点赞'}</span>
+            </div>
+          )}
+
+          <div
+            className='flex cursor-pointer items-center hover:text-gray-900 active:text-gray-400 dark:hover:text-white'
+            onClick={() => props.onReply?.(cid, props.reply_id)}
+          >
+            <GoCommentDiscussion className='mr-1' size={12} />
+            <span className='text-xs'>{props.reply ? '取消回复' : '回复'}</span>
+          </div>
         </div>
       ));
 
   return (
     <div className={`flex ${className} truncate`}>
       <div className='mr-4 hidden md:block'>
-        <div className='relative h-14 w-14'>
+        <div className='relative h-10 w-10'>
           <Link href={`/user/${user.uid}`}>
             <a>
               <img
@@ -108,32 +122,48 @@ const CommentItem = (
       </div>
       <div className='relative max-w-full flex-1'>
         <div className='flex flex-row items-center justify-between gap-4'>
-          <div className='flex w-full flex-row items-center gap-4'>
-            <div className='flex max-w-fit flex-1 items-center overflow-hidden text-sm font-bold md:text-base md:font-normal'>
-              <div className='hidden md:mr-1'>
+          <div className='flex w-full flex-row items-center gap-2'>
+            <div className='flex max-w-fit flex-1 items-center'>
+              <div className='mr-1 md:hidden'>
                 <img
                   className='h-5 w-5 rounded-full'
-                  width='20'
-                  height='20'
                   src={user?.avatar || DEFAULT_AVATAR}
                   alt='comment_avatar'
                 />
               </div>
               <Link href={`/user/${user.uid}`}>
                 <a>
-                  <div className='w-24 truncate text-ellipsis whitespace-nowrap md:w-fit'>
+                  <div className='w-fit max-w-[120px] truncate text-xs font-bold md:text-sm'>
                     {user?.nickname}
                   </div>
                 </a>
               </Link>
             </div>
-            <span className='flex shrink-0 items-center text-xs md:text-sm'>
-              评分：
-              <Rating value={score} />
-            </span>
-            <span className='shrink-0 text-xs md:text-sm'>
-              {isUsed ? '用过' : '没用过'}
-            </span>
+            {!props.reply_id ? (
+              <>
+                <span className='flex shrink-0 items-center text-xs md:text-sm'>
+                  评分：
+                  <Rating value={score} />
+                </span>
+                <span className='shrink-0 text-xs md:text-sm'>
+                  {isUsed ? '用过' : '没用过'}
+                </span>
+              </>
+            ) : (
+              props.reply_uid && (
+                <>
+                  <span className='text-xs md:text-sm'>回复</span>
+                  <Link href={`/user/${props.reply_user?.uid}`}>
+                    <a>
+                      <div className='w-fit max-w-[180px] truncate text-xs text-gray-500 md:text-sm'>
+                        {props.reply_user?.nickname}
+                      </div>
+                    </a>
+                  </Link>
+                  <span className='text-xs md:text-sm'>：</span>
+                </>
+              )
+            )}
           </div>
           {props.is_hot && (
             <span>

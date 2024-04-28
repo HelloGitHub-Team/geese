@@ -1,7 +1,14 @@
+import { useState } from 'react';
+import { GoChevronDown } from 'react-icons/go';
+
 import useCommentList from '@/hooks/useCommentList';
 
 import CommentItem from '@/components/respository/CommentItem';
 import CommentSubmit from '@/components/respository/CommentSubmit';
+
+import { getMoreReply } from '@/services/repository';
+
+import { CommentItemData } from '@/types/repository';
 
 interface Props {
   belong: string;
@@ -27,6 +34,16 @@ const CommentContainer = (props: Props) => {
     belongId,
   });
 
+  const [replyList, setReplyList] = useState<Record<string, CommentItemData[]>>(
+    {}
+  );
+
+  const loadMoreReply = (cid: string) => {
+    getMoreReply(cid).then((res) => {
+      setReplyList({ [cid]: res.data });
+    });
+  };
+
   const handleChangeVote = (index: number, value: boolean) => {
     list[index].is_voted = value;
     value ? list[index].votes++ : list[index].votes--;
@@ -49,6 +66,103 @@ const CommentContainer = (props: Props) => {
     refreshList();
   };
   const btnActive = '!bg-blue-500 dark:!bg-blue-800';
+
+  // 当前回复的Id
+  const [commentId, setCommentId] = useState<string>();
+
+  /**
+   * 评论项包裹组件
+   */
+  const CommentWrapper = ({
+    item,
+    index,
+  }: {
+    item: CommentItemData;
+    index: number;
+  }) => {
+    // 如果是回复的评论
+    if (item.reply_id) {
+      return (
+        <>
+          <CommentItem
+            className='mb-6'
+            {...item}
+            key={`reply-item-${item.cid}`}
+            onReply={(_, reply_id) => setCommentId(reply_id)}
+            onChangeVote={(value) => handleChangeVote(index, value)}
+          />
+
+          {item.reply_id === commentId && (
+            <CommentSubmit
+              replyUser={item}
+              belongId={belongId}
+              onCancelReply={() => setCommentId(undefined)}
+              onSuccess={() => {
+                setCommentId(undefined);
+                refreshList();
+              }}
+            />
+          )}
+        </>
+      );
+    }
+
+    return (
+      <>
+        <CommentItem
+          className='mb-6'
+          {...item}
+          key={`commet-item-${item.cid}`}
+          onReply={(cid) => setCommentId(cid)}
+          onChangeVote={(value) => handleChangeVote(index, value)}
+        />
+
+        {item.cid === commentId && (
+          <CommentSubmit
+            replyUser={item}
+            key={item.cid}
+            belongId={belongId}
+            onCancelReply={() => setCommentId(undefined)}
+            onSuccess={() => {
+              setCommentId(undefined);
+              refreshList();
+            }}
+          />
+        )}
+      </>
+    );
+  };
+
+  /**
+   * 回复列表
+   */
+  const ReplyList = ({
+    item,
+    cIndex,
+  }: {
+    item: CommentItemData;
+    cIndex: number;
+  }) => {
+    if (!item.replies) return null;
+    const list = replyList[item.cid] || item.replies.data;
+    return (
+      <div className='pl-8 md:pl-16'>
+        {list.map((reply) => (
+          <CommentWrapper key={reply.reply_id} item={reply} index={cIndex} />
+        ))}
+
+        {item.replies.has_more && item.replies.total > list.length && (
+          <div
+            className='mb-6 flex cursor-pointer items-center justify-center rounded-md bg-gray-50 text-sm leading-10 hover:bg-gray-200 active:bg-gray-50 dark:bg-gray-700'
+            onClick={() => loadMoreReply(item.cid)}
+          >
+            查看全部 {item.replies?.total} 条回复
+            <GoChevronDown />
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div id='comment' className={`p-4 ${className}`}>
@@ -90,12 +204,11 @@ const CommentContainer = (props: Props) => {
             </div>
           </div>
           {list.map((item, index) => (
-            <CommentItem
-              className='mb-6'
-              {...item}
-              key={item.cid}
-              onChangeVote={(value) => handleChangeVote(index, value)}
-            />
+            <div key={item.cid}>
+              <CommentWrapper item={item} index={index} />
+              {/* 回复 */}
+              <ReplyList item={item} cIndex={index} />
+            </div>
           ))}
           <div
             hidden={!hasMore}

@@ -98,4 +98,12 @@ export interface MessageRecord {
   mid: string;
   content: string;
   publish_at: string;
+  message_type?: string;
+  repository?: {
+    rid: string;
+    name: string;
+    full_name: string;
+  };
+  more_content?: string;
+  user_info?: UserType;
 }

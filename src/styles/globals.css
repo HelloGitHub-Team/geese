@@ -230,6 +230,7 @@ svg {
 .hidden-scrollbar::-webkit-scrollbar {
   /* 隐藏默认的滚动条 */
   -webkit-appearance: none;
+  display: none;
   width: 0px;
 }
 
@@ -237,6 +238,7 @@ svg {
 .custom-scrollbar::-webkit-scrollbar {
   /* 隐藏默认的滚动条 */
   -webkit-appearance: none;
+  display: none;
 }
 
 .custom-scrollbar::-webkit-scrollbar {

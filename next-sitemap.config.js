@@ -52,6 +52,10 @@ module.exports = {
         userAgent: 'GPTBot',
         disallow: ['/'],
       },
+      {
+        userAgent: 'DotBot',
+        disallow: ['/'],
+      },
     ],
   },
 };
