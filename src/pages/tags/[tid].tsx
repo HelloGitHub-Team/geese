@@ -14,7 +14,7 @@ const TagPage: NextPage<TagPageProps> = ({ items, tag_name }) => {
   return (
     <>
       <Seo
-        title={`HelloGitHub｜${tag_name}标签`}
+        title={`${tag_name} 标签的开源项目`}
         description={`有趣、好玩的 ${tag_name} 开源项目`}
       />
       <Navbar middleText={tag_name} endText='标签' />

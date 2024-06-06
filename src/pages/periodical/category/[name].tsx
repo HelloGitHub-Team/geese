@@ -47,7 +47,7 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
 
   return (
     <>
-      <Seo title={`HelloGitHub｜${category?.category_name}`} />
+      <Seo title={`《HelloGitHub 月刊》${category?.category_name}`} />
       <div className='relative pb-6'>
         <Navbar middleText={category?.category_name} endText='分类'></Navbar>
 

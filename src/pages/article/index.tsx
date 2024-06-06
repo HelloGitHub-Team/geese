@@ -66,7 +66,10 @@ const ArticleIndex: NextPage = () => {
 
   return (
     <>
-      <Seo title='HelloGitHub｜文章' description='关于开源和开源项目的文章' />
+      <Seo
+        title='文章'
+        description='这里有一些专注于开源项目的原创和优质文章'
+      />
       <ArticleNavbar />
       <div className='h-screen'>
         <div className='divide-y divide-slate-100 bg-white dark:divide-slate-700 dark:bg-slate-800 md:overflow-y-hidden md:rounded-lg'>

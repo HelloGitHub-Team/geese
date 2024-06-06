@@ -13,8 +13,8 @@ import {
   AiOutlineGlobal,
   AiOutlineHome,
 } from 'react-icons/ai';
-import { BsBookmark, BsFileEarmarkCode } from 'react-icons/bs';
-import { GoComment, GoLinkExternal } from 'react-icons/go';
+import { BsBookmark, BsPersonCheck } from 'react-icons/bs';
+import { GoComment, GoLinkExternal, GoVerified } from 'react-icons/go';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
@@ -47,6 +47,14 @@ type URLoption = {
   name: string;
 };
 
+const iconMap: { [key: string]: JSX.Element } = {
+  source: <AiOutlineGithub />,
+  home: <AiOutlineHome />,
+  document: <AiOutlineFileText />,
+  online: <AiOutlineGlobal />,
+  download: <AiOutlineCloudDownload />,
+};
+
 const Info: NextPage<RepositoryProps> = ({ repo }) => {
   const { isLogin, login } = useLoginContext();
   const [isVoted, setIsVoted] = useState<boolean>(false);
@@ -56,8 +64,18 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [favoriteOptions, setFavoriteOptions] = useState<option[]>([]);
   const [urlOptions, setURLOptions] = useState<URLoption[]>([]);
-
+  const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<any>();
+
+  const handleDropdownToggle = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleClickOutside = (event: any) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
+  };
 
   const getUserRepoStatus = async (rid: string) => {
     // 调用接口查看项目是否点赞
@@ -164,20 +182,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     });
   };
 
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'source':
-        return <AiOutlineGithub />;
-      case 'home':
-        return <AiOutlineHome />;
-      case 'document':
-        return <AiOutlineFileText />;
-      case 'online':
-        return <AiOutlineGlobal />;
-      case 'download':
-        return <AiOutlineCloudDownload />;
-    }
-  };
+  const getIcon = (iconName: string) => iconMap[iconName];
 
   const handleURLOptions = (repo: Repository) => {
     const options: URLoption[] = [];
@@ -207,6 +212,17 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     setCollectTotal(repo.collect_total);
     handleURLOptions(repo);
   }, [repo]);
+
+  useEffect(() => {
+    if (showDropdown) {
+      document.addEventListener('click', handleClickOutside);
+    } else {
+      document.removeEventListener('click', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [showDropdown]);
 
   const option = repo.star_history && {
     xAxis: {
@@ -303,24 +319,40 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       <div className='flex flex-col gap-y-3'>
         <div className='flex flex-row'>
           <div className='flex min-w-[72px] items-center'>
-            <img
-              className='rounded border border-gray-100 bg-white dark:border-gray-800'
-              src={repo.author_avatar}
-              width='72'
-              height='72'
-              alt='repo_avatar'
-            />
+            <div className='relative'>
+              <img
+                className='rounded border border-gray-100 bg-white dark:border-gray-800'
+                src={repo.author_avatar}
+                width='72'
+                height='72'
+                alt='repo_avatar'
+              />
+            </div>
           </div>
-          <div className='ml-3 hidden max-w-[440px] flex-col gap-y-2 md:flex'>
-            <CustomLink
-              href={repo.url}
-              onClick={() => onClickLink('source', repo.rid)}
-            >
-              <div className='cursor-pointer truncate text-ellipsis text-3xl font-semibold hover:text-blue-500'>
-                {repo.full_name}
-              </div>
-            </CustomLink>
 
+          <div className='ml-3 hidden max-w-[440px] flex-col gap-y-2 md:flex'>
+            <div className='flex flex-row items-center '>
+              <CustomLink
+                href={repo.url}
+                onClick={() => onClickLink('source', repo.rid)}
+              >
+                <h1 className='max-w-[400px] cursor-pointer truncate text-ellipsis text-3xl font-semibold hover:text-blue-500'>
+                  {repo.full_name.length >= 20 ? repo.name : repo.full_name}
+                </h1>
+              </CustomLink>
+              {repo.is_claimed && (
+                <div className='group relative ml-0.5 cursor-pointer'>
+                  <GoVerified className='ml-0.5 text-xl text-blue-500 group-hover:text-blue-600' />
+                  {/* 提示信息，初始时透明度为0 */}
+                  <div className='absolute hidden flex-row transition-opacity duration-300 group-hover:flex'>
+                    {/* 定位和样式可以根据需要调整 */}
+                    <div className='relative -top-6 left-6 w-0 rounded-md bg-gray-300 p-1 text-xs text-white group-hover:w-max'>
+                      已认领
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
             <div className='truncate text-ellipsis text-xl font-normal text-gray-500'>
               {repo.title}
             </div>
@@ -336,9 +368,9 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               href={repo.url}
               onClick={() => onClickLink('source', repo.rid)}
             >
-              <div className='truncate text-ellipsis text-3xl font-semibold'>
+              <h1 className='truncate text-ellipsis text-3xl font-semibold'>
                 {repo.full_name.length >= 20 ? repo.name : repo.full_name}
-              </div>
+              </h1>
             </CustomLink>
             <span className='text-ellipsis whitespace-pre-wrap text-xl font-normal text-gray-500'>
               {repo.title}
@@ -366,14 +398,33 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
             )}
           </div>
           <div className='flex h-[72px] w-full flex-row items-end gap-x-2 md:mt-0 md:w-64 lg:w-72'>
-            <div className='group hidden lg:block'>
-              <CustomLink
-                href={repo.url}
-                onClick={() => onClickLink('source', repo.rid)}
-              >
+            <div className='group relative lg:block'>
+              <div className='hidden lg:block'>
+                <CustomLink
+                  href={repo.url}
+                  onClick={() => onClickLink('source', repo.rid)}
+                >
+                  <Button
+                    variant='white-outline'
+                    className='origin-top scale-95 transition duration-200 ease-in-out hover:scale-100'
+                  >
+                    {urlOptions.length > 0 ? (
+                      <div className='flex flex-row items-center py-3 px-1'>
+                        <div className='px-1 text-sm font-medium'>访问</div>
+                        <AiOutlineDown size={10} />
+                      </div>
+                    ) : (
+                      <div className='p-3 text-sm font-medium'>访问</div>
+                    )}
+                  </Button>
+                </CustomLink>
+              </div>
+
+              <div className='block lg:hidden' ref={dropdownRef}>
                 <Button
                   variant='white-outline'
                   className='origin-top scale-95 transition duration-200 ease-in-out hover:scale-100'
+                  onClick={handleDropdownToggle} // 添加点击事件处理器
                 >
                   {urlOptions.length > 0 ? (
                     <div className='flex flex-row items-center py-3 px-1'>
@@ -381,13 +432,22 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                       <AiOutlineDown size={10} />
                     </div>
                   ) : (
-                    <div className='p-3 text-sm font-medium'>访问</div>
+                    <CustomLink
+                      href={repo.url}
+                      onClick={() => onClickLink('source', repo.rid)}
+                    >
+                      <div className='p-3 text-sm font-medium'>访问</div>
+                    </CustomLink>
                   )}
                 </Button>
-              </CustomLink>
+              </div>
               {urlOptions.length > 0 && (
-                <div className='absolute hidden group-hover:block'>
-                  <div className='relative z-10 mt-1 w-fit origin-top-right rounded-md border border-gray-100 bg-white shadow-lg'>
+                <div
+                  className={`absolute ${
+                    showDropdown ? 'block' : 'hidden'
+                  } lg:group-hover:block`}
+                >
+                  <div className='relative z-10 mt-1 w-max origin-top-right rounded-md border border-gray-100 bg-white shadow-lg'>
                     {urlOptions.map((item) => (
                       <CustomLink
                         href={item.url}
@@ -405,20 +465,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                   </div>
                 </div>
               )}
-            </div>
-
-            <div className='block lg:hidden'>
-              <CustomLink
-                href={repo.url}
-                onClick={() => onClickLink('source', repo.rid)}
-              >
-                <Button
-                  variant='white-outline'
-                  className='origin-top scale-95 transition duration-200 ease-in-out hover:scale-100'
-                >
-                  <div className='p-3 text-sm font-medium'>访问</div>
-                </Button>
-              </CustomLink>
             </div>
 
             <Button
@@ -456,13 +502,22 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
             </div>
           </div>
           <div className='flex flex-row gap-x-4 text-sm'>
-            <div onClick={jumpComment}>
-              <div className='flex cursor-pointer items-center justify-center hover:text-current active:!text-gray-400 md:hover:text-blue-500'>
-                <GoComment className='mr-2' size={16} />
-                讨论
-              </div>
-            </div>
+            {!repo.is_claimed && (
+              <Link href={`/repository/${repo.rid}/embed`}>
+                <div className='flex  cursor-pointer items-center justify-center text-blue-500 hover:text-current active:!text-gray-400 md:hover:text-blue-500'>
+                  <BsPersonCheck className=' mr-2' size={16} />
+                  待认领
+                </div>
+              </Link>
+            )}
 
+            <div
+              onClick={jumpComment}
+              className='hidden cursor-pointer items-center justify-center hover:text-current active:!text-gray-400 md:flex'
+            >
+              <GoComment className='mr-2' size={16} />
+              讨论
+            </div>
             <div
               className={isCollected ? 'text-blue-500' : ''}
               onClick={() => onClickCollect(repo.rid)}
@@ -472,13 +527,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                 {isCollected ? numFormat(collectTotal, 1) : '收藏'}
               </div>
             </div>
-
-            <Link href={`/repository/${repo.rid}/embed`}>
-              <div className='hidden cursor-pointer items-center justify-center hover:text-current active:!text-gray-400 md:flex md:hover:text-blue-500'>
-                <BsFileEarmarkCode className='mr-2' size={16} />
-                嵌入
-              </div>
-            </Link>
             <div
               className='flex cursor-pointer items-center justify-center hover:text-current active:!text-gray-400 md:hover:text-blue-500'
               onClick={() => handleCopy(repo)}

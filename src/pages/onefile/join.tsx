@@ -13,7 +13,7 @@ import { HelpPageProps } from '@/types/help';
 const OneFileJoinPage: NextPage<HelpPageProps> = ({ content }) => {
   return (
     <>
-      <Seo title='HelloGitHub｜加入 OneFile 编程挑战' />
+      <Seo title='加入 OneFile 编程挑战' />
       <div className='relative pb-6'>
         <Navbar middleText='OneFile' endText='加入' />
         <div className='my-2 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>

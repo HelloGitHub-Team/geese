@@ -18,8 +18,8 @@ const RepositoryPage: NextPage<Props> = ({ repo }) => {
   return (
     <>
       <Seo
-        title='HelloGitHub｜详情'
-        description={`开源项目 ${repo.name} 的介绍`}
+        title={`${repo.full_name}: ${repo.title}`}
+        description={repo.summary}
       />
 
       <RepoDetailNavbar

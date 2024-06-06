@@ -54,7 +54,7 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
 
   return (
     <>
-      <Seo title='HelloGitHub｜数据库排名' />
+      <Seo title='数据库排名' />
       {list ? (
         <div>
           <Navbar middleText={`${year} 年 ${month} 月数据库排行榜`}></Navbar>

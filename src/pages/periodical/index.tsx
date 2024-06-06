@@ -38,7 +38,7 @@ const PeriodicalIndexPage: NextPage = () => {
   return (
     <>
       <Seo
-        title='HelloGitHub｜月刊'
+        title='HelloGitHub 月刊'
         description='这里有内容包括开发利器、开源书籍、教程、企业级的开源项目，让发现编程的乐趣你爱上开源！'
       />
 

@@ -39,6 +39,7 @@ const CommentItem = (
     created_at: createdAt,
     is_voted: isVoted,
     is_show: isShow,
+    is_maker: isMaker,
     alone,
     className,
     onChangeVote = NOOP,
@@ -133,11 +134,16 @@ const CommentItem = (
               </div>
               <Link href={`/user/${user.uid}`}>
                 <a>
-                  <div className='w-fit max-w-[120px] truncate text-xs font-bold md:text-sm'>
+                  <div className='w-fit max-w-[80px] truncate text-xs font-bold md:max-w-[120px] md:text-sm'>
                     {user?.nickname}
                   </div>
                 </a>
               </Link>
+              {isMaker && (
+                <span className='ml-1 rounded-md bg-gray-200 px-1.5 text-xs font-semibold text-blue-400'>
+                  OP
+                </span>
+              )}
             </div>
             {!props.reply_id ? (
               <>

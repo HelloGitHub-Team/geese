@@ -69,7 +69,7 @@ const Result: NextPage = () => {
   return (
     <>
       <Seo
-        title='HelloGitHub｜搜索'
+        title='开源项目搜索结果'
         description='找有趣、入门级的开源项目就上 HelloGitHub'
       />
       <Navbar middleText='搜索结果' />

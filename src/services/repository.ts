@@ -7,6 +7,7 @@ import { fetcher } from './base';
 import {
   BaseType,
   CheckRepoRes,
+  ClaimRepoInofRes,
   Collect,
   CommentData,
   CommentSuccessData,
@@ -189,4 +190,24 @@ export const createRepo = async (params: Record<string, any>) => {
 
 export const checkRepo = (url: string): Promise<CheckRepoRes> => {
   return fetcher<CheckRepoRes>(makeUrl(`/repository/check/?url=${url}`));
+};
+
+// 认领仓库
+export const claimRepo = async (rid: string, readme_name: string) => {
+  const url = makeUrl(`/repository/claim/`);
+  const result = await fetcher<{ success: boolean; message?: string }>(url, {
+    method: 'POST',
+    body: JSON.stringify({ rid: rid, readme_name: readme_name }),
+  }).catch((err) => {
+    Message.error(err.message || '认领失败');
+    throw err;
+  });
+  return result;
+};
+
+// 获取认领仓库的信息
+export const getClaimRepoInfo = async (rid: string) => {
+  const url = makeUrl(`/repository/claim/${rid}`);
+  const result = await fetcher<ClaimRepoInofRes>(url);
+  return result;
 };

@@ -24,7 +24,7 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
 
   return (
     <>
-      <Seo title={`HelloGitHub｜源码 ${onefile.name}`} />
+      <Seo title={`OneFile: ${onefile.name} 源码`} />
       <div className='relative pb-6'>
         <Navbar middleText='OneFile' endText='源码'></Navbar>
 

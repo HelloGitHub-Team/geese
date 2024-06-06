@@ -63,10 +63,7 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <Seo
-        title='HelloGitHub'
-        description='分享 GitHub 上有趣、入门级的开源项目'
-      />
+      <Seo title='首页' description='分享 GitHub 上有趣、入门级的开源项目' />
       <IndexBar tid={tid as string} sort_by={sort_by as string} />
       <div className='h-screen'>
         <Items repositories={repositories}></Items>

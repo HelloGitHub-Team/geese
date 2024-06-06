@@ -155,7 +155,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
   if (router.isFallback) {
     return (
       <div className='mt-20 flex animate-pulse'>
-        <Seo title='月刊' />
+        <Seo title='HelloGitHub 月刊' />
         <div className='ml-4 mt-2 w-full'>
           <h3 className='h-4 rounded-md bg-gray-200'></h3>
 
@@ -200,7 +200,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
 
   return (
     <>
-      <Seo title={`HelloGitHub｜第 ${volume?.current_num} 期`} />
+      <Seo title={`《HelloGitHub 月刊》第 ${volume?.current_num} 期`} />
 
       <div className='flex shrink grow flex-row sm:border-l md:border-none'>
         <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>

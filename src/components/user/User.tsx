@@ -52,7 +52,7 @@ export const User = () => {
 
   return (
     <>
-      <Seo title='HelloGitHub｜用户首页' />
+      <Seo title='用户首页' />
       <div className='h-screen divide-y divide-gray-100 dark:divide-gray-800'>
         <Navbar middleText='个人主页' />
         <div className='flex flex-col bg-white p-4 dark:bg-gray-800 sm:p-6 md:flex-row md:rounded-lg'>

@@ -115,7 +115,7 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
 
   return (
     <>
-      <Seo title='HelloGitHub｜开源协议' />
+      <Seo title={`${detail.spdx_id} 开源协议`} />
       <div className='relative'>
         {/* 顶部标题 */}
         <Navbar middleText={detail.spdx_id} endText='协议' />

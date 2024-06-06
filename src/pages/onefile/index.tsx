@@ -40,7 +40,7 @@ const OneFilePage: NextPage<OneItemsResp> = ({ data }) => {
   return (
     <>
       <Seo
-        title='HelloGitHub｜一个文件的开源项目'
+        title='一个文件的开源项目'
         description='一个文件、复制即可运行的开源项目集合'
       />
 

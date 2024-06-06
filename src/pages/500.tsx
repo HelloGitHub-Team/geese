@@ -7,7 +7,7 @@ import ThemeSwitch from '@/components/ThemeSwitch';
 export default function ServerErrorPage() {
   return (
     <>
-      <Seo title='HelloGitHub｜500' />
+      <Seo title='500' />
 
       <main>
         <div className='hidden'>

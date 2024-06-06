@@ -85,14 +85,14 @@ const Notification = () => {
     if (activeTab == 'repository') {
       return (
         <span className='truncate text-gray-600 dark:text-gray-500'>
-          你提交的开源项目
+          你{item.content}的开源项目
           <CustomLink
             className='mx-1 inline cursor-pointer text-blue-500'
             href={`/repository/${item.mid}`}
           >
-            {item.content}
+            {item.repository?.full_name}
           </CustomLink>
-          已被推荐到首页。
+          {item.more_content}
         </span>
       );
     } else if (activeTab == 'comment') {
@@ -124,7 +124,7 @@ const Notification = () => {
             ) : (
               <>
                 <span>
-                  评论你分享的
+                  评论你{item.more_content ? '的' : '分享的'}
                   <CustomLink
                     className='inline cursor-pointer px-1 text-blue-500'
                     href={`/repository/${item.repository?.rid}`}
@@ -153,7 +153,7 @@ const Notification = () => {
 
   return (
     <>
-      <Seo title='HelloGitHub｜消息中心' />
+      <Seo title='消息中心' />
       <div className='h-screen divide-y divide-gray-100 dark:divide-gray-800'>
         <Navbar middleText='消息中心'></Navbar>
         <div className='mt-2 bg-white px-6 pt-3 dark:bg-gray-800 md:rounded-lg'>

@@ -14,7 +14,7 @@ import { ArticleProps } from '@/types/article';
 const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
   return (
     <>
-      <Seo title={`HelloGitHub｜${article.title}`} />
+      <Seo title={article.title} />
       <Navbar middleText={article.title} endText='文章'></Navbar>
 
       <div className='mt-2 bg-white py-0.5 px-5 dark:bg-gray-800 md:rounded-lg '>

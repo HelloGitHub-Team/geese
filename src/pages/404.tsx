@@ -7,7 +7,7 @@ import ThemeSwitch from '@/components/ThemeSwitch';
 export default function NotFoundPage() {
   return (
     <>
-      <Seo title='HelloGitHub｜404' />
+      <Seo title='404' />
 
       <main>
         <div className='hidden'>

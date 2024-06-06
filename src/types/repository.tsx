@@ -23,6 +23,7 @@ export interface Repository extends RepoType {
   share_user: UserType;
   tags: TagType[];
   is_active: boolean;
+  is_claimed: boolean;
   volume_name: string | null;
 
   summary: string;
@@ -153,6 +154,8 @@ export interface CommentItemData {
   is_hot: boolean;
   /** 是否精选 */
   is_show: boolean;
+  /** 是否为创作者 */
+  is_maker: boolean;
   /** 评论发布时间 */
   created_at: string;
   /** 是否已点赞 */
@@ -214,6 +217,11 @@ type CheckRepoResData = {
   is_exist: boolean;
 };
 
+type ClaimRepoInfoResData = {
+  is_claimed: boolean;
+  full_name: string;
+};
+
 export interface CheckRepoRes extends BaseType {
   data: CheckRepoResData;
 }
@@ -237,4 +245,8 @@ export type Favorite = {
 export interface FavoriteRes extends BaseType {
   data: Favorite[];
   in_person: boolean;
+}
+
+export interface ClaimRepoInofRes extends BaseType {
+  data: ClaimRepoInfoResData;
 }
