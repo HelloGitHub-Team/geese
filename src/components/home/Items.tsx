@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import React from 'react';
 
 import Item from './Item';
 
@@ -15,4 +16,5 @@ const Items: NextPage<RepositoryItems> = ({ repositories }) => {
   );
 };
 
-export default Items;
+// 防止 Item 组件不必要的重渲染
+export default React.memo(Items);

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AiOutlineAppstore, AiOutlineSetting } from 'react-icons/ai';
 
 import { TagModal } from '@/components/dialog/TagModal';
@@ -13,36 +13,35 @@ import { TagListSkeleton } from '../loading/skeleton';
 
 import { Tag } from '@/types/tag';
 
-const defaultTag = { name: '综合', tid: '', icon_name: 'find' };
+const defaultTag: Tag = { name: '综合', tid: '', icon_name: 'find' };
 
 export default function TagList() {
   const router = useRouter();
-  const { tid = '' as string } = router.query;
+  const { tid = '', sort_by = 'featured' } = router.query;
   const [tags, setTags] = useState<Tag[]>([]);
 
-  const initTags = async () => {
+  const initTags = useCallback(async () => {
     const res = await getTags();
     if (res.success) {
       res.data.unshift(defaultTag);
       setTags(res.data);
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (!isMobile()) {
       initTags();
     }
-  }, []);
+  }, [initTags]);
 
-  const iconClassName = (iconName: string) =>
-    classNames(`iconfont icon-${iconName} mr-1`);
+  const iconClassName = (iconName: string) => `iconfont icon-${iconName} mr-1`;
 
   const tagClassName = (itemTid: string) =>
     classNames(
       'flex flex-row w-[115px] items-center my-1 py-2 px-3 rounded text-[14px] cursor-pointer hover:bg-gray-100 hover:text-blue-500 dark:hover:bg-gray-700',
       {
         'text-gray-500 dark:text-gray-400': tid !== itemTid,
-        'bg-gray-100 dark:bg-gray-700 text-blue-500': tid == itemTid,
+        'bg-gray-100 dark:bg-gray-700 text-blue-500': tid === itemTid,
       }
     );
 
@@ -61,7 +60,10 @@ export default function TagList() {
           <div className='hidden-scrollbar max-h-[444px] overflow-y-auto'>
             {!tags.length && <TagListSkeleton />}
             {tags.map((item: Tag) => (
-              <Link key={item.tid} href={`/?sort_by=last&tid=${item.tid}`}>
+              <Link
+                key={item.tid}
+                href={`/?sort_by=${sort_by}&tid=${item.tid}`}
+              >
                 <div className={tagClassName(item.tid)}>
                   <div className={iconClassName(item.icon_name)}></div>
                   <div className='truncate text-ellipsis'>{item.name}</div>

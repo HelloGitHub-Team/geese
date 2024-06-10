@@ -23,6 +23,7 @@ export interface HomeItem {
   primary_lang: string;
   lang_color: string;
   is_hot: boolean;
+  is_claimed: boolean;
   clicks_total: number;
   comment_total: number;
   updated_at: string;
