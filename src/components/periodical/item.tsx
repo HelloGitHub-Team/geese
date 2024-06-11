@@ -1,9 +1,10 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
-import { GoRepoForked } from 'react-icons/go';
+import { GoClock, GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 
 import { redirectRecord } from '@/services/home';
+import { fromNow } from '@/utils/day';
 import { numFormat } from '@/utils/util';
 
 import Button from '../buttons/Button';
@@ -42,6 +43,10 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
             <div className='mr-2 flex items-center'>
               <GoRepoForked size={15} className='mr-0.5' />
               Fork {numFormat(item.forks, 1)}
+            </div>
+            <div className='mr-2 flex items-center'>
+              <GoClock size={15} className='mr-0.5' />
+              {fromNow(item.publish_at)}
             </div>
           </div>
         </div>

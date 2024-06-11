@@ -82,6 +82,7 @@ export interface RepoType {
   is_org: boolean;
   is_show: boolean;
   is_deleted?: boolean;
+  is_featured: boolean;
 
   repo_created_at: string;
   updated_at: string;

@@ -44,8 +44,8 @@ const Item: NextPage<ItemProps> = ({ item }) => {
             <div className='flex w-full'>
               <figure className='mr-2.5 hidden md:block'>
                 <img
-                  width='67'
-                  height='67'
+                  width='75'
+                  height='75'
                   src={author_avatar}
                   alt={`${author} avatar`}
                   className='block rounded'
@@ -67,7 +67,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                         <span className='font-semibold dark:text-white'>
                           {name}
                         </span>
-                        <span className='mx-1 text-gray-500 opacity-40 dark:text-gray-300'>
+                        <span className='mx-0.5 text-gray-500 opacity-40 dark:text-gray-300 md:mx-1'>
                           —
                         </span>
                         <span className='text-gray-600 dark:text-gray-300'>
@@ -122,7 +122,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                       {fromNow(updated_at)}
                     </time>
                   </div>
-                  <div className='flex text-sm text-gray-400'>
+                  <div className='flex items-center text-sm text-gray-400'>
                     <AiOutlineEye aria-label='Views' />
                     <span className='ml-0.5'>
                       {numFormat(clicks_total, 1, 1000)}

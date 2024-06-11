@@ -13,7 +13,7 @@ import { Page } from '@/types/help';
 import { RepoType, VoteItemData } from '@/types/repository';
 import { CollectItem } from '@/types/user';
 
-export const RepoData = ({
+const RepoData = ({
   data,
   setPage,
 }: {
@@ -23,20 +23,20 @@ export const RepoData = ({
   const router = useRouter();
 
   const onClickRepo = (item: RepoType) => {
-    if (item.is_show) {
-      router.push(`/repository/${item.rid}`);
-    } else {
-      router.push(item.url);
-    }
+    router.push(item.is_show ? `/repository/${item.rid}` : item.url);
   };
 
-  const handleRepoStatus = (item: RepoType) => {
+  const RepoStatus = ({ item }: { item: RepoType }) => {
     if (item.is_show) {
       return (
         <>
+          <div className='font-medium text-green-500'>
+            {item.is_featured ? '已推荐' : '已展示'}
+          </div>
+          <div className='px-1'>·</div>
           <div>
             <span
-              style={{ backgroundColor: `${item.lang_color}` }}
+              style={{ backgroundColor: item.lang_color }}
               className='relative mr-1 box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px] dark:border-gray-500'
             />
             {item.primary_lang}
@@ -49,15 +49,15 @@ export const RepoData = ({
       if (item.is_deleted) {
         return (
           <>
-            <span className='text-red-500'>未精选</span>
+            <span className='font-medium text-red-500'>未精选</span>
             <div className='px-1'>·</div>
             <FeedbackModal feedbackType={1}>
-              <span className=' cursor-pointer'>反馈</span>
+              <span className='cursor-pointer'>反馈</span>
             </FeedbackModal>
           </>
         );
       } else {
-        return <span className='text-yellow-500'>审核中</span>;
+        return <span className='font-medium text-yellow-500'>审核中</span>;
       }
     }
   };
@@ -81,7 +81,7 @@ export const RepoData = ({
                 </span>
               </div>
               <div className='flex items-center text-sm text-gray-500 dark:text-gray-400'>
-                {handleRepoStatus(item.repo)}
+                <RepoStatus item={item.repo} />
                 <div className='px-1'>·</div>
                 <div>{formatZH(item.created_at, 'YYYY-MM-DD')}</div>
               </div>
@@ -114,3 +114,5 @@ export const RepoData = ({
     )
   ) : null;
 };
+
+export default RepoData;

@@ -30,7 +30,7 @@ import Message from '@/components/message';
 import { deleteFavorite } from '@/services/favorite';
 import { format } from '@/utils/day';
 
-import { RepoData } from './RepoRecord';
+import RepoData from './RepoRecord';
 
 import { Favorite } from '@/types/repository';
 

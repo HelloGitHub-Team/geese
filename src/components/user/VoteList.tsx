@@ -1,6 +1,6 @@
 import useVoteHistory from '@/hooks/user/useVoteHistory';
 
-import { RepoData } from './RepoRecord';
+import RepoData from './RepoRecord';
 
 interface Props {
   uid: string;

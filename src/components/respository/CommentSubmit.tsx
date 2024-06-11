@@ -107,7 +107,7 @@ function CommentSubmit(props: {
 
   const placeholder = props.replyUser
     ? `正在回复：${props.replyUser.user.nickname}`
-    : '写评论：欢迎分享项目的使用体验、优点/吐槽、适用的场景、惊艳的地方...';
+    : '写评论：分享开源项目的使用体验、优点/吐槽、适用场景、惊艳之处...';
 
   return (
     <div className={`${className}`}>

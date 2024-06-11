@@ -1,6 +1,6 @@
 import useRepoHistory from '@/hooks/user/useRepoHistory';
 
-import { RepoData } from './RepoRecord';
+import RepoData from './RepoRecord';
 
 interface Props {
   uid: string;

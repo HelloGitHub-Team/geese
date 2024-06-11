@@ -8,87 +8,72 @@ interface Props {
   items: DynamicRecord[];
 }
 
-export default function DynamicRecordList(props: Props) {
-  const list = props.items;
-
+export default function DynamicRecordList({ items }: Props) {
   const handleText = (item: DynamicRecord) => {
-    if (item.dynamic_type == 'contribute') {
-      if (item.item) {
-        if (item.remark == '发布项目评论' && item.value == 2) {
-          if (item.item) {
-            return (
-              <span>
-                {`${fromNow(item.created_at)}，因评论开源项目`}
-                <CustomLink
-                  className='inline'
-                  href={`/repository/${item.item.item_id}`}
-                >
-                  <span className='mx-1 cursor-pointer text-blue-500'>
-                    {item.item.name}
-                  </span>
-                </CustomLink>
-                {`，收获 ${item.value} 点贡献值`}
-              </span>
-            );
-          } else {
-            return (
-              <span>{`${fromNow(item.created_at)}，因评论开源项目，收获 ${
-                item.value
-              } 点贡献值`}</span>
-            );
-          }
-        } else if (item.remark == '评论被置顶' && item.value == 10) {
+    const { dynamic_type, item: recordItem, remark, value, created_at } = item;
+
+    const timeText = `${fromNow(created_at)}，`;
+    const valueText = `收获 ${value} 点贡献值`;
+
+    const renderLink = (text: string) =>
+      recordItem ? (
+        <CustomLink
+          className='inline'
+          href={`/repository/${recordItem.item_id}`}
+        >
+          <span className='mx-1 cursor-pointer text-blue-500'>
+            {recordItem.name}
+          </span>
+        </CustomLink>
+      ) : (
+        text
+      );
+
+    if (dynamic_type === 'contribute' && recordItem) {
+      switch (remark) {
+        case '发布项目评论':
+          return value === 2 ? (
+            <span>
+              {timeText}因评论开源项目{renderLink('')}，{valueText}
+            </span>
+          ) : null;
+        case '评论被置顶':
+          return value === 10 ? (
+            <span>
+              {timeText}因对开源项目{renderLink('')}的评论被选为热评，
+              {valueText}
+            </span>
+          ) : null;
+        case '发布恶意评测':
+          return value === -2 ? (
+            <span>{timeText}因发布无意义/灌水评论，扣除 2 点贡献值。</span>
+          ) : null;
+        case '提交项目':
+          return value === 5 ? (
+            <span>
+              {timeText}因分享优秀的开源项目{renderLink('')}，{valueText}
+            </span>
+          ) : null;
+        default:
           return (
             <span>
-              {`${fromNow(item.created_at)}，因对开源项目`}
-              <CustomLink
-                className='inline'
-                href={`/repository/${item.item.item_id}`}
-              >
-                <span className='mx-1 cursor-pointer text-blue-500'>
-                  {item.item.name}
-                </span>
-              </CustomLink>
-              {`的评论被选为热评，收获 ${item.value} 点贡献值`}
+              {timeText}因{remark}，{valueText}
             </span>
           );
-        } else if (item.remark == '发布恶意评测' && item.value == -2) {
-          return (
-            <span>{`${fromNow(
-              item.created_at
-            )}，因发布无意义/灌水评论，扣除 2 点贡献值。`}</span>
-          );
-        } else if (item.remark == '提交项目' && item.value == 5) {
-          return (
-            <span>
-              {`${fromNow(item.created_at)}，因分享优秀的开源项目`}
-              <CustomLink
-                className='inline'
-                href={`/repository/${item.item.item_id}`}
-              >
-                <span className='mx-1 cursor-pointer text-blue-500'>
-                  {item.item.name}
-                </span>
-              </CustomLink>
-              {`，收获 ${item.value} 点贡献值`}
-            </span>
-          );
-        }
-      } else {
-        return (
-          <span>{`${fromNow(item.created_at)}，因${item.remark}，收获 ${
-            item.value
-          } 点贡献值`}</span>
-        );
       }
     }
+    return (
+      <span>
+        {timeText}因{remark}，{valueText}
+      </span>
+    );
   };
 
   return (
     <>
-      {list?.length ? (
+      {items.length ? (
         <div className='text-sm'>
-          {list?.map((item, index) => (
+          {items.map((item, index) => (
             <div className='mt-4 md:mt-5' key={index}>
               <span className='mr-4 dark:text-gray-300'>{index + 1}.</span>
               <span className='text-gray-600 dark:text-gray-400'>

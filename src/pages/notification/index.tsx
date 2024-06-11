@@ -84,16 +84,18 @@ const Notification = () => {
   const messageShow = (activeTab: string, item: MessageRecord) => {
     if (activeTab == 'repository') {
       return (
-        <span className='truncate text-gray-600 dark:text-gray-500'>
-          你{item.content}的开源项目
-          <CustomLink
-            className='mx-1 inline cursor-pointer text-blue-500'
-            href={`/repository/${item.mid}`}
-          >
-            {item.repository?.full_name}
-          </CustomLink>
-          {item.more_content}
-        </span>
+        <div className='text-gray-600 dark:text-gray-500'>
+          <div className='whitespace-normal'>
+            你{item.content}的开源项目
+            <CustomLink
+              className='mx-1 inline cursor-pointer text-blue-500'
+              href={`/repository/${item.mid}`}
+            >
+              {item.repository?.full_name}
+            </CustomLink>
+            {item.more_content}
+          </div>
+        </div>
       );
     } else if (activeTab == 'comment') {
       return (
@@ -193,7 +195,7 @@ const Notification = () => {
           {messages.length ? (
             <div>
               {messages.map((item: MessageRecord) => (
-                <article key={item.mid}>
+                <article key={`${item.message_type}-${item.mid}`}>
                   <div className='flex w-full flex-row truncate whitespace-normal border-b border-gray-100 py-3.5 dark:border-gray-700 md:px-1.5'>
                     <img
                       className='mr-3 h-10 rounded-full'

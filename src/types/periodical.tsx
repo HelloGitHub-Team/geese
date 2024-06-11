@@ -29,6 +29,7 @@ export interface PeriodicalItem {
   watch: number;
   image_url: string | null;
   vote_total: number;
+  publish_at: string;
 }
 
 export interface PeriodicalItemProps {
