@@ -1,4 +1,4 @@
-欢迎使用 HelloGitHub！HelloGitHub 是一群热爱开源的人（以下简称“我们”）提供的互联网技术服务。
+欢迎访问 HelloGitHub 社区！HelloGitHub 是一群热爱开源的人（以下简称“我们”）提供的互联网技术服务。
 
 ## 一、提示
 

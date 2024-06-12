@@ -54,7 +54,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
               <div className='relative flex w-full flex-col truncate'>
                 <div className='flex flex-row pb-0.5'>
                   <h2 className='flex w-full items-center'>
-                    <div className='flex flex-grow truncate text-base leading-snug'>
+                    <div className='flex flex-grow items-center truncate text-base leading-snug'>
                       {is_hot && (
                         <AiFillFire
                           className='mr-0.5 inline-block align-[-2px]'
@@ -63,7 +63,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                           aria-label='Hot item'
                         />
                       )}
-                      <p className='mr-1 truncate text-sm font-normal first-letter:uppercase md:text-[15px]'>
+                      <p className='mr-1 truncate text-sm font-normal md:text-[15px]'>
                         <span className='font-semibold dark:text-white'>
                           {name}
                         </span>

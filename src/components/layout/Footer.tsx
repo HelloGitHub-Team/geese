@@ -88,7 +88,9 @@ const Footer = () => {
       </FooterLink>
 
       <p className='mt-2 flex items-center space-x-1 lg:space-x-1.5'>
-        <span className='cursor-default'>©2024 HelloGitHub</span>
+        <span className='cursor-default'>
+          ©{new Date().getFullYear()} HelloGitHub
+        </span>
         <span>·</span>
         <FooterLink
           href='https://hellogithub.com/weixin_footer.png'

@@ -15,9 +15,8 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
   return (
     <>
       <Seo title={article.title} />
-      <Navbar middleText={article.title} endText='文章'></Navbar>
-
-      <div className='mt-2 bg-white py-0.5 px-5 dark:bg-gray-800 md:rounded-lg '>
+      <Navbar middleText={article.title} endText='文章' />
+      <div className='mt-2 bg-white py-0.5 px-5 dark:bg-gray-800 md:rounded-lg'>
         <article className='relative'>
           <MDRender className='mobile:prose-sm prose prose-blue max-w-none dark:prose-invert'>
             {article.content}
@@ -30,7 +29,7 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
             alt='weixin_footer'
           />
         </div>
-        <ItemBottom endText='END'></ItemBottom>
+        <ItemBottom endText='END' />
         <ToTop />
       </div>
       <div className='h-4'></div>
