@@ -23,46 +23,31 @@ const Result: NextPage = () => {
   const { q = '' } = router.query;
   const { isLogin } = useLoginContext();
 
-  // 根据路由参数 q 获取搜索结果
+  const getKey = (index: number) =>
+    q ? makeUrl(`/search/`, { q, page: index + 1 }) : null;
+
   const { data, error, setSize, isValidating, size } =
-    useSWRInfinite<SearchResponse>(
-      (index) => (q ? makeUrl(`/search/`, { q, page: index + 1 }) : null),
-      fetcher,
-      {
-        revalidateFirstPage: false,
-      }
-    );
+    useSWRInfinite<SearchResponse>(getKey, fetcher, {
+      revalidateFirstPage: false,
+    });
 
-  // 追加搜索结果
-  const list: SearchItemType[] =
-    data?.reduce((pre: SearchItemType[], curr) => {
-      if (curr.data?.length > 0) {
-        pre.push(...curr.data);
-      }
-      return pre;
-    }, []) || [];
-
-  const hasMore = data ? data[data.length - 1].has_more : false;
+  const list =
+    data?.reduce(
+      (pre: SearchItemType[], curr) => pre.concat(curr.data || []),
+      []
+    ) || [];
+  const hasMore = data?.[data.length - 1]?.has_more || false;
   const pageIndex = data ? size : 0;
 
-  const handleItemBottom = () => {
-    if (!isValidating && !hasMore) {
-      if (isLogin) {
-        return <ItemBottom endText='END'></ItemBottom>;
-      } else {
-        return <ItemBottom endText='到底啦！登录可获得更多内容'></ItemBottom>;
-      }
-    }
-  };
+  const handleItemBottom = () => (
+    <ItemBottom endText={isLogin ? 'END' : '到底啦！登录可获得更多内容'} />
+  );
 
-  // 上拉加载更多
   const [sentryRef] = useInfiniteScroll({
     loading: isValidating,
     hasNextPage: hasMore,
     disabled: !!error,
-    onLoadMore: () => {
-      setSize(pageIndex + 1);
-    },
+    onLoadMore: () => setSize(pageIndex + 1),
     rootMargin: '0px 0px 100px 0px',
   });
 
@@ -75,7 +60,7 @@ const Result: NextPage = () => {
       <Navbar middleText='搜索结果' />
       <div className='h-screen'>
         <div className='divide-y divide-gray-100 overflow-y-hidden bg-white dark:divide-gray-700 md:rounded-lg'>
-          {list.map((item: SearchItemType, index: number) => (
+          {list.map((item, index) => (
             <SearchResultItem key={item.rid} repo={item} index={index} />
           ))}
         </div>
@@ -84,11 +69,10 @@ const Result: NextPage = () => {
             className='bg-content divide-y divide-gray-100 overflow-hidden dark:divide-gray-700'
             ref={sentryRef}
           >
-            {isValidating && size <= 1 && <SearchSkeleton />}
-            {(isValidating || hasMore) && size > 1 && <Loading />}
+            {isValidating && size <= 1 ? <SearchSkeleton /> : <Loading />}
           </div>
         )}
-        {handleItemBottom()}
+        {!isValidating && !hasMore && handleItemBottom()}
         <div className='hidden border-none md:block'>
           <ToTop />
         </div>

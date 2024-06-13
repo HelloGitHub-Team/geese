@@ -13,6 +13,8 @@ export interface SearchItemType {
   stars: number;
   has_chinese: boolean;
   is_active: string;
+  is_claimed: boolean;
+  is_featured: boolean;
   publish_at: string;
 }
 

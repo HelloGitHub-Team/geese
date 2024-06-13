@@ -40,7 +40,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
           href={`/repository/${item_id}`}
           aria-label={`Repository ${name}`}
         >
-          <header className='relative cursor-pointer bg-white py-3 px-4 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'>
+          <header className='relative cursor-pointer bg-white px-2.5 py-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:px-4'>
             <div className='flex w-full'>
               <figure className='mr-2.5 hidden md:block'>
                 <img
@@ -107,7 +107,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                       )}
                       {author}
                     </div>
-                    <span className='pl-1 pr-1'>·</span>
+                    <span className='px-1'>·</span>
                     <div className='flex items-center'>
                       <div
                         style={{ backgroundColor: lang_color }}
@@ -117,7 +117,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                         {primary_lang}
                       </div>
                     </div>
-                    <span className='pl-1 pr-1'>·</span>
+                    <span className='px-1'>·</span>
                     <time dateTime={new Date(updated_at).toISOString()}>
                       {fromNow(updated_at)}
                     </time>
