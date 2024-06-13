@@ -34,7 +34,7 @@ export interface Stats {
   user_total: number;
 }
 
-export interface RecomemndItem {
+export interface RecommendItem {
   rid: string;
   name: string;
   full_name: string;
@@ -46,10 +46,10 @@ export interface RecomemndItem {
   stars_str: string;
 }
 
-export interface RecomemndItems {
+export interface RecommendItems {
   success: boolean;
   total: number;
-  data: RecomemndItem[];
+  data: RecommendItem[];
 }
 
 export interface AdvertItem {
