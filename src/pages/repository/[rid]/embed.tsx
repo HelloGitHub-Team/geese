@@ -21,13 +21,17 @@ const EmbedPage: NextPage = () => {
   const { isLogin, login, userInfo } = useLoginContext();
   const [readmeFilename, setReadmeFilename] = useState('README.md');
 
+  const [isLoading, setIsLoading] = useState(false); // 状态：是否在提交中
   const [theme, setTheme] = useState<string>('neutral');
   const [svgFile, setSVGFile] = useState<string>('');
   useEffect(() => {
     if (rid) {
-      setSVGFile(
-        `${API_HOST}${API_ROOT_PATH}/widgets/recommend.svg?rid=${rid}&claim_uid=${userInfo?.uid}`
-      );
+      const url = new URL(`${API_HOST}${API_ROOT_PATH}/widgets/recommend.svg`);
+      url.searchParams.set('rid', rid as string);
+      if (userInfo?.uid) {
+        url.searchParams.set('claim_uid', userInfo.uid);
+      }
+      setSVGFile(url.toString());
     }
   }, [rid, userInfo]);
 
@@ -39,7 +43,11 @@ const EmbedPage: NextPage = () => {
 
   const handleTheme = (themeName: string) => {
     setTheme(themeName);
-    setSVGFile(`${svgFile}&theme=${themeName}`);
+    if (svgFile) {
+      const url = new URL(svgFile);
+      url.searchParams.set('theme', themeName);
+      setSVGFile(url.toString());
+    }
   };
 
   const handleCopy = () => {
@@ -55,7 +63,12 @@ const EmbedPage: NextPage = () => {
 
   // 更新输入框状态的函数
   const handleInputChange = (event: any) => {
-    setReadmeFilename(event.target.value);
+    console.log(event.target.value);
+    if (event.target.value === '') {
+      setReadmeFilename('README.md');
+    } else {
+      setReadmeFilename(event.target.value);
+    }
   };
 
   const handleButtonSubmit = async (rid: string) => {
@@ -73,6 +86,7 @@ const EmbedPage: NextPage = () => {
       return Message.error('该仓库已被认领！');
     }
     const urlToCheck = `https://api.github.com/repos/${info_res.data.full_name}/contents/${readmeFilename}`;
+    setIsLoading(true); // 设置加载状态为 true，禁用按钮
     // 发送GET请求到URL
     fetch(urlToCheck)
       .then((response) => response.json())
@@ -99,8 +113,11 @@ const EmbedPage: NextPage = () => {
           return Message.error('认证失败！请确认 README 文件名和代码完整性。');
         }
       })
-      .catch((error) => {
-        return Message.error('请检查网络和 README 文件名：', error);
+      .catch(() => {
+        return Message.error('认证失败！请检查网络和 README 文件名。');
+      })
+      .finally(() => {
+        setIsLoading(false); // 设置加载状态为 false，启用按钮
       });
   };
 
@@ -108,9 +125,9 @@ const EmbedPage: NextPage = () => {
     <>
       <Seo title='HelloGitHub 徽章计划: 帮助推广和运营开源项目' />
       <div className='relative pb-6'>
-        <Navbar middleText='HelloGitHub 徽章'></Navbar>
+        <Navbar middleText='HelloGitHub 徽章' />
         <div className='my-2 bg-white px-4 py-2 dark:bg-gray-800 md:rounded-lg'>
-          <div className='mt-2 '>
+          <div className='mt-2'>
             <h2 className='mb-4 text-center text-2xl font-semibold'>
               加入 HelloGitHub 徽章计划
             </h2>
@@ -123,7 +140,7 @@ const EmbedPage: NextPage = () => {
             <div className='mb-4 flex flex-col rounded-lg bg-gray-100 dark:bg-gray-700'>
               <div className='flex rounded-t-lg bg-gray-200 dark:bg-slate-900'>
                 <div className='p-2'>
-                  <div className='spac-x-3 flex cursor-pointer rounded-full bg-gray-50 dark:bg-gray-600'>
+                  <div className='flex cursor-pointer rounded-full bg-gray-50 dark:bg-gray-600'>
                     <div
                       className={themeClassName('neutral')}
                       onClick={() => handleTheme('neutral')}
@@ -150,10 +167,8 @@ const EmbedPage: NextPage = () => {
               </div>
 
               <div className='my-8 flex justify-center'>
-                {svgFile ? (
+                {svgFile && (
                   <img className='w-max-full items-center' src={svgFile} />
-                ) : (
-                  <></>
                 )}
               </div>
             </div>
@@ -207,14 +222,15 @@ const EmbedPage: NextPage = () => {
                       <input
                         onChange={handleInputChange}
                         type='text'
-                        className='ml-2 mt-1 max-w-[140px] flex-grow rounded-md border border-gray-300 bg-white px-2 py-1 text-sm placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-500 md:mt-0 md:px-3 md:py-1 md:text-base'
+                        className='ml-2 mt-1 max-w-[140px] flex-grow rounded-md border border-gray-300 bg-white px-2 py-1 text-sm placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-500 dark:text-gray-500 md:mt-0 md:px-3 md:py-1 md:text-base'
                         placeholder='README.md'
                       />
                       <Button
                         onClick={() => handleButtonSubmit(rid as string)}
                         className='ml-2 py-1'
+                        disabled={isLoading}
                       >
-                        提交
+                        {isLoading ? '正在提交...' : '提交'}
                       </Button>
                     </div>
                   </div>
