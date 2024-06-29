@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { appWithTranslation } from 'next-i18next';
 import NProgress from 'nprogress';
 import { useEffect } from 'react';
 
@@ -12,6 +13,8 @@ import { LoginProvider } from '@/hooks/useLoginContext';
 import Layout from '@/components/layout/Layout';
 import Alert from '@/components/message/Alert';
 import PullRefresh from '@/components/PullRefresh';
+
+import nextI18nextConfig from '../../next-i18next.config';
 
 /**
  * !STARTERCONF info
@@ -95,4 +98,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp, nextI18nextConfig);

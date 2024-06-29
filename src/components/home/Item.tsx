@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
 import { AiFillFire, AiOutlineEye } from 'react-icons/ai';
 import { GoVerified } from 'react-icons/go';
 
@@ -26,6 +27,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
     clicks_total,
   } = item;
 
+  const { t } = useTranslation('common');
   if (!item_id || !name || !title) {
     console.warn('Missing essential item data:', item);
     return null;
@@ -33,7 +35,6 @@ const Item: NextPage<ItemProps> = ({ item }) => {
 
   return (
     <div className='overflow-hidden'>
-      {' '}
       {/* 父容器防止溢出 */}
       <article className='transform rounded-lg shadow-lg transition-transform hover:scale-105'>
         <CustomLink
@@ -65,7 +66,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                       )}
                       <p className='mr-1 truncate text-sm font-normal md:text-[15px]'>
                         <span className='font-semibold dark:text-white'>
-                          {name}
+                          {t('a')}
                         </span>
                         <span className='mx-0.5 text-gray-500 opacity-40 dark:text-gray-300 md:mx-1'>
                           —
