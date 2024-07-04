@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import Button from '@/components/buttons/Button';
+import Loading from '@/components/loading/Loading';
 import message from '@/components/message';
 import Message from '@/components/message';
 import Navbar from '@/components/navbar/Navbar';
@@ -21,6 +22,7 @@ const EmbedPage: NextPage = () => {
   const { isLogin, login, userInfo } = useLoginContext();
   const [readmeFilename, setReadmeFilename] = useState('README.md');
 
+  const [isReady, setIsReady] = useState(false); // 状态：是否准备好
   const [isLoading, setIsLoading] = useState(false); // 状态：是否在提交中
   const [theme, setTheme] = useState<string>('neutral');
   const [svgFile, setSVGFile] = useState<string>('');
@@ -30,6 +32,7 @@ const EmbedPage: NextPage = () => {
       url.searchParams.set('rid', rid as string);
       if (userInfo?.uid) {
         url.searchParams.set('claim_uid', userInfo.uid);
+        setIsReady(true);
       }
       setSVGFile(url.toString());
     }
@@ -56,9 +59,13 @@ const EmbedPage: NextPage = () => {
     }
     const pageURL = `https://hellogithub.com/repository/${rid}`;
     const text = `<a href="${pageURL}" target="_blank"><img src="${svgFile}" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>`;
-    if (copy(text)) {
-      message.success('代码已复制');
-    } else message.error('复制失败');
+    if (isReady) {
+      if (copy(text)) {
+        message.success('代码已复制');
+      } else message.error('复制失败');
+    } else {
+      message.warn('徽章生成中...请稍后重试');
+    }
   };
 
   // 更新输入框状态的函数
@@ -153,22 +160,30 @@ const EmbedPage: NextPage = () => {
                     >
                       暗黑
                     </div>
+                    <div
+                      className={themeClassName('small')}
+                      onClick={() => handleTheme('small')}
+                    >
+                      极简
+                    </div>
                   </div>
                 </div>
                 <div className='shrink grow'></div>
-                <div className='p-2'>
-                  <div
+                <div className='p-1.5'>
+                  <Button
                     onClick={handleCopy}
-                    className='cursor-pointer rounded-md bg-gray-50 px-2 py-1 text-xs font-medium dark:bg-gray-600'
+                    className='cursor-pointer rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 dark:bg-gray-600'
                   >
                     复制代码
-                  </div>
+                  </Button>
                 </div>
               </div>
 
               <div className='my-8 flex justify-center'>
-                {svgFile && (
+                {svgFile ? (
                   <img className='w-max-full items-center' src={svgFile} />
+                ) : (
+                  <Loading />
                 )}
               </div>
             </div>
