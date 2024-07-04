@@ -6,17 +6,21 @@ import 'rc-image/assets/index.css';
 
 import GifPlayButton from './loading/GifPlayButton';
 
+const gifCoverImage = '!gif';
+
 const ImageWithPreview = (props: ImageProps) => {
   const [imgSrc, setImgSrc] = useState(
-    props.src?.endsWith('gif') ? `${props.src}!gif` : (props.src as string)
+    props.src?.endsWith('gif')
+      ? `${props.src}${gifCoverImage}`
+      : (props.src as string)
   );
-  const isGifThumb = imgSrc.endsWith('!gif');
+  const isGifThumb = imgSrc.endsWith(gifCoverImage);
   const isGif = imgSrc?.endsWith('gif') && !isGifThumb;
   const sourceIsGif = props.src?.endsWith('gif');
 
   useEffect(() => {
     if (props.src?.endsWith('gif')) {
-      setImgSrc(`${props.src}!gif`);
+      setImgSrc(`${props.src}${gifCoverImage}`);
     } else {
       setImgSrc(props.src as string);
     }
@@ -26,13 +30,13 @@ const ImageWithPreview = (props: ImageProps) => {
     e.stopPropagation();
     setTimeout(() => {
       if (sourceIsGif) {
-        setImgSrc(imgSrc?.replace('!gif', ''));
+        setImgSrc(imgSrc?.replace(gifCoverImage, ''));
       }
     }, 300);
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className='relative flex'>
       <RcImage
         {...props}
         src={imgSrc}

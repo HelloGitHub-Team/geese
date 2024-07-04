@@ -17,8 +17,8 @@ export default function ThemeSwitch(props: ThemeSwitchProps) {
   }, []);
 
   const onToggle = () => {
-    const theme = toggleTheme();
-    changeTheme(theme);
+    const newTheme = toggleTheme();
+    changeTheme(newTheme);
   };
 
   if (props.type === 'text') {
@@ -31,7 +31,7 @@ export default function ThemeSwitch(props: ThemeSwitchProps) {
 
   return (
     <Button
-      className='relative block h-[20px] w-10 shrink-0 rounded-xl border border-gray-300 bg-gray-100 transition-colors hover:border-gray-400 active:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:active:bg-gray-700'
+      className='relative block h-[20px] w-10 rounded-xl border border-gray-300 bg-gray-100 transition-colors hover:border-gray-400 active:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:active:bg-gray-700'
       type='button'
       role='switch'
       variant='ghost'
@@ -39,7 +39,7 @@ export default function ThemeSwitch(props: ThemeSwitchProps) {
       aria-checked
       onClick={onToggle}
     >
-      <span className='absolute top-px left-px h-[16px] w-[16px] rounded-full bg-white shadow transition-all duration-300 dark:translate-x-[calc(1.5rem-3px)] dark:bg-gray-800'>
+      <span className='absolute top-px left-px h-4 w-4 rounded-full bg-white shadow transition-all duration-300 dark:translate-x-[calc(1.5rem-3px)] dark:bg-gray-800'>
         <span>
           <svg
             xmlns='http://www.w3.org/2000/svg'
