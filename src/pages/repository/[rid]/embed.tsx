@@ -58,7 +58,12 @@ const EmbedPage: NextPage = () => {
       return login();
     }
     const pageURL = `https://hellogithub.com/repository/${rid}`;
-    const text = `<a href="${pageURL}" target="_blank"><img src="${svgFile}" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>`;
+    let text = '';
+    if (theme == 'small') {
+      text = `<a href="${pageURL}" target="_blank"><img src="${svgFile}" alt="Featured｜HelloGitHub" /></a>`;
+    } else {
+      text = `<a href="${pageURL}" target="_blank"><img src="${svgFile}" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>`;
+    }
     if (isReady) {
       if (copy(text)) {
         message.success('代码已复制');
@@ -105,7 +110,6 @@ const EmbedPage: NextPage = () => {
         ).toString('utf8');
         // 检查响应的字段
         if (
-          decodedString.includes('Featured｜HelloGitHub') &&
           decodedString.includes(`https://hellogithub.com/repository/${rid}`) &&
           decodedString.includes(userInfo?.uid as string)
         ) {
