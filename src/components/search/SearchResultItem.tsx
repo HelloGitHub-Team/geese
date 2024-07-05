@@ -12,6 +12,7 @@ const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo, index }) => {
     <article>
       <Link prefetch={false} href={`/repository/${repo.rid}`}>
         <div className='relative cursor-pointer bg-white px-2.5 py-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700 md:px-4'>
+          {/* 项目序号和标题 */}
           <div className='pb-0.5'>
             <div className='text-color-primary flex justify-between visited:text-gray-500 dark:text-gray-300'>
               <span className='truncate text-sm leading-snug  md:text-base'>
@@ -19,6 +20,7 @@ const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo, index }) => {
                 <span className='pr-0.5'>.</span>
                 {repo.title}
               </span>
+              {/* 是否推荐 */}
               {repo.is_featured && (
                 <div className='absolute top-0 right-0 flex items-center rounded-bl-md bg-yellow-500 bg-opacity-80 p-1 text-xs font-bold text-white'>
                   <GoStar className='mr-1' /> 推荐
@@ -26,10 +28,11 @@ const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo, index }) => {
               )}
             </div>
           </div>
+          {/* 项目描述 */}
           <div className='truncate pt-1 text-sm text-gray-400'>
             {repo.summary || '-'}
           </div>
-          <div className='flex items-center pt-2'>
+          <div className='border border-red-700 flex items-center pt-2'>
             <img
               width='20'
               height='20'
@@ -37,6 +40,7 @@ const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo, index }) => {
               className='bg-img h-5 w-5 rounded'
               alt='search_result_item'
             />
+            {/* 作者头像、技术栈，时间 */}
             <div className='flex shrink grow items-center overflow-x-hidden text-sm text-gray-400 md:pl-1'>
               <div className='flex items-center truncate whitespace-nowrap md:max-w-xs'>
                 <span className='hidden md:inline'>{repo.author}</span>
@@ -67,6 +71,7 @@ const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo, index }) => {
                 <time>{fromNow(repo.publish_at)}</time>
               </span>
             </div>
+            {/* 项目 star 数 */}
             <div className='whitespace-nowrap pl-2 text-sm text-gray-400'>
               ✨Star {numFormat(repo.stars, 1, 1000)}
             </div>

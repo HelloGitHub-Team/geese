@@ -42,6 +42,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
         >
           <header className='relative cursor-pointer bg-white px-2.5 py-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:px-4'>
             <div className='flex w-full'>
+              {/* 作者头像 */}
               <figure className='mr-2.5 hidden md:block'>
                 <img
                   width='75'
@@ -51,10 +52,12 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                   className='block rounded'
                 />
               </figure>
+              {/* 项目介绍 */}
               <div className='relative flex w-full flex-col truncate'>
                 <div className='flex flex-row pb-0.5'>
                   <h2 className='flex w-full items-center'>
                     <div className='flex flex-grow items-center truncate text-base leading-snug'>
+                      {/* 热点图标 */}
                       {is_hot && (
                         <AiFillFire
                           className='mr-0.5 inline-block align-[-2px]'
@@ -63,6 +66,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                           aria-label='Hot item'
                         />
                       )}
+                      {/* 项目标题和简介 */}
                       <p className='mr-1 truncate text-sm font-normal md:text-[15px]'>
                         <span className='font-semibold dark:text-white'>
                           {name}
@@ -76,6 +80,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                       </p>
                     </div>
                     <div className='shrink grow' />
+                    {/* 评论数 */}
                     <div className='justify-end'>
                       {comment_total > 0 && (
                         <div className='h-4 whitespace-nowrap rounded-md bg-blue-400 py-0.5 px-2 text-xs font-semibold leading-none text-white dark:text-gray-100'>
@@ -85,9 +90,11 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                     </div>
                   </h2>
                 </div>
+                {/* 项目描述 */}
                 <div className='mt-0.5 truncate text-sm text-gray-400'>
                   {summary || '-'}
                 </div>
+                {/* 技术栈、认证、时间 */}
                 <div className='mt-1 flex items-center'>
                   <div className='flex grow items-center text-sm text-gray-400'>
                     <img
@@ -122,6 +129,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                       {fromNow(updated_at)}
                     </time>
                   </div>
+                  {/* 项目查看数 */}
                   <div className='flex items-center text-sm text-gray-400'>
                     <AiOutlineEye aria-label='Views' />
                     <span className='ml-0.5'>
