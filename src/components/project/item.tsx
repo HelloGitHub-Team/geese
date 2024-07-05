@@ -64,6 +64,18 @@ const RepositoryItem: NextPage<RepositoryItemProps> = ({
   const LinkComponent = linkType === 'custom' ? CustomLink : Link;
   const href =
     linkType === 'custom' ? `/repository/${item_id}` : `/repository/${rid}`;
+  // 检查 updated_at 格式并进行转换
+  let formattedDate: Date | null = null;
+  if (updated_at) {
+    // 假设 updated_at 的格式为 "yyyy-MM-dd HH:mm:ss"
+    const parts = updated_at.split(' ');
+    if (parts.length === 2) {
+      const [datePart, timePart] = parts;
+      const [year, month, day] = datePart.split('-').map(Number);
+      const [hour, minute, second] = timePart.split(':').map(Number);
+      formattedDate = new Date(year, month - 1, day, hour, minute, second); // 注意月份是从 0 开始的
+    }
+  }
 
   return (
     <article className='transform rounded-lg shadow-lg transition-transform hover:scale-105'>
@@ -171,8 +183,10 @@ const RepositoryItem: NextPage<RepositoryItemProps> = ({
                     </div>
                   </div>
                   <span className='px-1'>·</span>
-                  <time dateTime={new Date(updated_at).toISOString()}>
-                    {fromNow(updated_at)}
+                  <time
+                    dateTime={formattedDate ? formattedDate.toISOString() : ''}
+                  >
+                    {formattedDate ? fromNow(updated_at) : ''}
                   </time>
                 </div>
                 {/* 项目 star 数 */}
