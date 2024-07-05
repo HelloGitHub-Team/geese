@@ -32,7 +32,7 @@ const SearchResultItem: NextPage<SearchResultItemProps> = ({ repo, index }) => {
           <div className='truncate pt-1 text-sm text-gray-400'>
             {repo.summary || '-'}
           </div>
-          <div className='border border-red-700 flex items-center pt-2'>
+          <div className='flex items-center pt-2'>
             <img
               width='20'
               height='20'

@@ -9,7 +9,8 @@ import ItemBottom from '@/components/home/ItemBottom';
 import Loading from '@/components/loading/Loading';
 import { SearchSkeleton } from '@/components/loading/skeleton';
 import Navbar from '@/components/navbar/Navbar';
-import SearchResultItem from '@/components/search/SearchResultItem';
+// import SearchResultItem from '@/components/search/SearchResultItem';
+import SearchResultItem from '@/components/project/item';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
 
@@ -61,7 +62,8 @@ const Result: NextPage = () => {
       <div className='h-screen'>
         <div className='divide-y divide-gray-100 overflow-y-hidden bg-white dark:divide-gray-700 md:rounded-lg'>
           {list.map((item, index) => (
-            <SearchResultItem key={item.rid} repo={item} index={index} />
+            // <SearchResultItem key={item.rid} repo={item} index={index} />
+            <SearchResultItem key={item.rid} item={item} index={index} />
           ))}
         </div>
         {(isValidating || hasMore) && (

@@ -33,7 +33,6 @@ const Item: NextPage<ItemProps> = ({ item }) => {
 
   return (
     <div className='overflow-hidden'>
-      {' '}
       {/* 父容器防止溢出 */}
       <article className='transform rounded-lg shadow-lg transition-transform hover:scale-105'>
         <CustomLink
