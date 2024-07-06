@@ -23,7 +23,6 @@ interface RepositoryItemProps {
     author: string;
     lang_color: string;
     primary_lang: string;
-    updated_at: string;
     publish_at?: string;
     clicks_total?: number;
     stars?: number;
@@ -55,7 +54,6 @@ const RepositoryItem: NextPage<RepositoryItemProps> = ({
     author,
     lang_color,
     primary_lang,
-    updated_at,
     publish_at,
     clicks_total,
     stars,
@@ -64,21 +62,14 @@ const RepositoryItem: NextPage<RepositoryItemProps> = ({
   const LinkComponent = linkType === 'custom' ? CustomLink : Link;
   const href =
     linkType === 'custom' ? `/repository/${item_id}` : `/repository/${rid}`;
-  // 检查 updated_at 格式并进行转换
-  let formattedDate: Date | null = null;
-  if (updated_at) {
-    // 假设 updated_at 的格式为 "yyyy-MM-dd HH:mm:ss"
-    const parts = updated_at.split(' ');
-    if (parts.length === 2) {
-      const [datePart, timePart] = parts;
-      const [year, month, day] = datePart.split('-').map(Number);
-      const [hour, minute, second] = timePart.split(':').map(Number);
-      formattedDate = new Date(year, month - 1, day, hour, minute, second); // 注意月份是从 0 开始的
-    }
-  }
+
+  // 动态绑定类名
+  const ClassName = `transform shadow-lg transition-transform ${
+    showViewCount ? 'hover:scale-105' : ''
+  }`;
 
   return (
-    <article className='transform rounded-lg shadow-lg transition-transform hover:scale-105'>
+    <article className={ClassName}>
       <LinkComponent href={href} aria-label={`Repository ${name}`}>
         <header className='relative cursor-pointer bg-white px-2.5 py-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:px-4'>
           {/* 项目序号和标题 */}
@@ -101,15 +92,17 @@ const RepositoryItem: NextPage<RepositoryItemProps> = ({
           )}
           <div className='flex w-full'>
             {/* 作者头像 */}
-            <figure className='mr-2.5 hidden md:block'>
-              <img
-                width='75'
-                height='75'
-                src={author_avatar}
-                alt={`${author} avatar`}
-                className='block rounded'
-              />
-            </figure>
+            {showViewCount && (
+              <figure className='mr-2.5 hidden md:block'>
+                <img
+                  width='75'
+                  height='75'
+                  src={author_avatar}
+                  alt={`${author} avatar`}
+                  className='block rounded'
+                />
+              </figure>
+            )}
             {/* 项目介绍 */}
             <div className='relative flex w-full flex-col truncate'>
               <div className='flex flex-row pb-0.5'>
@@ -125,21 +118,23 @@ const RepositoryItem: NextPage<RepositoryItemProps> = ({
                       />
                     )}
                     {/* 项目标题和简介 */}
-                    <p className='mr-1 truncate text-sm font-normal md:text-[15px]'>
-                      <span className='font-semibold dark:text-white'>
-                        {name}
-                      </span>
-                      <span className='mx-0.5 text-gray-500 opacity-40 dark:text-gray-300 md:mx-1'>
-                        —
-                      </span>
-                      <span className='text-gray-600 dark:text-gray-300'>
-                        {title}
-                      </span>
-                    </p>
+                    {showViewCount && (
+                      <p className='mr-1 truncate text-sm font-normal md:text-[15px]'>
+                        <span className=' font-semibold dark:text-white'>
+                          {name}
+                        </span>
+                        <span className='mx-0.5 text-gray-500 opacity-40 dark:text-gray-300 md:mx-1'>
+                          —
+                        </span>
+                        <span className='text-gray-600 dark:text-gray-300'>
+                          {title}
+                        </span>
+                      </p>
+                    )}
                   </div>
                   <div className='shrink grow' />
                   {/* 评论数 */}
-                  {showCommentCount && comment_total > 0 && (
+                  {showCommentCount && (comment_total || 0) > 0 && (
                     <div className='justify-end'>
                       <div className='h-4 whitespace-nowrap rounded-md bg-blue-400 py-0.5 px-2 text-xs font-semibold leading-none text-white dark:text-gray-100'>
                         {comment_total}
@@ -155,39 +150,44 @@ const RepositoryItem: NextPage<RepositoryItemProps> = ({
               {/* 技术栈、认证、时间 */}
               <div className='mt-1 flex items-center'>
                 <div className='flex grow items-center text-sm text-gray-400'>
-                  <img
-                    width='20'
-                    height='20'
-                    src={author_avatar}
-                    alt={`${author} small avatar`}
-                    className='mr-1 h-4 w-4 rounded-full md:hidden'
-                  />
-                  <div className='max-w-[6rem] truncate md:max-w-[10rem]'>
-                    {is_claimed && (
-                      <GoVerified
-                        className='mr-0.5 inline-block align-[-2px] text-blue-500'
-                        size={13}
-                        aria-label='Verified item'
-                      />
+                  <span className='flex'>
+                    {linkType !== 'custom' && (
+                      <span className='flex'>
+                        <img
+                          width='20'
+                          height='20'
+                          src={author_avatar}
+                          className='bg-img h-5 w-5 mr-1 rounded'
+                        />
+                        <span className='hidden md:inline'>{author}</span>
+                        <span className='px-1'>·</span>
+                      </span>
                     )}
-                    {author}
-                  </div>
-                  <span className='px-1'>·</span>
-                  <div className='flex items-center'>
-                    <div
-                      style={{ backgroundColor: lang_color }}
-                      className='h-3 w-3 rounded-full border border-gray-100 align-[-1px] dark:border-gray-500'
-                    />
-                    <div className='max-w-[5rem] truncate pl-0.5 md:max-w-[10rem]'>
-                      {primary_lang.split(' ')[0]}
+                    <div className='md:max-w-40 flex max-w-[120px] items-center truncate text-ellipsis md:w-fit'>
+                      {is_claimed && (
+                        <GoVerified
+                          className='mr-0.5 inline-block min-w-min align-[-2px] text-blue-500'
+                          size={13}
+                          aria-label='Verified item'
+                        />
+                      )}
+                      <div className='truncate'>{name}</div>
                     </div>
-                  </div>
+                  </span>
                   <span className='px-1'>·</span>
-                  <time
-                    dateTime={formattedDate ? formattedDate.toISOString() : ''}
-                  >
-                    {formattedDate ? fromNow(updated_at) : ''}
-                  </time>
+                  <span>
+                    <span
+                      style={{ backgroundColor: lang_color }}
+                      className='relative box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1px] dark:border-gray-500'
+                    />
+                    <span className='whitespace-nowrap pl-0.5'>
+                      {primary_lang.split(' ')[0]}
+                    </span>
+                  </span>
+                  <span className='hidden md:inline'>
+                    <span className='px-1'>·</span>
+                    <time>{fromNow(publish_at || '')}</time>
+                  </span>
                 </div>
                 {/* 项目 star 数 */}
                 {showViewCount && clicks_total !== undefined && (
