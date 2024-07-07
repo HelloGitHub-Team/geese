@@ -163,6 +163,15 @@ const RepositoryItem: NextPage<RepositoryItemProps> = ({
                         <span className='px-1'>·</span>
                       </span>
                     )}
+                    {showViewCount && (
+                      <img
+                        width='20'
+                        height='20'
+                        src={author_avatar}
+                        alt={`${author} small avatar`}
+                        className='mr-1 h-4 w-4 rounded-full md:hidden'
+                      />
+                    )}
                     <div className='md:max-w-40 flex max-w-[120px] items-center truncate text-ellipsis md:w-fit'>
                       {is_claimed && (
                         <GoVerified

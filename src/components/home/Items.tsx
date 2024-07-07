@@ -1,7 +1,8 @@
 import { NextPage } from 'next';
 import React from 'react';
 
-import ProjectItem from '../project/item';
+// import Item from "@/components/home/Item"
+import ProjectItem from '@/components/project/item';
 
 import { HomeItem } from '@/types/home';
 import { RepositoryItems } from '@/types/repository';
