@@ -1,10 +1,16 @@
 /** @type {import('next').NextConfig} */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+const MillionLint = require('@million/lint');
 
-module.exports = withBundleAnalyzer({
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// });
+
+const nextConfig = {
+  rsc: true,
+  filter: {
+    include: "**/src/**/.{mtsx,mjsx,tsx,jsx}",
+  },
   eslint: {
     dirs: ['src'],
   },
@@ -46,4 +52,6 @@ module.exports = withBundleAnalyzer({
   // experimental: {
   //   scrollRestoration: true,
   // },
-});
+};
+
+module.exports = MillionLint.next()(nextConfig);
