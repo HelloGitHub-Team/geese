@@ -11,11 +11,9 @@
   },
   "tag_side": {
     "title": "Hot Tags",
-    "manage": "Preference",
-    "all_tags_label": "All"
+    "manage": "Preference"
   },
   "tag_modal": {
-    "default_tag": "All",
     "tips": "Tips: Click the tag on the left to 'Select', drag the selected tags on the right to 'Sort'",
     "selected": "Selected: ",
     "fetch_fail_msg": "Failed to fetch tags",
@@ -23,6 +21,10 @@
     "save": "Save",
     "save_success_msg": "Save successful!",
     "save_fail_msg": "Save failed!",
-    "max_tag_msg": "You can only select up to {{maxTotal}} tags!"
+    "max_tag_msg": "You can only select up to {{maxTotal}} tags!",
+    "编程语言": "Programming",
+    "技术栈": "Technology",
+    "应用类型": "Application",
+    "其它": "Other"
   }
 }

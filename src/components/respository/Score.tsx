@@ -15,7 +15,7 @@ const Score = ({ t, repo }: RepositoryProps) => {
     <div className='w-34 relative p-1'>
       <div className='border-l border-gray-300 pl-3'>
         <div className='flex flex-row text-sm text-gray-500'>
-          {t('info.socre_desc')}
+          {t('info.score_desc')}
         </div>
         <div className='mt-1 flex flex-row items-center'>
           {repo.score ? (
@@ -31,7 +31,7 @@ const Score = ({ t, repo }: RepositoryProps) => {
               className='h-1/2 cursor-pointer py-1 text-xs text-blue-500'
               onClick={jumpComment}
             >
-              {t('info.socre_user_desc', { count: repo.comment_total })}
+              {t('info.score_user_desc', { count: repo.comment_total })}
             </div>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import ReactECharts from 'echarts-for-react';
-import { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import {

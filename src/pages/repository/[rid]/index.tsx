@@ -1,16 +1,16 @@
 import { GetServerSideProps, NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import RepoDetailNavbar from '@/components/navbar/RepoNavbar';
 import CommentContainer from '@/components/respository/CommentContainer';
 import Info from '@/components/respository/Info';
 import Tabs from '@/components/respository/Tabs';
 import Seo from '@/components/Seo';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { getDetail } from '@/services/repository';
 
 import { Repository } from '@/types/repository';
-import { useTranslation } from 'next-i18next';
 
 interface Props {
   repo: Repository;

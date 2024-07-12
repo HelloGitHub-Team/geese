@@ -1,100 +1,99 @@
 {
-    "nav": {
-        "title": "项目详情",
-        "desc": "由",
-        "desc2": "分享"
+  "nav": {
+    "title": "项目详情",
+    "desc": "由",
+    "desc2": "分享"
+  },
+  "info": {
+    "claimed": "已认领",
+    "unclaim": "未认领",
+    "score_desc": "HelloGitHub 评分",
+    "score_user_desc": "{{count}} 人评分",
+    "vite": "访问",
+    "voted": "已赞",
+    "vote": "点赞",
+    "opensource": "开源",
+    "discuss": "讨论",
+    "share": "分享",
+    "collect": "收藏",
+    "copy_desc": "更多详情尽在：",
+    "copy_success": "项目信息已复制，快去分享吧！",
+    "copy_fail": "复制失败"
+  },
+  "url": {
+    "home": "官网",
+    "document": "文档",
+    "download": "下载",
+    "online": "演示",
+    "source": "源码"
+  },
+  "favorite": {
+    "default": "默认收藏夹",
+    "cancel": "取消收藏",
+    "success": "收藏成功",
+    "fail": "收藏失败",
+    "title": "选择收藏夹",
+    "desc": "收藏的项目在「我的主页」可以找到",
+    "save": "确定"
+  },
+  "history": {
+    "past_day_desc": "过去 {{days}} 天",
+    "total_desc": "共收获 {{total}} 颗 Star ✨",
+    "fail_desc": "暂无 Star 历史数据"
+  },
+  "more": {
+    "yes": "是",
+    "no": "否",
+    "null": "无",
+    "star": "星数",
+    "chinese": "中文",
+    "language": "主语言",
+    "activity": "活跃",
+    "contributors": "贡献者",
+    "org": "组织",
+    "version": "最新版本",
+    "license": "协议",
+    "expand": "更多",
+    "collapse": "收起"
+  },
+  "content": {
+    "desc_tab": "介绍",
+    "code_tab": "代码",
+    "volume_label": "收录于：",
+    "volume": "第 {{volume}} 期",
+    "tag_label": "标签："
+  },
+  "comment": {
+    "title": "评论",
+    "sort_hot": "热门",
+    "sort_new": "最新",
+    "total": "{{total}} 条精选评论",
+    "more_reply": "查看全部 {{total}} 条回复",
+    "load_more": "加载更多...",
+    "no_comment": "暂无精选评论",
+    "used": "用过",
+    "unused": "没用过",
+    "score": "评分：",
+    "reply": "回复",
+    "cancel": "取消",
+    "item": {
+      "featured": "精选",
+      "unfeatured": "未精选",
+      "vote": "点赞",
+      "expand": "展开",
+      "collapse": "收起",
+      "login": "请先登录"
     },
-    "info": {
-        "claimed": "已认领",
-        "unclaim": "未认领",
-        "socre_desc": "HelloGitHub 评分",
-        "socre_user_desc": "{{count}} 人评分",
-        "vite": "访问",
-        "voted": "已赞",
-        "vote": "点赞",
-        "opensource": "开源",
-        "discuss": "讨论",
-        "share": "分享",
-        "collect": "收藏",
-        "copy_desc": "更多详情尽在：",
-        "copy_success": "项目信息已复制，快去分享吧！",
-        "copy_fail": "复制失败"
-    },
-    "url": {
-        "home": "官网",
-        "document": "文档",
-        "download": "下载",
-        "online": "演示",
-        "source": "源码"
-    },
-    "favorite": {
-        "default": "默认收藏夹",
-        "cancel": "取消收藏",
-        "success": "收藏成功",
-        "fail": "收藏失败",
-        "title": "选择收藏夹",
-        "desc": "收藏的项目在「我的主页」可以找到",
-        "save": "确定"
-    },
-    "history": {
-        "past_day_desc": "过去 {{days}} 天",
-        "total_desc": "共收获 {{total}} 颗 Star ✨",
-        "fail_desc": "暂无 Star 历史数据"
-    },
-    "more": {
-        "yes": "是",
-        "no": "否",
-        "null": "无",
-        "star": "星数",
-        "chinese": "中文",
-        "language": "主语言",
-        "activity": "活跃",
-        "contributors": "贡献者",
-        "org": "组织",
-        "version": "最新版本",
-        "license": "协议",
-        "expand": "更多",
-        "collapse": "收起"
-    },
-    "content": {
-        "desc_tab": "介绍",
-        "code_tab": "代码",
-        "volume_label": "收录于：",
-        "volume": "第 {{volume}} 期",
-        "tag_label": "标签："
-    },
-    "comment": {
-        "title": "评论",
-        "sort_hot": "热门",
-        "sort_new": "最新",
-        "total": "{{total}} 条精选评论",
-        "more_reply": "查看全部 {{total}} 条回复",
-        "load_more": "加载更多...",
-        "no_comment": "暂无精选评论",
-        "used": "用过",
-        "unused": "没用过",
-        "score": "评分：",
-        "reply": "回复",
-        "cancel": "取消",
-        "item": {
-            "featured": "精选",
-            "unfeatured": "未精选",
-            "vote": "点赞",
-            "expand": "展开",
-            "collapse": "收起",
-            "login": "请先登录"
-        },
-        "submit": {
-            "reply_placeholder": "正在回复：{{nickname}}",
-            "placeholder": "写下你的评论：分享开源项目的使用体验、优点/吐槽、适用场景、惊艳之处...",
-            "save": "发表",
-            "success": "发布成功！通过审核后展示",
-            "fail": "提交失败",
-            "err1":"评论内容不能为空",
-            "err2":"评论内容不能少于 5 个字",
-            "err3":"评论内容不能超过 500 个字",
-            "err4":"请评分"
-
-        }
+    "submit": {
+      "reply_placeholder": "正在回复：{{nickname}}",
+      "placeholder": "写下你的评论：分享开源项目的使用体验、优点/吐槽、适用场景、惊艳之处...",
+      "save": "发表",
+      "success": "发布成功！通过审核后展示",
+      "fail": "提交失败",
+      "err1": "评论内容不能为空",
+      "err2": "评论内容不能少于 5 个字",
+      "err3": "评论内容不能超过 500 个字",
+      "err4": "请评分"
     }
+  }
 }
