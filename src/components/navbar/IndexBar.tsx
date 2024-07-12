@@ -7,12 +7,13 @@ import useTagHandling from '@/hooks/useTagHandling';
 import { RepoModal } from '@/components/dialog/RepoModal';
 import TagLink from '@/components/links/TagLink';
 
-interface Props {
+type Props = {
+  t: (key: string) => string;
   tid: string;
   sort_by: string;
-}
+};
 
-const IndexBar: NextPage<Props> = ({ tid, sort_by }) => {
+const IndexBar: NextPage<Props> = ({ t, tid, sort_by }) => {
   const { labelStatus, tagItems, featuredURL, allURL, handleTagButton } =
     useTagHandling(tid, sort_by);
 
@@ -30,19 +31,19 @@ const IndexBar: NextPage<Props> = ({ tid, sort_by }) => {
     <div className='relative my-2 overflow-hidden bg-white dark:bg-gray-800 md:rounded-lg'>
       <div className='flex h-12 shrink grow items-center justify-start space-x-1 py-2 px-4 md:space-x-2'>
         <Link href={featuredURL}>
-          <a className={linkClassName('featured')}>精选</a>
+          <a className={linkClassName('featured')}>{t('nav.featured')}</a>
         </Link>
         <Link href={allURL}>
-          <a className={linkClassName('all')}>全部</a>
+          <a className={linkClassName('all')}>{t('nav.all')}</a>
         </Link>
         <span onClick={handleTagButton} className={linkClassName('label')}>
-          标签
+          {t('nav.tag')}
         </span>
         <div className='shrink grow'></div>
         <div className='md:hidden'>
           <RepoModal>
             <a className='flex h-8 items-center rounded-lg bg-blue-500 px-3 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 sm:px-4'>
-              提交
+              {t('nav.submit')}
             </a>
           </RepoModal>
         </div>

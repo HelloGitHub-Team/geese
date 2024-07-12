@@ -1,0 +1,28 @@
+{
+  "title": "首页",
+  "description": "分享 GitHub 上有趣、入门级的开源项目",
+  "bottom_text_login": "你不经意间触碰到了底线",
+  "bottom_text_nologin": "到底啦！登录可查看更多内容",
+  "nav": {
+    "all": "全部",
+    "featured": "精选",
+    "tag": "标签",
+    "submit": "提交"
+  },
+  "tag_side": {
+    "title": "热门标签",
+    "manage": "管理标签",
+    "all_tags_label": "综合"
+  },
+  "tag_modal": {
+    "default_tag": "综合",
+    "tips": "操作提示：点击左侧标签为「选择」，拖拽右侧已选标签可「排序」",
+    "selected": "已选：",
+    "fetch_fail_msg": "获取标签失败",
+    "add": "添加标签",
+    "save": "保存",
+    "save_success_msg": "保存成功！",
+    "save_fail_msg": "保存失败！",
+    "max_tag_msg": "最多只能选择 {{maxTotal}} 个标签！"
+  }
+}

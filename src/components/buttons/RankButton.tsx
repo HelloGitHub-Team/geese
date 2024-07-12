@@ -5,24 +5,26 @@ import type { option } from '@/components/dropdown/Dropdown';
 import Dropdown from '@/components/dropdown/Dropdown';
 
 type RankButtonProps = {
+  t: (key: string) => string;
   type?: '' | 'dropdown';
 };
 
-const btnList: option[] = [
-  { key: '/', value: '首页' },
-  { key: '/periodical', value: '月刊' },
-  { key: '/report/tiobe', value: '榜单' },
-  { key: '/article', value: '文章' },
-  { key: '/onefile', value: 'OneFile' },
-];
-
-const RankButton = (props: RankButtonProps) => {
+const RankButton = ({ t, type = '' }: RankButtonProps) => {
   const router = useRouter();
+
+  const btnList: option[] = [
+    { key: '/', value: t('header.home') },
+    { key: '/periodical', value: t('header.periodical') },
+    { key: '/report/tiobe', value: t('header.rank') },
+    { key: '/article', value: t('header.article') },
+    { key: '/onefile', value: 'OneFile' },
+  ];
+
   const onChange = async (opt: option) => {
     router.push(opt.key as any);
   };
 
-  if (props.type === 'dropdown') {
+  if (type === 'dropdown') {
     let key = '/';
     if (router.isReady) {
       if (router.pathname.includes('periodical')) {
@@ -47,7 +49,7 @@ const RankButton = (props: RankButtonProps) => {
   return (
     <HeaderBtn pathname='/report/tiobe'>
       <span className='mr-0.5'>🏆</span>
-      <span>榜单</span>
+      <span>{t('header.rank')}</span>
     </HeaderBtn>
   );
 };

@@ -11,11 +11,18 @@ interface IProps {
   groupName: string;
   portalTagGroupsRef: MutableRefObject<PortalTagGroup[]>;
   handleAddTag: (tid: string) => void;
+  t: (key: string, total?: any) => string;
 }
 
 const GroupItem = (props: IProps) => {
-  const { item, effectedTidList, groupName, portalTagGroupsRef, handleAddTag } =
-    props;
+  const {
+    t,
+    item,
+    effectedTidList,
+    groupName,
+    portalTagGroupsRef,
+    handleAddTag,
+  } = props;
   const sortItemRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,7 +34,7 @@ const GroupItem = (props: IProps) => {
         onChoose: function ({ item }) {
           if (effectedTidList.length >= maxTotal) {
             item.draggable = false;
-            Message.error(`最多只能选择 ${maxTotal} 个标签`);
+            Message.error(t('tag_modal.max_tag_msg', { maxTotal: maxTotal }));
             return false;
           }
         },

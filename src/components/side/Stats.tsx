@@ -6,9 +6,9 @@ import { numFormat } from '@/utils/util';
 
 import { StatsSkeleton } from '../loading/skeleton';
 
-import { Stats } from '@/types/home';
+import { SideProps, Stats } from '@/types/home';
 
-export default function SiteStats() {
+export default function SiteStats({ t }: SideProps) {
   const { data: stats } = useSWRImmutable<Stats>(makeUrl('/stats/'), fetcher);
 
   return (
@@ -17,7 +17,7 @@ export default function SiteStats() {
         <div className='flex flex-wrap border-b border-b-gray-300 pb-2 dark:border-b-gray-700 lg:pb-3'>
           <div className='flex-1 pr-4'>
             <div className='whitespace-nowrap text-sm text-gray-400 lg:text-base'>
-              用户总数
+              {t('site_stats.user')}
             </div>
             <div className='text-2xl dark:text-gray-300 lg:text-3xl'>
               {numFormat(stats?.user_total, 1, 10000)}
@@ -25,7 +25,7 @@ export default function SiteStats() {
           </div>
           <div className='flex-1'>
             <div className='whitespace-nowrap text-sm text-gray-400 lg:text-base'>
-              开源项目
+              {t('site_stats.repo')}
             </div>
             <div className='text-2xl dark:text-gray-300 lg:text-3xl'>
               {numFormat(stats?.repo_total, 1, 10000)}
@@ -36,11 +36,9 @@ export default function SiteStats() {
         <StatsSkeleton />
       )}
 
-      <div className='text-base text-gray-400'>关于本站</div>
+      <div className='text-base text-gray-400'>{t('site_stats.title')}</div>
       <div className='text-sm dark:text-gray-300 lg:leading-7'>
-        HelloGitHub 是一个发现和分享有趣、入门级开源项目的平台。
-        希望大家能够在这里找到编程的快乐、 轻松搞定问题的技术方案、
-        大呼过瘾的开源神器， 顺其自然地开启开源之旅。
+        {t('site_stats.desc')}
       </div>
     </div>
   );

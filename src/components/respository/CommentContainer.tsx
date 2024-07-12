@@ -13,11 +13,13 @@ import { CommentItemData } from '@/types/repository';
 interface Props {
   belong: string;
   belongId: string;
+  t: (key: string, total?: any) => string;
+  i18n_lang: string;
   className?: string;
 }
 
 const CommentContainer = (props: Props) => {
-  const { belong, belongId, className } = props;
+  const { belong, belongId, className, t, i18n_lang } = props;
   const {
     list,
     total,
@@ -90,10 +92,13 @@ const CommentContainer = (props: Props) => {
             key={`reply-item-${item.cid}`}
             onReply={(_, reply_id) => setCommentId(reply_id)}
             onChangeVote={(value) => handleChangeVote(index, value)}
+            t={t}
+            i18n_lang={i18n_lang}
           />
 
           {item.reply_id === commentId && (
             <CommentSubmit
+              t={t}
               replyUser={item}
               belongId={belongId}
               onCancelReply={() => setCommentId(undefined)}
@@ -110,6 +115,8 @@ const CommentContainer = (props: Props) => {
     return (
       <>
         <CommentItem
+          t={t}
+          i18n_lang={i18n_lang}
           className='mb-6'
           {...item}
           key={`commet-item-${item.cid}`}
@@ -119,6 +126,7 @@ const CommentContainer = (props: Props) => {
 
         {item.cid === commentId && (
           <CommentSubmit
+            t={t}
             replyUser={item}
             key={item.cid}
             belongId={belongId}
@@ -156,7 +164,7 @@ const CommentContainer = (props: Props) => {
             className='mb-6 flex cursor-pointer items-center justify-center rounded-md bg-gray-50 text-sm leading-10 hover:bg-gray-200 active:bg-gray-50 dark:bg-gray-700'
             onClick={() => loadMoreReply(item.cid)}
           >
-            查看全部 {item.replies?.total} 条回复
+            {t('comment.total', { total: item.replies.total })}
             <GoChevronDown />
           </div>
         )}
@@ -166,15 +174,18 @@ const CommentContainer = (props: Props) => {
 
   return (
     <div id='comment' className={`p-4 ${className}`}>
-      <h3 className='mb-4'>评论</h3>
+      <h3 className='mb-4'>{t('comment.title')}</h3>
       {currentUserComment ? (
         <CommentItem
           {...currentUserComment}
           alone
           onChangeVote={handleChangeCurrentUserVote}
+          t={t}
+          i18n_lang={i18n_lang}
         />
       ) : (
         <CommentSubmit
+          t={t}
           belongId={belongId}
           onSuccess={handleCommentSuccess}
           onFail={handleCommentFail}
@@ -183,7 +194,7 @@ const CommentContainer = (props: Props) => {
       {total ? (
         <>
           <div className='my-8 flex items-center justify-between'>
-            <strong>{total} 条精选评论</strong>
+            <strong>{t('comment.total', { total: total })}</strong>
             <div className='btn-group'>
               <button
                 className={`${
@@ -191,7 +202,7 @@ const CommentContainer = (props: Props) => {
                 } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-l-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90`}
                 onClick={() => sortBy('last')}
               >
-                最新
+                {t('comment.sort_new')}
               </button>
               <button
                 className={`${
@@ -199,7 +210,7 @@ const CommentContainer = (props: Props) => {
                 } ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-r-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90`}
                 onClick={() => sortBy('hot')}
               >
-                最热
+                {t('comment.sort_hot')}
               </button>
             </div>
           </div>
@@ -215,13 +226,13 @@ const CommentContainer = (props: Props) => {
             className='cursor-pointer rounded-md bg-gray-50 text-center text-sm leading-10 hover:bg-gray-200 active:bg-gray-50 dark:bg-gray-700'
             onClick={loadMore}
           >
-            加载更多...
+            {t('comment.load_more')}
           </div>
         </>
       ) : (
         <div className='mt-4 border-t border-gray-300 text-center text-xl dark:border-gray-700'>
           <div className='py-14 text-gray-300 dark:text-gray-500'>
-            暂无精选评论
+            {t('comment.no_comment')}
           </div>
         </div>
       )}

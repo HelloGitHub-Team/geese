@@ -1,5 +1,49 @@
 {
-  "a": "1111",
-  "b": "1111",
-  "c": "1111"
+  "header": {
+    "search": "Search Open Source Projects",
+    "home": "Home",
+    "periodical": "Monthly",
+    "rank": "Ranking",
+    "article": "Articles",
+    "submit": "Submit"
+  },
+  "user_side": {
+    "contribute_label": "Contributions",
+    "profile": "Profile",
+    "admin": "Settings",
+    "logout": "Sign Out",
+    "login": "Sign In"
+  },
+  "advert": {
+    "desc": "Server will expire in",
+    "desc2": "WeChat Sponsorship",
+    "next": "Short of this target by",
+    "next2": "Short of next target by",
+    "day": "D",
+    "year": "Y"
+  },
+  "site_stats": {
+    "user": "Total Users",
+    "repo": "Projects",
+    "title": "About Us",
+    "desc": "HelloGitHub is a platform to discover and share interesting, beginner-friendly open source projects.\nWe aim to help everyone find joy in programming, easily solve technical challenges,\nexplore amazing open-source tools, and naturally embark on their open-source journey."
+  },
+  "recommend": {
+    "title": "Recommended",
+    "desc": "Content is collected from spdx and GitHub, following the",
+    "desc2": "protocol.",
+    "change": "Refresh"
+  },
+  "footer": {
+    "feedback": "Feedback",
+    "business": "Business",
+    "contact": "Contact Us",
+    "agreement": "Agreement",
+    "source": "Source Code",
+    "sitemap": "Sitemap",
+    "server_sponsor": "Server is sponsored by",
+    "server_sponsor2": "",
+    "cdn_sponsor": "Cloud service is sponsored by",
+    "cdn_sponsor2": ""
+  }
 }

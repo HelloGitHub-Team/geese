@@ -1,15 +1,15 @@
 import { TagType } from './tag';
 
+export interface SideProps {
+  t: (key: string) => string;
+}
+
 export interface HomeItems {
   success: boolean;
   page: number;
   data: HomeItem[];
   tags: TagType[];
   has_more: boolean;
-}
-
-export interface ItemProps {
-  item: HomeItem;
 }
 
 export interface HomeItem {

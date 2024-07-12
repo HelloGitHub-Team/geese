@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { NextPage } from 'next';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -8,7 +7,7 @@ import { MDRender } from '../mdRender/MDRender';
 
 import { RepositoryProps } from '@/types/repository';
 
-const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
+const Tabs = ({ repo, t }: RepositoryProps) => {
   const [selectTab, setSelectTab] = useState<string>('summary');
 
   const tabClassName = (tabName: string) =>
@@ -37,11 +36,13 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
           <div className='flex flex-row flex-wrap items-center pt-1'>
             {repo.volume_name && (
               <>
-                <div className='mb-1 px-2 text-sm font-medium'>收录于：</div>
+                <div className='mb-1 px-2 text-sm font-medium'>
+                  {t('content.volume_label')}
+                </div>
                 <Link href={`/periodical/volume/${Number(repo.volume_name)}`}>
                   <a>
                     <div className='mb-1 mr-1 flex h-5 cursor-pointer items-center rounded-xl bg-blue-100 px-2.5 text-xs text-blue-500 hover:bg-blue-200 dark:bg-blue-500 dark:text-gray-100 dark:hover:bg-blue-700 lg:mr-2'>
-                      第 {repo.volume_name} 期
+                      {t('content.volume', { volume: repo.volume_name })}
                     </div>
                   </a>
                 </Link>
@@ -49,7 +50,9 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
             )}
             {repo.tags.length > 0 && (
               <>
-                <div className='mb-1 px-2 text-sm font-medium'>标签：</div>
+                <div className='mb-1 px-2 text-sm font-medium'>
+                  {t('content.tag_label')}
+                </div>
                 {repo.tags.map((item) => (
                   <Link href={`/tags/${item.tid}/`} key={item.tid}>
                     <a>
@@ -80,14 +83,14 @@ const Tabs: NextPage<RepositoryProps> = ({ repo }) => {
           className={tabClassName('summary')}
           onClick={() => setSelectTab('summary')}
         >
-          介绍
+          {t('content.desc_tab')}
         </span>
         {repo.code && (
           <span
             className={tabClassName('code')}
             onClick={() => setSelectTab('code')}
           >
-            代码
+            {t('content.code_tab')}
           </span>
         )}
       </nav>

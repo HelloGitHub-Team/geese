@@ -5,35 +5,41 @@ import CommentContainer from '@/components/respository/CommentContainer';
 import Info from '@/components/respository/Info';
 import Tabs from '@/components/respository/Tabs';
 import Seo from '@/components/Seo';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { getDetail } from '@/services/repository';
 
 import { Repository } from '@/types/repository';
+import { useTranslation } from 'next-i18next';
 
 interface Props {
   repo: Repository;
 }
 
 const RepositoryPage: NextPage<Props> = ({ repo }) => {
+  const { t, i18n } = useTranslation('repository');
+
   return (
     <>
       <Seo
         title={`${repo.full_name}: ${repo.title}`}
         description={repo.summary}
       />
-
       <RepoDetailNavbar
         avatar={repo.share_user.avatar}
         uid={repo.share_user.uid}
+        t={t}
       />
       <div className='mt-2 bg-white px-2 pb-3 pt-2 dark:bg-gray-800 md:rounded-lg'>
-        <Info repo={repo} />
-        <Tabs repo={repo} />
+        <Info repo={repo} t={t} />
+        <Tabs repo={repo} t={t} />
       </div>
       <CommentContainer
         className='mt-2 bg-white dark:bg-gray-800 md:rounded-lg'
         belong='repository'
         belongId={repo.rid}
+        t={t}
+        i18n_lang={i18n.language}
       />
       <div className='h-8 lg:h-36'></div>
     </>
@@ -43,6 +49,7 @@ const RepositoryPage: NextPage<Props> = ({ repo }) => {
 export const getServerSideProps: GetServerSideProps = async ({
   req,
   query,
+  locale,
 }) => {
   let ip;
   if (req.headers['x-forwarded-for']) {
@@ -59,6 +66,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   if (data.success) {
     return {
       props: {
+        ...(await serverSideTranslations(locale as string, [
+          'common',
+          'repository',
+        ])),
         repo: data.data,
       },
     };

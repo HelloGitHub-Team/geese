@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
 import { AiFillFire, AiOutlineEye } from 'react-icons/ai';
 import { GoVerified } from 'react-icons/go';
 
@@ -8,9 +7,14 @@ import CustomLink from '@/components/links/CustomLink';
 import { fromNow } from '@/utils/day';
 import { numFormat } from '@/utils/util';
 
-import { ItemProps } from '@/types/home';
+import { HomeItem } from '@/types/home';
 
-const Item: NextPage<ItemProps> = ({ item }) => {
+type Props = {
+  i18n_lang: string;
+  item: HomeItem;
+};
+
+const Item: NextPage<Props> = ({ item, i18n_lang }) => {
   const {
     item_id,
     author_avatar,
@@ -27,7 +31,6 @@ const Item: NextPage<ItemProps> = ({ item }) => {
     clicks_total,
   } = item;
 
-  const { t } = useTranslation('common');
   if (!item_id || !name || !title) {
     console.warn('Missing essential item data:', item);
     return null;
@@ -66,7 +69,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                       )}
                       <p className='mr-1 truncate text-sm font-normal md:text-[15px]'>
                         <span className='font-semibold dark:text-white'>
-                          {t('a')}
+                          {name}
                         </span>
                         <span className='mx-0.5 text-gray-500 opacity-40 dark:text-gray-300 md:mx-1'>
                           —
@@ -120,7 +123,7 @@ const Item: NextPage<ItemProps> = ({ item }) => {
                     </div>
                     <span className='px-1'>·</span>
                     <time dateTime={new Date(updated_at).toISOString()}>
-                      {fromNow(updated_at)}
+                      {fromNow(updated_at, i18n_lang)}
                     </time>
                   </div>
                   <div className='flex items-center text-sm text-gray-400'>

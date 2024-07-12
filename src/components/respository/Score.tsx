@@ -1,10 +1,8 @@
-import { NextPage } from 'next';
-
 import Rating from './Rating';
 
 import { RepositoryProps } from '@/types/repository';
 
-const Score: NextPage<RepositoryProps> = ({ repo }) => {
+const Score = ({ t, repo }: RepositoryProps) => {
   const jumpComment = () => {
     const { offsetTop } = document.querySelector('#comment') as HTMLElement;
     // 根据 offsetTop 滚动到指定位置
@@ -17,7 +15,7 @@ const Score: NextPage<RepositoryProps> = ({ repo }) => {
     <div className='w-34 relative p-1'>
       <div className='border-l border-gray-300 pl-3'>
         <div className='flex flex-row text-sm text-gray-500'>
-          HelloGitHub 评分
+          {t('info.socre_desc')}
         </div>
         <div className='mt-1 flex flex-row items-center'>
           {repo.score ? (
@@ -33,7 +31,7 @@ const Score: NextPage<RepositoryProps> = ({ repo }) => {
               className='h-1/2 cursor-pointer py-1 text-xs text-blue-500'
               onClick={jumpComment}
             >
-              {repo.comment_total} 人评分
+              {t('info.socre_user_desc', { count: repo.comment_total })}
             </div>
           </div>
         </div>

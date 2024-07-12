@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { useCallback, useEffect, useState } from 'react';
 import { AiOutlineAppstore, AiOutlineSetting } from 'react-icons/ai';
 
@@ -13,9 +14,14 @@ import { TagListSkeleton } from '../loading/skeleton';
 
 import { Tag } from '@/types/tag';
 
-const defaultTag: Tag = { name: '综合', tid: '', icon_name: 'find' };
-
 export default function TagList() {
+  const { t } = useTranslation('home');
+  const defaultTag: Tag = {
+    name: t('tag_side.all_tags_label'),
+    tid: '',
+    icon_name: 'find',
+  };
+
   const router = useRouter();
   const { tid = '', sort_by = 'featured' } = router.query;
   const [tags, setTags] = useState<Tag[]>([]);
@@ -53,7 +59,7 @@ export default function TagList() {
             <div className='border-b border-b-gray-200 pb-2 dark:border-b-gray-600 dark:text-gray-300'>
               <div className='flex w-[104px] flex-row items-center p-1'>
                 <AiOutlineAppstore size={16} />
-                <div className='ml-1 font-medium'>热门标签</div>
+                <div className='ml-1 font-medium'>{t('tag_side.title')}</div>
               </div>
             </div>
           </div>
@@ -71,10 +77,10 @@ export default function TagList() {
               </Link>
             ))}
           </div>
-          <TagModal updateTags={setTags}>
+          <TagModal updateTags={setTags} t={t}>
             <div className='flex cursor-pointer flex-row items-center border-t border-t-gray-200 px-3 pt-2 pb-1 text-gray-500 hover:text-blue-500 dark:border-t-gray-600 dark:text-gray-300 dark:hover:text-blue-500'>
               <AiOutlineSetting size={15} />
-              <div className='ml-0.5 text-sm'>管理标签</div>
+              <div className='ml-0.5 text-sm'>{t('tag_side.manage')}</div>
             </div>
           </TagModal>
         </div>

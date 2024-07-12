@@ -1,3 +1,49 @@
 {
-  "a": "某个中文翻译"
+  "header": {
+    "search": "搜索开源项目",
+    "home": "首页",
+    "periodical": "月刊",
+    "rank": "榜单",
+    "article": "文章",
+    "submit": "提交项目"
+  },
+  "user_side": {
+    "contribute_label": "贡献值",
+    "profile": "我的主页",
+    "admin": "管理中心",
+    "logout": "退出登录",
+    "login": "立即登录"
+  },
+  "advert": {
+    "desc": "服务器还剩",
+    "desc2": "微信扫码赞助本站",
+    "next": "距离目标还差",
+    "next2": "距离下个目标还差",
+    "day": "天",
+    "year": "年"
+  },
+  "site_stats": {
+    "user": "用户总数",
+    "repo": "开源项目",
+    "title": "关于本站",
+    "desc": "HelloGitHub 是一个发现和分享有趣、入门级开源项目的平台。\n希望大家能够在这里找到编程的快乐、 轻松搞定问题的技术方案、\n大呼过瘾的开源神器， 顺其自然地开启开源之旅。"
+  },
+  "recommend": {
+    "title": "推荐项目",
+    "desc": "内容整理自 spdx 和 GitHub 网站，并遵循",
+    "desc2": "协议。",
+    "change": "换一换"
+  },
+  "footer": {
+    "feedback": "问题反馈",
+    "business":"商务合作",
+    "contact": "联系我们",
+    "agreement": "用户协议",
+    "source": "社区源码",
+    "sitemap": "站点地图",
+    "server_sponsor": "服务器由",
+    "server_sponsor2": "提供",
+    "cdn_sponsor": "专业的",
+    "cdn_sponsor2": "提供云存储服务"
+  }
 }

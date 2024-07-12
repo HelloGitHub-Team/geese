@@ -1,0 +1,28 @@
+{
+  "title": "Home",
+  "description": "Sharing interesting and beginner-friendly open-source projects on GitHub",
+  "bottom_text_login": "You have reached the bottom of the page",
+  "bottom_text_nologin": "End of the page! Sign in to read more",
+  "nav": {
+    "all": "All",
+    "featured": "Featured",
+    "tag": "Tags",
+    "submit": "Submit"
+  },
+  "tag_side": {
+    "title": "Hot Tags",
+    "manage": "Preference",
+    "all_tags_label": "All"
+  },
+  "tag_modal": {
+    "default_tag": "All",
+    "tips": "Tips: Click the tag on the left to 'Select', drag the selected tags on the right to 'Sort'",
+    "selected": "Selected: ",
+    "fetch_fail_msg": "Failed to fetch tags",
+    "add": "Add Tag",
+    "save": "Save",
+    "save_success_msg": "Save successful!",
+    "save_fail_msg": "Save failed!",
+    "max_tag_msg": "You can only select up to {{maxTotal}} tags!"
+  }
+}
