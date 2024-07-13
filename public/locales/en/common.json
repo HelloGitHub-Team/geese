@@ -1,6 +1,6 @@
 {
   "header": {
-    "search": "Search Open Source Projects",
+    "search": "Search Projects",
     "home": "Home",
     "periodical": "Monthly",
     "rank": "Ranking",
@@ -15,8 +15,8 @@
     "login": "Sign In"
   },
   "advert": {
-    "desc": "Server will expire in",
-    "desc2": "WeChat Sponsorship",
+    "desc": "Server expires in",
+    "desc2": "WeChat Sponsor",
     "next": "Short of this target by",
     "next2": "Short of next target by",
     "day": "D",
