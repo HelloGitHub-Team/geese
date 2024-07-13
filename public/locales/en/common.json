@@ -16,16 +16,16 @@
   },
   "advert": {
     "desc": "Server expires in",
-    "desc2": "WeChat Sponsor",
-    "next": "Short of this target by",
-    "next2": "Short of next target by",
+    "desc2": "Buy me a coffee",
+    "next": "Need to gold",
+    "next2": "Next target by",
     "day": "D",
     "year": "Y"
   },
   "site_stats": {
-    "user": "Total Users",
-    "repo": "Projects",
-    "title": "About Us",
+    "user": "#Users",
+    "repo": "#Projects",
+    "title": "About",
     "desc": "HelloGitHub is a platform to discover and share interesting, beginner-friendly open source projects.\nWe aim to help everyone find joy in programming, easily solve technical challenges,\nexplore amazing open-source tools, and naturally embark on their open-source journey."
   },
   "recommend": {
@@ -45,5 +45,8 @@
     "server_sponsor2": "",
     "cdn_sponsor": "Cloud service is sponsored by",
     "cdn_sponsor2": ""
+  },
+  "collect": {
+    "title": "New"
   }
 }

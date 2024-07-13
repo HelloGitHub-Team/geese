@@ -11,11 +11,9 @@
   },
   "tag_side": {
     "title": "热门标签",
-    "manage": "管理标签",
-    "all_tags_label": "综合"
+    "manage": "管理标签"
   },
   "tag_modal": {
-    "default_tag": "综合",
     "tips": "操作提示：点击左侧标签为「选择」，拖拽右侧已选标签可「排序」",
     "selected": "已选：",
     "fetch_fail_msg": "获取标签失败",
@@ -23,6 +21,10 @@
     "save": "保存",
     "save_success_msg": "保存成功！",
     "save_fail_msg": "保存失败！",
-    "max_tag_msg": "最多只能选择 {{maxTotal}} 个标签！"
+    "max_tag_msg": "最多只能选择 {{maxTotal}} 个标签！",
+    "编程语言": "编程语言",
+    "技术栈": "技术栈",
+    "应用类型": "应用类型",
+    "其它": "其它"
   }
 }

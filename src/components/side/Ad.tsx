@@ -6,10 +6,14 @@ import { redirectRecord } from '@/services/home';
 
 import { AdvertItem } from '@/types/home';
 
+const ImageURL =
+  'https://img.hellogithub.com/article/HwsoJXEiYdPhjLa_1720773908.png';
+
 interface Props {
   data: AdvertItem;
   className?: string;
   t: (key: string) => string;
+  i18n_lang?: string;
 }
 
 interface AdContentProps {
@@ -34,7 +38,7 @@ const ImageAdContent = ({ data, handleClose }: ImageAdContentProps) => (
   </div>
 );
 
-export default function Ad({ data, className, t }: Props) {
+export default function Ad({ data, className, t, i18n_lang }: Props) {
   const [visible, setVisible] = useState(true);
 
   const handleClose: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -86,7 +90,11 @@ export default function Ad({ data, className, t }: Props) {
 
   const RewardAdContent = ({ data, t }: AdContentProps) => (
     <div className='group flex flex-row p-3'>
-      <img className='h-[55px] w-[55px]' src={data.image_url} alt='ad' />
+      <img
+        className='h-[55px] w-[55px]'
+        src={i18n_lang == 'en' ? ImageURL : data.image_url}
+        alt='ad'
+      />
       <div className='ml-3'>
         <div className='font-medium tracking-wider md:text-sm lg:w-[135px] lg:truncate lg:whitespace-nowrap lg:text-base'>
           {t('advert.desc2')}

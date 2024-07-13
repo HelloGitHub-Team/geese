@@ -17,23 +17,19 @@ import { getSelectTags, saveSelectTags } from '@/services/tag';
 
 import BasicDialog from '../dialog/BasicDialog';
 
-import { maxTotal, PortalTag, PortalTagGroup, Tag } from '@/types/tag';
+import { maxTotal, PortalTag, PortalTagGroup } from '@/types/tag';
 
 export function TagModal({
   children,
   updateTags,
   t,
+  i18n_lang,
 }: {
   children: JSX.Element;
   updateTags: any;
   t: (key: string, total?: any) => string;
+  i18n_lang: string;
 }) {
-  const defaultTag: Tag = {
-    name: t('tag_modal.default_tag'),
-    tid: '',
-    icon_name: 'find',
-  };
-
   const [loading, setLoading] = useState<boolean>(false);
   const [total, setTotal] = useState(0);
   const { isLogin, login } = useLoginContext();
@@ -54,7 +50,25 @@ export function TagModal({
     } else {
       const res = await getSelectTags();
       if (res.success) {
-        setPortalTagGroups(res.data);
+        const tagGroups = res.data.map((group) => {
+          const updatedTags = group.tags.map((tag) => {
+            // Replace the 'name' value with the 'name_en' value if available
+            if (i18n_lang == 'en' && tag.name_en !== null) {
+              return {
+                ...tag,
+                name: tag.name_en,
+              };
+            }
+            return tag;
+          });
+
+          return {
+            ...group,
+            tags: updatedTags,
+          };
+        });
+
+        setPortalTagGroups(tagGroups);
         setEffectedTidList(res.effected);
         setIsOpen(true);
       } else {
@@ -90,14 +104,17 @@ export function TagModal({
 
   const saveTags = async () => {
     if (effectedTidList.length <= maxTotal) {
-      const selectTags = [];
-      selectTags.unshift(defaultTag);
+      const defaultTag =
+        i18n_lang === 'en'
+          ? { name: 'All', tid: '', icon_name: 'find', name_en: 'All' }
+          : { name: '综合', tid: '', icon_name: 'find', name_en: 'All' };
+      const selectTags = [defaultTag];
       for (let i = 0; i < effectedTidList.length; i++) {
         const item = portalTagGroups
           .map((m) => m.tags)
           .flat()
           .find((f) => f.tid === effectedTidList[i]);
-        selectTags.push(item);
+        item && selectTags.push(item);
       }
       setLoading(true);
       const res = await saveSelectTags(effectedTidList);
@@ -157,7 +174,7 @@ export function TagModal({
                 key={'group_' + index}
                 className='text-lg font-medium text-gray-500 dark:text-gray-200'
               >
-                {group.group_name}
+                {t(`${group.group_name}`)}
               </div>,
               <div
                 key={'group_items_' + index}

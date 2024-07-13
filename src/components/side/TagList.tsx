@@ -15,9 +15,10 @@ import { TagListSkeleton } from '../loading/skeleton';
 import { Tag } from '@/types/tag';
 
 export default function TagList() {
-  const { t } = useTranslation('home');
+  const { t, i18n } = useTranslation('home');
   const defaultTag: Tag = {
-    name: t('tag_side.all_tags_label'),
+    name: '综合',
+    name_en: 'All',
     tid: '',
     icon_name: 'find',
   };
@@ -30,9 +31,15 @@ export default function TagList() {
     const res = await getTags();
     if (res.success) {
       res.data.unshift(defaultTag);
+      // 判断当前语言是否为英文，如果是英文则显示英文名称
+      res.data.forEach((item) => {
+        if (i18n.language == 'en' && item.name_en !== null) {
+          item.name = item.name_en;
+        }
+      });
       setTags(res.data);
     }
-  }, []);
+  }, [i18n.language]);
 
   useEffect(() => {
     if (!isMobile()) {
@@ -77,7 +84,7 @@ export default function TagList() {
               </Link>
             ))}
           </div>
-          <TagModal updateTags={setTags} t={t}>
+          <TagModal updateTags={setTags} t={t} i18n_lang={i18n.language}>
             <div className='flex cursor-pointer flex-row items-center border-t border-t-gray-200 px-3 pt-2 pb-1 text-gray-500 hover:text-blue-500 dark:border-t-gray-600 dark:text-gray-300 dark:hover:text-blue-500'>
               <AiOutlineSetting size={15} />
               <div className='ml-0.5 text-sm'>{t('tag_side.manage')}</div>

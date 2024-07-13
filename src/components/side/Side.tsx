@@ -15,7 +15,7 @@ import UserStatus from './UserStatus';
 import { AdvertItems } from '@/types/home';
 
 export const Side = ({ isHome }: { isHome: boolean }) => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
   const [displayAdOnly, setDisplayAdOnly] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { data, isValidating } = useSWRImmutable<AdvertItems>(
@@ -46,14 +46,21 @@ export const Side = ({ isHome }: { isHome: boolean }) => {
             <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5 dark:bg-gray-800'>
               <UserStatus t={t} />
             </div>
-            {!isValidating && <SideAd data={adverts} t={t} />}
+            {!isValidating && (
+              <SideAd data={adverts} t={t} i18n_lang={i18n.language} />
+            )}
             {isHome ? <SiteStats t={t} /> : <Recommend t={t} />}
           </div>
           {isHome && <Footer t={t} />}
         </div>
       </div>
       {adverts && (
-        <SideFixAd data={adverts} displayAdOnly={displayAdOnly} t={t} />
+        <SideFixAd
+          data={adverts}
+          displayAdOnly={displayAdOnly}
+          t={t}
+          i18n_lang={i18n.language}
+        />
       )}
     </>
   );

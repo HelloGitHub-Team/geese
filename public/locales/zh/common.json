@@ -36,7 +36,7 @@
   },
   "footer": {
     "feedback": "问题反馈",
-    "business":"商务合作",
+    "business": "商务合作",
     "contact": "联系我们",
     "agreement": "用户协议",
     "source": "社区源码",
@@ -45,5 +45,8 @@
     "server_sponsor2": "提供",
     "cdn_sponsor": "专业的",
     "cdn_sponsor2": "提供云存储服务"
+  },
+  "collect": {
+    "title": "新建收藏夹"
   }
 }
