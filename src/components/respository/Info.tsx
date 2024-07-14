@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
-import ReactECharts from 'echarts-for-react';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -19,6 +18,7 @@ import { GoComment, GoLinkExternal, GoVerified } from 'react-icons/go';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import Score from '@/components/respository/Score';
+import SvgTrend from '@/components/respository/SvgTrend';
 
 import { getFavoriteOptions } from '@/services/favorite';
 import { redirectRecord } from '@/services/home';
@@ -40,7 +40,6 @@ import CustomLink from '../links/CustomLink';
 import Message from '../message';
 
 import { Repository, RepositoryProps } from '@/types/repository';
-import SvgTrend from '@/components/respository/SvgTrend';
 
 type URLoption = {
   url: string;
@@ -222,59 +221,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       </div>
     </div>
   );
-  const chartOptions = repo.star_history && {
-    xAxis: {
-      type: 'category',
-      boundaryGap: false,
-      data: repo.star_history.x,
-      axisTick: { show: false },
-      axisLine: { show: false },
-      axisLabel: { show: false },
-    },
-    yAxis: {
-      type: 'value',
-      min: repo.star_history.min,
-      max:
-        repo.star_history.increment > 10
-          ? repo.star_history.max
-          : repo.star_history.min + 10,
-      splitLine: { show: false },
-      axisLabel: { show: false },
-      axisTick: { show: false },
-      axisLine: { show: false },
-    },
-    series: [
-      {
-        data: repo.star_history.y,
-        type: 'line',
-        areaStyle: { color: 'rgba(59, 130, 246, 0.2)' },
-        showSymbol: false,
-        smooth: true,
-      },
-    ],
-    tooltip: {
-      trigger: 'axis',
-      formatter(params: any[]) {
-        let result = `${params[0].name}<br>`;
-        params.forEach(
-          (item) =>
-            (result += `${item.marker} Star：${numFormat(item.value, 1)}<br>`)
-        );
-        return result;
-      },
-      backgroundColor: 'rgba(32, 33, 36,.7)',
-      borderColor: 'rgba(32, 33, 36,0.20)',
-      borderWidth: 1,
-      axisPointer: { type: 'none' },
-      textStyle: { color: '#fff', fontSize: '12' },
-    },
-    grid: {
-      left: '2%',
-      right: '2%',
-      top: '20%',
-      bottom: '10%',
-    },
-  };
 
   return (
     <div className='p-1'>
@@ -344,11 +290,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           <div className='hidden md:flex'>
             {repo.star_history ? (
               <div className='flex flex-col items-center'>
-                {/* <ReactECharts
-                  option={chartOptions}
-                  style={{ height: 54, width: 320 }}
-                  opts={{ renderer: 'svg' }}
-                />*/}
                 <SvgTrend {...repo.star_history} />
                 <div className='text-xs text-gray-500'>{`过去 ${
                   repo.star_history.x.length
