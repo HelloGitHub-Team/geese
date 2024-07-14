@@ -1,6 +1,6 @@
 {
   "header": {
-    "search": "Search Open Source Projects",
+    "search": "Search Projects",
     "home": "Home",
     "periodical": "Monthly",
     "rank": "Ranking",
@@ -15,7 +15,7 @@
     "login": "Sign In"
   },
   "advert": {
-    "desc": "Server expire in",
+    "desc": "Server expires in",
     "desc2": "Buy me a coffee",
     "next": "Need to gold",
     "next2": "Next target by",

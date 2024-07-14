@@ -12,12 +12,12 @@
     "vite": "Visit",
     "voted": "Liked",
     "vote": "Like",
-    "opensource": "Open Source",
+    "opensource": "License",
     "discuss": "Discuss",
     "share": "Share",
-    "collect": "Collect",
-    "copy_desc": "More details at:",
-    "copy_success": "Project information copied successfully, share it now!",
+    "collect": "Save",
+    "copy_desc": "More details at: ",
+    "copy_success": "Project information copied, go share it!",
     "copy_fail": "Copy failed"
   },
   "url": {
@@ -29,15 +29,15 @@
   },
   "favorite": {
     "default": "Default Favorites",
-    "cancel": "Unfavorite",
+    "cancel": "Remove favorite",
     "success": "Added to Favorites",
     "fail": "Failed to add to Favorites",
     "title": "Select Favorites",
-    "desc": "You can find favorited projects in 'My Homepage'",
+    "desc": "Find favorited projects in 'Profile'",
     "save": "Save"
   },
   "history": {
-    "past_day_desc": "Past {{days}} days",
+    "past_day_desc": "Past {{days}} days ",
     "total_desc": "Received {{total}} stars ✨",
     "fail_desc": "No star history data available"
   },
@@ -65,7 +65,7 @@
   },
   "comment": {
     "title": "Comments",
-    "sort_hot": "Hot",
+    "sort_hot": "Popular",
     "sort_new": "Newest",
     "total": "{{total}} selected comments",
     "more_reply": "View all {{total}} replies",
@@ -77,22 +77,22 @@
     "reply": "Reply",
     "cancel": "Cancel",
     "item": {
-      "featured": "Featured",
-      "unfeatured": "Not Featured",
+      "featured": "Selected",
+      "unfeatured": "Not Selected",
       "vote": "Like",
       "expand": "Expand",
       "collapse": "Collapse",
-      "login": "Please log in first"
+      "login": "Please sign in first"
     },
     "submit": {
-      "reply_placeholder": "Replying to: {{nickname}}",
-      "placeholder": "Write your comment: share your experience, pros/cons, use cases, or any surprising aspects of this open-source project...",
+      "reply_placeholder": "Reply to: {{nickname}}",
+      "placeholder": "Write your experience, opinions, usages, or anything special about this project...",
       "save": "Submit",
-      "success": "Posted successfully! Will be displayed after approval",
-      "fail": "Submission failed",
-      "err1": "Comment content cannot be empty",
-      "err2": "Comment content must be at least 5 characters",
-      "err3": "Comment content cannot exceed 500 characters",
+      "success": "Submit successfully! Will be displayed after approval",
+      "fail": "Submit failed",
+      "err1": "Comment cannot be empty",
+      "err2": "Comment must be at least 5 characters",
+      "err3": "Comment cannot exceed 500 characters",
       "err4": "Please provide a rating"
     }
   }
