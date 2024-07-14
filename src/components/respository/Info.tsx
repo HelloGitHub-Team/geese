@@ -40,6 +40,7 @@ import CustomLink from '../links/CustomLink';
 import Message from '../message';
 
 import { Repository, RepositoryProps } from '@/types/repository';
+import SvgTrend from '@/components/respository/SvgTrend';
 
 type URLoption = {
   url: string;
@@ -221,7 +222,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       </div>
     </div>
   );
-
   const chartOptions = repo.star_history && {
     xAxis: {
       type: 'category',
@@ -344,11 +344,12 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           <div className='hidden md:flex'>
             {repo.star_history ? (
               <div className='flex flex-col items-center'>
-                <ReactECharts
+                {/* <ReactECharts
                   option={chartOptions}
                   style={{ height: 54, width: 320 }}
                   opts={{ renderer: 'svg' }}
-                />
+                />*/}
+                <SvgTrend {...repo.star_history} />
                 <div className='text-xs text-gray-500'>{`过去 ${
                   repo.star_history.x.length
                 } 天共收获 ${numFormat(

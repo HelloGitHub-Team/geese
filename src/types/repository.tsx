@@ -14,8 +14,8 @@ export interface StarHistory {
   increment: number;
   max: number;
   min: number;
-  y: [];
-  x: [];
+  y: number[];
+  x: string[];
 }
 
 export interface Repository extends RepoType {
