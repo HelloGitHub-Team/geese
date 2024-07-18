@@ -1,7 +1,6 @@
-import { NextPage } from 'next';
 import React from 'react';
 
-import Item from './Item';
+import ProjectItem from '@/components/home/Item';
 
 import { HomeItem } from '@/types/home';
 
@@ -10,11 +9,18 @@ type Props = {
   i18n_lang: string;
 };
 
-const Items: NextPage<Props> = ({ repositories, i18n_lang }) => {
+const Items = ({ repositories, i18n_lang }: Props) => {
   return (
     <div className='divide-y divide-slate-100 bg-white dark:divide-slate-700 dark:bg-slate-800 md:overflow-y-hidden md:rounded-lg'>
       {repositories.map((item: HomeItem) => (
-        <Item key={item.item_id} item={item} i18n_lang={i18n_lang} />
+        <ProjectItem
+          key={item.item_id}
+          item={item}
+          showCommentCount
+          showViewCount
+          linkType='custom'
+          i18n_lang={i18n_lang}
+        />
       ))}
     </div>
   );

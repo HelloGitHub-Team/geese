@@ -243,7 +243,6 @@ const Info = ({ repo, t }: RepositoryProps) => {
       </div>
     </div>
   );
-
   const chartOptions = repo.star_history && {
     xAxis: {
       type: 'category',
@@ -297,7 +296,6 @@ const Info = ({ repo, t }: RepositoryProps) => {
       bottom: '10%',
     },
   };
-
   return (
     <div className='p-1'>
       <div className='flex flex-col gap-y-3'>

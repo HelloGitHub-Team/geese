@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   IoIosCloseCircleOutline,

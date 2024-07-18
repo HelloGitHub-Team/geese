@@ -1,6 +1,6 @@
 {
   "nav": {
-    "title": "Project Details",
+    "title": "Repository Details",
     "desc": "Shared by",
     "desc2": ""
   },
@@ -10,13 +10,13 @@
     "score_desc": "HelloGitHub Rating",
     "score_user_desc": "{{count}} ratings",
     "vite": "Visit",
-    "voted": "Liked",
-    "vote": "Like",
-    "opensource": "License",
+    "voted": "Voted",
+    "vote": "Vote",
+    "opensource": "Free",
     "discuss": "Discuss",
     "share": "Share",
-    "collect": "Save",
-    "copy_desc": "More details at: ",
+    "collect": "Collect",
+    "copy_desc": "More details at:",
     "copy_success": "Project information copied, go share it!",
     "copy_fail": "Copy failed"
   },
@@ -25,7 +25,7 @@
     "document": "Documentation",
     "download": "Download",
     "online": "Demo",
-    "source": "Source Code"
+    "source": "Source"
   },
   "favorite": {
     "default": "Default Favorites",
@@ -37,7 +37,7 @@
     "save": "Save"
   },
   "history": {
-    "past_day_desc": "Past {{days}} days ",
+    "past_day_desc": "Past {{days}} days",
     "total_desc": "Received {{total}} stars ✨",
     "fail_desc": "No star history data available"
   },
@@ -47,11 +47,11 @@
     "null": "None",
     "star": "Stars",
     "chinese": "Chinese",
-    "language": "Main Language",
+    "language": "Language",
     "activity": "Active",
     "contributors": "Contributors",
     "org": "Organization",
-    "version": "Latest Version",
+    "version": "Latest",
     "license": "License",
     "expand": "More",
     "collapse": "Collapse"
@@ -60,7 +60,7 @@
     "desc_tab": "Description",
     "code_tab": "Code",
     "volume_label": "Included in:",
-    "volume": "Issue {{volume}}",
+    "volume": "Vol.{{volume}}",
     "tag_label": "Tags:"
   },
   "comment": {
@@ -77,13 +77,13 @@
     "reply": "Reply",
     "cancel": "Cancel",
     "item": {
-      "featured": "Selected",
-      "unfeatured": "Not Selected",
-      "vote": "Like",
-      "expand": "Expand",
-      "collapse": "Collapse",
-      "login": "Please sign in first"
-    },
+"featured": "Featured",
+"unfeatured": "Not Featured",
+"vote": "Vote",
+"expand": "Expand",
+"collapse": "Collapse",
+"login": "Please log in first"
+},
     "submit": {
       "reply_placeholder": "Reply to: {{nickname}}",
       "placeholder": "Write your experience, opinions, usages, or anything special about this project...",
