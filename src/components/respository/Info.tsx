@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import ReactECharts from 'echarts-for-react';
-import { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -41,6 +40,11 @@ import Message from '../message';
 
 import { Repository, RepositoryProps } from '@/types/repository';
 
+interface URLoptionProps {
+  repo: Repository;
+  t: (key: string, total?: any) => string;
+}
+
 type URLoption = {
   url: string;
   key: string;
@@ -57,22 +61,30 @@ const iconMap: { [key: string]: JSX.Element } = {
 };
 
 // Custom hook to handle URL options logic
-const useURLOptions = (repo: Repository) => {
+const useURLOptions = ({ repo, t }: URLoptionProps) => {
   const [urlOptions, setURLOptions] = useState<URLoption[]>([]);
 
   useEffect(() => {
     const options: URLoption[] = [];
     if (repo.homepage)
-      options.push({ key: 'home', name: '官网', url: repo.homepage });
+      options.push({ key: 'home', name: t('url.home'), url: repo.homepage });
     if (repo.document)
-      options.push({ key: 'document', name: '文档', url: repo.document });
+      options.push({
+        key: 'document',
+        name: t('url.document'),
+        url: repo.document,
+      });
     if (repo.online)
-      options.push({ key: 'online', name: '演示', url: repo.online });
+      options.push({ key: 'online', name: t('url.online'), url: repo.online });
     if (repo.download)
-      options.push({ key: 'download', name: '下载', url: repo.download });
+      options.push({
+        key: 'download',
+        name: t('url.download'),
+        url: repo.download,
+      });
 
     if (options.length > 0) {
-      options.unshift({ key: 'source', name: '源码', url: repo.url });
+      options.unshift({ key: 'source', name: t('url.source'), url: repo.url });
       setURLOptions(options);
     } else {
       setURLOptions([]);
@@ -82,7 +94,7 @@ const useURLOptions = (repo: Repository) => {
   return urlOptions;
 };
 
-const Info: NextPage<RepositoryProps> = ({ repo }) => {
+const Info = ({ repo, t }: RepositoryProps) => {
   const { isLogin, login } = useLoginContext();
   const [isVoted, setIsVoted] = useState<boolean>(false);
   const [voteTotal, setVoteTotal] = useState<number>(repo.votes);
@@ -93,7 +105,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<any>();
 
-  const urlOptions = useURLOptions(repo);
+  const urlOptions = useURLOptions({ repo, t });
 
   useEffect(() => {
     const fetchUserRepoStatus = async () => {
@@ -143,7 +155,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       if (res.success) {
         setIsCollected(false);
         setCollectTotal((prev) => prev - 1);
-        Message.success('取消收藏');
+        Message.success(t('favorite.cancel'));
       }
     } else {
       const res = await getFavoriteOptions();
@@ -152,22 +164,37 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           res.data?.map((item: { fid: any; name: any }) => ({
             key: item.fid,
             value: item.name,
-          })) || [{ key: '', value: '默认收藏夹' }]
+          })) || [{ key: '', value: t('favorite.default') }]
         );
         setOpenModal(true);
       }
     }
   };
 
+  const VoteButton = () => {
+    const voteClassName = classNames('', {
+      'text-xl text-blue-500': isVoted,
+      'text-lg': !isVoted,
+    });
+    return (
+      <div className='w-40 py-3 px-6 text-sm font-medium'>
+        <div className='flex flex-1 items-center justify-center'>
+          <AiFillCaretUp className={voteClassName} />
+          <div className='pl-2'>
+            {isVoted ? t('info.voted') : t('info.vote')} {voteTotal}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const handleCopy = () => {
-    const text = `${
-      repo.name
-    }：${repo.title.trim()}。\n\n更多详情尽在：https://hellogithub.com/repository/${
-      repo.rid
-    }`;
+    const text = `${repo.name}：${repo.title.trim()}。\n\n${t(
+      'info.copy_desc'
+    )}https://hellogithub.com/repository/${repo.rid}`;
     copy(text)
-      ? Message.success('项目信息已复制，快去分享吧！')
-      : Message.error('复制失败');
+      ? Message.success(t('info.copy_success'))
+      : Message.error(t('info.copy_fail'));
   };
 
   const handleSaveFavorite = async () => {
@@ -177,9 +204,9 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       setIsCollected(true);
       setCollectTotal(res.data.total);
       setOpenModal(false);
-      Message.success('收藏成功~');
+      Message.success(t('favorite.success'));
     } else {
-      Message.error(res.message || '收藏失败');
+      Message.error(res.message || t('favorite.fail'));
     }
   };
 
@@ -191,11 +218,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
     const { offsetTop } = document.querySelector('#comment') as HTMLElement;
     window.scrollTo({ top: offsetTop });
   };
-
-  const voteClassName = classNames('', {
-    'text-xl text-blue-500': isVoted,
-    'text-lg': !isVoted,
-  });
 
   const renderDropdownMenu = () => (
     <div
@@ -221,7 +243,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       </div>
     </div>
   );
-
   const chartOptions = repo.star_history && {
     xAxis: {
       type: 'category',
@@ -275,7 +296,6 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
       bottom: '10%',
     },
   };
-
   return (
     <div className='p-1'>
       <div className='flex flex-col gap-y-3'>
@@ -307,7 +327,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                   <GoVerified className='ml-0.5 text-xl text-blue-500 group-hover:text-blue-600' />
                   <div className='absolute hidden flex-row transition-opacity duration-300 group-hover:flex'>
                     <div className='relative -top-6 left-6 w-0 rounded-md bg-gray-300 p-1 text-xs text-white group-hover:w-max'>
-                      已认领
+                      {t('info.claimed')}
                     </div>
                   </div>
                 </div>
@@ -319,7 +339,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
           </div>
 
           <div className='flex flex-1 justify-end'>
-            <Score repo={repo} />
+            <Score repo={repo} t={t} />
           </div>
         </div>
         <div className='flex flex-1 flex-row flex-wrap justify-between'>
@@ -349,16 +369,18 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                   style={{ height: 54, width: 320 }}
                   opts={{ renderer: 'svg' }}
                 />
-                <div className='text-xs text-gray-500'>{`过去 ${
-                  repo.star_history.x.length
-                } 天共收获 ${numFormat(
-                  repo.star_history.increment,
-                  1
-                )} 颗 Star ✨`}</div>
+                <div className='text-xs text-gray-500'>
+                  {t('history.past_day_desc', {
+                    days: repo.star_history.x.length,
+                  })}
+                  {t('history.total_desc', {
+                    total: numFormat(repo.star_history.increment, 1),
+                  })}
+                </div>
               </div>
             ) : (
               <div className='flex flex-col justify-end px-1 pb-1 text-xs text-gray-500'>
-                <div>暂无 Star 历史数据</div>
+                <div>{t('history.fail_desc')}</div>
               </div>
             )}
           </div>
@@ -375,11 +397,15 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                   >
                     {urlOptions.length > 0 ? (
                       <div className='flex flex-row items-center py-3 px-1'>
-                        <div className='px-1 text-sm font-medium'>访问</div>
+                        <div className='px-1 text-sm font-medium'>
+                          {t('info.vite')}
+                        </div>
                         <AiOutlineDown size={10} />
                       </div>
                     ) : (
-                      <div className='p-3 text-sm font-medium'>访问</div>
+                      <div className='p-3 text-sm font-medium'>
+                        {t('info.vite')}
+                      </div>
                     )}
                   </Button>
                 </CustomLink>
@@ -393,7 +419,9 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                 >
                   {urlOptions.length > 0 ? (
                     <div className='flex flex-row items-center py-3 px-1'>
-                      <div className='px-1 text-sm font-medium'>访问</div>
+                      <div className='px-1 text-sm font-medium'>
+                        {t('info.vite')}
+                      </div>
                       <AiOutlineDown size={10} />
                     </div>
                   ) : (
@@ -401,7 +429,9 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
                       href={repo.url}
                       onClick={() => handleClickLink('source', repo.rid)}
                     >
-                      <div className='p-3 text-sm font-medium'>访问</div>
+                      <div className='p-3 text-sm font-medium'>
+                        {t('info.vite')}
+                      </div>
                     </CustomLink>
                   )}
                 </Button>
@@ -413,14 +443,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               className='flex-1 origin-top scale-95 justify-center transition duration-200 ease-in-out hover:scale-100'
               onClick={handleVote}
             >
-              <div className='w-40 py-3 px-6 text-sm font-medium'>
-                <div className='flex flex-1 items-center justify-center'>
-                  <AiFillCaretUp className={voteClassName} />
-                  <div className='pl-2'>
-                    {isVoted ? '已赞' : '点赞'} {voteTotal}
-                  </div>
-                </div>
-              </div>
+              <VoteButton />
             </Button>
           </div>
         </div>
@@ -432,7 +455,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
             <div className='flex items-center justify-center text-sm text-gray-500'>
               {repo.license_lid && (
                 <div className='flex-row items-center md:flex'>
-                  <span>开源</span>
+                  <span>{t('info.opensource')}</span>
                   <span className='mx-0.5 md:mx-1.5'>•</span>
                   <Link href={`/license/${repo.license_lid}`}>
                     <span className='cursor-pointer text-blue-500'>
@@ -448,7 +471,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               <Link href={`/repository/${repo.rid}/embed`}>
                 <div className='flex cursor-pointer items-center justify-center text-blue-500 hover:text-current active:text-gray-400 md:hover:text-blue-600'>
                   <BsPersonCheck className='mr-2' size={16} />
-                  待认领
+                  {t('info.unclaim')}
                 </div>
               </Link>
             )}
@@ -458,15 +481,15 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               className='hidden cursor-pointer items-center justify-center hover:text-blue-500 active:text-gray-400 md:flex'
             >
               <GoComment className='mr-2' size={16} />
-              讨论
+              {t('info.discuss')}
             </div>
             <div
               className={isCollected ? 'text-blue-500' : ''}
               onClick={handleCollect}
             >
-              <div className='flex cursor-pointer items-center justify-center hover:text-current active:text-gray-400 md:hover:text-blue-500'>
+              <div className='flex cursor-pointer items-center justify-center hover:text-blue-500 active:text-gray-400 md:hover:text-blue-500'>
                 <BsBookmark className='mr-2' size={16} />
-                {isCollected ? numFormat(collectTotal, 1) : '收藏'}
+                {isCollected ? numFormat(collectTotal, 1) : t('info.collect')}
               </div>
             </div>
             <div
@@ -474,12 +497,12 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
               onClick={handleCopy}
             >
               <GoLinkExternal className='mr-2' size={16} />
-              分享
+              {t('info.share')}
             </div>
           </div>
         </div>
       </div>
-      <MoreInfo repo={repo} />
+      <MoreInfo repo={repo} t={t} />
 
       {/* 选择收藏夹的弹窗 */}
       <BasicDialog
@@ -488,10 +511,8 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
         maskClosable={false}
         title={
           <>
-            选择收藏夹
-            <p className='mt-3 text-xs text-gray-500'>
-              收藏的项目在「我的主页」可以找到
-            </p>
+            {t('favorite.title')}
+            <p className='mt-3 text-xs text-gray-500'>{t('favorite.desc')}</p>
           </>
         }
         onClose={() => setOpenModal(false)}
@@ -512,7 +533,7 @@ const Info: NextPage<RepositoryProps> = ({ repo }) => {
             variant='gradient'
             onClick={handleSaveFavorite}
           >
-            确定
+            {t('favorite.save')}
           </Button>
         </div>
       </BasicDialog>

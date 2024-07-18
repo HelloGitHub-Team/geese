@@ -1,10 +1,5 @@
 import { RepoType } from './repository';
 
-export interface UserAvaterProps {
-  avatar: string;
-  uid: string;
-}
-
 export interface User {
   uid: string;
   token: string;

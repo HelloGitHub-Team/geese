@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   IoIosCloseCircleOutline,
@@ -19,14 +20,16 @@ import BasicDialog from '../dialog/BasicDialog';
 
 import { maxTotal, PortalTag, PortalTagGroup } from '@/types/tag';
 
-const defaultTag = { name: '综合', tid: '', icon_name: 'find' };
-
 export function TagModal({
   children,
   updateTags,
+  t,
+  i18n_lang,
 }: {
   children: JSX.Element;
   updateTags: any;
+  t: TFunction;
+  i18n_lang: string;
 }) {
   const [loading, setLoading] = useState<boolean>(false);
   const [total, setTotal] = useState(0);
@@ -48,11 +51,29 @@ export function TagModal({
     } else {
       const res = await getSelectTags();
       if (res.success) {
-        setPortalTagGroups(res.data);
+        const tagGroups = res.data.map((group) => {
+          const updatedTags = group.tags.map((tag) => {
+            // Replace the 'name' value with the 'name_en' value if available
+            if (i18n_lang == 'en' && tag.name_en !== null) {
+              return {
+                ...tag,
+                name: tag.name_en,
+              };
+            }
+            return tag;
+          });
+
+          return {
+            ...group,
+            tags: updatedTags,
+          };
+        });
+
+        setPortalTagGroups(tagGroups);
         setEffectedTidList(res.effected);
         setIsOpen(true);
       } else {
-        Message.error('获取标签失败');
+        Message.error(t('tag_modal.fetch_error_msg'));
       }
     }
   };
@@ -84,27 +105,30 @@ export function TagModal({
 
   const saveTags = async () => {
     if (effectedTidList.length <= maxTotal) {
-      const selectTags = [];
-      selectTags.unshift(defaultTag);
+      const defaultTag =
+        i18n_lang === 'en'
+          ? { name: 'All', tid: '', icon_name: 'find', name_en: 'All' }
+          : { name: '综合', tid: '', icon_name: 'find', name_en: 'All' };
+      const selectTags = [defaultTag];
       for (let i = 0; i < effectedTidList.length; i++) {
         const item = portalTagGroups
           .map((m) => m.tags)
           .flat()
           .find((f) => f.tid === effectedTidList[i]);
-        selectTags.push(item);
+        item && selectTags.push(item);
       }
       setLoading(true);
       const res = await saveSelectTags(effectedTidList);
       if (res.success) {
-        Message.success('保存成功！');
+        Message.success(t('tag_modal.save_success_msg'));
         updateTags(selectTags);
         setIsOpen(false);
       } else {
-        Message.error(('保存失败：' + res?.message) as string);
+        Message.error(t('tag_modal.save_fail_msg'));
       }
       setLoading(false);
     } else {
-      Message.error(`最多只能选择 ${maxTotal} 个标签`);
+      Message.error(t('tag_modal.max_tag_msg', { maxTotal: maxTotal }));
     }
   };
 
@@ -142,9 +166,7 @@ export function TagModal({
       >
         <div className='mb-4 flex items-center text-gray-500 dark:text-gray-200'>
           <IoMdBulb />
-          <span className='text-sm'>
-            操作提示：点击左侧标签为「选择」，拖拽右侧已选标签可「排序」
-          </span>
+          <span className='text-sm'>{t('tag_modal.tips')}</span>
         </div>
         <div className='flex flex-wrap'>
           <div className='w-2/3 pr-3'>
@@ -153,7 +175,7 @@ export function TagModal({
                 key={'group_' + index}
                 className='text-lg font-medium text-gray-500 dark:text-gray-200'
               >
-                {group.group_name}
+                {t(`${group.group_name}`)}
               </div>,
               <div
                 key={'group_items_' + index}
@@ -168,6 +190,7 @@ export function TagModal({
                     groupName={group.group_name}
                     portalTagGroupsRef={portalTagGroupsRef}
                     handleAddTag={addTag}
+                    t={t}
                   />
                 ))}
               </div>,
@@ -175,7 +198,8 @@ export function TagModal({
           </div>
           <div className='w-1/3 border-l pl-3'>
             <div className='text-lg font-medium text-gray-500 dark:text-gray-200'>
-              已选：{total}
+              {t('tag_modal.selected')}
+              {total}
               <span className='px-0.5'>/</span>
               {maxTotal}
             </div>
@@ -230,7 +254,7 @@ export function TagModal({
                 <div className='flex items-center pl-2'>
                   <IoMdAddCircleOutline size={20} />
                   <span className='w-full px-1 py-1.5 text-sm font-medium dark:text-gray-300'>
-                    添加标签
+                    {t('tag_modal.add')}
                   </span>
                 </div>
               </div>
@@ -242,7 +266,7 @@ export function TagModal({
             isLoading={loading}
             onClick={saveTags}
           >
-            保存
+            {t('tag_modal.save')}
           </Button>
         </div>
       </BasicDialog>

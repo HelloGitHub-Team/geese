@@ -1,21 +1,17 @@
-import { HomeItem } from './home';
 import { TagType } from './tag';
 import { UserType } from './user';
 
-export interface RepositoryItems {
-  repositories: HomeItem[];
-}
-
 export interface RepositoryProps {
   repo: Repository;
+  t: (key: string, total?: any) => string;
 }
 
 export interface StarHistory {
   increment: number;
   max: number;
   min: number;
-  y: [];
-  x: [];
+  y: number[];
+  x: string[];
 }
 
 export interface Repository extends RepoType {

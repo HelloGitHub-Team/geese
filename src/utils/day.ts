@@ -6,13 +6,18 @@ declare module 'dayjs' {
   }
 }
 
+const locales: { [key: string]: string } = {
+  en: 'en',
+  zh: 'zh-cn',
+};
+
 /* eslint-disable */
 const relativeTime = require('dayjs/plugin/relativeTime');
 /* eslint-enable */
 dayjs.extend(relativeTime);
-dayjs.locale('zh-cn');
 
-export const fromNow = (datetime: string): string => {
+export const fromNow = (datetime: string, locale = 'zh'): string => {
+  dayjs.locale(locales[locale] || 'en');
   return dayjs(datetime).fromNow();
 };
 

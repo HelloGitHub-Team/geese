@@ -1,5 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 import useRepositories from '@/hooks/useRepositories';
@@ -20,13 +22,12 @@ const Index: NextPage = () => {
   const { repositories, isValidating, hasMore, size, sentryRef } =
     useRepositories(sort_by as string, tid as string);
 
+  const { t, i18n } = useTranslation('home');
   const handleItemBottom = () => {
     if (!isValidating && !hasMore) {
       return (
         <ItemBottom
-          endText={
-            isLogin ? '你不经意间触碰到了底线' : '到底啦！登录可查看更多内容'
-          }
+          endText={isLogin ? t('bottom_text_login') : t('bottom_text_login')}
         />
       );
     }
@@ -35,10 +36,10 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <Seo title='首页' description='分享 GitHub 上有趣、入门级的开源项目' />
-      <IndexBar tid={tid as string} sort_by={sort_by as string} />
+      <Seo title={t('title')} description={t('description')} />
+      <IndexBar tid={tid as string} sort_by={sort_by as string} t={t} />
       <div className='h-screen'>
-        <Items repositories={repositories} />
+        <Items repositories={repositories} i18n_lang={i18n.language} />
         <div
           className='divide-y divide-gray-100 overflow-hidden dark:divide-gray-700'
           ref={sentryRef}
@@ -54,5 +55,13 @@ const Index: NextPage = () => {
     </>
   );
 };
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'home'])),
+    },
+  };
+}
 
 export default Index;

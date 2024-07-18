@@ -42,7 +42,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               {children}
             </div>
             <div className='relative hidden w-3/12 shrink-0 md:block'>
-              <Side index={pathname === '/'} />
+              <Side isHome={pathname === '/'} />
             </div>
           </div>
         )}

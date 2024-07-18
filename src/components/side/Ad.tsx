@@ -6,12 +6,18 @@ import { redirectRecord } from '@/services/home';
 
 import { AdvertItem } from '@/types/home';
 
+const ImageURL =
+  'https://img.hellogithub.com/article/HwsoJXEiYdPhjLa_1720773908.png';
+
 interface Props {
   data: AdvertItem;
   className?: string;
+  t: (key: string) => string;
+  i18n_lang?: string;
 }
 
-interface RewardAdContentProps {
+interface AdContentProps {
+  t: (key: string) => string;
   data: AdvertItem;
 }
 
@@ -32,7 +38,7 @@ const ImageAdContent = ({ data, handleClose }: ImageAdContentProps) => (
   </div>
 );
 
-export default function Ad({ data, className }: Props) {
+export default function Ad({ data, className, t, i18n_lang }: Props) {
   const [visible, setVisible] = useState(true);
 
   const handleClose: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -55,50 +61,51 @@ export default function Ad({ data, className }: Props) {
     </div>
   );
 
-  const AdTargetInfo = ({ data }: { data: AdvertItem }) => (
+  const AdTargetInfo = ({ data, t }: AdContentProps) => (
     <div className='mt-1.5 mb-1 text-xs text-gray-500'>
       <span>
-        {data.year ? '距离下个目标还差' : '距离目标还差'}
+        {data.year ? t('advert.next2') : t('advert.next')}
         <strong className='mx-1'>{100 - data.percent}%</strong>
       </span>
       <ProgressBar percent={data.percent} />
     </div>
   );
 
-  const AdServerInfo = ({ data }: { data: AdvertItem }) => (
+  const AdServerInfo = ({ data, t }: AdContentProps) => (
     <div className='mt-1.5 mb-1 text-xs text-gray-500'>
       <span>
-        服务器还剩<strong className='mx-1'>{data.day}</strong>天
+        {t('advert.desc')}
+        <strong className='mx-1'>{data.day}</strong>
+        {t('advert.day')}
       </span>
       <div className='relative left-0.5 bottom-1 inline-flex w-fit'>
         <span className='text-xs font-medium text-blue-500'>
-          <span className='mr-[0.5px]'>+{data.year}</span>年
+          <span className='mr-[0.5px]'>+{data.year}</span>
+          {t('advert.year')}
         </span>
       </div>
       <ProgressBar percent={data.percent} />
     </div>
   );
 
-  const RewardAdDetail = ({ data }: { data: AdvertItem }) => (
-    <>
-      <div className='group-hover:hidden'>
-        <AdServerInfo data={data} />
-      </div>
-      <div className='hidden group-hover:block'>
-        <AdTargetInfo data={data} />
-      </div>
-    </>
-  );
-
-  const RewardAdContent = ({ data }: RewardAdContentProps) => (
+  const RewardAdContent = ({ data, t }: AdContentProps) => (
     <div className='group flex flex-row p-3'>
-      <img className='h-[55px] w-[55px]' src={data.image_url} alt='ad' />
+      <img
+        className='h-[55px] w-[55px]'
+        src={i18n_lang == 'en' ? ImageURL : data.image_url}
+        alt='ad'
+      />
       <div className='ml-3'>
         <div className='font-medium tracking-wider md:text-sm lg:w-[135px] lg:truncate lg:whitespace-nowrap lg:text-base'>
-          微信扫码赞助本站
+          {t('advert.desc2')}
         </div>
         <div className='hidden lg:block'>
-          <RewardAdDetail data={data} />
+          <div className='group-hover:hidden'>
+            <AdServerInfo data={data} t={t} />
+          </div>
+          <div className='hidden group-hover:block'>
+            <AdTargetInfo data={data} t={t} />
+          </div>
         </div>
       </div>
     </div>
@@ -115,7 +122,7 @@ export default function Ad({ data, className }: Props) {
           rel='noreferrer'
         >
           {data.is_reward ? (
-            <RewardAdContent data={data} />
+            <RewardAdContent data={data} t={t} />
           ) : (
             <ImageAdContent data={data} handleClose={handleClose} />
           )}

@@ -1,5 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
@@ -9,7 +11,6 @@ import ItemBottom from '@/components/home/ItemBottom';
 import Loading from '@/components/loading/Loading';
 import { SearchSkeleton } from '@/components/loading/skeleton';
 import Navbar from '@/components/navbar/Navbar';
-import SearchResultItem from '@/components/search/SearchResultItem';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
 
@@ -17,11 +18,13 @@ import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
 import { SearchItemType, SearchResponse } from '@/types/search';
+import RepositoryItem from '@/components/home/Item';
 
 const Result: NextPage = () => {
   const router = useRouter();
   const { q = '' } = router.query;
   const { isLogin } = useLoginContext();
+  const { t, i18n } = useTranslation('search');
 
   const getKey = (index: number) =>
     q ? makeUrl(`/search/`, { q, page: index + 1 }) : null;
@@ -40,7 +43,7 @@ const Result: NextPage = () => {
   const pageIndex = data ? size : 0;
 
   const handleItemBottom = () => (
-    <ItemBottom endText={isLogin ? 'END' : '到底啦！登录可获得更多内容'} />
+    <ItemBottom endText={isLogin ? 'END' : t('bottom_text_nologin')} />
   );
 
   const [sentryRef] = useInfiniteScroll({
@@ -53,15 +56,17 @@ const Result: NextPage = () => {
 
   return (
     <>
-      <Seo
-        title='开源项目搜索结果'
-        description='找有趣、入门级的开源项目就上 HelloGitHub'
-      />
-      <Navbar middleText='搜索结果' />
+      <Seo title={t('title')} description={t('description')} />
+      <Navbar middleText={t('navbar')} />
       <div className='h-screen'>
         <div className='divide-y divide-gray-100 overflow-y-hidden bg-white dark:divide-gray-700 md:rounded-lg'>
           {list.map((item, index) => (
-            <SearchResultItem key={item.rid} repo={item} index={index} />
+            <RepositoryItem
+              key={item.rid}
+              item={item}
+              index={index}
+              i18n_lang={i18n.language}
+            />
           ))}
         </div>
         {(isValidating || hasMore) && (
@@ -80,5 +85,13 @@ const Result: NextPage = () => {
     </>
   );
 };
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'search'])),
+    },
+  };
+}
 
 export default Result;

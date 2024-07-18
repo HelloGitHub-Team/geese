@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useEffect, useRef, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 
@@ -13,11 +14,8 @@ import UserStatus from './UserStatus';
 
 import { AdvertItems } from '@/types/home';
 
-interface Props {
-  index: boolean;
-}
-
-export const Side = ({ index }: Props) => {
+export const Side = ({ isHome }: { isHome: boolean }) => {
+  const { t, i18n } = useTranslation('common');
   const [displayAdOnly, setDisplayAdOnly] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { data, isValidating } = useSWRImmutable<AdvertItems>(
@@ -46,18 +44,23 @@ export const Side = ({ index }: Props) => {
         <div className='relative mt-2 ml-3 max-w-[244px]'>
           <div className='space-y-2'>
             <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5 dark:bg-gray-800'>
-              <UserStatus />
+              <UserStatus t={t} />
             </div>
-            {!isValidating ? <SideAd data={adverts} /> : <></>}
-            {index ? <SiteStats /> : <Recommend />}
+            {!isValidating && (
+              <SideAd data={adverts} t={t} i18n_lang={i18n.language} />
+            )}
+            {isHome ? <SiteStats t={t} /> : <Recommend t={t} />}
           </div>
-          {index ? <Footer /> : <></>}
+          {isHome && <Footer t={t} />}
         </div>
       </div>
-      {adverts ? (
-        <SideFixAd data={adverts} displayAdOnly={displayAdOnly} />
-      ) : (
-        <></>
+      {adverts && (
+        <SideFixAd
+          data={adverts}
+          displayAdOnly={displayAdOnly}
+          t={t}
+          i18n_lang={i18n.language}
+        />
       )}
     </>
   );

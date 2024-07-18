@@ -14,37 +14,20 @@ import {
 
 import { CommentItemData, CommentSuccessData } from '@/types/repository';
 
-function getErrMessage(commentData: {
-  comment: string;
-  isUsed: boolean;
-  score: number;
-}) {
-  if (!commentData.comment) {
-    return '评论内容不能为空';
-  }
-  if (commentData.comment.length < 5) {
-    return '评论内容不能少于 5 个字';
-  }
-  if (commentData.comment.length > 500) {
-    return '评论内容不能超过 500 个字';
-  }
-  if (!commentData.score) {
-    return '请评分';
-  }
-  return '';
-}
-
-function CommentSubmit(props: {
+interface CommentSubmitProps {
+  t: (key: string, text?: any) => string;
   belongId: string;
   className?: string;
   replyUser?: CommentItemData;
   onSuccess?: (data: CommentSuccessData) => void;
   onFail?: (error: any) => void;
   onCancelReply?: () => void;
-}) {
+}
+
+function CommentSubmit(props: CommentSubmitProps) {
   const { commentData, setCommentData } = useCommentData();
   const { login, userInfo, isLogin } = useLoginContext();
-  const { belongId, className, onSuccess, onFail } = props;
+  const { t, belongId, className, onSuccess, onFail } = props;
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
     const { value } = e.currentTarget;
@@ -69,6 +52,25 @@ function CommentSubmit(props: {
 
   const handleChangeRating = (rating: number) => {
     setCommentData({ ...commentData, score: rating });
+  };
+  const getErrMessage = (commentData: {
+    comment: string;
+    isUsed: boolean;
+    score: number;
+  }) => {
+    if (!commentData.comment) {
+      return t('comment.submit.err1');
+    }
+    if (commentData.comment.length < 5) {
+      return t('comment.submit.err2');
+    }
+    if (commentData.comment.length > 500) {
+      return t('comment.submit.err3');
+    }
+    if (!commentData.score) {
+      return t('comment.submit.err4');
+    }
+    return '';
   };
 
   const handleSubmit = () => {
@@ -95,19 +97,21 @@ function CommentSubmit(props: {
 
         if (data.success) {
           onSuccess && onSuccess(data);
-          Message.success('发布成功，通过审核后展示...');
+          Message.success(t('comment.submit.success'));
         } else {
           onFail && onFail(data);
         }
       })
       .catch((err) => {
-        Message.error(err.message || '提交失败');
+        Message.error(err.message || t('comment.submit.fail'));
       });
   };
 
   const placeholder = props.replyUser
-    ? `正在回复：${props.replyUser.user.nickname}`
-    : '写评论：分享开源项目的使用体验、优点/吐槽、适用场景、惊艳之处...';
+    ? t('comment.submit.reply_placeholder', {
+        nickname: props.replyUser.user.nickname,
+      })
+    : t('comment.submit.placeholder');
 
   return (
     <div className={`${className}`}>
@@ -142,7 +146,7 @@ function CommentSubmit(props: {
                     checked={!commentData.isUsed}
                     onChange={() => handleRadioChange(false)}
                   />
-                  <span>没用过</span>
+                  <span>{t('comment.unused')}</span>
                 </label>
                 <label className='flex cursor-pointer items-center py-2'>
                   <input
@@ -153,11 +157,11 @@ function CommentSubmit(props: {
                     checked={commentData.isUsed}
                     onChange={() => handleRadioChange(true)}
                   />
-                  <span>用过</span>
+                  <span>{t('comment.used')}</span>
                 </label>
                 <div className='h-4 w-[1px] bg-gray-300'></div>
                 <div className='flex items-center'>
-                  <span>评分：</span>
+                  <span>{t('comment.score')}</span>
                   <Rating
                     value={commentData.score}
                     onRateChange={handleChangeRating}
@@ -172,13 +176,13 @@ function CommentSubmit(props: {
                     onClick={props.onCancelReply}
                     className='inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg border border-gray-300 pl-3 pr-3 text-sm font-semibold text-gray-500 transition-transform focus:outline-none active:scale-90'
                   >
-                    取消回复
+                    {t('comment.cancel')}
                   </button>
                   <button
                     className='inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90'
                     onClick={handleSubmit}
                   >
-                    回复
+                    {t('comment.reply')}
                   </button>
                 </div>
               ) : (
@@ -186,7 +190,7 @@ function CommentSubmit(props: {
                   className='ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90'
                   onClick={handleSubmit}
                 >
-                  发布
+                  {t('comment.submit.save')}
                 </button>
               )}
             </>

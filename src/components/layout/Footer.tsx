@@ -6,38 +6,48 @@ import CustomLink from '@/components/links/CustomLink';
 
 import FooterLink from './FooterLink';
 
-const Footer = () => {
+import { SideProps } from '@/types/home';
+
+const Footer = ({ t }: SideProps) => {
   return (
     <footer className='flex flex-wrap items-center px-1 py-2.5 text-xs text-gray-400 lg:px-3'>
       <div className='inline-flex space-x-1 lg:space-x-1.5'>
         <FeedbackModal feedbackType={2}>
-          <div className='cursor-pointer hover:text-blue-500'>问题反馈</div>
+          <div className='cursor-pointer hover:text-blue-500'>
+            {t('footer.feedback')}
+          </div>
         </FeedbackModal>
         <span>·</span>
         <FeedbackModal feedbackType={3}>
-          <div className='cursor-pointer hover:text-blue-500'>商务合作</div>
+          <div className='cursor-pointer hover:text-blue-500'>
+            {t('footer.business')}
+          </div>
         </FeedbackModal>
         <span>·</span>
-        <FooterLink href='mailto:595666367@qq.com'>联系我们</FooterLink>
+        <FooterLink href='mailto:595666367@qq.com'>
+          {t('footer.contact')}
+        </FooterLink>
       </div>
 
       <p className='mt-2'>
         <FooterLink href='https://hellogithub.com/help/ats'>
-          服务协议
+          {t('footer.agreement')}
         </FooterLink>
         <span className='px-1 lg:px-1.5'>·</span>
         <FooterLink href='https://github.com/HelloGitHub-Team/geese'>
-          社区源码
+          {t('footer.source')}
         </FooterLink>
         <span className='px-1 lg:px-1.5'>·</span>
         <CustomLink className='inline' href='/server-sitemap-index.xml'>
-          <span className='cursor-pointer hover:text-blue-500'>站点地图</span>
+          <span className='cursor-pointer hover:text-blue-500'>
+            {t('footer.sitemap')}
+          </span>
         </CustomLink>
       </p>
 
       <FooterLink href='https://www.ucloud.cn/site/active/kuaijiesale.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display#wulanchabu'>
         <div className='mt-2'>
-          <span>服务器由</span>
+          <span>{t('footer.server_sponsor')}</span>
           <span className='mx-0.5 align-[1px]'>
             <img
               className='inline-block'
@@ -47,13 +57,13 @@ const Footer = () => {
               alt='ucloud_footer'
             />
           </span>
-          <span>提供</span>
+          <span>{t('footer.server_sponsor2')}</span>
         </div>
       </FooterLink>
 
       <FooterLink href='https://www.upyun.com/league?utm_source=HelloGitHub&utm_medium=adting'>
         <div className='mt-2'>
-          <span>专业的</span>
+          <span>{t('footer.cdn_sponsor')}</span>
           <span className='mx-0.5 align-[1px]'>
             <img
               className='inline-block'
@@ -63,7 +73,7 @@ const Footer = () => {
               alt='upyun_footer'
             />
           </span>
-          <span>提供云存储服务</span>
+          <span>{t('footer.cdn_sponsor2')}</span>
         </div>
       </FooterLink>
 

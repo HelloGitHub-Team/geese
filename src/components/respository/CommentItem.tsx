@@ -16,18 +16,21 @@ import { MDRender } from '../mdRender/MDRender';
 
 import { CommentItemData } from '@/types/repository';
 
-const CommentItem = (
-  props: CommentItemData & {
-    className?: string;
-    /** 是否独自显示，以表示当前用户所发表过的评论 */
-    alone?: boolean;
-    footerRight?: (data: CommentItemData) => React.ReactNode;
-    onChangeVote?: (value: boolean) => void;
-    onReply?: (cid: string, reply_id?: string) => void;
-    reply?: boolean;
-  }
-) => {
+type CommentItemProps = CommentItemData & {
+  t: (key: string, total?: any) => string;
+  i18n_lang: string;
+  className?: string;
+  alone?: boolean; // 是否独自显示，以表示当前用户所发表过的评论
+  footerRight?: (data: CommentItemData) => React.ReactNode;
+  onChangeVote?: (value: boolean) => void;
+  onReply?: (cid: string, reply_id?: string) => void;
+  reply?: boolean;
+};
+
+const CommentItem = (props: CommentItemProps) => {
   const {
+    t,
+    i18n_lang,
     cid,
     user,
     score,
@@ -71,7 +74,7 @@ const CommentItem = (
       await like({ belong, belongId, cid });
       onChangeVote(true);
     } else {
-      Message.error('请先登录！');
+      Message.error(t('comment.item.login'));
     }
   };
 
@@ -80,7 +83,7 @@ const CommentItem = (
     (() =>
       alone ? (
         <span className='ml-auto text-sm text-gray-400'>
-          {isShow ? '已精选' : '未精选'}
+          {isShow ? t('comment.item.featured') : t('comment.item.unfeatured')}
         </span>
       ) : (
         <div className='flex justify-end space-x-4 text-gray-400'>
@@ -92,7 +95,7 @@ const CommentItem = (
               onClick={handleVote}
             >
               <GoThumbsup className='mr-1' size={12} />
-              <span className='text-xs'>{votes || '点赞'}</span>
+              <span className='text-xs'>{votes || t('comment.item.vote')}</span>
             </div>
           )}
 
@@ -101,7 +104,9 @@ const CommentItem = (
             onClick={() => props.onReply?.(cid, props.reply_id)}
           >
             <GoCommentDiscussion className='mr-1' size={12} />
-            <span className='text-xs'>{props.reply ? '取消回复' : '回复'}</span>
+            <span className='text-xs'>
+              {props.reply ? t('comment.cancel') : t('comment.reply')}
+            </span>
           </div>
         </div>
       ));
@@ -148,17 +153,19 @@ const CommentItem = (
             {!props.reply_id ? (
               <>
                 <span className='flex shrink-0 items-center text-xs md:text-sm'>
-                  评分：
+                  {t('comment.score')}
                   <Rating value={score} />
                 </span>
                 <span className='shrink-0 text-xs md:text-sm'>
-                  {isUsed ? '用过' : '没用过'}
+                  {isUsed ? t('comment.used') : t('comment.unused')}
                 </span>
               </>
             ) : (
               props.reply_uid && (
                 <>
-                  <span className='text-xs md:text-sm'>回复</span>
+                  <span className='text-xs md:text-sm'>
+                    {t('comment.reply')}
+                  </span>
                   <Link href={`/user/${props.reply_user?.uid}`}>
                     <a>
                       <div className='w-fit max-w-[180px] truncate text-xs text-gray-500 md:text-sm'>
@@ -184,12 +191,14 @@ const CommentItem = (
               className='text-blue-500'
               onClick={() => setExpand(!expand)}
             >
-              {expand ? '收起' : '展开'}
+              {expand ? t('comment.item.collapse') : t('comment.item.expand')}
             </button>
           )}
         </div>
         <div className='mt-2 flex items-center justify-between'>
-          <span className='text-sm text-gray-400'>{fromNow(createdAt)}</span>
+          <span className='text-sm text-gray-400'>
+            {fromNow(createdAt, i18n_lang)}
+          </span>
           {footerRight(props)}
         </div>
       </div>

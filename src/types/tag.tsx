@@ -24,6 +24,7 @@ export interface TagItems {
 
 export interface Tag {
   name: string;
+  name_en: string;
   tid: string;
   icon_name: string;
 }
@@ -47,6 +48,7 @@ export interface TagType {
 
 export interface PortalTag {
   name: string;
+  name_en: string;
   tid: string;
   icon_name: string;
 }

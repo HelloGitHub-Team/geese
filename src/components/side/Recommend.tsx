@@ -8,7 +8,7 @@ import { getRecommend } from '@/services/home';
 
 import { RecommendSkeleton } from '../loading/skeleton';
 
-import { RecommendItem } from '@/types/home';
+import { RecommendItem, SideProps } from '@/types/home';
 
 const RecommendList = ({ repositories }: { repositories: RecommendItem[] }) => (
   <div className='dark:text-gray-300'>
@@ -36,7 +36,7 @@ const RecommendList = ({ repositories }: { repositories: RecommendItem[] }) => (
                   <span
                     style={{ backgroundColor: `${item.lang_color}` }}
                     className='relative box-border inline-block h-3 w-3 rounded-full border border-gray-100 align-[-1.5px] dark:border-gray-600'
-                  ></span>
+                  />
                   <span className='whitespace-nowrap pl-0.5'>
                     {item.primary_lang}
                   </span>
@@ -52,7 +52,7 @@ const RecommendList = ({ repositories }: { repositories: RecommendItem[] }) => (
 
 const isLicenseDetailPath = (pathname: string) => pathname === '/license/[lid]';
 
-export default function Recommend() {
+export default function Recommend({ t }: SideProps) {
   const router = useRouter();
   const { pathname, query } = router;
 
@@ -78,14 +78,14 @@ export default function Recommend() {
       <div className='space-y-1.5 rounded-lg bg-white px-4 pt-3 pb-2 dark:bg-gray-800'>
         <div className='flex flex-row items-center justify-between border-b border-gray-100 pb-2 dark:border-gray-700'>
           <div className='text-sm font-medium text-gray-600 dark:text-gray-300'>
-            推荐项目
+            {t('recommend.title')}
           </div>
           <div
             className='flex cursor-pointer flex-row items-center text-xs text-gray-400 hover:text-blue-500'
             onClick={refreshRecommend}
           >
             <MdRefresh />
-            <span className='pl-0.5'>换一换</span>
+            <span className='pl-0.5'>{t('recommend.change')}</span>
           </div>
         </div>
         {repositories.length === 0 ? (
@@ -96,7 +96,7 @@ export default function Recommend() {
       </div>
       {ShowIsLicenseDetail && (
         <div className='space-y-1.5 rounded-lg bg-white px-4 pt-3 pb-2 text-sm dark:bg-gray-800'>
-          内容整理自 spdx 和 GitHub 网站，并遵循
+          {t('recommend.desc')}
           <a
             target='_blank'
             className='cursor-pointer px-1 hover:text-blue-500'
@@ -105,7 +105,7 @@ export default function Recommend() {
           >
             CC-BY-3.0
           </a>
-          协议。
+          {t('recommend.desc2')}
         </div>
       )}
     </>

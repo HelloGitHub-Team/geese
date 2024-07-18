@@ -13,11 +13,14 @@ type DropdownList = {
   name: string;
 };
 
+type SearchInputProps = {
+  t: (key: string) => string;
+};
+
 /**
  * 顶部搜索输入框组件
- * @returns {JSX.Element}
  */
-export default function SearchInput(): JSX.Element {
+const SearchInput = ({ t }: SearchInputProps) => {
   const router = useRouter();
   const initialQuery = router.query?.q as string;
   const [query, setQuery] = useState<string>(initialQuery || '');
@@ -50,11 +53,7 @@ export default function SearchInput(): JSX.Element {
 
   const jumpToResultPage = (query: string) => {
     setShowDropdown(false);
-    if (query) {
-      router.push(`/search/result?q=${encodeURIComponent(query)}`);
-    } else {
-      router.push(`/`);
-    }
+    router.push(query ? `/search/result?q=${encodeURIComponent(query)}` : `/`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -105,7 +104,7 @@ export default function SearchInput(): JSX.Element {
         <input
           type='text'
           className='block h-10 w-full rounded-md border-gray-200 py-2 pl-2 pr-14 text-xs placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:placeholder:text-gray-400 dark:focus:border-blue-900 dark:focus:ring-blue-900 md:text-sm'
-          placeholder='搜索开源项目'
+          placeholder={t('header.search')}
           value={query}
           onChange={handleQueryChange}
           onKeyDown={handleKeyDown}
@@ -142,4 +141,6 @@ export default function SearchInput(): JSX.Element {
       </div>
     </div>
   );
-}
+};
+
+export default SearchInput;

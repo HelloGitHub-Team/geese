@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { useCallback, useEffect, useState } from 'react';
 import { AiOutlineAppstore, AiOutlineSetting } from 'react-icons/ai';
 
@@ -13,9 +14,15 @@ import { TagListSkeleton } from '../loading/skeleton';
 
 import { Tag } from '@/types/tag';
 
-const defaultTag: Tag = { name: '综合', tid: '', icon_name: 'find' };
-
 export default function TagList() {
+  const { t, i18n } = useTranslation('home');
+  const defaultTag: Tag = {
+    name: '综合',
+    name_en: 'All',
+    tid: '',
+    icon_name: 'find',
+  };
+
   const router = useRouter();
   const { tid = '', sort_by = 'featured' } = router.query;
   const [tags, setTags] = useState<Tag[]>([]);
@@ -24,9 +31,15 @@ export default function TagList() {
     const res = await getTags();
     if (res.success) {
       res.data.unshift(defaultTag);
+      // 判断当前语言是否为英文，如果是英文则显示英文名称
+      res.data.forEach((item) => {
+        if (i18n.language == 'en' && item.name_en !== null) {
+          item.name = item.name_en;
+        }
+      });
       setTags(res.data);
     }
-  }, []);
+  }, [i18n.language]);
 
   useEffect(() => {
     if (!isMobile()) {
@@ -53,7 +66,7 @@ export default function TagList() {
             <div className='border-b border-b-gray-200 pb-2 dark:border-b-gray-600 dark:text-gray-300'>
               <div className='flex w-[104px] flex-row items-center p-1'>
                 <AiOutlineAppstore size={16} />
-                <div className='ml-1 font-medium'>热门标签</div>
+                <div className='ml-1 font-medium'>{t('tag_side.title')}</div>
               </div>
             </div>
           </div>
@@ -71,10 +84,10 @@ export default function TagList() {
               </Link>
             ))}
           </div>
-          <TagModal updateTags={setTags}>
+          <TagModal updateTags={setTags} t={t} i18n_lang={i18n.language}>
             <div className='flex cursor-pointer flex-row items-center border-t border-t-gray-200 px-3 pt-2 pb-1 text-gray-500 hover:text-blue-500 dark:border-t-gray-600 dark:text-gray-300 dark:hover:text-blue-500'>
               <AiOutlineSetting size={15} />
-              <div className='ml-0.5 text-sm'>管理标签</div>
+              <div className='ml-0.5 text-sm'>{t('tag_side.manage')}</div>
             </div>
           </TagModal>
         </div>
