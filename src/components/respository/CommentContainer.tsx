@@ -9,11 +9,12 @@ import CommentSubmit from '@/components/respository/CommentSubmit';
 import { getMoreReply } from '@/services/repository';
 
 import { CommentItemData } from '@/types/repository';
+import { TranslationFunction } from '@/types/utils';
 
 interface Props {
   belong: string;
   belongId: string;
-  t: (key: string, total?: any) => string;
+  t: TranslationFunction;
   i18n_lang: string;
   className?: string;
 }

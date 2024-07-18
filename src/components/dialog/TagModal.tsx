@@ -1,4 +1,3 @@
-import { TFunction } from 'i18next';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   IoIosCloseCircleOutline,
@@ -19,6 +18,7 @@ import { getSelectTags, saveSelectTags } from '@/services/tag';
 import BasicDialog from '../dialog/BasicDialog';
 
 import { maxTotal, PortalTag, PortalTagGroup } from '@/types/tag';
+import { TranslationFunction } from '@/types/utils';
 
 export function TagModal({
   children,
@@ -28,7 +28,7 @@ export function TagModal({
 }: {
   children: JSX.Element;
   updateTags: any;
-  t: (key: string, total?: any) => string;
+  t: TranslationFunction;
   i18n_lang: string;
 }) {
   const [loading, setLoading] = useState<boolean>(false);

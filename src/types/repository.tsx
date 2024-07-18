@@ -1,9 +1,11 @@
 import { TagType } from './tag';
 import { UserType } from './user';
 
+import { TranslationFunction } from '@/types/utils';
+
 export interface RepositoryProps {
   repo: Repository;
-  t: (key: string, total?: any) => string;
+  t: TranslationFunction;
 }
 
 export interface StarHistory {
