@@ -1,0 +1,48 @@
+{
+  "title": "佩戴 HelloGitHub 徽章",
+  "description": "彰显开源项目荣耀，帮助推广和运营开源项目",
+  "navbar": "HelloGitHub 徽章",
+  "top_h2": "加入 HelloGitHub 徽章计划",
+  "top_text": "这是一个开源项目的认领计划，认领后通过佩戴 HelloGitHub 徽章，向世界展示项目得到的社区认可和推荐，<strong>彰显开源项目荣耀</strong>。同时，<strong>认领你的开源项目</strong>，享受社区带来的更多推荐和权益。",
+  "badge_theme_neutral": "普通",
+  "badge_theme_dark": "黑暗",
+  "badge_theme_small": "极简",
+  "copy": {
+    "text": "复制代码",
+    "success": "复制成功",
+    "warning": "徽章生成中，请稍后重试",
+    "fail": "复制失败"
+  },
+  "submit": {
+    "text": "提交",
+    "loding": "正在提交",
+    "check_fail": "请输入正确的 README 文件名！",
+    "check_fail2": "该项目还未被收录，请先提交项目",
+    "check_fail3": "该仓库已被认领！",
+
+    "success": "恭喜你！已提交成功，请等待社区确认",
+    "fail": "认证失败！请确认 README 文件名和代码完整性",
+    "fail2": "认证失败！请检查网络和 README 文件名"
+  },
+  "rights": {
+    "item1": "<strong>社区认可：</strong>徽章代表你的项目已通过 HelloGitHub 社区的严格筛选，并获得推荐。",
+    "item2": "<strong>增加曝光：</strong>完成认领（佩戴徽章）将获得更多推荐流量，吸引潜在用户和贡献者的目光。",
+    "item3": "<strong>互动机会：</strong>用户可通过徽章快速了解项目，并通过点赞、评论、收藏，增强社区互动。",
+    "item4": "<strong>反馈积累：</strong>收集来自广大用户的真实反馈，持续优化你的项目。",
+    "item5": "<strong>作者标识：</strong>认证后发布评论将显示醒目的标识，并获得评论置顶。"
+  },
+  "howto": {
+    "title": "如何认领开源项目",
+    "step1": "确认您的项目已被 HelloGitHub 社区收录，点击",
+    "step2": "在您项目 README 文件中找到合适的位置，<strong>粘贴</strong>已复制的代码，并提交更改。",
+    "step3": "完成徽章佩戴后，输入您的项目 README 文件名：",
+    "step4": "HelloGitHub 团队审核通过后，您的项目将享受更多推荐和权益。"
+  },
+  "question": {
+    "title": "常见问题",
+    "item1": "<strong>认证权限：</strong>仅限于项目的作者或拥有修改权限的贡献者，请确保您有足够的权限进行认领。",
+    "item2": "<strong>认证失败：</strong>仅限社区已收录的项目。如果您的项目尚未被收录，请先提交您的项目。",
+    "item3": "<strong>每个项目只能认领一次：</strong> 认证后项目的认领者不可修改。请在操作前仔细检查所有信息。",
+    "item4": "<strong>需要帮助：</strong>可通过微信联系我：xueweihan（备注：认领）。"
+  }
+}

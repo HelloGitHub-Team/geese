@@ -1,7 +1,6 @@
 {
-    "title": "Open Source Projects with the {{name}} Topic",
-    "description": "Interesting and Fun Open Source Projects with the {{name}} Topic",
-    "navbar": "Topic",
-    "bottom_text": "That's all for now, only these are available at the moment"
-  }
-  
+  "title": "Open Source Projects with the {{name}} Topic",
+  "description": "Interesting and Fun Open Source Projects with the {{name}} Topic",
+  "navbar": "Topic",
+  "bottom_text": "That's all for now, only these are available at the moment"
+}

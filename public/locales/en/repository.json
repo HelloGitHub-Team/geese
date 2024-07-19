@@ -77,13 +77,13 @@
     "reply": "Reply",
     "cancel": "Cancel",
     "item": {
-"featured": "Featured",
-"unfeatured": "Not Featured",
-"vote": "Vote",
-"expand": "Expand",
-"collapse": "Collapse",
-"login": "Please log in first"
-},
+      "featured": "Featured",
+      "unfeatured": "Not Featured",
+      "vote": "Vote",
+      "expand": "Expand",
+      "collapse": "Collapse",
+      "login": "Please log in first"
+    },
     "submit": {
       "reply_placeholder": "Reply to: {{nickname}}",
       "placeholder": "Write your experience, opinions, usages, or anything special about this project...",

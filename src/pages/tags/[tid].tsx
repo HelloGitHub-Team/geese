@@ -1,4 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import ItemBottom from '@/components/home/ItemBottom';
 import Items from '@/components/home/Items';
@@ -9,8 +11,6 @@ import ToTop from '@/components/toTop/ToTop';
 import { getTagPageItems } from '@/services/tag';
 
 import { TagPageProps } from '@/types/tag';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 
 const TagPage: NextPage<TagPageProps> = ({ items, tag_name }) => {
   const { t, i18n } = useTranslation('topic');
@@ -18,8 +18,8 @@ const TagPage: NextPage<TagPageProps> = ({ items, tag_name }) => {
   return (
     <>
       <Seo
-        title={t('title', { tag_name })}
-        description={t('description', { tag_name })}
+        title={t('title', { name: tag_name })}
+        description={t('description', { name: tag_name })}
       />
       <Navbar middleText={tag_name} endText={t('navbar')} />
       <div className='h-screen'>

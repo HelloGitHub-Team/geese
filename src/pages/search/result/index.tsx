@@ -7,6 +7,7 @@ import useSWRInfinite from 'swr/infinite';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
+import RepositoryItem from '@/components/home/Item';
 import ItemBottom from '@/components/home/ItemBottom';
 import Loading from '@/components/loading/Loading';
 import { SearchSkeleton } from '@/components/loading/skeleton';
@@ -18,7 +19,6 @@ import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
 import { SearchItemType, SearchResponse } from '@/types/search';
-import RepositoryItem from '@/components/home/Item';
 
 const Result: NextPage = () => {
   const router = useRouter();

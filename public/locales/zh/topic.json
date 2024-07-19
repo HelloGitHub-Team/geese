@@ -1,7 +1,6 @@
 {
-    "title": "{{name}} 标签的开源项目",
-    "description": "有趣、好玩的 {{name}} 开源项目",
-    "navbar": "标签",
-    "bottom_text": "到底了，目前只开放了这些"
-
+  "title": "{{name}} 标签的开源项目",
+  "description": "有趣、好玩的 {{name}} 开源项目",
+  "navbar": "标签",
+  "bottom_text": "到底了，目前只开放了这些"
 }

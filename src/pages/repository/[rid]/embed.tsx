@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { Trans, useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -19,6 +21,8 @@ import { API_HOST, API_ROOT_PATH } from '@/utils/api';
 const EmbedPage: NextPage = () => {
   const router = useRouter();
   const { rid } = router.query;
+  const { t } = useTranslation('claim');
+
   const { isLogin, login, userInfo } = useLoginContext();
   const [readmeFilename, setReadmeFilename] = useState('README.md');
 
@@ -66,10 +70,10 @@ const EmbedPage: NextPage = () => {
     }
     if (isReady) {
       if (copy(text)) {
-        message.success('代码已复制');
-      } else message.error('复制失败');
+        message.success(t('copy.success'));
+      } else message.error(t('copy.fail'));
     } else {
-      message.warn('徽章生成中...请稍后重试');
+      message.warn(t('copy.warning'));
     }
   };
 
@@ -88,14 +92,14 @@ const EmbedPage: NextPage = () => {
       return login();
     }
     if (!readmeFilename.toLowerCase().includes('readme')) {
-      return Message.error('请输入正确的 README 文件名！');
+      return Message.error(t('submit.check_fail'));
     }
     const info_res = await getClaimRepoInfo(rid);
     if (!info_res.success) {
-      return Message.error('该项目还未被收录，请先提交项目。');
+      return Message.error(t('submit.check_fail2'));
     }
     if (info_res.data.is_claimed) {
-      return Message.error('该仓库已被认领！');
+      return Message.error(t('submit.check_fail3'));
     }
     const urlToCheck = `https://api.github.com/repos/${info_res.data.full_name}/contents/${readmeFilename}`;
     setIsLoading(true); // 设置加载状态为 true，禁用按钮
@@ -116,16 +120,16 @@ const EmbedPage: NextPage = () => {
           // 如果响应包含字段，发送POST请求到后台
           const res = await claimRepo(rid, readmeFilename);
           if (res.success) {
-            return Message.success('恭喜你！已提交成功，请等待社区确认。');
+            return Message.success(t('submit.success'));
           } else {
             return Message.error(res.message as string);
           }
         } else {
-          return Message.error('认证失败！请确认 README 文件名和代码完整性。');
+          return Message.error(t('submit.fail'));
         }
       })
       .catch(() => {
-        return Message.error('认证失败！请检查网络和 README 文件名。');
+        return Message.error(t('submit.fail2'));
       })
       .finally(() => {
         setIsLoading(false); // 设置加载状态为 false，启用按钮
@@ -134,19 +138,16 @@ const EmbedPage: NextPage = () => {
 
   return (
     <>
-      <Seo title='HelloGitHub 徽章计划: 帮助推广和运营开源项目' />
+      <Seo title={t('title')} description={t('description')} />
       <div className='relative pb-6'>
-        <Navbar middleText='HelloGitHub 徽章' />
+        <Navbar middleText={t('navbar')} />
         <div className='my-2 bg-white px-4 py-2 dark:bg-gray-800 md:rounded-lg'>
           <div className='mt-2'>
             <h2 className='mb-4 text-center text-2xl font-semibold'>
-              加入 HelloGitHub 徽章计划
+              {t('top_h2')}
             </h2>
             <p className='mb-4 text-gray-700 dark:text-gray-200'>
-              作为开源社区的一份子，你的开源项目正影响着世界。现在，通过佩戴
-              HelloGitHub 徽章，向世界展示项目得到的社区认可和推荐，
-              <strong>彰显开源项目荣耀</strong>。同时，
-              <strong>认领你的开源项目</strong>，享受社区带来的更多推荐和权益。
+              <Trans ns='claim' i18nKey='top_text' />
             </p>
             <div className='mb-4 flex flex-col rounded-lg bg-gray-100 dark:bg-gray-700'>
               <div className='flex rounded-t-lg bg-gray-200 dark:bg-slate-900'>
@@ -156,19 +157,19 @@ const EmbedPage: NextPage = () => {
                       className={themeClassName('neutral')}
                       onClick={() => handleTheme('neutral')}
                     >
-                      普通
+                      {t('badge_theme_neutral')}
                     </div>
                     <div
                       className={themeClassName('dark')}
                       onClick={() => handleTheme('dark')}
                     >
-                      暗黑
+                      {t('badge_theme_dark')}
                     </div>
                     <div
                       className={themeClassName('small')}
                       onClick={() => handleTheme('small')}
                     >
-                      极简
+                      {t('badge_theme_small')}
                     </div>
                   </div>
                 </div>
@@ -178,7 +179,7 @@ const EmbedPage: NextPage = () => {
                     onClick={handleCopy}
                     className='cursor-pointer rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 dark:bg-gray-600'
                   >
-                    复制代码
+                    {t('copy.text')}
                   </Button>
                 </div>
               </div>
@@ -194,50 +195,43 @@ const EmbedPage: NextPage = () => {
             <div className='mx-auto mb-6 max-w-4xl text-left'>
               <ul className='ml-6 list-disc'>
                 <li className='mb-2'>
-                  <strong>社区认可：</strong> 徽章代表你的项目已通过 HelloGitHub
-                  社区的严格筛选，并获得推荐。
+                  <Trans ns='claim' i18nKey='rights.item1' />
                 </li>
                 <li className='mb-2'>
-                  <strong>增加曝光：</strong>
-                  完成认领（佩戴徽章）将获得更多推荐流量，吸引潜在用户和贡献者的目光。
+                  <Trans ns='claim' i18nKey='rights.item2' />
                 </li>
                 <li className='mb-2'>
-                  <strong>互动机会：</strong>
-                  用户可通过徽章快速了解项目，并通过点赞、评论、收藏，增强社区互动。
+                  <Trans ns='claim' i18nKey='rights.item3' />
                 </li>
                 <li className='mb-2'>
-                  <strong>反馈积累：</strong>
-                  收集来自广大用户的真实反馈，持续优化你的项目。
+                  <Trans ns='claim' i18nKey='rights.item4' />
                 </li>
                 <li className='mb-2'>
-                  <strong>作者标识：</strong>
-                  认证后发布评论将显示醒目的标识，并获得评论置顶。
+                  <Trans ns='claim' i18nKey='rights.item5' />
                 </li>
               </ul>
             </div>
             <div className='mx-auto mb-6 max-w-4xl text-left'>
-              <h3 className='mb-4 text-lg font-medium'>如何认领开源项目</h3>
+              <h3 className='mb-4 text-lg font-medium'>{t('howto.title')}</h3>
               <ol className='ml-6 list-decimal'>
                 <li className='mb-4'>
                   <div className='flex flex-wrap items-center'>
-                    <span>确认您的项目已被 HelloGitHub 社区收录，点击</span>
+                    <span>{t('howto.step1')}</span>
                     <div
                       onClick={handleCopy}
                       className='cursor-pointer rounded-md bg-gray-100 px-2 py-1 text-sm font-medium dark:bg-gray-700 dark:text-white md:mx-2'
                     >
-                      复制代码
+                      {t('copy.text')}
                     </div>
-                    <span>按钮。</span>
                   </div>
                 </li>
                 <li className='mb-4'>
-                  在您项目 README 文件中找到合适的位置，
-                  <strong>粘贴</strong>已复制的代码，并提交更改。
+                  <Trans ns='claim' i18nKey='howto.step2' />
                 </li>
                 <li className='mb-4'>
                   <div className='flex items-center'>
                     <div className='w-fit'>
-                      <span>完成徽章佩戴，输入您的项目 README 文件名：</span>
+                      <span>{t('howto.step3')}</span>
                       <input
                         onChange={handleInputChange}
                         type='text'
@@ -249,32 +243,30 @@ const EmbedPage: NextPage = () => {
                         className='ml-2 py-1'
                         disabled={isLoading}
                       >
-                        {isLoading ? '正在提交...' : '提交'}
+                        {isLoading ? t('submit.loding') : t('submit.text')}
                       </Button>
                     </div>
                   </div>
                 </li>
-                <li>等待社区认证后，您将享受社区带来更多推荐和权益。</li>
+                <li>{t('howto.step4')}</li>
               </ol>
             </div>
             <div className='mx-auto max-w-4xl text-left'>
-              <h3 className='mb-4 text-lg font-medium'>可能遇到的问题</h3>
+              <h3 className='mb-4 text-lg font-medium'>
+                {t('question.title')}
+              </h3>
               <ul className='ml-6 list-disc space-y-2'>
                 <li>
-                  <strong>认证权限：</strong>
-                  仅限于项目作者或拥有修改权限的成员。请确保您有足够的权限进行认领。
+                  <Trans ns='claim' i18nKey='question.item1' />
                 </li>
                 <li>
-                  <strong>认证失败：</strong>
-                  仅限社区已收录的项目。如果您的项目尚未被收录，请先提交您的项目。
+                  <Trans ns='claim' i18nKey='question.item2' />
                 </li>
                 <li>
-                  <strong>每个项目只能认领一次：</strong>
-                  认证后项目的认领者不可修改。请在操作前仔细检查所有信息。
+                  <Trans ns='claim' i18nKey='question.item3' />
                 </li>
                 <li>
-                  <strong>需要帮助：</strong>
-                  可通过微信联系我：xueweihan（备注：认领）。
+                  <Trans ns='claim' i18nKey='question.item4' />
                 </li>
               </ul>
             </div>
@@ -285,5 +277,11 @@ const EmbedPage: NextPage = () => {
     </>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale as string, ['common', 'claim'])),
+  },
+});
 
 export default EmbedPage;

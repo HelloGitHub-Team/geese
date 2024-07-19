@@ -9,13 +9,14 @@ import TagLink from '@/components/links/TagLink';
 
 type Props = {
   t: (key: string) => string;
+  i18n_lang: string;
   tid: string;
   sort_by: string;
 };
 
-const IndexBar: NextPage<Props> = ({ t, tid, sort_by }) => {
+const IndexBar: NextPage<Props> = ({ t, i18n_lang, tid, sort_by }) => {
   const { labelStatus, tagItems, featuredURL, allURL, handleTagButton } =
-    useTagHandling(tid, sort_by);
+    useTagHandling(tid, sort_by, i18n_lang);
 
   const linkClassName = (sortName: string) =>
     classNames(

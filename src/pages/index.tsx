@@ -37,7 +37,12 @@ const Index: NextPage = () => {
   return (
     <>
       <Seo title={t('title')} description={t('description')} />
-      <IndexBar tid={tid as string} sort_by={sort_by as string} t={t} />
+      <IndexBar
+        tid={tid as string}
+        sort_by={sort_by as string}
+        t={t}
+        i18n_lang={i18n.language}
+      />
       <div className='h-screen'>
         <Items repositories={repositories} i18n_lang={i18n.language} />
         <div
