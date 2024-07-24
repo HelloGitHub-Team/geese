@@ -26,7 +26,7 @@
     "user": "#Users",
     "repo": "#Projects",
     "title": "About",
-    "desc": "HelloGitHub is a platform to discover and share interesting, beginner-friendly open source projects.\nWe aim to help everyone find joy in programming, easily solve technical challenges,\nexplore amazing open-source tools, and naturally embark on their open-source journey."
+    "desc": "HelloGitHub is a platform for discovering and sharing beginner-friendly open source projects.\nWe help users find joy in programming, solve technical challenges, and explore amazing tools to start their open-source journey."
   },
   "recommend": {
     "title": "Recommended",
@@ -41,9 +41,9 @@
     "agreement": "Agreement",
     "source": "Source Code",
     "sitemap": "Sitemap",
-    "server_sponsor": "Server is sponsored by",
+    "server_sponsor": "Servers sponsor",
     "server_sponsor2": "",
-    "cdn_sponsor": "Cloud service is sponsored by",
+    "cdn_sponsor": "Cloud service sponsor",
     "cdn_sponsor2": ""
   },
   "collect": {
