@@ -16,7 +16,7 @@
     "discuss": "Discuss",
     "share": "Share",
     "collect": "Collect",
-    "copy_desc": "More details at:",
+    "copy_desc": "More details at: ",
     "copy_success": "Project information copied, go share it!",
     "copy_fail": "Copy failed"
   },
@@ -37,7 +37,7 @@
     "save": "Save"
   },
   "history": {
-    "past_day_desc": "Past {{days}} days",
+    "past_day_desc": "Past {{days}} days ",
     "total_desc": "Received {{total}} stars ✨",
     "fail_desc": "No star history data available"
   },
