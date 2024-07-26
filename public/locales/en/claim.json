@@ -1,15 +1,15 @@
 {
   "title": "Wear HelloGitHub Badge",
-  "description": "Showcase the honor of your open-source project and help promote and operate it",
+  "description": "Showcase the recognition of your open-source project and help promote and operate it",
   "navbar": "HelloGitHub Badge",
   "top_h2": "Join the HelloGitHub Badge Program",
-  "top_text": "This is a program to claim open-source projects. After claiming, you can wear the HelloGitHub badge to show the world the community recognition and recommendation your project has received, <strong>showcasing the honor of your open-source project</strong>. At the same time, <strong>claim your open-source project</strong> to enjoy more recommendations and benefits brought by the community.",
-  "badge_theme_neutral": "Neutral",
+  "top_text": "This is a program to claim your open-source project. By claiming a project and wearing the HelloGitHub badge, you can showcase the community recognition and recommendation your project has received, <strong>highlighting the honor of your open-source project</strong>. At the same time, <strong>claim your open-source project</strong> to enjoy more recommendations and benefits from the community.",
+  "badge_theme_neutral": "White",
   "badge_theme_dark": "Dark",
-  "badge_theme_small": "Minimal",
+  "badge_theme_small": "Small",
   "copy": {
     "text": "Copy Code",
-    "success": "Copy Success",
+    "success": "Copy Successful",
     "warning": "Badge is being generated, please try again later",
     "fail": "Copy Failed"
   },
@@ -17,31 +17,31 @@
     "text": "Submit",
     "loding": "Submitting",
     "check_fail": "Please enter the correct README filename!",
-    "check_fail2": "This project has not been included yet, please submit the project first.",
+    "check_fail2": "This project has not been included yet, please submit it first.",
     "check_fail3": "This repository has already been claimed!",
-    "success": "Congratulations! Your submission was successful. Please wait for community confirmation.",
-    "fail": "Authentication failed! Please check the README filename and code integrity.",
-    "fail2": "Authentication failed! Please check the network and README filename."
+    "success": "Congratulations! Your submission was successful. Please wait for community verification.",
+    "fail": "Verification failed! Please check the README filename and code integrity.",
+    "fail2": "Verification failed! Please check the network and README filename."
   },
   "rights": {
-    "item1": "<strong>Community Recognition:</strong> The badge represents that your project has passed the strict screening of the HelloGitHub community and has been recommended.",
+    "item1": "<strong>Community Recognition:</strong> The badge signifies that your project has passed HelloGitHub community's rigorous selection and received a recommendation.",
     "item2": "<strong>Increased Exposure:</strong> Completing the claim (wearing the badge) will get more recommendation traffic, attracting potential users and contributors.",
-    "item3": "<strong>Interaction Opportunities:</strong> Users can quickly understand the project through the badge, and enhance community interaction through likes, comments, and collections.",
-    "item4": "<strong>Feedback Accumulation:</strong> Collect real feedback from a wide range of users to continuously optimize your project.",
-    "item5": "<strong>Author Identification:</strong> After authentication, comments you post will show a prominent identifier and will be pinned to the top."
+    "item3": "<strong>Interaction Opportunities:</strong> Users can quickly understand your project through the badge and engage with the community by liking, commenting, and favoriting.",
+    "item4": "<strong>Feedback Accumulation:</strong> Collect genuine feedback from a wide range of users to continuously optimize your project.",
+    "item5": "<strong>Author Identification:</strong> After verification, your comments will display a prominent identifier and receive comment pinning."
   },
   "howto": {
     "title": "How to Claim an Open Source Project",
-    "step1": "Confirm that your project has been included by the HelloGitHub community, click",
-    "step2": "Find a suitable position in the README file of your project, <strong>paste</strong> the copied code, and submit the change.",
-    "step3": "After wearing the badge, enter your project's README filename:",
-    "step4": "After being approved by the HelloGitHub team, your project will enjoy more recommendations and benefits."
+    "step1": "Confirm that your project has been included by the HelloGitHub community, then click",
+    "step2": "Find a suitable position in your project's README file and <strong>paste</strong> the copied code, then submit the changes.",
+    "step3": "After completing wearing the badge, enter your project's README filename:",
+    "step4": "Enjoy more recommendations and benefits once your project is approved by the HelloGitHub team."
   },
   "question": {
     "title": "Frequently Asked Questions",
-    "item1": "<strong>Authentication Rights:</strong> Only the author of the project or contributors with modification rights can authenticate. Please make sure you have sufficient rights to claim.",
-    "item2": "<strong>Authentication Failed:</strong> Only projects included by the community are eligible. If your project has not been included, please submit your project first.",
-    "item3": "<strong>Each project can only be claimed once:</strong> After authentication, the claimer of the project cannot be modified. Please check all information carefully before operation.",
-    "item4": "<strong>Need Help:</strong> You can contact me via Email: 595666367@qq.com."
+    "item1": "<strong>Permissions:</strong> Only the project author or contributors with modification rights can claim the project. Please ensure you have sufficient permissions to proceed.",
+    "item2": "<strong>Verification Failed:</strong> Only projects already included in the community can be claimed. If your project has not been included, please submit it first.",
+    "item3": "<strong>Each project can only be claimed once:</strong> Once verified, the claimer of the project cannot be changed. Please carefully check all information before proceeding.",
+    "item4": "<strong>Need Help:</strong> Contact me via email at: 595666367@qq.com."
   }
 }
