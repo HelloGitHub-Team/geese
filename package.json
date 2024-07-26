@@ -24,7 +24,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "^12.3.1",
+    "@next/bundle-analyzer": "^12.3.4",
     "classnames": "^2.3.1",
     "clsx": "^1.1.1",
     "copy-to-clipboard": "^3.3.2",
@@ -51,6 +51,7 @@
   "devDependencies": {
     "@commitlint/cli": "^16.3.0",
     "@commitlint/config-conventional": "^16.2.4",
+    "@million/lint": "1.0.0-rc.76",
     "@svgr/webpack": "^6.2.1",
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/line-clamp": "^0.4.0",
