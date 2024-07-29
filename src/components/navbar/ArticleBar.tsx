@@ -3,7 +3,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
-const ArticleNavbar = () => {
+type Props = {
+  t: (key: string) => string;
+};
+
+const ArticleNavbar = ({ t }: Props) => {
   const router = useRouter();
   const { sort_by = 'last' } = router.query;
 
@@ -34,14 +38,14 @@ const ArticleNavbar = () => {
           />
         </div>
         <div className='w-3/4 truncate text-center font-bold dark:text-gray-300'>
-          文章
+          {t('nav.title')}
         </div>
         <div className='flex justify-end text-sm text-gray-500 dark:text-gray-400'>
           <Link href='/article?sort_by=last'>
-            <a className={linkClassName('last')}>最新</a>
+            <a className={linkClassName('last')}>{t('nav.last')}</a>
           </Link>
           <Link href='/article?sort_by=hot'>
-            <a className={linkClassName('hot')}>热门</a>
+            <a className={linkClassName('hot')}>{t('nav.hot')}</a>
           </Link>
         </div>
       </div>

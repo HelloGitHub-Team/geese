@@ -66,6 +66,7 @@ export interface Category {
 
 export interface CategroyName {
   name: string;
+  value?: string;
 }
 
 export type AllItems = {

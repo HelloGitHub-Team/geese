@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { Trans, useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { GoListUnordered } from 'react-icons/go';
@@ -12,6 +14,7 @@ import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
 
 import { getVolume, getVolumeNum } from '@/services/volume';
+import { nameMap } from '@/utils/constants';
 
 import { VolumePageProps } from '@/types/periodical';
 import { PeriodicalItem, VolumeCategory } from '@/types/periodical';
@@ -23,13 +26,26 @@ type CategoryTopRange = {
 };
 
 const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
+  const { t, i18n } = useTranslation('periodical');
+
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<string>('');
   const [drawerVisible, setDrawerVisible] = useState<boolean>(false);
-  // 月刊列表
+
+  // 分类列表
   const categoryList: VolumeCategory[] = useMemo(() => {
-    return volume?.data || [];
-  }, [volume]);
+    return (
+      volume?.data.map((item: VolumeCategory) => {
+        const newItem = { ...item }; // 创建一个新对象，避免直接修改原对象
+        if (i18n.language === 'en') {
+          const mappedName = nameMap[newItem.category_name];
+          newItem.category_name =
+            mappedName || newItem.category_name.split(' ')[0];
+        }
+        return newItem;
+      }) || []
+    );
+  }, [volume, i18n.language]); // 确保 i18n.language 被作为依赖项
 
   const goBack = () => {
     if (window.history.length < 2) {
@@ -200,8 +216,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
 
   return (
     <>
-      <Seo title={`《HelloGitHub 月刊》第 ${volume?.current_num} 期`} />
-
+      <Seo title={t('volume.title', { num: volume?.current_num })} />
       <div className='flex shrink grow flex-row sm:border-l md:border-none'>
         <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
           <div className='relative pb-6'>
@@ -218,11 +233,13 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                     total={volume?.total}
                     current={volume?.current_num}
                     onPageChange={onPageChange}
+                    PreviousText={t('page_prev')}
+                    NextText={t('page_next')}
                   />
                 </div>
 
                 <div className='hidden justify-end text-sm text-gray-500 dark:text-gray-400 md:block'>
-                  期数
+                  {t('volume.nav')}
                 </div>
                 <div
                   className='flex cursor-pointer items-center justify-end text-sm text-gray-500 dark:text-gray-400 md:hidden'
@@ -239,15 +256,11 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
 
             <div className='my-2 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
               <div className='flex items-center justify-center pb-4'>
-                <h2>《HelloGitHub》第 {volume.current_num} 期</h2>
+                <h2>{t('volume.h2_text', { num: volume?.current_num })}</h2>
               </div>
               <div className='text-normal mb-4  dark:bg-gray-800 dark:text-gray-300'>
                 <div className='whitespace-pre-wrap rounded-sm bg-gray-50 p-2 font-normal leading-8 text-gray-500 dark:bg-gray-800 dark:text-gray-300'>
-                  <p>
-                    HelloGitHub 分享 GitHub 上有趣、入门级的开源项目，
-                    <span className='font-bold'>每月 28 号</span>更新一期。
-                    这里有好玩和入门级的开源项目、开源书籍、实战项目、企业级项目，让你用极短的时间感受到开源的魅力，对开源产生兴趣。
-                  </p>
+                  <Trans ns='periodical' i18nKey='volume.p_text' />
                 </div>
               </div>
 
@@ -283,6 +296,8 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
               total={volume?.total}
               current={volume?.current_num}
               onPageChange={onPageChange}
+              PreviousText={t('page_prev')}
+              NextText={t('page_next')}
             />
 
             <div className='hidden md:block'>
@@ -297,7 +312,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
             <div className='top-15 fixed w-full max-w-[244px]'>
               <div className='mt-2 ml-3  bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
                 <h4 className='mb-2 border-b border-gray-200 pb-2 dark:border-gray-700'>
-                  本期目录
+                  {t('volume.catalog')}
                 </h4>
                 <ul
                   className='custom-scrollbar overflow-scroll'
@@ -312,7 +327,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
 
         {/* 移动端展示的底部目录 */}
         <Drawer
-          title='目录'
+          title={t('volume.catalog2')}
           visible={drawerVisible}
           placement='bottom'
           onClose={() => setDrawerVisible(false)}
@@ -334,20 +349,17 @@ export default PeriodicalVolumePage;
 export async function getStaticPaths() {
   // 调用外部 API 获取月刊的总期数
   const { data } = await getVolumeNum();
-  // const posts = data.map(({num}) => ({id: String(num) }));
-
   // 根据博文列表生成所有需要预渲染的路径
   const paths = data.map((item) => ({
     params: { id: String(item.num) },
+    locale: 'zh', // 添加默认语言
   }));
 
-  // We'll pre-render only these paths at build time.
-  // {fallback: false } means other routes should 404.
-  return { paths, fallback: true };
+  return { paths, fallback: 'blocking' };
 }
 
 // 在构建时也会被调用
-export async function getStaticProps({ params }: any) {
+export async function getStaticProps({ params, locale }: any) {
   // params 包含此篇博文的 `id` 信息。
   // 如果路由是 /posts/1，那么 params.id 就是 1
   const volume = await getVolume(params.id);
@@ -355,5 +367,11 @@ export async function getStaticProps({ params }: any) {
     return { notFound: true };
   }
   // 通过 props 参数向页面传递博文的数据
-  return { props: { volume }, revalidate: 3600 * 10 };
+  return {
+    props: {
+      volume,
+      ...(await serverSideTranslations(locale, ['common', 'periodical'])),
+    },
+    revalidate: 3600 * 10,
+  };
 }

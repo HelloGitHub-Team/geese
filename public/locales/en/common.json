@@ -15,12 +15,12 @@
     "login": "Sign In"
   },
   "advert": {
-    "desc": "Server expires in",
+    "desc": "Server expires by",
     "desc2": "Buy me a coffee",
     "next": "Need to gold",
     "next2": "Next target by",
     "day": "D",
-    "year": "Y"
+    "year": ""
   },
   "site_stats": {
     "user": "#Users",
@@ -37,16 +37,37 @@
   "footer": {
     "feedback": "Feedback",
     "business": "Business",
-    "contact": "Contact Us",
+    "contact": "Contact",
     "agreement": "Agreement",
-    "source": "Source Code",
+    "source": "Source",
     "sitemap": "Sitemap",
     "server_sponsor": "Servers sponsor",
     "server_sponsor2": "",
-    "cdn_sponsor": "Cloud service sponsor",
+    "cdn_sponsor": "Cloud storage sponsor",
     "cdn_sponsor2": ""
+  },
+  "submit_repo": {
+    "text": "Submit",
+    "title": "Recommend or Submit an Open Source Project",
+    "description": "Only approved projects will be featured on the homepage",
+    "url_placeholder": "Project URL",
+    "url_tip": "👆 Only GitHub projects are accepted",
+    "title_placeholder": "Title: Briefly introduce the project",
+    "summary_placeholder": "Description: Explain what the project is, the problems it solves, the technologies used, features, and use cases. (A clear description improves approval chances!)",
+    "summary_tip": "10-300 characters",
+    "create_err": "URL cannot be empty",
+    "create_err2": "Title must be at least 5 characters",
+    "create_err3": "Description must be at least 10 characters",
+    "create_err4": "Title cannot exceed 50 characters",
+    "create_err5": "Description cannot exceed 300 characters",
+    "create_success": "Thanks for sharing! You can submit {{remaining}} more times today",
+    "check_url_err": "URL must start with https://github.com",
+    "check_url_err2": "This project already exists, try another one",
+    "check_url_err3": "Invalid URL",
+    "check_url_err4": "Request failed, please try again later"
   },
   "collect": {
     "title": "New"
-  }
+  },
+  "redirect": "Leave HelloGitHub community and jump to the URL 👇"
 }

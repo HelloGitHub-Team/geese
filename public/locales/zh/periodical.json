@@ -1,0 +1,34 @@
+{
+  "title": "HelloGitHub 月刊",
+  "description": "这里有开发利器、开源书籍、教程、企业级的开源项目，让发现编程的乐趣你爱上开源",
+  "nav": "HelloGitHub 月刊",
+  "p_text": "<strong>「HelloGitHub 月刊」</strong>分享 GitHub 上有趣、入门级的开源项目，每月 28 号发布最新一期。内容包括开发利器、开源书籍、教程、企业级项目等，让你发现编程的乐趣、爱上开源！",
+  "read_button": "查看",
+  "submit_button": "推荐",
+  "detail_button": "详情",
+  "order_t1": "已发布",
+  "order_t2": "期",
+  "order_t3": "选择：",
+  "order_t4": "共包含",
+  "order_t5": "类",
+  "order_t6": "选择：",
+  "order_t7": "项目数",
+  "order_t8": "个",
+  "order_t9": "欢迎推荐和自荐项目",
+  "page_prev": "上一页",
+  "page_next": "下一页",
+  "category": {
+    "title": "《HelloGitHub 月刊》{{name}} 集合",
+    "nav": "分类",
+    "p_text": "这里是按照「<strong>分类</strong>」阅读往期的 HelloGitHub 月刊内容， 您目前在查看",
+    "p_text2": "集合。"
+  },
+  "volume": {
+    "title": "《HelloGitHub 月刊》第 {{num}} 期",
+    "nav": "期数",
+    "h2_text": "《HelloGitHub》第 {{num}} 期",
+    "p_text": "<p>HelloGitHub 分享 GitHub 上有趣、入门级的开源项目，<strong>每月 28 号</strong>更新一期。这里有好玩和入门级的开源项目、开源书籍、实战项目、企业级项目，让你用极短的时间感受到开源的魅力，对开源产生兴趣。</p>",
+    "catalog": "本期目录",
+    "catalog2": "目录"
+  }
+}

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useCallback, useState } from 'react';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 
@@ -13,9 +14,10 @@ import { CheckRepoRes, CreateRepoRes } from '@/types/repository';
 
 interface CreateRepoProps {
   response: (res: CreateRepoRes) => void;
+  t: (key: string, total?: any) => any;
 }
 
-export function CreateRepo({ response }: CreateRepoProps) {
+export function CreateRepo({ response, t }: CreateRepoProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [paramReady, setParamReady] = useState<boolean>(true);
 
@@ -29,15 +31,15 @@ export function CreateRepo({ response }: CreateRepoProps) {
   const handleCreateRepo = useCallback(async () => {
     let isEmpty = false;
     if (url.length == 0) {
-      setURLMessage('地址不能为空');
+      setURLMessage(t('submit_repo.create_err'));
       isEmpty = true;
     }
     if (title.length == 0) {
-      setTitleMessage('标题不能少于 5 个字');
+      setTitleMessage(t('submit_repo.create_err2'));
       isEmpty = true;
     }
     if (summary.length == 0) {
-      setSummaryMessage('描述不能少于 10 个字');
+      setSummaryMessage(t('submit_repo.create_err3'));
       isEmpty = true;
     }
     // 有一个条件不满足就不能提交
@@ -47,7 +49,7 @@ export function CreateRepo({ response }: CreateRepoProps) {
     setLoading(true);
     const res = await createRepo({ url, summary, title });
     if (res.success) {
-      Message.success(`感谢您的分享！您还可以提交 ${res.remaining} 次`);
+      Message.success(t('submit_repo.create_success', res.remaining));
     } else {
       Message.error(res.message);
     }
@@ -65,26 +67,26 @@ export function CreateRepo({ response }: CreateRepoProps) {
   const onUrlBlur = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value;
     if (!validateUrl(url)) {
-      setURLMessage('地址必须是 https://github.com 开头');
+      setURLMessage(t('submit_repo.check_url_err'));
       return;
     }
     checkRepo(url)
       .then((res: CheckRepoRes) => {
         if (res.success) {
           if (res.data.is_exist) {
-            setURLMessage(res.message || '该项目已存在，换一个试试吧~');
+            setURLMessage(res.message || t('submit_repo.check_url_err2'));
             setParamReady(false);
           } else {
             setURLMessage('');
             setParamReady(true);
           }
         } else {
-          setURLMessage('地址不合规');
+          setURLMessage(t('submit_repo.check_url_err3'));
           setParamReady(false);
         }
       })
       .catch((err) => {
-        setURLMessage('请求失败，稍后重试');
+        setURLMessage(t('submit_repo.check_url_err4'));
         setParamReady(false);
         console.error(err);
       });
@@ -97,11 +99,11 @@ export function CreateRepo({ response }: CreateRepoProps) {
       setParamReady(true);
     } else {
       if (title.length < 5) {
-        setTitleMessage('标题不能少于 5 个字');
+        setTitleMessage(t('submit_repo.create_err2'));
         setParamReady(false);
       }
       if (title.length > 50) {
-        setTitleMessage('标题不能超过 50 个字');
+        setTitleMessage(t('submit_repo.create_err4'));
         setParamReady(false);
       }
     }
@@ -115,11 +117,11 @@ export function CreateRepo({ response }: CreateRepoProps) {
         setParamReady(true);
       } else {
         if (summay.length < 10) {
-          setSummaryMessage('描述不能少于 10 个字');
+          setSummaryMessage(t('submit_repo.create_err3'));
           setParamReady(false);
         }
         if (summay.length > 300) {
-          setSummaryMessage('描述不能超过 300 个字');
+          setSummaryMessage(t('submit_repo.create_err5'));
           setParamReady(false);
         }
       }
@@ -147,7 +149,7 @@ export function CreateRepo({ response }: CreateRepoProps) {
       <div>
         <input
           className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
-          placeholder='项目地址'
+          placeholder={t('submit_repo.url_placeholder')}
           type='text'
           id='url'
           onChange={onUrlChange}
@@ -157,7 +159,7 @@ export function CreateRepo({ response }: CreateRepoProps) {
           {urlMessage ? (
             <span className='text-red-600'>{urlMessage}</span>
           ) : (
-            '👆 仅接受 GitHub 上的开源项目'
+            t('submit_repo.url_tip')
           )}
         </div>
       </div>
@@ -165,25 +167,21 @@ export function CreateRepo({ response }: CreateRepoProps) {
       <div>
         <input
           className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
-          placeholder='标题：请用一句话介绍项目'
+          placeholder={t('submit_repo.title_placeholder')}
           type='text'
           id='title'
           onChange={onTitleChange}
           onBlur={onTitleBlur}
         />
         <div className='mt-2 text-left text-xs text-gray-400'>
-          {titleMessage ? (
-            <span className='text-red-600'>{titleMessage}</span>
-          ) : (
-            ''
-          )}
+          {titleMessage && <span className='text-red-600'>{titleMessage}</span>}
         </div>
       </div>
 
       <div>
         <textarea
           className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
-          placeholder='描述：请从技术栈、功能、适用场景、解决了哪些痛点等方面介绍项目，突出特点和闪光的亮点。'
+          placeholder={t('submit_repo.summary_placeholder')}
           rows={8}
           id='summary'
           onChange={onSummaryChange}
@@ -193,7 +191,7 @@ export function CreateRepo({ response }: CreateRepoProps) {
           {summaryMessage ? (
             <span className='text-red-600'>{summaryMessage}</span>
           ) : (
-            '字数限制 10-300 字符'
+            t('submit_repo.summary_tip')
           )}
         </div>
       </div>
@@ -205,7 +203,7 @@ export function CreateRepo({ response }: CreateRepoProps) {
           isLoading={loading}
           onClick={handleCreateRepo}
         >
-          提交
+          {t('submit_repo.text')}
           <IoIosArrowRoundForward size={24} />
         </Button>
       </div>
@@ -213,7 +211,12 @@ export function CreateRepo({ response }: CreateRepoProps) {
   );
 }
 
-export function RepoModal({ children }: { children: JSX.Element }) {
+interface RepoModalProps {
+  children: JSX.Element;
+}
+
+export function RepoModal({ children }: RepoModalProps) {
+  const { t } = useTranslation('common');
   const [isOpen, setIsOpen] = useState(false);
   const { isLogin, login } = useLoginContext();
 
@@ -243,15 +246,15 @@ export function RepoModal({ children }: { children: JSX.Element }) {
         hideClose={false}
         title={
           <>
-            欢迎<span className='mx-0.5 font-medium'>自荐/分享</span>开源项目
+            {t('submit_repo.title')}
             <p className='mt-2 mb-2 text-xs text-gray-500'>
-              通过审核的开源项目，才会在首页展示
+              {t('submit_repo.description')}
             </p>
           </>
         }
         onClose={closeModal}
       >
-        <CreateRepo response={handleResponse}></CreateRepo>
+        <CreateRepo response={handleResponse} t={t} />
       </BasicDialog>
     </>
   );

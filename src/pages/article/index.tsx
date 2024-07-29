@@ -1,6 +1,8 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { AiFillFire } from 'react-icons/ai';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
@@ -22,6 +24,8 @@ import { numFormat } from '@/utils/util';
 import { ArticleItem, ArticleItems } from '@/types/article';
 
 const ArticleIndex: NextPage = () => {
+  const { t, i18n } = useTranslation('article');
+
   const router = useRouter();
   const { sort_by = 'last' } = router.query;
   const { isLogin } = useLoginContext();
@@ -48,19 +52,16 @@ const ArticleIndex: NextPage = () => {
   const handleItemBottom = () => {
     if (!isValidating && !hasMore) {
       const endText = isLogin
-        ? '你不经意间触碰到了底线'
-        : '到底啦！登录可查看更多内容';
+        ? t('bottom_text_login')
+        : t('bottom_text_nologin');
       return <ItemBottom endText={endText} />;
     }
   };
 
   return (
     <>
-      <Seo
-        title='文章'
-        description='这里有一些专注于开源项目的原创和优质文章'
-      />
-      <ArticleNavbar />
+      <Seo title={t('title')} description={t('description')} />
+      <ArticleNavbar t={t} />
       <div className='h-screen'>
         <div className='divide-y divide-slate-100 bg-white dark:divide-slate-700 dark:bg-slate-800 md:overflow-y-hidden md:rounded-lg'>
           {articles.map((item: ArticleItem) => (
@@ -87,12 +88,14 @@ const ArticleIndex: NextPage = () => {
                         </div>
                         <div className='flex items-center text-xs text-gray-800 dark:text-gray-200'>
                           <div className='truncate whitespace-nowrap md:max-w-xs'>
-                            作者 {item.author}
+                            {t('author', { name: item.author })}
                           </div>
                           <span className='px-1'>·</span>
-                          <time>{fromNow(item.publish_at)}</time>
+                          <time>{fromNow(item.publish_at, i18n.language)}</time>
                           <span className='px-1'>·</span>
-                          阅读 {numFormat(item.clicks_count, 1, 10000)}
+                          {t('read', {
+                            num: numFormat(item.clicks_count, 1, 10000),
+                          })}
                         </div>
                       </div>
                       {item.head_image && (
@@ -128,5 +131,13 @@ const ArticleIndex: NextPage = () => {
     </>
   );
 };
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'article'])),
+    },
+  };
+}
 
 export default ArticleIndex;

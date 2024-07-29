@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 import { GoClock, GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 
@@ -15,6 +16,8 @@ import { MDRender } from '../mdRender/MDRender';
 import { PeriodicalItem, PeriodicalItemProps } from '@/types/periodical';
 
 const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
+  const { t, i18n } = useTranslation('periodical');
+
   const onClickLink = (item: PeriodicalItem) => {
     redirectRecord('', item.rid, 'source');
   };
@@ -46,7 +49,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
             </div>
             <div className='mr-2 flex items-center'>
               <GoClock size={15} className='mr-0.5' />
-              {fromNow(item.publish_at)}
+              {fromNow(item.publish_at, i18n.language)}
             </div>
           </div>
         </div>
@@ -58,7 +61,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
             >
               <div className='flex flex-col items-center px-1 md:px-2'>
                 <div className='py-2 text-sm font-medium md:text-base'>
-                  详情
+                  {t('detail_button')}
                 </div>
               </div>
             </Button>

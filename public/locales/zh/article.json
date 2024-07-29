@@ -1,0 +1,13 @@
+{
+  "title": "文章",
+  "description": "这里有一些专注于开源项目的原创和优质文章",
+  "bottom_text_login": "你不经意间触碰到了底线",
+  "bottom_text_nologin": "到底啦！登录可查看更多内容",
+  "nav": {
+    "title": "文章",
+    "hot": "热门",
+    "last": "最新"
+  },
+  "author": "作者 {{name}}",
+  "read": "阅读 {{num}}"
+}

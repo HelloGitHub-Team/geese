@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { useEffect } from 'react';
 
 import RedirectBar from '@/components/navbar/RedirectBar';
@@ -8,6 +9,8 @@ import Seo from '@/components/Seo';
 import { redirectRecord } from '@/services/home';
 
 const RedirectPage: NextPage = () => {
+  const { t } = useTranslation('common');
+
   const router = useRouter();
   const { target = '/' } = router.query;
   const trackRedirect = (target: string) => {
@@ -24,10 +27,7 @@ const RedirectPage: NextPage = () => {
   return (
     <>
       <Seo robots='noindex, nofollow' />
-      <RedirectBar
-        text='即将离开 HelloGitHub 社区，跳转到👇'
-        target={target as string}
-      />
+      <RedirectBar text={t('redirect')} target={target as string} />
     </>
   );
 };

@@ -16,3 +16,11 @@ export const DEFAULT_INITITAL_COMMENT_DATA = {
   // 输入框高度
   height: 58,
 };
+
+export type NameMap = Record<string, string>;
+
+export const nameMap: NameMap = {
+  机器学习: 'AI',
+  开源书籍: 'Book',
+  其它: 'Other',
+};
