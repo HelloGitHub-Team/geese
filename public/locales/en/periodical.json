@@ -1,8 +1,8 @@
 {
   "title": "HelloGitHub Monthly",
-  "description": "Discover development tools, open source books, tutorials, and enterprise-level projects that make programming fun and foster a love for open source.",
+  "description": "Here you will find development tools, open source books, tutorials, and enterprise-level projects, helping you enjoying programming and fall in love with open source.",
   "nav": "HelloGitHub Monthly",
-  "p_text": "<strong>“HelloGitHub Monthly”</strong> shares interesting and beginner-friendly open source projects on GitHub. Published on the 28th of each month, it includes development tools, open source books, tutorials, and enterprise-level projects to help you discover the joy of programming and fall in love with open source!",
+  "p_text": "<strong>“HelloGitHub Monthly”</strong> shares interesting and beginner-friendly open source projects on GitHub. Published on the 28th of each month, it includes development tools, open source books, tutorials, and enterprise-level projects, helping you enjoying programming and fall in love with open source!",
   "read_button": "Read",
   "submit_button": "Submit",
   "detail_button": "Detail",
@@ -14,19 +14,19 @@
   "order_t6": "Choose：",
   "order_t7": "Projects",
   "order_t8": "Items",
-  "order_t9": "Welcome recommend",
+  "order_t9": "Welcome to recommend",
   "page_prev": "Previous",
   "page_next": "Next",
   "category": {
-    "title": "《HelloGitHub Monthly》{{name}} Collection",
+    "title": "HelloGitHub Monthly {{name}} Collection",
     "nav": "Category",
-    "p_text": "Here you can browse past issues of HelloGitHub Monthly by <strong>category</strong>. You are currently viewing the",
+    "p_text": "Here you can read past volumes of HelloGitHub Monthly by <strong>category</strong>. You are currently viewing the",
     "p_text2": "collection."
   },
   "volume": {
-    "title": "《HelloGitHub Monthly》Vol.{{num}}",
+    "title": "HelloGitHub Monthly Vol.{{num}}",
     "nav": "Volume",
-    "h2_text": "《HelloGitHub》Vol.{{num}}",
+    "h2_text": "HelloGitHub Vol.{{num}}",
     "p_text": "<p>HelloGitHub shares interesting and beginner-friendly open source projects on GitHub, updated on the <strong>28th of each month</strong>. Here you will find fun and beginner-level open source projects, open source books, practical projects, and enterprise-level projects, allowing you to quickly appreciate the charm of open source and develop an interest in it.</p>",
     "catalog": "Catalog",
     "catalog2": "Catalog"
