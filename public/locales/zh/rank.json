@@ -1,0 +1,48 @@
+{
+  "tiobe": {
+    "title": "编程语言排名",
+    "nav": "{{year}} 年 {{month}} 月编程语言排行榜",
+    "p_text": "<strong>「TIOBE 编程社区指数」</strong>是一种衡量编程语言流行度的标准，由成立于 2000 年 10 月位于荷兰埃因霍温的 TIOBE Software BV 创建和维护。该指数是根据网络搜索引擎对含有该语言名称的查询结果的数量计算出来的。该指数涵盖了 Google、百度、维基百科和 YouTube 的搜索结果。",
+    "thead": {
+      "position": "排名",
+      "name": "编程语言",
+      "rating": "流行度",
+      "change": "对比上月",
+      "md_change": "趋势",
+      "star": "年度明星"
+    }
+  },
+  "db": {
+    "title": "数据库排名",
+    "nav": "{{year}} 年 {{month}} 月数据库排行榜",
+    "p_text": "<strong>「DB-Engines 排名」</strong>是按流行程度对数据库管理系统进行排名，涵盖 380 多个数据库，每月更新一次。排名标准包括搜索数据库名称时的搜索引擎结果的数量、Google 趋势、Stack Overflow、社交网络和提及数据库的工作机会等数据，综合比较排名。",
+    "thead": {
+      "position": "排名",
+      "name": "数据库",
+      "rating": "分数",
+      "change": "对比上月",
+      "md_change": "趋势",
+      "model": "类型"
+    }
+  },
+  "netcraft": {
+    "title": "Web 服务器排名",
+    "nav": "{{year}} 年 {{month}} 月 Web 服务器排行榜",
+    "p_text": "<strong>「Netcraft 排名」</strong>是一个始于 1995 年的互联网服务公司发布的 Web 服务器排名，每月更新一次。目前已成为人们了解全球网站的服务器市场份额和排名情况的主要参考依据，时常被华尔街杂志、Slashdot 等知名媒体引用。",
+    "thead": {
+      "position": "排名",
+      "name": "服务器",
+      "rating": "占比",
+      "change": "对比上月",
+      "md_change": "趋势",
+      "total": "总数"
+    },
+    "market_title": "市场份额排名",
+    "active_title": "活跃网站排名",
+    "servers": {
+      "apache": "一个开放源码的网页服务器，可以在大多数计算机操作系统中运行。由于其多平台和安全性被广泛使用，是最流行的 Web服务器端软件之一。",
+      "nginx": "免费开源、轻量级、高性能 Web 服务器，由伊戈尔·赛索耶夫为俄罗斯访问量第二的 Rambler.ru 站点开发。",
+      "openresty": "一个基于 Nginx 的 Web 平台，可以使用其 LuaJIT 引擎运行 Lua 脚本，由章亦春创建。"
+    }
+  }
+}

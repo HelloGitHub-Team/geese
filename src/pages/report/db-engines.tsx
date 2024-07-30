@@ -1,9 +1,15 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { Trans, useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useMemo } from 'react';
 
 import Loading from '@/components/loading/Loading';
 import Navbar from '@/components/navbar/Navbar';
-import RankTable, { RankSearchBar } from '@/components/rankTable/RankTable';
+import RankTable, {
+  getMonthName,
+  RankSearchBar,
+} from '@/components/rankTable/RankTable';
 import {
   ChangeColumnRender,
   TrendColumnRender,
@@ -14,33 +20,13 @@ import { getDBRank } from '@/services/rank';
 
 import { RankPageProps } from '@/types/rank';
 
-// 排名	数据库	分数	对比上月	类型
-const columns: any[] = [
-  { key: 'position', title: '排名', width: 80 },
-  { key: 'name', title: '数据库' },
-  { key: 'rating', title: '分数' },
-  {
-    key: 'change',
-    title: '对比上月',
-    render: ChangeColumnRender,
-  },
-  { key: 'db_model', title: '类型' },
-];
-
-// 排名	数据库	流行度
-const md_columns: any[] = [
-  { key: 'position', title: '排名', width: 60 },
-  { key: 'name', title: '数据库' },
-  { key: 'rating', title: '分数', width: 80 },
-  { key: 'change', title: '趋势', render: TrendColumnRender, width: 60 },
-];
-
 const DBEnginesPage: NextPage<RankPageProps> = ({
   year,
   month,
   monthList,
   list,
 }) => {
+  const { t, i18n } = useTranslation('rank');
   const router = useRouter();
 
   const onSearch = (key: string, value: string) => {
@@ -52,17 +38,68 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
     }
   };
 
+  // 排名	数据库	分数	对比上月	类型
+  const columns: any[] = useMemo(
+    () => [
+      { key: 'position', title: t('db.thead.position'), width: 80 },
+      { key: 'name', title: t('db.thead.name') },
+      { key: 'rating', title: t('db.thead.rating') },
+      {
+        key: 'change',
+        title: t('db.thead.change'),
+        render: ChangeColumnRender,
+      },
+      { key: 'db_model', title: t('db.thead.model') },
+    ],
+    [i18n.language]
+  );
+
+  // 排名	数据库	流行度
+
+  const md_columns: any[] = useMemo(
+    () =>
+      columns
+        .map((col) => {
+          if (col.key === 'position') {
+            return { ...col, width: 60 };
+          }
+          if (col.key === 'rating') {
+            return { ...col, width: 80 };
+          }
+          if (col.key === 'change') {
+            return {
+              ...col,
+              title: t('db.thead.md_change'),
+              render: TrendColumnRender,
+              width: 60,
+            };
+          }
+          if (col.key === 'db_model') {
+            return null;
+          }
+          return col;
+        })
+        .filter(Boolean),
+    [i18n.language]
+  );
+
   return (
     <>
-      <Seo title='数据库排名' />
+      <Seo title={t('db.title')} />
       {list ? (
         <div>
-          <Navbar middleText={`${year} 年 ${month} 月数据库排行榜`}></Navbar>
+          <Navbar
+            middleText={t('db.nav', {
+              year: year,
+              month: getMonthName(month, i18n.language, { forceEnglish: true }),
+            })}
+          />
 
           <div className='my-2 bg-white px-2 pt-2 dark:bg-gray-800 md:rounded-lg'>
             <RankSearchBar
               title='DB-Engines'
               logo='https://img.hellogithub.com/logo/db.jpg'
+              i18n_lang={i18n.language}
               monthList={monthList}
               onChange={onSearch}
             />
@@ -75,20 +112,15 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
             <div className='mt-2 rounded-lg border bg-white p-2 text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'>
               <div className='whitespace-pre-wrap leading-8'>
                 <p>
-                  <span className='font-bold'>「DB-Engines 排名」</span>
-                  是按流行程度对数据库管理系统进行排名，涵盖 380
-                  多个系统，每月更新一次。
-                  排名标准包括搜索数据库名称时的搜索引擎结果的数量、Google
-                  趋势、Stack
-                  Overflow、社交网络和提及数据库的工作机会等数据，综合比较排名。
+                  <Trans ns='rank' i18nKey='db.p_text' />
                 </p>
               </div>
             </div>
-            <div className='h-2'></div>
+            <div className='h-2' />
           </div>
         </div>
       ) : (
-        <Loading></Loading>
+        <Loading />
       )}
     </>
   );
@@ -97,6 +129,7 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
 export const getServerSideProps: GetServerSideProps = async ({
   query,
   req,
+  locale,
 }) => {
   let ip;
   if (req.headers['x-forwarded-for']) {
@@ -120,6 +153,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         month: data.month,
         list: data.data,
         monthList: data.month_list,
+        ...(await serverSideTranslations(locale as string, ['common', 'rank'])),
       },
     };
   }

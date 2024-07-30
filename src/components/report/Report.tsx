@@ -3,34 +3,18 @@ import { IoMdRemove, IoMdTrendingDown, IoMdTrendingUp } from 'react-icons/io';
 
 import { RankDataItem } from '@/types/rank';
 
-export const ChangeColumnRender = (row: RankDataItem) => {
-  let text = '新上榜';
+export const ChangeColumnRender = (row: RankDataItem, showPercent = false) => {
+  let text = '-';
   if (row.change !== null) {
-    text = `${row.change}`;
+    text = showPercent ? `${row.change}%` : `${row.change}`;
   }
-  return (
-    <div className='flex items-center'>
-      {row.change < 0 ? (
-        <AiFillCaretDown className='text-red-500' />
-      ) : (
-        <AiFillCaretUp className='text-green-500' />
-      )}
-      <span className='ml-1'>{text}</span>
-    </div>
-  );
-};
 
-export const ChangePercentColumnRender = (row: RankDataItem) => {
-  let text = '新上榜';
-  if (row.change !== null) {
-    text = `${row.change}%`;
-  }
   return (
     <div className='flex items-center'>
       {row.change < 0 ? (
-        <AiFillCaretDown className='text-red-500' />
+        <AiFillCaretDown className='text-green-500' />
       ) : (
-        <AiFillCaretUp className='text-green-500' />
+        <AiFillCaretUp className='text-red-500' />
       )}
       <span className='ml-1'>{text}</span>
     </div>
@@ -46,9 +30,5 @@ export const TrendColumnRender = (row: RankDataItem) => {
       icon = <IoMdTrendingDown size={16} className=' text-green-500' />;
     }
   }
-  return (
-    <>
-      <span>{icon}</span>
-    </>
-  );
+  return <span>{icon}</span>;
 };

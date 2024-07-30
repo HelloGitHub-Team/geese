@@ -34,7 +34,7 @@ const Navbar = ({ middleText = '', endText }: Props) => {
             {endText}
           </div>
         ) : (
-          <div className='flex w-5'></div>
+          <div className='flex w-5' />
         )}
       </div>
     </div>
