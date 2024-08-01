@@ -2,11 +2,11 @@
   "tiobe": {
     "title": "Programming Language Ranking",
     "nav": "{{month}} {{year}} Programming Language Ranking",
-    "p_text": "<strong>The TIOBE Programming Community Index</strong> is an indicator of the popularity of programming languages, created and maintained by TIOBE Software BV, established in October 2000 in Eindhoven, the Netherlands. The index is calculated based on the number of search engine results for queries containing the name of the language. It includes results from Google, Baidu, Wikipedia, and YouTube.",
+    "p_text": "<strong>The TIOBE Programming Community Index</strong> is an indicator of the popularity of programming languages, created and maintained by TIOBE Software BV, founded in October 2000 and based in Eindhoven, the Netherlands. The index is calculated based on the number of search engine results for queries containing the name of the language. It includes results from Google, Baidu, Wikipedia, and YouTube.",
     "thead": {
       "position": "Rank",
       "name": "Language",
-      "rating": "Ratings",
+      "rating": "Popularity",
       "change": "Change",
       "md_change": "📊",
       "star": "🏅️Year"
@@ -15,20 +15,20 @@
   "db": {
     "title": "Database Ranking",
     "nav": "{{month}} {{year}} Database Ranking",
-    "p_text": "<strong>The DB-Engines Ranking</strong> ranks database management systems by popularity, covering over 380 databases, updated monthly. The ranking is based on various factors including search engine results for the database name, Google Trends, Stack Overflow, social networks, and job postings mentioning the database.",
+    "p_text": "<strong>The DB-Engines Ranking</strong> ranks database management systems by popularity, covering over 380 databases and updated monthly. Ranking criteria include the number of search engine results when searching for the database name, Google Trends, Stack Overflow, social networks, and job postings mentioning the database, providing a comprehensive comparison.",
     "thead": {
       "position": "Rank",
       "name": "Database",
       "rating": "Score",
       "change": "Change",
       "md_change": "📊",
-      "model": "Model"
+      "model": "Type"
     }
   },
   "netcraft": {
     "title": "Web Server Ranking",
     "nav": "{{month}} {{year}} Web Server Ranking",
-    "p_text": "<strong>The Netcraft Ranking</strong> is a monthly ranking of web servers published by Netcraft, an internet services company founded in 1995. It is a major reference for understanding global web server market share and rankings, often cited by major media like The Wall Street Journal and Slashdot.",
+    "p_text": "<strong>The Netcraft Ranking</strong> is a web server ranking published monthly by Netcraft, an internet services company founded in 1995. It is a major reference for understanding global web server market share and rankings, frequently cited by major media like The Wall Street Journal and Slashdot.",
     "thead": {
       "position": "Rank",
       "name": "Server",
@@ -42,7 +42,7 @@
     "servers": {
       "apache": "An open-source web server that can run on most computer operating systems. Widely used for its multi-platform support and security, making it one of the most popular web server software.",
       "nginx": "A free, open-source, lightweight, high-performance web server developed by Igor Sysoev for Rambler.ru, the second most visited site in Russia.",
-      "openresty": "A web platform based on Nginx, using the LuaJIT engine to run Lua scripts, created by Yichun Zhang."
+      "openresty": "A web platform based on Nginx that can run Lua scripts using its LuaJIT engine, created by Yichun Zhang."
     }
   }
 }
