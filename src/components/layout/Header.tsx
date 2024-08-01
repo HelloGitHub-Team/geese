@@ -77,7 +77,7 @@ const Header = () => {
           </li>
           {/* 移动端显示的登录按钮和头像 */}
           <li className='block md:hidden'>
-            {!isLogin ? <LoginButton /> : <AvatarWithDropdown />}
+            {!isLogin ? <LoginButton t={t} /> : <AvatarWithDropdown t={t} />}
           </li>
         </ul>
         <div className='shrink grow' />

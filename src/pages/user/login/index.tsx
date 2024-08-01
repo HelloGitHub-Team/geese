@@ -1,5 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect } from 'react';
 
 import useToken from '@/hooks/useToken';
@@ -8,6 +10,7 @@ import RedirectBar from '@/components/navbar/RedirectBar';
 
 import { OAuthLoginAPI } from '@/services/login';
 import { OAUTH_LOGIN_KEY } from '@/utils/constants';
+import { getClientIP } from '@/utils/util';
 
 import { User, UserType } from '@/types/user';
 
@@ -17,6 +20,7 @@ interface IProps {
 }
 
 const Index = ({ token, userInfo }: IProps) => {
+  const { t, i18n } = useTranslation('commn');
   const router = useRouter();
   const { setToken } = useToken();
 
@@ -31,46 +35,43 @@ const Index = ({ token, userInfo }: IProps) => {
     }
   }, [token, userInfo, setToken, router]);
 
-  return <RedirectBar text='正在登录，等待跳转中...' />;
+  return (
+    <RedirectBar
+      text={t('login.redirect_bar_text')}
+      i18n_lang={i18n.language}
+    />
+  );
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { req, query } = context;
-  let token, userInfo, ip;
-  const code = query.code as string;
-  const state = query.state as string;
+  const { req, query, locale } = context;
+  const { code, state } = query as { code: string; state: string };
   const cookie = req.headers.cookie as string;
   const user_agent = req.headers['user-agent'] as string;
-  if (req.headers['x-forwarded-for']) {
-    ip = req.headers['x-forwarded-for'] as string;
-    ip = ip.split(',')[0] as string;
-  } else if (req.headers['x-real-ip']) {
-    ip = req.headers['x-real-ip'] as string;
-  } else {
-    ip = req.socket.remoteAddress as string;
-  }
+  const ip = getClientIP(req);
+
   try {
-    token = '';
-    userInfo = null;
     const data: User = await OAuthLoginAPI(ip, code, state, cookie, user_agent);
-    if (typeof data.uid === 'undefined') {
-      token = '';
-      userInfo = null;
+
+    if (data.uid) {
       return {
-        props: { token, userInfo },
-      };
-    } else {
-      token = data.token;
-      userInfo = data.userInfo;
-      return {
-        props: { token, userInfo },
+        props: {
+          token: data.token,
+          userInfo: data.userInfo,
+        },
       };
     }
   } catch (error) {
-    return {
-      props: { token, userInfo },
-    };
+    console.error('OAuth login error:', error);
   }
+
+  return {
+    props: {
+      token: '',
+      userInfo: null,
+      ...(await serverSideTranslations(locale as string, ['common'])),
+    },
+  };
 }
 
 export default Index;

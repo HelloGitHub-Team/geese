@@ -1,0 +1,87 @@
+{
+  "title": "个人主页",
+  "page_prev": "上一页",
+  "page_next": "下一页",
+  "read_button": "查看",
+  "tabs": {
+    "dynamic": "动态",
+    "favorite": "收藏",
+    "comment": "评论",
+    "vote": "点赞",
+    "repo": "项目"
+  },
+  "user_info": {
+    "desc": "HelloGitHub 社区的第 {{rank}} 位用户，于 {{date}} 加入",
+    "desc2": "已分享 {{share_repo}} 个开源项目，发布 {{comment_repo}} 份项目评价，共获得 {{contribute}} 点贡献值。",
+    "desc3": "HelloGitHub 社区的第 {{rank}} 位用户",
+    "desc4": "于 {{date}} 加入共获得 {{contribute}} 点贡献值",
+    "desc5": "已分享 {{share_repo}} 个开源项目，发布 {{comment_repo}} 份项目评价"
+  },
+  "dynamic": {
+    "time_desc": "动态",
+    "desc": "暂无动态",
+    "value_text": "，获得 {{value}} 点贡献值。",
+    "comment": "评论开源项目",
+    "comment_hot": "对开源项目",
+    "comment_hot2": "的评论被选为热评",
+    "comment_bad": "发布无意义/灌水评论，扣除 2 点贡献值。",
+    "submit_repo": "分享优秀的开源项目",
+    "default": "丰富社区内容资源",
+    "empty": "暂无动态"
+  },
+  "favorite": {
+    "text": "收藏夹",
+    "share_text": "点击查看详情：",
+    "no_share": "该收藏夹暂时未公开",
+    "del_success": "删除收藏夹成功",
+    "del_fail": "删除收藏夹失败",
+    "share_success": "已复制收藏夹链接，快去分享给小伙伴吧~",
+    "no_description": "暂无收藏夹描述",
+    "empty": "暂无收藏",
+    "repo_total": "共 {{total}} 个项目",
+    "button": {
+      "edit": "编辑",
+      "delete": "删除",
+      "cancel": "取消",
+      "confirm": "确定",
+      "share": "分享"
+    },
+    "dialog": {
+      "del_title": "确定删除该收藏夹吗？",
+      "del_desc": "删除收藏夹会移除收藏夹中的所有项目",
+      "edit_title": "编辑收藏夹"
+    },
+    "status": {
+      "pravite": "私有",
+      "public": "公开",
+      "review": "审核中"
+    }
+  },
+  "comment": {
+    "article": "文章",
+    "repository": "项目",
+    "empty": "暂无评论",
+    "text": "在 {{date}} 发布的评论",
+    "show": "已展示",
+    "unshow": "未展示",
+    "hot": "热评",
+    "unhot": "非热评",
+    "used": "用过",
+    "unused": "没用过",
+    "score": "评分：",
+    "button": {
+      "appeal": "申诉",
+      "vote": "点赞 {{total}}"
+    }
+  },
+  "vote": {
+    "empty": "暂无点赞"
+  },
+  "repo": {
+    "empty": "暂无项目",
+    "featured": "已推荐",
+    "failed": "未通过",
+    "review": "审核中",
+    "feedback": "反馈"
+  }
+}

@@ -15,6 +15,7 @@ import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
 
 const Index: NextPage = () => {
+  const { t, i18n } = useTranslation('home');
   const router = useRouter();
   const { sort_by = 'featured', tid = '' } = router.query;
 
@@ -22,7 +23,6 @@ const Index: NextPage = () => {
   const { repositories, isValidating, hasMore, size, sentryRef } =
     useRepositories(sort_by as string, tid as string);
 
-  const { t, i18n } = useTranslation('home');
   const handleItemBottom = () => {
     if (!isValidating && !hasMore) {
       return (

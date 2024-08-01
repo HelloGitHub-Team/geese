@@ -4,10 +4,11 @@ import RepoData from './RepoRecord';
 
 interface Props {
   uid: string;
+  t: (key: string) => string;
 }
 
-export default function VoteList(props: Props) {
-  const { data, setPage } = useVoteHistory(props.uid);
+export default function VoteList({ uid, t }: Props) {
+  const { data, setPage } = useVoteHistory(uid);
 
   return data?.data ? (
     data.data.length ? (
@@ -16,7 +17,9 @@ export default function VoteList(props: Props) {
       </div>
     ) : (
       <div className='mt-4 text-center text-xl'>
-        <div className='py-14 text-gray-300 dark:text-gray-500'>暂无点赞</div>
+        <div className='py-14 text-gray-300 dark:text-gray-500'>
+          {t('vote.empty')}
+        </div>
       </div>
     )
   ) : null;

@@ -1,0 +1,87 @@
+{
+  "title": "Profile",
+  "page_prev": "Previous",
+  "page_next": "Next",
+  "read_button": "View",
+  "tabs": {
+    "dynamic": "Activity",
+    "favorite": "Favorites",
+    "comment": "Comments",
+    "vote": "Votes",
+    "repo": "Projects"
+  },
+  "user_info": {
+    "desc": "User #{{rank}} of HelloGitHub community, joined on {{date}}",
+    "desc2": "Shared {{share_repo}} open source projects, posted {{comment_repo}} project reviews, and earned {{contribute}} contribution points.",
+    "desc3": "User #{{rank}} of HelloGitHub community",
+    "desc4": "Joined on {{date}}, earned {{contribute}} contribution points",
+    "desc5": "Shared {{share_repo}} open source projects, posted {{comment_repo}} project reviews"
+  },
+  "dynamic": {
+    "time_desc": "Activity",
+    "desc": "No activity",
+    "value_text": ", earned {{value}} contribution points.",
+    "comment": "Commented on open source project",
+    "comment_hot": "Hot comment on",
+    "comment_hot2": "project",
+    "comment_bad": "Posted meaningless/spam comment, deducted 2 contribution points.",
+    "submit_repo": "Shared an excellent open source project",
+    "default": "Enriched community content",
+    "empty": "No activity"
+  },
+  "favorite": {
+    "text": "Favorites",
+    "share_text": "Click to view details:",
+    "no_share": "This favorites folder is not public",
+    "del_success": "Successfully deleted favorites folder",
+    "del_fail": "Failed to delete favorites folder",
+    "share_success": "Copied favorites folder link, share it with your friends!",
+    "no_description": "No favorites folder description",
+    "empty": "No favorites",
+    "repo_total": "{{total}} projects in total",
+    "button": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "share": "Share"
+    },
+    "dialog": {
+      "del_title": "Are you sure you want to delete this favorites folder?",
+      "del_desc": "Deleting the folder will remove all projects in it",
+      "edit_title": "Edit Favorites Folder"
+    },
+    "status": {
+      "pravite": "Private",
+      "public": "Public",
+      "review": "Under Review"
+    }
+  },
+  "comment": {
+    "article": "Article",
+    "repository": "Project",
+    "empty": "No comments",
+    "text": "Comment posted on {{date}}",
+    "show": "Displayed",
+    "unshow": "Not displayed",
+    "hot": "Hot",
+    "unhot": "Not hot",
+    "used": "Used",
+    "unused": "Not used",
+    "score": "Score:",
+    "button": {
+      "appeal": "Appeal",
+      "vote": "Vote {{total}}"
+    }
+  },
+  "vote": {
+    "empty": "No votes"
+  },
+  "repo": {
+    "empty": "No projects",
+    "featured": "Featured",
+    "failed": "Failed",
+    "review": "Under Review",
+    "feedback": "Feedback"
+  }
+}

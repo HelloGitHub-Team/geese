@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { useCallback, useState } from 'react';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 
@@ -18,43 +19,61 @@ interface Option {
   title: string;
 }
 
-const FeedbackOptions = [
-  { key: 'feedback', value: 1, name: '建议', title: '建议改善' },
-  { key: 'bug', value: 2, name: 'Bug', title: '问题反馈' },
-  { key: 'bussiess', value: 3, name: '商务', title: '商务合作' },
-  { key: 'other', value: 4, name: '其它', title: '畅所欲言' },
+const getFeedbackOptions = (t: (key: string) => string) => [
+  {
+    key: 'feedback',
+    value: 1,
+    name: t('feedback.options.feedback.name'),
+    title: t('feedback.options.feedback.title'),
+  },
+  { key: 'bug', value: 2, name: 'Bug', title: t('feedback.options.bug.title') },
+  {
+    key: 'bussiess',
+    value: 3,
+    name: t('feedback.options.bussiess.name'),
+    title: t('feedback.options.bussiess.title'),
+  },
+  {
+    key: 'other',
+    value: 4,
+    name: t('feedback.options.other.name'),
+    title: t('feedback.options.other.title'),
+  },
 ];
 
 interface CreateFeedbackProps {
   response: (res: CreateFeedbackRes) => void;
   setTitle: any;
   feedbackType: number;
+  t: (key: string) => string;
 }
 
 export function CreateFeedback({
   response,
   feedbackType,
   setTitle,
+  t,
 }: CreateFeedbackProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [selectOption, setSelectOption] = useState<number>(feedbackType);
   const [content, setContent] = useState<string>('');
   const [contact, setContact] = useState<string>('');
   const [contentMessage, setContentMessage] = useState<string>('');
+  const FeedbackOptions = getFeedbackOptions(t);
 
   const handleFeedback = async () => {
     if (content.length > 0) {
       setLoading(true);
       const res = await createFeedback({ content, selectOption, contact });
       if (res.success) {
-        Message.success('提交反馈成功！');
+        Message.success(t('feedback.success'));
       } else {
         Message.error(res.message);
       }
       setLoading(false);
       response(res);
     } else {
-      setContentMessage('内容不能为空');
+      setContentMessage(t('feedback.err'));
     }
   };
 
@@ -65,10 +84,10 @@ export function CreateFeedback({
         setContentMessage('');
       } else {
         if (inputContent.length < 1) {
-          setContentMessage('内容不能为空');
+          setContentMessage(t('feedback.err'));
         }
         if (inputContent.length > 1000) {
-          setContentMessage('内容不能超过 1000 个字');
+          setContentMessage(t('feedback.err2'));
         }
       }
     },
@@ -115,7 +134,7 @@ export function CreateFeedback({
           className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
           rows={8}
           id='content'
-          placeholder='请在这里留下您反馈的详情，我会认真阅读并及时做出响应。'
+          placeholder={t('feedback.content_placeholder')}
           onChange={onContentChange}
           onBlur={onContentBlur}
         />
@@ -123,14 +142,14 @@ export function CreateFeedback({
           {contentMessage ? (
             <span className='text-red-600'>{contentMessage}</span>
           ) : (
-            '字数限制 1-1000 字符'
+            t('feedback.limit')
           )}
         </div>
       </div>
       <div>
         <input
           className='focus:ring-shadow-1 w-full rounded border-gray-200 p-3 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:placeholder:text-gray-400'
-          placeholder='联系方式：微信/手机号/邮箱'
+          placeholder={t('feedback.contact_placeholder')}
           type='text'
           id='contact'
           onChange={onContactChange}
@@ -144,7 +163,7 @@ export function CreateFeedback({
           isLoading={loading}
           onClick={handleFeedback}
         >
-          提交
+          {t('feedback.submit')}
           <IoIosArrowRoundForward size={24} />
         </Button>
       </div>
@@ -159,6 +178,8 @@ export function FeedbackModal({
   children: JSX.Element;
   feedbackType: number;
 }) {
+  const { t } = useTranslation('common');
+  const FeedbackOptions = getFeedbackOptions(t);
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState<string>(
     FeedbackOptions[feedbackType - 1].title
@@ -193,7 +214,7 @@ export function FeedbackModal({
         title={
           <>
             {title}
-            <p className='mt-2 mb-2 text-xs text-gray-500'></p>
+            <p className='my-2' />
           </>
         }
         onClose={closeModal}
@@ -202,6 +223,7 @@ export function FeedbackModal({
           response={handleResponse}
           feedbackType={feedbackType}
           setTitle={setTitle}
+          t={t}
         />
       </BasicDialog>
     </>

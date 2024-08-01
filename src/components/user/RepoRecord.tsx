@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { Dispatch, SetStateAction } from 'react';
 
 import Button from '@/components/buttons/Button';
 import Pagination from '@/components/pagination/Pagination';
 
-import { formatZH } from '@/utils/day';
+import { format } from '@/utils/day';
 import { numFormat } from '@/utils/util';
 
 import { FeedbackModal } from '../dialog/Feedback';
@@ -20,6 +21,7 @@ const RepoData = ({
   data: Page<CollectItem | VoteItemData>;
   setPage: Dispatch<SetStateAction<number>>;
 }) => {
+  const { t } = useTranslation('profile');
   const router = useRouter();
 
   const onClickRepo = (item: RepoType) => {
@@ -31,7 +33,7 @@ const RepoData = ({
       return (
         <>
           <div className='font-medium text-green-500'>
-            {item.is_featured ? '已推荐' : '已展示'}
+            {item.is_featured ? t('repo.featured') : t('comment.show')}
           </div>
           <div className='px-1'>·</div>
           <div>
@@ -49,15 +51,19 @@ const RepoData = ({
       if (item.is_deleted) {
         return (
           <>
-            <span className='font-medium text-red-500'>未精选</span>
+            <span className='font-medium text-red-500'>{t('repo.failed')}</span>
             <div className='px-1'>·</div>
             <FeedbackModal feedbackType={1}>
-              <span className='cursor-pointer'>反馈</span>
+              <span className='cursor-pointer'>{t('repo.feedback')}</span>
             </FeedbackModal>
           </>
         );
       } else {
-        return <span className='font-medium text-yellow-500'>审核中</span>;
+        return (
+          <span className='font-medium text-yellow-500'>
+            {t('repo.review')}
+          </span>
+        );
       }
     }
   };
@@ -83,7 +89,7 @@ const RepoData = ({
               <div className='flex items-center text-sm text-gray-500 dark:text-gray-400'>
                 <RepoStatus item={item.repo} />
                 <div className='px-1'>·</div>
-                <div>{formatZH(item.created_at, 'YYYY-MM-DD')}</div>
+                <div>{format(item.created_at)}</div>
               </div>
             </div>
             <Button
@@ -91,15 +97,15 @@ const RepoData = ({
               className='h-10 p-2 font-normal dark:border-gray-300 dark:bg-gray-800 dark:text-gray-300'
               onClick={() => onClickRepo(item.repo)}
             >
-              查看
+              {t('read_button')}
             </Button>
           </div>
         ))}
         <Pagination
           className='mt-2'
           hidden={!data.has_more}
-          PreviousText='上一页'
-          NextText='下一页'
+          PreviousText={t('page_prev')}
+          NextText={t('page_next')}
           current={data.page}
           total={data.page_total}
           onPageChange={setPage}
@@ -108,7 +114,7 @@ const RepoData = ({
     ) : (
       <div className='mt-4 text-center text-xl'>
         <div className='py-14 text-gray-300 dark:text-gray-500'>
-          暂无提交的项目
+          {t('repo.empty')}
         </div>
       </div>
     )

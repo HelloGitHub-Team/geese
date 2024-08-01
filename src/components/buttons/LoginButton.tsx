@@ -14,11 +14,14 @@ import { LoginModal } from '../user/Login';
 type Props = {
   platform: 'GitHub' | 'WeChat';
   backURL: string;
+  t: (key: string, text?: any) => string;
 };
 
-export function OAuthButton({ platform, backURL }: Props) {
+export function OAuthButton({ platform, backURL, t }: Props) {
   const [buttonState, setButtonState] = useState(true);
-  const [buttonText, setButtonText] = useState(`通过 ${platform} 登录`);
+  const [buttonText, setButtonText] = useState(
+    t('login.oauth', { platform: platform })
+  );
 
   const Login = useCallback(async () => {
     try {
@@ -26,7 +29,7 @@ export function OAuthButton({ platform, backURL }: Props) {
       const { url } = await getOAuthURL(platform);
       if (url) {
         localStorage.setItem(OAUTH_LOGIN_KEY, backURL);
-        setButtonText('等待跳转中...');
+        setButtonText(t('login.redirect'));
         window.location.href = url;
       }
     } catch (err) {
@@ -55,7 +58,11 @@ export function OAuthButton({ platform, backURL }: Props) {
   );
 }
 
-export function LoginButton() {
+type LoginButtonProps = {
+  t: (key: string) => string;
+};
+
+export const LoginButton = ({ t }: LoginButtonProps) => {
   return (
     <LoginModal>
       <Button
@@ -63,8 +70,8 @@ export function LoginButton() {
         style={{ minWidth: 50 }}
         variant='ghost'
       >
-        登录
+        {t('login.text')}
       </Button>
     </LoginModal>
   );
-}
+};

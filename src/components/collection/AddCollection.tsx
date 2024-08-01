@@ -20,13 +20,14 @@ type EditCollectionProps = {
   type: 'add' | 'edit';
   title: string;
   visible: boolean;
+  t: (key: string) => string;
   initValue?: EditCollectionFormData;
   onFinish?: () => void;
   onClose: () => void;
 };
 
 export const EditCollectionMoal = (props: EditCollectionProps) => {
-  const { visible, title = '新建收藏夹' } = props;
+  const { t, visible, title = t('collect.title') } = props;
   const initFormData = React.useMemo(
     () => ({
       name: '',
@@ -84,11 +85,11 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
       const res = await editFavorite(props.initValue?.fid as string, req);
       setLoading(false);
       if (res.success) {
-        Message.success('修改成功');
+        Message.success(t('collect.edit_success'));
         props.onClose();
         props.onFinish?.();
       } else {
-        Message.error(res.message || '修改失败');
+        Message.error(res.message || t('collect.edit_fail'));
       }
     }
     if (props.type === 'add') {
@@ -96,11 +97,11 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
       const res = await addFavorite(req);
       setLoading(false);
       if (res.success) {
-        Message.success('新建成功');
+        Message.success(t('collect.create_success'));
         props.onClose();
         props.onFinish?.();
       } else {
-        Message.error(res.message || '新建失败');
+        Message.error(res.message || t('collect.edit_fail'));
       }
     }
   };
@@ -117,7 +118,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
       <div className='mt-8'>
         <div className='mt-4 flex w-full items-center'>
           <label className='mr-3 block w-12 text-sm dark:text-white'>
-            名称
+            {t('collect.name')}
           </label>
           <input
             type='text'
@@ -131,13 +132,13 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
                 'cursor-not-allowed bg-gray-200 opacity-60': !editable,
               }
             )}
-            placeholder='请输入收藏夹名称'
+            placeholder={t('collect.name_placeholder')}
             aria-describedby='hs-inline-input-helper-text'
           />
         </div>
         <div className='mt-4 flex w-full items-center'>
           <label className='mr-3 block w-12 text-sm dark:text-white'>
-            描述
+            {t('collect.desc')}
           </label>
           <textarea
             id='inline-input-label-with-helper-text'
@@ -149,7 +150,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
               'block w-full rounded-md border-gray-200 py-2 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400',
               { 'cursor-not-allowed bg-gray-200 opacity-60': !editable }
             )}
-            placeholder='请输入收藏描述（限100字，选填）'
+            placeholder={t('collect.desc_placeholder')}
             aria-describedby='hs-inline-input-helper-text'
           />
         </div>
@@ -170,10 +171,10 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
                 checked={formData.status === 2}
               />
               <label className='ml-2 w-8 text-sm text-gray-600 dark:text-gray-400'>
-                公开
+                {t('collect.public')}
               </label>
               <span className='ml-1 text-xs text-gray-500'>
-                所有人可见，无法修改收藏夹信息，需要转成“私有”才可以修改
+                {t('collect.public_desc')}
               </span>
             </div>
 
@@ -190,9 +191,11 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
                 checked={formData.status === 0}
               />
               <label className='ml-2 w-8 text-sm text-gray-600 dark:text-gray-400'>
-                私有
+                {t('collect.pravite')}
               </label>
-              <span className='ml-1 text-xs text-gray-500'>仅自己可见</span>
+              <span className='ml-1 text-xs text-gray-500'>
+                {t('collect.pravite_desc')}
+              </span>
             </div>
           </div>
         )}
@@ -200,7 +203,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
       {/* footer */}
       <div className='mt-4 text-right'>
         <Button variant='light' onClick={() => props.onClose()}>
-          取消
+          {t('collect.button.cancel')}
         </Button>
         <Button
           variant='gradient'
@@ -209,7 +212,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
           isLoading={loading}
           onClick={onSubmit}
         >
-          确定
+          {t('collect.button.confirm')}
         </Button>
       </div>
     </BasicDialog>
@@ -242,6 +245,7 @@ export default function AddCollection({
       <EditCollectionMoal
         type='add'
         title={t('collect.title')}
+        t={t}
         visible={openModal}
         onFinish={onFinish}
         onClose={() => setOpenModal(false)}

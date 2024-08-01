@@ -4,10 +4,11 @@ import RepoData from './RepoRecord';
 
 interface Props {
   uid: string;
+  t: (key: string) => string;
 }
 
-export default function RepoList(props: Props) {
-  const { data, setPage } = useRepoHistory(props.uid);
+export default function RepoList({ uid, t }: Props) {
+  const { data, setPage } = useRepoHistory(uid);
 
   return data?.data ? (
     data.data.length ? (
@@ -16,7 +17,9 @@ export default function RepoList(props: Props) {
       </div>
     ) : (
       <div className='mt-4 text-center text-xl'>
-        <div className='py-14 text-gray-300 dark:text-gray-500'>暂无项目</div>
+        <div className='py-14 text-gray-300 dark:text-gray-500'>
+          {t('repo.empty')}
+        </div>
       </div>
     )
   ) : null;

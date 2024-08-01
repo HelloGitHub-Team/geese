@@ -41,29 +41,34 @@ type CollectionStatusMap = {
   };
 };
 
-const collectionStatus: CollectionStatusMap = {
-  0: { status: 0, name: '私有' },
-  1: { status: 1, name: '审核中' },
-  2: { status: 2, name: '公开' },
-};
+const getCollectionStatus = (
+  t: (key: string) => string
+): CollectionStatusMap => ({
+  0: { status: 0, name: t('favorite.status.pravite') },
+  1: { status: 1, name: t('favorite.status.review') },
+  2: { status: 2, name: t('favorite.status.public') },
+});
 
 type ModalEnum = boolean | 'delete' | 'edit' | 'action';
 
 type ProjectListProps = {
   uid: string;
   fid: string;
+  t: (key: string) => string;
 };
 
-const ProjectList = (props: ProjectListProps) => {
-  const { data, setPage } = useCollectionData(props.uid, props.fid);
+const ProjectList = ({ uid, fid, t }: ProjectListProps) => {
+  const { data, setPage } = useCollectionData(uid, fid);
   const fName = data?.favorite?.name;
   const fStatus = data?.favorite?.status;
+  const collectionStatus = getCollectionStatus(t);
+
   const onShare = () => {
-    const text = `收藏夹 ${fName}\n点击查看详情：https://hellogithub.com/user/${props.uid}/favorite/?fid=${props.fid}`;
+    const text = `${t('favorite.text')} ${fName}\n${t(
+      'favorite.share_text'
+    )}https://hellogithub.com/user/${uid}/favorite/?fid=${fid}`;
     if (copy(text)) {
-      Message.success('已复制收藏夹链接，快去分享给小伙伴吧~');
-    } else {
-      Message.error('收藏夹链接复制失败');
+      Message.success(t('favorite.share_success'));
     }
   };
 
@@ -71,22 +76,23 @@ const ProjectList = (props: ProjectListProps) => {
     return (
       <div className='mt-4 text-center text-xl'>
         <div className='py-14 text-gray-300 dark:text-gray-500'>
-          该收藏夹暂时未公开
+          {t('favorite.no_share')}
         </div>
       </div>
     );
   }
+
   return (
     <div className='mt-5'>
       {/* 面包屑和分享按钮 */}
       <div className='flex justify-between'>
         <div className='flex items-center'>
-          <Link href={`/user/${props.uid}/favorite`}>
+          <Link href={`/user/${uid}/favorite`}>
             <span className='cursor-pointer text-gray-500 hover:text-blue-500'>
-              收藏夹
+              {t('favorite.text')}
             </span>
           </Link>
-          <AiOutlineRight className='mx-2'></AiOutlineRight>
+          <AiOutlineRight className='mx-2' />
           <span>{fName}</span>
         </div>
         {/* 公开状态才显示分享按钮 */}
@@ -96,7 +102,8 @@ const ProjectList = (props: ProjectListProps) => {
               className='flex items-center border-0 py-1'
               onClick={onShare}
             >
-              <AiOutlineShareAlt className='mr-2' /> 分享
+              <AiOutlineShareAlt className='mr-2' />
+              {t('favorite.button.share')}
             </Button>
           </div>
         )}
@@ -107,15 +114,20 @@ const ProjectList = (props: ProjectListProps) => {
   );
 };
 
-export default function CollectionList(props: { uid: string; fid: string }) {
-  const router = useRouter();
-  const { uid } = router.query;
+type CollectionListProps = {
+  fid: string;
+  uid: string;
+  t(key: string, num?: any): string;
+};
 
-  const { data, mutate: updateCollection } = useFavoriteList(uid as string);
+export default function CollectionList({ fid, t, uid }: CollectionListProps) {
+  const router = useRouter();
+  const { data, mutate: updateCollection } = useFavoriteList(uid);
 
   const [activeItem, setActiveItem] = useState<Favorite>({} as Favorite);
   const [openModal, setOpenModal] = useState<ModalEnum>(false);
   const [curItem, setCurItem] = useState<Favorite>({} as Favorite);
+  const collectionStatus = getCollectionStatus(t);
 
   const { isLogin } = useLoginContext();
 
@@ -146,12 +158,12 @@ export default function CollectionList(props: { uid: string; fid: string }) {
   const onDelete = async (item: Favorite) => {
     const res = await deleteFavorite(item.fid);
     if (res.success) {
-      Message.success('删除成功');
+      Message.success(t('favorite.del_success'));
       // 刷新收藏夹列表
       updateCollection();
       setOpenModal(false);
     } else {
-      Message.error(res.message || '删除失败');
+      Message.error(res.message || t('favorite.del_fail'));
     }
   };
 
@@ -159,8 +171,8 @@ export default function CollectionList(props: { uid: string; fid: string }) {
     return <Loading />;
   }
 
-  if (props.fid) {
-    return <ProjectList fid={props.fid} uid={uid as string} />;
+  if (fid) {
+    return <ProjectList fid={fid} uid={uid} t={t} />;
   }
 
   return (
@@ -195,18 +207,18 @@ export default function CollectionList(props: { uid: string; fid: string }) {
                 </span>
                 <span className='flex items-center text-sm text-gray-400'>
                   {item.status === 0 && <AiTwotoneLock className='mr-1' />}
-                  {collectionStatus[item.status as number]?.name}
+                  {collectionStatus[item.status as number].name}
                 </span>
               </div>
               <div className='mt-2 text-sm text-gray-400 dark:text-gray-300'>
-                {item.description || ' 暂无收藏夹描述'}
+                {item.description || t('favorite.no_description')}
               </div>
               {/* footer */}
               <div className='mt-2 flex justify-between text-xs text-gray-500'>
                 {/* footer-left */}
                 <div>
                   <span>{format(item?.created_at as string)} · </span>
-                  <span>共有 {item.total} 个项目</span>
+                  <span>{t('favorite.repo_total', { total: item.total })}</span>
                 </div>
                 {/* footer-right */}
                 {isLogin && data.in_person && activeItem?.fid === item.fid && (
@@ -222,13 +234,14 @@ export default function CollectionList(props: { uid: string; fid: string }) {
                       className='inline-flex items-center hover:text-blue-400'
                     >
                       <AiFillEdit />
-                      编辑
+                      {t('favorite.button.edit')}
                     </span>
                     <span
                       id='delete'
                       className='ml-4 inline-flex items-center hover:text-blue-500'
                     >
-                      <AiFillDelete /> 删除
+                      <AiFillDelete />
+                      {t('favorite.button.delete')}
                     </span>
                   </div>
                 )}
@@ -250,7 +263,7 @@ export default function CollectionList(props: { uid: string; fid: string }) {
         ) : (
           <div className='mt-4 text-center text-xl'>
             <div className='py-14 text-gray-300 dark:text-gray-500'>
-              暂无收藏
+              {t('favorite.empty')}
             </div>
           </div>
         )}
@@ -263,9 +276,9 @@ export default function CollectionList(props: { uid: string; fid: string }) {
           onClose={() => setOpenModal(false)}
         >
           <div className='text-center'>
-            <div>确定删除该收藏夹吗？</div>
+            <div>{t('favorite.dialog.del_title')}</div>
             <div className='my-2 text-sm text-gray-500'>
-              删除收藏夹同时也会移除收藏夹中内容
+              {t('favorite.dialog.del_desc')}
             </div>
           </div>
           <div className='mt-4 text-center'>
@@ -274,14 +287,14 @@ export default function CollectionList(props: { uid: string; fid: string }) {
               onClick={() => setOpenModal(false)}
               className='inline-flex items-center justify-center gap-2 rounded-md border-2 border-gray-200 py-1 px-4 text-sm font-semibold text-blue-500 transition-all hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-gray-700 dark:hover:border-blue-500'
             >
-              取消
+              {t('favorite.button.cancel')}
             </button>
             <button
               type='button'
               onClick={() => onDelete(curItem)}
               className='ml-4 inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-500 py-1 px-4 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800'
             >
-              确认删除
+              {t('favorite.button.confirm')}
             </button>
           </div>
         </BasicDialog>
@@ -289,7 +302,8 @@ export default function CollectionList(props: { uid: string; fid: string }) {
         <EditCollectionMoal
           type='edit'
           visible={openModal === 'edit'}
-          title='编辑收藏夹'
+          title={t('favorite.dialog.edit_title')}
+          t={t}
           initValue={curItem as EditCollectionFormData}
           onClose={() => setOpenModal(false)}
           onFinish={() => updateCollection()}
@@ -308,13 +322,14 @@ export default function CollectionList(props: { uid: string; fid: string }) {
               onClick={() => onActionClick('edit', curItem)}
             >
               <AiFillEdit className='mr-2' />
-              编辑
+              {t('favorite.button.edit')}
             </div>
             <div
               className='flex items-center pt-2'
               onClick={() => onActionClick('delete', curItem)}
             >
-              <AiFillDelete className='mr-2' /> 删除
+              <AiFillDelete className='mr-2' />
+              {t('favorite.button.delete')}
             </div>
           </div>
         </BasicDialog>

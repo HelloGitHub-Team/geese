@@ -5,7 +5,19 @@
     "periodical": "Monthly",
     "rank": "Ranking",
     "article": "Articles",
-    "submit": "Submit"
+    "submit": "Submit",
+    "profile": "My Profile",
+    "notification": "Notifications",
+    "logout": "Logout"
+  },
+  "login": {
+    "text": "Login",
+    "title": "Choose a login method",
+    "tips": "By logging in, you agree to the",
+    "agreement": "User Agreement",
+    "oauth": "Login via {{platform}}",
+    "redirect": "Waiting for redirection...",
+    "redirect_bar_text": "Logging in, waiting for redirection..."
   },
   "user_side": {
     "contribute_label": "Contributions",
@@ -67,7 +79,38 @@
     "check_url_err4": "Request failed, please try again later"
   },
   "collect": {
-    "title": "New"
+    "title": "New",
+    "edit_success": "Successfully Edited",
+    "edit_fail": "Edit Failed",
+    "create_success": "Successfully Created",
+    "create_fail": "Creation Failed",
+    "name": "Name",
+    "name_placeholder": "Enter folder name",
+    "desc": "Description",
+    "desc_placeholder": "Enter folder description (up to 100 characters, optional)",
+    "pravite": "Private",
+    "pravite_desc": "",
+    "public": "Public",
+    "public_desc": "Visible to everyone",
+    "button": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
+  },
+  "feedback": {
+    "success": "Successfully Submitted",
+    "err": "Content cannot be empty",
+    "err2": "Content cannot exceed 1000 characters",
+    "content_placeholder": "Please leave your detailed feedback here. I will read it carefully and respond promptly.",
+    "limit": "Character limit 1-1000 characters",
+    "contact_placeholder": "Contact information: WeChat/Phone number/Email",
+    "submit": "Submit",
+    "options": {
+      "feedback": { "name": "Suggestions", "title": "Suggestions for Improvement" },
+      "bug": { "title": "Issue Feedback" },
+      "bussiess": { "name": "Business", "title": "Business Cooperation" },
+      "other": { "name": "Other", "title": "Feel Free to Speak" }
+    }
   },
   "redirect": "Leave HelloGitHub community and jump to the URL 👇"
 }

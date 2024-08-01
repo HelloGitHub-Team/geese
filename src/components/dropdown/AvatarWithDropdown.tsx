@@ -7,7 +7,12 @@ import ThemeSwitch from '@/components/ThemeSwitch';
 
 import { DEFAULT_AVATAR } from '@/utils/constants';
 
-const AvatarWithDropdown = (props: { className?: string }) => {
+type Props = {
+  t: (key: string) => string;
+  className?: string;
+};
+
+const AvatarWithDropdown = ({ t, className }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const { logout, userInfo } = useLoginContext();
 
@@ -24,7 +29,7 @@ const AvatarWithDropdown = (props: { className?: string }) => {
   }, []);
 
   return (
-    <div className={`${props.className} h-7 w-7`}>
+    <div className={`${className} h-7 w-7`}>
       <img
         className='relative inline overflow-hidden rounded-full'
         src={userInfo?.avatar || DEFAULT_AVATAR}
@@ -43,12 +48,12 @@ const AvatarWithDropdown = (props: { className?: string }) => {
         <div className='absolute -top-1.5 right-3 h-3 w-3 rotate-45 border-l border-t bg-white dark:border-gray-600 dark:bg-gray-800'></div>
         <CustomLink href={`/user/${userInfo?.uid}`}>
           <div className='block px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
-            我的主页
+            {t('header.profile')}
           </div>
         </CustomLink>
         <CustomLink href='/notification'>
           <div className='block px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
-            消息中心
+            {t('header.notification')}
             {userInfo?.success && userInfo.unread.total > 0 ? (
               <span className='relative ml-1 inline-flex h-2 w-2 rounded-full bg-red-500' />
             ) : (
@@ -64,7 +69,7 @@ const AvatarWithDropdown = (props: { className?: string }) => {
           className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'
           onClick={logout}
         >
-          退出
+          {t('header.logout')}
         </div>
       </div>
     </div>

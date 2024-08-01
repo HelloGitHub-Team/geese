@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 import useSWRImmutable from 'swr/immutable';
 
@@ -13,7 +14,7 @@ import DynamicRecordList from '@/components/user/DynamicRecordList';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
-import { formatZH } from '@/utils/day';
+import { format, formatZH } from '@/utils/day';
 
 import RepoList from './RepoList';
 import VoteList from './VoteList';
@@ -21,15 +22,9 @@ import { ProfileSkeleton } from '../loading/skeleton';
 
 import { UserDetailInfo } from '@/types/user';
 
-const tabList = [
-  { key: 'dynamic', title: '动态' },
-  { key: 'favorite', title: '收藏' },
-  { key: 'comment', title: '评论' },
-  { key: 'vote', title: '点赞' },
-  { key: 'repo', title: '项目' },
-];
-
 const User = () => {
+  const { t, i18n } = useTranslation('profile');
+
   const router = useRouter();
   const { uid, tab, fid } = router.query;
   const [activeTab, setActiveTab] = useState<string>(
@@ -40,6 +35,14 @@ const User = () => {
     uid ? makeUrl(`/user/${uid}`) : null,
     fetcher
   );
+
+  const tabList = [
+    { key: 'dynamic', title: t('tabs.dynamic') },
+    { key: 'favorite', title: t('tabs.favorite') },
+    { key: 'comment', title: t('tabs.comment') },
+    { key: 'vote', title: t('tabs.vote') },
+    { key: 'repo', title: t('tabs.repo') },
+  ];
 
   const userDetailInfo = data?.userInfo;
   const dynamicRecord = data?.dynamicRecord || [];
@@ -56,12 +59,10 @@ const User = () => {
       nickname,
       level,
       rank,
-      in_person,
       first_login,
       share_repo_total,
       comment_repo_total,
       contribute_total,
-      last_login,
     } = userDetailInfo;
 
     return (
@@ -85,50 +86,38 @@ const User = () => {
           </div>
           <div className='hidden text-sm leading-6 text-gray-500 dark:text-gray-400 md:block'>
             <div>
-              {in_person ? '你' : '他'}是 HelloGitHub 社区的第
-              <span className='mx-1 font-bold dark:text-gray-300'>{rank}</span>
-              位用户，于{formatZH(first_login, ' YYYY 年 MM 月 DD 日 ')}加入。
+              {t('user_info.desc', {
+                rank: rank,
+                date:
+                  i18n.language == 'en'
+                    ? format(first_login)
+                    : formatZH(first_login, ' YYYY 年 MM 月 DD 日 '),
+              })}
             </div>
             <div>
-              已分享
-              <span className='mx-1 font-bold dark:text-gray-300'>
-                {share_repo_total}
-              </span>
-              个开源项目
-              <span className='mx-1 font-bold dark:text-gray-300'>
-                {comment_repo_total}
-              </span>
-              份项目评价，共获得
-              <span className='mx-1 font-bold dark:text-gray-300'>
-                {contribute_total}
-              </span>
-              点贡献值。
+              {t('user_info.desc2', {
+                share_repo: share_repo_total,
+                comment_repo: comment_repo_total,
+                contribute: contribute_total,
+              })}
             </div>
-            <div>{last_login}</div>
           </div>
           <div className='flex flex-col items-center justify-center text-sm leading-6 text-gray-500 dark:text-gray-400 md:hidden'>
+            <p>{t('user_info.desc3', { rank: rank })}</p>
             <p>
-              {in_person ? '你' : '他'}是 HelloGitHub 社区的第
-              <span className='mx-1 font-bold dark:text-gray-300'>{rank}</span>
-              位用户
+              {t('user_info.desc4', {
+                date:
+                  i18n.language == 'en'
+                    ? format(first_login)
+                    : formatZH(first_login, ' YYYY 年 MM 月 DD 日 '),
+                contribute: contribute_total,
+              })}
             </p>
             <p>
-              于{formatZH(first_login, ' YYYY 年 MM 月 DD 日 ')}加入共获得
-              <span className='mx-1 font-bold dark:text-gray-300'>
-                {contribute_total}
-              </span>
-              点贡献值
-            </p>
-            <p>
-              已分享
-              <span className='mx-1 font-bold dark:text-gray-300'>
-                {share_repo_total}
-              </span>
-              个开源项目
-              <span className='mx-1 font-bold dark:text-gray-300'>
-                {comment_repo_total}
-              </span>
-              份项目评价
+              {t('user_info.desc5', {
+                share_repo: share_repo_total,
+                comment_repo: comment_repo_total,
+              })}
             </p>
           </div>
         </div>
@@ -139,15 +128,23 @@ const User = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'dynamic':
-        return <DynamicRecordList items={dynamicRecord} />;
+        return (
+          <DynamicRecordList
+            items={dynamicRecord}
+            t={t}
+            i18n_lang={i18n.language}
+          />
+        );
       case 'favorite':
-        return <CollectionList uid={uid as string} fid={fid as string} />;
+        return <CollectionList uid={uid as string} fid={fid as string} t={t} />;
       case 'comment':
-        return <CommentList uid={uid as string} />;
+        return (
+          <CommentList uid={uid as string} t={t} i18n_lang={i18n.language} />
+        );
       case 'vote':
-        return <VoteList uid={uid as string} />;
+        return <VoteList uid={uid as string} t={t} />;
       case 'repo':
-        return <RepoList uid={uid as string} />;
+        return <RepoList uid={uid as string} t={t} />;
       default:
         return null;
     }
@@ -155,9 +152,9 @@ const User = () => {
 
   return (
     <>
-      <Seo title='用户首页' />
+      <Seo title={t('title')} />
       <div className='h-screen divide-y divide-gray-100 dark:divide-gray-800'>
-        <Navbar middleText='个人主页' />
+        <Navbar middleText={t('title')} />
         <div className='flex flex-col bg-white p-4 dark:bg-gray-800 sm:p-6 md:flex-row md:rounded-lg'>
           {renderUserDetails()}
         </div>

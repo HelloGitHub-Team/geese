@@ -4,6 +4,8 @@
  * @param wait
  * @returns function
  */
+import { IncomingMessage } from 'http';
+
 export function debounce(func: any, wait = 100) {
   return function (this: any, ...args: any[]) {
     if (func.timeout) {
@@ -58,4 +60,24 @@ export const isMobile = () => {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
     navigator.userAgent
   );
+};
+
+export const getClientIP = (req: IncomingMessage): string => {
+  const forwardedFor = req.headers['x-forwarded-for'] as string;
+  if (forwardedFor) {
+    return forwardedFor.split(',')[0].trim();
+  }
+  const realIP = req.headers['x-real-ip'] as string | undefined;
+  if (realIP) {
+    return realIP;
+  }
+  const remoteAddress = req.socket.remoteAddress;
+  if (remoteAddress) {
+    // 处理 IPv6 中的 IPv4 地址
+    if (remoteAddress.includes('::ffff:')) {
+      return remoteAddress.split('::ffff:')[1];
+    }
+    return remoteAddress;
+  }
+  return '';
 };

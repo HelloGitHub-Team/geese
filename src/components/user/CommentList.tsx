@@ -6,18 +6,20 @@ import { FeedbackModal } from '@/components/dialog/Feedback';
 import Pagination from '@/components/pagination/Pagination';
 import CommentItem from '@/components/respository/CommentItem';
 
-import { formatZH } from '@/utils/day';
+import { format } from '@/utils/day';
 
 interface Props {
   uid: string;
+  i18n_lang: string;
+  t(key: string, num?: any): string;
 }
 
-export const CommentList = ({ uid }: Props) => {
+export const CommentList = ({ uid, t, i18n_lang }: Props) => {
   const { data, setPage } = useCommentHistory(uid);
   const { userInfo, isLogin } = useLoginContext();
   const belongMap = {
-    article: '文章',
-    repository: '项目',
+    article: t('comment.article'),
+    repository: t('comment.repository'),
   };
 
   if (!data?.data) return null;
@@ -25,7 +27,9 @@ export const CommentList = ({ uid }: Props) => {
   if (!data.data.length) {
     return (
       <div className='mt-4 text-center text-xl'>
-        <div className='py-14 text-gray-300 dark:text-gray-500'>暂无评论</div>
+        <div className='py-14 text-gray-300 dark:text-gray-500'>
+          {t('comment.empty')}
+        </div>
       </div>
     );
   }
@@ -36,7 +40,7 @@ export const CommentList = ({ uid }: Props) => {
         if (!isLogin || !userInfo) return null;
 
         const commentIndex = (data.page - 1) * data.pageSize + index + 1;
-        const formattedDate = formatZH(item.created_at, 'YYYY 年 MM 月 DD 日 ');
+        const formattedDate = format(item.created_at);
 
         return (
           <div className='p-2' key={item.cid}>
@@ -44,7 +48,7 @@ export const CommentList = ({ uid }: Props) => {
               <div className='flex items-center'>
                 <span className='mr-2'>{commentIndex}.</span>
                 <span className='text-xs text-gray-600 dark:text-gray-300 md:text-sm'>
-                  在 {formattedDate} 发布的评论
+                  {t('comment.text', { date: formattedDate })}
                 </span>
               </div>
               <div className='flex flex-row whitespace-nowrap text-xs md:text-sm'>
@@ -54,7 +58,7 @@ export const CommentList = ({ uid }: Props) => {
                       className='mr-1 h-7 p-2 font-normal text-red-500 hover:bg-transparent active:bg-transparent'
                       variant='ghost'
                     >
-                      申诉
+                      {t('comment.button.appeal')}
                     </Button>
                   </FeedbackModal>
                 )}
@@ -67,7 +71,7 @@ export const CommentList = ({ uid }: Props) => {
                     variant='light'
                     className='h-7 p-2 font-normal dark:border-gray-300 dark:bg-gray-800 dark:text-gray-300'
                   >
-                    查看
+                    {t('read_button')}
                   </Button>
                 </a>
               </div>
@@ -75,16 +79,19 @@ export const CommentList = ({ uid }: Props) => {
             <CommentItem
               className='rounded-xl border bg-white p-4 dark:border-gray-700 dark:bg-gray-800'
               key={item.cid}
+              t={t}
+              i18n_lang={i18n_lang}
               {...item}
               user={userInfo}
               footerRight={() => (
                 <span className='text-xs text-gray-400 md:text-sm'>
                   {belongMap[item.belong]}
                   <span className='mx-1'>·</span>
-                  {item.is_show ? '已展示' : '未展示'}
+                  {item.is_show ? t('comment.show') : t('comment.unshow')}
                   <span className='mx-1'>·</span>
-                  {item.is_hot ? '热评' : '非热评'}
-                  <span className='mx-1'>·</span>点赞 {item.votes}
+                  {item.is_hot ? t('comment.hot') : t('comment.unhot')}
+                  <span className='mx-1'>·</span>
+                  {t('comment.button.vote', { total: item.votes })}
                 </span>
               )}
             />
@@ -93,8 +100,8 @@ export const CommentList = ({ uid }: Props) => {
       })}
       <Pagination
         hidden={!data.has_more}
-        NextText='下一页'
-        PreviousText='上一页'
+        NextText={t('page_next')}
+        PreviousText={t('page_prev')}
         current={data.page}
         total={data.page_total}
         onPageChange={setPage}

@@ -9,7 +9,7 @@ import Seo from '@/components/Seo';
 import { redirectRecord } from '@/services/home';
 
 const RedirectPage: NextPage = () => {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
 
   const router = useRouter();
   const { target = '/' } = router.query;
@@ -27,7 +27,11 @@ const RedirectPage: NextPage = () => {
   return (
     <>
       <Seo robots='noindex, nofollow' />
-      <RedirectBar text={t('redirect')} target={target as string} />
+      <RedirectBar
+        text={t('redirect')}
+        target={target as string}
+        i18n_lang={i18n.language}
+      />
     </>
   );
 };

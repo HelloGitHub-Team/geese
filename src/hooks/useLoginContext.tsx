@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import {
   createContext,
   useCallback,
@@ -63,6 +64,7 @@ export const LoginProvider = ({
 }: {
   children: JSX.Element[] | any;
 }) => {
+  const { t } = useTranslation('common');
   const router = useRouter();
   const { token, setToken } = useToken();
   const [isLogin, setIsLogin] = useState(!!token);
@@ -148,7 +150,7 @@ export const LoginProvider = ({
           className='mb-4 flex flex-row justify-between border-b pb-2 dark:border-b-gray-600 dark:text-gray-300'
           onClick={closeModal}
         >
-          <div className='font-medium'>选择登录方式</div>
+          <div className='font-medium'>{t('login.title')}</div>
           <div>
             <VscChromeClose
               size={18}
@@ -158,15 +160,15 @@ export const LoginProvider = ({
         </div>
         <div className='mx-auto px-10'>
           <div className='flex flex-col gap-3'>
-            <OAuthButton platform='WeChat' backURL={router.asPath} />
-            <OAuthButton platform='GitHub' backURL={router.asPath} />
+            <OAuthButton platform='WeChat' backURL={router.asPath} t={t} />
+            <OAuthButton platform='GitHub' backURL={router.asPath} t={t} />
           </div>
 
           <div className='mt-4 flex flex-row px-1 text-xs text-gray-500'>
-            登录即表示同意
+            {t('login.tips')}
             <CustomLink className='inline' href='/help/ats'>
               <span className='ml-1 cursor-pointer text-blue-500'>
-                服务协议
+                {t('login.agreement')}
               </span>
             </CustomLink>
           </div>
