@@ -106,11 +106,19 @@
     "contact_placeholder": "Contact information: WeChat/Phone number/Email",
     "submit": "Submit",
     "options": {
-      "feedback": { "name": "Suggestions", "title": "Suggestions for Improvement" },
+      "feedback": {
+        "name": "Suggestions",
+        "title": "Suggestions for Improvement"
+      },
       "bug": { "title": "Issue Feedback" },
       "bussiess": { "name": "Business", "title": "Business Cooperation" },
       "other": { "name": "Other", "title": "Feel Free to Speak" }
     }
   },
-  "redirect": "Leave HelloGitHub community and jump to the URL 👇"
+  "redirect": "Leave HelloGitHub community and jump to the URL 👇",
+  "theme": {
+    "dark": "Dark theme",
+    "light": "Light theme"
+  },
+  "return": "Return to Home"
 }

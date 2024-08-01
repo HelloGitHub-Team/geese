@@ -1,0 +1,16 @@
+{
+  "title": "消息中心",
+  "empty": "暂无消息",
+  "repository": {
+    "desc": "你{{content}}的开源项目"
+  },
+  "reply": {
+    "desc": "在",
+    "desc2": "项目下回复你："
+  },
+  "comment": {
+    "desc": "评论你的",
+    "desc2": "评论你分享的",
+    "desc3": "开源项目："
+  }
+}

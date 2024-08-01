@@ -1,4 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import ItemBottom from '@/components/home/ItemBottom';
 import ImageWithPreview from '@/components/ImageWithPreview';
@@ -8,14 +10,17 @@ import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
 
 import { getArticleContent } from '@/services/article';
+import { getClientIP } from '@/utils/util';
 
 import { ArticleProps } from '@/types/article';
 
 const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
+  const { t } = useTranslation('article');
+
   return (
     <>
       <Seo title={article.title} />
-      <Navbar middleText={article.title} endText='文章' />
+      <Navbar middleText={article.title} endText={t('nav.title')} />
       <div className='mt-2 bg-white py-0.5 px-5 dark:bg-gray-800 md:rounded-lg'>
         <article className='relative'>
           <MDRender className='mobile:prose-sm prose prose-blue max-w-none dark:prose-invert'>
@@ -32,7 +37,7 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
         <ItemBottom endText='END' />
         <ToTop />
       </div>
-      <div className='h-4'></div>
+      <div className='h-4' />
     </>
   );
 };
@@ -42,17 +47,9 @@ export default ArticlePage;
 export const getServerSideProps: GetServerSideProps = async ({
   req,
   query,
+  locale,
 }) => {
-  let ip;
-  if (req.headers['x-forwarded-for']) {
-    ip = req.headers['x-forwarded-for'] as string;
-    ip = ip.split(',')[0] as string;
-  } else if (req.headers['x-real-ip']) {
-    ip = req.headers['x-real-ip'] as string;
-  } else {
-    ip = req.socket.remoteAddress as string;
-  }
-
+  const ip = getClientIP(req);
   const aid = query?.aid as string;
   const data = await getArticleContent(ip, aid);
   if (!data.success) {
@@ -61,7 +58,13 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
   } else {
     return {
-      props: { article: data.data },
+      props: {
+        article: data.data,
+        ...(await serverSideTranslations(locale as string, [
+          'common',
+          'article',
+        ])),
+      },
     };
   }
 };

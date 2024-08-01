@@ -3,10 +3,11 @@ import { fromNow } from '@/utils/day';
 import CustomLink from '../links/CustomLink';
 
 import { DynamicRecord, DynamicRecordItem } from '@/types/user';
+import { TranslationFunction } from '@/types/utils';
 
 interface Props {
   items: DynamicRecord[];
-  t(key: string, num?: any): string;
+  t: TranslationFunction;
   i18n_lang: string;
 }
 

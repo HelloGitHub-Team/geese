@@ -5,7 +5,10 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 
 import Button from './buttons/Button';
 
+import { TranslationFunction } from '@/types/utils';
+
 type ThemeSwitchProps = {
+  t?: TranslationFunction;
   type?: string;
 };
 
@@ -21,10 +24,10 @@ export default function ThemeSwitch(props: ThemeSwitchProps) {
     changeTheme(newTheme);
   };
 
-  if (props.type === 'text') {
+  if (props.type === 'text' && props.t) {
     return (
       <span onClick={onToggle}>
-        {theme === 'light' ? '切换黑暗主题' : '切换明亮主题'}
+        {theme === 'light' ? props.t('theme.dark') : props.t('theme.light')}
       </span>
     );
   }

@@ -12,6 +12,7 @@ import ToTop from '@/components/toTop/ToTop';
 
 import { getCategory } from '@/services/category';
 import { nameMap } from '@/utils/constants';
+import { getClientIP } from '@/utils/util';
 
 import {
   CategoryPageProps,
@@ -113,16 +114,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   locale,
 }) => {
-  let ip;
-  if (req.headers['x-forwarded-for']) {
-    ip = req.headers['x-forwarded-for'] as string;
-    ip = ip.split(',')[0] as string;
-  } else if (req.headers['x-real-ip']) {
-    ip = req.headers['x-real-ip'] as string;
-  } else {
-    ip = req.socket.remoteAddress as string;
-  }
-
+  const ip = getClientIP(req);
   const name = query['name'] as string;
   const data = await getCategory(
     ip,

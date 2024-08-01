@@ -30,9 +30,7 @@ const Footer = ({ t }: SideProps) => {
       </div>
 
       <p className='mt-2'>
-        <FooterLink href='https://hellogithub.com/help/ats'>
-          {t('footer.agreement')}
-        </FooterLink>
+        <FooterLink href='/help/ats'>{t('footer.agreement')}</FooterLink>
         <span className='px-1 lg:px-1.5'>·</span>
         <FooterLink href='https://github.com/HelloGitHub-Team/geese'>
           {t('footer.source')}

@@ -63,7 +63,7 @@ const AvatarWithDropdown = ({ t, className }: Props) => {
         </CustomLink>
 
         <div className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
-          <ThemeSwitch type='text'></ThemeSwitch>
+          <ThemeSwitch type='text' t={t} />
         </div>
         <div
           className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'

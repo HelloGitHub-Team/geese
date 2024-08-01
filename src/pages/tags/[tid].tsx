@@ -9,6 +9,7 @@ import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
 
 import { getTagPageItems } from '@/services/tag';
+import { getClientIP } from '@/utils/util';
 
 import { TagPageProps } from '@/types/tag';
 
@@ -38,16 +39,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   locale,
 }) => {
-  let ip;
-  if (req.headers['x-forwarded-for']) {
-    ip = req.headers['x-forwarded-for'] as string;
-    ip = ip.split(',')[0] as string;
-  } else if (req.headers['x-real-ip']) {
-    ip = req.headers['x-real-ip'] as string;
-  } else {
-    ip = req.socket.remoteAddress as string;
-  }
-
+  const ip = getClientIP(req);
   const tid = query?.tid as string;
   const data = await getTagPageItems(ip, tid);
   const tag_name =

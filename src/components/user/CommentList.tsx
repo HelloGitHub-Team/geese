@@ -8,10 +8,12 @@ import CommentItem from '@/components/respository/CommentItem';
 
 import { format } from '@/utils/day';
 
+import { TranslationFunction } from '@/types/utils';
+
 interface Props {
   uid: string;
   i18n_lang: string;
-  t(key: string, num?: any): string;
+  t: TranslationFunction;
 }
 
 export const CommentList = ({ uid, t, i18n_lang }: Props) => {

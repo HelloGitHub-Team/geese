@@ -9,6 +9,7 @@ import Tabs from '@/components/respository/Tabs';
 import Seo from '@/components/Seo';
 
 import { getDetail } from '@/services/repository';
+import { getClientIP } from '@/utils/util';
 
 import { Repository } from '@/types/repository';
 
@@ -51,16 +52,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
   locale,
 }) => {
-  let ip;
-  if (req.headers['x-forwarded-for']) {
-    ip = req.headers['x-forwarded-for'] as string;
-    ip = ip.split(',')[0] as string;
-  } else if (req.headers['x-real-ip']) {
-    ip = req.headers['x-real-ip'] as string;
-  } else {
-    ip = req.socket.remoteAddress as string;
-  }
-
+  const ip = getClientIP(req);
   const rid = query?.rid as string;
   const data = await getDetail(ip, rid);
   if (data.success) {

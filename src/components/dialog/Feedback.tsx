@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -171,14 +171,13 @@ export function CreateFeedback({
   );
 }
 
-export function FeedbackModal({
-  children,
-  feedbackType,
-}: {
-  children: JSX.Element;
+type FeedbackModalProps = {
+  children: React.ReactElement;
   feedbackType: number;
-}) {
-  const { t } = useTranslation('common');
+};
+
+export function FeedbackModal({ children, feedbackType }: FeedbackModalProps) {
+  const { t, i18n } = useTranslation('common');
   const FeedbackOptions = getFeedbackOptions(t);
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState<string>(
@@ -187,22 +186,27 @@ export function FeedbackModal({
 
   const { isLogin, login } = useLoginContext();
 
-  function closeModal() {
-    setIsOpen(false);
-  }
+  useEffect(() => {
+    setTitle(FeedbackOptions[feedbackType - 1].title);
+  }, [i18n.language]);
 
-  function openModal() {
+  const closeModal = useCallback(() => setIsOpen(false), []);
+  const openModal = useCallback(() => {
     if (!isLogin) {
-      return login();
+      login();
+      return;
     }
     setIsOpen(true);
-  }
+  }, [isLogin, login]);
 
-  const handleResponse = (res: CreateFeedbackRes) => {
-    if (res.success) {
-      closeModal();
-    }
-  };
+  const handleResponse = useCallback(
+    (res: CreateFeedbackRes) => {
+      if (res.success) {
+        closeModal();
+      }
+    },
+    [closeModal]
+  );
 
   return (
     <>

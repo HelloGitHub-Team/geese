@@ -17,6 +17,7 @@ import {
 import Seo from '@/components/Seo';
 
 import { getTiobeRank } from '@/services/rank';
+import { getClientIP } from '@/utils/util';
 
 import { RankPageProps } from '@/types/rank';
 
@@ -127,16 +128,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   locale,
 }) => {
-  let ip;
-  if (req.headers['x-forwarded-for']) {
-    ip = req.headers['x-forwarded-for'] as string;
-    ip = ip.split(',')[0] as string;
-  } else if (req.headers['x-real-ip']) {
-    ip = req.headers['x-real-ip'] as string;
-  } else {
-    ip = req.socket.remoteAddress as string;
-  }
-
+  const ip = getClientIP(req);
   const data = await getTiobeRank(ip, query['month'] as unknown as number);
   if (!data.success) {
     return {

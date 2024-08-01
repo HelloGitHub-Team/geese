@@ -1,4 +1,6 @@
 import { GetStaticProps, NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import ItemBottom from '@/components/home/ItemBottom';
 import { MDRender } from '@/components/mdRender/MDRender';
@@ -9,10 +11,12 @@ import ToTop from '@/components/toTop/ToTop';
 import { HelpPageProps } from '@/types/help';
 
 const RulePage: NextPage<HelpPageProps> = ({ content }) => {
+  const { t } = useTranslation('help');
+
   return (
     <>
-      <Seo title='社区等级规则' />
-      <Navbar middleText='社区等级' endText='介绍' />
+      <Seo title={t('level.title')} />
+      <Navbar middleText={t('level.nav.middle')} endText={t('level.nav.end')} />
 
       <div className='mt-2 bg-white p-5 dark:bg-gray-800 md:rounded-lg'>
         <article>
@@ -28,13 +32,20 @@ const RulePage: NextPage<HelpPageProps> = ({ content }) => {
   );
 };
 
-export default RulePage;
-
-export const getStaticProps: GetStaticProps = async () => {
-  const content = await import('../../../data/level.md').then(
-    (mod) => mod.default
-  );
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  let content;
+  if (locale === 'en') {
+    content = await import('../../../data/level_en.md');
+  } else {
+    content = await import('../../../data/level.md');
+  }
+  content = content.default;
   return {
-    props: { content },
+    props: {
+      content,
+      ...(await serverSideTranslations(locale as string, ['common', 'help'])),
+    },
   };
 };
+
+export default RulePage;

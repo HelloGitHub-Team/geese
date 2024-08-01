@@ -33,6 +33,7 @@ import { format } from '@/utils/day';
 import RepoData from './RepoRecord';
 
 import { Favorite } from '@/types/repository';
+import { TranslationFunction } from '@/types/utils';
 
 type CollectionStatusMap = {
   [index: number]: {
@@ -117,7 +118,7 @@ const ProjectList = ({ uid, fid, t }: ProjectListProps) => {
 type CollectionListProps = {
   fid: string;
   uid: string;
-  t(key: string, num?: any): string;
+  t: TranslationFunction;
 };
 
 export default function CollectionList({ fid, t, uid }: CollectionListProps) {

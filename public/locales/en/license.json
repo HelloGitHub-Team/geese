@@ -1,0 +1,13 @@
+{
+  "title": "{{spdx}} Open Source License",
+  "nav": "License",
+  "feedback": "Feedback",
+  "copy": {
+    "button": "Copy",
+    "success": "Open source license content copied",
+    "fail": "Copy failed"
+  },
+  "expand": "Expand",
+  "collapse": "Collapse",
+  "empty": "No content available"
+}

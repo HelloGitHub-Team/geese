@@ -41,6 +41,7 @@ export type LicenseDetailFetchData = {
 
 export type TagListItem = {
   title: string;
+  title_zh: string;
   key: string;
   bgColor: string;
   content: Tag[];

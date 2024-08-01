@@ -1,3 +1,6 @@
+import { GetStaticProps } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
@@ -18,12 +21,14 @@ import { fromNow } from '@/utils/day';
 import { MessageItems, MessageRecord } from '@/types/user';
 
 const tabList = [
-  { key: 'comment', title: '评论' },
-  { key: 'repository', title: '开源项目' },
-  { key: 'system', title: '系统通知' },
+  { key: 'comment', title: '评论', title_en: 'Comment' },
+  { key: 'repository', title: '开源项目', title_en: 'Repository' },
+  { key: 'system', title: '系统通知', title_en: 'System' },
 ];
 
 const Notification = () => {
+  const { t, i18n } = useTranslation('notification');
+
   const [activeTab, setActiveTab] = useState<string>('comment');
   const { userInfo, updateUnread } = useLoginContext();
   const { data, error, setSize, isValidating, size } =
@@ -86,14 +91,16 @@ const Notification = () => {
       return (
         <div className='text-gray-600 dark:text-gray-500'>
           <div className='whitespace-normal'>
-            你{item.content}的开源项目
+            {t('repository.desc', {
+              content: i18n.language == 'en' ? item.content_en : item.content,
+            })}
             <CustomLink
               className='mx-1 inline cursor-pointer text-blue-500'
               href={`/repository/${item.mid}`}
             >
               {item.repository?.full_name}
             </CustomLink>
-            {item.more_content}
+            {i18n.language == 'en' ? item.more_content_en : item.more_content}
           </div>
         </div>
       );
@@ -107,14 +114,14 @@ const Notification = () => {
             {item.message_type == 'reply' ? (
               <>
                 <span>
-                  在
+                  {t('reply.desc')}
                   <CustomLink
                     className='inline cursor-pointer px-1 text-blue-500'
                     href={`/repository/${item.repository?.rid}`}
                   >
                     {item.repository?.full_name}
                   </CustomLink>
-                  项目下回复你：
+                  {t('reply.desc2')}
                 </span>
                 <p className='mt-2 truncate'>{item.content}</p>
                 {item.more_content && (
@@ -126,14 +133,14 @@ const Notification = () => {
             ) : (
               <>
                 <span>
-                  评论你{item.more_content ? '的' : '分享的'}
+                  {item.more_content ? t('comment.desc') : t('comment.desc')}
                   <CustomLink
                     className='inline cursor-pointer px-1 text-blue-500'
                     href={`/repository/${item.repository?.rid}`}
                   >
                     {item.repository?.full_name}
                   </CustomLink>
-                  开源项目：
+                  {t('comment.desc3')}
                 </span>
                 <p className='mt-2 truncate'>{item.content}</p>
               </>
@@ -155,9 +162,9 @@ const Notification = () => {
 
   return (
     <>
-      <Seo title='消息中心' />
+      <Seo title={t('title')} />
       <div className='h-screen divide-y divide-gray-100 dark:divide-gray-800'>
-        <Navbar middleText='消息中心'></Navbar>
+        <Navbar middleText={t('title')} />
         <div className='mt-2 bg-white px-6 pt-3 dark:bg-gray-800 md:rounded-lg'>
           <div className='border-b border-gray-200 dark:border-gray-700'>
             <nav className='-mb-0.5 flex space-x-6'>
@@ -178,7 +185,7 @@ const Notification = () => {
                         }
                       )}
                     >
-                      {tab.title}
+                      {i18n.language == 'en' ? tab.title_en : tab.title}
                       {userInfo?.unread[tab.key as ObjectKey] ? (
                         <span className='rounded-lg bg-red-500 px-1.5 text-xs text-white'>
                           {userInfo?.unread[tab.key as ObjectKey]}
@@ -218,7 +225,7 @@ const Notification = () => {
           ) : (
             <div className='mt-4 text-center text-xl'>
               <div className='py-14 text-gray-300 dark:text-gray-500'>
-                {!isValidating ? '暂无消息' : <Loading />}
+                {!isValidating ? t('empty') : <Loading />}
               </div>
             </div>
           )}
@@ -237,6 +244,17 @@ const Notification = () => {
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, [
+        'common',
+        'notification',
+      ])),
+    },
+  };
 };
 
 export default Notification;

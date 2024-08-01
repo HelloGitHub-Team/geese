@@ -4,8 +4,10 @@ import HeaderBtn from '@/components/buttons/HeaderBtn';
 import type { option } from '@/components/dropdown/Dropdown';
 import Dropdown from '@/components/dropdown/Dropdown';
 
+import { TranslationFunction } from '@/types/utils';
+
 type RankButtonProps = {
-  t: (key: string) => string;
+  t: TranslationFunction;
   type?: '' | 'dropdown';
 };
 

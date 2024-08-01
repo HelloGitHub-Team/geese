@@ -11,10 +11,12 @@ import { OAUTH_LOGIN_KEY } from '@/utils/constants';
 
 import { LoginModal } from '../user/Login';
 
+import { TranslationFunction } from '@/types/utils';
+
 type Props = {
   platform: 'GitHub' | 'WeChat';
   backURL: string;
-  t: (key: string, text?: any) => string;
+  t: TranslationFunction;
 };
 
 export function OAuthButton({ platform, backURL, t }: Props) {
