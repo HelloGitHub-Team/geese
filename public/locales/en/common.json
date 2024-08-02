@@ -101,8 +101,8 @@
     "success": "Successfully Submitted",
     "err": "Content cannot be empty",
     "err2": "Content cannot exceed 1000 characters",
-    "content_placeholder": "Please leave your detailed feedback here. I will read it carefully and respond promptly.",
-    "limit": "Character limit 1-1000 characters",
+    "content_placeholder": "Please leave your detailed feedback here. We will read it carefully and respond promptly.",
+    "limit": "Word limit: 1-1000 characters",
     "contact_placeholder": "Contact information: WeChat/Phone number/Email",
     "submit": "Submit",
     "options": {
