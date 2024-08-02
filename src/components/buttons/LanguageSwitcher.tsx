@@ -37,7 +37,7 @@ const LanguageSwitcher = (props: LanguageSwitchProps) => {
   };
 
   if (props.type === 'text') {
-    const isChinese = locale == 'en' ? false : true;
+    const isChinese = locale == 'zh' ? true : false;
     const buttonText = isChinese ? 'English' : '简体中文';
     return (
       <span onClick={() => changeLanguage(isChinese ? 'en' : 'zh')}>
@@ -74,7 +74,7 @@ const LanguageSwitcher = (props: LanguageSwitchProps) => {
           aria-haspopup='true'
           aria-expanded={isHovered ? 'true' : 'false'}
         >
-          {selectedLocale === 'en' ? 'EN' : '中文'}
+          {selectedLocale === 'zh' ? '中文' : 'EN'}
         </button>
       </div>
 

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { MouseEventHandler, useState } from 'react';
+import { GoServer } from 'react-icons/go';
 import { VscClose } from 'react-icons/vsc';
 
 import { redirectRecord } from '@/services/home';
@@ -19,6 +20,7 @@ interface Props {
 interface AdContentProps {
   t: (key: string) => string;
   data: AdvertItem;
+  i18n_lang?: string;
 }
 
 interface ImageAdContentProps {
@@ -71,11 +73,12 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
     </div>
   );
 
-  const AdServerInfo = ({ data, t }: AdContentProps) => (
+  const AdServerInfo = ({ data, t, i18n_lang }: AdContentProps) => (
     <div className='mt-1.5 mb-1 text-xs text-gray-500'>
-      <span>
+      <span className=' inline-flex items-center'>
+        {i18n_lang != 'zh' && <GoServer size={11} className='mr-0.5' />}
         {t('advert.desc')}
-        <strong className='mx-1'>{data.day}</strong>
+        <strong className='mx-0.5'>{data.day}</strong>
         {t('advert.day')}
       </span>
       <div className='relative left-0.5 bottom-1 inline-flex w-fit'>
@@ -92,7 +95,7 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
     <div className='group flex flex-row p-3'>
       <img
         className='h-[55px] w-[55px]'
-        src={i18n_lang == 'en' ? ImageURL : data.image_url}
+        src={i18n_lang != 'zh' ? ImageURL : data.image_url}
         alt='ad'
       />
       <div className='ml-3'>
@@ -101,7 +104,7 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
         </div>
         <div className='hidden lg:block'>
           <div className='group-hover:hidden'>
-            <AdServerInfo data={data} t={t} />
+            <AdServerInfo data={data} t={t} i18n_lang={i18n_lang} />
           </div>
           <div className='hidden group-hover:block'>
             <AdTargetInfo data={data} t={t} />

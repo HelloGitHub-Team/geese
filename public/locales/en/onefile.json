@@ -1,0 +1,26 @@
+{
+  "title": "Single-File Open Source Projects",
+  "description": "A collection of single-file, copy-to-run open source projects",
+  "click": "Click",
+  "p_text": "OneFile gathers open source projects that are single-file, easy to run, and straightforward to understand. Including games, compilers, servers, tools, utility libraries, and other interesting open source projects that you can <strong>run just by copying the code</strong>. Click to view the source code and try it online.",
+  "p_text2": "<strong>OneFile</strong> is an open source project where you can find interesting and easy-to-run programs. It's also a programming challenge where you can submit a single file to take on the challenge.",
+  "p_text3": "Join the OneFile programming challenge and write some interesting code with just one file!",
+  "code": {
+    "copy_success": "Source code copied, paste it into a file to run",
+    "copy_fail": "Copy failed",
+    "title": "OneFile: {{name}} Source Code",
+    "nav": "Code",
+    "author": "Author: {{author}}",
+    "language": "Language: {{language}}",
+    "package": "Deps",
+    "nopackage": "No Deps",
+    "read": "{{num}} views",
+    "play": "Play",
+    "vite": "Visit",
+    "copy": "Copy"
+  },
+  "join": {
+    "title": "Join the OneFile Programming Challenge",
+    "nav": "Join"
+  }
+}

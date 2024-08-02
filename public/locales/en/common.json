@@ -27,12 +27,12 @@
     "login": "Sign In"
   },
   "advert": {
-    "desc": "Server expires by",
+    "desc": "expire in",
     "desc2": "Buy me a coffee",
     "next": "Need to gold",
     "next2": "Next target by",
     "day": "D",
-    "year": ""
+    "year": "Y"
   },
   "site_stats": {
     "user": "#Users",

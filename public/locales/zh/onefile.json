@@ -1,0 +1,26 @@
+{
+  "title": "仅一个文件的开源项目",
+  "description": "仅一个文件、复制即可运行的开源项目集合",
+  "click": "点击",
+  "p_text": "OneFile 是汇集了仅一个文件、运行简单、一看就懂的开源项目。包括：游戏、编译器、服务器、工具、实用库等有趣的开源项目，而且<strong>复制代码就能跑</strong>，点击即可在线查看源码和试玩。",
+  "p_text2": "<strong>「OneFile」</strong>是一个开源项目，在这里你可以找到有趣运行简单的程序。同时它也是一个编程挑战，你也可以提交一个文件接受挑战。",
+  "p_text3": "加入 OneFile 编程挑战，一个文件而已就写点有趣的代码吧！",
+  "code": {
+    "copy_success": "源码已复制，粘贴到文件中即可运行",
+    "copy_fail": "复制失败",
+    "title": "OneFile: {{name}} 源码",
+    "nav": "源码",
+    "author": "作者 {{author}}",
+    "language": "主语言 {{language}}",
+    "package": "有依赖",
+    "nopackage": "无依赖",
+    "read": "{{num}} 次查看",
+    "play": "试玩",
+    "vite": "访问",
+    "copy": "复制"
+  },
+  "join": {
+    "title": "加入 OneFile 编程挑战",
+    "nav": "加入"
+  }
+}
