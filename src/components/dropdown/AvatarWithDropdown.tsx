@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
+import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
+import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
 import CustomLink from '@/components/links/CustomLink';
-import ThemeSwitch from '@/components/ThemeSwitch';
 
 import { DEFAULT_AVATAR } from '@/utils/constants';
 
@@ -63,7 +64,10 @@ const AvatarWithDropdown = ({ t, className }: Props) => {
         </CustomLink>
 
         <div className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
-          <ThemeSwitch type='text' t={t} />
+          <ThemeSwitcher type='text' t={t} />
+        </div>
+        <div className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
+          <LanguageSwitcher type='text' />
         </div>
         <div
           className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'

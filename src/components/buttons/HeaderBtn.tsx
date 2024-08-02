@@ -15,7 +15,7 @@ const HeaderBtn = (props: HeaderBtnProps) => {
 
   return (
     <Button
-      className='font-normal text-current hover:bg-transparent dark:text-gray-400 dark:hover:bg-gray-700'
+      className='font-normal text-current hover:bg-transparent dark:text-gray-300 dark:hover:bg-gray-700'
       variant='ghost'
       onClick={debounce(() => {
         router.push(pathname);

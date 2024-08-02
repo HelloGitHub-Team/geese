@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { IoIosArrowForward } from 'react-icons/io';
 
-import ThemeSwitch from '@/components/ThemeSwitch';
+import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
+import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
 
 type Props = {
   httpCode: number;
@@ -12,7 +13,8 @@ const ErrorPage = ({ t, httpCode }: Props) => {
   return (
     <main>
       <div className='hidden'>
-        <ThemeSwitch />
+        <ThemeSwitcher />
+        <LanguageSwitcher />
       </div>
       <section className='min-h-screen bg-white dark:bg-gray-800'>
         <div className='flex flex-col items-center justify-center'>

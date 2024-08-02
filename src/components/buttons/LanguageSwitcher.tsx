@@ -2,78 +2,88 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 
-const LanguageSwitcher = () => {
+type LanguageSwitchProps = {
+  type?: string;
+};
+
+const LanguageSwitcher = (props: LanguageSwitchProps) => {
   const router = useRouter();
   const { locale, asPath } = router;
   const [selectedLocale, setSelectedLocale] = useState(locale);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const storedLocale = localStorage.getItem('locale');
-    if (storedLocale && storedLocale !== locale) {
+    if (storedLocale) {
       setSelectedLocale(storedLocale);
       router.push(asPath, asPath, { locale: storedLocale });
+    } else {
+      const systemLocale = navigator.language.toLowerCase().startsWith('zh')
+        ? 'zh'
+        : 'en';
+      setSelectedLocale(systemLocale);
+      localStorage.setItem('locale', systemLocale);
+      router.push(asPath, asPath, { locale: systemLocale });
     }
   }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [dropdownRef]);
 
   const changeLanguage = (language: string) => {
     localStorage.setItem('locale', language);
     setSelectedLocale(language);
-    setIsOpen(false); // 关闭下拉菜单
+    setIsHovered(false);
     router.push(asPath, asPath, { locale: language });
   };
 
+  if (props.type === 'text') {
+    const isChinese = locale == 'en' ? false : true;
+    const buttonText = isChinese ? 'English' : '简体中文';
+    return (
+      <span onClick={() => changeLanguage(isChinese ? 'en' : 'zh')}>
+        {buttonText}
+      </span>
+    );
+  }
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsHovered(false);
+    }, 300);
+  };
+
   return (
-    <div className='relative inline-block text-left' ref={dropdownRef}>
+    <div
+      className='relative inline-block text-left'
+      ref={dropdownRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div>
         <button
           type='button'
-          className='inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-2 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+          className='inline-flex h-8 w-full items-center justify-center rounded-md border border-gray-300 bg-white px-2 text-sm font-medium text-gray-700 shadow-sm transition-colors duration-200 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-700'
           id='options-menu'
           aria-haspopup='true'
-          aria-expanded={isOpen ? 'true' : 'false'}
-          onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isHovered ? 'true' : 'false'}
         >
-          {selectedLocale === 'zh'
-            ? '中文'
-            : selectedLocale === 'en'
-            ? 'English'
-            : '日本語'}
-          <svg
-            className='-mr-1 ml-2 h-5 w-5'
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 20 20'
-            fill='currentColor'
-            aria-hidden='true'
-          >
-            <path
-              fillRule='evenodd'
-              d='M5.23 7.21a.75.75 0 011.06.02L10 10.939l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0l-4.25-4.25a.75.75 0 01.02-1.06z'
-              clipRule='evenodd'
-            />
-          </svg>
+          {selectedLocale === 'en' ? 'EN' : '中文'}
         </button>
       </div>
 
-      {isOpen && (
-        <div className='absolute right-0 mt-2 w-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+      {isHovered && (
+        <div
+          className='absolute right-0 mt-2 w-[110px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800 dark:ring-gray-600'
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
           <div
             className='py-1'
             role='menu'
@@ -82,24 +92,17 @@ const LanguageSwitcher = () => {
           >
             <button
               onClick={() => changeLanguage('zh')}
-              className='block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100'
+              className='block w-full px-4 py-2 text-left text-sm text-gray-700 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
               role='menuitem'
             >
               🇨🇳 中文
             </button>
             <button
               onClick={() => changeLanguage('en')}
-              className='block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100'
+              className='block w-full px-4 py-2 text-left text-sm text-gray-700 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
               role='menuitem'
             >
               🇺🇸 English
-            </button>
-            <button
-              onClick={() => changeLanguage('ja')}
-              className='block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100'
-              role='menuitem'
-            >
-              🇯🇵 日本語
             </button>
           </div>
         </div>

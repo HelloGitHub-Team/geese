@@ -7,14 +7,14 @@ import { AiOutlineGithub } from 'react-icons/ai';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import HeaderBtn from '@/components/buttons/HeaderBtn';
+import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
 import RankButton from '@/components/buttons/RankButton';
+import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
 import { RepoModal } from '@/components/dialog/RepoModal';
 import AvatarWithDropdown from '@/components/dropdown/AvatarWithDropdown';
 
-import LanguageSwitcher from '../buttons/LanguageSwitcher';
 import { LoginButton } from '../buttons/LoginButton';
 import SearchInput from '../search/SearchInput';
-import ThemeSwitch from '../ThemeSwitch';
 
 const Header = () => {
   const router = useRouter();
@@ -81,15 +81,15 @@ const Header = () => {
           </li>
         </ul>
         <div className='shrink grow' />
-        <div className='hidden cursor-pointer space-x-2 md:flex'>
+        <div className='hidden cursor-pointer items-center space-x-1 md:flex'>
           <RepoModal>
-            <button className='flex h-8 cursor-pointer items-center rounded-lg border border-blue-500 bg-blue-500 px-2 text-sm text-white hover:border-blue-600 hover:bg-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:border-blue-500 dark:hover:bg-gray-800 dark:active:bg-gray-900 lg:mr-2'>
+            <button className='flex h-8 cursor-pointer items-center rounded-lg border border-transparent bg-blue-500 px-2 py-1.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-blue-700 dark:border-gray-500 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-500 dark:hover:bg-gray-700 lg:mr-1'>
               <AiOutlineGithub size={16} className='mr-0.5' />
               {t('header.submit')}
             </button>
           </RepoModal>
           <LanguageSwitcher />
-          <ThemeSwitch />
+          <ThemeSwitcher />
         </div>
       </nav>
     </div>
