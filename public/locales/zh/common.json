@@ -101,7 +101,7 @@
     "success": "提交成功",
     "err": "内容不能为空",
     "err2": "内容不能超过 1000 个字",
-    "content_placeholder": "请在这里留下您反馈的详情，我会认真阅读并及时做出响应。",
+    "content_placeholder": "请在这里留下您反馈的详情，我们会认真阅读并及时做出响应。",
     "limit": "字数限制 1-1000 字符",
     "contact_placeholder": "联系方式：微信/手机号/邮箱",
     "submit": "提交",
