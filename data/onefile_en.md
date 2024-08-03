@@ -1,44 +1,44 @@
 ## I. Introduction
 
-Are you already overwhelmed by the monotonous CRUD business code, and tired of the endless process of installing dependencies and deploying environments just to create a webpage, followed by the never-ending updates of dependency versions?
+Are you already overwhelmed by the endless CRUD operations in your code? Frustrated with the need to install dependencies and set up environments just to build a simple webpage, followed by the never-ending updates?
 
-The OneFile programming challenge with a single file is here to awaken your interest and pleasure in coding!
+OneFile is a single-file coding challenge designed to reignite your interest and joy in programming!
 
-Write the code you want, with the simplest code in **just one file**, and find back the original joy of programming.
+Write the code you want, using the simplest approach: **just one file**. Rediscover the original fun of programming.
 
 ## II. Requirements
 
-When you step away from modern frameworks and libraries, the opportunity to showcase your talent comes! If you have an idea, you should write it down quickly. It may not need to be very complex; perhaps one file is enough.
+When you step away from modern frameworks and libraries, your talent gets a chance to shine! If you have an idea, write it down—maybe all you need is just one file.
 
-The **one-file** programming challenge has the following requirements:
+The **OneFile** programming challenge requires:
 
-- A single file, not compressed, with a size smaller than 1 MB
-- Clear code structure, including comments, and fewer than 5000 lines of code
-- Any programming language is allowed, but cannot only contain Markdown files
-- No external files are introduced (images, videos, CSS, etc.)
-- The project function is complete and has learning or usage value
-- (Optional) Up to one open-source library or framework may be depended on
+- A single, uncompressed file smaller than 1 MB
+- Clear code structure with comments, under 5000 lines
+- Any programming language (Markdown-only files are not allowed)
+- No external files (images, videos, CSS, etc.)
+- Complete functionality with educational or practical value
+- (Optional) Can depend on at most one open-source library or framework
 
-The collected works will be promoted through HelloGitHub's accounts across the entire network (more than 200,000 fans), allowing your project to help more people and be loved by more people.
+Accepted projects will be promoted through HelloGitHub's social media accounts (200,000+ followers), helping your project reach and be loved by more people.
 
-In addition to submitting your own works, you can also share projects collected from the internet, but the author and source of the code must be indicated.
+In addition to submitting your own work, you can also share projects found online, but remember to credit the author and source.
 
-## III. Submission Methods
+## III. Submission
 
-**First Method**: Submit through the form: [Click Here](https://hellogithub.yuque.com/forms/share/4f0bf06b-2991-4f7e-a860-5b76337b7b5b)
+**Method 1**: Submit through the form: [Click Here](https://hellogithub.yuque.com/forms/share/4f0bf06b-2991-4f7e-a860-5b76337b7b5b)
 
-**Second Method**: Submit through GitHub Pull Request steps:
+**Method 2**: Submit via GitHub Pull Request:
 
 1. Fork this project
-2. Categorize the work according to the language and put it in the `src/appropriate directory`
-3. Submit PR
-4. Fill in the relevant information in the PR description area
-5. You will receive a reply on whether to include it within three days
+2. Place your work in the `src/appropriate directory` directory according to the programming language
+3. Submit a PR
+4. Fill in the relevant information in the PR description
+5. You'll receive a response within three days regarding whether your project has been accepted
 
-Tips: [Click Here](https://docs.github.com/cn/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) to view the PR method
+Tips: [Click Here](https://docs.github.com/cn/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) to learn how to create a PR.
 
-## IV. Final Thoughts
+## IV. Conclusion
 
-Every project starts with a single file and becomes what you see today through continuous iteration. The one file you submit today is a seed.
+Every project starts with a single file, evolving through iterations to become what you see today. The file you submit today is a seed.
 
-> The best time to plant a tree is twenty years ago. The second-best time is now.
+> The best time to plant a tree was ten years ago. The second-best time is now.
