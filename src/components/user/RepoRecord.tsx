@@ -21,7 +21,7 @@ const RepoData = ({
   data: Page<CollectItem | VoteItemData>;
   setPage: Dispatch<SetStateAction<number>>;
 }) => {
-  const { t } = useTranslation('profile');
+  const { t, i18n } = useTranslation('profile');
   const router = useRouter();
 
   const onClickRepo = (item: RepoType) => {
@@ -83,7 +83,9 @@ const RepoData = ({
               <div className='font-bold'>{item.repo.name || item.repo.url}</div>
               <div className='my-2 flex'>
                 <span className='w-px max-w-fit flex-1 items-stretch overflow-hidden text-ellipsis whitespace-nowrap text-gray-400 dark:text-gray-300'>
-                  {item.repo.summary || '-'}
+                  {i18n.language == 'en'
+                    ? item.repo.summary_en || item.repo.summary
+                    : item.repo.summary || '-'}
                 </span>
               </div>
               <div className='flex items-center text-sm text-gray-500 dark:text-gray-400'>

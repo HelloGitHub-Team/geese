@@ -2,7 +2,7 @@
   "title": "Message Center",
   "empty": "No messages",
   "repository": {
-    "desc": "You {{content}} open source project "
+    "desc": "You {{content}} project "
   },
   "reply": {
     "desc": "replied to you on",
@@ -11,6 +11,6 @@
   "comment": {
     "desc": "commented on your",
     "desc2": "commented on the project you shared",
-    "desc3": "open source project:"
+    "desc3": "project:"
   }
 }

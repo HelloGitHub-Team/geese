@@ -4,24 +4,24 @@
   "page_next": "Next",
   "read_button": "View",
   "tabs": {
-    "dynamic": "Activity",
+    "dynamic": "Dynamic",
     "favorite": "Favorites",
-    "comment": "Comments",
-    "vote": "Likes",
-    "repo": "Projects"
+    "comment": "Comment",
+    "vote": "Vote",
+    "repo": "Project"
   },
   "user_info": {
     "desc": "User #{{rank}} of HelloGitHub community, joined on {{date}}",
-    "desc2": "Shared {{share_repo}} open source projects, posted {{comment_repo}} project reviews, and earned {{contribute}} contribution points.",
+    "desc2": "Shared {{share_repo}} projects, posted {{comment_repo}} project reviews, and earned {{contribute}} contribution points.",
     "desc3": "User #{{rank}} of HelloGitHub community",
     "desc4": "Joined on {{date}}, earned {{contribute}} contribution points",
-    "desc5": "Shared {{share_repo}} open source projects, posted {{comment_repo}} project reviews"
+    "desc5": "Shared {{share_repo}} projects, posted {{comment_repo}} project reviews"
   },
   "dynamic": {
     "time_desc": "Activity",
     "desc": "No activity",
     "value_text": ", earned {{value}} contribution points.",
-    "comment": "Commented on open source project",
+    "comment": "Commented on project",
     "comment_hot": "Hot comment on",
     "comment_hot2": "project",
     "comment_bad": "Posted meaningless/spam comment, deducted 2 contribution points.",
@@ -47,8 +47,8 @@
       "share": "Share"
     },
     "dialog": {
-      "del_title": "Are you sure to delete the favorites folder?",
-      "del_desc": "Deleting the folder will remove all projects in it",
+      "del_title": "Delete the favorites folder?",
+      "del_desc": "Deleting folder removes all projects within",
       "edit_title": "Edit Favorites Folder"
     },
     "status": {
@@ -72,10 +72,14 @@
     "button": {
       "appeal": "Appeal",
       "vote": "Likes {{total}}"
+    },
+    "item": {
+      "expand": "Expand",
+      "collapse": "Collapse"
     }
   },
   "vote": {
-    "empty": "No likes"
+    "empty": "No Votes"
   },
   "repo": {
     "empty": "No projects",

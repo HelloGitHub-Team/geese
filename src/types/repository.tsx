@@ -6,6 +6,7 @@ import { TranslationFunction } from '@/types/utils';
 export interface RepositoryProps {
   repo: Repository;
   t: TranslationFunction;
+  i18n_lang?: string;
 }
 
 export interface StarHistory {
@@ -64,8 +65,10 @@ export interface RepoType {
   full_name: string;
 
   title: string;
+  title_en?: string;
   description: string;
   summary: string;
+  summary_en?: string;
   forks: number;
   stars: number;
   stars_str: string;

@@ -304,7 +304,6 @@ export default function CollectionList({ fid, t, uid }: CollectionListProps) {
           type='edit'
           visible={openModal === 'edit'}
           title={t('favorite.dialog.edit_title')}
-          t={t}
           initValue={curItem as EditCollectionFormData}
           onClose={() => setOpenModal(false)}
           onFinish={() => updateCollection()}

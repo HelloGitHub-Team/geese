@@ -25,7 +25,7 @@ const RecommendList = ({ repositories }: { repositories: RecommendItem[] }) => (
             />
             <div className='flex w-4/5 flex-col pl-2'>
               <div className='truncate text-ellipsis text-sm capitalize'>
-                {item.full_name}
+                {item.full_name.length > 20 ? item.name : item.full_name}
               </div>
               <div className='flex flex-row pt-1 text-xs text-gray-400'>
                 <div className='flex items-center pr-4'>

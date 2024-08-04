@@ -21,10 +21,6 @@
     "save": "Save",
     "save_success_msg": "Save successful!",
     "save_fail_msg": "Save failed!",
-    "max_tag_msg": "You can only select up to {{maxTotal}} tags!",
-    "编程语言": "Programming",
-    "技术栈": "Technology",
-    "应用类型": "Application",
-    "其它": "Other"
+    "max_tag_msg": "You can only select up to {{maxTotal}} tags!"
   }
 }

@@ -49,7 +49,9 @@ export function CreateRepo({ response, t }: CreateRepoProps) {
     setLoading(true);
     const res = await createRepo({ url, summary, title });
     if (res.success) {
-      Message.success(t('submit_repo.create_success', res.remaining));
+      Message.success(
+        t('submit_repo.create_success', { remaining: res.remaining })
+      );
     } else {
       Message.error(res.message);
     }

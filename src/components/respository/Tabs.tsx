@@ -7,7 +7,7 @@ import { MDRender } from '../mdRender/MDRender';
 
 import { RepositoryProps } from '@/types/repository';
 
-const Tabs = ({ repo, t }: RepositoryProps) => {
+const Tabs = ({ repo, t, i18n_lang }: RepositoryProps) => {
   const [selectTab, setSelectTab] = useState<string>('summary');
 
   const tabClassName = (tabName: string) =>
@@ -30,7 +30,7 @@ const Tabs = ({ repo, t }: RepositoryProps) => {
             </div>
           )}
           <div className='w-full p-2 leading-8'>
-            <MDRender>{repo.summary}</MDRender>
+            {i18n_lang == 'en' ? repo.summary_en || repo.summary : repo.summary}
           </div>
 
           <div className='flex flex-row flex-wrap items-center pt-1'>

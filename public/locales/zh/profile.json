@@ -72,6 +72,10 @@
     "button": {
       "appeal": "申诉",
       "vote": "点赞 {{total}}"
+    },
+    "item": {
+      "expand": "展开",
+      "collapse": "收起"
     }
   },
   "vote": {

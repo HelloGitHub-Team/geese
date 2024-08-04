@@ -22,7 +22,7 @@ import { MessageItems, MessageRecord } from '@/types/user';
 
 const tabList = [
   { key: 'comment', title: '评论', title_en: 'Comment' },
-  { key: 'repository', title: '开源项目', title_en: 'Repository' },
+  { key: 'repository', title: '开源项目', title_en: 'Project' },
   { key: 'system', title: '系统通知', title_en: 'System' },
 ];
 
@@ -215,7 +215,7 @@ const Notification = () => {
                     <div className='flex flex-col truncate'>
                       {messageShow(activeTab, item)}
                       <div className='mt-1.5 flex flex-row text-sm text-gray-400 dark:text-gray-600'>
-                        {fromNow(item.publish_at)}
+                        {fromNow(item.publish_at, i18n.language)}
                       </div>
                     </div>
                   </div>

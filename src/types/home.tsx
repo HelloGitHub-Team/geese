@@ -17,9 +17,11 @@ export interface HomeItem {
   author: string;
   author_avatar: string;
   title: string;
+  title_en?: string;
   name: string;
   description: string;
   summary: string;
+  summary_en?: string;
   primary_lang: string;
   lang_color: string;
   is_hot: boolean;

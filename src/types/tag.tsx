@@ -56,5 +56,6 @@ export interface PortalTag {
 
 export interface PortalTagGroup {
   group_name: string;
+  group_name_en: string;
   tags: PortalTag[];
 }

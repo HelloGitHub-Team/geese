@@ -17,8 +17,10 @@ interface ItemProps {
     is_claimed?: boolean;
     name: string;
     title: string;
+    title_en?: string;
     comment_total?: number;
     summary?: string;
+    summary_en?: string;
     author: string;
     lang_color: string;
     primary_lang: string;
@@ -51,8 +53,10 @@ const RepositoryItem = ({
     is_claimed,
     name,
     title,
+    title_en,
     comment_total,
     summary,
+    summary_en,
     author,
     lang_color,
     primary_lang,
@@ -84,7 +88,7 @@ const RepositoryItem = ({
                   <span className='truncate text-sm leading-snug  md:text-base'>
                     {index + 1}
                     <span className='pr-0.5'>.</span>
-                    {title}
+                    {i18n_lang == 'en' ? title_en || title : title || '-'}
                   </span>
                   {/* 是否推荐 */}
                   {is_featured && (
@@ -133,7 +137,9 @@ const RepositoryItem = ({
                             —
                           </span>
                           <span className='text-gray-600 dark:text-gray-300'>
-                            {title}
+                            {i18n_lang == 'en'
+                              ? title_en || title
+                              : title || '-'}
                           </span>
                         </p>
                       )}
@@ -151,7 +157,7 @@ const RepositoryItem = ({
                 </div>
                 {/* 项目描述 */}
                 <div className='mt-0.5 truncate text-sm text-gray-400'>
-                  {summary || '-'}
+                  {i18n_lang == 'en' ? summary_en || summary : summary || '-'}
                 </div>
                 {/* 技术栈、认证、时间 */}
                 <div className='mt-1 flex items-center'>
@@ -179,7 +185,7 @@ const RepositoryItem = ({
                         className='mr-1 h-4 w-4 rounded-full md:hidden'
                       />
                     )}
-                    <div className='flex max-w-[10rem] items-center truncate text-ellipsis md:w-fit md:max-w-[6rem]'>
+                    <div className='flex max-w-[7rem] items-center truncate text-ellipsis md:w-fit md:max-w-[10rem]'>
                       {is_claimed && (
                         <GoVerified
                           className='mr-0.5 inline-block min-w-min align-[-2px] text-blue-500'

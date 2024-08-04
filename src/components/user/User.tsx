@@ -160,7 +160,7 @@ const User = () => {
         </div>
         <div className='mt-2 bg-white px-6 py-3 dark:bg-gray-800 md:rounded-lg'>
           <div className='border-b border-gray-200 dark:border-gray-700'>
-            <nav className='-mb-0.5 flex space-x-6'>
+            <nav className='flex space-x-2 md:space-x-8'>
               {tabList
                 .filter(
                   (_, index) =>

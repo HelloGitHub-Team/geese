@@ -20,14 +20,15 @@ type EditCollectionProps = {
   type: 'add' | 'edit';
   title: string;
   visible: boolean;
-  t: (key: string) => string;
   initValue?: EditCollectionFormData;
   onFinish?: () => void;
   onClose: () => void;
 };
 
 export const EditCollectionMoal = (props: EditCollectionProps) => {
-  const { t, visible, title = t('collect.title') } = props;
+  const { t } = useTranslation('common');
+
+  const { visible, title } = props;
   const initFormData = React.useMemo(
     () => ({
       name: '',
@@ -170,7 +171,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
                 readOnly
                 checked={formData.status === 2}
               />
-              <label className='ml-2 w-8 text-sm text-gray-600 dark:text-gray-400'>
+              <label className='max-w-10 ml-2 text-sm text-gray-600 dark:text-gray-400'>
                 {t('collect.public')}
               </label>
               <span className='ml-1 text-xs text-gray-500'>
@@ -190,7 +191,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
                 readOnly
                 checked={formData.status === 0}
               />
-              <label className='ml-2 w-8 text-sm text-gray-600 dark:text-gray-400'>
+              <label className='max-w-8 ml-2 text-sm text-gray-600 dark:text-gray-400'>
                 {t('collect.pravite')}
               </label>
               <span className='ml-1 text-xs text-gray-500'>
@@ -245,7 +246,6 @@ export default function AddCollection({
       <EditCollectionMoal
         type='add'
         title={t('collect.title')}
-        t={t}
         visible={openModal}
         onFinish={onFinish}
         onClose={() => setOpenModal(false)}

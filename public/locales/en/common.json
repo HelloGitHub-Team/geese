@@ -12,9 +12,9 @@
   },
   "login": {
     "text": "Login",
-    "title": "Choose a login method",
-    "tips": "By logging in, you agree to the",
-    "agreement": "User Agreement",
+    "title": "Choose login method",
+    "tips": "Login agree to the",
+    "agreement": "Agreement",
     "oauth": "Login via {{platform}}",
     "redirect": "Waiting for redirection...",
     "redirect_bar_text": "Logging in, waiting for redirection..."
@@ -41,7 +41,7 @@
     "desc": "HelloGitHub is a platform for discovering and sharing beginner-friendly open source projects.\nWe help users find joy in programming, solve technical challenges, and explore amazing tools to start their open-source journey."
   },
   "recommend": {
-    "title": "Recommended",
+    "title": "Recommend",
     "desc": "Content is collected from spdx and GitHub, following the",
     "desc2": "protocol.",
     "change": "Refresh"
@@ -60,7 +60,7 @@
   },
   "submit_repo": {
     "text": "Submit",
-    "title": "Recommend or Submit an Open Source Project",
+    "title": "Recommend or Submit an Project",
     "description": "Only approved projects will be displayed on the homepage",
     "url_placeholder": "Project URL",
     "url_tip": "👆 Only projects on GitHub are accepted",
@@ -80,16 +80,16 @@
   },
   "collect": {
     "title": "New",
-    "edit_success": "Successfully Edited",
-    "edit_fail": "Edit Failed",
     "create_success": "Successfully Created",
     "create_fail": "Creation Failed",
+    "edit_success": "Successfully Edited",
+    "edit_fail": "Edit Failed",
     "name": "Name",
     "name_placeholder": "Enter folder name",
-    "desc": "Description",
+    "desc": "Desc",
     "desc_placeholder": "Enter folder description (up to 100 characters, optional)",
     "pravite": "Private",
-    "pravite_desc": "",
+    "pravite_desc": "Visible only to you",
     "public": "Public",
     "public_desc": "Visible to everyone",
     "button": {

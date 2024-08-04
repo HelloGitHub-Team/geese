@@ -249,7 +249,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                   }}
                 >
                   <GoListUnordered />
-                  目录
+                  {t('volume.catalog2')}
                 </div>
               </div>
             </div>

@@ -94,7 +94,7 @@ const useURLOptions = ({ repo, t }: URLoptionProps) => {
   return urlOptions;
 };
 
-const Info = ({ repo, t }: RepositoryProps) => {
+const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
   const { isLogin, login } = useLoginContext();
   const [isVoted, setIsVoted] = useState<boolean>(false);
   const [voteTotal, setVoteTotal] = useState<number>(repo.votes);
@@ -323,10 +323,10 @@ const Info = ({ repo, t }: RepositoryProps) => {
                 </h1>
               </CustomLink>
               {repo.is_claimed && (
-                <div className='group relative ml-0.5 cursor-pointer'>
+                <div className=' group relative ml-0.5 flex cursor-pointer items-center'>
                   <GoVerified className='ml-0.5 text-xl text-blue-500 group-hover:text-blue-600' />
                   <div className='absolute hidden flex-row transition-opacity duration-300 group-hover:flex'>
-                    <div className='relative -top-6 left-6 w-0 rounded-md bg-gray-300 p-1 text-xs text-white group-hover:w-max'>
+                    <div className='relative left-6 w-0 rounded-md bg-gray-300 p-1 text-xs font-medium text-white group-hover:w-max dark:bg-gray-700 dark:text-gray-200'>
                       {t('info.claimed')}
                     </div>
                   </div>
@@ -334,7 +334,7 @@ const Info = ({ repo, t }: RepositoryProps) => {
               )}
             </div>
             <div className='truncate text-ellipsis text-xl font-normal text-gray-500'>
-              {repo.title}
+              {i18n_lang == 'en' ? repo.title_en || repo.title : repo.title}
             </div>
           </div>
 
@@ -358,7 +358,7 @@ const Info = ({ repo, t }: RepositoryProps) => {
               )}
             </div>
             <span className='text-ellipsis whitespace-pre-wrap text-xl font-normal text-gray-500'>
-              {repo.title}
+              {i18n_lang == 'en' ? repo.title_en || repo.title : repo.title}
             </span>
           </div>
           <div className='hidden md:flex'>

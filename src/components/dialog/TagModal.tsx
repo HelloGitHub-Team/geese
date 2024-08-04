@@ -175,7 +175,7 @@ export function TagModal({
                 key={'group_' + index}
                 className='text-lg font-medium text-gray-500 dark:text-gray-200'
               >
-                {t(`${group.group_name}`)}
+                {i18n_lang == 'en' ? group.group_name_en : group.group_name}
               </div>,
               <div
                 key={'group_items_' + index}

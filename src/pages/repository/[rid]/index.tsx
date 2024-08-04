@@ -32,8 +32,8 @@ const RepositoryPage: NextPage<Props> = ({ repo }) => {
         t={t}
       />
       <div className='mt-2 bg-white px-2 pb-3 pt-2 dark:bg-gray-800 md:rounded-lg'>
-        <Info repo={repo} t={t} />
-        <Tabs repo={repo} t={t} />
+        <Info repo={repo} t={t} i18n_lang={i18n.language} />
+        <Tabs repo={repo} t={t} i18n_lang={i18n.language} />
       </div>
       <CommentContainer
         className='mt-2 bg-white dark:bg-gray-800 md:rounded-lg'
