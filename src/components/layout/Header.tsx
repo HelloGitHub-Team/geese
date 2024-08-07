@@ -89,7 +89,9 @@ const Header = () => {
             </button>
           </RepoModal>
           <ThemeSwitcher />
-          <LanguageSwitcher />
+          <div className='hidden'>
+            <LanguageSwitcher />
+          </div>
         </div>
       </nav>
     </div>
