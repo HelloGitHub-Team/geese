@@ -88,8 +88,8 @@ const Header = () => {
               {t('header.submit')}
             </button>
           </RepoModal>
-          <LanguageSwitcher />
           <ThemeSwitcher />
+          <LanguageSwitcher />
         </div>
       </nav>
     </div>

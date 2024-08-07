@@ -1,7 +1,7 @@
 //next-i18next.config.js
 
 module.exports = {
-  debug: true,
+  // debug: true,
   i18n: {
     defaultLocale: 'zh',
     locales: ['zh', 'en'],

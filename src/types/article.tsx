@@ -17,8 +17,10 @@ export interface ItemProps {
 export interface ArticleItem {
   aid: string;
   title: string;
+  title_en?: string;
   head_image: string;
   desc: string;
+  desc_en?: string;
   author: string;
   is_publish: boolean;
   is_hot: boolean;

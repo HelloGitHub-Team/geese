@@ -6,12 +6,13 @@ import { ArticleContentItem, OneItemResp, OneItemsResp } from '@/types/article';
 
 export const getArticleContent = async (
   ip: string,
-  aid: string
+  aid: string,
+  locale: string
 ): Promise<ArticleContentItem> => {
   const req: RequestInit = {};
   req.headers = { 'x-real-ip': ip, 'x-forwarded-for': ip };
   const result = await fetcher<ArticleContentItem>(
-    makeUrl(`/article/${aid}`),
+    makeUrl(`/article/${aid}`, { lang: locale }),
     req
   );
   return result;

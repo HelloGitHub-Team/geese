@@ -15,7 +15,7 @@ import { getClientIP } from '@/utils/util';
 import { ArticleProps } from '@/types/article';
 
 const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
-  const { t } = useTranslation('article');
+  const { t, i18n } = useTranslation('article');
 
   return (
     <>
@@ -27,13 +27,29 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
             {article.content}
           </MDRender>
         </article>
-        <div className='my-2 flex justify-center'>
-          <ImageWithPreview
-            className='hidden cursor-zoom-in rounded-lg md:block'
-            src='https://img.hellogithub.com/ad/footer.png'
-            alt='weixin_footer'
-          />
-        </div>
+        {i18n.language === 'zh' ? (
+          <div className='my-2 flex justify-center'>
+            <ImageWithPreview
+              className='hidden cursor-zoom-in rounded-lg md:block'
+              src='https://img.hellogithub.com/ad/footer.png'
+              alt='weixin_footer'
+            />
+          </div>
+        ) : (
+          <a
+            href='https://www.buymeacoffee.com/hellogithub'
+            className='flex justify-center'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <img
+              src='https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png'
+              alt='Buy Me A Coffee'
+              className='h-[60px] w-[217px]'
+            />
+          </a>
+        )}
+
         <ItemBottom endText='END' />
         <ToTop />
       </div>
@@ -51,7 +67,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const ip = getClientIP(req);
   const aid = query?.aid as string;
-  const data = await getArticleContent(ip, aid);
+  const data = await getArticleContent(ip, aid, locale as string);
   if (!data.success) {
     return {
       notFound: true,

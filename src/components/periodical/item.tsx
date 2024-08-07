@@ -70,7 +70,13 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
       </div>
 
       {/* markdown 内容渲染 */}
-      <MDRender className='markdown-body'>{item.description}</MDRender>
+      <MDRender className='markdown-body'>
+        {i18n.language == 'en'
+          ? item.description_en
+            ? item.description_en
+            : item.description
+          : item.description}
+      </MDRender>
       {/* 图片预览 */}
       {item.image_url && (
         <div className='my-2 flex justify-center'>

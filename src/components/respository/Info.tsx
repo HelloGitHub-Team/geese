@@ -349,7 +349,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
                 href={repo.url}
                 onClick={() => handleClickLink('source', repo.rid)}
               >
-                <h1 className='max-w-[400px] truncate text-ellipsis text-3xl font-semibold'>
+                <h1 className='max-w-[320px] truncate text-ellipsis text-3xl font-semibold'>
                   {repo.full_name.length >= 20 ? repo.name : repo.full_name}
                 </h1>
               </CustomLink>

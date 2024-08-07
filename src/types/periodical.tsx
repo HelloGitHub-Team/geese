@@ -23,6 +23,7 @@ export interface PeriodicalItem {
   rid: string;
   name: string;
   description: string;
+  description_en: string;
   github_url: string;
   stars: number;
   forks: number;

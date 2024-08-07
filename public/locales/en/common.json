@@ -6,8 +6,8 @@
     "rank": "Ranking",
     "article": "Articles",
     "submit": "Submit",
-    "profile": "My Profile",
-    "notification": "Notifications",
+    "profile": "Profile",
+    "notification": "Notification",
     "logout": "Logout"
   },
   "login": {

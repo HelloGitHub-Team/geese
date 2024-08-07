@@ -34,10 +34,10 @@ const ThemeSwitcher: React.FC<ThemeSwitchProps> = (props: ThemeSwitchProps) => {
     <button
       type='button'
       onClick={onToggle}
-      className='rounded-md p-2 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
+      className='h-8 items-center justify-center rounded-md border border-gray-300 bg-white px-2 text-sm font-medium text-gray-700 shadow-sm transition-colors duration-200 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-700'
       aria-label='Toggle theme'
     >
-      {theme == 'light' ? (
+      {theme == 'dark' ? (
         <svg
           className='h-4 w-4'
           data-testid='geist-icon'

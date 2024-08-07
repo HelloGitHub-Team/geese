@@ -1,6 +1,7 @@
 // components/LanguageSwitcher.tsx
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
+import { MdTranslate } from 'react-icons/md';
 
 type LanguageSwitchProps = {
   type?: string;
@@ -9,7 +10,6 @@ type LanguageSwitchProps = {
 const LanguageSwitcher = (props: LanguageSwitchProps) => {
   const router = useRouter();
   const { locale, asPath } = router;
-  const [selectedLocale, setSelectedLocale] = useState(locale);
   const [isHovered, setIsHovered] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -17,13 +17,11 @@ const LanguageSwitcher = (props: LanguageSwitchProps) => {
   useEffect(() => {
     const storedLocale = localStorage.getItem('locale');
     if (storedLocale) {
-      setSelectedLocale(storedLocale);
       router.push(asPath, asPath, { locale: storedLocale });
     } else {
       const systemLocale = navigator.language.toLowerCase().startsWith('zh')
         ? 'zh'
         : 'en';
-      setSelectedLocale(systemLocale);
       localStorage.setItem('locale', systemLocale);
       router.push(asPath, asPath, { locale: systemLocale });
     }
@@ -31,7 +29,6 @@ const LanguageSwitcher = (props: LanguageSwitchProps) => {
 
   const changeLanguage = (language: string) => {
     localStorage.setItem('locale', language);
-    setSelectedLocale(language);
     setIsHovered(false);
     router.push(asPath, asPath, { locale: language });
   };
@@ -74,7 +71,8 @@ const LanguageSwitcher = (props: LanguageSwitchProps) => {
           aria-haspopup='true'
           aria-expanded={isHovered ? 'true' : 'false'}
         >
-          {selectedLocale === 'zh' ? '中文' : 'EN'}
+          <MdTranslate size={16} />
+          {/* {selectedLocale === 'zh' ? '中文' : 'EN'} */}
         </button>
       </div>
 

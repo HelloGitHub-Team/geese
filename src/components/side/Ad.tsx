@@ -9,6 +9,7 @@ import { AdvertItem } from '@/types/home';
 
 const ImageURL =
   'https://img.hellogithub.com/article/HwsoJXEiYdPhjLa_1720773908.png';
+const PayURL = 'https://buymeacoffee.com/hellogithub';
 
 interface Props {
   data: AdvertItem;
@@ -118,19 +119,35 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
     <div
       className={`relative h-20 overflow-hidden rounded-lg bg-white dark:bg-gray-800 ${className}`}
     >
-      <Link href={data.url}>
-        <a
-          target='_blank'
-          onClick={() => onClickLink(data.aid)}
-          rel='noreferrer'
-        >
-          {data.is_reward ? (
-            <RewardAdContent data={data} t={t} />
-          ) : (
+      {data.is_reward ? (
+        i18n_lang != 'zh' ? (
+          <Link href={PayURL}>
+            <a target='_blank' rel='noreferrer'>
+              <RewardAdContent data={data} t={t} />
+            </a>
+          </Link>
+        ) : (
+          <Link href={data.url}>
+            <a
+              target='_blank'
+              onClick={() => onClickLink(data.aid)}
+              rel='noreferrer'
+            >
+              <RewardAdContent data={data} t={t} />:
+            </a>
+          </Link>
+        )
+      ) : (
+        <Link href={data.url}>
+          <a
+            target='_blank'
+            onClick={() => onClickLink(data.aid)}
+            rel='noreferrer'
+          >
             <ImageAdContent data={data} handleClose={handleClose} />
-          )}
-        </a>
-      </Link>
+          </a>
+        </Link>
+      )}
     </div>
   );
 }

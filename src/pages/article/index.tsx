@@ -80,11 +80,15 @@ const ArticleIndex: NextPage = () => {
                             />
                           )}
                           <span className='truncate pr-2 text-sm leading-snug md:pr-0 md:text-base'>
-                            {item.title}
+                            {i18n.language == 'en'
+                              ? item.title_en || item.title
+                              : item.title}
                           </span>
                         </div>
                         <div className='pt-1 pb-1.5 pr-1 text-xs leading-loose text-gray-400 line-clamp-2 md:pr-0'>
-                          {item.desc}
+                          {i18n.language == 'en'
+                            ? item.desc_en || item.desc
+                            : item.desc}
                         </div>
                         <div className='flex items-center text-xs text-gray-800 dark:text-gray-200'>
                           <div className='truncate whitespace-nowrap md:max-w-xs'>

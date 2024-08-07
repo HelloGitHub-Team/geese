@@ -23,16 +23,21 @@ function translate(key: string, lang: string): string {
   return messages[key]?.[lang] || messages[key]?.['en'] || key;
 }
 
-// 获取用户语言的函数
 function getUserLanguage(): string {
-  // 这里可以根据你的应用逻辑来获取用户语言
-  // 例如，从 localStorage 或 cookie 中获取
-  console.log(
-    localStorage.getItem('locale') || navigator.language.split('-')[0] || 'en'
-  );
-  return (
-    localStorage.getItem('locale') || navigator.language.split('-')[0] || 'en'
-  );
+  if (typeof window === 'undefined') {
+    // 服务器端渲染
+    // 这里可以使用 Next.js 的 API 来获取语言设置
+    // 例如，从 cookies 或者请求头中获取
+    // 这个实现需要根据你的具体设置来调整
+    return 'en'; // 接口异常默认语言
+  } else {
+    // 客户端渲染
+    return (
+      localStorage?.getItem('locale') ||
+      navigator?.language?.split('-')[0] ||
+      'en'
+    );
+  }
 }
 
 export const fetcher = async function fetcher<T>(
@@ -40,7 +45,6 @@ export const fetcher = async function fetcher<T>(
   init?: RequestInit
 ): Promise<T> {
   const lang = getUserLanguage();
-
   // if the user is not online when making the API call
   if (typeof window !== 'undefined' && !window.navigator.onLine) {
     throw new Error('OFFLINE');
