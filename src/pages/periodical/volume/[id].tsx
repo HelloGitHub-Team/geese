@@ -372,6 +372,6 @@ export async function getStaticProps({ params, locale }: any) {
       volume,
       ...(await serverSideTranslations(locale, ['common', 'periodical'])),
     },
-    revalidate: 3600 * 10,
+    revalidate: 60,
   };
 }

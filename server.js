@@ -2,8 +2,7 @@
 const express = require('express');
 const next = require('next');
 
-const dev = process.env.NEXT_PUBLIC_ENV !== 'production';
-const app = next({ dev });
+const app = next({ dev: false });
 const handle = app.getRequestHandler();
 
 const PORT = process.env.PORT || 3000;
