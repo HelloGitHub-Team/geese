@@ -9,12 +9,11 @@ const { i18n } = require('./next-i18next.config');
 
 module.exports = withBundleAnalyzer({
   i18n,
+  reactStrictMode: true,
+  compress: true, // 启用压缩
   eslint: {
     dirs: ['src'],
   },
-
-  reactStrictMode: false,
-
   // Uncoment to add domain whitelist
   images: {
     domains: [
@@ -43,11 +42,10 @@ module.exports = withBundleAnalyzer({
       test: /\.md$/,
       use: 'raw-loader',
     });
-
     return config;
   },
-
   // experimental: {
+  //   disableOptimizedLoading: true,
   //   scrollRestoration: true,
   // },
 });

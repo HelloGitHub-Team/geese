@@ -42,7 +42,7 @@ const RepositoryPage: NextPage<Props> = ({ repo }) => {
         t={t}
         i18n_lang={i18n.language}
       />
-      <div className='h-8 lg:h-36'></div>
+      <div className='h-8 lg:h-36' />
     </>
   );
 };
