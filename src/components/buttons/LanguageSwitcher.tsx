@@ -1,7 +1,8 @@
 // components/LanguageSwitcher.tsx
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
-import { MdTranslate } from 'react-icons/md';
+import { useRef, useState } from 'react';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Cookies = require('js-cookie');
 
 type LanguageSwitchProps = {
   type?: string;
@@ -11,24 +12,13 @@ const LanguageSwitcher = (props: LanguageSwitchProps) => {
   const router = useRouter();
   const { locale, asPath } = router;
   const [isHovered, setIsHovered] = useState(false);
+  const [selectedLocale, setSelectedLocale] = useState(locale);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    const storedLocale = localStorage.getItem('locale');
-    if (storedLocale) {
-      router.push(asPath, asPath, { locale: storedLocale });
-    } else {
-      const systemLocale = navigator.language.toLowerCase().startsWith('zh')
-        ? 'zh'
-        : 'en';
-      localStorage.setItem('locale', systemLocale);
-      router.push(asPath, asPath, { locale: systemLocale });
-    }
-  }, []);
-
   const changeLanguage = (language: string) => {
-    localStorage.setItem('locale', language);
+    Cookies.set('locale', language);
+    setSelectedLocale(language);
     setIsHovered(false);
     router.push(asPath, asPath, { locale: language });
   };
@@ -71,8 +61,8 @@ const LanguageSwitcher = (props: LanguageSwitchProps) => {
           aria-haspopup='true'
           aria-expanded={isHovered ? 'true' : 'false'}
         >
-          <MdTranslate size={16} />
-          {/* {selectedLocale === 'zh' ? '中文' : 'EN'} */}
+          {/* <MdTranslate size={16} /> */}
+          {selectedLocale === 'zh' ? '中文' : 'EN'}
         </button>
       </div>
 

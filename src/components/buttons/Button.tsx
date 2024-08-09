@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { ImSpinner2 } from 'react-icons/im';
 
 import clsxm from '@/lib/clsxm';
