@@ -9,7 +9,7 @@ type Props = {
   onClick?: any;
 } & React.ComponentPropsWithoutRef<'div'>;
 
-const CustomLink = ({ href, className, children, onClick }: Props) => {
+export const CustomLink = ({ href, className, children, onClick }: Props) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   useEffect(() => {
     if (
@@ -35,4 +35,10 @@ const CustomLink = ({ href, className, children, onClick }: Props) => {
   );
 };
 
-export default CustomLink;
+export const NoPrefetchLink = ({ href, children }: Props) => {
+  return (
+    <Link prefetch={false} href={href}>
+      {children}
+    </Link>
+  );
+};

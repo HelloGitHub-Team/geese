@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { AiFillFire, AiOutlineEye } from 'react-icons/ai';
 import { GoStar, GoVerified } from 'react-icons/go';
 
-import CustomLink from '@/components/links/CustomLink';
+import { CustomLink } from '@/components/links/CustomLink';
 
 import { fromNow } from '@/utils/day';
 import { numFormat } from '@/utils/util';

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { NoPrefetchLink } from '@/components/links/CustomLink';
 
 import { TagType } from '@/types/tag';
 
@@ -15,7 +15,9 @@ export default function TagLink(props: Props) {
         {props.items.map((item: TagType) => {
           return (
             <li className='shrink-0 grow-0 basis-auto' key={item.tid}>
-              <Link href={`/?sort_by=${props.sort_by}&tid=${item.tid}`}>
+              <NoPrefetchLink
+                href={`/?sort_by=${props.sort_by}&tid=${item.tid}`}
+              >
                 {props.tid == item.tid ? (
                   <a className='mt-1 mr-1 inline-flex h-6 items-center justify-center rounded-xl bg-gray-100 px-0 pl-2 pr-2 text-blue-500 dark:bg-gray-700 dark:focus:bg-gray-700'>
                     {item.name}
@@ -25,7 +27,7 @@ export default function TagLink(props: Props) {
                     {item.name}
                   </a>
                 )}
-              </Link>
+              </NoPrefetchLink>
             </li>
           );
         })}

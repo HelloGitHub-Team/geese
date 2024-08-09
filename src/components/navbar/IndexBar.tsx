@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import { NextPage } from 'next';
-import Link from 'next/link';
 
 import useTagHandling from '@/hooks/useTagHandling';
 
 import { RepoModal } from '@/components/dialog/RepoModal';
+import { NoPrefetchLink } from '@/components/links/CustomLink';
 import TagLink from '@/components/links/TagLink';
 
 type Props = {
@@ -31,12 +31,12 @@ const IndexBar: NextPage<Props> = ({ t, i18n_lang, tid, sort_by }) => {
   return (
     <div className='relative my-2 overflow-hidden bg-white dark:bg-gray-800 md:rounded-lg'>
       <div className='flex h-12 shrink grow items-center justify-start space-x-1 py-2 px-4 md:space-x-2'>
-        <Link href={featuredURL}>
+        <NoPrefetchLink href={featuredURL}>
           <a className={linkClassName('featured')}>{t('nav.featured')}</a>
-        </Link>
-        <Link href={allURL}>
+        </NoPrefetchLink>
+        <NoPrefetchLink href={allURL}>
           <a className={linkClassName('all')}>{t('nav.all')}</a>
-        </Link>
+        </NoPrefetchLink>
         <span onClick={handleTagButton} className={linkClassName('label')}>
           {t('nav.tag')}
         </span>

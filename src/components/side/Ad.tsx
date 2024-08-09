@@ -1,7 +1,8 @@
-import Link from 'next/link';
 import { MouseEventHandler, useState } from 'react';
 import { GoServer } from 'react-icons/go';
 import { VscClose } from 'react-icons/vsc';
+
+import { NoPrefetchLink } from '@/components/links/CustomLink';
 
 import { redirectRecord } from '@/services/home';
 
@@ -121,13 +122,13 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
     >
       {data.is_reward ? (
         i18n_lang != 'zh' ? (
-          <Link href={PayURL}>
+          <NoPrefetchLink href={PayURL}>
             <a target='_blank' rel='noreferrer'>
               <RewardAdContent data={data} t={t} />
             </a>
-          </Link>
+          </NoPrefetchLink>
         ) : (
-          <Link href={data.url}>
+          <NoPrefetchLink href={data.url}>
             <a
               target='_blank'
               onClick={() => onClickLink(data.aid)}
@@ -135,10 +136,10 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
             >
               <RewardAdContent data={data} t={t} />:
             </a>
-          </Link>
+          </NoPrefetchLink>
         )
       ) : (
-        <Link href={data.url}>
+        <NoPrefetchLink href={data.url}>
           <a
             target='_blank'
             onClick={() => onClickLink(data.aid)}
@@ -146,7 +147,7 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
           >
             <ImageAdContent data={data} handleClose={handleClose} />
           </a>
-        </Link>
+        </NoPrefetchLink>
       )}
     </div>
   );

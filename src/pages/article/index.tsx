@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -10,6 +9,7 @@ import useSWRInfinite from 'swr/infinite';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import ItemBottom from '@/components/home/ItemBottom';
+import { NoPrefetchLink } from '@/components/links/CustomLink';
 import Loading from '@/components/loading/Loading';
 import { ArticleSkeleton } from '@/components/loading/skeleton';
 import ArticleNavbar from '@/components/navbar/ArticleBar';
@@ -66,7 +66,7 @@ const ArticleIndex: NextPage = () => {
         <div className='divide-y divide-slate-100 bg-white dark:divide-slate-700 dark:bg-slate-800 md:overflow-y-hidden md:rounded-lg'>
           {articles.map((item: ArticleItem) => (
             <article key={item.aid}>
-              <Link href={`/article/${item.aid}`}>
+              <NoPrefetchLink href={`/article/${item.aid}`}>
                 <a className='relative'>
                   <div className='text-color-primary relative cursor-pointer bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:py-3 md:pl-5'>
                     <div className='relative flex items-center'>
@@ -114,7 +114,7 @@ const ArticleIndex: NextPage = () => {
                     </div>
                   </div>
                 </a>
-              </Link>
+              </NoPrefetchLink>
             </article>
           ))}
         </div>

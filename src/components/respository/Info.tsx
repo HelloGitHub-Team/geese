@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import ReactECharts from 'echarts-for-react';
-import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import {
   AiFillCaretUp,
@@ -35,7 +34,7 @@ import Button from '../buttons/Button';
 import AddCollection from '../collection/AddCollection';
 import BasicDialog from '../dialog/BasicDialog';
 import Dropdown, { option } from '../dropdown/Dropdown';
-import CustomLink from '../links/CustomLink';
+import { CustomLink, NoPrefetchLink } from '../links/CustomLink';
 import Message from '../message';
 
 import { Repository, RepositoryProps } from '@/types/repository';
@@ -457,23 +456,23 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
                 <div className='flex-row items-center md:flex'>
                   <span>{t('info.opensource')}</span>
                   <span className='mx-0.5 md:mx-1.5'>•</span>
-                  <Link href={`/license/${repo.license_lid}`}>
+                  <NoPrefetchLink href={`/license/${repo.license_lid}`}>
                     <span className='cursor-pointer text-blue-500'>
                       {repo.license}
                     </span>
-                  </Link>
+                  </NoPrefetchLink>
                 </div>
               )}
             </div>
           </div>
           <div className='flex flex-row gap-x-4 text-sm'>
             {!repo.is_claimed && (
-              <Link href={`/repository/${repo.rid}/embed`}>
+              <NoPrefetchLink href={`/repository/${repo.rid}/embed`}>
                 <div className='flex cursor-pointer items-center justify-center text-blue-500 hover:text-current active:text-gray-400 md:hover:text-blue-600'>
                   <BsPersonCheck className='mr-2' size={16} />
                   {t('info.unclaim')}
                 </div>
-              </Link>
+              </NoPrefetchLink>
             )}
 
             <div

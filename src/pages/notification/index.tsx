@@ -8,7 +8,7 @@ import useSWRInfinite from 'swr/infinite';
 import clsxm from '@/lib/clsxm';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
-import CustomLink from '@/components/links/CustomLink';
+import { CustomLink } from '@/components/links/CustomLink';
 import Loading from '@/components/loading/Loading';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';

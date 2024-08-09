@@ -39,13 +39,13 @@ export default function TagList() {
       });
       setTags(res.data);
     }
-  }, [i18n.language]);
+  }, []);
 
   useEffect(() => {
     if (!isMobile()) {
       initTags();
     }
-  }, [initTags]);
+  }, [i18n.language]);
 
   const iconClassName = (iconName: string) => `iconfont icon-${iconName} mr-1`;
 
@@ -74,6 +74,7 @@ export default function TagList() {
             {!tags.length && <TagListSkeleton />}
             {tags.map((item: Tag) => (
               <Link
+                prefetch={false}
                 key={item.tid}
                 href={`/?sort_by=${sort_by}&tid=${item.tid}`}
               >

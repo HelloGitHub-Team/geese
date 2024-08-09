@@ -1,10 +1,10 @@
 import copy from 'copy-to-clipboard';
 import { GetServerSideProps, NextPage } from 'next';
-import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GoClippy, GoLink, GoPlay } from 'react-icons/go';
 
+import { NoPrefetchLink } from '@/components/links/CustomLink';
 import { CodeRender } from '@/components/mdRender/MDRender';
 import message from '@/components/message';
 import Navbar from '@/components/navbar/Navbar';
@@ -88,7 +88,7 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
                   </div>
                   <div className='hidden gap-2 text-sm text-gray-400 md:flex'>
                     {onefile.demo_url && (
-                      <Link href={onefile.demo_url}>
+                      <NoPrefetchLink href={onefile.demo_url}>
                         <a
                           className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                           target='_blank'
@@ -97,9 +97,9 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
                           <GoPlay className='mr-1' size={14} />
                           {t('code.play')}
                         </a>
-                      </Link>
+                      </NoPrefetchLink>
                     )}
-                    <Link href={onefile.repo_url}>
+                    <NoPrefetchLink href={onefile.repo_url}>
                       <a
                         className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                         target='_blank'
@@ -108,7 +108,7 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
                         <GoLink className='mr-1' size={14} />
                         {t('code.vite')}
                       </a>
-                    </Link>
+                    </NoPrefetchLink>
                     <span
                       className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                       onClick={() => handleCopy(onefile)}

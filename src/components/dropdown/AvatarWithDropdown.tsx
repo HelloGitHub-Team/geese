@@ -4,7 +4,7 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 
 import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
 import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
-import CustomLink from '@/components/links/CustomLink';
+import { CustomLink } from '@/components/links/CustomLink';
 
 import { DEFAULT_AVATAR } from '@/utils/constants';
 

@@ -1,8 +1,9 @@
 import { NextPage } from 'next';
-import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { GoClock, GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
+
+import { CustomLink, NoPrefetchLink } from '@/components/links/CustomLink';
 
 import { redirectRecord } from '@/services/home';
 import { fromNow } from '@/utils/day';
@@ -10,7 +11,6 @@ import { numFormat } from '@/utils/util';
 
 import Button from '../buttons/Button';
 import ImageWithPreview from '../ImageWithPreview';
-import CustomLink from '../links/CustomLink';
 import { MDRender } from '../mdRender/MDRender';
 
 import { PeriodicalItem, PeriodicalItemProps } from '@/types/periodical';
@@ -54,7 +54,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
           </div>
         </div>
         <div className='flex h-14 flex-1 flex-row items-center justify-end pr-1'>
-          <Link prefetch={false} href={`/repository/${item.rid}`}>
+          <NoPrefetchLink href={`/repository/${item.rid}`}>
             <Button
               variant='white-outline'
               className='font-normal text-gray-700'
@@ -65,7 +65,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
                 </div>
               </div>
             </Button>
-          </Link>
+          </NoPrefetchLink>
         </div>
       </div>
 

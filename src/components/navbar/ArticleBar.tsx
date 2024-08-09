@@ -1,7 +1,8 @@
 import classNames from 'classnames';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+
+import { NoPrefetchLink } from '@/components/links/CustomLink';
 
 type Props = {
   t: (key: string) => string;
@@ -41,12 +42,12 @@ const ArticleNavbar = ({ t }: Props) => {
           {t('nav.title')}
         </div>
         <div className='flex justify-end text-sm text-gray-500 dark:text-gray-400'>
-          <Link href='/article?sort_by=last'>
+          <NoPrefetchLink href='/article?sort_by=last'>
             <a className={linkClassName('last')}>{t('nav.last')}</a>
-          </Link>
-          <Link href='/article?sort_by=hot'>
+          </NoPrefetchLink>
+          <NoPrefetchLink href='/article?sort_by=hot'>
             <a className={linkClassName('hot')}>{t('nav.hot')}</a>
-          </Link>
+          </NoPrefetchLink>
         </div>
       </div>
     </div>

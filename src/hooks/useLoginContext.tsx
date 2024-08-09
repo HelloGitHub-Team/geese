@@ -15,7 +15,7 @@ import useToken from '@/hooks/useToken';
 
 import { OAuthButton } from '@/components/buttons/LoginButton';
 import BasicDialog from '@/components/dialog/BasicDialog';
-import CustomLink from '@/components/links/CustomLink';
+import { CustomLink } from '@/components/links/CustomLink';
 
 import { fetcher } from '@/services/base';
 import { Logout } from '@/services/login';

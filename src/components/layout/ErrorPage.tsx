@@ -1,8 +1,8 @@
-import Link from 'next/link';
 import { IoIosArrowForward } from 'react-icons/io';
 
 import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
 import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
+import { NoPrefetchLink } from '@/components/links/CustomLink';
 
 type Props = {
   httpCode: number;
@@ -24,7 +24,7 @@ const ErrorPage = ({ t, httpCode }: Props) => {
               width={500}
             />
           </div>
-          <Link href='/'>
+          <NoPrefetchLink href='/'>
             <a>
               <div className='group relative inline-flex cursor-pointer items-center overflow-hidden rounded border border-current px-7 py-2 text-blue-600 focus:outline-none focus:ring active:text-blue-500 dark:text-gray-500 dark:active:text-gray-500'>
                 <span className='absolute right-0 translate-x-full transition-transform group-hover:-translate-x-4'>
@@ -36,9 +36,9 @@ const ErrorPage = ({ t, httpCode }: Props) => {
                 </span>
               </div>
             </a>
-          </Link>
+          </NoPrefetchLink>
           <div className='mt-4 block text-xs text-gray-400'>
-            <Link href='mailto:595666367@qq.com'>
+            <NoPrefetchLink href='mailto:595666367@qq.com'>
               <a
                 target='_blank'
                 className='cursor-pointer hover:underline'
@@ -46,9 +46,9 @@ const ErrorPage = ({ t, httpCode }: Props) => {
               >
                 <span>{t('footer.feedback')}</span>
               </a>
-            </Link>
+            </NoPrefetchLink>
             <span className='px-1'>·</span>
-            <Link href='https://github.com/HelloGitHub-Team/geese'>
+            <NoPrefetchLink href='https://github.com/HelloGitHub-Team/geese'>
               <a
                 target='_blank'
                 className='cursor-pointer hover:underline'
@@ -56,7 +56,7 @@ const ErrorPage = ({ t, httpCode }: Props) => {
               >
                 <span>{t('footer.source')}</span>
               </a>
-            </Link>
+            </NoPrefetchLink>
 
             <p className='mt-2'>
               <span className='cursor-default'>

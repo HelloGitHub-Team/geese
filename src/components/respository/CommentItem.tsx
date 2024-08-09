@@ -1,10 +1,10 @@
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { AiFillFire } from 'react-icons/ai';
 import { GoCommentDiscussion, GoThumbsup } from 'react-icons/go';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
+import { NoPrefetchLink } from '@/components/links/CustomLink';
 import Message from '@/components/message';
 import Rating from '@/components/respository/Rating';
 
@@ -115,7 +115,7 @@ const CommentItem = (props: CommentItemProps) => {
     <div className={`flex ${className} truncate`}>
       <div className='mr-4 hidden md:block'>
         <div className='relative h-10 w-10'>
-          <Link href={`/user/${user.uid}`}>
+          <NoPrefetchLink href={`/user/${user.uid}`}>
             <a>
               <img
                 className='cursor-pointer rounded-full'
@@ -123,7 +123,7 @@ const CommentItem = (props: CommentItemProps) => {
                 alt='comment_avatar'
               />
             </a>
-          </Link>
+          </NoPrefetchLink>
         </div>
       </div>
       <div className='relative max-w-full flex-1'>
@@ -137,13 +137,13 @@ const CommentItem = (props: CommentItemProps) => {
                   alt='comment_avatar'
                 />
               </div>
-              <Link href={`/user/${user.uid}`}>
+              <NoPrefetchLink href={`/user/${user.uid}`}>
                 <a>
                   <div className='w-fit max-w-[80px] truncate text-xs font-bold md:max-w-[120px] md:text-sm'>
                     {user?.nickname}
                   </div>
                 </a>
-              </Link>
+              </NoPrefetchLink>
               {isMaker && (
                 <span className='ml-1 rounded-md bg-gray-200 px-1.5 text-xs font-semibold text-blue-400'>
                   OP
@@ -166,13 +166,13 @@ const CommentItem = (props: CommentItemProps) => {
                   <span className='text-xs md:text-sm'>
                     {t('comment.reply')}
                   </span>
-                  <Link href={`/user/${props.reply_user?.uid}`}>
+                  <NoPrefetchLink href={`/user/${props.reply_user?.uid}`}>
                     <a>
                       <div className='w-fit max-w-[180px] truncate text-xs text-gray-500 md:text-sm'>
                         {props.reply_user?.nickname}
                       </div>
                     </a>
-                  </Link>
+                  </NoPrefetchLink>
                   <span className='text-xs md:text-sm'>：</span>
                 </>
               )

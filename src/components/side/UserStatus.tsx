@@ -1,9 +1,10 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { AiOutlineBell, AiOutlineQuestionCircle } from 'react-icons/ai';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
+
+import { NoPrefetchLink } from '@/components/links/CustomLink';
 
 import { DEFAULT_AVATAR } from '@/utils/constants';
 
@@ -32,7 +33,7 @@ export default function UserStatus({ t }: SideProps) {
   return (
     <div className='relative'>
       <div className='flex'>
-        <Link href={`/user/${userInfo.uid}`}>
+        <NoPrefetchLink href={`/user/${userInfo.uid}`}>
           <a>
             <div className='bg-img top-0 left-0 h-10 w-10 shrink-0 grow-0 cursor-pointer rounded-lg object-cover'>
               <img
@@ -44,7 +45,7 @@ export default function UserStatus({ t }: SideProps) {
               />
             </div>
           </a>
-        </Link>
+        </NoPrefetchLink>
         <div className='ml-2 w-full'>
           <div className='relative flex h-5 items-center'>
             <div className='block w-14 truncate align-baseline font-medium dark:text-gray-300 lg:w-24'>
@@ -81,14 +82,14 @@ export default function UserStatus({ t }: SideProps) {
       <div className='mt-1'>
         <div className='flex justify-between text-sm'>
           <div className='cursor-pointer text-gray-400'>
-            <Link prefetch={false} href='/help/level'>
+            <NoPrefetchLink href='/help/level'>
               <a className='align-[-5px] text-xs'>
                 <span className='mr-0.5'>
                   {t('user_side.contribute_label')}
                 </span>
                 <AiOutlineQuestionCircle className='inline-block align-[-2px]' />
               </a>
-            </Link>
+            </NoPrefetchLink>
           </div>
           <span className='text-xl text-blue-500'>
             {userInfo.contribute}
@@ -104,11 +105,11 @@ export default function UserStatus({ t }: SideProps) {
         </div>
       </div>
       <div className='mt-3 flex justify-between border-t text-xs dark:border-gray-700'>
-        <Link href={`/user/${userInfo.uid}`}>
+        <NoPrefetchLink href={`/user/${userInfo.uid}`}>
           <a className='pl-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
             {t('user_side.profile')}
           </a>
-        </Link>
+        </NoPrefetchLink>
         {userInfo.permission?.code == 'super' ? (
           <a href='/taichi/'>
             <div className='pr-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>

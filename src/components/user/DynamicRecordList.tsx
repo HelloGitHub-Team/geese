@@ -1,6 +1,6 @@
 import { fromNow } from '@/utils/day';
 
-import CustomLink from '../links/CustomLink';
+import { CustomLink } from '../links/CustomLink';
 
 import { DynamicRecord, DynamicRecordItem } from '@/types/user';
 import { TranslationFunction } from '@/types/utils';

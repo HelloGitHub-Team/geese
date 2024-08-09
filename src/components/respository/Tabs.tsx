@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useState } from 'react';
 
+import { NoPrefetchLink } from '@/components/links/CustomLink';
+
 import ImageWithPreview from '../ImageWithPreview';
 import { MDRender } from '../mdRender/MDRender';
 
@@ -39,13 +41,15 @@ const Tabs = ({ repo, t, i18n_lang }: RepositoryProps) => {
                 <div className='mb-1 px-2 text-sm font-medium'>
                   {t('content.volume_label')}
                 </div>
-                <Link href={`/periodical/volume/${Number(repo.volume_name)}`}>
+                <NoPrefetchLink
+                  href={`/periodical/volume/${Number(repo.volume_name)}`}
+                >
                   <a>
                     <div className='mb-1 mr-1 flex h-5 cursor-pointer items-center rounded-xl bg-blue-100 px-2.5 text-xs text-blue-500 hover:bg-blue-200 dark:bg-blue-500 dark:text-gray-100 dark:hover:bg-blue-700 lg:mr-2'>
                       {t('content.volume', { volume: repo.volume_name })}
                     </div>
                   </a>
-                </Link>
+                </NoPrefetchLink>
               </>
             )}
             {repo.tags.length > 0 && (
@@ -54,7 +58,11 @@ const Tabs = ({ repo, t, i18n_lang }: RepositoryProps) => {
                   {t('content.tag_label')}
                 </div>
                 {repo.tags.map((item) => (
-                  <Link href={`/tags/${item.tid}/`} key={item.tid}>
+                  <Link
+                    prefetch={false}
+                    href={`/tags/${item.tid}/`}
+                    key={item.tid}
+                  >
                     <a>
                       <div className='mb-1 mr-1 flex h-5 cursor-pointer items-center rounded-xl bg-blue-100 px-2.5 text-xs text-blue-500 hover:bg-blue-200 dark:bg-blue-500 dark:text-gray-100 dark:hover:bg-blue-700 lg:mr-2'>
                         {item.name}

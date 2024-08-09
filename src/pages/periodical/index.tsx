@@ -6,7 +6,7 @@ import useSWRImmutable from 'swr/immutable';
 
 import Button from '@/components/buttons/Button';
 import { RepoModal } from '@/components/dialog/RepoModal';
-import CustomLink from '@/components/links/CustomLink';
+import { CustomLink } from '@/components/links/CustomLink';
 import { PeriodicalSkeleton } from '@/components/loading/skeleton';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';

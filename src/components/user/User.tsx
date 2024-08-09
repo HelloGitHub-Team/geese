@@ -167,7 +167,7 @@ const User = () => {
                     [0, 1].includes(index) || userDetailInfo?.in_person
                 )
                 .map(({ key, title }) => (
-                  <Link key={key} href={`/user/${uid}/${key}`}>
+                  <Link prefetch={false} key={key} href={`/user/${uid}/${key}`}>
                     <span
                       className={clsxm(
                         'inline-flex cursor-pointer items-center gap-1 whitespace-nowrap border-b-2 border-transparent py-2 px-1 text-gray-500 hover:text-blue-600 dark:text-gray-400',

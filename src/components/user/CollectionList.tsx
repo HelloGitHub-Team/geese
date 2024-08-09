@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import {
@@ -24,6 +23,7 @@ import AddCollection, {
   EditCollectionMoal,
 } from '@/components/collection/AddCollection';
 import BasicDialog from '@/components/dialog/BasicDialog';
+import { NoPrefetchLink } from '@/components/links/CustomLink';
 import Loading from '@/components/loading/Loading';
 import Message from '@/components/message';
 
@@ -88,11 +88,11 @@ const ProjectList = ({ uid, fid, t }: ProjectListProps) => {
       {/* 面包屑和分享按钮 */}
       <div className='flex justify-between'>
         <div className='flex items-center'>
-          <Link href={`/user/${uid}/favorite`}>
+          <NoPrefetchLink href={`/user/${uid}/favorite`}>
             <span className='cursor-pointer text-gray-500 hover:text-blue-500'>
               {t('favorite.text')}
             </span>
-          </Link>
+          </NoPrefetchLink>
           <AiOutlineRight className='mx-2' />
           <span>{fName}</span>
         </div>

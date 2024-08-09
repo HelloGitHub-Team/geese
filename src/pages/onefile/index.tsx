@@ -1,9 +1,9 @@
 import { GetServerSideProps, NextPage } from 'next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Trans, useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+import { NoPrefetchLink } from '@/components/links/CustomLink';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
 
@@ -110,13 +110,13 @@ const OneFilePage: NextPage<OneItemsResp> = ({ data }) => {
               <p>
                 <Trans ns='onefile' i18nKey='p_text2' />
 
-                <Link href='/onefile/join'>
+                <NoPrefetchLink href='/onefile/join'>
                   <a>
                     <span className='cursor-pointer text-blue-400 underline hover:text-blue-500'>
                       {t('click')}
                     </span>
                   </a>
-                </Link>
+                </NoPrefetchLink>
                 {t('p_text3')}
               </p>
             </div>

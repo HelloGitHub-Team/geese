@@ -2,7 +2,7 @@ import { AiFillWechat, AiFillWeiboCircle } from 'react-icons/ai';
 import { IoLogoRss } from 'react-icons/io';
 
 import { FeedbackModal } from '@/components/dialog/Feedback';
-import CustomLink from '@/components/links/CustomLink';
+import { CustomLink } from '@/components/links/CustomLink';
 
 import FooterLink from './FooterLink';
 
@@ -30,7 +30,11 @@ const Footer = ({ t }: SideProps) => {
       </div>
 
       <p className='mt-2'>
-        <FooterLink href='/help/ats'>{t('footer.agreement')}</FooterLink>
+        <CustomLink className='inline' href='/help/ats'>
+          <span className='cursor-pointer hover:text-blue-500'>
+            {t('footer.agreement')}
+          </span>
+        </CustomLink>
         <span className='px-1 lg:px-1.5'>·</span>
         <FooterLink href='https://github.com/HelloGitHub-Team/geese'>
           {t('footer.source')}
