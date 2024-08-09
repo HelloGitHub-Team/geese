@@ -9,7 +9,7 @@ const { i18n } = require('./next-i18next.config');
 
 module.exports = withBundleAnalyzer({
   i18n,
-  reactStrictMode: true,
+  reactStrictMode: false,
   compress: true, // 启用压缩
   eslint: {
     dirs: ['src'],

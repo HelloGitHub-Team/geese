@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiOutlineAppstore, AiOutlineSetting } from 'react-icons/ai';
 
 import { TagModal } from '@/components/dialog/TagModal';
@@ -27,25 +27,19 @@ export default function TagList() {
   const { tid = '', sort_by = 'featured' } = router.query;
   const [tags, setTags] = useState<Tag[]>([]);
 
-  const initTags = useCallback(async () => {
-    const res = await getTags();
-    if (res.success) {
-      res.data.unshift(defaultTag);
-      // 判断当前语言是否为英文，如果是英文则显示英文名称
-      res.data.forEach((item) => {
-        if (i18n.language == 'en' && item.name_en !== null) {
-          item.name = item.name_en;
-        }
-      });
-      setTags(res.data);
-    }
-  }, []);
-
   useEffect(() => {
+    const initTags = async () => {
+      const res = await getTags();
+      if (res.success) {
+        res.data.unshift(defaultTag);
+        setTags(res.data);
+      }
+    };
+
     if (!isMobile()) {
       initTags();
     }
-  }, [i18n.language]);
+  }, []); // 确保 useEffect 只在组件挂载时执行
 
   const iconClassName = (iconName: string) => `iconfont icon-${iconName} mr-1`;
 
@@ -80,7 +74,13 @@ export default function TagList() {
               >
                 <div className={tagClassName(item.tid)}>
                   <div className={iconClassName(item.icon_name)}></div>
-                  <div className='truncate text-ellipsis'>{item.name}</div>
+                  <div className='truncate text-ellipsis'>
+                    {i18n.language == 'zh'
+                      ? item.name
+                      : item.name_en
+                      ? item.name_en
+                      : item.name}
+                  </div>
                 </div>
               </Link>
             ))}
