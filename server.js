@@ -71,13 +71,12 @@ async function startServer() {
 
         req.locale = locale;
 
-        // 处理尾部斜杠并重定向
-        if (req.url.length > 1 && req.url.endsWith('/')) {
-          const newUrl =
-            req.url.slice(0, -1) +
-            (req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '');
-          return res.redirect(301, newUrl);
-        }
+        // // 处理尾部斜杠并重定向
+        // if (req.url.length > 1 && req.path.endsWith('/')) {
+        //   const newUrl =
+        //     req.path.slice(0, -1) + req.params
+        //   return res.redirect(301, newUrl);
+        // }
 
         next();
       }
