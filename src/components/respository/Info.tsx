@@ -457,7 +457,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
                   <span>{t('info.opensource')}</span>
                   <span className='mx-0.5 md:mx-1.5'>•</span>
                   <NoPrefetchLink href={`/license/${repo.license_lid}`}>
-                    <span className='cursor-pointer text-blue-500'>
+                    <span className='inline-flex max-w-[60px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap text-blue-500 md:max-w-full'>
                       {repo.license}
                     </span>
                   </NoPrefetchLink>
@@ -465,11 +465,11 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
               )}
             </div>
           </div>
-          <div className='flex flex-row gap-x-4 text-sm'>
+          <div className='flex flex-row gap-x-1 text-sm md:gap-x-4'>
             {!repo.is_claimed && (
               <NoPrefetchLink href={`/repository/${repo.rid}/embed`}>
                 <div className='flex cursor-pointer items-center justify-center text-blue-500 hover:text-current active:text-gray-400 md:hover:text-blue-600'>
-                  <BsPersonCheck className='mr-2' size={16} />
+                  <BsPersonCheck className='mr-1' size={16} />
                   {t('info.unclaim')}
                 </div>
               </NoPrefetchLink>
@@ -479,7 +479,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
               onClick={jumpComment}
               className='hidden cursor-pointer items-center justify-center hover:text-blue-500 active:text-gray-400 md:flex'
             >
-              <GoComment className='mr-2' size={16} />
+              <GoComment className='mr-1' size={16} />
               {t('info.discuss')}
             </div>
             <div
@@ -487,7 +487,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
               onClick={handleCollect}
             >
               <div className='flex cursor-pointer items-center justify-center hover:text-blue-500 active:text-gray-400 md:hover:text-blue-500'>
-                <BsBookmark className='mr-2' size={16} />
+                <BsBookmark className='mr-1' size={16} />
                 {isCollected ? numFormat(collectTotal, 1) : t('info.collect')}
               </div>
             </div>
@@ -495,7 +495,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
               className='flex cursor-pointer items-center justify-center hover:text-current active:text-gray-400 md:hover:text-blue-500'
               onClick={handleCopy}
             >
-              <GoLinkExternal className='mr-2' size={16} />
+              <GoLinkExternal className='mr-1' size={16} />
               {t('info.share')}
             </div>
           </div>

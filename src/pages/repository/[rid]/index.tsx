@@ -20,11 +20,17 @@ interface Props {
 const RepositoryPage: NextPage<Props> = ({ repo }) => {
   const { t, i18n } = useTranslation('repository');
 
+  const getLocalizedField = (field: any, fallback: any) =>
+    i18n.language === 'en' ? field ?? fallback : fallback;
+
   return (
     <>
       <Seo
-        title={`${repo.full_name}: ${repo.title}`}
-        description={repo.summary}
+        title={`${repo.full_name}: ${getLocalizedField(
+          repo.title_en,
+          repo.title
+        )}`}
+        description={getLocalizedField(repo.summary_en, repo.summary)}
       />
       <RepoDetailNavbar
         avatar={repo.share_user.avatar}
