@@ -45,6 +45,10 @@ module.exports = {
         disallow: ['/'],
       },
       {
+        userAgent: 'MJ12bot',
+        disallow: ['/'],
+      },
+      {
         userAgent: 'SemrushBot',
         disallow: ['/'],
       },

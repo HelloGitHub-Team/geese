@@ -38,6 +38,7 @@
     "next": "^12.1.6",
     "next-i18next": "^15.3.0",
     "nprogress": "^0.2.0",
+    "pino-http": "^10.2.0",
     "raw-loader": "^4.0.2",
     "rc-image": "^7.0.0-2",
     "rc-util": "^5.34.1",

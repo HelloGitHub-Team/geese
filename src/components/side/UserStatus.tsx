@@ -64,10 +64,8 @@ export default function UserStatus({ t }: SideProps) {
                     size={20}
                     className='text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500'
                   />
-                  {userInfo?.unread.total > 0 ? (
+                  {userInfo?.unread.total > 0 && (
                     <span className='relative right-1 inline-flex h-1.5 w-1.5 rounded-full bg-red-500' />
-                  ) : (
-                    <span className='w-2' />
                   )}
                 </span>
               </div>
