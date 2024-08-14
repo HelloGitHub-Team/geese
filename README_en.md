@@ -10,7 +10,7 @@
 
 I wanted to create a home for those who enjoy open-source projects, so I built a lightweight open-source community using Next.js and Tailwind CSS. This repository contains the source code for the [HelloGitHub](https://hellogithub.com/) Community.
 
-![](../img/2023-04-18.png)
+![](docs/img/demo.gif)
 
 This community offers interesting and beginner-friendly open-source projects across various **programming languages** and **categories**. Users can **discover/search/bookmark/comment/share** projects of interest here. They can also **like/submit/rate** projects to help outstanding open-source projects stand out. Around these projects, the community has gathered a group of open-source enthusiasts, skilled experts, and authors who love to share. Thanks to **open source**, we have met; perhaps the open-source spirit is a way to make friends!
 
@@ -21,7 +21,7 @@ Currently, the community **is live** for [online experience](https://hellogithub
 - [ ] [[Complex] Reduce the package size](https://github.com/HelloGitHub-Team/geese/issues/101)
 - [ ] [[Simple] Pending issues to be resolved](https://github.com/HelloGitHub-Team/geese/issues/38)
 
-Development guidelines can be found [here](../content.md). Thanks to every [contributor](https://github.com/HelloGitHub-Team/geese/graphs/contributors); I'm thrilled to be working on an open-source project with all of you. This experience has been incredibly rewarding.
+Development guidelines can be found [here](./docs/content_en.md). Thanks to every [contributor](https://github.com/HelloGitHub-Team/geese/graphs/contributors); I'm thrilled to be working on an open-source project with all of you. This experience has been incredibly rewarding.
 
 **Requirements**
 
