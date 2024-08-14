@@ -1,6 +1,12 @@
-## Introduction
+<p align="center">
+  <img src="docs/img/2024-08-14_en.png"/>
+  <br><a href="README.md">中文</a> | English
+  <br>HelloGitHub is a platform for discovering and sharing beginner-friendly open source projects<br>
+</p>
 
-"Geese," translated as "Jinghong" (meaning a fleeting glimpse), embodies a light and swift form, aiming to provide you with a "Jinghong"-like browsing experience through its refreshing and minimalist interface.
+"Geese" translated as "Jinghong" (meaning a fleeting glimpse), embodies a light and swift form, aiming to provide you with a "Jinghong"-like browsing experience through its refreshing and minimalist interface.
+
+## Introduction
 
 I wanted to create a home for those who enjoy open-source projects, so I built a lightweight open-source community using Next.js and Tailwind CSS. This repository contains the source code for the [HelloGitHub](https://hellogithub.com/) Community.
 
