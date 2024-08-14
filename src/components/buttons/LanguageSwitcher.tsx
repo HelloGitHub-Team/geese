@@ -62,7 +62,7 @@ const LanguageSwitcher = (props: LanguageSwitchProps) => {
           aria-expanded={isHovered ? 'true' : 'false'}
         >
           {/* <MdTranslate size={16} /> */}
-          {selectedLocale === 'zh' ? '中文' : 'EN'}
+          {selectedLocale === 'zh' ? 'EN' : '中文'}
         </button>
       </div>
 

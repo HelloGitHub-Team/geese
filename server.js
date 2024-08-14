@@ -51,11 +51,6 @@ const handleRedirect = (req, res, locale, urlLocale) => {
   return false;
 };
 
-const canSetCookie = (req) => {
-  // 检查请求头中是否有 'cookie' 字段
-  return req.headers.cookie !== undefined;
-};
-
 async function startServer() {
   try {
     await app.prepare();
@@ -75,10 +70,6 @@ async function startServer() {
         return; // 如果发生重定向，立即返回
       }
 
-      // 检查响应头是否已经发送
-      if (canSetCookie(req) && !res.headersSent) {
-        res.cookie('locale', locale, { maxAge: 365 * 24 * 60 * 60 * 1000 });
-      }
       req.locale = locale;
       next();
     });
