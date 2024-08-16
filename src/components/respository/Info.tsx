@@ -343,7 +343,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
         </div>
         <div className='flex flex-1 flex-row flex-wrap justify-between'>
           <div className='mb-2 flex w-full flex-col gap-y-2 md:hidden'>
-            <div className='flex flex-row items-center '>
+            <div className='flex flex-row items-center'>
               <CustomLink
                 href={repo.url}
                 onClick={() => handleClickLink('source', repo.rid)}

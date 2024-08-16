@@ -54,18 +54,21 @@ export default function UserStatus({ t }: SideProps) {
             <div className='flex-grow' />
             <div className='justify-end'>
               <div
-                className='flex flex-row items-center'
+                className='flex cursor-pointer flex-row'
                 onClick={() => {
                   router.push('/notification');
                 }}
               >
-                <span className='relative inline-flex cursor-pointer'>
+                <span className='relative inline-block'>
                   <AiOutlineBell
                     size={20}
                     className='text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500'
                   />
                   {userInfo?.unread.total > 0 && (
-                    <span className='relative right-1 inline-flex h-1.5 w-1.5 rounded-full bg-red-500' />
+                    <span className='absolute top-0.5 right-0 flex h-1.5 w-1.5 translate-x-1/2 -translate-y-1/2'>
+                      <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75' />
+                      <span className='relative inline-flex h-1.5 w-1.5 rounded-full bg-blue-500' />
+                    </span>
                   )}
                 </span>
               </div>

@@ -2,17 +2,19 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { getServerSideSitemap, ISitemapField } from 'next-sitemap';
 
-import { getURLs } from '@/services/sitemap';
+import { getSitemap } from '@/services/home';
 
 export const getServerSideProps: GetServerSideProps = async (
   ctx: GetServerSidePropsContext
 ) => {
   // Method to source urls from cms
-  const data = await getURLs();
-  const allURLs = data?.data.map((url) => {
+  const data = await getSitemap();
+  const allURLs = data?.data.map((item) => {
     return {
-      loc: url,
-      changefreq: 'weekly',
+      loc: item.loc,
+      lastmod: item.lastmod,
+      priority: item.priority,
+      changefreq: item.changefreq,
     } as ISitemapField;
   });
   return getServerSideSitemap(ctx, allURLs);

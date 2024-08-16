@@ -65,7 +65,9 @@ const Tabs = ({ repo, t, i18n_lang }: RepositoryProps) => {
                   >
                     <a>
                       <div className='mb-1 mr-1 flex h-5 cursor-pointer items-center rounded-xl bg-blue-100 px-2.5 text-xs text-blue-500 hover:bg-blue-200 dark:bg-blue-500 dark:text-gray-100 dark:hover:bg-blue-700 lg:mr-2'>
-                        {item.name}
+                        {i18n_lang == 'en'
+                          ? item.name_en || item.name
+                          : item.name}
                       </div>
                     </a>
                   </Link>

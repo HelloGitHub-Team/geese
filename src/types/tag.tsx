@@ -44,6 +44,7 @@ export interface SelectTagItems {
 
 export interface TagType {
   name: string;
+  name_en: string;
   tid: string;
 }
 

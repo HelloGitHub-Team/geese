@@ -72,9 +72,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
       {/* markdown 内容渲染 */}
       <MDRender className='markdown-body'>
         {i18n.language == 'en'
-          ? item.description_en
-            ? item.description_en
-            : item.description
+          ? item.description_en || item.description
           : item.description}
       </MDRender>
       {/* 图片预览 */}

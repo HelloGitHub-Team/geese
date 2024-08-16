@@ -74,3 +74,15 @@ export interface CreateFeedbackRes {
   message: string;
   success: boolean;
 }
+
+export interface SitemapItem {
+  loc: string;
+  lastmod?: string;
+  changefreq?: string;
+  priority?: number;
+}
+
+export interface Sitemap {
+  success: boolean;
+  data: SitemapItem[];
+}
