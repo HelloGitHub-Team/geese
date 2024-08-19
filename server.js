@@ -12,8 +12,7 @@ const DEFAULT_LOCALE = 'zh';
 const FALLBACK_LOCALE = 'en';
 const SUPPORTED_LOCALES = ['zh', 'en'];
 
-const isStaticRoute = (url) =>
-  url.startsWith('/_next') || url.startsWith('/static');
+const isStaticRoute = (url) => url.startsWith('/_next/data/');
 
 const getLocaleFromUrl = (path) => {
   const urlParts = path.split('/');
