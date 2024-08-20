@@ -8,7 +8,7 @@
     "build:dep": "cross-env ANALYZE=true next build",
     "start": "next start",
     "server_start": "pm2 start ecosystem.config.js",
-    "server_reload": "next-sitemap --config next-sitemap.config.js && next build && pm2 reload ecosystem.config.js",
+    "server_reload": "next build && next-sitemap --config next-sitemap.config.js && pm2 reload ecosystem.config.js",
     "server_stop": "pm2 stop ecosystem.config.js",
     "lint": "next lint",
     "lint:fix": "eslint src --fix && yarn format",

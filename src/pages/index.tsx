@@ -14,14 +14,18 @@ import IndexBar from '@/components/navbar/IndexBar';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
 
+const validSortBy = ['featured', 'all'];
+
 const Index: NextPage = () => {
   const { t, i18n } = useTranslation('home');
   const router = useRouter();
-  const { sort_by = 'featured', tid = '' } = router.query;
+  const { sort_by = 'featured', tid = '' }: { sort_by?: string; tid?: string } =
+    router.query;
+  const sortBy = validSortBy.includes(sort_by) ? sort_by : 'featured';
 
   const { isLogin } = useLoginContext();
   const { repositories, isValidating, hasMore, size, sentryRef } =
-    useRepositories(sort_by as string, tid as string);
+    useRepositories(sortBy, tid);
 
   const handleItemBottom = () => {
     if (!isValidating && !hasMore) {
@@ -37,12 +41,7 @@ const Index: NextPage = () => {
   return (
     <>
       <Seo title={t('title')} description={t('description')} />
-      <IndexBar
-        tid={tid as string}
-        sort_by={sort_by as string}
-        t={t}
-        i18n_lang={i18n.language}
-      />
+      <IndexBar tid={tid} sort_by={sortBy} t={t} i18n_lang={i18n.language} />
       <div className='h-screen'>
         <Items repositories={repositories} i18n_lang={i18n.language} />
         <div

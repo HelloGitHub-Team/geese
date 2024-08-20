@@ -38,14 +38,16 @@ const handleRedirect = (req, res, locale, urlLocale) => {
     }
     if (locale === DEFAULT_LOCALE) {
       const newUrl = req.url.replace(`/${DEFAULT_LOCALE}`, '') || '/';
-      return res.redirect(307, newUrl);
+      res.redirect(307, newUrl);
+      return true;
     }
   } else if (locale !== DEFAULT_LOCALE) {
     let newUrl = `/${locale}${req.url}`;
     if (newUrl.endsWith('/') && newUrl.length > 1) {
       newUrl = newUrl.slice(0, -1);
     }
-    return res.redirect(307, newUrl);
+    res.redirect(307, newUrl);
+    return true;
   }
   return false;
 };

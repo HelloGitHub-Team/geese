@@ -8,6 +8,7 @@ export interface TagPageProps {
 }
 
 export interface TagPage {
+  success: boolean;
   page: number;
   data: HomeItem[];
   tid: string;

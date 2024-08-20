@@ -42,15 +42,24 @@ export const getServerSideProps: GetServerSideProps = async ({
   const ip = getClientIP(req);
   const tid = query?.tid as string;
   const data = await getTagPageItems(ip, tid);
-  const tag_name =
-    locale == 'en' && data.tag_name_en ? data.tag_name_en : data.tag_name;
-  return {
-    props: {
-      ...(await serverSideTranslations(locale as string, ['common', 'topic'])),
-      items: data.data,
-      tag_name: tag_name,
-    },
-  };
+  if (data.success) {
+    const tag_name =
+      locale == 'en' && data.tag_name_en ? data.tag_name_en : data.tag_name;
+    return {
+      props: {
+        ...(await serverSideTranslations(locale as string, [
+          'common',
+          'topic',
+        ])),
+        items: data.data,
+        tag_name: tag_name,
+      },
+    };
+  } else {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default TagPage;
