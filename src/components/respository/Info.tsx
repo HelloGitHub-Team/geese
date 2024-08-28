@@ -457,7 +457,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
                   <span>{t('info.opensource')}</span>
                   <span className='mx-0.5 md:mx-1.5'>•</span>
                   <NoPrefetchLink href={`/license/${repo.license_lid}`}>
-                    <span className='inline-flex max-w-[60px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap text-blue-500 md:max-w-full'>
+                    <span className='inline-flex max-w-[65px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap text-blue-500 md:max-w-full'>
                       {repo.license}
                     </span>
                   </NoPrefetchLink>

@@ -137,7 +137,7 @@ export const RankSearchBar = ({
 
   return (
     <div className='mb-2 flex items-center justify-between rounded-lg border bg-gray-50 py-2 px-2 shadow dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-800'>
-      <div className=' justify-items-start'>
+      <div className='justify-items-start'>
         <Dropdown
           options={typeOptions}
           initValue={target}
@@ -155,7 +155,7 @@ export const RankSearchBar = ({
           </span>
         </div>
       </div>
-      <div className=' justify-items-end'>
+      <div className='justify-items-end'>
         <Dropdown
           initValue={month}
           size='small'
