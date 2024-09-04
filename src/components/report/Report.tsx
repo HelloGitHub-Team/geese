@@ -3,7 +3,11 @@ import { IoMdRemove, IoMdTrendingDown, IoMdTrendingUp } from 'react-icons/io';
 
 import { RankDataItem } from '@/types/rank';
 
-export const ChangeColumnRender = (row: RankDataItem, showPercent = false) => {
+export const ChangeColumnRender = (
+  row: RankDataItem,
+  showPercent = false,
+  i18n_lang: string
+) => {
   let text = '-';
   if (row.change !== null) {
     text = showPercent ? `${row.change}%` : `${row.change}`;
@@ -11,7 +15,13 @@ export const ChangeColumnRender = (row: RankDataItem, showPercent = false) => {
 
   return (
     <div className='flex items-center'>
-      {row.change < 0 ? (
+      {i18n_lang === 'en' ? (
+        row.change < 0 ? (
+          <AiFillCaretDown className='text-red-500' />
+        ) : (
+          <AiFillCaretUp className='text-green-500' />
+        )
+      ) : row.change < 0 ? (
         <AiFillCaretDown className='text-green-500' />
       ) : (
         <AiFillCaretUp className='text-red-500' />

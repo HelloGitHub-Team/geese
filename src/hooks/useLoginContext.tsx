@@ -116,6 +116,7 @@ export const LoginProvider = ({
       // 3. 根据 me 接口的结果判断 token 是否过期
       // 4. isLogin 为 true 但 token 校验失败，则清理 localStorage
       localStorage.clear();
+      setIsLogin(false);
     }
     if (localStorage.theme) {
       setTheme(localStorage.theme);

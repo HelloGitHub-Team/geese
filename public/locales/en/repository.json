@@ -6,7 +6,7 @@
   },
   "info": {
     "claimed": "Claimed",
-    "unclaim": "Unclaimed",
+    "claim": "Claim",
     "score_desc": "HelloGitHub Rating",
     "score_user_desc": "{{count}} ratings",
     "vite": "Visit",

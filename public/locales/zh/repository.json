@@ -6,7 +6,7 @@
   },
   "info": {
     "claimed": "已认领",
-    "unclaim": "未认领",
+    "claim": "认领",
     "score_desc": "HelloGitHub 评分",
     "score_user_desc": "{{count}} 人评分",
     "vite": "访问",

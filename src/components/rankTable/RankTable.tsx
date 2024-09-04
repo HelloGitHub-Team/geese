@@ -10,12 +10,13 @@ type column = {
   title: string;
   width: number | string;
   percent?: boolean;
-  render: (row: any, showPercent?: boolean) => any;
+  render: (row: any, showPercent?: boolean, i18n_lang?: string) => any;
 };
 
 type TableProps = {
   columns: column[];
   list: RankDataItem[];
+  i18n_lang: string;
 };
 
 export const getMonthName = (
@@ -35,7 +36,7 @@ export const getMonthName = (
   return date.toLocaleString(i18n_lang, { month: format });
 };
 
-export const Table = ({ columns, list }: TableProps) => {
+export const RankTable = ({ columns, list, i18n_lang }: TableProps) => {
   return (
     <div className='overflow-hidden rounded-lg border shadow dark:border-gray-700 dark:shadow-none'>
       <table className='w-min	min-w-full table-fixed divide-y-2 divide-gray-200 text-sm dark:divide-gray-700'>
@@ -60,7 +61,7 @@ export const Table = ({ columns, list }: TableProps) => {
               {columns.map(({ key, render, percent }) => {
                 let content = row[key];
                 if (render) {
-                  content = render(row, percent);
+                  content = render(row, percent, i18n_lang);
                 }
                 return (
                   <td
@@ -78,10 +79,6 @@ export const Table = ({ columns, list }: TableProps) => {
     </div>
   );
 };
-
-export default function RankTable({ columns = [], list = [] }: TableProps) {
-  return <Table columns={columns} list={list} />;
-}
 
 type RankSearchBarProps = {
   title: string;

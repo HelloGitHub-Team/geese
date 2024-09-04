@@ -6,9 +6,10 @@ import { useMemo } from 'react';
 
 import Loading from '@/components/loading/Loading';
 import Navbar from '@/components/navbar/Navbar';
-import RankTable, {
+import {
   getMonthName,
   RankSearchBar,
+  RankTable,
 } from '@/components/rankTable/RankTable';
 import {
   ChangeColumnRender,
@@ -101,10 +102,18 @@ const TiobePage: NextPage<RankPageProps> = ({
               onChange={onSearch}
             />
             <div className='md:hidden'>
-              <RankTable columns={md_columns} list={list} />
+              <RankTable
+                columns={md_columns}
+                list={list}
+                i18n_lang={i18n.language}
+              />
             </div>
             <div className='hidden md:block'>
-              <RankTable columns={columns} list={list} />
+              <RankTable
+                columns={columns}
+                list={list}
+                i18n_lang={i18n.language}
+              />
             </div>
             <div className='mt-2 rounded-lg border bg-white p-2 text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'>
               <div className='whitespace-pre-wrap leading-8'>

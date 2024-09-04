@@ -6,9 +6,10 @@ import { useMemo } from 'react';
 
 import Loading from '@/components/loading/Loading';
 import Navbar from '@/components/navbar/Navbar';
-import RankTable, {
+import {
   getMonthName,
   RankSearchBar,
+  RankTable,
 } from '@/components/rankTable/RankTable';
 import {
   ChangeColumnRender,
@@ -124,21 +125,37 @@ const NetcraftPage: NextPage<NetcraftRankPageProps> = ({
               <div className='pb-1 text-center text-sm font-semibold dark:text-gray-300'>
                 {t('netcraft.market_title')}
               </div>
-              <RankTable columns={md_columns} list={all_list} />
+              <RankTable
+                columns={md_columns}
+                list={all_list}
+                i18n_lang={i18n.language}
+              />
               <div className='pt-2 pb-1 text-center text-sm font-semibold dark:text-gray-300'>
                 {t('netcraft.active_title')}
               </div>
-              <RankTable columns={md_columns} list={active_list} />
+              <RankTable
+                columns={md_columns}
+                list={active_list}
+                i18n_lang={i18n.language}
+              />
             </div>
             <div className='hidden md:block'>
               <div className='pb-1 text-center text-sm font-semibold dark:text-gray-300'>
                 {t('netcraft.market_title')}
               </div>
-              <RankTable columns={columns} list={all_list} />
+              <RankTable
+                columns={columns}
+                list={all_list}
+                i18n_lang={i18n.language}
+              />
               <div className='pt-2 pb-1  text-center text-sm font-semibold dark:text-gray-300'>
                 {t('netcraft.active_title')}
               </div>
-              <RankTable columns={columns} list={active_list} />
+              <RankTable
+                columns={columns}
+                list={active_list}
+                i18n_lang={i18n.language}
+              />
             </div>
             <div className='mt-2 rounded-lg border bg-white p-2 text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'>
               <div className='whitespace-pre-wrap leading-8'>
