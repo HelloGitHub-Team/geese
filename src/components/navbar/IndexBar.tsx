@@ -43,9 +43,9 @@ const IndexBar: NextPage<Props> = ({ t, i18n_lang, tid, sort_by }) => {
         <div className='shrink grow'></div>
         <div className='md:hidden'>
           <RepoModal>
-            <a className='flex h-8 items-center rounded-lg bg-blue-500 px-3 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 sm:px-4'>
+            <button className='flex h-8 items-center rounded-lg bg-blue-500 px-3 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 sm:px-4'>
               {t('nav.submit')}
-            </a>
+            </button>
           </RepoModal>
         </div>
       </div>

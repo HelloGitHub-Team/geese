@@ -35,7 +35,7 @@ const RepoDetailNavbar = ({ avatar, uid, t }: Props) => {
         <NoPrefetchLink href={`/user/${uid}`}>
           <div className='flex cursor-pointer items-center justify-end text-xs text-gray-500 hover:text-blue-400 dark:text-gray-400'>
             {t('nav.desc')}
-            <a className='m-1 flex items-center'>
+            <div className='m-1 flex items-center'>
               <img
                 className='rounded-full hover:animate-spin'
                 src={avatar}
@@ -43,7 +43,7 @@ const RepoDetailNavbar = ({ avatar, uid, t }: Props) => {
                 height='18'
                 alt='navbar_avatar'
               />
-            </a>
+            </div>
             {t('nav.desc2')}
           </div>
         </NoPrefetchLink>
