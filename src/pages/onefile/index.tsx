@@ -54,6 +54,7 @@ const OneFilePage: NextPage<OneItemsResp> = ({ data }) => {
             <img
               className='w-max-full'
               src='https://img.hellogithub.com/article/tK30nYW8bMiPOdB_1647991896.png'
+              alt='onefile'
             ></img>
             <p className='my-4 px-2'>
               <Trans ns='onefile' i18nKey='p_text' />
