@@ -89,7 +89,7 @@ export default function Recommend({ t }: SideProps) {
           </div>
         </div>
         {repositories.length === 0 ? (
-          <RecommendSkeleton loop={3} />
+          <RecommendSkeleton loop={5} />
         ) : (
           <RecommendList repositories={repositories} />
         )}

@@ -31,13 +31,25 @@ export const ChangeColumnRender = (
   );
 };
 
-export const TrendColumnRender = (row: RankDataItem) => {
+export const TrendColumnRender = (
+  row: RankDataItem,
+  _showPercent: boolean,
+  i18n_lang: string
+) => {
   let icon = <IoMdRemove size={16} />;
   if (row.change !== null) {
     if (row.change > 0) {
-      icon = <IoMdTrendingUp size={16} className='text-red-500' />;
+      if (i18n_lang === 'en') {
+        icon = <IoMdTrendingUp size={16} className='text-green-500' />;
+      } else {
+        icon = <IoMdTrendingUp size={16} className='text-red-500' />;
+      }
     } else {
-      icon = <IoMdTrendingDown size={16} className=' text-green-500' />;
+      if (i18n_lang === 'en') {
+        icon = <IoMdTrendingDown size={16} className='text-red-500' />;
+      } else {
+        icon = <IoMdTrendingDown size={16} className=' text-green-500' />;
+      }
     }
   }
   return <span>{icon}</span>;

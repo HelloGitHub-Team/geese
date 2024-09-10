@@ -16,6 +16,7 @@ const FooterLink: React.FC<FooterLinkProps> = ({
       className={`cursor-pointer hover:text-blue-500 ${className}`}
       target='_blank'
       href={href}
+      aria-label='footer-link'
       rel='noreferrer'
     >
       {children}

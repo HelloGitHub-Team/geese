@@ -51,7 +51,11 @@ export const Side = ({ isHome }: { isHome: boolean }) => {
             )}
             {isHome ? <SiteStats t={t} /> : <Recommend t={t} />}
           </div>
-          {isHome && <Footer t={t} />}
+          {isHome ? (
+            <Footer t={t} isLite={false} />
+          ) : (
+            <Footer t={t} isLite={true} />
+          )}
         </div>
       </div>
       {adverts && (

@@ -60,7 +60,7 @@ export const StatsSkeleton = () => {
 
 export const RecommendSkeleton = ({ loop }: Props) => {
   return (
-    <>
+    <div>
       {[...Array(loop)].map((x, i) => (
         <div key={i} className='flex flex-row rounded-md py-2'>
           <div className='flex w-full items-center px-1'>
@@ -74,7 +74,7 @@ export const RecommendSkeleton = ({ loop }: Props) => {
           </div>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

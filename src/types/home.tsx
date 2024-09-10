@@ -4,6 +4,11 @@ export interface SideProps {
   t: (key: string) => string;
 }
 
+export interface FooterProps {
+  t: (key: string) => string;
+  isLite: boolean;
+}
+
 export interface HomeItems {
   success: boolean;
   page: number;

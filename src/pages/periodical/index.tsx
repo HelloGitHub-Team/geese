@@ -65,7 +65,7 @@ const PeriodicalIndexPage: NextPage = () => {
             <img
               src='https://img.hellogithub.com/logo/readme.gif'
               alt='HelloGithub'
-            ></img>
+            />
             <p className='px-1 py-3 leading-7'>
               <Trans ns='periodical' i18nKey='p_text' />
             </p>
@@ -199,7 +199,7 @@ const PeriodicalIndexPage: NextPage = () => {
               </div>
             </dl>
           )}
-          <div className='h-4 lg:h-2'></div>
+          <div className='h-4' />
         </div>
       </div>
     </>

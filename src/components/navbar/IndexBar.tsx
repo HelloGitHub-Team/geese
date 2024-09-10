@@ -40,12 +40,12 @@ const IndexBar: NextPage<Props> = ({ t, i18n_lang, tid, sort_by }) => {
         <span onClick={handleTagButton} className={linkClassName('label')}>
           {t('nav.tag')}
         </span>
-        <div className='shrink grow'></div>
+        <div className='shrink grow' />
         <div className='md:hidden'>
           <RepoModal>
-            <button className='flex h-8 items-center rounded-lg bg-blue-500 px-3 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 sm:px-4'>
+            <div className='flex h-8 items-center rounded-lg bg-blue-500 px-3 text-xs text-white active:bg-blue-600 dark:bg-gray-700 dark:text-gray-300 dark:active:bg-gray-900 sm:px-4'>
               {t('nav.submit')}
-            </button>
+            </div>
           </RepoModal>
         </div>
       </div>

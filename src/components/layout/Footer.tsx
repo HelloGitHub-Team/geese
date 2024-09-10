@@ -6,11 +6,11 @@ import { CustomLink } from '@/components/links/CustomLink';
 
 import FooterLink from './FooterLink';
 
-import { SideProps } from '@/types/home';
+import { FooterProps } from '@/types/home';
 
-const Footer = ({ t }: SideProps) => {
+const Footer = ({ t, isLite }: FooterProps) => {
   return (
-    <footer className='flex flex-wrap items-center px-1 py-2.5 text-xs text-gray-400 lg:px-3'>
+    <footer className='flex flex-wrap items-center px-1 py-2.5 text-xs text-gray-400 lg:px-2'>
       <div className='inline-flex space-x-1 lg:space-x-1.5'>
         <FeedbackModal feedbackType={2}>
           <div className='cursor-pointer hover:text-blue-500'>
@@ -47,57 +47,63 @@ const Footer = ({ t }: SideProps) => {
         </CustomLink>
       </p>
 
-      <FooterLink href='https://www.ucloud.cn/site/active/kuaijiesale.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display#wulanchabu'>
-        <div className='mt-2'>
-          <span>{t('footer.server_sponsor')}</span>
-          <span className='mx-0.5 align-[1px]'>
-            <img
-              className='inline-block'
-              src='https://img.hellogithub.com/ad/ucloud_footer.png'
-              width='86'
-              height='16'
-              alt='ucloud_footer'
-            />
-          </span>
-          <span>{t('footer.server_sponsor2')}</span>
-        </div>
-      </FooterLink>
-
-      <FooterLink href='https://www.upyun.com/league?utm_source=HelloGitHub&utm_medium=adting'>
-        <div className='mt-2'>
-          <span>{t('footer.cdn_sponsor')}</span>
-          <span className='mx-0.5 align-[1px]'>
-            <img
-              className='inline-block'
-              src='https://img.hellogithub.com/ad/upyun_footer.png'
-              width='42'
-              height='16'
-              alt='upyun_footer'
-            />
-          </span>
-          <span>{t('footer.cdn_sponsor2')}</span>
-        </div>
-      </FooterLink>
-
-      <FooterLink className='mt-2 block' href='https://beian.miit.gov.cn/'>
-        <span>京ICP备17046648号-1</span>
+      <FooterLink
+        className='mt-2'
+        href='https://www.ucloud.cn/site/active/kuaijiesale.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display#wulanchabu'
+      >
+        <span>{t('footer.server_sponsor')}</span>
+        <span className='mx-0.5 align-[1px]'>
+          <img
+            className='inline-block'
+            src='https://img.hellogithub.com/ad/ucloud_footer.png'
+            width='86'
+            height='16'
+            alt='ucloud_footer'
+          />
+        </span>
+        <span>{t('footer.server_sponsor2')}</span>
       </FooterLink>
 
       <FooterLink
-        className='mt-2 block'
-        href='http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11011402013237'
+        className='mt-2'
+        href='https://www.upyun.com/?from=hellogithub'
       >
-        <span>
+        <span>{t('footer.cdn_sponsor')}</span>
+        <span className='mx-0.5 align-[1px]'>
           <img
             className='inline-block'
-            src='https://img.hellogithub.com/ad/filing.png'
-            width='12'
-            height='12'
-            alt='footer_filing'
+            src='https://img.hellogithub.com/ad/upyun_footer.png'
+            width='42'
+            height='16'
+            alt='upyun_footer'
           />
-          京公网安备11011402013237号
         </span>
+        <span>{t('footer.cdn_sponsor2')}</span>
       </FooterLink>
+
+      {!isLite && (
+        <FooterLink className='mt-2 block' href='https://beian.miit.gov.cn/'>
+          <span>京ICP备17046648号-1</span>
+        </FooterLink>
+      )}
+
+      {!isLite && (
+        <FooterLink
+          className='mt-2 block'
+          href='http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11011402013237'
+        >
+          <span>
+            <img
+              className='inline-block'
+              src='https://img.hellogithub.com/ad/filing.png'
+              width='12'
+              height='12'
+              alt='footer_filing'
+            />
+            京公网安备11011402013237号
+          </span>
+        </FooterLink>
+      )}
 
       <p className='mt-2 flex items-center space-x-1 lg:space-x-1.5'>
         <span className='cursor-default'>
