@@ -19,7 +19,7 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
 
   return (
     <>
-      <Seo title={article.title} />
+      <Seo title={article.title} description={article.desc} />
       <Navbar middleText={article.title} endText={t('nav.title')} />
       <div className='mt-2 bg-white py-0.5 px-5 dark:bg-gray-800 md:rounded-lg'>
         <article className='relative'>

@@ -5,12 +5,13 @@ import { useRouter } from 'next/router';
 const defaultMeta = {
   title: 'HelloGitHub',
   siteName: 'HelloGitHub',
-  description: '分享 GitHub 上有趣入门级的开源项目，找开源项目就上 HelloGitHub',
+  description:
+    '分享 GitHub 上有趣和入门级的开源项目，找开源项目就上 HelloGitHub',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
   url: 'https://hellogithub.com',
   type: 'website',
   robots: 'follow, index',
-  image: 'https://img.hellogithub.com/logo/logo.png',
+  image: 'https://img.hellogithub.com/logo/meta.jpg',
   content: 'text/html;charset=utf-8',
 };
 
@@ -111,8 +112,6 @@ export default function Seo(props: SeoProps) {
   meta['title'] = props.templateTitle
     ? `${props.templateTitle} | ${meta.siteName}`
     : meta.title;
-
-  meta['image'] = 'https://img.hellogithub.com/logo/logo.png';
 
   return (
     <Head>

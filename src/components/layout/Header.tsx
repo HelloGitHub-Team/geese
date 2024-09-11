@@ -45,7 +45,7 @@ const Header = () => {
             src='https://img.hellogithub.com/logo/logo.png'
             width='28'
             height='28'
-            alt='header_logo'
+            alt='HelloGitHub_logo'
             onClick={() => {
               router.push('/');
             }}

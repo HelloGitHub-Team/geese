@@ -35,6 +35,7 @@ export interface ArticleItem {
 export interface ArticleContent {
   aid: string;
   content: string;
+  desc: string;
   title: string;
 }
 

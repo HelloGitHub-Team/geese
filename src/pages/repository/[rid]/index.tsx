@@ -31,6 +31,7 @@ const RepositoryPage: NextPage<Props> = ({ repo }) => {
           repo.title
         )}`}
         description={getLocalizedField(repo.summary_en, repo.summary)}
+        image={repo.image_url ? repo.image_url : repo.author_avatar}
       />
       <RepoDetailNavbar
         avatar={repo.share_user.avatar}
