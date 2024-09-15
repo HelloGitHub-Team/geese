@@ -123,28 +123,20 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
       {data.is_reward ? (
         i18n_lang != 'zh' ? (
           <NoPrefetchLink href={PayURL}>
-            <a target='_blank' rel='noreferrer'>
+            <a target='_blank'>
               <RewardAdContent data={data} t={t} />
             </a>
           </NoPrefetchLink>
         ) : (
           <NoPrefetchLink href={data.url}>
-            <a
-              target='_blank'
-              onClick={() => onClickLink(data.aid)}
-              rel='noreferrer'
-            >
+            <a target='_blank' onClick={() => onClickLink(data.aid)}>
               <RewardAdContent data={data} t={t} />:
             </a>
           </NoPrefetchLink>
         )
       ) : (
         <NoPrefetchLink href={data.url}>
-          <a
-            target='_blank'
-            onClick={() => onClickLink(data.aid)}
-            rel='noreferrer'
-          >
+          <a target='_blank' onClick={() => onClickLink(data.aid)}>
             <ImageAdContent data={data} handleClose={handleClose} />
           </a>
         </NoPrefetchLink>

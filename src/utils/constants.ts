@@ -24,3 +24,6 @@ export const nameMap: NameMap = {
   开源书籍: 'Book',
   其它: 'Other',
 };
+
+export const indexSortBy = ['featured', 'all'];
+export const indexRankBy = ['newest', 'monthly', 'yearly'];

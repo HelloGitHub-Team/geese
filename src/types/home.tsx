@@ -91,3 +91,11 @@ export interface Sitemap {
   success: boolean;
   data: SitemapItem[];
 }
+
+export interface RankItem {
+  key: string;
+  name: string;
+  name_en: string;
+  year: number;
+  month?: number;
+}

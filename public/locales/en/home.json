@@ -5,6 +5,9 @@
   "bottom_text_nologin": "End of the page! Sign in to read more",
   "nav": {
     "all": "All",
+    "newest": "Newest",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
     "featured": "Featured",
     "tag": "Tags",
     "submit": "Submit"

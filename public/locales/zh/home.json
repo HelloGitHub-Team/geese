@@ -4,6 +4,9 @@
   "bottom_text_login": "你不经意间触碰到了底线",
   "bottom_text_nologin": "到底啦！登录可查看更多内容",
   "nav": {
+    "newest": "最新",
+    "monthly": "月度",
+    "yearly": "年度",
     "all": "全部",
     "featured": "精选",
     "tag": "标签",

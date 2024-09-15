@@ -40,7 +40,7 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
             href='https://www.buymeacoffee.com/hellogithub'
             className='flex justify-center'
             target='_blank'
-            rel='noopener noreferrer'
+            rel='noreferrer'
           >
             <img
               src='https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png'

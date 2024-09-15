@@ -27,7 +27,6 @@ export const CustomLink = ({ href, className, children, onClick }: Props) => {
         onClick={onClick}
         target={isMobile ? '_self' : '_blank'}
         className={clsxm('block', className)}
-        rel='noopener noreferrer'
       >
         {children}
       </a>

@@ -3,7 +3,7 @@ import { NoPrefetchLink } from '@/components/links/CustomLink';
 import { TagType } from '@/types/tag';
 
 interface Props {
-  tid: string;
+  tid?: string;
   sort_by: string;
   items: TagType[];
 }

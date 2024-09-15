@@ -107,8 +107,8 @@ export function TagModal({
     if (effectedTidList.length <= maxTotal) {
       const defaultTag =
         i18n_lang === 'en'
-          ? { name: 'All', tid: '', icon_name: 'find', name_en: 'All' }
-          : { name: '综合', tid: '', icon_name: 'find', name_en: 'All' };
+          ? { name: 'All', tid: 'all', icon_name: 'find', name_en: 'All' }
+          : { name: '综合', tid: 'all', icon_name: 'find', name_en: 'All' };
       const selectTags = [defaultTag];
       for (let i = 0; i < effectedTidList.length; i++) {
         const item = portalTagGroups

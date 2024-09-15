@@ -39,21 +39,13 @@ const ErrorPage = ({ t, httpCode }: Props) => {
           </NoPrefetchLink>
           <div className='mt-4 block text-xs text-gray-400'>
             <NoPrefetchLink href='mailto:595666367@qq.com'>
-              <a
-                target='_blank'
-                className='cursor-pointer hover:underline'
-                rel='noreferrer'
-              >
+              <a target='_blank' className='cursor-pointer hover:underline'>
                 <span>{t('footer.feedback')}</span>
               </a>
             </NoPrefetchLink>
             <span className='px-1'>·</span>
             <NoPrefetchLink href='https://github.com/HelloGitHub-Team/geese'>
-              <a
-                target='_blank'
-                className='cursor-pointer hover:underline'
-                rel='noreferrer'
-              >
+              <a target='_blank' className='cursor-pointer hover:underline'>
                 <span>{t('footer.source')}</span>
               </a>
             </NoPrefetchLink>

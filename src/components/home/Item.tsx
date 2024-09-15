@@ -193,7 +193,7 @@ const RepositoryItem = ({
                           aria-label='Verified item'
                         />
                       )}
-                      <div className='truncate'>{name}</div>
+                      <div className='truncate'>{author}</div>
                     </div>
                     <span className='px-1'>·</span>
                     <span>

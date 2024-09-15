@@ -6,10 +6,25 @@ import { makeUrl } from '@/utils/api';
 
 import { HomeItem, HomeItems } from '@/types/home';
 
-const useRepositories = (sort_by: string, tid: string) => {
+const useRepositories = (
+  sort_by: string,
+  tid: string | undefined,
+  rank_by: string,
+  year: number | undefined,
+  month: number | undefined
+) => {
+  const buildParams = (index: number) => ({
+    sort_by,
+    page: index + 1,
+    ...(rank_by && { rank_by }),
+    ...(year && { year }), // 仅在year存在时添加
+    ...(tid && { tid }), // 仅在tid存在时添加
+    ...(month && { month }), // 仅在month存在时添加
+  });
+
   const { data, error, setSize, isValidating, size } =
     useSWRInfinite<HomeItems>(
-      (index) => makeUrl(`/`, { sort_by, tid, page: index + 1 }),
+      (index) => makeUrl(`/`, buildParams(index)),
       fetcher,
       { revalidateFirstPage: false }
     );

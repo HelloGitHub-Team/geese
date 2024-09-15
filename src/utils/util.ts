@@ -81,3 +81,12 @@ export const getClientIP = (req: IncomingMessage): string => {
   }
   return '';
 };
+
+export const constructURL = (params: { [key: string]: any }) => {
+  const queryString = Object.entries(params)
+    .filter(([_, value]) => value !== undefined && value !== null)
+    .map(([key, value]) => `${key}=${value}`)
+    .join('&');
+
+  return `/?${queryString}`;
+};

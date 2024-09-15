@@ -8,7 +8,7 @@ import { AiOutlineAppstore, AiOutlineSetting } from 'react-icons/ai';
 import { TagModal } from '@/components/dialog/TagModal';
 
 import { getTags } from '@/services/tag';
-import { isMobile } from '@/utils/util';
+import { constructURL, isMobile } from '@/utils/util';
 
 import { TagListSkeleton } from '../loading/skeleton';
 
@@ -19,12 +19,18 @@ export default function TagList() {
   const defaultTag: Tag = {
     name: '综合',
     name_en: 'All',
-    tid: '',
+    tid: 'all',
     icon_name: 'find',
   };
 
   const router = useRouter();
-  const { tid = '', sort_by = 'featured' } = router.query;
+  const {
+    tid = 'all',
+    sort_by = 'featured',
+    rank_by,
+    year,
+    month,
+  } = router.query;
   const [tags, setTags] = useState<Tag[]>([]);
 
   useEffect(() => {
@@ -70,16 +76,20 @@ export default function TagList() {
               <Link
                 prefetch={false}
                 key={item.tid}
-                href={`/?sort_by=${sort_by}&tid=${item.tid}`}
+                href={constructURL({
+                  sort_by,
+                  rank_by,
+                  tid: item.tid,
+                  year,
+                  month,
+                })}
               >
                 <div className={tagClassName(item.tid)}>
                   <div className={iconClassName(item.icon_name)}></div>
                   <div className='truncate text-ellipsis'>
-                    {i18n.language == 'zh'
+                    {i18n.language === 'zh'
                       ? item.name
-                      : item.name_en
-                      ? item.name_en
-                      : item.name}
+                      : item.name_en || item.name}
                   </div>
                 </div>
               </Link>
