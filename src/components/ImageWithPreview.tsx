@@ -1,4 +1,4 @@
-import RcImage, { ImageProps } from 'rc-image';
+import RcImage from 'rc-image';
 import { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 
@@ -8,11 +8,13 @@ import GifPlayButton from './loading/GifPlayButton';
 
 const gifCoverImage = '!gif';
 
-const ImageWithPreview = (props: ImageProps) => {
+const ImageWithPreview = (props: {
+  src: string;
+  alt: string;
+  [key: string]: any;
+}) => {
   const [imgSrc, setImgSrc] = useState(
-    props.src?.endsWith('gif')
-      ? `${props.src}${gifCoverImage}`
-      : (props.src as string)
+    props.src?.endsWith('gif') ? `${props.src}${gifCoverImage}` : props.src
   );
   const isGifThumb = imgSrc.endsWith(gifCoverImage);
   const isGif = imgSrc?.endsWith('gif') && !isGifThumb;
@@ -22,11 +24,11 @@ const ImageWithPreview = (props: ImageProps) => {
     if (props.src?.endsWith('gif')) {
       setImgSrc(`${props.src}${gifCoverImage}`);
     } else {
-      setImgSrc(props.src as string);
+      setImgSrc(props.src);
     }
   }, [props.src]);
 
-  const handleLoadGif = (e: any) => {
+  const handleLoadGif = (e: React.MouseEvent) => {
     e.stopPropagation();
     setTimeout(() => {
       if (sourceIsGif) {

@@ -88,7 +88,13 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
           </div>
 
           {allItems?.map((item: PeriodicalItem, index: number) => {
-            return <PeriodItem key={index} item={item} index={index} />;
+            return (
+              <PeriodItem
+                key={index}
+                item={item}
+                index={(category?.current_page - 1) * 10 + index}
+              />
+            );
           })}
         </div>
 

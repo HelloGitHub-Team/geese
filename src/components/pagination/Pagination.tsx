@@ -12,8 +12,8 @@ type PaginationProps = {
 
 export default function Pagination({
   className,
-  PreviousText = '上一期',
-  NextText = '下一期',
+  PreviousText,
+  NextText,
   total,
   current = 1,
   onPageChange,
@@ -56,13 +56,13 @@ export default function Pagination({
   return (
     <div className={clsxm('', className)} {...rest}>
       <nav className='flex items-center justify-center space-x-2'>
-        <a
+        <div
           onClick={() => handlePageChange(page - 1)}
           className={JumpBtnClass(-1)}
         >
           <span aria-hidden='true'>«</span>
           <span>{PreviousText}</span>
-        </a>
+        </div>
 
         <input
           type='number'
@@ -91,13 +91,13 @@ export default function Pagination({
         <span className='mx-0 inline-flex h-10 w-10 items-center rounded-full p-4 font-medium text-gray-500 dark:text-gray-400'>
           {total}
         </span>
-        <a
+        <div
           onClick={() => handlePageChange(page + 1)}
           className={JumpBtnClass(1)}
         >
           <span>{NextText}</span>
           <span aria-hidden='true'>»</span>
-        </a>
+        </div>
       </nav>
     </div>
   );

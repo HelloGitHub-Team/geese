@@ -233,8 +233,8 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                     total={volume?.total}
                     current={volume?.current_num}
                     onPageChange={onPageChange}
-                    PreviousText={t('page_prev')}
-                    NextText={t('page_next')}
+                    PreviousText={t('vol_prev')}
+                    NextText={t('vol_next')}
                   />
                 </div>
 
@@ -296,8 +296,8 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
               total={volume?.total}
               current={volume?.current_num}
               onPageChange={onPageChange}
-              PreviousText={t('page_prev')}
-              NextText={t('page_next')}
+              PreviousText={t('vol_prev')}
+              NextText={t('vol_next')}
             />
 
             <div className='hidden md:block'>
@@ -311,9 +311,9 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
           <div>
             <div className='top-15 fixed w-full max-w-[244px]'>
               <div className='mt-2 ml-3  bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
-                <h4 className='mb-2 border-b border-gray-200 pb-2 dark:border-gray-700'>
+                <h3 className='mb-2 border-b border-gray-200 pb-2 text-lg dark:border-gray-700'>
                   {t('volume.catalog')}
-                </h4>
+                </h3>
                 <ul
                   className='custom-scrollbar overflow-scroll'
                   style={{ maxHeight: 560 }}

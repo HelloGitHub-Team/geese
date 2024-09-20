@@ -28,10 +28,14 @@ const Header = () => {
 
   const liClassName = (path: string) =>
     classNames(
-      'hidden md:block hover:font-bold hover:text-gray-800 hover:border-blue-500 hover:border-b-2 h-12',
+      'hidden md:block hover:font-bold hover:text-gray-700 dark:hover:text-gray-100 hover:border-b-2 hover:border-blue-500 h-12',
       {
-        'text-blue-500': curPath === path,
-        'text-gray-500': curPath !== path,
+        'text-blue-500':
+          curPath.startsWith(path) && (path !== '/' || curPath === path),
+        'text-gray-500 dark:text-gray-300': !(
+          curPath.startsWith(path) &&
+          (path !== '/' || curPath === path)
+        ),
       }
     );
 

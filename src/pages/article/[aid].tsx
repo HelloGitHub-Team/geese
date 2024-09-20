@@ -3,7 +3,6 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import ItemBottom from '@/components/home/ItemBottom';
-import ImageWithPreview from '@/components/ImageWithPreview';
 import { MDRender } from '@/components/mdRender/MDRender';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -29,8 +28,8 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
         </article>
         {i18n.language === 'zh' ? (
           <div className='my-2 flex justify-center'>
-            <ImageWithPreview
-              className='hidden cursor-zoom-in rounded-lg md:block'
+            <img
+              className='hidden rounded-lg md:block'
               src='https://img.hellogithub.com/ad/footer.png'
               alt='weixin_footer'
             />
