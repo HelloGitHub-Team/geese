@@ -29,13 +29,15 @@ const useRepositories = (
       { revalidateFirstPage: false }
     );
 
+  // 根据 item_id 去重
   const repositories = data
-    ? data.reduce((pre: HomeItem[], curr) => {
-        if (curr.data.length > 0) {
-          pre.push(...curr.data);
-        }
-        return pre;
-      }, [])
+    ? Array.from(
+        new Map(
+          data.flatMap((curr) =>
+            curr.data.map((item) => [item.item_id, item] as [string, HomeItem])
+          )
+        ).values()
+      )
     : [];
 
   const hasMore = data ? data[data.length - 1].has_more : false;

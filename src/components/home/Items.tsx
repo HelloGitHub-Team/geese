@@ -18,7 +18,6 @@ const Items = ({ repositories, i18n_lang }: Props) => {
           item={item}
           showCommentCount
           showViewCount
-          linkType='custom'
           i18n_lang={i18n_lang}
         />
       ))}

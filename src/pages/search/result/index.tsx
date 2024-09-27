@@ -60,11 +60,11 @@ const Result: NextPage = () => {
       <Navbar middleText={t('navbar')} />
       <div className='h-screen'>
         <div className='divide-y divide-gray-100 overflow-y-hidden bg-white dark:divide-gray-700 md:rounded-lg'>
-          {list.map((item, index) => (
+          {list.map((item) => (
             <RepositoryItem
               key={item.rid}
               item={item}
-              index={index}
+              itemType='search'
               i18n_lang={i18n.language}
             />
           ))}

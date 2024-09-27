@@ -23,7 +23,7 @@ export const fromNow = (datetime: string, locale = 'zh'): string => {
 
 export const formatZH = (
   datetime: string,
-  format = 'YYYY年MM月DD日 HH:mm'
+  format = 'YYYY 年 MM 月 DD 日'
 ): string => {
   return dayjs(datetime).format(format);
 };

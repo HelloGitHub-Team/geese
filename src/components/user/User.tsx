@@ -91,7 +91,7 @@ const User = () => {
                 date:
                   i18n.language == 'en'
                     ? format(first_login)
-                    : formatZH(first_login, ' YYYY 年 MM 月 DD 日 '),
+                    : formatZH(first_login),
               })}
             </div>
             <div>
@@ -109,7 +109,7 @@ const User = () => {
                 date:
                   i18n.language == 'en'
                     ? format(first_login)
-                    : formatZH(first_login, ' YYYY 年 MM 月 DD 日 '),
+                    : formatZH(first_login),
                 contribute: contribute_total,
               })}
             </p>

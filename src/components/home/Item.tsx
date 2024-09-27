@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { AiFillFire, AiOutlineEye } from 'react-icons/ai';
 import { GoStar, GoVerified } from 'react-icons/go';
 
@@ -33,16 +32,15 @@ interface ItemProps {
   index?: number;
   showCommentCount?: boolean;
   showViewCount?: boolean;
-  linkType?: 'default' | 'custom';
+  itemType?: 'default' | 'search';
 }
 
 const RepositoryItem = ({
   item,
-  index,
   i18n_lang,
   showCommentCount = false,
   showViewCount = false,
-  linkType = 'default',
+  itemType = 'default',
 }: ItemProps) => {
   const {
     item_id,
@@ -66,38 +64,30 @@ const RepositoryItem = ({
     stars,
   } = item;
 
-  const LinkComponent = linkType === 'custom' ? CustomLink : Link;
-  const href =
-    linkType === 'custom' ? `/repository/${item_id}` : `/repository/${rid}`;
-  const showDatetime = showCommentCount ? '' : 'hidden md:inline';
+  const isDefaultType = itemType === 'default';
+  const href = isDefaultType ? `/repository/${item_id}` : `/repository/${rid}`;
 
   // 动态绑定类名
-  const ClassName = `transform shadow-lg transition-transform ${
-    showViewCount ? 'hover:scale-105' : ''
+  const hoverClassName = `transform shadow-lg transition-transform ${
+    isDefaultType ? 'hover:scale-105' : ''
+  }`;
+  const titleClassName = `truncate text-sm font-normal md:text-[15px] ${
+    isDefaultType ? 'mr-1 ' : ''
+  }`;
+  const smallAvatarClassName = `mr-1 h-4 w-4 rounded ${
+    isDefaultType ? 'md:hidden' : ''
   }`;
 
   return (
     <div className='overflow-hidden'>
-      <article className={ClassName}>
-        <LinkComponent href={href} aria-label={`Repository ${name}`}>
+      <article className={hoverClassName}>
+        <CustomLink href={href} aria-label={`Repository ${name}`}>
           <header className='relative cursor-pointer bg-white px-2.5 py-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:px-4'>
-            {/* 项目序号和标题 */}
-            {index !== undefined && (
-              <div className='pb-0.5'>
-                <div className='text-color-primary flex justify-between visited:text-gray-500 dark:text-gray-300'>
-                  <span className='truncate text-sm leading-snug  md:text-base'>
-                    {index + 1}
-                    <span className='pr-0.5'>.</span>
-                    {i18n_lang == 'en' ? title_en || title : title || '-'}
-                  </span>
-                  {/* 是否推荐 */}
-                  {is_featured && (
-                    <div className='absolute top-0 right-0 flex items-center rounded-bl-md bg-yellow-500 bg-opacity-80 p-1 text-xs font-bold text-white'>
-                      <GoStar className='mr-1' />{' '}
-                      {i18n_lang == 'en' ? 'Featured' : '推荐'}
-                    </div>
-                  )}
-                </div>
+            {/* 搜索结果的推荐标识 */}
+            {is_featured && (
+              <div className='absolute top-2 right-0 flex items-center bg-yellow-500 bg-opacity-80 p-1 text-xs font-semibold text-white'>
+                <GoStar className='mr-0.5' />
+                {i18n_lang == 'en' ? 'Featured' : '推荐'}
               </div>
             )}
             <div className='flex w-full'>
@@ -115,6 +105,7 @@ const RepositoryItem = ({
               )}
               {/* 项目介绍 */}
               <div className='relative flex w-full flex-col truncate'>
+                {/* 项目标题和项目名称 */}
                 <div className='flex flex-row pb-0.5'>
                   <h2 className='flex w-full items-center'>
                     <div className='flex flex-grow items-center truncate text-base leading-snug'>
@@ -127,22 +118,17 @@ const RepositoryItem = ({
                           aria-label='Hot item'
                         />
                       )}
-                      {/* 项目标题和简介 */}
-                      {showViewCount && (
-                        <p className='mr-1 truncate text-sm font-normal md:text-[15px]'>
-                          <span className='font-semibold dark:text-white'>
-                            {name}
-                          </span>
-                          <span className='mx-0.5 text-gray-500 opacity-40 dark:text-gray-300 md:mx-1'>
-                            —
-                          </span>
-                          <span className='text-gray-600 dark:text-gray-300'>
-                            {i18n_lang == 'en'
-                              ? title_en || title
-                              : title || '-'}
-                          </span>
-                        </p>
-                      )}
+                      <p className={titleClassName}>
+                        <span className='font-semibold dark:text-white'>
+                          {name}
+                        </span>
+                        <span className='mx-0.5 text-gray-500 opacity-40 dark:text-gray-300 md:mx-1'>
+                          —
+                        </span>
+                        <span className='text-gray-600 dark:text-gray-300'>
+                          {i18n_lang == 'en' ? title_en || title : title || '-'}
+                        </span>
+                      </p>
                     </div>
                     <div className='shrink grow' />
                     {/* 评论数 */}
@@ -162,29 +148,13 @@ const RepositoryItem = ({
                 {/* 技术栈、认证、时间 */}
                 <div className='mt-1 flex items-center'>
                   <div className='flex grow items-center text-sm text-gray-400'>
-                    {linkType !== 'custom' && (
-                      <div className='flex items-center truncate whitespace-nowrap md:max-w-xs'>
-                        <img
-                          width='20'
-                          height='20'
-                          src={author_avatar}
-                          className='bg-img h-5 w-5 rounded md:mr-1'
-                        />
-                        <span className='hidden truncate md:inline'>
-                          {author}
-                        </span>
-                        <span className='px-1'>·</span>
-                      </div>
-                    )}
-                    {showViewCount && (
-                      <img
-                        width='20'
-                        height='20'
-                        src={author_avatar}
-                        alt={`${author} small avatar`}
-                        className='mr-1 h-4 w-4 rounded-full md:hidden'
-                      />
-                    )}
+                    <img
+                      width='16'
+                      height='16'
+                      src={author_avatar}
+                      alt={`${author} small avatar`}
+                      className={smallAvatarClassName}
+                    />
                     <div className='flex max-w-[7rem] items-center truncate text-ellipsis md:w-fit md:max-w-[10rem]'>
                       {is_claimed && (
                         <GoVerified
@@ -206,14 +176,14 @@ const RepositoryItem = ({
                       </span>
                     </span>
 
-                    <span className={showDatetime}>
+                    <span>
                       <span className='px-1'>·</span>
                       <time>
                         {fromNow(updated_at || publish_at || '', i18n_lang)}
                       </time>
                     </span>
                   </div>
-                  {/* 项目 star 数 */}
+                  {/* 项目查看数 */}
                   {showViewCount && clicks_total !== undefined && (
                     <div className='flex items-center text-sm text-gray-400'>
                       <AiOutlineEye aria-label='Views' />
@@ -222,9 +192,9 @@ const RepositoryItem = ({
                       </span>
                     </div>
                   )}
-                  {/* 项目查看数 */}
+                  {/* 项目 star 数 */}
                   {stars && (
-                    <div className='whitespace-nowrap pl-2 text-sm text-gray-400'>
+                    <div className='whitespace-nowrap text-sm text-gray-400'>
                       ✨Star {numFormat(stars, 1, 1000)}
                     </div>
                   )}
@@ -232,7 +202,7 @@ const RepositoryItem = ({
               </div>
             </div>
           </header>
-        </LinkComponent>
+        </CustomLink>
       </article>
     </div>
   );
