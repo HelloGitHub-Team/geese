@@ -33,11 +33,27 @@ export const HomeSkeleton = ({ loop }: Props) => {
 
 export const TagListSkeleton = () => {
   return (
-    <div className='mt-1 mb-2 animate-pulse'>
-      <ul className='space-y-2'>
+    <div className='mt-1 mb-2'>
+      <ul className='animate-pulse space-y-2'>
         <li className='h-10 rounded bg-gray-100 dark:bg-gray-700' />
         <li className='h-10 rounded bg-gray-100 dark:bg-gray-700' />
         <li className='h-10 rounded bg-gray-100 dark:bg-gray-700' />
+      </ul>
+    </div>
+  );
+};
+
+export const TagLinkListSkeleton = ({ loop = 6 }) => {
+  return (
+    <div className='custom-scrollbar mt-2 overflow-y-auto'>
+      <ul className='flex animate-pulse'>
+        {[...Array(loop)].map((_, index) => (
+          <li
+            key={index}
+            className='mr-1 h-6 w-10 rounded-xl bg-gray-100 dark:bg-gray-700'
+            aria-hidden='true'
+          />
+        ))}
       </ul>
     </div>
   );
@@ -48,7 +64,7 @@ export const StatsSkeleton = () => {
     <div className='flex flex-wrap border-b border-b-gray-300 pb-3 dark:border-b-gray-700'>
       <div className='flex-1 pr-4'>
         <div className='text-sm text-gray-400 lg:text-base'>用户总数</div>
-        <div className='mt-1  h-6 w-14 animate-pulse bg-gray-100 dark:bg-gray-700 lg:h-8 lg:w-20' />
+        <div className='mt-1 h-6 w-14 animate-pulse bg-gray-100 dark:bg-gray-700 lg:h-8 lg:w-20' />
       </div>
       <div className='flex-1'>
         <div className='text-sm text-gray-400 lg:text-base'>开源项目</div>

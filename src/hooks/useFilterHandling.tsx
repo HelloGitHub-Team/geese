@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
 import { getTags } from '@/services/home';
@@ -15,7 +14,6 @@ const useFilterHandling = (
   year?: number,
   month?: number
 ) => {
-  const router = useRouter();
   const [tagLabelStatus, setTagLabelStatus] = useState(false);
   const [tagItems, setTagItems] = useState<Tag[]>([]);
   const [featuredURL, setFeaturedURL] = useState<string>('/?sort_by=featured');
@@ -106,15 +104,6 @@ const useFilterHandling = (
     }
   }, [tagItems, setTagItems]);
 
-  const handleTagButton = () => {
-    setTagLabelStatus(!tagLabelStatus);
-    if (!tagLabelStatus && sort_by === 'all') {
-      router.push('/?sort_by=all');
-    } else if (!tagLabelStatus) {
-      router.push('/');
-    }
-  };
-
   useEffect(() => {
     if (isMobile()) {
       handleTags();
@@ -135,7 +124,6 @@ const useFilterHandling = (
     tagItems,
     featuredURL,
     allURL,
-    handleTagButton,
     monthlyURL,
     yearlyURL,
     rankItems,

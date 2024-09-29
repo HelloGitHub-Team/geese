@@ -114,11 +114,11 @@ const CommentItem = (props: CommentItemProps) => {
   return (
     <div className={`flex ${className} truncate`}>
       <div className='mr-4 hidden md:block'>
-        <div className='relative h-10 w-10'>
+        <div className='relative'>
           <NoPrefetchLink href={`/user/${user.uid}`}>
             <a>
               <img
-                className='cursor-pointer rounded-full'
+                className='h-10 w-10 cursor-pointer rounded-full'
                 src={user?.avatar || DEFAULT_AVATAR}
                 alt='comment_avatar'
               />

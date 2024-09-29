@@ -42,7 +42,11 @@ const ImageWithPreview = (props: {
       <RcImage
         {...props}
         src={imgSrc}
-        style={{ opacity: isGifThumb ? '0.9' : '1' }}
+        style={{
+          opacity: isGifThumb ? '0.9' : '1',
+          width: '100%',
+          height: 'auto',
+        }}
         preview={{
           icons: { close: <AiOutlineClose style={{ fontSize: 13 }} /> },
           toolbarRender: () => <></>,

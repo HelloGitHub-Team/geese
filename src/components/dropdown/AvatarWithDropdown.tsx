@@ -4,6 +4,7 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 
 import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
 import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
+import { RepoModal } from '@/components/dialog/RepoModal';
 import { CustomLink } from '@/components/links/CustomLink';
 
 import { DEFAULT_AVATAR } from '@/utils/constants';
@@ -52,6 +53,11 @@ const AvatarWithDropdown = ({ t, className }: Props) => {
             {t('header.profile')}
           </div>
         </CustomLink>
+        <RepoModal>
+          <div className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
+            {t('header.submit')}
+          </div>
+        </RepoModal>
         <CustomLink href='/notification'>
           <div className='block px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
             {t('header.notification')}
@@ -62,7 +68,6 @@ const AvatarWithDropdown = ({ t, className }: Props) => {
             )}
           </div>
         </CustomLink>
-
         <div className='px-4 leading-8 active:bg-gray-100 dark:active:bg-gray-700'>
           <ThemeSwitcher type='text' t={t} />
         </div>

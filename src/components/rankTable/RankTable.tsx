@@ -144,8 +144,8 @@ export const RankSearchBar = ({
       </div>
       <div className=' justify-items-center'>
         <div className='flex items-center'>
-          <div className='inline h-5 w-5'>
-            <img src={logo} alt='rank_logo' />
+          <div className='inline'>
+            <img className='h-5 w-5' src={logo} alt='rank_logo' />
           </div>
           <span className='ml-1 hidden dark:text-gray-300 md:block'>
             {title}
