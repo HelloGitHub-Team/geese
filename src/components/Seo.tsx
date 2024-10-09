@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+import { API_HOST } from '@/utils/api';
+
 // !STARTERCONF Change these default meta
 const defaultMeta = {
   title: 'HelloGitHub',
@@ -115,6 +117,7 @@ export default function Seo(props: SeoProps) {
 
   return (
     <Head>
+      <link rel='dns-prefetch' href={API_HOST} />
       <title>{`${meta.title} - HelloGitHub`}</title>
       <meta name='robots' content={meta.robots} />
       <meta content={meta.description} name='description' />
