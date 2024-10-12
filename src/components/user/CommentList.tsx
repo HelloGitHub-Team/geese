@@ -64,11 +64,7 @@ export const CommentList = ({ uid, t, i18n_lang }: Props) => {
                     </Button>
                   </FeedbackModal>
                 )}
-                <a
-                  href={`/${item.belong}/${item.belong_id}`}
-                  target='_blank'
-                  rel='noreferrer'
-                >
+                <a href={`/${item.belong}/${item.belong_id}`}>
                   <Button
                     variant='light'
                     className='h-7 p-2 font-normal dark:border-gray-300 dark:bg-gray-800 dark:text-gray-300'

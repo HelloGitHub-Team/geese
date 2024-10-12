@@ -60,8 +60,6 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
                         <a
                           className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                           href={onefile.demo_url}
-                          target='_blank'
-                          rel='noreferrer'
                         >
                           <GoPlay className='mr-1' size={14} />
                           {t('code.play')}
@@ -71,8 +69,6 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
                       <a
                         className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                         href={onefile.repo_url}
-                        target='_blank'
-                        rel='noreferrer'
                       >
                         <GoLink className='mr-1' size={14} />
                         {t('code.vite')}

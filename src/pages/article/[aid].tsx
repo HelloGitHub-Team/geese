@@ -35,11 +35,11 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
             />
           </div>
         ) : (
+          // eslint-disable-next-line react/jsx-no-target-blank
           <a
             href='https://www.buymeacoffee.com/hellogithub'
             className='flex justify-center'
             target='_blank'
-            rel='noreferrer'
           >
             <img
               src='https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png'

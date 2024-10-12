@@ -27,7 +27,7 @@ const Tabs = ({ repo, t, i18n_lang }: RepositoryProps) => {
               <ImageWithPreview
                 src={repo?.image_url}
                 className='rounded-lg border border-gray-200 dark:border-none'
-                alt='图片'
+                alt={`${repo.name} image`}
               />
             </div>
           )}

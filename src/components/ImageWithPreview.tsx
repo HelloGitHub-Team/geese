@@ -1,70 +1,90 @@
-import RcImage from 'rc-image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-
-import 'rc-image/assets/index.css';
 
 import GifPlayButton from './loading/GifPlayButton';
 
 const gifCoverImage = '!gif';
 
-const ImageWithPreview = (props: {
+interface ImageWithPreviewProps {
   src: string;
   alt: string;
   [key: string]: any;
-}) => {
-  const [imgSrc, setImgSrc] = useState(
-    props.src?.endsWith('gif') ? `${props.src}${gifCoverImage}` : props.src
-  );
-  const isGifThumb = imgSrc.endsWith(gifCoverImage);
-  const isGif = imgSrc?.endsWith('gif') && !isGifThumb;
-  const sourceIsGif = props.src?.endsWith('gif');
+}
 
-  useEffect(() => {
-    if (props.src?.endsWith('gif')) {
-      setImgSrc(`${props.src}${gifCoverImage}`);
-    } else {
-      setImgSrc(props.src);
-    }
-  }, [props.src]);
+const ImageWithPreview = ({ src, alt, ...rest }: ImageWithPreviewProps) => {
+  const [imgSrc, setImgSrc] = useState(
+    src?.endsWith('gif') ? `${src}${gifCoverImage}` : src
+  );
+  const sourceIsGif = src?.endsWith('gif');
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   const handleLoadGif = (e: React.MouseEvent) => {
     e.stopPropagation();
     setTimeout(() => {
       if (sourceIsGif) {
-        setImgSrc(imgSrc?.replace(gifCoverImage, ''));
+        setImgSrc(src);
       }
     }, 300);
   };
 
+  const handleOpenPreview = () => {
+    setIsPreviewOpen(true);
+  };
+
+  const handleClosePreview = () => {
+    setIsPreviewOpen(false);
+  };
+
+  const handleWheel = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsPreviewOpen(false);
+  };
+
   return (
-    <div className='relative flex'>
-      <RcImage
-        {...props}
-        src={imgSrc}
-        style={{
-          opacity: isGifThumb ? '0.9' : '1',
-          width: '100%',
-          height: 'auto',
-        }}
-        preview={{
-          icons: { close: <AiOutlineClose style={{ fontSize: 13 }} /> },
-          toolbarRender: () => <></>,
-        }}
-      />
-      {sourceIsGif && (
-        <div className='absolute top-0 left-0 h-full w-full opacity-100'>
+    <>
+      <div className='relative flex'>
+        <img
+          {...rest}
+          src={imgSrc}
+          alt={alt}
+          style={{
+            opacity: imgSrc.endsWith(gifCoverImage) ? 0.9 : 1,
+            width: '100%',
+            height: 'auto',
+            cursor: 'zoom-in',
+          }}
+          onClick={handleOpenPreview}
+        />
+        {sourceIsGif && imgSrc.endsWith(gifCoverImage) && (
           <div
             onClick={handleLoadGif}
-            className={`flex h-full cursor-pointer items-center justify-center transition-all duration-300 ${
-              isGif ? 'scale-75 opacity-0' : 'scale-100 opacity-100'
-            }`}
+            className='absolute top-0 left-0 flex h-full w-full cursor-pointer items-center justify-center'
           >
             <GifPlayButton />
           </div>
+        )}
+      </div>
+      {isPreviewOpen && (
+        <div
+          className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75'
+          onClick={handleClosePreview}
+          onWheel={handleWheel}
+        >
+          <img
+            src={src}
+            alt={alt}
+            className='max-h-full max-w-full object-contain'
+            style={{ cursor: 'zoom-out' }}
+          />
+          <button
+            className='absolute top-4 right-4 rounded-full bg-black bg-opacity-50 p-1 text-white'
+            onClick={handleClosePreview}
+          >
+            <AiOutlineClose style={{ fontSize: 13 }} />
+          </button>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -12,7 +12,7 @@ const RedirectBar = ({ text = '跳转中...', target, i18n_lang }: Props) => {
         {target != '/' && (
           <div className='flex px-4 pb-3 text-gray-500'>
             {target}
-            <a className='ml-3' target='_blank' href={target} rel='noreferrer'>
+            <a className='ml-3' href={target}>
               {i18n_lang == 'en'
                 ? "Click here if you're stuck"
                 : '⚠️卡住就手动点这里⚠️'}
