@@ -1,26 +1,53 @@
+import { useState } from 'react';
+
 import useRepoHistory from '@/hooks/user/useRepoHistory';
 
+import { EmptyState } from './Common';
 import RepoData from './RepoRecord';
+import Loading from '../loading/Loading';
 
-interface Props {
-  uid: string;
-  t: (key: string) => string;
-}
+import { UserTabProps } from '@/types/user';
 
-export default function RepoList({ uid, t }: Props) {
-  const { data, setPage } = useRepoHistory(uid);
+const categoryItems = [
+  { name: '不限', value: 0 },
+  { name: '未通过', value: -1 },
+  { name: '待审核', value: 1 },
+  { name: '已通过', value: 2 },
+];
 
-  return data?.data ? (
-    data.data.length ? (
-      <div className='mt-2'>
-        <RepoData data={data} setPage={setPage} />
+const RepoList = ({ uid, t }: UserTabProps) => {
+  const [state, setState] = useState(0);
+  const { data, setPage } = useRepoHistory(uid, state);
+
+  const selectState = (e: any) => {
+    setState(e.target.value);
+  };
+
+  return (
+    <div className='mt-2'>
+      <div className='text-right'>
+        <select
+          onChange={selectState}
+          className='truncate text-ellipsis rounded-md border py-1 pr-7 text-sm dark:bg-gray-700'
+        >
+          {categoryItems.map((item: any) => (
+            <option key={item.name} value={item.value}>
+              {item.name}
+            </option>
+          ))}
+        </select>
       </div>
-    ) : (
-      <div className='mt-4 text-center text-xl'>
-        <div className='py-14 text-gray-300 dark:text-gray-500'>
-          {t('repo.empty')}
-        </div>
-      </div>
-    )
-  ) : null;
-}
+      {data?.data ? (
+        data?.data.length ? (
+          <RepoData data={data} setPage={setPage} showStatus={true} />
+        ) : (
+          <EmptyState message={t('repo.empty')} />
+        )
+      ) : (
+        <Loading />
+      )}
+    </div>
+  );
+};
+
+export default RepoList;

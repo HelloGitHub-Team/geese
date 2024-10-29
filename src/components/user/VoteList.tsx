@@ -1,26 +1,22 @@
 import useVoteHistory from '@/hooks/user/useVoteHistory';
 
+import { EmptyState } from './Common';
 import RepoData from './RepoRecord';
+import Loading from '../loading/Loading';
 
-interface Props {
-  uid: string;
-  t: (key: string) => string;
-}
+import { UserTabProps } from '@/types/user';
 
-export default function VoteList({ uid, t }: Props) {
+const VoteList = ({ uid, t }: UserTabProps) => {
   const { data, setPage } = useVoteHistory(uid);
 
-  return data?.data ? (
-    data.data.length ? (
-      <div className='mt-2'>
-        <RepoData data={data} setPage={setPage} />
-      </div>
-    ) : (
-      <div className='mt-4 text-center text-xl'>
-        <div className='py-14 text-gray-300 dark:text-gray-500'>
-          {t('vote.empty')}
-        </div>
-      </div>
-    )
-  ) : null;
-}
+  if (!data?.data) return <Loading />;
+  if (!data.data.length) return <EmptyState message={t('vote.empty')} />;
+
+  return (
+    <div className='mt-2'>
+      <RepoData data={data} setPage={setPage} />
+    </div>
+  );
+};
+
+export default VoteList;

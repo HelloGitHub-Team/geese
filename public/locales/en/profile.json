@@ -2,7 +2,6 @@
   "title": "Profile",
   "page_prev": "Previous",
   "page_next": "Next",
-  "read_button": "View",
   "tabs": {
     "dynamic": "Dynamic",
     "favorite": "Favorites",

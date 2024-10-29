@@ -1,5 +1,10 @@
 import { RepoType } from './repository';
 
+export interface UserTabProps {
+  uid: string;
+  t: (key: string) => string;
+}
+
 export interface User {
   uid: string;
   token: string;

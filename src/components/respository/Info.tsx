@@ -31,8 +31,8 @@ import { numFormat } from '@/utils/util';
 
 import MoreInfo from './MoreInfo';
 import Button from '../buttons/Button';
-import AddCollection from '../collection/AddCollection';
 import BasicDialog from '../dialog/BasicDialog';
+import AddCollection from '../dialog/collection/AddCollection';
 import Dropdown, { option } from '../dropdown/Dropdown';
 import { CustomLink, NoPrefetchLink } from '../links/CustomLink';
 import Message from '../message';
@@ -146,6 +146,18 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
     }
   };
 
+  const handleOptions = async () => {
+    const res = await getFavoriteOptions();
+    if (res.success) {
+      setFavoriteOptions(
+        res.data?.map((item: { fid: any; name: any }) => ({
+          key: item.fid,
+          value: item.name,
+        })) || [{ key: '', value: t('favorite.default') }]
+      );
+    }
+  };
+
   const handleCollect = async () => {
     if (!isLogin) return login();
 
@@ -157,16 +169,8 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
         Message.success(t('favorite.cancel'));
       }
     } else {
-      const res = await getFavoriteOptions();
-      if (res.success) {
-        setFavoriteOptions(
-          res.data?.map((item: { fid: any; name: any }) => ({
-            key: item.fid,
-            value: item.name,
-          })) || [{ key: '', value: t('favorite.default') }]
-        );
-        setOpenModal(true);
-      }
+      handleOptions();
+      setOpenModal(true);
     }
   };
 
@@ -526,7 +530,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
         </div>
         {/* footer */}
         <div className='flex justify-between'>
-          <AddCollection onFinish={getFavoriteOptions} />
+          <AddCollection onFinish={handleOptions} />
           <Button
             className='py-0 px-3'
             variant='gradient'
