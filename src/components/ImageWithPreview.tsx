@@ -74,7 +74,7 @@ const ImageWithPreview = ({ src, alt, ...rest }: ImageWithPreviewProps) => {
             src={src}
             alt={alt}
             className='max-h-full max-w-full object-contain'
-            style={{ cursor: 'zoom-out' }}
+            style={{ cursor: 'zoom-out', maxHeight: '80%' }}
           />
           <button
             className='absolute top-4 right-4 rounded-full bg-black bg-opacity-50 p-1 text-white'

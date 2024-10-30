@@ -98,7 +98,7 @@ const CommentList: React.FC<CommentListProps> = ({ uid, t, i18n_lang }) => {
         );
       })}
       <Pagination
-        hidden={!data.has_more}
+        hidden={data.page_total === 1}
         NextText={t('page_next')}
         PreviousText={t('page_prev')}
         current={data.page}

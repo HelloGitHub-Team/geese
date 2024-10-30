@@ -152,7 +152,7 @@ const RepoData = ({ data, setPage, showStatus }: RepoDataProps) => {
 
       <Pagination
         className='mt-2'
-        hidden={!data.has_more}
+        hidden={data.page_total === 1}
         PreviousText={t('page_prev')}
         NextText={t('page_next')}
         current={data.page}
