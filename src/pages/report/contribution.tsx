@@ -12,17 +12,18 @@ import {
   RankTable,
 } from '@/components/rankTable/RankTable';
 import {
-  ChangeColumnRender,
-  TrendColumnRender,
+  ContributionColumnRender,
+  PositionColumnRender,
+  UserColumnRender,
 } from '@/components/report/Report';
 import Seo from '@/components/Seo';
 
-import { getDBRank } from '@/services/rank';
+import { getContributionRank } from '@/services/rank';
 import { getClientIP } from '@/utils/util';
 
 import { RankPageProps } from '@/types/rank';
 
-const DBEnginesPage: NextPage<RankPageProps> = ({
+const ContributionPage: NextPage<RankPageProps> = ({
   year,
   month,
   monthList,
@@ -33,31 +34,43 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
 
   const onSearch = (key: string, value: string) => {
     if (key === 'month') {
-      router.push(`/report/db-engines/?month=${value}`);
+      router.push(`/report/contribution/?month=${value}`);
     }
     if (key === 'target') {
       router.push(`${value}`);
     }
   };
 
-  // 排名	数据库	分数	对比上月	类型
+  // 排名	 用户	 等级  贡献值	 对比上月
   const columns: any[] = useMemo(
     () => [
-      { key: 'position', title: t('db.thead.position'), width: 80 },
-      { key: 'name', title: t('db.thead.name') },
-      { key: 'rating', title: t('db.thead.rating') },
+      {
+        key: 'position',
+        title: t('contribution.thead.position'),
+        render: PositionColumnRender,
+        width: 80,
+      },
+      {
+        key: 'name',
+        title: t('contribution.thead.name'),
+        render: UserColumnRender,
+        width: 180,
+      },
+      { key: 'rating', title: t('contribution.thead.rating') },
       {
         key: 'change',
-        title: t('db.thead.change'),
-        render: ChangeColumnRender,
+        title: t('contribution.thead.change'),
+        render: ContributionColumnRender,
       },
-      { key: 'db_model', title: t('db.thead.model') },
+      {
+        key: 'total',
+        title: t('contribution.thead.total'),
+      },
     ],
     [i18n.language]
   );
 
-  // 排名	数据库	流行度
-
+  // 排名	 用户	 本月  贡献值
   const md_columns: any[] = useMemo(
     () =>
       columns
@@ -66,20 +79,17 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
             return { ...col, width: 60 };
           }
           if (col.key === 'name') {
-            return { ...col, width: 160 };
-          }
-          if (col.key === 'rating') {
-            return { ...col, width: 80 };
+            return { ...col, width: 140 };
           }
           if (col.key === 'change') {
             return {
               ...col,
-              title: t('db.thead.md_change'),
-              render: TrendColumnRender,
-              width: 60,
+              title: t('contribution.thead.md_change'),
+              render: ContributionColumnRender,
+              width: 80,
             };
           }
-          if (col.key === 'db_model') {
+          if (col.key === 'rating') {
             return null;
           }
           return col;
@@ -90,11 +100,11 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
 
   return (
     <>
-      <Seo title={t('db.title')} />
+      <Seo title={t('contribution.title')} />
       {list ? (
         <div>
           <Navbar
-            middleText={t('db.nav', {
+            middleText={t('contribution.nav', {
               year: year,
               month: getMonthName(month, i18n.language, { forceEnglish: true }),
             })}
@@ -102,8 +112,8 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
 
           <div className='my-2 bg-white px-2 pt-2 dark:bg-gray-800 md:rounded-lg'>
             <RankSearchBar
-              title='DB-Engines'
-              logo='https://img.hellogithub.com/logo/db.jpg'
+              title='HelloGitHub'
+              logo='https://img.hellogithub.com/logo/logo.png'
               i18n_lang={i18n.language}
               monthList={monthList}
               onChange={onSearch}
@@ -125,7 +135,7 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
             <div className='mt-2 rounded-lg border bg-white p-2 text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'>
               <div className='whitespace-pre-wrap leading-8'>
                 <p>
-                  <Trans ns='rank' i18nKey='db.p_text' />
+                  <Trans ns='rank' i18nKey='contribution.p_text' />
                 </p>
               </div>
             </div>
@@ -145,7 +155,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   locale,
 }) => {
   const ip = getClientIP(req);
-  const data = await getDBRank(ip, query['month'] as unknown as number);
+  const data = await getContributionRank(
+    ip,
+    query['month'] as unknown as number
+  );
   if (!data.success) {
     return {
       notFound: true,
@@ -163,4 +176,4 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 };
 
-export default DBEnginesPage;
+export default ContributionPage;

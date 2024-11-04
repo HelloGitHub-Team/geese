@@ -44,5 +44,18 @@
       "nginx": "A free, open-source, lightweight, high-performance web server developed by Igor Sysoev for Rambler.ru, the second most visited site in Russia.",
       "openresty": "A web platform based on Nginx that can run Lua scripts using its LuaJIT engine, created by Yichun Zhang."
     }
+  },
+  "contribution": {
+    "title": "Contribution Ranking",
+    "nav": "{{month}} {{year}} Contribution Ranking",
+    "p_text": "<strong>HelloGitHub Contribution Ranking</strong> is a ranking based on the contribution value of users in the HelloGitHub open source community, updated with the current month's data on the 15th of each month. Users can earn contribution points in the following ways: sharing an open source project earns 5 points, posting a comment earns 2 points, and if a comment is selected as a hot comment, an additional 10 contribution points will be awarded.",
+    "thead": {
+      "position": "Rank",
+      "name": "User",
+      "rating": "Level",
+      "change": "Change",
+      "total": "Total",
+      "md_change": "📊"
+    }
   }
 }

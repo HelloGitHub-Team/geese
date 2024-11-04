@@ -66,7 +66,7 @@ export const RankTable = ({ columns, list, i18n_lang }: TableProps) => {
                 return (
                   <td
                     key={key}
-                    className='truncate whitespace-nowrap bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300 md:px-6 md:py-4'
+                    className='truncate whitespace-nowrap bg-white px-4 py-2 text-left text-sm font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300 md:px-6 md:py-4'
                   >
                     {content}
                   </td>
@@ -114,11 +114,13 @@ export const RankSearchBar = ({
       return i18n_lang == 'en'
         ? [
             { key: '/report/tiobe', value: 'Language' },
+            { key: '/report/contribution', value: 'Contribution' },
             { key: '/report/netcraft', value: 'Server' },
             { key: '/report/db-engines', value: 'Database' },
           ]
         : [
             { key: '/report/tiobe', value: '编程语言' },
+            { key: '/report/contribution', value: '用户贡献' },
             { key: '/report/netcraft', value: '服务器' },
             { key: '/report/db-engines', value: '数据库' },
           ];

@@ -7,6 +7,8 @@ export interface RankDataItem {
   star?: string;
   percent?: boolean;
   total?: number;
+  avatar?: string;
+  uid?: string;
 }
 
 export interface RankData {

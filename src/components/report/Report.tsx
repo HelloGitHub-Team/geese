@@ -1,6 +1,8 @@
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import { IoMdRemove, IoMdTrendingDown, IoMdTrendingUp } from 'react-icons/io';
 
+import { NoPrefetchLink } from '../links/CustomLink';
+
 import { RankDataItem } from '@/types/rank';
 
 export const ChangeColumnRender = (
@@ -53,4 +55,56 @@ export const TrendColumnRender = (
     }
   }
   return <span>{icon}</span>;
+};
+
+export const ContributionColumnRender = (
+  row: RankDataItem,
+  i18n_lang: string
+) => {
+  let text = '-';
+  if (row.change !== null) {
+    text = `+${row.change}`;
+  } else {
+    return <span>{text}</span>;
+  }
+
+  return (
+    <div className='flex items-center'>
+      {i18n_lang === 'en' ? (
+        <span className='text-green-500'>{text}</span>
+      ) : (
+        <span className='text-red-500'>{text}</span>
+      )}
+    </div>
+  );
+};
+
+export const UserColumnRender = (row: RankDataItem) => {
+  return (
+    <NoPrefetchLink href={`/user/${row.uid}`}>
+      <div className='flex cursor-pointer items-center'>
+        <img
+          width='20'
+          height='20'
+          src={row.avatar}
+          alt={`${row.name} avatar`}
+          className='block rounded'
+        />
+        <span className='ml-1 '>{row.name}</span>
+      </div>
+    </NoPrefetchLink>
+  );
+};
+
+export const PositionColumnRender = (row: RankDataItem) => {
+  const positionList = ['🥇', '🥈', '🥉'];
+  return (
+    <div className='flex items-center'>
+      {row.position > 3 ? (
+        <span>{row.position}</span>
+      ) : (
+        <span>{positionList[row.position - 1]}</span>
+      )}
+    </div>
+  );
 };
