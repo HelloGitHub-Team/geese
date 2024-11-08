@@ -2,6 +2,7 @@ import { TagType } from './tag';
 
 export interface SideProps {
   t: (key: string) => string;
+  i18n_lang?: string;
 }
 
 export interface FooterProps {

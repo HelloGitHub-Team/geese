@@ -24,6 +24,9 @@
     "comment_hot": "Hot comment on",
     "comment_hot2": "project",
     "comment_bad": "Posted meaningless/spam comment, deducted 2 contribution points.",
+    "reply_bad": "Posting meaningless/spam replies, deduct 2 contribution points.",
+    "contribute_code": "Contribute code to the community, gain {{value}} contribution points.",
+    "feedback_bug": "Report valuable issues to the community and earn {{value}} contribution points.",
     "submit_repo": "Shared an excellent open source project",
     "default": "Enriched community content",
     "empty": "No activity"

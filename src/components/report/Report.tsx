@@ -1,6 +1,8 @@
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import { IoMdRemove, IoMdTrendingDown, IoMdTrendingUp } from 'react-icons/io';
 
+import { LevelRender } from '@/components/user/Common';
+
 import { NoPrefetchLink } from '../links/CustomLink';
 
 import { RankDataItem } from '@/types/rank';
@@ -59,10 +61,11 @@ export const TrendColumnRender = (
 
 export const ContributionColumnRender = (
   row: RankDataItem,
+  _showPercent: boolean,
   i18n_lang: string
 ) => {
   let text = '-';
-  if (row.change !== null) {
+  if (row.change !== 0) {
     text = `+${row.change}`;
   } else {
     return <span>{text}</span>;
@@ -107,4 +110,12 @@ export const PositionColumnRender = (row: RankDataItem) => {
       )}
     </div>
   );
+};
+
+export const LevelColumnRender = (
+  row: RankDataItem,
+  _showPercent: boolean,
+  i18n_lang: string
+) => {
+  return LevelRender(row.rating as number, true, i18n_lang);
 };

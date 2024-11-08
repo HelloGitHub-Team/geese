@@ -13,6 +13,7 @@ import {
 } from '@/components/rankTable/RankTable';
 import {
   ContributionColumnRender,
+  LevelColumnRender,
   PositionColumnRender,
   UserColumnRender,
 } from '@/components/report/Report';
@@ -56,7 +57,11 @@ const ContributionPage: NextPage<RankPageProps> = ({
         render: UserColumnRender,
         width: 180,
       },
-      { key: 'rating', title: t('contribution.thead.rating') },
+      {
+        key: 'rating',
+        title: t('contribution.thead.rating'),
+        render: LevelColumnRender,
+      },
       {
         key: 'change',
         title: t('contribution.thead.change'),

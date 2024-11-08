@@ -34,7 +34,7 @@ const RepoLink: React.FC<{ record: DynamicRecordItem; fallback?: string }> = ({
 
 const DynamicRecordList: React.FC<Props> = ({ items, t, i18n_lang }) => {
   const messageRenderers: Record<string, MessageRenderer> = {
-    发布项目评论: ({ timeText, recordItem, value, t }) => (
+    发布项目评论: ({ timeText, recordItem, value }) => (
       <>
         {timeText}
         {t('dynamic.comment')}
@@ -42,7 +42,7 @@ const DynamicRecordList: React.FC<Props> = ({ items, t, i18n_lang }) => {
         {t('dynamic.value_text', { value })}
       </>
     ),
-    评论被置顶: ({ timeText, recordItem, value, t }) => (
+    评论被置顶: ({ timeText, recordItem, value }) => (
       <>
         {timeText}
         {t('dynamic.comment_hot')}
@@ -51,13 +51,31 @@ const DynamicRecordList: React.FC<Props> = ({ items, t, i18n_lang }) => {
         {t('dynamic.value_text', { value })}
       </>
     ),
-    发布恶意评测: ({ timeText, t }) => (
+    发布恶意评测: ({ timeText }) => (
       <>
         {timeText}
         {t('dynamic.comment_bad')}
       </>
     ),
-    提交项目: ({ timeText, recordItem, value, t }) => (
+    发布恶意回复: ({ timeText }) => (
+      <>
+        {timeText}
+        {t('dynamic.reply_bad')}
+      </>
+    ),
+    贡献代码: ({ timeText, value }) => (
+      <>
+        {timeText}
+        {t('dynamic.contribute_code', { value })}
+      </>
+    ),
+    反馈问题: ({ timeText, value }) => (
+      <>
+        {timeText}
+        {t('dynamic.feedback_bug', { value })}
+      </>
+    ),
+    提交项目: ({ timeText, recordItem, value }) => (
       <>
         {timeText}
         {t('dynamic.submit_repo')}
@@ -78,9 +96,11 @@ const DynamicRecordList: React.FC<Props> = ({ items, t, i18n_lang }) => {
   const renderDynamicText = (item: DynamicRecord): JSX.Element => {
     const { dynamic_type, item: recordItem, remark, value, created_at } = item;
     const timeText = `${fromNow(created_at, i18n_lang)}，`;
-
     // 非贡献类型或无记录项时返回默认消息
-    if (dynamic_type !== 'contribute' || !recordItem) {
+    if (
+      (dynamic_type == 'comment' && !recordItem) ||
+      (dynamic_type == 'repository' && !recordItem)
+    ) {
       return renderDefaultMessage(timeText, value);
     }
 

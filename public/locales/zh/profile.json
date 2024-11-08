@@ -24,6 +24,9 @@
     "comment_hot": "对开源项目",
     "comment_hot2": "的评论被选为热评",
     "comment_bad": "发布无意义/灌水评论，扣除 2 点贡献值。",
+    "reply_bad": "发布无意义/灌水回复，扣除 2 点贡献值。",
+    "contribute_code": "为社区贡献代码，获得 {{value}} 点贡献值。",
+    "feedback_bug": "向社区反馈有价值的问题，获得 {{value}} 点贡献值。",
     "submit_repo": "分享优秀的开源项目",
     "default": "丰富社区内容资源",
     "empty": "暂无动态"

@@ -2,7 +2,7 @@ export interface RankDataItem {
   [key: string]: string | number | boolean | undefined;
   name: string;
   position: number;
-  rating: string;
+  rating: string | number;
   change: number;
   star?: string;
   percent?: boolean;

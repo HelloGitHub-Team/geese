@@ -8,6 +8,7 @@ import clsxm from '@/lib/clsxm';
 
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
+import { LevelRender } from '@/components/user/Common';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
@@ -57,12 +58,12 @@ const UserProfile: React.FC<{
       </div>
 
       <div className='flex flex-col md:ml-4 md:flex-1 md:justify-center'>
-        <div className='mx-auto mt-2 flex w-32 items-center justify-center md:mx-0 md:mb-1 md:mt-0 md:w-80 md:justify-start'>
-          <div className='self-end overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold dark:text-gray-300 md:w-px md:max-w-fit md:flex-1 md:self-center md:text-lg'>
+        <div className='mx-auto mt-2 mb-1 flex w-60 items-center justify-center md:mx-0 md:mb-0 md:mt-0 md:w-80 md:justify-start'>
+          <div className='w-30 self-end overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold dark:text-gray-300 md:w-px md:max-w-fit md:flex-1 md:self-center md:text-lg'>
             {nickname}
           </div>
-          <div className='ml-1 self-end text-sm font-bold text-blue-500 md:ml-2 md:self-center'>
-            Lv{level}
+          <div className='ml-1 self-end text-base text-blue-500 md:ml-2 md:self-center'>
+            {LevelRender(level, true, i18n.language)}
           </div>
         </div>
 

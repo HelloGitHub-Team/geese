@@ -8,7 +8,7 @@ HelloGitHub 社区等级是一套用于统计开源爱好者，为 HelloGitHub �
 
 HelloGitHub 社区等级是根据贡献值实时计算和升级。
 
-![](https://img.hellogithub.com/article/level.png)
+![](https://img.hellogithub.com/article/lcwa8rGSYoX0JAW_1731061719.png)
 
 ## 获得和扣除贡献值
 
