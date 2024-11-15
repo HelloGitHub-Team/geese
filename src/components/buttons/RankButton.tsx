@@ -19,7 +19,6 @@ const RankButton = ({ t, type = '' }: RankButtonProps) => {
     { key: '/periodical', value: t('header.periodical') },
     { key: '/report/tiobe', value: t('header.rank') },
     { key: '/article', value: t('header.article') },
-    { key: '/onefile', value: 'OneFile' },
   ];
 
   const onChange = async (opt: option) => {

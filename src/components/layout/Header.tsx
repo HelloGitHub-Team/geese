@@ -76,9 +76,6 @@ const Header = () => {
           <li className={liClassName('/article')}>
             <HeaderBtn pathname='/article'>{t('header.article')}</HeaderBtn>
           </li>
-          <li className={liClassName('/onefile')}>
-            <HeaderBtn pathname='/onefile'>OneFile</HeaderBtn>
-          </li>
           {/* 移动端显示的登录按钮和头像 */}
           <li className='block md:hidden'>
             {!isLogin ? <LoginButton t={t} /> : <AvatarWithDropdown t={t} />}

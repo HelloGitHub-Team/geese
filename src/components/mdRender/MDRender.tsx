@@ -1,6 +1,7 @@
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark, vs } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import remarkGfm from 'remark-gfm';
 
 import clsxm from '@/lib/clsxm';
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -32,7 +33,7 @@ export const CodeRender = ({ code, lanuage }: CodeProps) => {
     }
   } else {
     return (
-      <span className='rounded-sm bg-gray-100 px-1.5 py-0.5 text-sm  font-medium dark:bg-gray-600'>
+      <span className='rounded-sm bg-gray-100 px-1.5 py-0.5 text-sm font-medium dark:bg-gray-600'>
         {code}
       </span>
     );
@@ -47,8 +48,9 @@ export const MDRender = ({
 }: MDRenderProps) => {
   const { theme } = useLoginContext();
 
-  const getCode = (theme: string) => {
+  const getComponents = (theme: string) => {
     return {
+      // 代码块渲染
       code({ node: _node, inline, className, children, ...props }: any) {
         const match = /language-(\w+)/.exec(className || '') || 'shell';
         if (!inline && match) {
@@ -79,7 +81,7 @@ export const MDRender = ({
         } else {
           return (
             <span
-              className='rounded-sm bg-gray-100 px-1.5 py-0.5 text-sm  font-medium dark:bg-gray-600'
+              className='rounded-sm bg-gray-100 px-1.5 py-0.5 text-sm font-medium dark:bg-gray-600'
               {...props}
             >
               {children}
@@ -92,7 +94,10 @@ export const MDRender = ({
 
   return (
     <div className={clsxm('', className)} {...rest}>
-      <ReactMarkdown components={getCode(theme)}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={getComponents(theme)}
+      >
         {mdString || children}
       </ReactMarkdown>
     </div>
