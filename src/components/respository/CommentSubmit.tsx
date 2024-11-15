@@ -31,13 +31,10 @@ function CommentSubmit(props: CommentSubmitProps) {
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
     const { value } = e.currentTarget;
-    if (value.length == 0) {
-      e.currentTarget.style.height = `58px`;
-    } else {
-      // 自动增加输入框的高度
-      // 2 是 上下两个 border 的高度
-      e.currentTarget.style.height = `${e.currentTarget.scrollHeight + 2}px`;
-    }
+
+    e.currentTarget.style.height = 'auto';
+    const newHeight = Math.max(e.currentTarget.scrollHeight + 2, 58);
+    e.currentTarget.style.height = `${newHeight}px`;
 
     setCommentData({
       ...commentData,
