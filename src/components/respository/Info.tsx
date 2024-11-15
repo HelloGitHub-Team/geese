@@ -114,6 +114,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
         setIsCollected(res.is_collected);
       }
     };
+    setVoteTotal(repo.votes);
     fetchUserRepoStatus();
   }, [repo.rid]);
 

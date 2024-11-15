@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 
 import GifPlayButton from './loading/GifPlayButton';
@@ -17,6 +17,11 @@ const ImageWithPreview = ({ src, alt, ...rest }: ImageWithPreviewProps) => {
   );
   const sourceIsGif = src?.endsWith('gif');
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+
+  // 添加 useEffect 监听 src 变化
+  useEffect(() => {
+    setImgSrc(src?.endsWith('gif') ? `${src}${gifCoverImage}` : src);
+  }, [src]);
 
   const handleLoadGif = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -45,6 +50,7 @@ const ImageWithPreview = ({ src, alt, ...rest }: ImageWithPreviewProps) => {
       <div className='relative flex'>
         <img
           {...rest}
+          key={src} // 添加 key 属性
           src={imgSrc}
           alt={alt}
           style={{
