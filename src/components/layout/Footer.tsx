@@ -49,7 +49,7 @@ const Footer = ({ t, isLite }: FooterProps) => {
 
       <FooterLink
         className='mt-2'
-        href='https://www.ucloud.cn/site/active/gpu.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display'
+        href='https://www.ucloud.cn/site/active/kuaijiesale.html?utm_term=logo&utm_campaign=hellogithub&utm_source=otherdsp&utm_medium=display&ytag=logo_hellogithub_otherdsp_display'
       >
         <span>{t('footer.server_sponsor')}</span>
         <span className='mx-0.5 align-[1px]'>
