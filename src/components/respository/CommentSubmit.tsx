@@ -30,7 +30,7 @@ function CommentSubmit(props: CommentSubmitProps) {
   const { t, belongId, className, onSuccess, onFail } = props;
 
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
-    const { value } = e.currentTarget;
+    const value = e.currentTarget.value.trim();
 
     e.currentTarget.style.height = 'auto';
     const newHeight = Math.max(e.currentTarget.scrollHeight + 2, 58);
