@@ -35,7 +35,7 @@ export const LevelRender = (level: number, showLevel = true, locale = 'zh') => {
   };
 
   const levelStyles = {
-    1: 'text-gray-600',
+    1: 'text-gray-500',
     2: 'text-blue-500',
     3: 'text-green-500',
     4: 'text-purple-500',

@@ -8,7 +8,7 @@ const defaultMeta = {
   title: 'HelloGitHub',
   siteName: 'HelloGitHub',
   description:
-    '分享 GitHub 上有趣和入门级的开源项目，找开源项目就上 HelloGitHub',
+    '分享 GitHub 上有趣和入门级的开源项目，找开源项目就上 HelloGitHub 开源社区',
   /** Without additional '/' on the end, e.g. https://theodorusclarence.com */
   url: 'https://hellogithub.com',
   type: 'website',
