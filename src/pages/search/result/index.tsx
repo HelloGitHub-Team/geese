@@ -19,6 +19,17 @@ import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
 import { SearchItemType, SearchResponse } from '@/types/search';
+import IndexBar from '@/components/navbar/IndexBar';
+import { indexRankBy, indexSortBy } from '@/utils/constants';
+
+// TODO 需要测试
+type QueryProps = {
+  sort_by?: string;
+  tid?: string;
+  rank_by?: string;
+  year?: number;
+  month?: number;
+};
 
 const Result: NextPage = () => {
   const router = useRouter();
@@ -54,10 +65,29 @@ const Result: NextPage = () => {
     rootMargin: '0px 0px 100px 0px',
   });
 
+  const {
+    tid = 'all',
+    sort_by = 'featured',
+    rank_by = 'newest',
+    year,
+    month,
+  }: QueryProps = router.query;
+  const sortBy = indexSortBy.includes(sort_by) ? sort_by : 'featured';
+  const rankBy = indexRankBy.includes(rank_by) ? rank_by : 'newest';
+
   return (
     <>
       <Seo title={t('title')} description={t('description')} />
       <Navbar middleText={t('navbar')} />
+      <IndexBar
+        tid={tid}
+        sortBy={sortBy}
+        t={t}
+        i18n_lang={i18n.language}
+        rankBy={rankBy}
+        year={year}
+        month={month}
+      />
       <div className='h-screen'>
         <div className='divide-y divide-gray-100 overflow-y-hidden bg-white dark:divide-gray-700 md:rounded-lg'>
           {list.map((item) => (

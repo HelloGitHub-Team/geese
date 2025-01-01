@@ -31,10 +31,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div>{children}</div>
         ) : (
           <div className='flex flex-row md:border-none'>
-            {pathname === '/' && <TagList />}
+            {(pathname === '/' || pathname === '/search/result') && <TagList />}
             <div
               className={`relative ${
-                pathname === '/'
+                pathname === '/' || pathname === '/search/result'
                   ? 'w-0 flex-grow lg:w-7/12'
                   : 'w-0 flex-grow lg:w-9/12'
               }`}
