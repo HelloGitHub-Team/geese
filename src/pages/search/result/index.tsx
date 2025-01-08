@@ -11,7 +11,7 @@ import RepositoryItem from '@/components/home/Item';
 import ItemBottom from '@/components/home/ItemBottom';
 import Loading from '@/components/loading/Loading';
 import { SearchSkeleton } from '@/components/loading/skeleton';
-import Navbar from '@/components/navbar/Navbar';
+import SearchNavbar from '@/components/search/SearchNavbar';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
 
@@ -19,17 +19,6 @@ import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 
 import { SearchItemType, SearchResponse } from '@/types/search';
-import IndexBar from '@/components/navbar/IndexBar';
-import { indexRankBy, indexSortBy } from '@/utils/constants';
-
-// TODO 需要测试
-type QueryProps = {
-  sort_by?: string;
-  tid?: string;
-  rank_by?: string;
-  year?: number;
-  month?: number;
-};
 
 const Result: NextPage = () => {
   const router = useRouter();
@@ -64,29 +53,16 @@ const Result: NextPage = () => {
     onLoadMore: () => setSize(pageIndex + 1),
     rootMargin: '0px 0px 100px 0px',
   });
-
-  const {
-    tid = 'all',
-    sort_by = 'featured',
-    rank_by = 'newest',
-    year,
-    month,
-  }: QueryProps = router.query;
-  const sortBy = indexSortBy.includes(sort_by) ? sort_by : 'featured';
-  const rankBy = indexRankBy.includes(rank_by) ? rank_by : 'newest';
-
+  // TODO: SearchNavbar
   return (
     <>
       <Seo title={t('title')} description={t('description')} />
-      <Navbar middleText={t('navbar')} />
-      <IndexBar
-        tid={tid}
-        sortBy={sortBy}
+      <SearchNavbar
+        middleText={t('navbar')}
         t={t}
-        i18n_lang={i18n.language}
-        rankBy={rankBy}
-        year={year}
-        month={month}
+        i18n_lang={''}
+        sortBy={''}
+        rankBy={''}
       />
       <div className='h-screen'>
         <div className='divide-y divide-gray-100 overflow-y-hidden bg-white dark:divide-gray-700 md:rounded-lg'>
