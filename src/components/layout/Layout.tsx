@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { ReactNode, useMemo } from 'react';
 
 import Header from '@/components/layout/Header';
+import SearchTagList from '@/components/search/SearchTagList';
 import { Side } from '@/components/side/Side';
 
 import TagList from '../side/TagList';
@@ -32,6 +33,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         ) : (
           <div className='flex flex-row md:border-none'>
             {pathname === '/' && <TagList />}
+            {pathname === '/search/result' && <SearchTagList />}
             <div
               className={`relative ${
                 pathname === '/'

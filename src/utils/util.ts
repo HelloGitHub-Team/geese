@@ -90,3 +90,12 @@ export const constructURL = (params: { [key: string]: any }) => {
 
   return `/?${queryString}`;
 };
+
+export const makeUrl = (path: string, params: { [key: string]: any }) => {
+  const queryString = Object.entries(params)
+    .filter(([_, value]) => value !== undefined && value !== null)
+    .map(([key, value]) => `${key}=${value}`)
+    .join('&');
+
+  return `${path}?${queryString}`;
+};
