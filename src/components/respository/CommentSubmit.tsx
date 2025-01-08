@@ -38,7 +38,7 @@ function CommentSubmit(props: CommentSubmitProps) {
 
     setCommentData({
       ...commentData,
-      comment: value.trim(),
+      comment: value,
       height: e.currentTarget.scrollHeight + 2,
     });
   };

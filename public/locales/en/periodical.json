@@ -21,7 +21,10 @@
   "page_next": "Next",
   "category": {
     "title": "HelloGitHub Monthly {{name}} Collection",
-    "nav": "Category",
+    "nav": {
+      "active": "Active",
+      "last": "Default"
+    },
     "p_text": "Here you can read past volumes of HelloGitHub Monthly by <strong>category</strong>. You are currently viewing the",
     "p_text2": "collection."
   },

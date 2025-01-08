@@ -30,7 +30,9 @@ export interface PeriodicalItem {
   watch: number;
   image_url: string | null;
   vote_total: number;
+  volume_num: number;
   publish_at: string;
+  updated_at: string;
 }
 
 export interface PeriodicalItemProps {
@@ -54,6 +56,7 @@ export type VolumeAll = {
 
 export interface CategoryPageProps {
   category: Category;
+  sortBy: string | null;
 }
 
 export interface Category {

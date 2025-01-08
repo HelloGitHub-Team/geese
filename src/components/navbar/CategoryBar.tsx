@@ -5,10 +5,12 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { NoPrefetchLink } from '@/components/links/CustomLink';
 
 type Props = {
+  category: string;
+  middleText: string;
   t: (key: string) => string;
 };
 
-const ArticleNavbar = ({ t }: Props) => {
+const CategoryNavbar = ({ category, middleText, t }: Props) => {
   const router = useRouter();
   const { sort_by = 'last' } = router.query;
 
@@ -39,15 +41,25 @@ const ArticleNavbar = ({ t }: Props) => {
           />
         </div>
         <div className='w-3/4 truncate text-center font-bold dark:text-gray-300'>
-          {t('nav.title')}
+          {middleText}
         </div>
         <div className='flex justify-end gap-2.5 text-sm text-gray-500 dark:text-gray-400'>
-          <NoPrefetchLink href='/article?sort_by=last'>
-            <a className={linkClassName('last')}>{t('nav.last')}</a>
+          <NoPrefetchLink
+            href={`/periodical/category/${encodeURIComponent(
+              category
+            )}?sort_by=last`}
+          >
+            <a className={linkClassName('last')}>{t('category.nav.last')}</a>
           </NoPrefetchLink>
           <span className='border-r border-gray-100 dark:border-gray-700' />
-          <NoPrefetchLink href='/article?sort_by=hot'>
-            <a className={linkClassName('hot')}>{t('nav.hot')}</a>
+          <NoPrefetchLink
+            href={`/periodical/category/${encodeURIComponent(
+              category
+            )}?sort_by=active`}
+          >
+            <a className={linkClassName('active')}>
+              {t('category.nav.active')}
+            </a>
           </NoPrefetchLink>
         </div>
       </div>
@@ -55,4 +67,4 @@ const ArticleNavbar = ({ t }: Props) => {
   );
 };
 
-export default ArticleNavbar;
+export default CategoryNavbar;

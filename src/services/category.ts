@@ -7,18 +7,21 @@ import { Category } from '@/types/periodical';
 export const getCategory = async (
   ip: string,
   name: string,
-  page: number
+  page: number,
+  sortBy: string | null
 ): Promise<Category> => {
-  const req: RequestInit = {};
-  req.headers = { 'x-real-ip': ip, 'x-forwarded-for': ip };
+  const req: RequestInit = {
+    headers: {
+      'x-real-ip': ip,
+      'x-forwarded-for': ip,
+    },
+  };
 
   try {
-    let url;
-    if (page > 1) {
-      url = makeUrl(`/periodical/category/${name}?page=${page}`);
-    } else {
-      url = makeUrl(`/periodical/category/${name}`);
-    }
+    const url = makeUrl(`/periodical/category/${encodeURIComponent(name)}`, {
+      page: page > 1 ? page : null, // 仅当 page > 1 时添加该参数
+      sort_by: sortBy ? sortBy : null,
+    });
     const data = await fetcher<Category>(url, req);
     return data;
   } catch (error) {

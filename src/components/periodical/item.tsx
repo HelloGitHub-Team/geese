@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
-import { GoClock, GoRepoForked } from 'react-icons/go';
+import { GoCalendar, GoClock, GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 
 import { CustomLink, NoPrefetchLink } from '@/components/links/CustomLink';
@@ -14,6 +14,35 @@ import ImageWithPreview from '../ImageWithPreview';
 import { MDRender } from '../mdRender/MDRender';
 
 import { PeriodicalItem, PeriodicalItemProps } from '@/types/periodical';
+
+const InfoItem = ({
+  icon: Icon,
+  text,
+  link,
+  className = '',
+}: {
+  icon: React.ElementType;
+  text: string | number;
+  link?: string;
+  className?: string;
+}) => {
+  const content = (
+    <div className={`mr-2 flex items-center ${className}`}>
+      <Icon size={15} className='mr-0.5' />
+      {text}
+    </div>
+  );
+
+  if (link) {
+    return (
+      <CustomLink href={link} className='hover:text-blue-500'>
+        {content}
+      </CustomLink>
+    );
+  }
+
+  return content;
+};
 
 const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
   const { t, i18n } = useTranslation('periodical');
@@ -31,7 +60,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
             <CustomLink href={item.github_url} className='truncate'>
               <div
                 onClick={() => onClickLink(item)}
-                className='truncate text-ellipsis text-xl capitalize text-blue-500 hover:underline active:text-blue-500'
+                className='truncate text-ellipsis text-xl text-blue-500 hover:underline active:text-blue-500'
               >
                 {item.name}
               </div>
@@ -39,18 +68,26 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
           </div>
           {/* stars forks watch */}
           <div className='flex flex-row text-sm text-gray-500  dark:text-gray-400 md:text-base'>
-            <div className='mr-2 flex items-center'>
-              <IoIosStarOutline size={15} className='mr-0.5' />
-              Star {numFormat(item.stars, 1)}
-            </div>
-            <div className='mr-2 flex items-center'>
-              <GoRepoForked size={15} className='mr-0.5' />
-              Fork {numFormat(item.forks, 1)}
-            </div>
-            <div className='mr-2 flex items-center'>
-              <GoClock size={15} className='mr-0.5' />
-              {fromNow(item.publish_at, i18n.language)}
-            </div>
+            <InfoItem
+              icon={IoIosStarOutline}
+              text={`Star ${numFormat(item.stars, 1)}`}
+            />
+            <InfoItem
+              icon={GoRepoForked}
+              text={`Fork ${numFormat(item.forks, 1)}`}
+              className='hidden md:flex'
+            />
+            {item.updated_at && (
+              <InfoItem
+                icon={GoCalendar}
+                text={`Vol.${item.volume_num}`}
+                link={`/periodical/volume/${item.volume_num}`}
+              />
+            )}
+            <InfoItem
+              icon={GoClock}
+              text={fromNow(item.updated_at || item.publish_at, i18n.language)}
+            />
           </div>
         </div>
         <div className='flex h-14 flex-1 flex-row items-center justify-end pr-1'>

@@ -21,7 +21,10 @@
   "page_next": "下一页",
   "category": {
     "title": "《HelloGitHub 月刊》{{name}} 集合",
-    "nav": "分类",
+    "nav": {
+      "active": "活跃",
+      "last": "默认"
+    },
     "p_text": "这里是按照「<strong>分类</strong>」阅读往期的 HelloGitHub 月刊内容， 您目前在查看",
     "p_text2": "集合。"
   },

@@ -4,7 +4,7 @@ import { Trans, useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useMemo } from 'react';
 
-import Navbar from '@/components/navbar/Navbar';
+import CategoryNavbar from '@/components/navbar/CategoryBar';
 import Pagination from '@/components/pagination/Pagination';
 import PeriodItem from '@/components/periodical/item';
 import Seo from '@/components/Seo';
@@ -12,6 +12,7 @@ import ToTop from '@/components/toTop/ToTop';
 
 import { getCategory } from '@/services/category';
 import { nameMap } from '@/utils/constants';
+import stringify from '@/utils/qs-stringify';
 import { getClientIP } from '@/utils/util';
 
 import {
@@ -20,7 +21,10 @@ import {
   PeriodicalItem,
 } from '@/types/periodical';
 
-const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
+const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({
+  category,
+  sortBy,
+}) => {
   const { t, i18n } = useTranslation('periodical');
 
   const router = useRouter();
@@ -45,9 +49,13 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
 
   const onPageChange = (page: number) => {
     const name = category?.category_name;
-    router.push(
-      `/periodical/category/${encodeURIComponent(name)}?page=${page}`
-    );
+    const nextURL = `/periodical/category/${encodeURIComponent(
+      name
+    )}?${stringify({
+      page: page,
+      sort_by: sortBy ? sortBy : null,
+    })}`;
+    router.push(nextURL);
   };
 
   if (router.isFallback) {
@@ -55,8 +63,7 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
       <div className='mt-20 flex animate-pulse'>
         <Seo title='HelloGitHub 月刊' />
         <div className='ml-4 mt-2 w-full'>
-          <h3 className='h-4 rounded-md bg-gray-200'></h3>
-
+          <h3 className='h-4 rounded-md bg-gray-200' />
           <ul className='mt-5 space-y-3'>
             <li className='h-4 w-full rounded-md bg-gray-200' />
             <li className='h-4 w-full rounded-md bg-gray-200' />
@@ -72,8 +79,11 @@ const PeriodicalCategoryPage: NextPage<CategoryPageProps> = ({ category }) => {
     <>
       <Seo title={t('category.title', { name: categoryItem.name })} />
       <div className='relative pb-6'>
-        <Navbar middleText={categoryItem.name} endText={t('category.nav')} />
-
+        <CategoryNavbar
+          category={category.category_name}
+          middleText={categoryItem.name}
+          t={t}
+        />
         <div className='my-2 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
           <div className='text-normal mb-4 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'>
             <div className='whitespace-pre-wrap rounded-lg border bg-white p-2 font-normal leading-8 text-gray-500 dark:bg-gray-800 dark:text-gray-300'>
@@ -122,10 +132,12 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const ip = getClientIP(req);
   const name = query['name'] as string;
+  const sortBy = query['sort_by']?.toString() ?? null;
   const data = await getCategory(
     ip,
-    encodeURIComponent(name),
-    query['page'] as unknown as number
+    name,
+    query['page'] as unknown as number,
+    sortBy
   );
   if (!data.success) {
     return {
@@ -135,6 +147,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     return {
       props: {
         category: data,
+        sortBy: sortBy,
         ...(await serverSideTranslations(locale as string, [
           'common',
           'periodical',

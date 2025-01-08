@@ -32,6 +32,14 @@ export default function TagList() {
     month,
   } = router.query;
   const [tags, setTags] = useState<Tag[]>([]);
+  const [maxHeight, setMaxHeight] = useState<number>(444); // 初始为默认高度
+
+  // 动态更新 maxHeight 基于屏幕高度
+  const updateMaxHeight = () => {
+    // 根据需求动态计算，例如屏幕高度的 60%
+    const calculatedHeight = Math.max(window.innerHeight * 0.6, 300); // 最小值为 300px
+    setMaxHeight(calculatedHeight);
+  };
 
   useEffect(() => {
     const initTags = async () => {
@@ -44,6 +52,14 @@ export default function TagList() {
 
     if (!isMobile()) {
       initTags();
+      // 初始化计算高度
+      updateMaxHeight();
+      // 监听窗口大小变化，更新高度
+      window.addEventListener('resize', updateMaxHeight);
+      // 清理事件监听器
+      return () => {
+        window.removeEventListener('resize', updateMaxHeight);
+      };
     }
   }, []); // 确保 useEffect 只在组件挂载时执行
 
@@ -70,7 +86,10 @@ export default function TagList() {
               </div>
             </div>
           </div>
-          <div className='hidden-scrollbar max-h-[444px] overflow-y-auto'>
+          <div
+            className='hidden-scrollbar overflow-y-auto'
+            style={{ maxHeight: `${maxHeight}px` }}
+          >
             {!tags.length && <TagListSkeleton />}
             {tags.map((item: Tag) => (
               <Link
