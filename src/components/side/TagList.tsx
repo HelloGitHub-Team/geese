@@ -14,7 +14,11 @@ import { TagListSkeleton } from '../loading/skeleton';
 
 import { Tag } from '@/types/tag';
 
-export default function TagList() {
+interface TagListProps {
+  topValue: string;
+}
+
+export default function TagList({ topValue }: TagListProps) {
   const { t, i18n } = useTranslation('home');
   const defaultTag: Tag = {
     name: '综合',
@@ -76,7 +80,7 @@ export default function TagList() {
 
   return (
     <div className='hidden max-w-[162px] shrink-0 lg:block lg:w-2/12 lg:grow-0'>
-      <div className='fixed top-16 pl-2'>
+      <div className='fixed pl-2' style={{ top: topValue }}>
         <div className='w-[140px] rounded-lg bg-white px-3 py-2 dark:bg-gray-800'>
           <div className='px-1 pb-1'>
             <div className='border-b border-b-gray-200 pb-2 dark:border-b-gray-600 dark:text-gray-300'>

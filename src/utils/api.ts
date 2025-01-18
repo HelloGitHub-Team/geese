@@ -2,8 +2,8 @@ import stringify from './qs-stringify';
 
 export const ITEMS_PER_PAGE = 10;
 
-const LOCAL_API_HOST = 'https://frp.hellogithub.com';
-// const LOCAL_API_HOST = 'http://127.0.0.1:8001';
+// const LOCAL_API_HOST = 'https://frp.hellogithub.com';
+const LOCAL_API_HOST = 'http://127.0.0.1:8001';
 const PRODUCTION_API_HOST = 'https://api.hellogithub.com';
 const ABROAD_API_HOST = 'https://abroad.hellogithub.com';
 

@@ -13,14 +13,52 @@ import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
 import { RepoModal } from '@/components/dialog/RepoModal';
 import AvatarWithDropdown from '@/components/dropdown/AvatarWithDropdown';
 
+import { getHeaderAd } from '@/services/home';
+
+import TopBanner from './TopBanner';
 import { LoginButton } from '../buttons/LoginButton';
 import SearchInput from '../search/SearchInput';
 
-const Header = () => {
+import { AdvertItem } from '@/types/home';
+
+interface Props {
+  hiddenAd: () => void;
+  showAd: () => void;
+}
+
+const Header = ({ hiddenAd, showAd }: Props) => {
   const router = useRouter();
   const { isLogin } = useLoginContext();
   const [curPath, setCurPath] = useState('');
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+  const [adData, setAdData] = useState<AdvertItem | null>(null);
+  const [_, setHasHeaderAd] = useState(false);
+
+  const handleCloseAd = () => {
+    hiddenAd();
+    setHasHeaderAd(false);
+  };
+
+  const initHeaderAd = async () => {
+    const res = await getHeaderAd();
+    if (res.success) {
+      if (res.data.length > 0) {
+        if (localStorage.adClosed === res.data[0].aid) {
+          setHasHeaderAd(false);
+        } else {
+          showAd();
+          setHasHeaderAd(true);
+          setAdData(res.data[0]);
+        }
+      } else {
+        setHasHeaderAd(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    initHeaderAd();
+  }, []);
 
   useEffect(() => {
     setCurPath(router.pathname);
@@ -40,7 +78,14 @@ const Header = () => {
     );
 
   return (
-    <div className='fixed z-10 h-14 w-full bg-white shadow-sm backdrop-blur dark:border dark:border-gray-50/[0.06] dark:bg-transparent'>
+    <div className='fixed z-10 w-full bg-white shadow-sm backdrop-blur dark:border dark:border-gray-50/[0.06] dark:bg-transparent'>
+      {adData && (
+        <TopBanner
+          i18n_lang={i18n.language}
+          data={adData}
+          onClose={handleCloseAd}
+        />
+      )}
       <nav className='mx-auto flex max-w-5xl items-center justify-between px-2 py-2 md:py-0 lg:px-0 xl:max-w-5xl 2xl:max-w-7xl'>
         {/* pc 端显示的 logo */}
         <span className='hidden py-2 md:block'>

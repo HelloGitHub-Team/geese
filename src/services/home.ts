@@ -5,6 +5,7 @@ import { makeUrl } from '@/utils/api';
 import { fetcher } from './base';
 
 import {
+  AdvertItems,
   HomeItem,
   HomeItems,
   RecommendItems,
@@ -96,5 +97,12 @@ export const DataContext = createContext<HomeItemData>([]);
 
 export const getSitemap = async (): Promise<Sitemap> => {
   const data = await fetcher<Sitemap>(makeUrl(`/sitemap/`));
+  return data;
+};
+
+export const getHeaderAd = async (): Promise<AdvertItems> => {
+  const data = await fetcher<AdvertItems>(
+    makeUrl(`/sponsor/`, { position: 'top' })
+  );
   return data;
 };

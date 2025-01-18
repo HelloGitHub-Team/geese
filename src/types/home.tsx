@@ -68,6 +68,8 @@ export interface AdvertItem {
   is_reward: boolean;
   year?: number;
   day?: number;
+  text?: string;
+  text_en?: string;
   percent: number;
 }
 

@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 
 import Header from '@/components/layout/Header';
 import { Side } from '@/components/side/Side';
-
-import TagList from '../side/TagList';
+import TagList from '@/components/side/TagList';
 
 interface LayoutProps {
   children: ReactNode;
@@ -13,6 +12,15 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const router = useRouter();
   const { pathname } = router;
+  const [showHeaderAd, setShowHeaderAd] = useState(false);
+
+  const handleShowAd = () => {
+    setShowHeaderAd(true);
+  };
+
+  const handleColseAd = () => {
+    setShowHeaderAd(false);
+  };
 
   const isSinglePage = useMemo(() => {
     const singlePageRoutes = [
@@ -23,15 +31,21 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     return singlePageRoutes.includes(pathname);
   }, [pathname]);
 
+  const ptValue = showHeaderAd ? '5.5rem' : '3.5rem';
+  const topValue = showHeaderAd ? '6rem' : '4rem';
+
   return (
     <>
-      <Header />
-      <main className='container mx-auto px-0 pt-14 xl:px-40 2xl:px-56'>
+      <Header hiddenAd={handleColseAd} showAd={handleShowAd} />
+      <main
+        className='container mx-auto px-0 xl:px-40 2xl:px-56'
+        style={{ paddingTop: ptValue }}
+      >
         {isSinglePage ? (
           <div>{children}</div>
         ) : (
           <div className='flex flex-row md:border-none'>
-            {pathname === '/' && <TagList />}
+            {pathname === '/' && <TagList topValue={topValue} />}
             <div
               className={`relative ${
                 pathname === '/'
@@ -42,7 +56,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               {children}
             </div>
             <div className='relative hidden w-3/12 shrink-0 md:block'>
-              <Side isHome={pathname === '/'} />
+              <Side isHome={pathname === '/'} topValue={topValue} />
             </div>
           </div>
         )}

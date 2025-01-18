@@ -14,7 +14,12 @@ import UserStatus from './UserStatus';
 
 import { AdvertItems } from '@/types/home';
 
-export const Side = ({ isHome }: { isHome: boolean }) => {
+interface Props {
+  isHome: boolean;
+  topValue: string;
+}
+
+export const Side = ({ isHome, topValue }: Props) => {
   const { t, i18n } = useTranslation('common');
   const [displayAdOnly, setDisplayAdOnly] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -64,6 +69,7 @@ export const Side = ({ isHome }: { isHome: boolean }) => {
           displayAdOnly={displayAdOnly}
           t={t}
           i18n_lang={i18n.language}
+          topValue={topValue}
         />
       )}
     </>

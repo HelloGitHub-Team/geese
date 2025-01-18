@@ -9,6 +9,7 @@ interface Props {
   displayAdOnly?: boolean;
   t: (key: string) => string;
   i18n_lang?: string;
+  topValue?: string;
 }
 
 export const SideAd: NextPage<Props> = ({ data, t, i18n_lang }) => {
@@ -26,10 +27,12 @@ export const SideFixAd: NextPage<Props> = ({
   displayAdOnly,
   t,
   i18n_lang,
+  topValue,
 }) => {
   return (
     <div
-      className='fixed top-16 ml-3 max-w-[244px] space-y-2'
+      className='fixed ml-3 max-w-[244px] space-y-2'
+      style={{ top: topValue }}
       hidden={!displayAdOnly}
     >
       {data.map((item: AdvertItem) => (
