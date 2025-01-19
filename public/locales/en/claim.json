@@ -3,7 +3,7 @@
   "description": "Enhance the impact of open-source projects, showcase their brilliance, and support the promotion and operation of open-source initiatives.",
   "navbar": "HelloGitHub Badge",
   "top_h2": "Join the HelloGitHub Badge Program",
-  "top_text": "This is a program to claim your open-source project. By claiming a project and wearing the HelloGitHub badge, you can showcase the community recognition and recommendation your project has received, <strong>highlighting the honor of your open-source project</strong>. At the same time, <strong>claim your open-source project</strong> to enjoy more recommendations and benefits from the community.",
+  "top_text": "This is an open-source project claiming program. After claiming, wear the HelloGitHub badge to showcase the community recognition and recommendations your project has received, highlighting the glory of open-source projects. At the same time, <strong>claim your open-source project</strong> to enjoy more recommendations and benefits from the community.",
   "badge_theme_neutral": "White",
   "badge_theme_dark": "Dark",
   "badge_theme_small": "Small",
@@ -18,7 +18,10 @@
     "loding": "Submitting",
     "check_fail": "Please enter the correct README filename!",
     "check_fail2": "This project has not been included yet, please submit it first.",
-    "check_fail3": "This repository has already been claimed!",
+    "check_fail3": "This project has already been claimed! Please contact the administrator if you have any issues",
+    "check_fail4": "The claim status of this project is abnormal, please contact the administrator",
+    "check_fail5": "The project claim status is still under review, please wait for community confirmation",
+    "check_fail6": "This project has not passed the review, you can contact the administrator to accelerate processing",
     "success": "Congratulations! Your submission was successful. Please wait for community verification.",
     "fail": "Verification failed! Please check the README filename and code integrity.",
     "fail2": "Verification failed! Please check the network and README filename."
@@ -30,8 +33,13 @@
     "item4": "<strong>Feedback Accumulation:</strong> Collect genuine feedback from a wide range of users to continuously optimize your project.",
     "item5": "<strong>Author Identification:</strong> After verification, your comments will display a prominent identifier and receive comment pinning."
   },
+  "generate": {
+    "title": "Generate Badge",
+    "placeholder": "Enter the GitHub URL of the project",
+    "button": "Generate"
+  },
   "howto": {
-    "title": "How to Claim an Open Source Project",
+    "title": "Claim an Open Source Project",
     "step1": "Confirm that your project has been included by the HelloGitHub community, then click",
     "step2": "Find a suitable position in your project's README file and <strong>paste</strong> the copied code, then submit the changes.",
     "step3": "After completing wearing the badge, enter your project's README filename:",
@@ -41,7 +49,8 @@
     "title": "Frequently Asked Questions",
     "item1": "<strong>Permissions:</strong> Only the project author or contributors with modification rights can claim the project. Please ensure you have sufficient permissions to proceed.",
     "item2": "<strong>Verification Failed:</strong> Only projects already included in the community can be claimed. If your project has not been included, please submit it first.",
-    "item3": "<strong>Each project can only be claimed once:</strong> Once verified, the claimer of the project cannot be changed. Please carefully check all information before proceeding.",
-    "item4": "<strong>Need Help:</strong> Contact me via email at: 595666367@qq.com."
+    "item3": "<strong>Certification Invalid:</strong> Modifying the project’s README file name or removing the badge code will invalidate the certification.",
+    "item4": "<strong>Only One Claim:</strong> Once certified, the project’s claim cannot be modified. Please double-check all information before proceeding.",
+    "item5": "<strong>Need Help:</strong> You can contact me on WeChat: xueweihan (Note: Claiming)."
   }
 }

@@ -220,8 +220,9 @@ type CheckRepoResData = {
 };
 
 type ClaimRepoInfoResData = {
-  is_claimed: boolean;
+  status: number;
   full_name: string;
+  rid: string;
 };
 
 export interface CheckRepoRes extends BaseType {

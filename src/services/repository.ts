@@ -205,9 +205,13 @@ export const claimRepo = async (rid: string, readme_name: string) => {
   return result;
 };
 
-// 获取认领仓库的信息
-export const getClaimRepoInfo = async (rid: string) => {
-  const url = makeUrl(`/repository/claim/${rid}`);
-  const result = await fetcher<ClaimRepoInofRes>(url);
+// 获取认领的信息
+export const getClaimInfo = async (
+  rid?: string | null,
+  url?: string | null
+) => {
+  const result = await fetcher<ClaimRepoInofRes>(
+    makeUrl('/repository/claim/info/', { rid, url })
+  );
   return result;
 };

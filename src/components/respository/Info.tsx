@@ -472,7 +472,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
           </div>
           <div className='flex flex-row gap-x-1 text-sm md:gap-x-4'>
             {!repo.is_claimed && (
-              <NoPrefetchLink href={`/repository/${repo.rid}/embed`}>
+              <NoPrefetchLink href={`/badge?rid=${repo.rid}`}>
                 <div className='flex cursor-pointer items-center justify-center text-blue-500 hover:text-current active:text-gray-400 md:hover:text-blue-600'>
                   <BsPersonCheck className='mr-1' size={16} />
                   {t('info.claim')}
