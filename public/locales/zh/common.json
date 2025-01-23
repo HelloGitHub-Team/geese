@@ -17,7 +17,8 @@
     "agreement": "用户协议",
     "oauth": "通过 {{platform}} 登录",
     "redirect": "等待跳转中...",
-    "redirect_bar_text": "正在登录，等待跳转中..."
+    "redirect_bar_text": "正在登录，等待跳转中...",
+    "bottom_text_login": "登录即表示同意"
   },
   "user_side": {
     "contribute_label": "贡献值",

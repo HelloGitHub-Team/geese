@@ -7,7 +7,7 @@ import { AiOutlineGithub } from 'react-icons/ai';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import HeaderBtn from '@/components/buttons/HeaderBtn';
-import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
+import LanguageSwitcher from '@/components/dropdown/LanguageSwitcher';
 import RankButton from '@/components/buttons/RankButton';
 import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
 import { RepoModal } from '@/components/dialog/RepoModal';

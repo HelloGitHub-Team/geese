@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "title": "リポジトリの詳細",
+    "desc": "共有者：",
+    "desc2": ""
+  },
+  "info": {
+    "claimed": "獲得済み",
+    "claim": "獲得",
+    "score_desc": "HelloGitHub評価",
+    "score_user_desc": "{{count}}件の評価",
+    "vite": "訪問",
+    "voted": "投票済み",
+    "vote": "投票",
+    "opensource": "無料",
+    "discuss": "議論",
+    "share": "共有",
+    "collect": "コレクション",
+    "copy_desc": "詳細はこちら：",
+    "copy_success": "プロジェクト情報をコピーしました。共有しましょう！",
+    "copy_fail": "コピーに失敗しました"
+  },
+  "url": {
+    "home": "ウェブサイト",
+    "document": "ドキュメント",
+    "download": "ダウンロード",
+    "online": "デモ",
+    "source": "ソース"
+  },
+  "favorite": {
+    "default": "デフォルトのお気に入り",
+    "cancel": "お気に入りから削除",
+    "success": "お気に入りに追加しました",
+    "fail": "お気に入りの追加に失敗しました",
+    "title": "お気に入りを選択",
+    "desc": "お気に入りのプロジェクトは'プロフィール'で確認できます",
+    "save": "保存"
+  },
+  "history": {
+    "past_day_desc": "過去{{days}}日間",
+    "total_desc": "{{total}}スターを獲得 ✨",
+    "fail_desc": "スター履歴データがありません"
+  },
+  "more": {
+    "yes": "はい",
+    "no": "いいえ",
+    "null": "なし",
+    "star": "スター",
+    "chinese": "中国語",
+    "language": "言語",
+    "activity": "アクティブ",
+    "contributors": "貢献者",
+    "org": "組織",
+    "version": "最新",
+    "license": "ライセンス",
+    "expand": "もっと見る",
+    "collapse": "折りたたむ"
+  },
+  "content": {
+    "desc_tab": "説明",
+    "code_tab": "コード",
+    "volume_label": "掲載号：",
+    "volume": "Vol.{{volume}}",
+    "tag_label": "タグ："
+  },
+  "comment": {
+    "title": "コメント",
+    "sort_hot": "人気順",
+    "sort_new": "新着順",
+    "total": "{{total}}件のコメント",
+    "more_reply": "{{total}}件の返信をすべて表示",
+    "load_more": "もっと読み込む...",
+    "no_comment": "まだコメントがありません",
+    "used": "使用済み",
+    "unused": "未使用",
+    "score": "評価：",
+    "reply": "返信",
+    "cancel": "キャンセル",
+    "item": {
+      "featured": "注目",
+      "unfeatured": "非注目",
+      "vote": "投票",
+      "expand": "展開",
+      "collapse": "折りたたむ",
+      "login": "先にログインしてください"
+    },
+    "submit": {
+      "reply_placeholder": "{{nickname}}さんへの返信",
+      "placeholder": "このプロジェクトについての経験、意見、使用方法、特別な点などを書いてください...",
+      "save": "送信",
+      "success": "送信成功！承認後に表示されます",
+      "fail": "送信に失敗しました",
+      "err1": "コメントを入力してください",
+      "err2": "コメントは5文字以上必要です",
+      "err3": "コメントは500文字を超えることはできません",
+      "err4": "評価を入力してください"
+    }
+  }
+} 
