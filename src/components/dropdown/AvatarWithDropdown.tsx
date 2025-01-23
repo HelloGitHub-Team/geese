@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
-import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
+import LanguageSwitcher from '@/components/dropdown/LanguageSwitcher';
 import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
 import { RepoModal } from '@/components/dialog/RepoModal';
 import { CustomLink } from '@/components/links/CustomLink';
