@@ -1,3 +1,5 @@
+[中文](content.md) | English | [日本語](content_ja.md)
+
 ## Before Development
 
 Firstly, the project utilizes yarn for package installation, which you can search for and install on your own. After installation is complete, set the version number with the command `yarn set version v1.22.19`.
