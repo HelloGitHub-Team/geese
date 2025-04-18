@@ -1,6 +1,9 @@
 import { useTranslation } from 'next-i18next';
 import { useCallback, useEffect, useState } from 'react';
-import { IoIosArrowRoundForward } from 'react-icons/io';
+import {
+  IoIosArrowRoundForward,
+  IoMdInformationCircleOutline,
+} from 'react-icons/io';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
@@ -127,6 +130,22 @@ export function CreateFeedback({
             </label>
           </div>
         ))}
+      </div>
+
+      <div className='rounded-md bg-blue-50 p-3 dark:bg-blue-900/30'>
+        <div className='flex'>
+          <div className='flex-shrink-0'>
+            <IoMdInformationCircleOutline className='h-5 w-5 text-blue-400' />
+          </div>
+          <div className='ml-2 flex-1 text-sm'>
+            <p className='text-blue-700 dark:text-blue-300'>
+              {t('feedback.contact_info')}
+              <span className='font-medium'>
+                {t('feedback.contact_info_desc')}
+              </span>
+            </p>
+          </div>
+        </div>
       </div>
 
       <div>

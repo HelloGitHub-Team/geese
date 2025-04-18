@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import ReactECharts from 'echarts-for-react';
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import {
   AiFillCaretUp,
@@ -103,6 +104,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
   const [favoriteOptions, setFavoriteOptions] = useState<option[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<any>();
+  const router = useRouter();
 
   const urlOptions = useURLOptions({ repo, t });
 
@@ -327,7 +329,10 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
                 </h1>
               </CustomLink>
               {repo.is_claimed && (
-                <div className=' group relative ml-0.5 flex cursor-pointer items-center'>
+                <div
+                  className='group relative ml-0.5 flex cursor-pointer items-center'
+                  onClick={() => router.push('/badge')}
+                >
                   <GoVerified className='ml-0.5 text-xl text-blue-500 group-hover:text-blue-600' />
                   <div className='absolute hidden flex-row transition-opacity duration-300 group-hover:flex'>
                     <div className='relative left-6 w-0 rounded-md bg-gray-300 p-1 text-xs font-medium text-white group-hover:w-max dark:bg-gray-700 dark:text-gray-200'>
