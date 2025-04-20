@@ -191,7 +191,7 @@ const User: React.FC = () => {
         </div>
 
         <div className='mt-2 bg-white px-4 py-3 dark:bg-gray-800 md:rounded-lg md:px-6'>
-          <div className='border-b border-gray-200 dark:border-gray-700'>
+          <div className='overflow-x-auto border-b border-gray-200 dark:border-gray-700'>
             <TabNav
               tabs={tabs}
               activeTab={activeTab}
@@ -201,7 +201,6 @@ const User: React.FC = () => {
           </div>
           {contentMap[activeTab as keyof typeof contentMap]}
         </div>
-
         <div className='h-2' />
       </div>
     </>

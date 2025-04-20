@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { AiOutlineGithub } from 'react-icons/ai';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
+import { useSponsor } from '@/hooks/useSponsor';
 
 import HeaderBtn from '@/components/buttons/HeaderBtn';
 import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
@@ -13,13 +14,9 @@ import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
 import { RepoModal } from '@/components/dialog/RepoModal';
 import AvatarWithDropdown from '@/components/dropdown/AvatarWithDropdown';
 
-import { getHeaderAd } from '@/services/home';
-
 import TopBanner from './TopBanner';
 import { LoginButton } from '../buttons/LoginButton';
 import SearchInput from '../search/SearchInput';
-
-import { AdvertItem } from '@/types/home';
 
 interface Props {
   hiddenAd: () => void;
@@ -31,34 +28,26 @@ const Header = ({ hiddenAd, showAd }: Props) => {
   const { isLogin } = useLoginContext();
   const [curPath, setCurPath] = useState('');
   const { t, i18n } = useTranslation('common');
-  const [adData, setAdData] = useState<AdvertItem | null>(null);
   const [_, setHasHeaderAd] = useState(false);
+  const { topAd } = useSponsor();
 
   const handleCloseAd = () => {
     hiddenAd();
     setHasHeaderAd(false);
   };
 
-  const initHeaderAd = async () => {
-    const res = await getHeaderAd();
-    if (res.success) {
-      if (res.data.length > 0) {
-        if (localStorage.adClosed === res.data[0].aid) {
-          setHasHeaderAd(false);
-        } else {
-          showAd();
-          setHasHeaderAd(true);
-          setAdData(res.data[0]);
-        }
-      } else {
-        setHasHeaderAd(false);
-      }
-    }
-  };
-
   useEffect(() => {
-    initHeaderAd();
-  }, []);
+    if (topAd) {
+      if (localStorage.adClosed === topAd.aid) {
+        setHasHeaderAd(false);
+      } else {
+        showAd();
+        setHasHeaderAd(true);
+      }
+    } else {
+      setHasHeaderAd(false);
+    }
+  }, [topAd, showAd]);
 
   useEffect(() => {
     setCurPath(router.pathname);
@@ -79,10 +68,10 @@ const Header = ({ hiddenAd, showAd }: Props) => {
 
   return (
     <div className='fixed z-10 w-full bg-white shadow-sm backdrop-blur dark:border dark:border-gray-50/[0.06] dark:bg-transparent'>
-      {adData && (
+      {topAd && (
         <TopBanner
           i18n_lang={i18n.language}
-          data={adData}
+          data={topAd}
           onClose={handleCloseAd}
         />
       )}

@@ -6,6 +6,7 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 
 import Button from '@/components/buttons/Button';
 import BasicDialog from '@/components/dialog/BasicDialog';
+import { CustomLink } from '@/components/links/CustomLink';
 import Message from '@/components/message';
 
 import { checkRepo, createRepo } from '@/services/repository';
@@ -18,6 +19,7 @@ interface CreateRepoProps {
 }
 
 export function CreateRepo({ response, t }: CreateRepoProps) {
+  const { userInfo } = useLoginContext();
   const [loading, setLoading] = useState<boolean>(false);
   const [paramReady, setParamReady] = useState<boolean>(true);
 
@@ -189,12 +191,19 @@ export function CreateRepo({ response, t }: CreateRepoProps) {
           onChange={onSummaryChange}
           onBlur={onSummaryBlur}
         ></textarea>
-        <div className='mt-2 text-left text-xs text-gray-400'>
-          {summaryMessage ? (
-            <span className='text-red-600'>{summaryMessage}</span>
-          ) : (
-            t('submit_repo.summary_tip')
-          )}
+        <div className='mt-2 flex items-center justify-between text-left text-xs text-gray-400'>
+          <div>
+            {summaryMessage ? (
+              <span className='text-red-600'>{summaryMessage}</span>
+            ) : (
+              t('submit_repo.summary_tip')
+            )}
+          </div>
+          <CustomLink className='inline' href={`/user/${userInfo?.uid}/repo`}>
+            <span className='cursor-pointer text-blue-500 hover:text-blue-600'>
+              {t('submit_repo.view_repo')}
+            </span>
+          </CustomLink>
         </div>
       </div>
 

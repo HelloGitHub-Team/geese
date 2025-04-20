@@ -60,6 +60,7 @@
   },
   "submit_repo": {
     "text": "提交",
+    "view_repo": "审核进度",
     "title": "推荐或自荐开源项目",
     "description": "通过审核的开源项目，才会在首页展示",
     "url_placeholder": "项目地址",
@@ -105,6 +106,8 @@
     "limit": "字数限制 1-1000 字符",
     "contact_placeholder": "联系方式：微信/手机号/邮箱",
     "submit": "提交",
+    "contact_info": "您也可以直接联系我：",
+    "contact_info_desc": "xueweihan（微信）",
     "options": {
       "feedback": { "name": "建议", "title": "建议改善" },
       "bug": { "title": "问题反馈" },

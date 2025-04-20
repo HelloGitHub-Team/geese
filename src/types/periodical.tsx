@@ -22,6 +22,7 @@ export interface VolumeNum {
 export interface PeriodicalItem {
   rid: string;
   name: string;
+  full_name: string;
   description: string;
   description_en: string;
   github_url: string;

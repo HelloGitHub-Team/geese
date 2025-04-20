@@ -10,6 +10,7 @@ interface ItemProps {
   item: {
     item_id?: string;
     rid?: string;
+
     author_avatar: string;
     is_hot?: boolean;
     is_featured?: boolean;
@@ -27,6 +28,7 @@ interface ItemProps {
     updated_at?: string;
     clicks_total?: number;
     stars?: number;
+    full_name?: string;
   };
   i18n_lang: string;
   index?: number;
@@ -65,7 +67,9 @@ const RepositoryItem = ({
   } = item;
 
   const isDefaultType = itemType === 'default';
-  const href = isDefaultType ? `/repository/${item_id}` : `/repository/${rid}`;
+  const href = isDefaultType
+    ? `/repository/${item.full_name || item_id}`
+    : `/repository/${item.full_name || rid}`;
 
   // 动态绑定类名
   const hoverClassName = `transform shadow-lg transition-transform ${

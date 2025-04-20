@@ -71,6 +71,7 @@ export interface AdvertItem {
   text?: string;
   text_en?: string;
   percent: number;
+  position: 'top' | 'side';
 }
 
 export interface AdvertItems {

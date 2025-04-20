@@ -26,7 +26,7 @@ const RepoLink: React.FC<{ record: DynamicRecordItem; fallback?: string }> = ({
   if (!record) return <>{fallback}</>;
 
   return (
-    <CustomLink className='inline' href={`/repository/${record.item_id}`}>
+    <CustomLink className='inline' href={`/repository/${record.full_name}`}>
       <span className='mx-1 cursor-pointer text-blue-500'>{record.name}</span>
     </CustomLink>
   );

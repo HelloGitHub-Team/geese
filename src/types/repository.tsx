@@ -136,6 +136,8 @@ export interface CommentItemData {
   comment: string;
   /** 评论对应的开源项目 ID */
   belong_id: string;
+  /** 评论对应的开源项目名称 */
+  full_name?: string;
   /** 评论类别 */
   belong: 'repository' | 'article';
   /** 评论 ID */

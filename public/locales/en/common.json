@@ -60,6 +60,7 @@
   },
   "submit_repo": {
     "text": "Submit",
+    "view_repo": "Progress",
     "title": "Recommend or Submit an Project",
     "description": "Only approved projects will be displayed on the homepage",
     "url_placeholder": "Project URL",
@@ -105,6 +106,8 @@
     "limit": "Word limit: 1-1000 characters",
     "contact_placeholder": "Contact information: WeChat/Phone number/Email",
     "submit": "Submit",
+    "contact_info": "You can also contact me directly: ",
+    "contact_info_desc": "595666367@qq.com",
     "options": {
       "feedback": {
         "name": "Suggestions",

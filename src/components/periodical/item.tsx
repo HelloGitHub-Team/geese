@@ -91,7 +91,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
           </div>
         </div>
         <div className='flex h-14 flex-1 flex-row items-center justify-end pr-1'>
-          <NoPrefetchLink href={`/repository/${item.rid}`}>
+          <NoPrefetchLink href={`/repository/${item.full_name}`}>
             <Button
               variant='white-outline'
               className='font-normal text-gray-700'

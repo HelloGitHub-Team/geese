@@ -1,52 +1,31 @@
 name: PR Source Code Check
 
 on:
-  - push
+  push:
+  pull_request:
 
 jobs:
-  lint:
-    name: Run ESLint
+  quality:
+    name: Code Quality
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'yarn'
-      - run: yarn
-      - run: yarn lint:strict
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  tsc:
-    name: Run Type Check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: '18'
           cache: 'yarn'
-      - run: yarn
-      - run: yarn typecheck
 
-  prettier:
-    name: Run Prettier Check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'yarn'
-      - run: yarn
-      - run: yarn format:check
-  # test:
-  #   name: Run Test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: '14'
-  #         cache: 'yarn'
-  #     - run: yarn
-  #     - run: yarn test
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Lint check
+        run: yarn lint:strict
+
+      - name: Type check
+        run: yarn typecheck
+
+      - name: Format check
+        run: yarn format:check

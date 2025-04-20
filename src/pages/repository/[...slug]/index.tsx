@@ -60,9 +60,12 @@ export const getServerSideProps: GetServerSideProps = async ({
   locale,
 }) => {
   const ip = getClientIP(req);
-  console.log(query);
-  const rid = query?.rid as string;
-  const data = await getDetail(ip, rid);
+  // 在 [...slug] 路由中，slug 是一个数组
+  const slug = query?.slug as string[];
+  const identifier = slug?.join('/') || '';
+
+  const data = await getDetail(ip, identifier);
+
   if (data.success) {
     return {
       props: {

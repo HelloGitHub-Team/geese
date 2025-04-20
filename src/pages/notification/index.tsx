@@ -96,7 +96,7 @@ const Notification = () => {
             })}
             <CustomLink
               className='mx-1 inline cursor-pointer text-blue-500'
-              href={`/repository/${item.mid}`}
+              href={`/repository/${item.repository?.full_name}`}
             >
               {item.repository?.full_name}
             </CustomLink>
@@ -117,7 +117,7 @@ const Notification = () => {
                   {t('reply.desc')}
                   <CustomLink
                     className='inline cursor-pointer px-1 text-blue-500'
-                    href={`/repository/${item.repository?.rid}`}
+                    href={`/repository/${item.repository?.full_name}`}
                   >
                     {item.repository?.full_name}
                   </CustomLink>
@@ -136,7 +136,7 @@ const Notification = () => {
                   {item.more_content ? t('comment.desc') : t('comment.desc')}
                   <CustomLink
                     className='inline cursor-pointer px-1 text-blue-500'
-                    href={`/repository/${item.repository?.rid}`}
+                    href={`/repository/${item.repository?.full_name}`}
                   >
                     {item.repository?.full_name}
                   </CustomLink>

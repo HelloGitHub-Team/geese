@@ -1,8 +1,8 @@
 {
   "title": "HelloGitHub Monthly",
-  "description": "Discover engaging and beginner-friendly open-source projects on GitHub, with the latest updates published on the 28th of each month. Spanning development tools, open-source books, tutorials, and enterprise-level projects, we aim to make you fall in love with open source.",
+  "description": "Sharing interesting, beginner-friendly open-source projects from GitHub. Updated monthly on the 28th, covering developer tools, open-source books, tutorials, and enterprise-grade projects to help you fall in love with open source.",
   "nav": "HelloGitHub Monthly",
-  "p_text": "<strong>“HelloGitHub Monthly”</strong> shares interesting and beginner-friendly open source projects on GitHub. Published on the 28th of each month, it includes development tools, open source books, tutorials, and enterprise-level projects, helping you enjoying programming and fall in love with open source!",
+  "p_text": "<strong>'HelloGitHub Monthly'</strong> has been carefully curating interesting, beginner-friendly open-source projects from GitHub every month since 2016, updated on the 28th. It covers developer tools, open-source books, tutorials, enterprise-grade projects, and more, enabling you to quickly discover the charm and spark your interest in open source.",
   "read_button": "Read",
   "submit_button": "Submit",
   "detail_button": "Detail",
@@ -32,7 +32,7 @@
     "title": "HelloGitHub Monthly Vol.{{num}}",
     "nav": "Volume",
     "h2_text": "HelloGitHub Vol.{{num}}",
-    "p_text": "<p>HelloGitHub shares interesting and beginner-friendly open source projects on GitHub, updated on the <strong>28th of each month</strong>. Here you will find fun and beginner-level open source projects, open source books, practical projects, and enterprise-level projects, allowing you to quickly appreciate the charm of open source and develop an interest in it.</p>",
+    "p_text": "<p>HelloGitHub shares interesting, beginner-friendly open-source projects from GitHub, updated <strong>every month on the 28th</strong>. Discover fun beginner projects, open-source books, practical tutorials, and enterprise-grade projects, helping you quickly experience and become interested in the charm of open source.</p>",
     "catalog": "Catalog",
     "catalog2": "Catalog"
   }

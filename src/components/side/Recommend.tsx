@@ -13,7 +13,11 @@ import { RecommendItem, SideProps } from '@/types/home';
 const RecommendList = ({ repositories }: { repositories: RecommendItem[] }) => (
   <div className='dark:text-gray-300'>
     {repositories.map((item) => (
-      <Link prefetch={false} href={`/repository/${item.rid}`} key={item.rid}>
+      <Link
+        prefetch={false}
+        href={`/repository/${item.full_name}`}
+        key={item.rid}
+      >
         <div className='flex cursor-pointer flex-row rounded-md py-2 hover:bg-gray-50 hover:text-blue-400 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-blue-400'>
           <div className='flex w-full items-center px-1'>
             <img

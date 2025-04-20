@@ -70,6 +70,7 @@ export interface UserDetailInfo {
 export interface DynamicRecordItem {
   name: string;
   item_id: string;
+  full_name: string;
 }
 
 export interface DynamicRecord {

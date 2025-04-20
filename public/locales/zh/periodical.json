@@ -1,8 +1,8 @@
 {
   "title": "HelloGitHub 月刊",
-  "description": "分享 GitHub 上有趣的入门级开源项目，每月 28 日发布最新内容。涵盖开发工具、开源书籍、教程及企业级的开源项目，让你爱上开源。",
+  "description": "分享 GitHub 上有趣的入门级开源项目，每月 28 日发布最新内容，涵盖开发工具、开源书籍、教程及企业级的开源项目，让你爱上开源。",
   "nav": "HelloGitHub 月刊",
-  "p_text": "<strong>「HelloGitHub 月刊」</strong>分享 GitHub 上有趣、入门级的开源项目，每月 28 号发布最新一期。内容包括开发利器、开源书籍、教程、企业级项目等，让你发现编程的乐趣、爱上开源！",
+  "p_text": "<strong>「HelloGitHub 月刊」</strong>自 2016 年起，每月 28 号精选发布 GitHub 上有趣、入门级的开源项目。内容包括开发利器、开源书籍、教程、企业级项目等，帮助你快速发现开源的魅力，对开源产生兴趣。",
   "read_button": "查看",
   "submit_button": "推荐",
   "detail_button": "详情",
@@ -32,7 +32,7 @@
     "title": "《HelloGitHub 月刊》第 {{num}} 期",
     "nav": "期数",
     "h2_text": "《HelloGitHub》第 {{num}} 期",
-    "p_text": "<p>HelloGitHub 分享 GitHub 上有趣、入门级的开源项目，<strong>每月 28 号</strong>更新一期。这里有好玩和入门级的开源项目、开源书籍、实战项目、企业级项目，让你用极短的时间感受到开源的魅力，对开源产生兴趣。</p>",
+    "p_text": "<p>HelloGitHub 分享 GitHub 上有趣、入门级的开源项目，<strong>每月 28 号</strong>更新一期。这里有好玩和入门级的开源项目、开源书籍、实战项目、企业级项目，帮助你快速发现开源的魅力，对开源产生兴趣。</p>",
     "catalog": "本期目录",
     "catalog2": "目录"
   }

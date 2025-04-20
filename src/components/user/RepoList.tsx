@@ -28,7 +28,7 @@ const RepoList = ({ uid, t }: UserTabProps) => {
       <div className='text-right'>
         <select
           onChange={selectState}
-          className='w-fit truncate text-ellipsis rounded-md border py-1 pr-7 text-sm dark:bg-gray-700'
+          className='w-fit cursor-pointer truncate text-ellipsis rounded-md border py-1 pr-7 text-sm dark:bg-gray-700'
         >
           {categoryItems.map((item: any) => (
             <option key={item.name} value={item.value}>

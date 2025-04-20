@@ -226,11 +226,13 @@ svg {
   transition: height 0.4s 0.4s, transition 0.4s;
 }
 
+.hidden-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
 .hidden-scrollbar::-webkit-scrollbar {
-  /* 隐藏默认的滚动条 */
-  -webkit-appearance: none;
   display: none;
-  width: 0px;
 }
 
 /* 自定义滚动条 */
@@ -250,6 +252,14 @@ svg {
   outline: none;
   border-radius: 2px;
   @apply dark:bg-gray-700;
+}
+
+/* 火狐浏览器滚动条样式 */
+@-moz-document url-prefix() {
+  .custom-scrollbar {
+    scrollbar-width: none; /* 隐藏滚动条 */
+    -ms-overflow-style: none; /* IE 和 Edge */
+  }
 }
 
 .dark {

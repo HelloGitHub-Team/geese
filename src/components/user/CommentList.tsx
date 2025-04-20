@@ -83,7 +83,9 @@ const CommentList: React.FC<CommentListProps> = ({ uid, t, i18n_lang }) => {
               </div>
               {renderActionButtons(item)}
             </div>
-            <CustomLink href={`/${item.belong}/${item.belong_id}`}>
+            <CustomLink
+              href={`/${item.belong}/${item.full_name || item.belong_id}`}
+            >
               <CommentItem
                 className='rounded-xl border bg-white p-4 hover:border-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-blue-500'
                 key={item.cid}
