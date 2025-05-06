@@ -26,7 +26,7 @@ const Tabs = ({ repo, t, i18n_lang }: RepositoryProps) => {
             <div className='flex cursor-zoom-in justify-center pt-2'>
               <ImageWithPreview
                 src={repo?.image_url}
-                className='rounded-lg border border-gray-200 dark:border-none'
+                className='rounded-md border border-gray-200 dark:border-none'
                 alt={`${repo.name} image`}
               />
             </div>

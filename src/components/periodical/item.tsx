@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next';
 import { GoCalendar, GoClock, GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 
-import { CustomLink, NoPrefetchLink } from '@/components/links/CustomLink';
+import { CustomLink } from '@/components/links/CustomLink';
 
 import { redirectRecord } from '@/services/home';
 import { fromNow } from '@/utils/day';
@@ -91,7 +91,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
           </div>
         </div>
         <div className='flex h-14 flex-1 flex-row items-center justify-end pr-1'>
-          <NoPrefetchLink href={`/repository/${item.full_name}`}>
+          <CustomLink href={`/repository/${item.full_name}`}>
             <Button
               variant='white-outline'
               className='font-normal text-gray-700'
@@ -102,7 +102,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
                 </div>
               </div>
             </Button>
-          </NoPrefetchLink>
+          </CustomLink>
         </div>
       </div>
 
@@ -116,7 +116,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
       {item.image_url && (
         <div className='my-2 flex justify-center'>
           <ImageWithPreview
-            className='cursor-zoom-in rounded-lg'
+            className='cursor-zoom-in rounded-md'
             src={item.image_url}
             alt={item.name}
           />

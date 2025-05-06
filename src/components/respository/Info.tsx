@@ -309,9 +309,8 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
       <div className='flex flex-col gap-y-3'>
         <div className='flex flex-row'>
           <div className='flex min-w-[72px] items-center'>
-            <div className='relative'>
+            <div className='relative overflow-hidden rounded border border-gray-100 dark:border-gray-800'>
               <img
-                className='rounded border border-gray-100 bg-white dark:border-gray-800'
                 src={repo.author_avatar}
                 width='72'
                 height='72'
