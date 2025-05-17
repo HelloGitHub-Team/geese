@@ -123,42 +123,23 @@ const EmbedPage: NextPage = () => {
       case 5:
         return Message.error(t('submit.check_fail6'));
     }
-
-    const urlToCheck = `https://api.github.com/repos/${info_res.data.full_name}/contents/${readmeFilename}`;
-    setIsLoading(true); // 设置加载状态为 true，禁用按钮
-    // 发送GET请求到URL
-    fetch(urlToCheck)
-      .then((response) => response.json())
-      .then(async (data) => {
-        const base64EncodedString = data.content;
-        const decodedString = Buffer.from(
-          base64EncodedString,
-          'base64'
-        ).toString('utf8');
-        // 检查响应的字段
-        if (
-          decodedString.includes(
-            `https://hellogithub.com/repository/${repoID}`
-          ) &&
-          decodedString.includes(userInfo?.uid as string)
-        ) {
-          // 如果响应包含字段，发送POST请求到后台
-          const res = await claimRepo(repoID, readmeFilename);
-          if (res.success) {
-            return Message.success(t('submit.success'));
-          } else {
-            return Message.error(res.message as string);
-          }
-        } else {
-          return Message.error(t('submit.fail'));
-        }
-      })
-      .catch(() => {
-        return Message.error(t('submit.fail2'));
-      })
-      .finally(() => {
-        setIsLoading(false); // 设置加载状态为 false，启用按钮
-      });
+    try {
+      setIsLoading(true);
+      const res = await claimRepo(
+        repoID,
+        readmeFilename,
+        info_res.data.full_name
+      );
+      if (res.success) {
+        return Message.success(t('submit.success'));
+      } else {
+        return Message.error(res.message as string);
+      }
+    } catch (error) {
+      return Message.error(t('submit.fail'));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

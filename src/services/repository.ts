@@ -193,11 +193,19 @@ export const checkRepo = (url: string): Promise<CheckRepoRes> => {
 };
 
 // 认领仓库
-export const claimRepo = async (rid: string, readme_name: string) => {
+export const claimRepo = async (
+  rid: string,
+  readme_name: string,
+  repo_full_name: string
+) => {
   const url = makeUrl(`/repository/claim/`);
   const result = await fetcher<{ success: boolean; message?: string }>(url, {
     method: 'POST',
-    body: JSON.stringify({ rid: rid, readme_name: readme_name }),
+    body: JSON.stringify({
+      rid: rid,
+      readme_name: readme_name,
+      repo_full_name: repo_full_name,
+    }),
   }).catch((err) => {
     Message.error(err.message || '认领失败');
     throw err;
