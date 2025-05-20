@@ -8,7 +8,7 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 import { useSponsor } from '@/hooks/useSponsor';
 
 import HeaderBtn from '@/components/buttons/HeaderBtn';
-import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
+import LanguageSwitcher from '@/components/dropdown/LanguageSwitcher';
 import RankButton from '@/components/buttons/RankButton';
 import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
 import { RepoModal } from '@/components/dialog/RepoModal';

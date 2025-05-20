@@ -1,0 +1,93 @@
+{
+  "title": "プロフィール",
+  "page_prev": "前へ",
+  "page_next": "次へ",
+  "tabs": {
+    "dynamic": "アクティビティ",
+    "favorite": "お気に入り",
+    "comment": "コメント",
+    "vote": "投票",
+    "repo": "プロジェクト"
+  },
+  "user_info": {
+    "desc": "HelloGitHubコミュニティの{{rank}}番目のユーザー、{{date}}に参加",
+    "desc2": "{{share_repo}}件のプロジェクトを共有し、{{comment_repo}}件のプロジェクトレビューを投稿し、{{contribute}}貢献ポイントを獲得しました。",
+    "desc3": "HelloGitHubコミュニティの{{rank}}番目のユーザー",
+    "desc4": "{{date}}に参加、{{contribute}}貢献ポイントを獲得",
+    "desc5": "{{share_repo}}件のプロジェクトを共有し、{{comment_repo}}件のプロジェクトレビューを投稿"
+  },
+  "dynamic": {
+    "time_desc": "アクティビティ",
+    "desc": "アクティビティなし",
+    "value_text": "、{{value}}貢献ポイントを獲得。",
+    "comment": "プロジェクトにコメント",
+    "comment_hot": "人気コメント：",
+    "comment_hot2": "プロジェクト",
+    "comment_bad": "無意味/スパムコメントの投稿により、2貢献ポイントが減点されました。",
+    "reply_bad": "無意味/スパム返信の投稿により、2貢献ポイントが減点されました。",
+    "contribute_code": "コミュニティにコードを貢献し、{{value}}貢献ポイントを獲得。",
+    "feedback_bug": "コミュニティに価値のある問題を報告し、{{value}}貢献ポイントを獲得。",
+    "submit_repo": "優れたオープンソースプロジェクトを共有",
+    "default": "コミュニティのコンテンツを充実",
+    "empty": "アクティビティなし"
+  },
+  "favorite": {
+    "text": "お気に入り",
+    "share_text": "詳細を表示するにはクリック：",
+    "no_share": "このお気に入りフォルダは非公開です",
+    "del_success": "お気に入りフォルダを削除しました",
+    "del_fail": "お気に入りフォルダの削除に失敗しました",
+    "share_success": "お気に入りフォルダのリンクをコピーしました。友達とシェアしましょう！",
+    "no_description": "フォルダの説明なし",
+    "empty": "お気に入りなし",
+    "repo_total": "合計{{total}}件のプロジェクト",
+    "button": {
+      "edit": "編集",
+      "delete": "削除",
+      "cancel": "キャンセル",
+      "confirm": "確認",
+      "share": "共有"
+    },
+    "dialog": {
+      "del_title": "お気に入りフォルダを削除しますか？",
+      "del_desc": "フォルダを削除すると、中のプロジェクトもすべて削除されます",
+      "edit_title": "お気に入りフォルダを編集"
+    },
+    "status": {
+      "pravite": "非公開",
+      "public": "公開",
+      "review": "レビュー中"
+    }
+  },
+  "comment": {
+    "article": "記事",
+    "repository": "プロジェクト",
+    "empty": "コメントなし",
+    "text": "{{date}}にコメントを投稿",
+    "show": "表示",
+    "unshow": "非表示",
+    "hot": "人気",
+    "unhot": "非人気",
+    "used": "使用済み",
+    "unused": "未使用",
+    "score": "スコア：",
+    "button": {
+      "appeal": "申し立て",
+      "vote": "いいね {{total}}"
+    },
+    "item": {
+      "expand": "展開",
+      "collapse": "折りたたむ"
+    }
+  },
+  "vote": {
+    "empty": "投票なし"
+  },
+  "repo": {
+    "empty": "プロジェクトなし",
+    "featured": "注目",
+    "failed": "失敗",
+    "review": "レビュー中",
+    "feedback": "フィードバック"
+  }
+} 

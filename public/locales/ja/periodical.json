@@ -1,0 +1,39 @@
+{
+  "title": "HelloGitHub 月刊",
+  "description": "GitHubで魅力的で初心者向けのオープンソースプロジェクトを発見しましょう。毎月28日に最新情報を公開しています。開発ツール、オープンソースの書籍、チュートリアル、エンタープライズレベルのプロジェクトまで、オープンソースの魅力を伝えることを目指しています。",
+  "nav": "HelloGitHub 月刊",
+  "p_text": "<strong>「HelloGitHub 月刊」</strong>は、GitHubの興味深い初心者向けオープンソースプロジェクトを共有します。毎月28日に公開され、開発ツール、オープンソースの書籍、チュートリアル、エンタープライズレベルのプロジェクトを紹介し、プログラミングを楽しみ、オープンソースの魅力に触れていただけます！",
+  "read_button": "読む",
+  "submit_button": "投稿",
+  "detail_button": "詳細",
+  "order_t1": "公開日",
+  "order_t2": "巻数",
+  "order_t3": "選択：",
+  "order_t4": "含む",
+  "order_t5": "カテゴリー",
+  "order_t6": "選択：",
+  "order_t7": "プロジェクト",
+  "order_t8": "アイテム",
+  "order_t9": "推薦歓迎",
+  "vol_prev": "前へ",
+  "vol_next": "次へ",
+  "page_prev": "前へ",
+  "page_next": "次へ",
+  "category": {
+    "title": "HelloGitHub 月刊 {{name}} コレクション",
+    "nav": {
+      "active": "アクティブ",
+      "last": "デフォルト"
+    },
+    "p_text": "ここでは、HelloGitHub 月刊のバックナンバーを<strong>カテゴリー</strong>別に読むことができます。現在表示しているのは",
+    "p_text2": "コレクションです。"
+  },
+  "volume": {
+    "title": "HelloGitHub 月刊 Vol.{{num}}",
+    "nav": "巻",
+    "h2_text": "HelloGitHub Vol.{{num}}",
+    "p_text": "<p>HelloGitHubは、GitHubの興味深い初心者向けオープンソースプロジェクトを共有し、<strong>毎月28日</strong>に更新しています。ここでは、楽しく初心者向けのオープンソースプロジェクト、オープンソースの書籍、実用的なプロジェクト、エンタープライズレベルのプロジェクトを見つけることができ、オープンソースの魅力をすぐに感じ、興味を持っていただけます。</p>",
+    "catalog": "目次",
+    "catalog2": "目次"
+  }
+} 
