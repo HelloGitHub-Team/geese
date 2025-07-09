@@ -301,3 +301,8 @@ svg {
   background: #3282f6;
   height: 3px;
 }
+
+code::before,
+code::after {
+  content: none !important;
+}

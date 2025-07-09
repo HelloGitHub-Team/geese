@@ -1,6 +1,6 @@
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark, vs } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { vs, vsDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import remarkGfm from 'remark-gfm';
 
 import clsxm from '@/lib/clsxm';
@@ -26,7 +26,7 @@ export const CodeRender = ({ code, lanuage }: CodeProps) => {
       );
     } else {
       return (
-        <SyntaxHighlighter style={atomDark} language={lanuage} PreTag='div'>
+        <SyntaxHighlighter style={vsDark} language={lanuage} PreTag='div'>
           {code}
         </SyntaxHighlighter>
       );
@@ -51,43 +51,39 @@ export const MDRender = ({
   const getComponents = (theme: string) => {
     return {
       // 代码块渲染
-      code({ node: _node, inline, className, children, ...props }: any) {
-        const match = /language-(\w+)/.exec(className || '') || 'shell';
-        if (!inline && match) {
-          children = String(children).replace(/\n$/, '');
-          if (theme != 'dark') {
-            return (
-              <SyntaxHighlighter
-                style={vs}
-                language={match[1]}
-                PreTag='div'
-                {...props}
-              >
-                {children}
-              </SyntaxHighlighter>
-            );
-          } else {
-            return (
-              <SyntaxHighlighter
-                style={atomDark}
-                language={match[1]}
-                PreTag='div'
-                {...props}
-              >
-                {children}
-              </SyntaxHighlighter>
-            );
-          }
-        } else {
+      code(props: any) {
+        const { inline, className, children } = props;
+        const isInline =
+          typeof inline === 'boolean'
+            ? inline
+            : typeof children === 'string' && !children.includes('\n');
+        if (isInline) {
           return (
-            <span
-              className='rounded-sm bg-gray-100 px-1.5 py-0.5 text-sm font-medium dark:bg-gray-600'
-              {...props}
-            >
+            <code className='rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-gray-800 dark:bg-gray-700 dark:text-gray-200'>
               {children}
-            </span>
+            </code>
           );
         }
+        const match = /language-(\w+)/.exec(className || '') || 'shell';
+        if (match) {
+          return (
+            <SyntaxHighlighter
+              style={theme !== 'dark' ? vs : vsDark}
+              language={match[1]}
+              PreTag='pre'
+            >
+              {String(children).replace(/\n$/, '')}
+            </SyntaxHighlighter>
+          );
+        }
+        return (
+          <span
+            className='rounded-sm bg-gray-100 px-1.5 py-0.5 text-sm 
+              font-medium dark:bg-gray-600'
+          >
+            {children}
+          </span>
+        );
       },
     };
   };
