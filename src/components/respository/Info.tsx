@@ -467,7 +467,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
                 <div className='flex-row items-center md:flex'>
                   <span>{t('info.opensource')}</span>
                   <span className='mx-0.5 md:mx-1.5'>•</span>
-                  <NoPrefetchLink href={`/license/${repo.license_lid}`}>
+                  <NoPrefetchLink href={`/license/${repo.license_spdx_id}`}>
                     <span className='inline-flex max-w-[65px] cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap text-blue-500 md:max-w-full'>
                       {repo.license}
                     </span>
@@ -478,7 +478,9 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
           </div>
           <div className='flex flex-row gap-x-1 text-sm md:gap-x-4'>
             {!repo.is_claimed && (
-              <NoPrefetchLink href={`/badge?rid=${repo.rid}`}>
+              <NoPrefetchLink
+                href={`/badge?rid=${repo.rid}&full_name=${repo.full_name}`}
+              >
                 <div className='flex cursor-pointer items-center justify-center text-blue-500 hover:text-current active:text-gray-400 md:hover:text-blue-600'>
                   <BsPersonCheck className='mr-1' size={16} />
                   {t('info.claim')}

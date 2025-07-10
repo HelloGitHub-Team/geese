@@ -85,10 +85,13 @@
   },
   "repo": {
     "empty": "No projects",
-    "featured": "Featured",
-    "failed": "Failed",
-    "review": "Under Review",
     "feedback": "Feedback",
-    "appeal": "Appeal"
+    "appeal": "Appeal",
+    "category_all": "All",
+    "category_reject": "Rejected",
+    "category_pending": "Pending",
+    "category_pass": "Passed",
+    "category_featured": "Featured",
+    "category_claimed": "Claimed"
   }
 }

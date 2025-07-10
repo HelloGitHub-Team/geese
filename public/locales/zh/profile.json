@@ -85,10 +85,13 @@
   },
   "repo": {
     "empty": "暂无项目",
-    "featured": "已推荐",
-    "failed": "未通过",
-    "review": "审核中",
     "feedback": "反馈",
-    "appeal": "申诉"
+    "appeal": "申诉",
+    "category_all": "全部",
+    "category_reject": "未通过",
+    "category_pending": "审核中",
+    "category_pass": "已展示",
+    "category_featured": "已推荐",
+    "category_claimed": "已认领"
   }
 }

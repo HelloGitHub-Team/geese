@@ -35,6 +35,7 @@ export interface Repository extends RepoType {
   online: string | null;
   other_url: string | null;
   license_lid: string;
+  license_spdx_id: string;
 
   star_history: StarHistory;
 

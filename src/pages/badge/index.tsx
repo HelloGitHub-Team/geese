@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { Trans, useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
+import { FaGithub } from 'react-icons/fa';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
@@ -20,7 +21,7 @@ import { API_HOST, API_ROOT_PATH } from '@/utils/api';
 
 const EmbedPage: NextPage = () => {
   const router = useRouter();
-  const { rid } = router.query;
+  const { rid, full_name } = router.query;
   const { t } = useTranslation('claim');
 
   const [url, setUrl] = useState('');
@@ -31,6 +32,7 @@ const EmbedPage: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false); // 状态：是否在提交中
   const [theme, setTheme] = useState<string>('neutral');
   const [svgFile, setSVGFile] = useState<string>('');
+  const [fullName, setFullName] = useState('');
 
   const generateBadge = () => {
     if (!repoID) return;
@@ -45,11 +47,12 @@ const EmbedPage: NextPage = () => {
 
   useEffect(() => {
     if (rid) setRepoID(rid as string);
-  }, [rid]);
+    if (full_name) setFullName(full_name as string);
+  }, [rid, full_name]);
 
   useEffect(() => {
     if (repoID) generateBadge();
-  }, [repoID, userInfo]);
+  }, [userInfo, repoID]);
 
   const themeClassName = (themeName: string) =>
     classNames('px-2 py-1 text-xs', {
@@ -76,6 +79,7 @@ const EmbedPage: NextPage = () => {
         return Message.error(t('submit.check_fail4'));
       case 3:
         setRepoID(info_res.data.rid);
+        setFullName(info_res.data.full_name);
         break;
       case 4:
         return Message.error(t('submit.check_fail5'));
@@ -86,7 +90,7 @@ const EmbedPage: NextPage = () => {
 
   const handleCopy = () => {
     if (!isLogin) return login();
-    const pageURL = `https://hellogithub.com/repository/${repoID}`;
+    const pageURL = `https://hellogithub.com/repository/${fullName}`;
     const text =
       theme === 'small'
         ? `<a href="${pageURL}" target="_blank"><img src="${svgFile}" alt="Featured｜HelloGitHub" /></a>`
@@ -174,49 +178,60 @@ const EmbedPage: NextPage = () => {
                 {t('generate.title')}
               </h3>
               {repoID ? (
-                <div className='flex flex-col rounded-lg bg-gray-100 dark:bg-gray-700'>
-                  <div className='flex rounded-t-lg bg-gray-200 dark:bg-slate-900'>
-                    <div className='p-2'>
-                      <div className='flex cursor-pointer rounded-full bg-gray-50 dark:bg-gray-600'>
-                        <div
-                          className={themeClassName('neutral')}
-                          onClick={() => handleTheme('neutral')}
-                        >
-                          {t('badge_theme_neutral')}
-                        </div>
-                        <div
-                          className={themeClassName('dark')}
-                          onClick={() => handleTheme('dark')}
-                        >
-                          {t('badge_theme_dark')}
-                        </div>
-                        <div
-                          className={themeClassName('small')}
-                          onClick={() => handleTheme('small')}
-                        >
-                          {t('badge_theme_small')}
+                <>
+                  <div className='flex flex-col rounded-lg bg-gray-100 dark:bg-gray-700'>
+                    <div className='flex rounded-t-lg bg-gray-200 dark:bg-slate-900'>
+                      <div className='p-2'>
+                        <div className='flex cursor-pointer rounded-full bg-gray-50 dark:bg-gray-600'>
+                          <div
+                            className={themeClassName('neutral')}
+                            onClick={() => handleTheme('neutral')}
+                          >
+                            {t('badge_theme_neutral')}
+                          </div>
+                          <div
+                            className={themeClassName('dark')}
+                            onClick={() => handleTheme('dark')}
+                          >
+                            {t('badge_theme_dark')}
+                          </div>
+                          <div
+                            className={themeClassName('small')}
+                            onClick={() => handleTheme('small')}
+                          >
+                            {t('badge_theme_small')}
+                          </div>
                         </div>
                       </div>
+                      <div className='shrink grow' />
+                      <div className='p-1.5'>
+                        <Button
+                          onClick={handleCopy}
+                          className='cursor-pointer rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 dark:bg-gray-600'
+                        >
+                          {t('copy.text')}
+                        </Button>
+                      </div>
                     </div>
-                    <div className='shrink grow' />
-                    <div className='p-1.5'>
-                      <Button
-                        onClick={handleCopy}
-                        className='cursor-pointer rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 dark:bg-gray-600'
-                      >
-                        {t('copy.text')}
-                      </Button>
-                    </div>
-                  </div>
 
-                  <div className='my-8 flex justify-center'>
-                    {svgFile ? (
-                      <img className='w-max-full' src={svgFile} />
-                    ) : (
-                      <Loading />
-                    )}
+                    <div className='my-8 flex justify-center'>
+                      {svgFile ? (
+                        <img className='w-max-full' src={svgFile} />
+                      ) : (
+                        <Loading />
+                      )}
+                    </div>
                   </div>
-                </div>
+                  {fullName && (
+                    <div
+                      className='mx-auto mt-1 mb-4 flex max-w-full select-text items-center justify-center gap-1 overflow-hidden truncate whitespace-nowrap text-center text-xs font-normal not-italic leading-tight text-gray-400 dark:text-gray-500 md:max-w-xl md:text-sm'
+                      title={fullName}
+                    >
+                      <FaGithub className='inline-block text-base' />
+                      {fullName}
+                    </div>
+                  )}
+                </>
               ) : (
                 <div className='flex items-center space-x-4 rounded-lg bg-gray-100 p-4 dark:bg-gray-700'>
                   <input

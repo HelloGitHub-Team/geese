@@ -51,7 +51,7 @@ const RepoStatus = ({ item, t, showStatus }: RepoStatusProps) => {
           )}
         >
           <span className='mr-1 h-1.5 w-1.5 rounded-full bg-red-500' />
-          <span>{t('repo.failed')}</span>
+          <span>{t('repo.category_reject')}</span>
           <span className='mx-1.5 text-gray-300 dark:text-gray-600'>|</span>
           <span className='opacity-85'>{t('repo.appeal')}</span>
         </div>
@@ -67,7 +67,7 @@ const RepoStatus = ({ item, t, showStatus }: RepoStatusProps) => {
         )}
       >
         <span className='mr-1 h-1.5 w-1.5 rounded-full bg-yellow-500' />
-        <span>{t('repo.review')}</span>
+        <span>{t('repo.category_pending')}</span>
         <span className='mx-1.5 text-gray-300 dark:text-gray-600'>|</span>
         <span className='opacity-85'>{t('repo.feedback')}</span>
       </div>
@@ -87,7 +87,9 @@ const RepoStatus = ({ item, t, showStatus }: RepoStatusProps) => {
           >
             <span className='mr-1 h-1.5 w-1.5 rounded-full bg-green-500' />
             <span>
-              {item.is_featured ? t('repo.featured') : t('comment.show')}
+              {item.is_featured
+                ? t('repo.category_featured')
+                : t('repo.category_pass')}
             </span>
           </div>
           <Divider />

@@ -8,16 +8,16 @@ import Loading from '../loading/Loading';
 
 import { UserTabProps } from '@/types/user';
 
-const categoryItems = [
-  { name: '不限', value: 0 },
-  { name: '未通过', value: -1 },
-  { name: '待审核', value: 1 },
-  { name: '已通过', value: 2 },
-];
-
 const RepoList = ({ uid, t }: UserTabProps) => {
   const [state, setState] = useState(0);
   const { data, setPage } = useRepoHistory(uid, state);
+  const categoryItems = [
+    { name: t('repo.category_all'), value: 0 },
+    { name: t('repo.category_reject'), value: -1 },
+    { name: t('repo.category_pending'), value: 1 },
+    { name: t('repo.category_pass'), value: 2 },
+    { name: t('repo.category_claimed'), value: 3 },
+  ];
 
   const selectState = (e: any) => {
     setState(e.target.value);
