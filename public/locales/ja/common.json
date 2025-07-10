@@ -1,0 +1,125 @@
+{
+  "header": {
+    "search": "プロジェクトを検索",
+    "home": "ホーム",
+    "periodical": "月刊",
+    "rank": "ランキング",
+    "article": "記事",
+    "submit": "投稿",
+    "profile": "プロフィール",
+    "notification": "通知",
+    "logout": "ログアウト"
+  },
+  "login": {
+    "text": "ログイン",
+    "title": "ログイン方法を選択",
+    "tips": "ログインすると",
+    "agreement": "利用規約",
+    "oauth": "{{platform}}でログイン",
+    "redirect": "リダイレクト待ち...",
+    "redirect_bar_text": "ログイン中、リダイレクト待ち...",
+    "bottom_text_login": "ログインに同意する"
+  },
+  "user_side": {
+    "contribute_label": "貢献",
+    "profile": "プロフィール",
+    "admin": "設定",
+    "logout": "ログアウト",
+    "login": "ログイン"
+  },
+  "advert": {
+    "desc": "期限まで",
+    "desc2": "コーヒーを奢る",
+    "next": "ゴールドが必要",
+    "next2": "次の目標まで",
+    "day": "日",
+    "year": "年"
+  },
+  "site_stats": {
+    "user": "ユーザー数",
+    "repo": "プロジェクト数",
+    "title": "概要",
+    "desc": "HelloGitHubは、初心者向けのオープンソースプロジェクトを発見・共有するプラットフォームです。\nユーザーがプログラミングの楽しさを見つけ、技術的な課題を解決し、オープンソースの旅を始めるための素晴らしいツールを探索するお手伝いをします。"
+  },
+  "recommend": {
+    "title": "おすすめ",
+    "desc": "コンテンツはspdxとGitHubから収集され、",
+    "desc2": "プロトコルに従っています。",
+    "change": "更新"
+  },
+  "footer": {
+    "feedback": "フィードバック",
+    "business": "ビジネス",
+    "contact": "お問い合わせ",
+    "agreement": "利用規約",
+    "source": "ソース",
+    "sitemap": "サイトマップ",
+    "server_sponsor": "サーバースポンサー",
+    "server_sponsor2": "",
+    "cdn_sponsor": "クラウドストレージスポンサー",
+    "cdn_sponsor2": ""
+  },
+  "submit_repo": {
+    "text": "投稿",
+    "title": "プロジェクトを推薦または投稿",
+    "description": "承認されたプロジェクトのみがホームページに表示されます",
+    "url_placeholder": "プロジェクトURL",
+    "url_tip": "👆 GitHubのプロジェクトのみ受け付けています",
+    "title_placeholder": "タイトル：プロジェクトを簡単に紹介",
+    "summary_placeholder": "説明：プロジェクトの内容、解決する問題、使用技術、機能、使用例などを説明してください（明確な説明は承認の可能性を高めます！）",
+    "summary_tip": "文字制限：10-300文字",
+    "create_err": "URLを入力してください",
+    "create_err2": "タイトルは5文字以上必要です",
+    "create_err3": "説明は10文字以上必要です",
+    "create_err4": "タイトルは50文字を超えることはできません",
+    "create_err5": "説明は300文字を超えることはできません",
+    "create_success": "共有ありがとうございます！今日はあと{{remaining}}回投稿できます",
+    "check_url_err": "URLはhttps://github.comで始まる必要があります",
+    "check_url_err2": "このプロジェクトは既に存在します。別のものを試してください",
+    "check_url_err3": "無効なURL",
+    "check_url_err4": "リクエストに失敗しました。後でもう一度お試しください"
+  },
+  "collect": {
+    "title": "新規",
+    "create_success": "作成成功",
+    "create_fail": "作成失敗",
+    "edit_success": "編集成功",
+    "edit_fail": "編集失敗",
+    "name": "名前",
+    "name_placeholder": "フォルダ名を入力",
+    "desc": "説明",
+    "desc_placeholder": "フォルダの説明を入力（最大100文字、任意）",
+    "pravite": "非公開",
+    "pravite_desc": "あなたにのみ表示",
+    "public": "公開",
+    "public_desc": "全員に表示",
+    "button": {
+      "cancel": "キャンセル",
+      "confirm": "確認"
+    }
+  },
+  "feedback": {
+    "success": "送信成功",
+    "err": "内容を入力してください",
+    "err2": "内容は1000文字を超えることはできません",
+    "content_placeholder": "詳細なフィードバックをこちらに記入してください。丁寧に読み、迅速に対応いたします。",
+    "limit": "文字制限：1-1000文字",
+    "contact_placeholder": "連絡先：WeChat/電話番号/メール",
+    "submit": "送信",
+    "options": {
+      "feedback": {
+        "name": "提案",
+        "title": "改善提案"
+      },
+      "bug": { "title": "問題報告" },
+      "bussiess": { "name": "ビジネス", "title": "ビジネス提携" },
+      "other": { "name": "その他", "title": "自由にお話しください" }
+    }
+  },
+  "redirect": "HelloGitHubコミュニティを離れて、以下のURLにジャンプします 👇",
+  "theme": {
+    "dark": "ダークテーマ",
+    "light": "ライトテーマ"
+  },
+  "return": "ホームに戻る"
+} 
