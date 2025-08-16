@@ -1,4 +1,4 @@
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useState } from 'react';
 
 import useCommentData from '@/hooks/useCommentData';
 import { useLoginContext } from '@/hooks/useLoginContext';
@@ -29,6 +29,9 @@ function CommentSubmit(props: CommentSubmitProps) {
   const { login, userInfo, isLogin } = useLoginContext();
   const { t, belongId, className, onSuccess, onFail } = props;
 
+  // 添加提交状态管理
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleInput: FormEventHandler<HTMLTextAreaElement> = (e) => {
     const { value } = e.currentTarget;
 
@@ -50,6 +53,7 @@ function CommentSubmit(props: CommentSubmitProps) {
   const handleChangeRating = (rating: number) => {
     setCommentData({ ...commentData, score: rating });
   };
+
   const getErrMessage = (commentData: {
     comment: string;
     isUsed: boolean;
@@ -70,38 +74,50 @@ function CommentSubmit(props: CommentSubmitProps) {
     return '';
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    // 防止重复提交
+    if (isSubmitting) {
+      return;
+    }
+
     if (getErrMessage(commentData)) {
       return Message.error(getErrMessage(commentData));
     }
     if (!isLogin) {
       return login();
     }
-    let request;
 
-    if (props.replyUser) {
-      request = submitReplyComment(props.replyUser.cid, {
-        comment: commentData.comment,
-        reply_uid: props.replyUser.user.uid,
-      });
-    } else {
-      request = submitComment(belongId, commentData);
+    // 设置提交状态
+    setIsSubmitting(true);
+
+    try {
+      let request;
+
+      if (props.replyUser) {
+        request = submitReplyComment(props.replyUser.cid, {
+          comment: commentData.comment,
+          reply_uid: props.replyUser.user.uid,
+        });
+      } else {
+        request = submitComment(belongId, commentData);
+      }
+
+      const data = await request;
+
+      setCommentData(DEFAULT_INITITAL_COMMENT_DATA);
+
+      if (data.success) {
+        onSuccess && onSuccess(data);
+        Message.success(t('comment.submit.success'));
+      } else {
+        onFail && onFail(data);
+      }
+    } catch (err: any) {
+      Message.error(err.message || t('comment.submit.fail'));
+    } finally {
+      // 重置提交状态
+      setIsSubmitting(false);
     }
-
-    request
-      .then((data) => {
-        setCommentData(DEFAULT_INITITAL_COMMENT_DATA);
-
-        if (data.success) {
-          onSuccess && onSuccess(data);
-          Message.success(t('comment.submit.success'));
-        } else {
-          onFail && onFail(data);
-        }
-      })
-      .catch((err) => {
-        Message.error(err.message || t('comment.submit.fail'));
-      });
   };
 
   const placeholder = props.replyUser
@@ -130,6 +146,7 @@ function CommentSubmit(props: CommentSubmitProps) {
             placeholder={placeholder}
             value={commentData.comment}
             onInput={handleInput}
+            disabled={isSubmitting}
           ></textarea>
           <div className='flex flex-wrap items-center gap-2 text-xs sm:gap-4 sm:text-sm'>
             {!props.replyUser && (
@@ -142,6 +159,7 @@ function CommentSubmit(props: CommentSubmitProps) {
                     style={{ boxShadow: 'none' }}
                     checked={!commentData.isUsed}
                     onChange={() => handleRadioChange(false)}
+                    disabled={isSubmitting}
                   />
                   <span>{t('comment.unused')}</span>
                 </label>
@@ -153,6 +171,7 @@ function CommentSubmit(props: CommentSubmitProps) {
                     style={{ boxShadow: 'none' }}
                     checked={commentData.isUsed}
                     onChange={() => handleRadioChange(true)}
+                    disabled={isSubmitting}
                   />
                   <span>{t('comment.used')}</span>
                 </label>
@@ -162,6 +181,7 @@ function CommentSubmit(props: CommentSubmitProps) {
                   <Rating
                     value={commentData.score}
                     onRateChange={handleChangeRating}
+                    disabled={isSubmitting}
                   />
                 </div>
               </>
@@ -171,23 +191,76 @@ function CommentSubmit(props: CommentSubmitProps) {
                 <div className='flex flex-1 justify-end space-x-4'>
                   <button
                     onClick={props.onCancelReply}
-                    className='inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg border border-gray-300 pl-3 pr-3 text-sm font-semibold text-gray-500 transition-transform focus:outline-none active:scale-90'
+                    className='inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg border border-gray-300 pl-3 pr-3 text-sm font-semibold text-gray-500 transition-transform focus:outline-none active:scale-90 disabled:cursor-not-allowed disabled:opacity-50'
+                    disabled={isSubmitting}
                   >
                     {t('comment.cancel')}
                   </button>
                   <button
-                    className='inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90'
+                    className='inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90 disabled:cursor-not-allowed disabled:opacity-50'
                     onClick={handleSubmit}
+                    disabled={isSubmitting}
                   >
-                    {t('comment.reply')}
+                    {isSubmitting ? (
+                      <>
+                        <svg
+                          className='mr-2 h-4 w-4 animate-spin'
+                          viewBox='0 0 24 24'
+                        >
+                          <circle
+                            className='opacity-25'
+                            cx='12'
+                            cy='12'
+                            r='10'
+                            stroke='currentColor'
+                            strokeWidth='4'
+                            fill='none'
+                          ></circle>
+                          <path
+                            className='opacity-75'
+                            fill='currentColor'
+                            d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+                          ></path>
+                        </svg>
+                        {t('comment.submitting') || '提交中...'}
+                      </>
+                    ) : (
+                      t('comment.reply')
+                    )}
                   </button>
                 </div>
               ) : (
                 <button
-                  className='ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90'
+                  className='ml-auto inline-flex h-8 min-h-[2rem] flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center rounded-lg bg-gray-700 pl-3 pr-3 text-sm font-semibold text-white transition-transform focus:outline-none active:scale-90 disabled:cursor-not-allowed disabled:opacity-50'
                   onClick={handleSubmit}
+                  disabled={isSubmitting}
                 >
-                  {t('comment.submit.save')}
+                  {isSubmitting ? (
+                    <>
+                      <svg
+                        className='mr-2 h-4 w-4 animate-spin'
+                        viewBox='0 0 24 24'
+                      >
+                        <circle
+                          className='opacity-25'
+                          cx='12'
+                          cy='12'
+                          r='10'
+                          stroke='currentColor'
+                          strokeWidth='4'
+                          fill='none'
+                        ></circle>
+                        <path
+                          className='opacity-75'
+                          fill='currentColor'
+                          d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
+                        ></path>
+                      </svg>
+                      {t('comment.submitting')}
+                    </>
+                  ) : (
+                    t('comment.submit.save')
+                  )}
                 </button>
               )}
             </>

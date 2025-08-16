@@ -93,7 +93,8 @@
       "err1": "Comment cannot be empty",
       "err2": "Comment must be at least 5 characters",
       "err3": "Comment cannot exceed 500 characters",
-      "err4": "Please provide a rating"
+      "err4": "Please provide a rating",
+      "submitting": "Submitting..."
     }
   }
 }
