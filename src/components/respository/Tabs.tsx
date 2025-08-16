@@ -83,6 +83,23 @@ const Tabs = ({ repo, t, i18n_lang }: RepositoryProps) => {
           <MDRender>{repo.code}</MDRender>
         </div>
       );
+    } else if (selectTab === 'video') {
+      return (
+        <div className='w-full p-2'>
+          {repo.video_url && (
+            <div className='aspect-video w-full overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700'>
+              <iframe
+                src={`${repo.video_url}${
+                  repo.video_url.includes('?') ? '&' : '?'
+                }autoplay=0`}
+                className='h-full w-full'
+                allowFullScreen
+                title={`${repo.name} video player`}
+              />
+            </div>
+          )}
+        </div>
+      );
     }
   };
 
@@ -101,6 +118,14 @@ const Tabs = ({ repo, t, i18n_lang }: RepositoryProps) => {
             onClick={() => setSelectTab('code')}
           >
             {t('content.code_tab')}
+          </span>
+        )}
+        {repo.video_url && (
+          <span
+            className={tabClassName('video')}
+            onClick={() => setSelectTab('video')}
+          >
+            {t('content.video_tab')}
           </span>
         )}
       </nav>

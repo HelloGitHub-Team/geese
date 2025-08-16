@@ -37,6 +37,9 @@ export interface Repository extends RepoType {
   license_lid: string;
   license_spdx_id: string;
 
+  // 新增视频URL字段
+  video_url: string | null;
+
   star_history: StarHistory;
 
   release_tag: string | null;

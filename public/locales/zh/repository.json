@@ -59,6 +59,7 @@
   "content": {
     "desc_tab": "介绍",
     "code_tab": "代码",
+    "video_tab": "视频",
     "volume_label": "收录于：",
     "volume": "第 {{volume}} 期",
     "tag_label": "标签："

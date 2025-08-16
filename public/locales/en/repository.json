@@ -59,6 +59,7 @@
   "content": {
     "desc_tab": "Description",
     "code_tab": "Code",
+    "video_tab": "Video",
     "volume_label": "Included in:",
     "volume": "Vol.{{volume}}",
     "tag_label": "Tags:"
