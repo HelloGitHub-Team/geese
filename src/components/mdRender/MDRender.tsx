@@ -1,6 +1,9 @@
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vs, vsDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import {
+  vs,
+  vscDarkPlus,
+} from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import remarkGfm from 'remark-gfm';
 
 import clsxm from '@/lib/clsxm';
@@ -26,7 +29,7 @@ export const CodeRender = ({ code, lanuage }: CodeProps) => {
       );
     } else {
       return (
-        <SyntaxHighlighter style={vsDark} language={lanuage} PreTag='div'>
+        <SyntaxHighlighter style={vscDarkPlus} language={lanuage} PreTag='div'>
           {code}
         </SyntaxHighlighter>
       );
@@ -68,7 +71,7 @@ export const MDRender = ({
         if (match) {
           return (
             <SyntaxHighlighter
-              style={theme !== 'dark' ? vs : vsDark}
+              style={theme !== 'dark' ? vs : vscDarkPlus}
               language={match[1]}
               PreTag='pre'
             >

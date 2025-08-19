@@ -89,9 +89,7 @@ const Tabs = ({ repo, t, i18n_lang }: RepositoryProps) => {
           {repo.video_url && (
             <div className='aspect-video w-full overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700'>
               <iframe
-                src={`${repo.video_url}${
-                  repo.video_url.includes('?') ? '&' : '?'
-                }autoplay=0`}
+                src={`${repo.video_url}&autoplay=0&poster=true`}
                 className='h-full w-full'
                 allowFullScreen
                 title={`${repo.name} video player`}
