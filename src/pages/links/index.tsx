@@ -30,6 +30,16 @@ const linksData: LinkItem[] = [
     url: 'https://open.oceanbase.com/',
     logo: 'https://img.hellogithub.com/links/oceanbase.png',
   },
+  {
+    name: 'Monibuca',
+    url: 'https://monibuca.com/',
+    logo: 'https://img.hellogithub.com/links/monibuca.jpeg',
+  },
+  {
+    name: 'SwanLab',
+    url: 'https://swanlab.cn/',
+    logo: 'https://img.hellogithub.com/links/swanlab.png',
+  },
 ];
 
 const LinksPage: NextPage = () => {
