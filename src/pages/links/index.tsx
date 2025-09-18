@@ -25,6 +25,11 @@ const linksData: LinkItem[] = [
     url: 'https://www.dkdun.cn/',
     logo: 'https://img.hellogithub.com/links/dkdun.png',
   },
+  {
+    name: 'OceanBase 社区',
+    url: 'https://open.oceanbase.com/',
+    logo: 'https://img.hellogithub.com/links/oceanbase.png',
+  },
 ];
 
 const LinksPage: NextPage = () => {
@@ -42,7 +47,7 @@ const LinksPage: NextPage = () => {
             <CustomLink
               key={index}
               href={link.url}
-              className='group relative h-16 overflow-hidden rounded-md border border-gray-200 shadow-sm transition-all duration-200 hover:border-gray-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-300 dark:hover:border-gray-600'
+              className='group relative h-16 overflow-hidden rounded-sm border border-gray-200 shadow-sm transition-all duration-200 hover:border-gray-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-300 dark:hover:border-gray-600'
             >
               <div className='flex h-full w-full items-center justify-center'>
                 <div
@@ -64,7 +69,7 @@ const LinksPage: NextPage = () => {
 
           <CustomLink
             href='https://z797q1qcv8.feishu.cn/share/base/form/shrcnFGDsq9wMH1JjxHyV6FYqMf'
-            className='group relative h-16 overflow-hidden rounded-md border-2 border-dashed border-gray-300 shadow-sm transition-all duration-200 hover:border-blue-400 hover:shadow-md dark:border-gray-600 dark:hover:border-blue-500'
+            className='rounded-xs group relative h-16 overflow-hidden border-2 border-dashed border-gray-300 shadow-sm transition-all duration-200 hover:border-blue-400 hover:shadow-md dark:border-gray-600 dark:hover:border-blue-500'
           >
             <div className='flex h-full w-full items-center justify-center text-gray-400 dark:text-gray-500'>
               <div className='flex items-center gap-1 transition-colors duration-200 group-hover:text-blue-500 dark:group-hover:text-blue-400'>
