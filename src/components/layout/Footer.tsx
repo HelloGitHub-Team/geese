@@ -24,9 +24,11 @@ const Footer = ({ t, isLite }: FooterProps) => {
           </div>
         </FeedbackModal>
         <span>·</span>
-        <FooterLink href='mailto:595666367@qq.com'>
-          {t('footer.contact')}
-        </FooterLink>
+        <CustomLink className='inline' href='/links'>
+          <span className='cursor-pointer hover:text-blue-500'>
+            {t('footer.links')}
+          </span>
+        </CustomLink>
       </div>
 
       <p className='mt-2'>

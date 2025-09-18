@@ -53,6 +53,7 @@
     "agreement": "用户协议",
     "source": "社区源码",
     "sitemap": "站点地图",
+    "links": "友情链接",
     "server_sponsor": "服务器由",
     "server_sponsor2": "提供",
     "cdn_sponsor": "专业的",
@@ -120,5 +121,9 @@
     "dark": "黑暗主题",
     "light": "明亮主题"
   },
-  "return": "返回首页"
+  "return": "返回首页",
+  "links": {
+    "title": "友情链接",
+    "vacancy": "虚位以待"
+  }
 }

@@ -53,6 +53,7 @@
     "agreement": "Agreement",
     "source": "Source",
     "sitemap": "Sitemap",
+    "links": "Links",
     "server_sponsor": "Servers sponsor",
     "server_sponsor2": "",
     "cdn_sponsor": "Cloud storage sponsor",
@@ -123,5 +124,9 @@
     "dark": "Dark theme",
     "light": "Light theme"
   },
-  "return": "Return to Home"
+  "return": "Return to Home",
+  "links": {
+    "title": "Links",
+    "vacancy": "Vacancy"
+  }
 }
