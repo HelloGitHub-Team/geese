@@ -12,10 +12,11 @@ export const ChangeColumnRender = (
   showPercent = false,
   i18n_lang: string
 ) => {
-  let text = '-';
-  if (row.change !== null) {
-    text = showPercent ? `${row.change}%` : `${row.change}`;
+  if (row.change === null) {
+    return <span>-</span>;
   }
+
+  const text = showPercent ? `${row.change}%` : `${row.change}`;
 
   return (
     <div className='flex items-center'>
@@ -57,6 +58,36 @@ export const TrendColumnRender = (
     }
   }
   return <span>{icon}</span>;
+};
+
+// 分数+趋势合并列
+export const RatingWithTrendRender = (
+  row: RankDataItem,
+  _showPercent: boolean,
+  i18n_lang: string
+) => {
+  let icon = null;
+  if (row.change !== null) {
+    if (row.change > 0) {
+      if (i18n_lang === 'en') {
+        icon = <IoMdTrendingUp size={14} className='text-green-500' />;
+      } else {
+        icon = <IoMdTrendingUp size={14} className='text-red-500' />;
+      }
+    } else {
+      if (i18n_lang === 'en') {
+        icon = <IoMdTrendingDown size={14} className='text-red-500' />;
+      } else {
+        icon = <IoMdTrendingDown size={14} className='text-green-500' />;
+      }
+    }
+  }
+  return (
+    <div className='flex items-center gap-1'>
+      <span>{row.rating}</span>
+      {icon}
+    </div>
+  );
 };
 
 export const ContributionColumnRender = (

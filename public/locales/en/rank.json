@@ -57,5 +57,18 @@
       "total": "Total",
       "md_change": "📊"
     }
+  },
+  "lmrank": {
+    "title": "LM Rank",
+    "nav": "{{month}} {{year}} LM Ranking",
+    "p_text": "<strong>The LLM Arena Ranking</strong> is a crowdsourced leaderboard for large language models. Users chat with two anonymous models and vote for the better response, with model ratings calculated using the Elo rating system. The leaderboard covers multiple capability dimensions including text, vision, and code, making it one of the most authoritative LLM evaluation benchmarks. Based on this ranking, we have done model name aggregation and cleaning work.",
+    "thead": {
+      "position": "Rank",
+      "name": "Model",
+      "organization": "Organization",
+      "rating": "Score",
+      "change": "Change",
+      "md_change": "📊"
+    }
   }
 }
