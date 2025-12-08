@@ -2,10 +2,7 @@ import { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { appWithTranslation } from 'next-i18next';
-import NProgress from 'nprogress';
-import { useEffect } from 'react';
 
-import 'nprogress/nprogress.css';
 import '@/styles/globals.css';
 
 import { LoginProvider } from '@/hooks/useLoginContext';
@@ -26,29 +23,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { pathname } = router;
   // 需要单页面展示的路由
   const singlePage: string[] = ['/404', '/500'];
-
-  // 页面跳转时的加载进度条
-  useEffect(() => {
-    // 不显示右上角的加载转圈图标
-    NProgress.configure({ showSpinner: false });
-    const handleStart = () => {
-      NProgress.start();
-    };
-
-    const handleStop = () => {
-      NProgress.done();
-    };
-
-    router.events.on('routeChangeStart', handleStart);
-    router.events.on('routeChangeComplete', handleStop);
-    router.events.on('routeChangeError', handleStop);
-
-    return () => {
-      router.events.off('routeChangeStart', handleStart);
-      router.events.off('routeChangeComplete', handleStop);
-      router.events.off('routeChangeError', handleStop);
-    };
-  }, [router]);
 
   return (
     <div id='root'>

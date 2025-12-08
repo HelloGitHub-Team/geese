@@ -104,7 +104,7 @@ const Header = ({ hiddenAd, showAd }: Props) => {
               {t('header.periodical')}
             </HeaderBtn>
           </li>
-          <li className={liClassName('/report/tiobe')}>
+          <li className={liClassName('/report')}>
             <RankButton t={t} />
           </li>
           <li className={liClassName('/article')}>
