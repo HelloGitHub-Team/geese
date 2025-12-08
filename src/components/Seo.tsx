@@ -31,6 +31,11 @@ type Favicons = {
 
 const favicons: Array<Favicons> = [
   {
+    rel: 'icon',
+    type: 'image/svg+xml',
+    href: '/favicon/favicon.svg',
+  },
+  {
     rel: 'apple-touch-icon',
     sizes: '57x57',
     href: '/favicon/apple-icon-57x57.png',
