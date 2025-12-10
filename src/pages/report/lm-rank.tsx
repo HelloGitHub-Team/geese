@@ -105,7 +105,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
   // 移动端列配置（分数和趋势合并为一列）
   const md_columns: any[] = useMemo(
     () => [
-      { key: 'position', title: t('lmrank.thead.position'), width: 50 },
+      { key: 'position', title: t('lmrank.thead.position'), width: 60 },
       { key: 'name', title: t('lmrank.thead.name') },
       {
         key: 'rating',

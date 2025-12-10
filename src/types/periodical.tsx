@@ -6,6 +6,7 @@ export interface VolumeType {
   page_total: number;
   total: number;
   current_num: number;
+  publish_at: string;
   data: VolumeCategory[];
 }
 

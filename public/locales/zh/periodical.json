@@ -32,6 +32,7 @@
     "title": "《HelloGitHub 月刊》第 {{num}} 期",
     "nav": "期数",
     "h2_text": "《HelloGitHub》第 {{num}} 期",
+    "publish_time": "发布于",
     "p_text": "<p>HelloGitHub 分享 GitHub 上有趣、入门级的开源项目，<strong>每月 28 号</strong>更新一期。这里有好玩和入门级的开源项目、开源书籍、实战项目、企业级项目，帮助你快速发现开源的魅力，对开源产生兴趣。</p>",
     "catalog": "本期目录",
     "catalog2": "目录"

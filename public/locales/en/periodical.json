@@ -32,6 +32,7 @@
     "title": "HelloGitHub Monthly Vol.{{num}}",
     "nav": "Volume",
     "h2_text": "HelloGitHub Vol.{{num}}",
+    "publish_time": "Published on",
     "p_text": "<p>HelloGitHub shares interesting, beginner-friendly open-source projects from GitHub, updated <strong>every month on the 28th</strong>. Discover fun beginner projects, open-source books, practical tutorials, and enterprise-grade projects, helping you quickly experience and become interested in the charm of open source.</p>",
     "catalog": "Catalog",
     "catalog2": "Catalog"

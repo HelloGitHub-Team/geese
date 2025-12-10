@@ -5,7 +5,7 @@ import { Trans, useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
-import { GoListUnordered } from 'react-icons/go';
+import { GoCalendar, GoListUnordered } from 'react-icons/go';
 
 import Drawer from '@/components/drawer/Drawer';
 import Pagination from '@/components/pagination/Pagination';
@@ -15,6 +15,7 @@ import ToTop from '@/components/toTop/ToTop';
 
 import { getVolume, getVolumeNum } from '@/services/volume';
 import { nameMap } from '@/utils/constants';
+import { format, formatZH } from '@/utils/day';
 
 import { VolumePageProps } from '@/types/periodical';
 import { PeriodicalItem, VolumeCategory } from '@/types/periodical';
@@ -255,8 +256,17 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
             </div>
 
             <div className='my-2 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
-              <div className='flex items-center justify-center pb-4'>
+              <div className='flex flex-col items-center justify-center pb-4'>
                 <h2>{t('volume.h2_text', { num: volume?.current_num })}</h2>
+                {volume.publish_at && (
+                  <div className='mt-2 flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600 dark:bg-gray-700 dark:text-gray-300'>
+                    <GoCalendar className='mr-1.5' size={12} />
+                    {t('volume.publish_time')}{' '}
+                    {i18n.language === 'zh'
+                      ? formatZH(volume.publish_at)
+                      : format(volume.publish_at, 'MMMM DD, YYYY')}
+                  </div>
+                )}
               </div>
               <div className='text-normal mb-4  dark:bg-gray-800 dark:text-gray-300'>
                 <div className='whitespace-pre-wrap rounded-sm bg-gray-50 p-2 font-normal leading-8 text-gray-500 dark:bg-gray-800 dark:text-gray-300'>
