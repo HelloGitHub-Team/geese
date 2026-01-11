@@ -81,3 +81,18 @@ export type AllItems = {
   categories: CategroyName[];
   volumes: VolumeNum[];
 };
+
+// 弹幕数据类型
+export interface BulletItem {
+  full_name: string;
+  title?: string;
+  title_en?: string;
+  lang_color?: string;
+  image_url?: string;
+}
+
+export interface BulletsResponse {
+  success: boolean;
+  total: number;
+  data: BulletItem[];
+}

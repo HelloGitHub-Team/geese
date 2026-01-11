@@ -2,7 +2,7 @@ import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-import { Volume, VolumeAll } from '@/types/periodical';
+import { BulletsResponse, Volume, VolumeAll } from '@/types/periodical';
 
 export const getVolume = async (num?: number): Promise<Volume> => {
   try {
@@ -34,6 +34,20 @@ export const getVolumeNum = async (): Promise<VolumeAll> => {
       data = [],
     } = (await fetcher<VolumeAll>(makeUrl(`/periodical/volume/all/`))) || {};
     return { success, total, data };
+  } catch (error) {
+    return { success: false, total: 0, data: [] };
+  }
+};
+
+export const getVolumeBullets = async (
+  num?: number
+): Promise<BulletsResponse> => {
+  try {
+    const url = num
+      ? makeUrl('/periodical/volume/bullets/', { num })
+      : makeUrl('/periodical/volume/bullets/');
+    const data = await fetcher<BulletsResponse>(url);
+    return data;
   } catch (error) {
     return { success: false, total: 0, data: [] };
   }

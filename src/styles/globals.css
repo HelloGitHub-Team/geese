@@ -306,3 +306,22 @@ code::before,
 code::after {
   content: none !important;
 }
+
+/* 弹幕动画 */
+@keyframes danmaku {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes danmaku-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
