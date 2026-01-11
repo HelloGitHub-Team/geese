@@ -118,38 +118,29 @@ export const ArticleSkeleton = () => {
 
 export const PeriodicalSkeleton = () => {
   return (
-    <dl className='grid grid-cols-3 gap-2'>
-      <div className='flex flex-col rounded-lg border border-gray-200 px-2 pt-4 pb-4 text-center dark:border-gray-700 md:px-4 md:pt-6'>
-        <dt className='order-first mb-3 h-8 animate-pulse bg-gray-100 px-10 dark:bg-gray-700'></dt>
-        <dd className='h-10 animate-pulse bg-gray-100 dark:bg-gray-700 md:h-14'></dd>
-        <div className='mt-3 h-5 w-full animate-pulse bg-gray-100 dark:bg-gray-700'></div>
-        <div className='mt-6 border-y border-gray-100 dark:border-gray-600'>
-          <div className='py-3'>
-            <div className='h-10 w-full bg-gray-100 dark:bg-gray-700'></div>
-          </div>
+    <div className='animate-pulse'>
+      <div className='flex flex-col items-center pb-6'>
+        <div className='flex items-center gap-4'>
+          <div className='h-10 w-10 rounded-full bg-gray-100 dark:bg-gray-700' />
+          <div className='h-40 w-32 rounded-lg bg-gray-100 dark:bg-gray-700 md:h-48 md:w-40' />
+          <div className='h-10 w-10 rounded-full bg-gray-100 dark:bg-gray-700' />
         </div>
+        <div className='mt-5 h-6 w-40 rounded bg-gray-100 dark:bg-gray-700' />
+        <div className='mt-3 h-4 w-64 rounded bg-gray-100 dark:bg-gray-700' />
       </div>
-      <div className='flex flex-col rounded-lg border border-gray-200 px-2 pt-4 pb-4 text-center dark:border-gray-700 md:px-4 md:pt-6'>
-        <dt className='order-first mb-3 h-8 animate-pulse bg-gray-100 px-10 dark:bg-gray-700'></dt>
-        <dd className='h-10 animate-pulse bg-gray-100 dark:bg-gray-700 md:h-14'></dd>
-        <div className='mt-3 h-5 w-full animate-pulse bg-gray-100 dark:bg-gray-700'></div>
-        <div className='mt-6 border-y border-gray-100 dark:border-gray-600'>
-          <div className='py-3'>
-            <div className='h-10 w-full bg-gray-100 dark:bg-gray-700'></div>
-          </div>
-        </div>
+      <div className='flex justify-center gap-4 border-b border-gray-100 py-2 dark:border-gray-700'>
+        <div className='h-6 w-16 rounded bg-gray-100 dark:bg-gray-700' />
+        <div className='h-6 w-16 rounded bg-gray-100 dark:bg-gray-700' />
       </div>
-      <div className='flex flex-col rounded-lg border border-gray-200 px-2 pt-4 pb-4 text-center dark:border-gray-700 md:px-4 md:pt-6'>
-        <dt className='order-first mb-3 h-8 animate-pulse bg-gray-100 px-10 dark:bg-gray-700'></dt>
-        <dd className='h-10 animate-pulse bg-gray-100 dark:bg-gray-700 md:h-14'></dd>
-        <div className='mt-3 h-5 w-full animate-pulse bg-gray-100 dark:bg-gray-700'></div>
-        <div className='mt-6 border-y border-gray-100 dark:border-gray-600'>
-          <div className='py-3'>
-            <div className='h-10 w-full bg-gray-100 dark:bg-gray-700'></div>
-          </div>
-        </div>
+      <div className='grid grid-cols-5 gap-2 px-4 py-4 md:grid-cols-10'>
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className='h-12 rounded-lg bg-gray-100 dark:bg-gray-700'
+          />
+        ))}
       </div>
-    </dl>
+    </div>
   );
 };
 

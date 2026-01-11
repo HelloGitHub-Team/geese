@@ -251,7 +251,7 @@ const PeriodicalIndexPage: NextPage = () => {
             </div>
           ) : (
             <>
-              <div className='relative z-0 overflow-hidden px-4 pb-3 pt-6'>
+              <div className='relative z-0 overflow-hidden px-4 pb-3 pt-6 md:rounded-t-lg'>
                 <div className='pointer-events-none absolute inset-0 bg-gradient-to-b from-white/90 via-white/60 to-white/90 dark:from-gray-800/90 dark:via-gray-800/60 dark:to-gray-800/90' />
 
                 {bullets.length > 0 && (
