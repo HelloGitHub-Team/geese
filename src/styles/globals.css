@@ -325,3 +325,16 @@ code::after {
     transform: translateX(0);
   }
 }
+
+@keyframes danmaku-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.danmaku-container {
+  animation: danmaku-fade-in 0.5s ease-out;
+}

@@ -188,12 +188,16 @@ const PeriodicalIndexPage: NextPage = () => {
 
   const [bullets, setBullets] = useState<BulletItem[]>([]);
   const [isDanmakuPaused, setIsDanmakuPaused] = useState(false);
+  const [danmakuKey, setDanmakuKey] = useState(0);
 
   useEffect(() => {
     const num = currentIndex === 0 ? undefined : currentVolume;
     if (currentIndex === 0 || currentVolume > 0) {
       getVolumeBullets(num).then((res) => {
-        setBullets(res.success ? res.data : []);
+        if (res.success && res.data.length > 0) {
+          setBullets(res.data);
+          setDanmakuKey((prev) => prev + 1);
+        }
       });
     }
   }, [currentVolume, currentIndex]);
@@ -255,7 +259,10 @@ const PeriodicalIndexPage: NextPage = () => {
                 <div className='pointer-events-none absolute inset-0 bg-gradient-to-b from-white/90 via-white/60 to-white/90 dark:from-gray-800/90 dark:via-gray-800/60 dark:to-gray-800/90' />
 
                 {bullets.length > 0 && (
-                  <div className='danmaku-container absolute inset-x-0 top-6 z-[5] h-48 overflow-hidden md:h-52'>
+                  <div
+                    key={danmakuKey}
+                    className='danmaku-container absolute inset-x-0 top-6 z-[5] h-48 overflow-hidden md:h-52'
+                  >
                     {DANMAKU_ROWS.map((config, idx) => (
                       <DanmakuRow
                         key={idx}
