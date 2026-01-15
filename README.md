@@ -1,6 +1,6 @@
 <p align="center">
   <img src="docs/img/2024-08-14.png"/>
-  <br>中文 | <a href="README_en.md">English</a>
+  <br>中文 | <a href="README_en.md">English</a> | <a href="README_ja.md">日本語</a>
   <br>HelloGitHub 是一个发现和分享有趣、入门级开源项目的平台<br>
 </p>
 

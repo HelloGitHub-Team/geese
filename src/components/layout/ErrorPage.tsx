@@ -1,6 +1,6 @@
 import { IoIosArrowForward } from 'react-icons/io';
 
-import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
+import LanguageSwitcher from '@/components/dropdown/LanguageSwitcher';
 import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
 import { NoPrefetchLink } from '@/components/links/CustomLink';
 

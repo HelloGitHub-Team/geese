@@ -1,6 +1,6 @@
 <p align="center">
   <img src="docs/img/2024-08-14_en.png"/>
-  <br><a href="README.md">中文</a> | English
+  <br><a href="README.md">中文</a> | English | <a href="README_ja.md">日本語</a>
   <br>HelloGitHub is a platform for discovering and sharing beginner-friendly open source projects<br>
 </p>
 
