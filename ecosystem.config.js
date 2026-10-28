@@ -8,6 +8,7 @@ module.exports = {
       env: {
         NEXT_PUBLIC_ENV: 'production',
         NODE_PORT: '3000',
+        NODE_OPTIONS: '--no-experimental-global-navigator',
       },
       watch: false,
       merge_logs: true,

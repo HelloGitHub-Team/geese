@@ -4,6 +4,7 @@ import { GoCommentDiscussion, GoThumbsup } from 'react-icons/go';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
+import HostedImage from '@/components/HostedImage';
 import { NoPrefetchLink } from '@/components/links/CustomLink';
 import Message from '@/components/message';
 import Rating from '@/components/respository/Rating';
@@ -117,7 +118,7 @@ const CommentItem = (props: CommentItemProps) => {
         <div className='relative'>
           <NoPrefetchLink href={`/user/${user.uid}`}>
             <a>
-              <img
+              <HostedImage
                 className='h-10 w-10 cursor-pointer rounded-full'
                 src={user?.avatar || DEFAULT_AVATAR}
                 alt='comment_avatar'
@@ -131,7 +132,7 @@ const CommentItem = (props: CommentItemProps) => {
           <div className='flex w-full flex-row items-center gap-2'>
             <div className='flex max-w-fit flex-1 items-center'>
               <div className='mr-1 md:hidden'>
-                <img
+                <HostedImage
                   className='h-5 w-5 rounded-full'
                   src={user?.avatar || DEFAULT_AVATAR}
                   alt='comment_avatar'

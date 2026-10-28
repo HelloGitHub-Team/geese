@@ -17,6 +17,7 @@ import { GoComment, GoLinkExternal, GoVerified } from 'react-icons/go';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
+import HostedImage from '@/components/HostedImage';
 import Score from '@/components/respository/Score';
 
 import { getFavoriteOptions } from '@/services/favorite';
@@ -310,7 +311,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
         <div className='flex flex-row'>
           <div className='flex min-w-[72px] items-center'>
             <div className='relative overflow-hidden rounded border border-gray-100 dark:border-gray-800'>
-              <img
+              <HostedImage
                 src={repo.author_avatar}
                 width='72'
                 height='72'

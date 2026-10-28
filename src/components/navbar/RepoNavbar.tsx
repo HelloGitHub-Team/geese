@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
+import HostedImage from '@/components/HostedImage';
 import { NoPrefetchLink } from '@/components/links/CustomLink';
 
 interface Props {
@@ -36,7 +37,7 @@ const RepoDetailNavbar = ({ avatar, uid, t }: Props) => {
           <div className='flex cursor-pointer items-center justify-end text-xs text-gray-500 hover:text-blue-400 dark:text-gray-400'>
             {t('nav.desc')}
             <span className='m-1 flex items-center'>
-              <img
+              <HostedImage
                 className='rounded-full hover:animate-spin'
                 src={avatar}
                 width='18'

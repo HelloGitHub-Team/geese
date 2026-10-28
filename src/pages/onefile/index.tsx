@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { Trans, useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+import HostedImage from '@/components/HostedImage';
 import { NoPrefetchLink } from '@/components/links/CustomLink';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -51,11 +52,11 @@ const OneFilePage: NextPage<OneItemsResp> = ({ data }) => {
         <Navbar middleText='OneFile' />
         <div className='my-2 bg-white px-2 pt-2 dark:bg-gray-800 md:rounded-lg'>
           <div className='my-2'>
-            <img
+            <HostedImage
               className='w-max-full'
               src='https://img.hellogithub.com/article/tK30nYW8bMiPOdB_1647991896.png'
               alt='onefile'
-            ></img>
+            ></HostedImage>
             <p className='my-4 px-2'>
               <Trans ns='onefile' i18nKey='p_text' />
             </p>

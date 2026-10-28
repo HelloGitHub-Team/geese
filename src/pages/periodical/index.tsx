@@ -8,6 +8,7 @@ import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 import useSWRImmutable from 'swr/immutable';
 
 import { RepoModal } from '@/components/dialog/RepoModal';
+import HostedImage from '@/components/HostedImage';
 import { PeriodicalSkeleton } from '@/components/loading/skeleton';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -90,7 +91,7 @@ const BulletTag = ({
       onMouseLeave={() => onHover(false)}
     >
       {item.image_url && (
-        <img
+        <HostedImage
           src={item.image_url}
           alt=''
           className='h-6 w-6 shrink-0 rounded-full'

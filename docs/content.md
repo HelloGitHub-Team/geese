@@ -1,5 +1,17 @@
 ## 开发前
 
+本项目使用 **Node.js 24**。当前 Next.js 12 内置依赖使用了 `SlowBuffer`，Node.js 25 移除了该 API，会导致启动时报 `Cannot read properties of undefined (reading 'prototype')`。
+
+进入项目目录后，使用 nvm 执行 `nvm install && nvm use`，读取仓库的 `.nvmrc`。macOS 使用 Homebrew 时可执行：
+
+```sh
+brew install node@24
+export PATH="$(brew --prefix node@24)/bin:$PATH"
+node --version # 应为 v24.x
+```
+
+上述 `export` 仅作用于当前终端；新终端需重新切换 Node 版本。
+
 首先，项目用的是 yarn 安装可自行搜索，安装完成后通过 `yarn set version v1.22.19` 命令设置版本号。
 
 然后，要把「Geese」项目在本地跑起来，详细步骤如下：

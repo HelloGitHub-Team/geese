@@ -9,8 +9,10 @@ type Config = {
   prefix?: string;
 };
 
-const defaultStringifyFunction: StringifyFunction = (key: string, value: any) =>
-  value;
+const defaultStringifyFunction: StringifyFunction = (
+  _key: string,
+  value: any
+) => value;
 const defaultEq = '=';
 const defaultSep = '&';
 const defaultConfig: Config = {

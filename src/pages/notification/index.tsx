@@ -8,6 +8,7 @@ import useSWRInfinite from 'swr/infinite';
 import clsxm from '@/lib/clsxm';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
+import HostedImage from '@/components/HostedImage';
 import { CustomLink } from '@/components/links/CustomLink';
 import Loading from '@/components/loading/Loading';
 import Navbar from '@/components/navbar/Navbar';
@@ -17,6 +18,7 @@ import ToTop from '@/components/toTop/ToTop';
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
 import { fromNow } from '@/utils/day';
+import { getHtmlImageUrls } from '@/utils/image';
 
 import { MessageItems, MessageRecord } from '@/types/user';
 
@@ -72,6 +74,8 @@ const Notification = () => {
   type ObjectKey = keyof typeof userInfo;
 
   const autoLink = (content: string) => {
+    // Keep image markup intact; auto-linking its src would break the tag.
+    if (/<(?:img|picture|source)\b/i.test(content)) return content;
     const reg =
       '(https|http|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]';
     const re = new RegExp(reg);
@@ -153,7 +157,7 @@ const Notification = () => {
         <span
           className='truncate text-gray-600 dark:text-gray-500'
           dangerouslySetInnerHTML={{
-            __html: autoLink(item.content),
+            __html: getHtmlImageUrls(autoLink(item.content)),
           }}
         />
       );
@@ -204,7 +208,7 @@ const Notification = () => {
               {messages.map((item: MessageRecord) => (
                 <article key={`${item.message_type}-${item.mid}`}>
                   <div className='flex w-full flex-row truncate whitespace-normal border-b border-gray-100 py-3.5 dark:border-gray-700 md:px-1.5'>
-                    <img
+                    <HostedImage
                       className='mr-3 h-10 rounded-full'
                       src={
                         activeTab == 'comment'

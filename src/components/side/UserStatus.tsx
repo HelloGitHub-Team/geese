@@ -3,6 +3,7 @@ import { AiOutlineBell, AiOutlineQuestionCircle } from 'react-icons/ai';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
+import HostedImage from '@/components/HostedImage';
 import { NoPrefetchLink } from '@/components/links/CustomLink';
 import { LevelRender } from '@/components/user/Common';
 
@@ -16,7 +17,7 @@ const UserAvatar = ({ uid, avatar }: { uid: string; avatar: string }) => (
   <NoPrefetchLink href={`/user/${uid}`}>
     <a>
       <div className='bg-img top-0 left-0 h-10 w-10 shrink-0 grow-0 cursor-pointer rounded-lg object-cover'>
-        <img
+        <HostedImage
           className='rounded'
           width='40'
           height='40'

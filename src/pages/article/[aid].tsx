@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import ItemBottom from '@/components/home/ItemBottom';
+import HostedImage from '@/components/HostedImage';
 import { MDRender } from '@/components/mdRender/MDRender';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -28,7 +29,7 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
         </article>
         {i18n.language === 'zh' ? (
           <div className='my-2 flex justify-center'>
-            <img
+            <HostedImage
               className='hidden rounded-lg md:block'
               src='https://img.hellogithub.com/ad/footer.png'
               alt='weixin_footer'
@@ -41,7 +42,7 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
             className='flex justify-center'
             target='_blank'
           >
-            <img
+            <HostedImage
               src='https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png'
               alt='Buy Me A Coffee'
               className='h-[60px] w-[217px]'

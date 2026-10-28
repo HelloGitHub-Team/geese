@@ -2,9 +2,14 @@
   "name": "ts-nextjs-tailwind-starter",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
+    "build:mainland": "cross-env NODE_OPTIONS=--no-experimental-global-navigator NEXT_PUBLIC_IMAGE_BASE_URL= yarn build",
+    "build:overseas": "cross-env NODE_OPTIONS=--no-experimental-global-navigator NEXT_PUBLIC_IMAGE_BASE_URL=https://img.cheatsheet.store yarn build",
     "build:dep": "cross-env ANALYZE=true next build",
     "start": "next start",
     "server_start": "pm2 start ecosystem.config.js",

@@ -5,7 +5,7 @@ interface Props {
 export const HomeSkeleton = ({ loop }: Props) => {
   return (
     <div className='divide-y divide-slate-100 bg-white dark:divide-slate-700 dark:bg-slate-800 md:overflow-y-hidden md:rounded-lg'>
-      {[...Array(loop)].map((x, i) => (
+      {Array.from({ length: loop }, (_, i) => (
         <div
           key={i}
           className='relative animate-pulse bg-white py-3 px-4 dark:bg-gray-800 '
@@ -77,7 +77,7 @@ export const StatsSkeleton = () => {
 export const RecommendSkeleton = ({ loop }: Props) => {
   return (
     <div>
-      {[...Array(loop)].map((x, i) => (
+      {Array.from({ length: loop }, (_, i) => (
         <div key={i} className='flex flex-row rounded-md py-2'>
           <div className='flex w-full items-center px-1'>
             <div className='rounded-full bg-gray-100 dark:bg-gray-700'>

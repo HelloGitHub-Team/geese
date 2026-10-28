@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { AiOutlineStar } from 'react-icons/ai';
 import { MdRefresh } from 'react-icons/md';
 
+import HostedImage from '@/components/HostedImage';
+
 import { getRecommend } from '@/services/home';
 
 import { RecommendSkeleton } from '../loading/skeleton';
@@ -20,7 +22,7 @@ const RecommendList = ({ repositories }: { repositories: RecommendItem[] }) => (
       >
         <div className='flex cursor-pointer flex-row rounded-md py-2 hover:bg-gray-50 hover:text-blue-400 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-blue-400'>
           <div className='flex w-full items-center px-1'>
-            <img
+            <HostedImage
               className='w-10 rounded-full border border-gray-100 dark:border-gray-900'
               src={item.author_avatar}
               width='40'

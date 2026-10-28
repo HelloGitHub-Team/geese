@@ -9,6 +9,10 @@ const { i18n } = require('./next-i18next.config');
 
 module.exports = withBundleAnalyzer({
   i18n,
+  // Freeze the empty domestic default too, for matching SSR/browser builds.
+  env: {
+    NEXT_PUBLIC_IMAGE_BASE_URL: process.env.NEXT_PUBLIC_IMAGE_BASE_URL || '',
+  },
   trailingSlash: false,
   reactStrictMode: false,
   compress: true, // 启用压缩
@@ -20,6 +24,7 @@ module.exports = withBundleAnalyzer({
     domains: [
       'raw.githubusercontent.com',
       'img.hellogithub.com',
+      'img.cheatsheet.store',
       'thirdwx.qlogo.cn',
     ],
   },
@@ -45,8 +50,4 @@ module.exports = withBundleAnalyzer({
     });
     return config;
   },
-  // experimental: {
-  //   disableOptimizedLoading: true,
-  //   scrollRestoration: true,
-  // },
 });

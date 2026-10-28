@@ -10,6 +10,7 @@ import { FaGithub } from 'react-icons/fa';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import Button from '@/components/buttons/Button';
+import HostedImage from '@/components/HostedImage';
 import Loading from '@/components/loading/Loading';
 import message from '@/components/message';
 import Message from '@/components/message';
@@ -153,7 +154,7 @@ const EmbedPage: NextPage = () => {
         <Navbar middleText={t('navbar')} />
         <div className='my-2 bg-white px-4 py-2 dark:bg-gray-800 md:rounded-lg'>
           <div className='mt-2'>
-            <img
+            <HostedImage
               className='w-max-full'
               src='https://img.hellogithub.com/logo/badge_head.png'
               alt='badge_head'
@@ -216,7 +217,7 @@ const EmbedPage: NextPage = () => {
 
                     <div className='my-8 flex justify-center'>
                       {svgFile ? (
-                        <img className='w-max-full' src={svgFile} />
+                        <HostedImage className='w-max-full' src={svgFile} />
                       ) : (
                         <Loading />
                       )}

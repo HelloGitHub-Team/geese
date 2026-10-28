@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import Dropdown from '@/components/dropdown/Dropdown';
+import HostedImage from '@/components/HostedImage';
 
 import { RankDataItem } from '@/types/rank';
 
@@ -17,6 +18,8 @@ type TableProps = {
   columns: column[];
   list: RankDataItem[];
   i18n_lang: string;
+  minWidth?: number;
+  compact?: boolean;
 };
 
 export const getMonthName = (
@@ -36,10 +39,25 @@ export const getMonthName = (
   return date.toLocaleString(i18n_lang, { month: format });
 };
 
-export const RankTable = ({ columns, list, i18n_lang }: TableProps) => {
+export const RankTable = ({
+  columns,
+  list,
+  i18n_lang,
+  minWidth,
+  compact,
+}: TableProps) => {
   return (
-    <div className='overflow-hidden rounded-lg border shadow dark:border-gray-700 dark:shadow-none'>
-      <table className='w-min	min-w-full table-fixed divide-y-2 divide-gray-200 text-sm dark:divide-gray-700'>
+    <div
+      className={`rounded-lg border shadow dark:border-gray-700 dark:shadow-none ${
+        compact ? 'overflow-x-auto' : 'overflow-hidden'
+      }`}
+    >
+      <table
+        className={`w-min min-w-full divide-y-2 divide-gray-200 text-sm dark:divide-gray-700 ${
+          compact ? 'table-auto' : 'table-fixed'
+        }`}
+        style={minWidth ? { minWidth: `max(100%, ${minWidth}px)` } : undefined}
+      >
         <thead>
           <tr>
             {columns?.map(({ key, title, width = 'auto' }: column) => (
@@ -47,7 +65,9 @@ export const RankTable = ({ columns, list, i18n_lang }: TableProps) => {
                 key={key}
                 scope='col'
                 style={{ width: width }}
-                className='px-4 py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-300 md:px-6 md:py-3'
+                className={`py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-300 md:py-3 ${
+                  compact ? 'px-3' : 'px-4 md:px-6'
+                }`}
               >
                 {title}
               </th>
@@ -66,7 +86,9 @@ export const RankTable = ({ columns, list, i18n_lang }: TableProps) => {
                 return (
                   <td
                     key={key}
-                    className='truncate whitespace-nowrap bg-white px-4 py-2 text-left text-sm font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300 md:px-6 md:py-4'
+                    className={`whitespace-nowrap bg-white py-2 text-left text-sm font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300 md:py-4 ${
+                      compact ? 'px-3 align-middle' : 'truncate px-4 md:px-6'
+                    }`}
                   >
                     {content}
                   </td>
@@ -147,17 +169,21 @@ export const RankSearchBar = ({
       <div className='flex justify-center'>
         <div className='flex items-center'>
           <div className='inline'>
-            <img
+            <HostedImage
               className={`h-5 w-5 cursor-pointer hover:animate-spin ${
-                title === 'HelloGitHub' || title === 'LMArena'
+                title === 'HelloGitHub' || title === 'Arena'
                   ? 'dark:invert'
                   : ''
               }`}
               src={logo}
-              alt='rank_logo'
+              alt={title}
             />
           </div>
-          <span className='ml-1 hidden dark:text-gray-300 md:block'>
+          <span
+            className={`ml-1 dark:text-gray-300 ${
+              title === 'Arena' ? '' : 'hidden md:block'
+            }`}
+          >
             {title}
           </span>
         </div>

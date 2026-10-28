@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { API_HOST } from '@/utils/api';
+import { getImageUrl } from '@/utils/image';
 
 // !STARTERCONF Change these default meta
 const defaultMeta = {
@@ -116,6 +117,7 @@ export default function Seo(props: SeoProps) {
     ...defaultMeta,
     ...props,
   };
+  meta.image = getImageUrl(meta.image);
   meta['title'] = props.templateTitle
     ? `${props.templateTitle} | ${meta.siteName}`
     : meta.title;

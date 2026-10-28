@@ -9,6 +9,7 @@ import useSWRInfinite from 'swr/infinite';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import ItemBottom from '@/components/home/ItemBottom';
+import HostedImage from '@/components/HostedImage';
 import { NoPrefetchLink } from '@/components/links/CustomLink';
 import Loading from '@/components/loading/Loading';
 import { ArticleSkeleton } from '@/components/loading/skeleton';
@@ -104,7 +105,7 @@ const ArticleIndex: NextPage = () => {
                       </div>
                       {item.head_image && (
                         <div className='relative flex w-3/12 justify-center'>
-                          <img
+                          <HostedImage
                             className='h-20 rounded-md md:w-32'
                             src={`${item.head_image}!headimage`}
                             alt='article head'

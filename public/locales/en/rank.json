@@ -61,14 +61,29 @@
   "lmrank": {
     "title": "LM Rank",
     "nav": "{{month}} {{year}} LM Ranking",
-    "p_text": "<strong>The LMArena Ranking</strong> is a crowdsourced leaderboard for large language models. Users chat with two anonymous models and vote for the better response, with model ratings calculated using the Elo rating system. The leaderboard covers multiple capability dimensions including text, vision, and code, making it one of the most authoritative LLM evaluation benchmarks. Based on this ranking, we have done model name aggregation and cleaning work.",
+    "p_text": "<strong>The Arena Ranking</strong> compares models using real user evaluations across text, coding, vision, image and video tasks. We aggregate and clean model names from the original leaderboards. Select a model to see its full ID.",
     "thead": {
       "position": "Rank",
       "name": "Model",
-      "organization": "Organization",
       "rating": "Score",
-      "change": "Change",
-      "md_change": "📊"
+      "votes": "Votes",
+      "price": "Price"
+    },
+    "model_id": "Model ID",
+    "copy": "Copy",
+    "copy_success": "Model ID copied",
+    "copy_fail": "Copy failed. Please copy manually.",
+    "open_source": "Open source",
+    "unavailable": "Not available",
+    "empty": "No leaderboard data for this category this month",
+    "scroll_hint": "Swipe horizontally to see all columns",
+    "input": "Input",
+    "output": "Output",
+    "price_tiers": {
+      "low": "Affordable",
+      "medium": "Moderate",
+      "high": "Expensive",
+      "very_high": "Very expensive"
     }
   }
 }

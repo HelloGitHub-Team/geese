@@ -1,5 +1,17 @@
 ## Before Development
 
+Use **Node.js 24** for this project. The bundled dependencies in Next.js 12 use `SlowBuffer`, which was removed in Node.js 25 and causes `Cannot read properties of undefined (reading 'prototype')` on startup.
+
+From the project directory, run `nvm install && nvm use` to read `.nvmrc`. On macOS with Homebrew, use:
+
+```sh
+brew install node@24
+export PATH="$(brew --prefix node@24)/bin:$PATH"
+node --version # Should be v24.x
+```
+
+This `export` applies only to the current terminal. Select Node 24 again in a new terminal.
+
 Firstly, the project utilizes yarn for package installation, which you can search for and install on your own. After installation is complete, set the version number with the command `yarn set version v1.22.19`.
 
 Next, to get the 'Geese' project running locally, follow these detailed steps:

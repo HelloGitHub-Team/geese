@@ -5,6 +5,7 @@ import { useLoginContext } from '@/hooks/useLoginContext';
 import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
 import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
 import { RepoModal } from '@/components/dialog/RepoModal';
+import HostedImage from '@/components/HostedImage';
 import { CustomLink } from '@/components/links/CustomLink';
 
 import { DEFAULT_AVATAR } from '@/utils/constants';
@@ -32,7 +33,7 @@ const AvatarWithDropdown = ({ t, className }: Props) => {
 
   return (
     <div className={`${className} h-7 w-7`}>
-      <img
+      <HostedImage
         className='relative inline overflow-hidden rounded-full'
         src={userInfo?.avatar || DEFAULT_AVATAR}
         width='28'

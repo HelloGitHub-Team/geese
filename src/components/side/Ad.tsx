@@ -2,6 +2,7 @@ import { MouseEventHandler, useState } from 'react';
 import { GoServer } from 'react-icons/go';
 import { VscClose } from 'react-icons/vsc';
 
+import HostedImage from '@/components/HostedImage';
 import { NoPrefetchLink } from '@/components/links/CustomLink';
 
 import { redirectRecord } from '@/services/home';
@@ -32,7 +33,7 @@ interface ImageAdContentProps {
 
 const ImageAdContent = ({ data, handleClose }: ImageAdContentProps) => (
   <div className='group relative h-full'>
-    <img className='h-full w-full' src={data.image_url} alt='ad' />
+    <HostedImage className='h-full w-full' src={data.image_url} alt='ad' />
     <div
       className='absolute top-0 right-0 hidden cursor-pointer p-1.5 text-inherit opacity-30 group-hover:block'
       onClick={handleClose}
@@ -95,7 +96,7 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
 
   const RewardAdContent = ({ data, t }: AdContentProps) => (
     <div className='group flex flex-row p-3'>
-      <img
+      <HostedImage
         className='h-[55px] w-[55px]'
         src={i18n_lang != 'zh' ? ImageURL : data.image_url}
         alt='ad'

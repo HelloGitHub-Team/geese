@@ -8,6 +8,8 @@ import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
 
+import { getImageUrl } from '@/utils/image';
+
 interface LinkItem {
   name: string;
   url: string;
@@ -62,7 +64,7 @@ const LinksPage: NextPage = () => {
               <div className='flex h-full w-full items-center justify-center'>
                 <div
                   className='h-3/5 w-3/5 bg-contain bg-center bg-no-repeat'
-                  style={{ backgroundImage: `url(${link.logo})` }}
+                  style={{ backgroundImage: `url(${getImageUrl(link.logo)})` }}
                 />
               </div>
 

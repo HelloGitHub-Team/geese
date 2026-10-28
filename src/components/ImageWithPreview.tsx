@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 
+import HostedImage from '@/components/HostedImage';
+
 import GifPlayButton from './loading/GifPlayButton';
 
 const gifCoverImage = '!gif';
@@ -48,7 +50,7 @@ const ImageWithPreview = ({ src, alt, ...rest }: ImageWithPreviewProps) => {
   return (
     <>
       <div className='relative flex'>
-        <img
+        <HostedImage
           {...rest}
           key={src} // 添加 key 属性
           src={imgSrc}
@@ -76,7 +78,7 @@ const ImageWithPreview = ({ src, alt, ...rest }: ImageWithPreviewProps) => {
           onClick={handleClosePreview}
           onWheel={handleWheel}
         >
-          <img
+          <HostedImage
             src={src}
             alt={alt}
             className='max-h-full max-w-full object-contain'

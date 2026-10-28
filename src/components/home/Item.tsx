@@ -1,6 +1,7 @@
 import { AiFillFire, AiOutlineEye } from 'react-icons/ai';
 import { GoStar, GoVerified } from 'react-icons/go';
 
+import HostedImage from '@/components/HostedImage';
 import { CustomLink } from '@/components/links/CustomLink';
 
 import { fromNow } from '@/utils/day';
@@ -98,7 +99,7 @@ const RepositoryItem = ({
               {/* 作者头像 */}
               {showViewCount && (
                 <figure className='mr-2.5 hidden md:block'>
-                  <img
+                  <HostedImage
                     width='75'
                     height='75'
                     src={author_avatar}
@@ -152,7 +153,7 @@ const RepositoryItem = ({
                 {/* 技术栈、认证、时间 */}
                 <div className='mt-1 flex items-center'>
                   <div className='flex grow items-center text-sm text-gray-400'>
-                    <img
+                    <HostedImage
                       width='16'
                       height='16'
                       src={author_avatar}

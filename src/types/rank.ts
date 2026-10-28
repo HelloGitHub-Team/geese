@@ -1,5 +1,5 @@
 export interface RankDataItem {
-  [key: string]: string | number | boolean | undefined;
+  [key: string]: string | number | boolean | null | undefined;
   name: string;
   position: number;
   rating: string | number;
@@ -47,6 +47,16 @@ export interface NetcraftRankPageProps {
 export interface LMArenaRankDataItem extends RankDataItem {
   model_id: string;
   organization: string;
+  license?: string | null;
+  votes?: number | null;
+  input_price?: number | null;
+  output_price?: number | null;
+  price_unit?:
+    | 'usd_per_million_tokens'
+    | 'usd_per_image'
+    | 'usd_per_second'
+    | null;
+  price_tier?: 'low' | 'medium' | 'high' | 'very_high' | null;
 }
 
 export interface LMArenaRankData {

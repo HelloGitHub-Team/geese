@@ -2,6 +2,7 @@ import { AiFillWechat, AiFillWeiboCircle } from 'react-icons/ai';
 import { IoLogoRss } from 'react-icons/io';
 
 import { FeedbackModal } from '@/components/dialog/Feedback';
+import HostedImage from '@/components/HostedImage';
 import { CustomLink } from '@/components/links/CustomLink';
 
 import FooterLink from './FooterLink';
@@ -55,7 +56,7 @@ const Footer = ({ t, isLite }: FooterProps) => {
       >
         <span>{t('footer.server_sponsor')}</span>
         <span className='mx-0.5 align-[1px]'>
-          <img
+          <HostedImage
             className='inline-block'
             src='https://img.hellogithub.com/ad/ucloud_footer.png'
             width='86'
@@ -72,7 +73,7 @@ const Footer = ({ t, isLite }: FooterProps) => {
       >
         <span>{t('footer.cdn_sponsor')}</span>
         <span className='mx-0.5 align-[1px]'>
-          <img
+          <HostedImage
             className='inline-block'
             src='https://img.hellogithub.com/ad/upyun_footer.png'
             width='42'
@@ -95,7 +96,7 @@ const Footer = ({ t, isLite }: FooterProps) => {
           href='http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11011402013237'
         >
           <span>
-            <img
+            <HostedImage
               className='inline-block'
               src='https://img.hellogithub.com/ad/filing.png'
               width='12'

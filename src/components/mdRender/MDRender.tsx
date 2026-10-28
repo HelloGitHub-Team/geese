@@ -9,6 +9,10 @@ import remarkGfm from 'remark-gfm';
 import clsxm from '@/lib/clsxm';
 import { useLoginContext } from '@/hooks/useLoginContext';
 
+import HostedImage from '@/components/HostedImage';
+
+import rehypeImages from './rehypeImages';
+
 type MDRenderProps = {
   mdString?: any; // markdown 格式的字符串
 } & React.ComponentPropsWithoutRef<'div'>;
@@ -53,6 +57,9 @@ export const MDRender = ({
 
   const getComponents = (theme: string) => {
     return {
+      img({ node: _node, ...props }: any) {
+        return <HostedImage {...props} />;
+      },
       // 代码块渲染
       code(props: any) {
         const { inline, className, children } = props;
@@ -95,6 +102,7 @@ export const MDRender = ({
     <div className={clsxm('', className)} {...rest}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeImages]}
         components={getComponents(theme)}
       >
         {mdString || children}

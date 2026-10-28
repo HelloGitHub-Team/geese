@@ -1,6 +1,7 @@
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import { IoMdRemove, IoMdTrendingDown, IoMdTrendingUp } from 'react-icons/io';
 
+import HostedImage from '@/components/HostedImage';
 import { LevelRender } from '@/components/user/Common';
 
 import { NoPrefetchLink } from '../links/CustomLink';
@@ -74,7 +75,7 @@ export const RatingWithTrendRender = (
       } else {
         icon = <IoMdTrendingUp size={14} className='text-red-500' />;
       }
-    } else {
+    } else if (row.change < 0) {
       if (i18n_lang === 'en') {
         icon = <IoMdTrendingDown size={14} className='text-red-500' />;
       } else {
@@ -117,7 +118,7 @@ export const UserColumnRender = (row: RankDataItem) => {
   return (
     <NoPrefetchLink href={`/user/${row.uid}`}>
       <div className='flex cursor-pointer items-center'>
-        <img
+        <HostedImage
           width='20'
           height='20'
           src={row.avatar}

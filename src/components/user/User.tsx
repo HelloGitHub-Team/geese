@@ -6,6 +6,7 @@ import useSWRImmutable from 'swr/immutable';
 
 import clsxm from '@/lib/clsxm';
 
+import HostedImage from '@/components/HostedImage';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
 import { LevelRender } from '@/components/user/Common';
@@ -49,7 +50,7 @@ const UserProfile: React.FC<{
   return (
     <>
       <div className='mx-auto flex h-[72px] w-[72px] md:block md:h-20 md:w-20 md:shrink-0'>
-        <img
+        <HostedImage
           className='rounded-full bg-white dark:bg-gray-800'
           src={avatar}
           alt={`${nickname}'s avatar`}

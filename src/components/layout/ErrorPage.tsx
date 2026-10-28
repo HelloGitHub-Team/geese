@@ -2,6 +2,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 
 import LanguageSwitcher from '@/components/buttons/LanguageSwitcher';
 import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
+import HostedImage from '@/components/HostedImage';
 import { NoPrefetchLink } from '@/components/links/CustomLink';
 
 type Props = {
@@ -19,7 +20,7 @@ const ErrorPage = ({ t, httpCode }: Props) => {
       <section className='min-h-screen bg-white dark:bg-gray-800'>
         <div className='flex flex-col items-center justify-center'>
           <div className='mx-4 mt-14 mb-2'>
-            <img
+            <HostedImage
               src={`https://img.hellogithub.com/svg/${httpCode}.svg`}
               width={500}
             />
