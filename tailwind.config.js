@@ -10,7 +10,7 @@ function withOpacityValue(variable) {
   };
 }
 
-/** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}', 'node_modules/preline/dist/*.js'],
   darkMode: 'class',
@@ -70,6 +70,5 @@ module.exports = {
       target: 'legacy',
     }),
     require('@tailwindcss/forms'),
-    require('@tailwindcss/line-clamp'),
   ],
 };

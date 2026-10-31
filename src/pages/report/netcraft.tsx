@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Trans, useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Trans, useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { useMemo } from 'react';
 
 import Loading from '@/components/loading/Loading';
@@ -116,7 +116,7 @@ const NetcraftPage: NextPage<NetcraftRankPageProps> = ({
           <div className='my-2 bg-white px-2 pt-2 dark:bg-gray-800 md:rounded-lg'>
             <RankSearchBar
               title='Netcraft'
-              logo='https://img.hellogithub.com/logo/netcraft.jpg'
+              logo='/images/logo/netcraft.jpg'
               monthList={monthList}
               i18n_lang={i18n.language}
               onChange={onSearch}
@@ -130,7 +130,7 @@ const NetcraftPage: NextPage<NetcraftRankPageProps> = ({
                 list={all_list}
                 i18n_lang={i18n.language}
               />
-              <div className='pt-2 pb-1 text-center text-sm font-semibold dark:text-gray-300'>
+              <div className='pb-1 pt-2 text-center text-sm font-semibold dark:text-gray-300'>
                 {t('netcraft.active_title')}
               </div>
               <RankTable
@@ -148,7 +148,7 @@ const NetcraftPage: NextPage<NetcraftRankPageProps> = ({
                 list={all_list}
                 i18n_lang={i18n.language}
               />
-              <div className='pt-2 pb-1  text-center text-sm font-semibold dark:text-gray-300'>
+              <div className='pb-1 pt-2 text-center text-sm font-semibold dark:text-gray-300'>
                 {t('netcraft.active_title')}
               </div>
               <RankTable

@@ -1,9 +1,8 @@
-import copy from 'copy-to-clipboard';
-import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
-import { MdOutlineFileCopy } from 'react-icons/md';
+import { useTranslation } from 'next-i18next/pages';
+import { useId, useState } from 'react';
+import { MdInfoOutline, MdNorthEast } from 'react-icons/md';
 
-import Message from '@/components/message';
+import { ArenaPriceTier } from '@/utils/arenaPrice';
 
 import { LMArenaRankDataItem } from '@/types/rank';
 
@@ -11,168 +10,248 @@ import providerLogos from '~/images/arena/providers.json';
 
 const logos: Record<string, string> = providerLogos;
 
-const ArenaProvider = ({ model }: { model: LMArenaRankDataItem }) => {
-  const { t } = useTranslation('rank');
-  const license = model.license?.trim();
-  const isOpenSource =
-    !!license && !['proprietary', 'unknown'].includes(license.toLowerCase());
+// Fixed display estimate, not a live exchange rate.
+const USD_TO_CNY = 7;
 
-  return (
-    <span className='flex items-center gap-1 text-xs font-normal leading-4 text-gray-500 dark:text-gray-400'>
-      <span className='truncate' title={model.organization}>
-        {model.organization || t('lmrank.unavailable')}
-      </span>
-      {isOpenSource && (
-        <>
-          <span aria-hidden='true'>·</span>
-          <span
-            className='shrink-0 whitespace-nowrap text-green-700 dark:text-green-300'
-            title={license}
-          >
-            {t('lmrank.open_source')}
-          </span>
-        </>
-      )}
-    </span>
-  );
-};
-
-export const ArenaModel = ({
-  model,
-  expanded,
-  onToggle,
-  controlsId,
-}: {
-  model: LMArenaRankDataItem;
-  expanded: boolean;
-  onToggle: () => void;
-  controlsId: string;
-}) => {
+export const ArenaModel = ({ model }: { model: LMArenaRankDataItem }) => {
+  const { t, i18n } = useTranslation('rank');
+  const modelURL = i18n.language.startsWith('zh')
+    ? model.model_url_zh
+    : model.model_url_en;
   const [failedLogo, setFailedLogo] = useState<string>();
   const logo = logos[model.organization];
+  const license = model.license?.trim();
+  const showLicense =
+    !!license && !['proprietary', 'unknown'].includes(license.toLowerCase());
+  const monochromeLogo = [
+    'Anthropic',
+    'OpenAI',
+    'Moonshot',
+    'SpaceXAI',
+    'Mistral',
+  ].includes(model.organization);
 
   return (
-    <button
-      type='button'
-      aria-expanded={expanded}
-      aria-controls={controlsId}
-      onClick={onToggle}
-      className='flex w-52 items-center gap-2 rounded text-left hover:text-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500'
-    >
-      <span className='flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-gray-200 bg-white p-1 text-xs text-gray-700'>
+    <div className='flex w-full min-w-0 items-center gap-3 text-left'>
+      <span
+        aria-hidden='true'
+        className='flex h-8 w-7 shrink-0 items-center justify-center text-sm font-semibold text-gray-500 dark:text-gray-300'
+      >
         {logo && failedLogo !== logo ? (
           <img
             src={logo}
-            alt={model.organization}
-            width={20}
-            height={20}
-            className='h-5 w-5 object-contain'
+            alt=''
+            width={24}
+            height={24}
+            className={`h-6 w-6 object-contain ${monochromeLogo ? 'dark:invert' : ''}`}
             onError={() => setFailedLogo(logo)}
           />
         ) : (
-          <span aria-hidden='true'>
+          <span>
             {(model.organization || model.name).slice(0, 1).toUpperCase()}
           </span>
         )}
       </span>
-      <span className='min-w-0 flex-1'>
-        <span className='block truncate leading-5' title={model.name}>
-          {model.name}
-        </span>
-        <span className='mt-1 block'>
-          <ArenaProvider model={model} />
-        </span>
-      </span>
-    </button>
-  );
-};
-
-export const ArenaModelID = ({
-  model,
-  id,
-  hidden,
-}: {
-  model: LMArenaRankDataItem;
-  id: string;
-  hidden: boolean;
-}) => {
-  const { t } = useTranslation('rank');
-  const handleCopy = () => {
-    copy(model.model_id)
-      ? Message.success(t('lmrank.copy_success'))
-      : Message.error(t('lmrank.copy_fail'));
-  };
-
-  return (
-    <div
-      id={id}
-      hidden={hidden}
-      className={`${
-        hidden ? 'hidden' : 'flex'
-      } items-center gap-2 whitespace-nowrap text-xs font-normal leading-4 text-gray-500 dark:text-gray-400`}
-    >
-      <button
-        type='button'
-        onClick={handleCopy}
-        aria-label={`${t('lmrank.copy')} ${t('lmrank.model_id')}`}
-        title={`${t('lmrank.copy')} ${t('lmrank.model_id')}`}
-        className='flex h-4 w-4 shrink-0 items-center justify-center rounded text-gray-400 hover:text-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 dark:hover:text-blue-400'
-      >
-        <MdOutlineFileCopy size={14} aria-hidden='true' />
-      </button>
-      <code className='select-all'>{model.model_id}</code>
+      <div className='min-w-0 flex-1'>
+        {model.model_id && modelURL ? (
+          <a
+            href={modelURL}
+            target='_blank'
+            rel='noopener noreferrer'
+            title={t('lmrank.view_on_ofox')}
+            aria-label={model.name}
+            className='block whitespace-normal break-words rounded-sm font-mono text-[13px] font-medium leading-5 tracking-[-0.025em] text-gray-950 transition-colors hover:text-blue-600 hover:underline hover:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 dark:text-gray-100 dark:hover:text-blue-300'
+          >
+            {model.name}
+          </a>
+        ) : (
+          <span className='block whitespace-normal break-words font-mono text-[13px] font-medium leading-5 tracking-[-0.025em] text-gray-950 dark:text-gray-100'>
+            {model.name}
+          </span>
+        )}
+        <div className='mt-0.5 flex flex-wrap items-center gap-x-1.5 text-[12px] font-normal leading-5 text-gray-500 dark:text-gray-400'>
+          <span className='whitespace-normal break-words'>
+            {model.organization || t('lmrank.unavailable')}
+          </span>
+          {showLicense && (
+            <>
+              <span
+                aria-hidden='true'
+                className='text-gray-300 dark:text-gray-600'
+              >
+                ·
+              </span>
+              <span className='whitespace-nowrap'>
+                {t('lmrank.open_source')}
+              </span>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
 
-const tierStyles = {
-  low: 'bg-green-50 text-green-700 ring-green-600/10 dark:bg-green-900/30 dark:text-green-300 dark:ring-green-400/20',
-  medium:
-    'bg-gray-50 text-gray-600 ring-gray-500/10 dark:bg-gray-700/50 dark:text-gray-300 dark:ring-gray-400/20',
-  high: 'bg-orange-50 text-orange-700 ring-orange-600/10 dark:bg-orange-900/30 dark:text-orange-300 dark:ring-orange-400/20',
-  very_high:
-    'bg-rose-50 text-rose-700 ring-rose-600/10 dark:bg-rose-900/30 dark:text-rose-300 dark:ring-rose-400/20',
-};
-
-export const ArenaPrice = ({ model }: { model: LMArenaRankDataItem }) => {
+export const ArenaOfoxLink = ({ model }: { model: LMArenaRankDataItem }) => {
   const { t, i18n } = useTranslation('rank');
-  const formatPrice = (price?: number | null) =>
-    typeof price === 'number' && Number.isFinite(price) && price >= 0
-      ? price.toLocaleString(i18n.language, { maximumFractionDigits: 6 })
-      : '—';
-  const inputPrice = formatPrice(model.input_price);
-  const outputPrice = formatPrice(model.output_price);
-  const priceDescription = `${t('lmrank.input')} $${inputPrice} / ${t(
-    'lmrank.output'
-  )} $${outputPrice}`;
-  const hasPrice =
-    model.price_unit === 'usd_per_million_tokens' &&
-    [inputPrice, outputPrice].some((price) => price !== '—');
+  const modelURL = i18n.language.startsWith('zh')
+    ? model.model_url_zh
+    : model.model_url_en;
 
-  if (!hasPrice) {
+  if (!model.model_id || !modelURL) {
     return (
       <span className='text-xs text-gray-400'>{t('lmrank.unavailable')}</span>
     );
   }
 
   return (
-    <div className='flex items-center gap-2'>
-      <span
-        className='whitespace-nowrap text-sm font-semibold tabular-nums tracking-tight text-gray-800 dark:text-gray-100'
-        aria-label={priceDescription}
-        title={priceDescription}
+    <a
+      href={modelURL}
+      target='_blank'
+      rel='noopener noreferrer'
+      title={t('lmrank.view_on_ofox')}
+      aria-label={`${t('lmrank.view_model')}: ${model.name} — ofoxAI`}
+      className='inline-flex items-center gap-1 whitespace-nowrap rounded py-1 text-xs font-normal text-gray-500 transition-colors hover:text-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:text-gray-400 dark:hover:text-blue-300'
+    >
+      <span>{t('lmrank.view_model')}</span>
+      <MdNorthEast size={12} aria-hidden='true' className='shrink-0' />
+    </a>
+  );
+};
+
+export const ArenaPriceHeader = () => {
+  const { t, i18n } = useTranslation('rank');
+  const id = useId();
+
+  return (
+    <div className='inline-flex items-center gap-0.5'>
+      <span>{t('lmrank.thead.price')}</span>
+      <button
+        type='button'
+        popoverTarget={id}
+        aria-label={t('lmrank.price_help')}
+        className='inline-flex h-6 w-6 shrink-0 items-center justify-start rounded text-gray-400 hover:text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 dark:hover:text-gray-200'
       >
-        {`$${inputPrice} / ${outputPrice}`}
-      </span>
-      {model.price_tier && tierStyles[model.price_tier] && (
-        <span
-          className={`inline-flex shrink-0 items-center whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-medium leading-4 ring-1 ring-inset ${
-            tierStyles[model.price_tier]
-          }`}
+        <MdInfoOutline size={12} aria-hidden='true' />
+      </button>
+      <div
+        id={id}
+        popover='auto'
+        className='m-auto w-80 max-w-[calc(100vw-2rem)] rounded-lg border border-gray-200 bg-white p-4 text-left text-xs font-normal leading-6 text-gray-600 shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'
+      >
+        <p className='mb-1 font-medium text-gray-900 dark:text-gray-100'>
+          {t('lmrank.price_help')}
+        </p>
+        <p>{t('lmrank.price_tier_description')}</p>
+        <p>{t('lmrank.price_precision')}</p>
+        {i18n.language.startsWith('zh') && (
+          <p>{t('lmrank.exchange_estimate', { rate: USD_TO_CNY })}</p>
+        )}
+        <button
+          type='button'
+          popoverTarget={id}
+          popoverTargetAction='hide'
+          className='mt-2 rounded px-2 py-1 text-gray-700 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 dark:text-gray-200 dark:hover:bg-gray-700'
         >
-          {t(`lmrank.price_tiers.${model.price_tier}`)}
+          {t('lmrank.close_price_help')}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const priceTierStyles: Record<ArenaPriceTier, string> = {
+  high: 'bg-rose-50/70 text-rose-700/80 dark:bg-rose-400/10 dark:text-rose-300/90',
+  medium: 'bg-gray-50 text-gray-600 dark:bg-gray-700/50 dark:text-gray-300',
+  low: 'bg-green-50 text-green-700 dark:bg-green-400/10 dark:text-green-300',
+};
+
+export const ArenaPrice = ({
+  model,
+  tier,
+}: {
+  model: LMArenaRankDataItem;
+  tier?: ArenaPriceTier;
+}) => {
+  const { t, i18n } = useTranslation('rank');
+  const isChinese = i18n.language.startsWith('zh');
+  const currency = isChinese ? '¥' : '$';
+  const formatPrice = (price?: number | null, full = false) => {
+    if (typeof price !== 'number' || !Number.isFinite(price) || price < 0)
+      return '—';
+    const amount = price * (isChinese ? USD_TO_CNY : 1);
+    return amount.toLocaleString(i18n.language, {
+      maximumFractionDigits: full
+        ? 6
+        : amount > 0 && amount < 0.01
+          ? Math.min(20, -Math.floor(Math.log10(amount)))
+          : 2,
+    });
+  };
+  const unit = model.ofox_price_unit;
+  const tokenPrice = unit === 'usd_per_million_tokens';
+  const supportedUnit =
+    tokenPrice || unit === 'usd_per_image' || unit === 'usd_per_second';
+  const rawPrices = tokenPrice
+    ? [model.ofox_input_price, model.ofox_output_price]
+    : [model.ofox_output_price];
+  const prices = rawPrices.map((price) => formatPrice(price));
+
+  if (
+    !model.model_id ||
+    !supportedUnit ||
+    prices.every((price) => price === '—')
+  ) {
+    return (
+      <span
+        className='text-xs text-gray-400'
+        aria-label={t('lmrank.unavailable')}
+      >
+        —
+      </span>
+    );
+  }
+
+  const unitLabel = t(`lmrank.price_units.${unit}`);
+  const priceText = `${isChinese ? '≈' : ''}${currency}${prices.join(' / ')}`;
+  const fullPriceText = `${isChinese ? '≈' : ''}${currency}${rawPrices.map((price) => formatPrice(price, true)).join(' / ')}`;
+  const priceDescription = `ofoxAI · ${fullPriceText} · ${unitLabel}${
+    isChinese
+      ? `（${t('lmrank.exchange_estimate', { rate: USD_TO_CNY })}）`
+      : ''
+  }`;
+
+  return (
+    <div
+      className='flex min-w-0 flex-col items-start gap-0.5'
+      title={priceDescription}
+    >
+      <div className='flex min-w-0 max-w-full items-center gap-1 whitespace-normal text-xs leading-5'>
+        <span
+          className='min-w-0 break-words font-normal tabular-nums text-gray-700 dark:text-gray-300'
+          aria-label={priceDescription}
+        >
+          {priceText}
+        </span>
+        {tier && (
+          <span
+            className={`inline-flex shrink-0 items-center whitespace-nowrap rounded px-1 py-px text-[10px] font-normal leading-3 ${priceTierStyles[tier]}`}
+            title={t('lmrank.price_tier_description')}
+          >
+            {t(`lmrank.price_tiers.${tier}`)}
+          </span>
+        )}
+      </div>
+      {tokenPrice && (
+        <span className='whitespace-normal text-[10px] leading-4 text-gray-400 md:hidden'>
+          {t('lmrank.input')} / {t('lmrank.output')}
         </span>
       )}
+      <span
+        className={`whitespace-normal text-[10px] leading-4 text-gray-400 ${tokenPrice ? 'hidden md:block' : ''}`}
+      >
+        {unitLabel}
+      </span>
     </div>
   );
 };

@@ -61,8 +61,8 @@ export default function RankLink({
     `;
 
     return (
-      <NoPrefetchLink {...linkProps}>
-        <a className={className}>{item.name}</a>
+      <NoPrefetchLink {...linkProps} className={className}>
+        {item.name}
       </NoPrefetchLink>
     );
   };

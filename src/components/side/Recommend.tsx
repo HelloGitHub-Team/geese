@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiOutlineStar } from 'react-icons/ai';
 import { MdRefresh } from 'react-icons/md';
 
@@ -63,45 +63,78 @@ export default function Recommend({ t }: SideProps) {
   const { pathname, query } = router;
 
   const [repositories, setRepositories] = useState<RecommendItem[]>([]);
-
-  const refreshRecommend = useCallback(async () => {
-    setRepositories([]);
-    const lid = query?.lid as string;
-    const res = await getRecommend(lid);
-    if (res?.success) {
-      setRepositories(res.data);
-    }
-  }, [query?.lid]);
+  const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
+  const [refreshCount, setRefreshCount] = useState(0);
+  const lid = typeof query.lid === 'string' ? query.lid : undefined;
 
   useEffect(() => {
-    refreshRecommend();
-  }, [pathname, refreshRecommend]);
+    let active = true;
+    setLoading(true);
+    setFailed(false);
+
+    async function loadRecommendations() {
+      try {
+        const res = await getRecommend(lid);
+        if (active) {
+          setFailed(!res.success);
+          setRepositories(res.success ? res.data : []);
+        }
+      } catch {
+        if (active) setFailed(true);
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+
+    loadRecommendations();
+    return () => {
+      active = false;
+    };
+  }, [pathname, lid, refreshCount]);
 
   const ShowIsLicenseDetail = isLicenseDetailPath(pathname);
 
   return (
     <>
-      <div className='space-y-1.5 rounded-lg bg-white px-4 pt-3 pb-2 dark:bg-gray-800'>
+      <div className='space-y-1.5 rounded-lg bg-white px-4 pb-2 pt-3 dark:bg-gray-800'>
         <div className='flex flex-row items-center justify-between border-b border-gray-100 pb-2 dark:border-gray-700'>
           <div className='text-sm font-medium text-gray-600 dark:text-gray-300'>
             {t('recommend.title')}
           </div>
-          <div
-            className='flex cursor-pointer flex-row items-center text-xs text-gray-400 hover:text-blue-500'
-            onClick={refreshRecommend}
+          <button
+            type='button'
+            className='flex cursor-pointer flex-row items-center text-xs text-gray-400 hover:text-blue-500 disabled:cursor-wait disabled:opacity-50'
+            disabled={loading}
+            onClick={() => setRefreshCount((count) => count + 1)}
           >
             <MdRefresh />
-            <span className='pl-0.5'>{t('recommend.change')}</span>
-          </div>
+            <span className='pl-0.5'>
+              {t(failed ? 'recommend.retry' : 'recommend.change')}
+            </span>
+          </button>
         </div>
-        {repositories.length === 0 ? (
-          <RecommendSkeleton loop={5} />
-        ) : (
-          <RecommendList repositories={repositories} />
-        )}
+        <div aria-busy={loading} aria-live='polite'>
+          {loading ? (
+            <RecommendSkeleton loop={5} />
+          ) : failed ? (
+            <p
+              role='alert'
+              className='py-6 text-center text-sm text-gray-500 dark:text-gray-400'
+            >
+              {t('recommend.error')}
+            </p>
+          ) : repositories.length === 0 ? (
+            <p className='py-6 text-center text-sm text-gray-500 dark:text-gray-400'>
+              {t('recommend.empty')}
+            </p>
+          ) : (
+            <RecommendList repositories={repositories} />
+          )}
+        </div>
       </div>
       {ShowIsLicenseDetail && (
-        <div className='space-y-1.5 rounded-lg bg-white px-4 pt-3 pb-2 text-sm dark:bg-gray-800'>
+        <div className='space-y-1.5 rounded-lg bg-white px-4 pb-2 pt-3 text-sm dark:bg-gray-800'>
           {t('recommend.desc')}
           <a
             target='_blank'

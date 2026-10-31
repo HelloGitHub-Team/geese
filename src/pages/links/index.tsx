@@ -1,14 +1,12 @@
 import { GetStaticProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { GoLinkExternal } from 'react-icons/go';
 
 import { CustomLink } from '@/components/links/CustomLink';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
 import ToTop from '@/components/toTop/ToTop';
-
-import { getImageUrl } from '@/utils/image';
 
 interface LinkItem {
   name: string;
@@ -20,27 +18,27 @@ const linksData: LinkItem[] = [
   {
     name: '优云智算',
     url: 'https://www.compshare.cn/?ytag=logo_hellogithub_otherdsp_display',
-    logo: 'https://img.hellogithub.com/links/compshare.png',
+    logo: '/images/links/compshare.png',
   },
   {
     name: '林枫云',
     url: 'https://www.dkdun.cn/',
-    logo: 'https://img.hellogithub.com/links/dkdun.png',
+    logo: '/images/links/dkdun.png',
   },
   {
     name: 'OceanBase 社区',
     url: 'https://open.oceanbase.com/',
-    logo: 'https://img.hellogithub.com/links/oceanbase.png',
+    logo: '/images/links/oceanbase.png',
   },
   {
     name: 'Monibuca',
     url: 'https://monibuca.com/',
-    logo: 'https://img.hellogithub.com/links/monibuca.jpeg',
+    logo: '/images/links/monibuca.jpeg',
   },
   {
     name: 'SwanLab',
     url: 'https://swanlab.cn/',
-    logo: 'https://img.hellogithub.com/links/swanlab.png',
+    logo: '/images/links/swanlab.png',
   },
 ];
 
@@ -64,7 +62,7 @@ const LinksPage: NextPage = () => {
               <div className='flex h-full w-full items-center justify-center'>
                 <div
                   className='h-3/5 w-3/5 bg-contain bg-center bg-no-repeat'
-                  style={{ backgroundImage: `url(${getImageUrl(link.logo)})` }}
+                  style={{ backgroundImage: `url(${link.logo})` }}
                 />
               </div>
 

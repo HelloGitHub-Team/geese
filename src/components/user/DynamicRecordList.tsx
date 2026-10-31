@@ -17,7 +17,7 @@ type MessageRenderer = (params: {
   recordItem: DynamicRecordItem;
   value: number;
   t: TranslationFunction;
-}) => JSX.Element;
+}) => React.JSX.Element;
 
 const RepoLink: React.FC<{ record: DynamicRecordItem; fallback?: string }> = ({
   record,
@@ -93,7 +93,7 @@ const DynamicRecordList: React.FC<Props> = ({ items, t, i18n_lang }) => {
     </>
   );
 
-  const renderDynamicText = (item: DynamicRecord): JSX.Element => {
+  const renderDynamicText = (item: DynamicRecord): React.JSX.Element => {
     const { dynamic_type, item: recordItem, remark, value, created_at } = item;
     const timeText = `${fromNow(created_at, i18n_lang)}，`;
     // 非贡献类型或无记录项时返回默认消息

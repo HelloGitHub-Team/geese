@@ -1,7 +1,7 @@
 // components/LanguageSwitcher.tsx
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const Cookies = require('js-cookie');
 
 type LanguageSwitchProps = {

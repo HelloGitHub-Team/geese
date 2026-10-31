@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next/pages';
 import {
   createContext,
   useCallback,
@@ -62,7 +62,7 @@ const LoginContext = createContext<LoginContextProps>({
 export const LoginProvider = ({
   children,
 }: {
-  children: JSX.Element[] | any;
+  children: React.JSX.Element[] | any;
 }) => {
   const { t } = useTranslation('common');
   const router = useRouter();
@@ -83,10 +83,13 @@ export const LoginProvider = ({
     data: userInfo,
     isValidating,
     mutate,
-  } = useSWR<UserStatusProps>(token ? makeUrl('/user/me/') : null, (key) => {
-    const headers = { Authorization: `Bearer ${token}` };
-    return fetcher(key, { headers });
-  });
+  } = useSWR<UserStatusProps>(
+    token ? makeUrl('/user/me/') : null,
+    (key: string) => {
+      const headers = { Authorization: `Bearer ${token}` };
+      return fetcher<UserStatusProps>(key, { headers });
+    }
+  );
 
   const logout = useCallback(async () => {
     await Logout({ Authorization: `Bearer ${token}` });

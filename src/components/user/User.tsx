@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next/pages';
 import { useMemo } from 'react';
 import useSWRImmutable from 'swr/immutable';
 
@@ -59,7 +59,7 @@ const UserProfile: React.FC<{
       </div>
 
       <div className='flex flex-col md:ml-4 md:flex-1 md:justify-center'>
-        <div className='mx-auto mt-2 mb-1 flex w-60 items-center justify-center md:mx-0 md:mb-0 md:mt-0 md:w-80 md:justify-start'>
+        <div className='mx-auto mb-1 mt-2 flex w-60 items-center justify-center md:mx-0 md:mb-0 md:mt-0 md:w-80 md:justify-start'>
           <div className='w-30 self-end overflow-hidden text-ellipsis whitespace-nowrap text-base font-bold dark:text-gray-300 md:w-px md:max-w-fit md:flex-1 md:self-center md:text-lg'>
             {nickname}
           </div>

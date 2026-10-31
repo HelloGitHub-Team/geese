@@ -1,7 +1,7 @@
 import copy from 'copy-to-clipboard';
 import { GetServerSideProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import { MdOutlineFileCopy } from 'react-icons/md';
 
@@ -104,11 +104,11 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
     }
   }, [expand, detail]);
 
-  const onCopy = () => {
+  const onCopy = async () => {
     const text =
       detail.text +
       `\n\n<a href="https://hellogithub.com/license/${detail.lid}" rel="nofollow">More</a>`;
-    if (copy(text)) {
+    if (await copy(text)) {
       Message.success(t('copy.success'));
     } else {
       Message.error(t('copy.fail'));
@@ -169,7 +169,7 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
                           <div
                             className={`${tag.bgColor} mr-2 h-3 w-3 flex-shrink-0 rounded-full`}
                           />
-                          <span className=' overflow-ellipsis line-clamp-1'>
+                          <span className='line-clamp-1 overflow-ellipsis'>
                             {' '}
                             {i18n.language == 'en' ? ct.name : ct.name_zh}
                           </span>

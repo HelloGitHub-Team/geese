@@ -117,13 +117,11 @@ const CommentItem = (props: CommentItemProps) => {
       <div className='mr-4 hidden md:block'>
         <div className='relative'>
           <NoPrefetchLink href={`/user/${user.uid}`}>
-            <a>
-              <HostedImage
-                className='h-10 w-10 cursor-pointer rounded-full'
-                src={user?.avatar || DEFAULT_AVATAR}
-                alt='comment_avatar'
-              />
-            </a>
+            <HostedImage
+              className='h-10 w-10 cursor-pointer rounded-full'
+              src={user?.avatar || DEFAULT_AVATAR}
+              alt='comment_avatar'
+            />
           </NoPrefetchLink>
         </div>
       </div>
@@ -139,11 +137,9 @@ const CommentItem = (props: CommentItemProps) => {
                 />
               </div>
               <NoPrefetchLink href={`/user/${user.uid}`}>
-                <a>
-                  <div className='w-fit max-w-[80px] truncate text-xs font-bold md:max-w-[120px] md:text-sm'>
-                    {user?.nickname}
-                  </div>
-                </a>
+                <div className='w-fit max-w-[80px] truncate text-xs font-bold md:max-w-[120px] md:text-sm'>
+                  {user?.nickname}
+                </div>
               </NoPrefetchLink>
               {isMaker && (
                 <span className='ml-1 rounded-md bg-gray-200 px-1.5 text-xs font-semibold text-blue-400'>
@@ -168,11 +164,9 @@ const CommentItem = (props: CommentItemProps) => {
                     {t('comment.reply')}
                   </span>
                   <NoPrefetchLink href={`/user/${props.reply_user?.uid}`}>
-                    <a>
-                      <div className='w-fit max-w-[180px] truncate text-xs text-gray-500 md:text-sm'>
-                        {props.reply_user?.nickname}
-                      </div>
-                    </a>
+                    <div className='w-fit max-w-[180px] truncate text-xs text-gray-500 md:text-sm'>
+                      {props.reply_user?.nickname}
+                    </div>
                   </NoPrefetchLink>
                   <span className='text-xs md:text-sm'>：</span>
                 </>

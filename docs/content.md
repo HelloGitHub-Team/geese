@@ -1,13 +1,15 @@
 ## 开发前
 
-本项目使用 **Node.js 24**。当前 Next.js 12 内置依赖使用了 `SlowBuffer`，Node.js 25 移除了该 API，会导致启动时报 `Cannot read properties of undefined (reading 'prototype')`。
+本项目使用 **Node.js 26、Next.js 16 和 React 19**。本地和 CI 统一使用 Node.js 26。
+
+保留 Pages Router 和现有中英文路由。开发及构建命令使用 `--webpack`，以支持 SVG 组件、Markdown 源文件导入和 bundle analyzer。Next.js 16 不再提供 `next lint`，请使用 `yarn lint` 或 `yarn lint:strict`。
 
 进入项目目录后，使用 nvm 执行 `nvm install && nvm use`，读取仓库的 `.nvmrc`。macOS 使用 Homebrew 时可执行：
 
 ```sh
-brew install node@24
-export PATH="$(brew --prefix node@24)/bin:$PATH"
-node --version # 应为 v24.x
+brew install node@26
+export PATH="$(brew --prefix node@26)/bin:$PATH"
+node --version # 应为 v26.x
 ```
 
 上述 `export` 仅作用于当前终端；新终端需重新切换 Node 版本。
@@ -70,6 +72,15 @@ node --version # 应为 v24.x
 后面提交代码，可以「自行创建分支」或者在「认领需求时自动创建的分支」进行开发。
 
 提交完代码后，请注意查收本项目的 **issues** 和 **pr** 通知，因为我会查看提交的代码后，进行问题反馈和优化建议。
+
+## 服务器更新
+
+在已配置 PM2 的服务器上执行：
+
+- 国内服务器（默认）：`yarn server_reload`
+- 海外服务器：`yarn server_reload:hw`
+
+命令会使用对应地区的图片配置构建，成功后再重载 PM2 服务。
 
 ## 最后
 

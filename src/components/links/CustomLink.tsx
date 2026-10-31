@@ -6,10 +6,9 @@ import clsxm from '@/lib/clsxm';
 type Props = {
   href: string;
   prefetch?: boolean;
-  onClick?: any;
-} & React.ComponentPropsWithoutRef<'div'>;
+} & React.ComponentPropsWithoutRef<'a'>;
 
-export const CustomLink = ({ href, className, children, onClick }: Props) => {
+export const CustomLink = ({ href, className, children, ...props }: Props) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   useEffect(() => {
     if (
@@ -22,21 +21,21 @@ export const CustomLink = ({ href, className, children, onClick }: Props) => {
   }, [setIsMobile]);
 
   return (
-    <Link prefetch={false} href={href}>
-      <a
-        onClick={onClick}
-        target={isMobile ? '_self' : '_blank'}
-        className={clsxm('block', className)}
-      >
-        {children}
-      </a>
+    <Link
+      {...props}
+      prefetch={false}
+      href={href}
+      target={isMobile ? '_self' : '_blank'}
+      className={clsxm('block', className)}
+    >
+      {children}
     </Link>
   );
 };
 
-export const NoPrefetchLink = ({ href, children }: Props) => {
+export const NoPrefetchLink = ({ href, children, ...props }: Props) => {
   return (
-    <Link prefetch={false} href={href}>
+    <Link {...props} prefetch={false} href={href}>
       {children}
     </Link>
   );

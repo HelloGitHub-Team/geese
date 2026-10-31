@@ -19,7 +19,7 @@ const Navbar = ({ middleText = '', endText }: Props) => {
 
   return (
     <div className='relative my-2 bg-white dark:bg-gray-800 md:rounded-lg'>
-      <div className='flex h-12 items-center justify-between py-2 px-4'>
+      <div className='flex h-12 items-center justify-between px-4 py-2'>
         <div className='cursor-pointer' onClick={goBack}>
           <AiOutlineArrowLeft
             className='text-gray-500 hover:text-blue-400'

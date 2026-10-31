@@ -78,11 +78,11 @@ const ProjectList = ({ uid, fid, t }: ProjectListProps) => {
   const fStatus = data?.favorite?.status;
   const collectionStatus = getCollectionStatus(t);
 
-  const onShare = () => {
+  const onShare = async () => {
     const text = `${t('favorite.text')} ${fName}\n${t(
       'favorite.share_text'
     )}https://hellogithub.com/user/${uid}/favorite/?fid=${fid}`;
-    if (copy(text)) {
+    if (await copy(text)) {
       Message.success(t('favorite.share_success'));
     }
   };
@@ -212,7 +212,7 @@ export default function CollectionList({ fid, t, uid }: ProjectListProps) {
     return (
       <div
         key={item.fid}
-        className='cursor-pointer truncate border-t py-3 px-2 first:border-t-0 dark:border-gray-700'
+        className='cursor-pointer truncate border-t px-2 py-3 first:border-t-0 dark:border-gray-700'
         onClick={() => handleAction('view', item)}
         onMouseEnter={() => setActiveItem(item)}
         onMouseLeave={() => setActiveItem(null)}

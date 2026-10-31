@@ -1,16 +1,16 @@
 ## Before Development
 
-Use **Node.js 24** for this project. The bundled dependencies in Next.js 12 use `SlowBuffer`, which was removed in Node.js 25 and causes `Cannot read properties of undefined (reading 'prototype')` on startup.
+Use **Node.js 26, Next.js 16, and React 19** for this project. Local development and CI use Node.js 26.
 
 From the project directory, run `nvm install && nvm use` to read `.nvmrc`. On macOS with Homebrew, use:
 
 ```sh
-brew install node@24
-export PATH="$(brew --prefix node@24)/bin:$PATH"
-node --version # Should be v24.x
+brew install node@26
+export PATH="$(brew --prefix node@26)/bin:$PATH"
+node --version # Should be v26.x
 ```
 
-This `export` applies only to the current terminal. Select Node 24 again in a new terminal.
+This `export` applies only to the current terminal. Select Node 26 again in a new terminal.
 
 Firstly, the project utilizes yarn for package installation, which you can search for and install on your own. After installation is complete, set the version number with the command `yarn set version v1.22.19`.
 
@@ -70,6 +70,15 @@ After your code is successfully merged, @521xueweihan will invite you to become 
 For subsequent code submissions, you can develop in a 'self-created branch' or a branch automatically created when 'claiming a requirement.'
 
 After submitting your code, please pay attention to the project's **issues** and **prs** notifications because I will provide feedback and optimization suggestions after reviewing the submitted code.
+
+## Server Updates
+
+On a server with PM2 configured, run:
+
+- Mainland server (default): `yarn server_reload`
+- Overseas server: `yarn server_reload:hw`
+
+Each command builds with the regional image configuration, then reloads the PM2 service only if the build succeeds.
 
 ## Finally
 

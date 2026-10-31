@@ -1,8 +1,9 @@
 import { AiFillFire, AiOutlineEye } from 'react-icons/ai';
-import { GoStar, GoVerified } from 'react-icons/go';
+import { GoStar } from 'react-icons/go';
 
 import HostedImage from '@/components/HostedImage';
 import { CustomLink } from '@/components/links/CustomLink';
+import VerifiedIcon from '@/components/VerifiedIcon';
 
 import { fromNow } from '@/utils/day';
 import { numFormat } from '@/utils/util';
@@ -90,7 +91,7 @@ const RepositoryItem = ({
           <header className='relative cursor-pointer bg-white px-2.5 py-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:px-4'>
             {/* 搜索结果的推荐标识 */}
             {is_featured && (
-              <div className='absolute top-2 right-0 flex items-center bg-yellow-500 bg-opacity-80 p-1 text-xs font-semibold text-white'>
+              <div className='absolute right-0 top-2 flex items-center bg-yellow-500 bg-opacity-80 p-1 text-xs font-semibold text-white'>
                 <GoStar className='mr-0.5' />
                 {i18n_lang == 'en' ? 'Featured' : '推荐'}
               </div>
@@ -139,7 +140,7 @@ const RepositoryItem = ({
                     {/* 评论数 */}
                     {showCommentCount && (comment_total || 0) > 0 && (
                       <div className='justify-end'>
-                        <div className='h-4 whitespace-nowrap rounded-md bg-blue-400 py-0.5 px-2 text-xs font-semibold leading-none text-white dark:text-gray-100'>
+                        <div className='h-4 whitespace-nowrap rounded-md bg-blue-400 px-2 py-0.5 text-xs font-semibold leading-none text-white dark:text-gray-100'>
                           {comment_total}
                         </div>
                       </div>
@@ -162,7 +163,7 @@ const RepositoryItem = ({
                     />
                     <div className='flex max-w-[7rem] items-center truncate text-ellipsis md:w-fit md:max-w-[10rem]'>
                       {is_claimed && (
-                        <GoVerified
+                        <VerifiedIcon
                           className='mr-0.5 inline-block min-w-min align-[-2px] text-blue-500'
                           size={13}
                           aria-label='Verified item'

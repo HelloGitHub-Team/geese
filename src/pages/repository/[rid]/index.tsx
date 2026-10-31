@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 
 import RepoDetailNavbar from '@/components/navbar/RepoNavbar';
 import CommentContainer from '@/components/respository/CommentContainer';
@@ -21,7 +21,7 @@ const RepositoryPage: NextPage<Props> = ({ repo }) => {
   const { t, i18n } = useTranslation('repository');
 
   const getLocalizedField = (field: any, fallback: any) =>
-    i18n.language === 'en' ? field ?? fallback : fallback;
+    i18n.language === 'en' ? (field ?? fallback) : fallback;
 
   return (
     <>

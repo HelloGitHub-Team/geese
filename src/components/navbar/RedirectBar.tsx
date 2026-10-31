@@ -8,7 +8,7 @@ const RedirectBar = ({ text = '跳转中...', target, i18n_lang }: Props) => {
   return (
     <div className='bg-white dark:bg-gray-800 dark:text-gray-300 md:rounded-lg'>
       <div className='m-2'>
-        <div className='flex py-3 px-4'>{text}</div>
+        <div className='flex px-4 py-3'>{text}</div>
         {target != '/' && (
           <div className='flex px-4 pb-3 text-gray-500'>
             {target}

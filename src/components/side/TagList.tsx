@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next/pages';
 import { useEffect, useState } from 'react';
 import { AiOutlineAppstore, AiOutlineSetting } from 'react-icons/ai';
 
@@ -119,7 +119,7 @@ export default function TagList({ topValue }: TagListProps) {
             ))}
           </div>
           <TagModal updateTags={setTags} t={t} i18n_lang={i18n.language}>
-            <div className='flex cursor-pointer flex-row items-center border-t border-t-gray-200 px-3 pt-2 pb-1 text-gray-500 hover:text-blue-500 dark:border-t-gray-600 dark:text-gray-300 dark:hover:text-blue-500'>
+            <div className='flex cursor-pointer flex-row items-center border-t border-t-gray-200 px-3 pb-1 pt-2 text-gray-500 hover:text-blue-500 dark:border-t-gray-600 dark:text-gray-300 dark:hover:text-blue-500'>
               <AiOutlineSetting size={15} />
               <div className='ml-0.5 text-sm'>{t('tag_side.manage')}</div>
             </div>

@@ -35,14 +35,14 @@ export const DeleteCollectionMoal: React.FC<DeleteCollectionModalProps> = ({
         <button
           type='button'
           onClick={onClose}
-          className='inline-flex items-center justify-center gap-2 rounded-md border-2 border-gray-200 py-1 px-4 text-sm font-semibold text-blue-500 transition-all hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-gray-700 dark:hover:border-blue-500'
+          className='inline-flex items-center justify-center gap-2 rounded-md border-2 border-gray-200 px-4 py-1 text-sm font-semibold text-blue-500 transition-all hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-gray-700 dark:hover:border-blue-500'
         >
           {t('favorite.button.cancel')}
         </button>
         <button
           type='button'
           onClick={onConfirm}
-          className='ml-4 inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-500 py-1 px-4 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800'
+          className='ml-4 inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-500 px-4 py-1 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800'
         >
           {t('favorite.button.confirm')}
         </button>

@@ -30,7 +30,7 @@ const MoreInfo = ({ repo, t }: RepositoryProps) => {
   ];
 
   return (
-    <div className='relative mt-1 mb-4'>
+    <div className='relative mb-4 mt-1'>
       <div
         className={`relative overflow-hidden rounded-lg ${
           isShowMore ? '' : 'h-20'
@@ -48,7 +48,7 @@ const MoreInfo = ({ repo, t }: RepositoryProps) => {
         </div>
       </div>
       <div
-        className='absolute right-3 bottom-0 translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-400 hover:bg-gray-200 active:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:active:bg-gray-700 lg:right-9'
+        className='absolute bottom-0 right-3 translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-400 hover:bg-gray-200 active:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:active:bg-gray-700 lg:right-9'
         onClick={() => setIsShowMore(!isShowMore)}
       >
         {isShowMore ? t('more.collapse') : t('more.expand')}

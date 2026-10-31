@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next/pages';
 import { useCallback, useState } from 'react';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 
@@ -223,7 +223,7 @@ export function CreateRepo({ response, t }: CreateRepoProps) {
 }
 
 interface RepoModalProps {
-  children: JSX.Element;
+  children: React.JSX.Element;
 }
 
 export function RepoModal({ children }: RepoModalProps) {
@@ -258,7 +258,7 @@ export function RepoModal({ children }: RepoModalProps) {
         title={
           <>
             {t('submit_repo.title')}
-            <p className='mt-2 mb-2 text-xs text-gray-500'>
+            <p className='mb-2 mt-2 text-xs text-gray-500'>
               {t('submit_repo.description')}
             </p>
           </>

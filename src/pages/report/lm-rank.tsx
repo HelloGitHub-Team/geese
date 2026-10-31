@@ -1,8 +1,8 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Trans, useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useEffect, useId, useMemo, useState } from 'react';
+import { Trans, useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
+import { useMemo } from 'react';
 
 import Loading from '@/components/loading/Loading';
 import Navbar from '@/components/navbar/Navbar';
@@ -13,13 +13,15 @@ import {
 } from '@/components/rankTable/RankTable';
 import {
   ArenaModel,
-  ArenaModelID,
+  ArenaOfoxLink,
   ArenaPrice,
+  ArenaPriceHeader,
 } from '@/components/report/ArenaModel';
 import { RatingWithTrendRender } from '@/components/report/Report';
 import Seo from '@/components/Seo';
 
 import { getLMArenaRank } from '@/services/rank';
+import { getArenaPriceTiers } from '@/utils/arenaPrice';
 import { getClientIP } from '@/utils/util';
 
 import { LMArenaRankDataItem, LMArenaRankPageProps } from '@/types/rank';
@@ -47,12 +49,6 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
 }) => {
   const { t, i18n } = useTranslation('rank');
   const router = useRouter();
-  const [expandedModel, setExpandedModel] = useState<LMArenaRankDataItem>();
-  const modelDetailsId = useId();
-
-  useEffect(() => {
-    setExpandedModel(undefined);
-  }, [year, month, category]);
 
   const onSearch = (key: string, value: string) => {
     const currentQuery = { ...router.query };
@@ -77,57 +73,45 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
       }));
   }, [categoryList, i18n.language]);
 
+  const priceTiers = useMemo(() => getArenaPriceTiers(list || []), [list]);
+
   // 表格列配置
   const columns: any[] = useMemo(
     () => [
-      { key: 'position', title: t('lmrank.thead.position'), width: 60 },
+      {
+        key: 'position',
+        title: (
+          <span className='block text-center'>
+            {t('lmrank.thead.position')}
+          </span>
+        ),
+        width: 48,
+        render: (row: LMArenaRankDataItem) => (
+          <span className='block text-center tabular-nums'>{row.position}</span>
+        ),
+      },
       {
         key: 'name',
-        title: t('lmrank.thead.name'),
-        width: 248,
-        render: (row: LMArenaRankDataItem) => (
-          <ArenaModel
-            model={row}
-            expanded={expandedModel === row}
-            controlsId={`${modelDetailsId}-${list.indexOf(row)}`}
-            onToggle={() =>
-              setExpandedModel((current) => (current === row ? undefined : row))
-            }
-          />
-        ),
+        title: <span className='pl-10'>{t('lmrank.thead.name')}</span>,
+        width: 'auto',
+        render: (row: LMArenaRankDataItem) => <ArenaModel model={row} />,
       },
       {
         key: 'rating',
         title: t('lmrank.thead.rating'),
-        render: (row: LMArenaRankDataItem) => (
-          <div
-            className={`relative flex h-10 ${
-              expandedModel === row ? 'items-start' : 'items-center'
-            }`}
-          >
-            <div className='flex h-5 items-center'>
-              {RatingWithTrendRender(
-                {
-                  ...row,
-                  rating: Number(row.rating).toLocaleString(i18n.language, {
-                    maximumFractionDigits: 0,
-                    useGrouping: false,
-                  }),
-                },
-                false,
-                i18n.language
-              )}
-            </div>
-            <div className='absolute left-0 top-6 w-max'>
-              <ArenaModelID
-                model={row}
-                id={`${modelDetailsId}-${list.indexOf(row)}`}
-                hidden={expandedModel !== row}
-              />
-            </div>
-          </div>
-        ),
-        width: 100,
+        render: (row: LMArenaRankDataItem) =>
+          RatingWithTrendRender(
+            {
+              ...row,
+              rating: Number(row.rating).toLocaleString(i18n.language, {
+                maximumFractionDigits: 0,
+                useGrouping: false,
+              }),
+            },
+            false,
+            i18n.language
+          ),
+        width: 72,
       },
       {
         key: 'votes',
@@ -140,49 +124,53 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
             count < 0
           );
           return (
-            <div
-              className={`flex h-10 ${
-                expandedModel === row ? 'items-start' : 'items-center'
-              }`}
+            <span
+              className='leading-5'
+              title={
+                validCount ? count.toLocaleString(i18n.language) : undefined
+              }
             >
-              <span
-                className='leading-5'
-                title={
-                  validCount ? count.toLocaleString(i18n.language) : undefined
-                }
-              >
-                {!validCount
-                  ? '—'
-                  : count < 1000
+              {!validCount
+                ? '—'
+                : count < 1000
                   ? count
                   : `${(count / 1000).toLocaleString(i18n.language, {
                       maximumFractionDigits: 1,
                       useGrouping: false,
                     })}k`}
-              </span>
-            </div>
+            </span>
           );
         },
-        width: 100,
+        width: 72,
       },
       {
         key: 'price',
-        title: t('lmrank.thead.price'),
+        title: <ArenaPriceHeader />,
         render: (row: LMArenaRankDataItem) => (
-          <div
-            className={`flex h-10 ${
-              expandedModel === row ? 'items-start' : 'items-center'
-            }`}
-          >
-            <div className='flex h-5 items-center'>
-              <ArenaPrice model={row} />
-            </div>
-          </div>
+          <ArenaPrice model={row} tier={priceTiers.get(row)} />
         ),
-        width: 180,
+        width: i18n.language.startsWith('zh') ? 168 : 192,
+      },
+      {
+        key: 'ofox',
+        title: (
+          <span className='inline-flex items-center gap-0.5'>
+            <img
+              src='/images/arena/ofox.svg'
+              alt=''
+              aria-hidden='true'
+              width={16}
+              height={16}
+              className='h-4 w-4 shrink-0 dark:invert'
+            />
+            {t('lmrank.thead.ofox')}
+          </span>
+        ),
+        render: (row: LMArenaRankDataItem) => <ArenaOfoxLink model={row} />,
+        width: 104,
       },
     ],
-    [i18n.language, t, expandedModel, modelDetailsId, list]
+    [i18n.language, t, priceTiers]
   );
 
   return (
@@ -206,18 +194,18 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
               )}
               onChange={onSearch}
             />
-            <div className='mb-2 flex items-center justify-center'>
-              <div className='flex flex-wrap items-center gap-1 md:gap-4'>
+            <div className='mb-4 mt-3 flex items-center justify-center'>
+              <div className='flex flex-wrap items-center justify-center gap-1 rounded-lg bg-gray-100/80 p-1 dark:bg-gray-900/40'>
                 {categoryOptions?.map((opt) => (
                   <button
                     key={opt.key}
                     type='button'
                     aria-pressed={category === opt.key}
                     onClick={() => onSearch('category', opt.key)}
-                    className={`rounded-md px-2 py-1 text-xs font-medium transition-colors md:px-3 md:py-1.5 md:text-sm ${
+                    className={`rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 md:px-3 md:text-sm ${
                       category === opt.key
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+                        ? 'bg-white text-gray-950 shadow-sm dark:bg-gray-700 dark:text-white'
+                        : 'text-gray-500 hover:bg-white/60 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700/50 dark:hover:text-gray-100'
                     }`}
                   >
                     {opt.value}
@@ -225,16 +213,11 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
                 ))}
               </div>
             </div>
-            {!!list.length && (
-              <p className='mb-2 px-1 text-xs text-gray-500 dark:text-gray-400 md:hidden'>
-                {t('lmrank.scroll_hint')}
-              </p>
-            )}
             {list.length ? (
               <RankTable
                 key={`${year}-${month}-${category}`}
                 columns={columns}
-                minWidth={700}
+                minWidth={640}
                 compact
                 list={list}
                 i18n_lang={i18n.language}

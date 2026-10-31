@@ -2,7 +2,6 @@ import { AiFillWechat, AiFillWeiboCircle } from 'react-icons/ai';
 import { IoLogoRss } from 'react-icons/io';
 
 import { FeedbackModal } from '@/components/dialog/Feedback';
-import HostedImage from '@/components/HostedImage';
 import { CustomLink } from '@/components/links/CustomLink';
 
 import FooterLink from './FooterLink';
@@ -56,9 +55,9 @@ const Footer = ({ t, isLite }: FooterProps) => {
       >
         <span>{t('footer.server_sponsor')}</span>
         <span className='mx-0.5 align-[1px]'>
-          <HostedImage
+          <img
             className='inline-block'
-            src='https://img.hellogithub.com/ad/ucloud_footer.png'
+            src='/images/sponsors/ucloud.webp'
             width='86'
             height='16'
             alt='ucloud_footer'
@@ -68,20 +67,18 @@ const Footer = ({ t, isLite }: FooterProps) => {
       </FooterLink>
 
       <FooterLink
-        className='mt-2'
-        href='https://www.upyun.com/?from=hellogithub'
+        className='mt-2 inline-flex w-full items-center gap-1.5 whitespace-nowrap leading-5'
+        href='https://serpapi.com/hello-github'
       >
-        <span>{t('footer.cdn_sponsor')}</span>
-        <span className='mx-0.5 align-[1px]'>
-          <HostedImage
-            className='inline-block'
-            src='https://img.hellogithub.com/ad/upyun_footer.png'
-            width='42'
-            height='16'
-            alt='upyun_footer'
-          />
-        </span>
-        <span>{t('footer.cdn_sponsor2')}</span>
+        <span>{t('footer.community_sponsor')}</span>
+        <img
+          className='h-3.5 w-auto shrink-0 dark:brightness-0 dark:invert'
+          src='/images/sponsors/serpapi.svg'
+          width={56.25515}
+          height={14}
+          alt='SerpApi'
+        />
+        <span>{t('footer.community_sponsor2')}</span>
       </FooterLink>
 
       {!isLite && (
@@ -96,9 +93,9 @@ const Footer = ({ t, isLite }: FooterProps) => {
           href='http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11011402013237'
         >
           <span>
-            <HostedImage
+            <img
               className='inline-block'
-              src='https://img.hellogithub.com/ad/filing.png'
+              src='/images/filing.png'
               width='12'
               height='12'
               alt='footer_filing'

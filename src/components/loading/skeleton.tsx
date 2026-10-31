@@ -8,7 +8,7 @@ export const HomeSkeleton = ({ loop }: Props) => {
       {Array.from({ length: loop }, (_, i) => (
         <div
           key={i}
-          className='relative animate-pulse bg-white py-3 px-4 dark:bg-gray-800 '
+          className='relative animate-pulse bg-white px-4 py-3 dark:bg-gray-800'
         >
           <div className='flex w-full flex-row'>
             <div className='mr-2.5 hidden min-w-fit md:block'>
@@ -33,7 +33,7 @@ export const HomeSkeleton = ({ loop }: Props) => {
 
 export const TagListSkeleton = () => {
   return (
-    <div className='mt-1 mb-2'>
+    <div className='mb-2 mt-1'>
       <ul className='animate-pulse space-y-2'>
         <li className='h-10 rounded bg-gray-100 dark:bg-gray-700' />
         <li className='h-10 rounded bg-gray-100 dark:bg-gray-700' />
@@ -97,11 +97,11 @@ export const RecommendSkeleton = ({ loop }: Props) => {
 export const ArticleSkeleton = () => {
   return (
     <article>
-      <div className='relative animate-pulse bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500  dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:py-3 md:pl-5'>
+      <div className='relative animate-pulse bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:py-3 md:pl-5'>
         <div className='flex-cloume relative flex items-center justify-between'>
           <div className='mr-2 w-full md:w-9/12'>
             <div className='h-5 w-60 bg-gray-100 dark:bg-gray-700 md:w-80' />
-            <div className='my-2 pr-1 text-xs leading-loose text-gray-400 line-clamp-2 md:pr-0'>
+            <div className='my-2 line-clamp-2 pr-1 text-xs leading-loose text-gray-400 md:pr-0'>
               <div className='h-4 bg-gray-100 dark:bg-gray-700' />
               <div className='mt-1 h-4 w-4/5 bg-gray-100 dark:bg-gray-700' />
             </div>
@@ -147,7 +147,7 @@ export const PeriodicalSkeleton = () => {
 export const SearchSkeleton = () => {
   return (
     <article>
-      <div className='relative animate-pulse bg-white py-3 px-4 md:rounded-lg'>
+      <div className='relative animate-pulse bg-white px-4 py-3 md:rounded-lg'>
         <div className='pb-0.5'>
           <div className='mt-1 h-4 w-60 bg-gray-100 dark:bg-gray-700' />
         </div>
@@ -171,7 +171,7 @@ export const ProfileSkeleton = () => {
         <div className='mx-auto mt-2 flex h-6 w-32 bg-gray-100 dark:bg-gray-700 md:mx-0 md:mb-2 md:mt-0 md:w-36 md:justify-start'></div>
         <div className='hidden space-y-2 md:block'>
           <div className='h-4 w-5/6 bg-gray-100 dark:bg-gray-700' />
-          <div className='h-4 w-4/6  bg-gray-100 dark:bg-gray-700' />
+          <div className='h-4 w-4/6 bg-gray-100 dark:bg-gray-700' />
         </div>
         <div className='flex flex-col items-center space-y-1 md:hidden'>
           <div className='mt-2 h-4 w-60 bg-gray-100 dark:bg-gray-700' />

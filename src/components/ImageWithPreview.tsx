@@ -66,7 +66,7 @@ const ImageWithPreview = ({ src, alt, ...rest }: ImageWithPreviewProps) => {
         {sourceIsGif && imgSrc.endsWith(gifCoverImage) && (
           <div
             onClick={handleLoadGif}
-            className='absolute top-0 left-0 flex h-full w-full cursor-pointer items-center justify-center'
+            className='absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center'
           >
             <GifPlayButton />
           </div>
@@ -85,7 +85,7 @@ const ImageWithPreview = ({ src, alt, ...rest }: ImageWithPreviewProps) => {
             style={{ cursor: 'zoom-out', maxHeight: '80%' }}
           />
           <button
-            className='absolute top-4 right-4 rounded-full bg-black bg-opacity-50 p-1 text-white'
+            className='absolute right-4 top-4 rounded-full bg-black bg-opacity-50 p-1 text-white'
             onClick={handleClosePreview}
           >
             <AiOutlineClose style={{ fontSize: 13 }} />

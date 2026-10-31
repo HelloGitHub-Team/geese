@@ -1,11 +1,9 @@
 const ORIGINAL_IMAGE_ORIGIN = 'https://img.hellogithub.com';
-const originalImageOriginPattern =
-  /^https:\/\/img\.hellogithub\.com(?::443)?(?=[/?#]|$)/i;
+const UPYUN_IMAGE_ORIGIN = 'https://img-upyun.cheatsheet.store';
 
-const getImageBaseUrl = () => {
-  // Keep this direct reference: Next.js inlines NEXT_PUBLIC_* at build time.
-  const configured = process.env.NEXT_PUBLIC_IMAGE_BASE_URL?.trim();
-  if (!configured) return ORIGINAL_IMAGE_ORIGIN;
+const getImageBaseUrl = (value: string | undefined, fallback: string) => {
+  const configured = value?.trim();
+  if (!configured) return fallback;
 
   try {
     const url = new URL(configured);
@@ -15,38 +13,79 @@ const getImageBaseUrl = () => {
       url.username ||
       /^https?:\/\/[^/]*@/i.test(configured)
     ) {
-      return ORIGINAL_IMAGE_ORIGIN;
+      return fallback;
     }
     return configured.replace(/\/+$/, '');
   } catch {
-    return ORIGINAL_IMAGE_ORIGIN;
+    return fallback;
   }
 };
 
-const imageBaseUrl = getImageBaseUrl();
+// Keep direct references: Next.js inlines NEXT_PUBLIC_* at build time.
+const upyunImageBaseUrl = getImageBaseUrl(
+  process.env.NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL,
+  ORIGINAL_IMAGE_ORIGIN
+);
+const imageBaseUrl = getImageBaseUrl(
+  process.env.NEXT_PUBLIC_IMAGE_BASE_URL,
+  upyunImageBaseUrl
+);
+const ownedImageOriginPatterns = [
+  ORIGINAL_IMAGE_ORIGIN,
+  UPYUN_IMAGE_ORIGIN,
+  upyunImageBaseUrl,
+].map(
+  (origin) =>
+    new RegExp(
+      '^' +
+        origin.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
+        '(?::443)?(?=[/?#]|$)',
+      'i'
+    )
+);
 
-/** Route only our original HTTPS image origin; keep the raw object suffix. */
-export const getImageUrl = <T extends string | null | undefined>(src: T): T => {
-  if (!src || imageBaseUrl === ORIGINAL_IMAGE_ORIGIN) return src;
+const getOwnedImagePath = (src: string): string | undefined => {
   // Backslashes/control characters have special URL-parser semantics.
-  // eslint-disable-next-line no-control-regex
-  if (/[\\\u0000- \u007f]/.test(src)) return src;
-  const path = src.replace(originalImageOriginPattern, '');
-  const beforeFragment = path.split('#', 1)[0];
-  // R2 stores named variants; it cannot evaluate Upyun query processing or signatures.
-  if (beforeFragment.includes('?')) return src;
-  const variant = beforeFragment.indexOf('!');
+  if (/[\\\u0000- \u007f]/.test(src)) return undefined;
+  const pattern = ownedImageOriginPatterns.find((origin) => origin.test(src));
+  return pattern ? src.replace(pattern, '') : undefined;
+};
+
+/** Resolve the public Upyun endpoint without changing object paths or queries. */
+export const getUpyunImageUrl = <T extends string | null | undefined>(
+  src: T
+): T => {
+  if (!src) return src;
+  const path = getOwnedImagePath(src);
+  return path === undefined ? src : ((upyunImageBaseUrl + path) as T);
+};
+
+/** Route owned images to delivery or Upyun, preserving the raw object suffix. */
+export const getImageUrl = <T extends string | null | undefined>(src: T): T => {
+  if (!src) return src;
+  const path = getOwnedImagePath(src);
+  if (path === undefined) return src;
+  // Preserve legacy URLs byte for byte when no migration is configured.
   if (
-    variant !== -1 &&
-    !/^!(small|headimage|gif)$/.test(beforeFragment.slice(variant))
-  ) {
+    imageBaseUrl === ORIGINAL_IMAGE_ORIGIN &&
+    upyunImageBaseUrl === imageBaseUrl
+  )
     return src;
-  }
-  return src.replace(originalImageOriginPattern, () => imageBaseUrl) as T;
+  const beforeFragment = path.split('#', 1)[0];
+  const variant = beforeFragment.indexOf('!');
+  // R2 stores named variants; other processing must use the Upyun endpoint.
+  const needsUpyun =
+    beforeFragment.includes('?') ||
+    (variant !== -1 &&
+      !/^!(small|headimage|gif)$/.test(beforeFragment.slice(variant)));
+  return ((needsUpyun ? upyunImageBaseUrl : imageBaseUrl) + path) as T;
 };
 
 /** Follow srcset URL/descriptor boundaries without splitting commas in URLs. */
-export const getImageSrcSet = (srcSet?: string): string | undefined => {
+export const getImageSrcSet = (
+  srcSet?: string,
+  transform = getImageUrl
+): string | undefined => {
   if (!srcSet) return srcSet;
   let position = 0;
   let result = '';
@@ -65,7 +104,7 @@ export const getImageSrcSet = (srcSet?: string): string | undefined => {
     }
     const token = srcSet.slice(urlStart, position);
     const url = token.replace(/,+$/, '');
-    result += getImageUrl(url) + token.slice(url.length);
+    result += transform(url) + token.slice(url.length);
     if (token.endsWith(',')) continue;
 
     const descriptorStart = position;
@@ -109,15 +148,15 @@ export const getHtmlImageUrls = (html: string): string =>
           name.toLowerCase() === 'src'
             ? getImageUrl(value)
             : name.toLowerCase() === 'srcset'
-            ? getImageSrcSet(value)
-            : value;
+              ? getImageSrcSet(value)
+              : value;
         if (routed === value) return attribute;
         const quote =
           doubleQuoted !== undefined
             ? '"'
             : singleQuoted !== undefined
-            ? "'"
-            : '';
+              ? "'"
+              : '';
         return `${name}${equals}${quote}${routed}${quote}`;
       }
     )

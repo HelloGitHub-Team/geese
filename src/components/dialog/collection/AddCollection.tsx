@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next/pages';
 import * as React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
@@ -128,7 +128,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
             onChange={(e: any) => onFormChange('name', e.target.value)}
             id='inline-input-label-with-helper-text'
             className={clsxm(
-              'block w-full rounded-md border-gray-200 py-2 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400',
+              'block w-full rounded-md border-gray-200 px-4 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400',
               {
                 'cursor-not-allowed bg-gray-200 opacity-60': !editable,
               }
@@ -148,7 +148,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
             value={formData.description}
             onChange={(e: any) => onFormChange('description', e.target.value)}
             className={clsxm(
-              'block w-full rounded-md border-gray-200 py-2 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400',
+              'block w-full rounded-md border-gray-200 px-4 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400',
               { 'cursor-not-allowed bg-gray-200 opacity-60': !editable }
             )}
             placeholder={t('collect.desc_placeholder')}
@@ -158,7 +158,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
 
         {/* 新建时不展示状态选择 */}
         {props.type !== 'add' && (
-          <div className='mt-4 ml-1'>
+          <div className='ml-1 mt-4'>
             <div
               className='flex items-center'
               onClick={() => onFormChange('status', 2)}
@@ -171,7 +171,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
                 readOnly
                 checked={formData.status === 2}
               />
-              <label className='max-w-10 ml-2 text-sm text-gray-600 dark:text-gray-400'>
+              <label className='ml-2 max-w-10 text-sm text-gray-600 dark:text-gray-400'>
                 {t('collect.public')}
               </label>
               <span className='ml-1 text-xs text-gray-500'>
@@ -191,7 +191,7 @@ export const EditCollectionMoal = (props: EditCollectionProps) => {
                 readOnly
                 checked={formData.status === 0}
               />
-              <label className='max-w-8 ml-2 text-sm text-gray-600 dark:text-gray-400'>
+              <label className='ml-2 max-w-8 text-sm text-gray-600 dark:text-gray-400'>
                 {t('collect.pravite')}
               </label>
               <span className='ml-1 text-xs text-gray-500'>
@@ -238,7 +238,7 @@ export default function AddCollection({
         onClick={() => {
           setOpenModal(true);
         }}
-        className='inline-flex items-center justify-center gap-2 rounded-md border border-transparent py-1 px-0 text-sm font-medium text-blue-500 ring-offset-white transition-all hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+        className='inline-flex items-center justify-center gap-2 rounded-md border border-transparent px-0 py-1 text-sm font-medium text-blue-500 ring-offset-white transition-all hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
       >
         <AiOutlinePlus /> {t('collect.title')}
       </button>

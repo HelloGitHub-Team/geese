@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 
 import type { Alert } from './alert.service';
@@ -10,7 +9,7 @@ interface AlertProps {
   id?: string;
 }
 
-function AlertComp({ id }: AlertProps) {
+function AlertComp({ id = 'default-alert' }: AlertProps) {
   const mounted = useRef(false);
   const router = useRouter();
   const [alerts, setAlerts] = useState<Alert[]>([]);
@@ -85,8 +84,6 @@ function AlertComp({ id }: AlertProps) {
       unsubscribe();
       router.events.off('routeChangeStart', clearAlerts);
     };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function cssClasses(alert: Alert) {
@@ -106,7 +103,7 @@ function AlertComp({ id }: AlertProps) {
   if (!alerts.length) return null;
 
   return (
-    <div className='pointer-events-none fixed top-8 left-0 z-50 w-full'>
+    <div className='pointer-events-none fixed left-0 top-8 z-50 w-full'>
       <div>
         {alerts.map((alert, index) => (
           <div key={index} className={cssClasses(alert)}>
@@ -122,15 +119,5 @@ function AlertComp({ id }: AlertProps) {
     </div>
   );
 }
-
-AlertComp.propTypes = {
-  id: PropTypes.string,
-  fade: PropTypes.bool,
-};
-
-AlertComp.defaultProps = {
-  id: 'default-alert',
-  fade: false,
-};
 
 export default AlertComp;

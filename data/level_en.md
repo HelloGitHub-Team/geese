@@ -8,7 +8,7 @@ Everyone is encouraged to share interesting, beginner-friendly open-source proje
 
 The HelloGitHub Community Level is calculated and upgraded in real-time based on contribution points.
 
-![](https://img.hellogithub.com/article/9fR85MsourUyweN_1731061742.png)
+![](/images/help/levels-en.png)
 
 ## Earning and Deducting Contribution Points
 

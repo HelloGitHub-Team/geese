@@ -5,7 +5,7 @@ const ease = (distance: number) => {
   return distance / 2;
 };
 
-const PullRefresh = ({ children }: { children?: JSX.Element }) => {
+const PullRefresh = ({ children }: { children?: React.JSX.Element }) => {
   const [height, setHeight] = useState(0);
   const [isRefresh, setIsRefresh] = useState(false);
   const [startY, setStartY] = useState(0);

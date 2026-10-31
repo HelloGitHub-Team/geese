@@ -12,20 +12,19 @@ module.exports = withBundleAnalyzer({
   // Freeze the empty domestic default too, for matching SSR/browser builds.
   env: {
     NEXT_PUBLIC_IMAGE_BASE_URL: process.env.NEXT_PUBLIC_IMAGE_BASE_URL || '',
+    NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL:
+      process.env.NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL || '',
   },
   trailingSlash: false,
   reactStrictMode: false,
   compress: true, // 启用压缩
-  eslint: {
-    dirs: ['src'],
-  },
-  // Uncoment to add domain whitelist
   images: {
-    domains: [
-      'raw.githubusercontent.com',
-      'img.hellogithub.com',
-      'img.cheatsheet.store',
-      'thirdwx.qlogo.cn',
+    remotePatterns: [
+      { protocol: 'https', hostname: 'raw.githubusercontent.com' },
+      { protocol: 'https', hostname: 'img.hellogithub.com' },
+      { protocol: 'https', hostname: 'img-global.cheatsheet.store' },
+      { protocol: 'https', hostname: 'img-upyun.cheatsheet.store' },
+      { protocol: 'https', hostname: 'thirdwx.qlogo.cn' },
     ],
   },
 
@@ -46,7 +45,7 @@ module.exports = withBundleAnalyzer({
     });
     config.module.rules.push({
       test: /\.md$/,
-      use: 'raw-loader',
+      type: 'asset/source',
     });
     return config;
   },

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next/pages';
 import { useEffect, useState } from 'react';
 import { AiOutlineGithub } from 'react-icons/ai';
 
@@ -13,7 +13,6 @@ import RankButton from '@/components/buttons/RankButton';
 import ThemeSwitcher from '@/components/buttons/ThemeSwitcher';
 import { RepoModal } from '@/components/dialog/RepoModal';
 import AvatarWithDropdown from '@/components/dropdown/AvatarWithDropdown';
-import HostedImage from '@/components/HostedImage';
 
 import TopBanner from './TopBanner';
 import { LoginButton } from '../buttons/LoginButton';
@@ -79,9 +78,9 @@ const Header = ({ hiddenAd, showAd }: Props) => {
       <nav className='mx-auto flex max-w-5xl items-center justify-between px-2 py-2 md:py-0 lg:px-0 xl:max-w-5xl 2xl:max-w-7xl'>
         {/* pc 端显示的 logo */}
         <span className='hidden py-2 md:block'>
-          <HostedImage
+          <img
             className='cursor-pointer hover:animate-spin dark:invert'
-            src='https://img.hellogithub.com/logo/logo.png'
+            src='/images/logo/logo.png'
             width='28'
             height='28'
             alt='HelloGitHub_logo'

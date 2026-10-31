@@ -14,7 +14,7 @@ const defaultMeta = {
   url: 'https://hellogithub.com',
   type: 'website',
   robots: 'follow, index',
-  image: 'https://img.hellogithub.com/logo/meta.jpg',
+  image: '/images/logo/meta.jpg',
   content: 'text/html;charset=utf-8',
 };
 
@@ -117,7 +117,7 @@ export default function Seo(props: SeoProps) {
     ...defaultMeta,
     ...props,
   };
-  meta.image = getImageUrl(meta.image);
+  meta.image = new URL(getImageUrl(meta.image), meta.url).href;
   meta['title'] = props.templateTitle
     ? `${props.templateTitle} | ${meta.siteName}`
     : meta.title;

@@ -1,14 +1,16 @@
 import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
-import { getImageSrcSet, getImageUrl } from '@/utils/image';
+import { getImageSrcSet, getImageUrl, getUpyunImageUrl } from '@/utils/image';
 
 /** Native image behavior with deployment-specific routing for owned URLs. */
 const HostedImage = forwardRef<
   HTMLImageElement,
   ComponentPropsWithoutRef<'img'>
 >(({ src, srcSet, onError, ...props }, ref) => {
-  const routedSrc = getImageUrl(src);
+  const routedSrc = typeof src === 'string' ? getImageUrl(src) : src;
   const routedSrcSet = getImageSrcSet(srcSet);
+  const fallbackSrc = typeof src === 'string' ? getUpyunImageUrl(src) : src;
+  const fallbackSrcSet = getImageSrcSet(srcSet, getUpyunImageUrl);
   return (
     <img
       {...props}
@@ -18,14 +20,16 @@ const HostedImage = forwardRef<
       onError={(event) => {
         const image = event.currentTarget;
         const needsFallback =
-          (src !== routedSrc && image.getAttribute('src') === routedSrc) ||
-          (srcSet !== routedSrcSet &&
+          (fallbackSrc !== routedSrc &&
+            image.getAttribute('src') === routedSrc) ||
+          (fallbackSrcSet !== routedSrcSet &&
             image.getAttribute('srcset') === routedSrcSet);
         if (needsFallback) {
           // New uploads may still be synchronizing when an overseas page renders.
-          if (srcSet) image.setAttribute('srcset', srcSet);
+          if (fallbackSrcSet) image.setAttribute('srcset', fallbackSrcSet);
           else image.removeAttribute('srcset');
-          if (src) image.setAttribute('src', src);
+          if (typeof fallbackSrc === 'string' && fallbackSrc)
+            image.setAttribute('src', fallbackSrc);
         }
         onError?.(event);
       }}

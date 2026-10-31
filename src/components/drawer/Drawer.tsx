@@ -111,14 +111,14 @@ function Drawer(props: DrawerProps) {
           <div className='font-medium'>{props.title}</div>
           {!!closable && (
             <span
-              className='absolute top-2 right-4 cursor-pointer text-black'
+              className='absolute right-4 top-2 cursor-pointer text-black'
               onClick={handleClose}
             >
               <AiOutlineClose style={{ fontSize: 16 }} />
             </span>
           )}
         </div>
-        <div className='h-full py-2 px-4'>
+        <div className='h-full px-4 py-2'>
           {shouldDestroyChild ? null : children}
         </div>
       </div>

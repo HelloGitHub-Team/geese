@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Trans, useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Trans, useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { useEffect, useMemo, useState } from 'react';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go';
 import useSWRImmutable from 'swr/immutable';
@@ -118,7 +118,7 @@ const DanmakuRow = ({
   onItemHover,
 }: {
   bullets: BulletItem[];
-  config: typeof DANMAKU_ROWS[0];
+  config: (typeof DANMAKU_ROWS)[0];
   rowIndex: number;
   totalRows: number;
   isEn: boolean;

@@ -24,7 +24,7 @@ module.exports = {
     policies: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: ['/', '/images/logo/meta.jpg'],
         disallow: [
           '/*.jpg$',
           '/*.jpeg$',

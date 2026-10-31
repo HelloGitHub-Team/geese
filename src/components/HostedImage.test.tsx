@@ -6,7 +6,6 @@ import { MDRender } from '@/components/mdRender/MDRender';
 import Seo from '@/components/Seo';
 
 import { DEFAULT_AVATAR } from '@/utils/constants';
-import { getImageUrl } from '@/utils/image';
 
 import HostedImage from './HostedImage';
 import ImageWithPreview from './ImageWithPreview';
@@ -24,10 +23,13 @@ jest.mock('next/head', () => ({
 
 const original = 'https://img.hellogithub.com';
 const source = `${original}/article/a%2fb.png!small#part`;
+const upyun =
+  process.env.NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL?.replace(/\/+$/, '') || original;
 const base =
-  process.env.NEXT_PUBLIC_IMAGE_BASE_URL?.replace(/\/+$/, '') || original;
+  process.env.NEXT_PUBLIC_IMAGE_BASE_URL?.replace(/\/+$/, '') || upyun;
 const expected = (url: string) =>
-  url.split('#', 1)[0].includes('?') ? url : url.replace(original, base);
+  url.replace(original, url.split('#', 1)[0].includes('?') ? upyun : base);
+const fallback = (url: string) => url.replace(original, upyun);
 
 it('renders routed src/srcset during SSR and in the browser, forwarding native props and ref', () => {
   const ref = createRef<HTMLImageElement>();
@@ -51,7 +53,7 @@ it('renders routed src/srcset during SSR and in the browser, forwarding native p
     'srcset',
     `${expected(source)} 1x, https://third.test/large.png 2x`
   );
-  expect(image.outerHTML).toBe(serverImage?.outerHTML);
+  expect(image.isEqualNode(serverImage)).toBe(true);
   expect(ref.current).toBe(image);
   expect(image).toHaveAttribute('width', '72');
   expect(image).toHaveAttribute('loading', 'lazy');
@@ -59,14 +61,11 @@ it('renders routed src/srcset during SSR and in the browser, forwarding native p
   expect(onError).toHaveBeenCalledTimes(1);
 });
 
-it('routes the default avatar and leaves third-party and local images alone', () => {
+it('preserves the local default avatar, third-party and other local images', () => {
   const { rerender } = render(
     <HostedImage src={DEFAULT_AVATAR} alt='avatar' />
   );
-  expect(screen.getByAltText('avatar')).toHaveAttribute(
-    'src',
-    expected(DEFAULT_AVATAR)
-  );
+  expect(screen.getByAltText('avatar')).toHaveAttribute('src', DEFAULT_AVATAR);
   for (const url of [
     'https://thirdwx.qlogo.cn/avatar.png',
     '/images/arena/arena.svg',
@@ -76,7 +75,7 @@ it('routes the default avatar and leaves third-party and local images alone', ()
   }
 });
 
-it('falls back to the original src and srcset once if a direct R2 read fails', () => {
+it('falls back to configured Upyun src and srcset once if a direct R2 read fails', () => {
   const onError = jest.fn();
   const srcSet = `${source} 1x, ${original}/article/large.png 2x`;
   const { rerender } = render(
@@ -84,8 +83,11 @@ it('falls back to the original src and srcset once if a direct R2 read fails', (
   );
   const image = screen.getByAltText('pending');
   fireEvent.error(image);
-  expect(image).toHaveAttribute('src', source);
-  expect(image).toHaveAttribute('srcset', srcSet);
+  expect(image).toHaveAttribute('src', fallback(source));
+  expect(image).toHaveAttribute(
+    'srcset',
+    `${fallback(source)} 1x, ${fallback(`${original}/article/large.png`)} 2x`
+  );
   const attributes = image.outerHTML;
   fireEvent.error(image);
   expect(image.outerHTML).toBe(attributes);
@@ -94,7 +96,7 @@ it('falls back to the original src and srcset once if a direct R2 read fails', (
   rerender(<HostedImage src={next} alt='pending' />);
   expect(image).toHaveAttribute('src', expected(next));
   fireEvent.error(image);
-  expect(image).toHaveAttribute('src', next);
+  expect(image).toHaveAttribute('src', fallback(next));
 });
 
 it('routes both thumbnail and full-size preview, then responds to a changed source', () => {
@@ -173,19 +175,27 @@ it('uses the same routed Markdown image during SSR', () => {
   );
 });
 
-it('routes default and overridden Open Graph/Twitter images during SSR', () => {
-  for (const image of [undefined, source, 'https://third.test/meta.png']) {
+it.each([
+  [undefined, 'https://hellogithub.com/images/logo/meta.jpg'],
+  [
+    '/images/custom-share.png',
+    'https://hellogithub.com/images/custom-share.png',
+  ],
+  [source, expected(source)],
+  ['https://third.test/meta.png', 'https://third.test/meta.png'],
+])(
+  'renders absolute Open Graph/Twitter image URLs for %s during SSR',
+  (image, url) => {
     const html = renderToString(<Seo {...(image ? { image } : {})} />);
     const container = document.createElement('div');
     container.innerHTML = html;
-    const url = image || `${original}/logo/meta.jpg`;
     expect(container.querySelector('[property="og:image"]')).toHaveAttribute(
       'content',
-      getImageUrl(url)
+      url
     );
     expect(container.querySelector('[name="twitter:image"]')).toHaveAttribute(
       'content',
-      getImageUrl(url)
+      url
     );
   }
-});
+);

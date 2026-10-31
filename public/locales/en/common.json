@@ -44,7 +44,10 @@
     "title": "Recommend",
     "desc": "Content is collected from spdx and GitHub, following the",
     "desc2": "protocol.",
-    "change": "Refresh"
+    "change": "Refresh",
+    "empty": "No recommendations available",
+    "error": "Could not load recommendations. Please try again.",
+    "retry": "Retry"
   },
   "footer": {
     "feedback": "Feedback",
@@ -56,8 +59,8 @@
     "links": "Links",
     "server_sponsor": "Servers sponsor",
     "server_sponsor2": "",
-    "cdn_sponsor": "Cloud storage sponsor",
-    "cdn_sponsor2": ""
+    "community_sponsor": "Supported by",
+    "community_sponsor2": ""
   },
   "submit_repo": {
     "text": "Submit",

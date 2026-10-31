@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next/pages';
 import { GoCalendar, GoClock, GoRepoForked } from 'react-icons/go';
 import { IoIosStarOutline } from 'react-icons/io';
 
@@ -67,7 +67,7 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
             </CustomLink>
           </div>
           {/* stars forks watch */}
-          <div className='flex flex-row text-sm text-gray-500  dark:text-gray-400 md:text-base'>
+          <div className='flex flex-row text-sm text-gray-500 dark:text-gray-400 md:text-base'>
             <InfoItem
               icon={IoIosStarOutline}
               text={`Star ${numFormat(item.stars, 1)}`}

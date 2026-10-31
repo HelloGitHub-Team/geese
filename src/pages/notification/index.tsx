@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
@@ -182,7 +182,7 @@ const Notification = () => {
                       }}
                       key={tab.key}
                       className={clsxm(
-                        'inline-flex cursor-pointer items-center gap-1 whitespace-nowrap border-b-2 border-transparent py-2 px-1 text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 md:text-base',
+                        'inline-flex cursor-pointer items-center gap-1 whitespace-nowrap border-b-2 border-transparent px-1 py-2 text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 md:text-base',
                         {
                           '!border-blue-500 !text-blue-500':
                             activeTab === tab.key,
@@ -213,7 +213,7 @@ const Notification = () => {
                       src={
                         activeTab == 'comment'
                           ? item.user_info?.avatar
-                          : 'https://img.hellogithub.com/avatar/oTtM-59ZSm1se2ZOMfiT11KzgevQ.jpeg'
+                          : '/images/avatars/notification.jpeg'
                       }
                     />
                     <div className='flex flex-col truncate'>

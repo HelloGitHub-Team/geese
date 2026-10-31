@@ -44,7 +44,10 @@
     "title": "推荐项目",
     "desc": "内容整理自 spdx 和 GitHub 网站，并遵循",
     "desc2": "协议。",
-    "change": "换一换"
+    "change": "换一换",
+    "empty": "暂无推荐项目",
+    "error": "推荐项目加载失败，请重试",
+    "retry": "重试"
   },
   "footer": {
     "feedback": "问题反馈",
@@ -56,8 +59,8 @@
     "links": "友情链接",
     "server_sponsor": "服务器由",
     "server_sponsor2": "提供",
-    "cdn_sponsor": "专业的",
-    "cdn_sponsor2": "提供云存储服务"
+    "community_sponsor": "感谢",
+    "community_sponsor2": "赞助支持"
   },
   "submit_repo": {
     "text": "提交",

@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { AiFillFire } from 'react-icons/ai';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
@@ -67,54 +67,55 @@ const ArticleIndex: NextPage = () => {
         <div className='divide-y divide-slate-100 bg-white dark:divide-slate-700 dark:bg-slate-800 md:overflow-y-hidden md:rounded-lg'>
           {articles.map((item: ArticleItem) => (
             <article key={item.aid}>
-              <NoPrefetchLink href={`/article/${item.aid}`}>
-                <a className='relative'>
-                  <div className='text-color-primary relative cursor-pointer bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:py-3 md:pl-5'>
-                    <div className='relative flex items-center'>
-                      <div className='w-9/12'>
-                        <div className='flex items-center'>
-                          {item.is_hot && (
-                            <AiFillFire
-                              className='mr-1 inline-block min-w-min align-[-2px]'
-                              size={16}
-                              style={{ color: 'rgb(226,17,12)' }}
-                            />
-                          )}
-                          <span className='truncate pr-2 text-sm leading-snug md:pr-0 md:text-base'>
-                            {i18n.language == 'en'
-                              ? item.title_en || item.title
-                              : item.title}
-                          </span>
-                        </div>
-                        <div className='pt-1 pb-1.5 pr-1 text-xs leading-loose text-gray-400 line-clamp-2 md:pr-0'>
-                          {i18n.language == 'en'
-                            ? item.desc_en || item.desc
-                            : item.desc}
-                        </div>
-                        <div className='flex items-center text-xs text-gray-800 dark:text-gray-200'>
-                          <div className='truncate whitespace-nowrap md:max-w-xs'>
-                            {t('author', { name: item.author })}
-                          </div>
-                          <span className='px-1'>·</span>
-                          <time>{fromNow(item.publish_at, i18n.language)}</time>
-                          <span className='px-1'>·</span>
-                          {t('read', {
-                            num: numFormat(item.clicks_count, 1, 10000),
-                          })}
-                        </div>
-                      </div>
-                      {item.head_image && (
-                        <div className='relative flex w-3/12 justify-center'>
-                          <HostedImage
-                            className='h-20 rounded-md md:w-32'
-                            src={`${item.head_image}!headimage`}
-                            alt='article head'
+              <NoPrefetchLink
+                href={`/article/${item.aid}`}
+                className='relative'
+              >
+                <div className='text-color-primary relative cursor-pointer bg-white py-2 pl-3 pr-3 hover:bg-gray-50 hover:text-blue-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 md:py-3 md:pl-5'>
+                  <div className='relative flex items-center'>
+                    <div className='w-9/12'>
+                      <div className='flex items-center'>
+                        {item.is_hot && (
+                          <AiFillFire
+                            className='mr-1 inline-block min-w-min align-[-2px]'
+                            size={16}
+                            style={{ color: 'rgb(226,17,12)' }}
                           />
+                        )}
+                        <span className='truncate pr-2 text-sm leading-snug md:pr-0 md:text-base'>
+                          {i18n.language == 'en'
+                            ? item.title_en || item.title
+                            : item.title}
+                        </span>
+                      </div>
+                      <div className='line-clamp-2 pb-1.5 pr-1 pt-1 text-xs leading-loose text-gray-400 md:pr-0'>
+                        {i18n.language == 'en'
+                          ? item.desc_en || item.desc
+                          : item.desc}
+                      </div>
+                      <div className='flex items-center text-xs text-gray-800 dark:text-gray-200'>
+                        <div className='truncate whitespace-nowrap md:max-w-xs'>
+                          {t('author', { name: item.author })}
                         </div>
-                      )}
+                        <span className='px-1'>·</span>
+                        <time>{fromNow(item.publish_at, i18n.language)}</time>
+                        <span className='px-1'>·</span>
+                        {t('read', {
+                          num: numFormat(item.clicks_count, 1, 10000),
+                        })}
+                      </div>
                     </div>
+                    {item.head_image && (
+                      <div className='relative flex w-3/12 justify-center'>
+                        <HostedImage
+                          className='h-20 rounded-md md:w-32'
+                          src={`${item.head_image}!headimage`}
+                          alt='article head'
+                        />
+                      </div>
+                    )}
                   </div>
-                </a>
+                </div>
               </NoPrefetchLink>
             </article>
           ))}

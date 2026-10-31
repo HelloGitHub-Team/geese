@@ -31,11 +31,35 @@ jobs:
         run: yarn test --runInBand
         env:
           NEXT_PUBLIC_IMAGE_BASE_URL: ''
+          NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL: https://img.hellogithub.com
 
       - name: Test overseas images
         run: yarn test --runInBand
         env:
-          NEXT_PUBLIC_IMAGE_BASE_URL: https://img.cheatsheet.store
+          NEXT_PUBLIC_IMAGE_BASE_URL: https://img-global.cheatsheet.store
+          NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL: https://img.hellogithub.com
 
       - name: Format check
         run: yarn format:check
+
+  build:
+    name: Production build (${{ matrix.target }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [mainland, overseas]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build application and sitemap
+        run: yarn build:${{ matrix.target }}

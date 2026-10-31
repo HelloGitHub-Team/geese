@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Trans, useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Trans, useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { useMemo } from 'react';
 
 import Loading from '@/components/loading/Loading';
@@ -66,7 +66,7 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
             return { ...col, width: 60 };
           }
           if (col.key === 'name') {
-            return { ...col, width: 160 };
+            return { ...col, width: 'auto' };
           }
           if (col.key === 'rating') {
             return { ...col, width: 80 };
@@ -103,7 +103,7 @@ const DBEnginesPage: NextPage<RankPageProps> = ({
           <div className='my-2 bg-white px-2 pt-2 dark:bg-gray-800 md:rounded-lg'>
             <RankSearchBar
               title='DB-Engines'
-              logo='https://img.hellogithub.com/logo/db.jpg'
+              logo='/images/logo/db-engines.webp'
               i18n_lang={i18n.language}
               monthList={monthList}
               onChange={onSearch}

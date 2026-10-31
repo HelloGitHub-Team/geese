@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Trans, useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Trans, useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { useMemo } from 'react';
 
 import Loading from '@/components/loading/Loading';
@@ -96,7 +96,7 @@ const TiobePage: NextPage<RankPageProps> = ({
           <div className='my-2 bg-white px-2 pt-2 dark:bg-gray-800 md:rounded-lg'>
             <RankSearchBar
               title='TIOBE'
-              logo='https://img.hellogithub.com/logo/tiobe.png!small'
+              logo='/images/logo/tiobe.jpg'
               i18n_lang={i18n.language}
               monthList={monthList}
               onChange={onSearch}

@@ -54,7 +54,7 @@ export const TrendColumnRender = (
       if (i18n_lang === 'en') {
         icon = <IoMdTrendingDown size={16} className='text-red-500' />;
       } else {
-        icon = <IoMdTrendingDown size={16} className=' text-green-500' />;
+        icon = <IoMdTrendingDown size={16} className='text-green-500' />;
       }
     }
   }
@@ -117,15 +117,17 @@ export const ContributionColumnRender = (
 export const UserColumnRender = (row: RankDataItem) => {
   return (
     <NoPrefetchLink href={`/user/${row.uid}`}>
-      <div className='flex cursor-pointer items-center'>
+      <div className='flex min-w-0 items-center'>
         <HostedImage
           width='20'
           height='20'
           src={row.avatar}
-          alt={`${row.name} avatar`}
-          className='block rounded'
+          alt=''
+          className='block h-5 w-5 shrink-0 rounded object-cover'
         />
-        <span className='ml-1 '>{row.name}</span>
+        <span className='ml-1 min-w-0 truncate md:whitespace-normal md:break-words'>
+          {row.name}
+        </span>
       </div>
     </NoPrefetchLink>
   );

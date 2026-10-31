@@ -26,17 +26,10 @@ export const getStats = async (): Promise<Stats> => {
   return data;
 };
 
-export const getRecommend = async (lid?: string): Promise<any> => {
-  try {
-    let url = '/repository/recommend/';
-    if (lid) {
-      url = `/repository/recommend/?lid=${lid}`;
-    }
-    const data = await fetcher<RecommendItems>(makeUrl(url));
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
+export const getRecommend = async (lid?: string): Promise<RecommendItems> => {
+  return fetcher<RecommendItems>(
+    makeUrl('/repository/recommend/', lid ? { lid } : undefined)
+  );
 };
 
 export const getTags = async (

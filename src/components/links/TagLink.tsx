@@ -35,19 +35,13 @@ export default function TagLink({
                   year,
                   month,
                 })}
+                className={`mr-1 inline-flex h-6 items-center justify-center rounded-xl px-2 ${
+                  tid === item.tid
+                    ? 'bg-gray-100 text-blue-500 dark:bg-gray-700'
+                    : 'text-gray-500 hover:bg-gray-100 hover:text-blue-500 dark:text-gray-200 dark:hover:bg-gray-700'
+                } `}
               >
-                <a
-                  className={`
-                  mr-1 inline-flex h-6 items-center justify-center rounded-xl px-2
-                  ${
-                    tid === item.tid
-                      ? 'bg-gray-100 text-blue-500 dark:bg-gray-700'
-                      : 'text-gray-500 hover:bg-gray-100 hover:text-blue-500 dark:text-gray-200 dark:hover:bg-gray-700'
-                  }
-                `}
-                >
-                  {item.name}
-                </a>
+                {item.name}
               </NoPrefetchLink>
             </li>
           );

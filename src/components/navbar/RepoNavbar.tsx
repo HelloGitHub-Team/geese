@@ -23,7 +23,7 @@ const RepoDetailNavbar = ({ avatar, uid, t }: Props) => {
 
   return (
     <div className='my-2 bg-white dark:bg-gray-800 md:rounded-lg'>
-      <div className='flex h-12 items-center justify-between py-2 px-4'>
+      <div className='flex h-12 items-center justify-between px-4 py-2'>
         <div className='cursor-pointer pr-4' onClick={goBack}>
           <AiOutlineArrowLeft
             className='text-gray-500 hover:text-blue-400'

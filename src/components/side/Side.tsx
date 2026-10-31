@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next/pages';
 import { useEffect, useRef, useState } from 'react';
 
 import { useSponsor } from '@/hooks/useSponsor';
@@ -37,9 +37,9 @@ export const Side = ({ isHome, topValue }: Props) => {
   return (
     <>
       <div ref={containerRef}>
-        <div className='relative mt-2 ml-3 max-w-[244px]'>
+        <div className='relative ml-3 mt-2 max-w-[244px]'>
           <div className='space-y-2'>
-            <div className='rounded-lg bg-white pl-3 pr-3 pt-3 pb-2.5 dark:bg-gray-800'>
+            <div className='rounded-lg bg-white pb-2.5 pl-3 pr-3 pt-3 dark:bg-gray-800'>
               <UserStatus t={t} i18n_lang={i18n.language} />
             </div>
             {!isValidating && (

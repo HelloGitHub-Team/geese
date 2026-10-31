@@ -142,7 +142,7 @@ function CommentSubmit(props: CommentSubmitProps) {
         </div>
         <div className='mb-1 flex-1'>
           <textarea
-            className='min-h-[3rem] w-full flex-shrink rounded-lg bg-white py-2 px-4 text-sm dark:bg-gray-800 dark:placeholder:text-gray-400 dark:focus:border-blue-800'
+            className='min-h-[3rem] w-full flex-shrink rounded-lg bg-white px-4 py-2 text-sm dark:bg-gray-800 dark:placeholder:text-gray-400 dark:focus:border-blue-800'
             style={{ height: commentData.height }}
             placeholder={placeholder}
             value={commentData.comment}

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next/pages';
 import { Dispatch, SetStateAction } from 'react';
 
 import clsxm from '@/lib/clsxm';
@@ -141,12 +141,7 @@ const RepoListItem = ({
     <div
       key={item.repo.rid}
       onClick={() => handleItemClick(item.repo)}
-      className='group relative flex cursor-pointer items-center py-3 px-2
-        transition-all duration-200
-        after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full
-        after:bg-gray-200 after:transition-all
-        after:duration-200 
-        hover:bg-gray-50/70 dark:hover:bg-gray-800/30'
+      className='group relative flex cursor-pointer items-center px-2 py-3 transition-all duration-200 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:bg-gray-200 after:transition-all after:duration-200 hover:bg-gray-50/70 dark:hover:bg-gray-800/30'
     >
       <div className='max-w-full flex-1 space-y-2'>
         <div className='group-hover:text-blue-500 dark:group-hover:text-blue-400'>
@@ -154,7 +149,7 @@ const RepoListItem = ({
             {itemNumber}. {item.repo.full_name || item.repo.url}
           </span>
         </div>
-        <p className='text-gray-400 line-clamp-2 dark:text-gray-300'>
+        <p className='line-clamp-2 text-gray-400 dark:text-gray-300'>
           {i18n.language === 'en'
             ? item.repo.summary_en || item.repo.summary
             : item.repo.summary || '-'}

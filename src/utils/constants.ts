@@ -1,9 +1,7 @@
-export const DEFAULT_AVATAR =
-  'https://img.hellogithub.com/github_avatar/default.jpeg';
+export const DEFAULT_AVATAR = '/images/avatars/default.jpeg';
 
 export const OAUTH_LOGIN_KEY = 'OAUTH_LOGIN_URL';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 export const NOOP = () => {};
 
 /**

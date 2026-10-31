@@ -1,6 +1,6 @@
 // pages/server-sitemap-index.xml/index.tsx
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { getServerSideSitemap, ISitemapField } from 'next-sitemap';
+import { getServerSideSitemapLegacy, ISitemapField } from 'next-sitemap';
 
 import { getSitemap } from '@/services/home';
 
@@ -17,9 +17,9 @@ export const getServerSideProps: GetServerSideProps = async (
       changefreq: item.changefreq,
     } as ISitemapField;
   });
-  return getServerSideSitemap(ctx, allURLs);
+  return getServerSideSitemapLegacy(ctx, allURLs);
 };
 
 // Default export to prevent next.js errors
-// eslint-disable-next-line @typescript-eslint/no-empty-function
+
 export default function SitemapIndex() {}

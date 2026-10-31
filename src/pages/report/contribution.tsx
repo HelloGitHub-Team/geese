@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Trans, useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Trans, useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { useMemo } from 'react';
 
 import Loading from '@/components/loading/Loading';
@@ -84,7 +84,7 @@ const ContributionPage: NextPage<RankPageProps> = ({
             return { ...col, width: 60 };
           }
           if (col.key === 'name') {
-            return { ...col, width: 140 };
+            return { ...col, width: 'auto' };
           }
           if (col.key === 'change') {
             return {
@@ -118,7 +118,7 @@ const ContributionPage: NextPage<RankPageProps> = ({
           <div className='my-2 bg-white px-2 pt-2 dark:bg-gray-800 md:rounded-lg'>
             <RankSearchBar
               title='HelloGitHub'
-              logo='https://img.hellogithub.com/logo/logo.png'
+              logo='/images/logo/logo.png'
               i18n_lang={i18n.language}
               monthList={monthList}
               onChange={onSearch}

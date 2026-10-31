@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Trans, useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Trans, useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { GoCalendar, GoListUnordered } from 'react-icons/go';
@@ -222,7 +222,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
         <div className='relative w-0 shrink grow lg:w-9/12 lg:grow-0'>
           <div className='relative pb-6'>
             <div className='relative my-2 bg-white dark:bg-gray-800 md:rounded-lg'>
-              <div className='flex h-12 items-center justify-between py-2 px-4'>
+              <div className='flex h-12 items-center justify-between px-4 py-2'>
                 <div className='cursor-pointer' onClick={goBack}>
                   <AiOutlineArrowLeft
                     className='text-gray-500 hover:text-blue-400'
@@ -268,7 +268,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
                   </div>
                 )}
               </div>
-              <div className='text-normal mb-4  dark:bg-gray-800 dark:text-gray-300'>
+              <div className='text-normal mb-4 dark:bg-gray-800 dark:text-gray-300'>
                 <div className='whitespace-pre-wrap rounded-sm bg-gray-50 p-2 font-normal leading-8 text-gray-500 dark:bg-gray-800 dark:text-gray-300'>
                   <Trans ns='periodical' i18nKey='volume.p_text' />
                 </div>
@@ -320,7 +320,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
           {/* 右侧目录 */}
           <div>
             <div className='top-15 fixed w-full max-w-[244px]'>
-              <div className='mt-2 ml-3  bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
+              <div className='ml-3 mt-2 bg-white p-4 dark:bg-gray-800 md:rounded-lg'>
                 <h3 className='mb-2 border-b border-gray-200 pb-2 text-lg dark:border-gray-700'>
                   {t('volume.catalog')}
                 </h3>
@@ -342,7 +342,7 @@ const PeriodicalVolumePage: NextPage<VolumePageProps> = ({ volume }) => {
           placement='bottom'
           onClose={() => setDrawerVisible(false)}
         >
-          <div className=' h-full dark:bg-gray-800'>
+          <div className='h-full dark:bg-gray-800'>
             <ul className='overflow-auto' style={{ maxHeight: '90%' }}>
               {directoryList(true)}
             </ul>

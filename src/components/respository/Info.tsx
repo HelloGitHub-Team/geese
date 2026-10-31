@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
-import ReactECharts from 'echarts-for-react';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
+import { IconBase } from 'react-icons';
 import {
   AiFillCaretUp,
   AiOutlineCloudDownload,
@@ -12,13 +12,14 @@ import {
   AiOutlineGlobal,
   AiOutlineHome,
 } from 'react-icons/ai';
-import { BsBookmark, BsPersonCheck } from 'react-icons/bs';
-import { GoComment, GoLinkExternal, GoVerified } from 'react-icons/go';
+import { BsBookmark } from 'react-icons/bs';
+import { GoComment, GoLinkExternal } from 'react-icons/go';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import HostedImage from '@/components/HostedImage';
 import Score from '@/components/respository/Score';
+import VerifiedIcon from '@/components/VerifiedIcon';
 
 import { getFavoriteOptions } from '@/services/favorite';
 import { redirectRecord } from '@/services/home';
@@ -32,6 +33,7 @@ import {
 import { numFormat } from '@/utils/util';
 
 import MoreInfo from './MoreInfo';
+import SvgTrend from './SvgTrend';
 import Button from '../buttons/Button';
 import BasicDialog from '../dialog/BasicDialog';
 import AddCollection from '../dialog/collection/AddCollection';
@@ -53,7 +55,7 @@ type URLoption = {
 };
 
 // Icon map for URL options
-const iconMap: { [key: string]: JSX.Element } = {
+const iconMap: { [key: string]: React.JSX.Element } = {
   source: <AiOutlineGithub />,
   home: <AiOutlineHome />,
   document: <AiOutlineFileText />,
@@ -104,7 +106,8 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [favoriteOptions, setFavoriteOptions] = useState<option[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef<any>();
+  const dropdownRef = useRef<{ activeOption?: option }>(null);
+  const urlMenuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const urlOptions = useURLOptions({ repo, t });
@@ -123,7 +126,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (urlMenuRef.current && !urlMenuRef.current.contains(event.target)) {
         setShowDropdown(false);
       }
     };
@@ -184,7 +187,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
       'text-lg': !isVoted,
     });
     return (
-      <div className='w-40 py-3 px-6 text-sm font-medium'>
+      <div className='w-40 px-6 py-3 text-sm font-medium'>
         <div className='flex flex-1 items-center justify-center'>
           <AiFillCaretUp className={voteClassName} />
           <div className='pl-2'>
@@ -195,19 +198,19 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
     );
   };
 
-  const handleCopy = () => {
+  const handleCopy = async () => {
     const text = `${repo.name}：${
       i18n_lang == 'en' ? repo.title_en || repo.title : repo.title
     }\n\n${t('info.copy_desc')}https://hellogithub.com/repository/${
       repo.full_name
     }`;
-    copy(text)
+    (await copy(text))
       ? Message.success(t('info.copy_success'))
       : Message.error(t('info.copy_fail'));
   };
 
   const handleSaveFavorite = async () => {
-    const fid = dropdownRef.current?.activeOption.key;
+    const fid = String(dropdownRef.current?.activeOption?.key ?? '');
     const res = await collectRepo({ rid: repo.rid, fid });
     if (res.success) {
       setIsCollected(true);
@@ -241,7 +244,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
             href={item.url}
             onClick={() => handleClickLink(item.key, repo.rid)}
           >
-            <div className='py-2 px-1'>
+            <div className='px-1 py-2'>
               <div className='flex flex-row items-center rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-700'>
                 {iconMap[item.key]}
                 <div className='pl-1'>{item.name}</div>
@@ -252,59 +255,6 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
       </div>
     </div>
   );
-  const chartOptions = repo.star_history && {
-    xAxis: {
-      type: 'category',
-      boundaryGap: false,
-      data: repo.star_history.x,
-      axisTick: { show: false },
-      axisLine: { show: false },
-      axisLabel: { show: false },
-    },
-    yAxis: {
-      type: 'value',
-      min: repo.star_history.min,
-      max:
-        repo.star_history.increment > 10
-          ? repo.star_history.max
-          : repo.star_history.min + 10,
-      splitLine: { show: false },
-      axisLabel: { show: false },
-      axisTick: { show: false },
-      axisLine: { show: false },
-    },
-    series: [
-      {
-        data: repo.star_history.y,
-        type: 'line',
-        areaStyle: { color: 'rgba(59, 130, 246, 0.2)' },
-        showSymbol: false,
-        smooth: true,
-      },
-    ],
-    tooltip: {
-      trigger: 'axis',
-      formatter(params: any[]) {
-        let result = `${params[0].name}<br>`;
-        params.forEach(
-          (item) =>
-            (result += `${item.marker} Star：${numFormat(item.value, 1)}<br>`)
-        );
-        return result;
-      },
-      backgroundColor: 'rgba(32, 33, 36,.7)',
-      borderColor: 'rgba(32, 33, 36,0.20)',
-      borderWidth: 1,
-      axisPointer: { type: 'none' },
-      textStyle: { color: '#fff', fontSize: '12' },
-    },
-    grid: {
-      left: '2%',
-      right: '2%',
-      top: '20%',
-      bottom: '10%',
-    },
-  };
   return (
     <div className='p-1'>
       <div className='flex flex-col gap-y-3'>
@@ -321,7 +271,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
           </div>
 
           <div className='ml-3 hidden max-w-[440px] flex-col gap-y-2 md:flex'>
-            <div className='flex flex-row items-center '>
+            <div className='flex flex-row items-center'>
               <CustomLink
                 href={repo.url}
                 onClick={() => handleClickLink('source', repo.rid)}
@@ -335,7 +285,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
                   className='group relative ml-0.5 flex cursor-pointer items-center'
                   onClick={() => router.push('/badge')}
                 >
-                  <GoVerified className='ml-0.5 text-xl text-blue-500 group-hover:text-blue-600' />
+                  <VerifiedIcon className='ml-0.5 text-xl text-blue-500 group-hover:text-blue-600' />
                   <div className='absolute hidden flex-row transition-opacity duration-300 group-hover:flex'>
                     <div className='relative left-6 w-0 rounded-md bg-gray-300 p-1 text-xs font-medium text-white group-hover:w-max dark:bg-gray-700 dark:text-gray-200'>
                       {t('info.claimed')}
@@ -365,7 +315,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
                 </h1>
               </CustomLink>
               {repo.is_claimed && (
-                <GoVerified className='ml-0.5 text-xl text-blue-500 group-hover:text-blue-600' />
+                <VerifiedIcon className='ml-0.5 text-xl text-blue-500 group-hover:text-blue-600' />
               )}
             </div>
             <span className='text-ellipsis whitespace-pre-wrap text-xl font-normal text-gray-500'>
@@ -375,11 +325,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
           <div className='hidden md:flex'>
             {repo.star_history ? (
               <div className='flex flex-col items-center'>
-                <ReactECharts
-                  option={chartOptions}
-                  style={{ height: 54, width: 320 }}
-                  opts={{ renderer: 'svg' }}
-                />
+                <SvgTrend {...repo.star_history} locale={i18n_lang} />
                 <div className='text-xs text-gray-500'>
                   {t('history.past_day_desc', {
                     days: repo.star_history.x.length,
@@ -407,7 +353,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
                     className='origin-top scale-95 transition duration-200 ease-in-out hover:scale-100'
                   >
                     {urlOptions.length > 0 ? (
-                      <div className='flex flex-row items-center py-3 px-1'>
+                      <div className='flex flex-row items-center px-1 py-3'>
                         <div className='px-1 text-sm font-medium'>
                           {t('info.vite')}
                         </div>
@@ -422,14 +368,14 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
                 </CustomLink>
               </div>
 
-              <div className='block lg:hidden' ref={dropdownRef}>
+              <div className='block lg:hidden' ref={urlMenuRef}>
                 <Button
                   variant='white-outline'
                   className='origin-top scale-95 transition duration-200 ease-in-out hover:scale-100'
                   onClick={handleURLOptionsToggle} // 添加点击事件处理器
                 >
                   {urlOptions.length > 0 ? (
-                    <div className='flex flex-row items-center py-3 px-1'>
+                    <div className='flex flex-row items-center px-1 py-3'>
                       <div className='px-1 text-sm font-medium'>
                         {t('info.vite')}
                       </div>
@@ -483,7 +429,14 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
                 href={`/badge?rid=${repo.rid}&full_name=${repo.full_name}`}
               >
                 <div className='flex cursor-pointer items-center justify-center text-blue-500 hover:text-current active:text-gray-400 md:hover:text-blue-600'>
-                  <BsPersonCheck className='mr-1' size={16} />
+                  {/* Preserve the person/check shape from react-icons 4.4.0. */}
+                  <IconBase viewBox='0 0 16 16' className='mr-1' size={16}>
+                    <path d='M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z' />
+                    <path
+                      fillRule='evenodd'
+                      d='M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z'
+                    />
+                  </IconBase>
                   {t('info.claim')}
                 </div>
               </NoPrefetchLink>
@@ -542,7 +495,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
         <div className='flex justify-between'>
           <AddCollection onFinish={handleOptions} />
           <Button
-            className='py-0 px-3'
+            className='px-3 py-0'
             variant='gradient'
             onClick={handleSaveFavorite}
           >

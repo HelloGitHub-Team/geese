@@ -37,21 +37,20 @@ const TopBanner = ({ data, i18n_lang, onClose }: Props) => {
   if (isClosed) return null;
   return (
     <div className='relative'>
-      <NoPrefetchLink href={data.url}>
-        <a
-          target='_blank'
-          onClick={() => onClickLink(data.aid)}
-          className='block'
-        >
-          <div className='flex h-8 w-full items-center justify-center bg-gradient-to-r from-blue-600 to-blue-500 px-4 dark:from-blue-700/90 dark:to-blue-600/90'>
-            <span className='max-w-[60%] truncate text-sm text-white'>
-              {adText}
-            </span>
-            <span className='ml-2 shrink-0 text-xs text-white/90'>
-              {clickText} →
-            </span>
-          </div>
-        </a>
+      <NoPrefetchLink
+        href={data.url}
+        target='_blank'
+        onClick={() => onClickLink(data.aid)}
+        className='block'
+      >
+        <div className='flex h-8 w-full items-center justify-center bg-gradient-to-r from-blue-600 to-blue-500 px-4 dark:from-blue-700/90 dark:to-blue-600/90'>
+          <span className='max-w-[60%] truncate text-sm text-white'>
+            {adText}
+          </span>
+          <span className='ml-2 shrink-0 text-xs text-white/90'>
+            {clickText} →
+          </span>
+        </div>
       </NoPrefetchLink>
 
       <button

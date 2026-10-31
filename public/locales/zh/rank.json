@@ -61,29 +61,36 @@
   "lmrank": {
     "title": "大模型排名",
     "nav": "{{year}} 年 {{month}} 月大模型排行榜",
-    "p_text": "<strong>「Arena 排名」</strong>基于真实用户的模型评测，覆盖文本、编码、视觉和图像、视频生成等能力。我们在原始榜单基础上聚合并整理模型名称，点击模型可查看完整模型 ID，方便使用。",
+    "p_text": "<strong>「Arena 排名」</strong>基于真实用户的模型评测，覆盖文本、编码、视觉和图像、视频生成等能力。我们在原始榜单基础上聚合并整理模型名称，点击 ofoxAI 列的「体验模型」，可了解已匹配模型的详情。",
     "thead": {
       "position": "排名",
       "name": "模型",
       "rating": "分数",
       "votes": "票数",
-      "price": "价格"
+      "price": "价格",
+      "ofox": "ofoxAI"
     },
-    "model_id": "模型 ID",
-    "copy": "复制",
-    "copy_success": "模型 ID 已复制",
-    "copy_fail": "复制失败，请手动复制",
+    "view_model": "体验模型",
+    "view_on_ofox": "前往 ofoxAI 体验模型（新标签页打开）",
     "open_source": "开源",
     "unavailable": "暂无",
     "empty": "本月暂无该分类榜单数据",
-    "scroll_hint": "左右滑动查看完整榜单",
     "input": "输入",
     "output": "输出",
+    "exchange_estimate": "人民币估算，固定参考汇率：1 美元 = {{rate}} 元人民币",
+    "price_units": {
+      "usd_per_million_tokens": "输入 / 输出 · 每百万 token",
+      "usd_per_image": "每张图片",
+      "usd_per_second": "每秒视频"
+    },
+    "price_help": "价格说明",
+    "close_price_help": "关闭",
+    "price_precision": "金额按显示精度四舍五入，小额价格保留有效数字；悬停金额可查看完整报价。",
+    "price_tier_description": "按当前榜单同计费单位的输出价格，从贵到便宜分为三档。同价同档；价格全部相同时标为适中，只有一个报价时不分档。",
     "price_tiers": {
-      "low": "便宜",
-      "medium": "适中",
       "high": "贵",
-      "very_high": "很贵"
+      "medium": "适中",
+      "low": "便宜"
     }
   }
 }

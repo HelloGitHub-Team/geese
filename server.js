@@ -12,7 +12,11 @@ const DEFAULT_LOCALE = 'zh';
 const FALLBACK_LOCALE = 'en';
 const SUPPORTED_LOCALES = ['zh', 'en'];
 
-const isStaticRoute = (url) => url.startsWith('/_next/data/');
+const isStaticRoute = (path) =>
+  /^\/(?:_next|images|font|favicon|locales)\//.test(path) ||
+  /^\/(?:robots\.txt|sitemap(?:-\d+)?\.xml|server-sitemap-index\.xml)$/.test(
+    path
+  );
 
 const getLocaleFromUrl = (path) => {
   const urlParts = path.split('/');
@@ -60,7 +64,7 @@ async function startServer() {
     server.use(pino);
 
     server.use((req, res, next) => {
-      if (isStaticRoute(req.url)) {
+      if (isStaticRoute(req.path)) {
         return next();
       }
 
@@ -75,7 +79,7 @@ async function startServer() {
       next();
     });
 
-    server.all('*', (req, res) => handle(req, res));
+    server.use((req, res) => handle(req, res));
 
     server.listen(PORT, (err) => {
       if (err) throw err;

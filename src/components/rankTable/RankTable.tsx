@@ -2,13 +2,12 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import Dropdown from '@/components/dropdown/Dropdown';
-import HostedImage from '@/components/HostedImage';
 
 import { RankDataItem } from '@/types/rank';
 
 type column = {
   key: string;
-  title: string;
+  title: React.ReactNode;
   width: number | string;
   percent?: boolean;
   render: (row: any, showPercent?: boolean, i18n_lang?: string) => any;
@@ -48,14 +47,10 @@ export const RankTable = ({
 }: TableProps) => {
   return (
     <div
-      className={`rounded-lg border shadow dark:border-gray-700 dark:shadow-none ${
-        compact ? 'overflow-x-auto' : 'overflow-hidden'
-      }`}
+      className={`rounded-lg border border-gray-200 dark:border-gray-700 ${compact ? 'overflow-x-auto' : 'overflow-hidden'}`}
     >
       <table
-        className={`w-min min-w-full divide-y-2 divide-gray-200 text-sm dark:divide-gray-700 ${
-          compact ? 'table-auto' : 'table-fixed'
-        }`}
+        className='w-full min-w-full table-fixed divide-y divide-gray-200 text-sm dark:divide-gray-700'
         style={minWidth ? { minWidth: `max(100%, ${minWidth}px)` } : undefined}
       >
         <thead>
@@ -65,9 +60,7 @@ export const RankTable = ({
                 key={key}
                 scope='col'
                 style={{ width: width }}
-                className={`py-2 text-left text-sm font-medium text-gray-500 dark:text-gray-300 md:py-3 ${
-                  compact ? 'px-3' : 'px-4 md:px-6'
-                }`}
+                className={`bg-gray-50/80 px-2 py-3.5 text-xs font-medium text-gray-500 dark:bg-gray-900/30 dark:text-gray-400 ${key === 'position' ? 'text-center' : 'text-left'}`}
               >
                 {title}
               </th>
@@ -75,9 +68,12 @@ export const RankTable = ({
           </tr>
         </thead>
 
-        <tbody className='divide-y divide-gray-200 dark:divide-gray-700'>
+        <tbody className='divide-y divide-gray-100 dark:divide-gray-700/60'>
           {list?.map((row: RankDataItem, index) => (
-            <tr key={index}>
+            <tr
+              key={index}
+              className='group bg-white transition-colors hover:bg-gray-50/80 dark:bg-gray-800 dark:hover:bg-gray-700/30'
+            >
               {columns.map(({ key, render, percent }) => {
                 let content = row[key];
                 if (render) {
@@ -86,9 +82,12 @@ export const RankTable = ({
                 return (
                   <td
                     key={key}
-                    className={`whitespace-nowrap bg-white py-2 text-left text-sm font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-300 md:py-4 ${
-                      compact ? 'px-3 align-middle' : 'truncate px-4 md:px-6'
-                    }`}
+                    title={!compact && key === 'name' ? row.name : undefined}
+                    className={`px-2 py-3 align-middle text-[13px] font-normal tabular-nums text-gray-800 dark:text-gray-300 ${
+                      key === 'position'
+                        ? 'text-center [&>div]:justify-center'
+                        : 'text-left'
+                    } ${compact ? 'whitespace-nowrap' : key === 'name' ? 'truncate md:whitespace-normal md:break-words' : 'whitespace-normal break-words'}`}
                   >
                     {content}
                   </td>
@@ -157,7 +156,7 @@ export const RankSearchBar = ({
   }, [monthList, i18n_lang]);
 
   return (
-    <div className='mb-2 flex items-center rounded-lg border bg-gray-50 py-2 px-2 shadow dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-800'>
+    <div className='mb-2 flex items-center rounded-lg border bg-gray-50 px-2 py-2 shadow dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-800'>
       <div className='flex flex-1 justify-start'>
         <Dropdown
           options={typeOptions}
@@ -169,7 +168,7 @@ export const RankSearchBar = ({
       <div className='flex justify-center'>
         <div className='flex items-center'>
           <div className='inline'>
-            <HostedImage
+            <img
               className={`h-5 w-5 cursor-pointer hover:animate-spin ${
                 title === 'HelloGitHub' || title === 'Arena'
                   ? 'dark:invert'

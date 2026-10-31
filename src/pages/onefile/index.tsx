@@ -1,9 +1,8 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Trans, useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Trans, useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 
-import HostedImage from '@/components/HostedImage';
 import { NoPrefetchLink } from '@/components/links/CustomLink';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -52,18 +51,18 @@ const OneFilePage: NextPage<OneItemsResp> = ({ data }) => {
         <Navbar middleText='OneFile' />
         <div className='my-2 bg-white px-2 pt-2 dark:bg-gray-800 md:rounded-lg'>
           <div className='my-2'>
-            <HostedImage
+            <img
               className='w-max-full'
-              src='https://img.hellogithub.com/article/tK30nYW8bMiPOdB_1647991896.png'
+              src='/images/onefile.png'
               alt='onefile'
-            ></HostedImage>
+            />
             <p className='my-4 px-2'>
               <Trans ns='onefile' i18nKey='p_text' />
             </p>
           </div>
 
           <div className='overflow-hidden rounded-lg border shadow dark:border-gray-700 dark:shadow-none'>
-            <table className='w-min	min-w-full table-fixed divide-y-2 divide-gray-200 text-sm dark:divide-gray-700'>
+            <table className='w-min min-w-full table-fixed divide-y-2 divide-gray-200 text-sm dark:divide-gray-700'>
               <thead>
                 <tr>
                   {columns?.map(
@@ -113,11 +112,9 @@ const OneFilePage: NextPage<OneItemsResp> = ({ data }) => {
                 <Trans ns='onefile' i18nKey='p_text2' />
 
                 <NoPrefetchLink href='/onefile/join'>
-                  <a>
-                    <span className='cursor-pointer text-blue-400 underline hover:text-blue-500'>
-                      {t('click')}
-                    </span>
-                  </a>
+                  <span className='cursor-pointer text-blue-400 underline hover:text-blue-500'>
+                    {t('click')}
+                  </span>
                 </NoPrefetchLink>
                 {t('p_text3')}
               </p>

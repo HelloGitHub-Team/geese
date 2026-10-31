@@ -1,9 +1,8 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 
 import ItemBottom from '@/components/home/ItemBottom';
-import HostedImage from '@/components/HostedImage';
 import { MDRender } from '@/components/mdRender/MDRender';
 import Navbar from '@/components/navbar/Navbar';
 import Seo from '@/components/Seo';
@@ -21,7 +20,7 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
     <>
       <Seo title={article.title} description={article.desc} />
       <Navbar middleText={article.title} endText={t('nav.title')} />
-      <div className='mt-2 bg-white py-0.5 px-5 dark:bg-gray-800 md:rounded-lg'>
+      <div className='mt-2 bg-white px-5 py-0.5 dark:bg-gray-800 md:rounded-lg'>
         <article className='relative'>
           <MDRender className='mobile:prose-sm prose prose-blue max-w-none dark:prose-invert'>
             {article.content}
@@ -29,20 +28,19 @@ const ArticlePage: NextPage<ArticleProps> = ({ article }) => {
         </article>
         {i18n.language === 'zh' ? (
           <div className='my-2 flex justify-center'>
-            <HostedImage
+            <img
               className='hidden rounded-lg md:block'
-              src='https://img.hellogithub.com/ad/footer.png'
+              src='/images/support/weixin-banner.png'
               alt='weixin_footer'
             />
           </div>
         ) : (
-          // eslint-disable-next-line react/jsx-no-target-blank
           <a
             href='https://www.buymeacoffee.com/hellogithub'
             className='flex justify-center'
             target='_blank'
           >
-            <HostedImage
+            <img
               src='https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png'
               alt='Buy Me A Coffee'
               className='h-[60px] w-[217px]'

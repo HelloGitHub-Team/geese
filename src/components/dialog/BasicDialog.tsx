@@ -47,7 +47,7 @@ const BasicDialog = (props: Props) => {
   const Template = (
     <>
       <div
-        className='fixed left-0 top-0 right-0 bottom-0 z-10 bg-black bg-opacity-60'
+        className='fixed bottom-0 left-0 right-0 top-0 z-10 bg-black bg-opacity-60'
         onClick={() => {
           if (maskClosable) onClose?.();
         }}
@@ -55,7 +55,7 @@ const BasicDialog = (props: Props) => {
       <div
         className={clsxm(
           className,
-          'fixed left-0 top-0 right-0 bottom-0 z-10 m-auto h-fit scale-90 bg-white transition-transform dark:bg-gray-800',
+          'fixed bottom-0 left-0 right-0 top-0 z-10 m-auto h-fit scale-90 bg-white transition-transform dark:bg-gray-800',
           {
             'scale-100': startAnimation,
           }
@@ -67,7 +67,7 @@ const BasicDialog = (props: Props) => {
             <VscChromeClose
               size={20}
               onClick={onClose}
-              className='absolute top-0 right-1 cursor-pointer text-gray-500'
+              className='absolute right-1 top-0 cursor-pointer text-gray-500'
             />
           </div>
         )}

@@ -2,15 +2,14 @@ import classNames from 'classnames';
 import copy from 'copy-to-clipboard';
 import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Trans, useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Trans, useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
 
 import { useLoginContext } from '@/hooks/useLoginContext';
 
 import Button from '@/components/buttons/Button';
-import HostedImage from '@/components/HostedImage';
 import Loading from '@/components/loading/Loading';
 import message from '@/components/message';
 import Message from '@/components/message';
@@ -89,7 +88,7 @@ const EmbedPage: NextPage = () => {
     }
   };
 
-  const handleCopy = () => {
+  const handleCopy = async () => {
     if (!isLogin) return login();
     const pageURL = `https://hellogithub.com/repository/${fullName}`;
     const text =
@@ -97,7 +96,7 @@ const EmbedPage: NextPage = () => {
         ? `<a href="${pageURL}" target="_blank"><img src="${svgFile}" alt="Featured｜HelloGitHub" /></a>`
         : `<a href="${pageURL}" target="_blank"><img src="${svgFile}" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" /></a>`;
     if (isReady) {
-      copy(text)
+      (await copy(text))
         ? message.success(t('copy.success'))
         : message.error(t('copy.fail'));
     } else {
@@ -154,9 +153,9 @@ const EmbedPage: NextPage = () => {
         <Navbar middleText={t('navbar')} />
         <div className='my-2 bg-white px-4 py-2 dark:bg-gray-800 md:rounded-lg'>
           <div className='mt-2'>
-            <HostedImage
+            <img
               className='w-max-full'
-              src='https://img.hellogithub.com/logo/badge_head.png'
+              src='/images/logo/badge-head.png'
               alt='badge_head'
             />
             <p className='my-4 text-gray-700 dark:text-gray-200'>
@@ -217,7 +216,7 @@ const EmbedPage: NextPage = () => {
 
                     <div className='my-8 flex justify-center'>
                       {svgFile ? (
-                        <HostedImage className='w-max-full' src={svgFile} />
+                        <img className='w-max-full' src={svgFile} />
                       ) : (
                         <Loading />
                       )}
@@ -225,7 +224,7 @@ const EmbedPage: NextPage = () => {
                   </div>
                   {fullName && (
                     <div
-                      className='mx-auto mt-1 mb-4 flex max-w-full select-text items-center justify-center gap-1 overflow-hidden truncate whitespace-nowrap text-center text-xs font-normal not-italic leading-tight text-gray-400 dark:text-gray-500 md:max-w-xl md:text-sm'
+                      className='mx-auto mb-4 mt-1 flex max-w-full select-text items-center justify-center gap-1 overflow-hidden truncate whitespace-nowrap text-center text-xs font-normal not-italic leading-tight text-gray-400 dark:text-gray-500 md:max-w-xl md:text-sm'
                       title={fullName}
                     >
                       <FaGithub className='inline-block text-base' />

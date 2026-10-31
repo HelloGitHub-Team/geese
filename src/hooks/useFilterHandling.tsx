@@ -43,8 +43,8 @@ const useFilterHandling = (
           year === currentYear
             ? 1
             : year === currentYear - 1
-            ? currentMonth
-            : 1;
+              ? currentMonth
+              : 1;
 
         for (let month = startMonth; month >= endMonth; month--) {
           if (rankItems.length < 12) {

@@ -26,7 +26,7 @@ export function TagModal({
   t,
   i18n_lang,
 }: {
-  children: JSX.Element;
+  children: React.JSX.Element;
   updateTags: any;
   t: TranslationFunction;
   i18n_lang: string;
@@ -222,7 +222,7 @@ export function TagModal({
                     data-tid={item?.tid}
                     className='target-item relative flex w-28 rounded-full border border-gray-200 text-white hover:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:border-blue-500'
                   >
-                    <div className='flex w-full cursor-pointer flex-wrap  border-gray-200 font-medium dark:border-gray-600'>
+                    <div className='flex w-full cursor-pointer flex-wrap border-gray-200 font-medium dark:border-gray-600'>
                       <div className='h-6 w-6 rounded-full bg-gray-400 text-center text-white dark:bg-white dark:text-gray-700'>
                         {index + 1}
                       </div>
@@ -231,8 +231,7 @@ export function TagModal({
                       </div>
                     </div>
                     <span
-                      className='absolute -right-1.5 -top-1.5 h-4 w-4 cursor-pointer rounded-full
-                                 text-lg text-gray-300'
+                      className='absolute -right-1.5 -top-1.5 h-4 w-4 cursor-pointer rounded-full text-lg text-gray-300'
                       onClick={() => removeTag(item?.tid)}
                     >
                       <IoIosCloseCircleOutline

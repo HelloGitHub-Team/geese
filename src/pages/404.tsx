@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 
 import ErrorPage from '@/components/layout/ErrorPage';
 import Seo from '@/components/Seo';

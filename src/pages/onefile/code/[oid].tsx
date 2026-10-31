@@ -1,8 +1,8 @@
 import copy from 'copy-to-clipboard';
 import { GetServerSideProps, NextPage } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GoClippy, GoLink, GoPlay } from 'react-icons/go';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
+import { GoCopy, GoLink, GoPlay } from 'react-icons/go';
 
 import { NoPrefetchLink } from '@/components/links/CustomLink';
 import { CodeRender } from '@/components/mdRender/MDRender';
@@ -18,9 +18,9 @@ import { OneFileProps, OneItem } from '@/types/article';
 
 const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
   const { t } = useTranslation('onefile');
-  const handleCopy = (onefile: OneItem) => {
+  const handleCopy = async (onefile: OneItem) => {
     const text = onefile.source_code;
-    if (copy(text)) {
+    if (await copy(text)) {
       message.success(t('code.copy_success'));
     } else message.error(t('code.copy_fail'));
   };
@@ -32,9 +32,9 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
         <Navbar middleText='OneFile' endText={t('code.nav')} />
 
         <div className='my-2 bg-white p-5 dark:bg-gray-800 md:rounded-lg'>
-          <div className='text-normal mb-4  dark:bg-gray-800 dark:text-gray-300'>
+          <div className='text-normal mb-4 dark:bg-gray-800 dark:text-gray-300'>
             <div className='whitespace-pre-wrap rounded-lg border bg-white p-2 font-normal leading-8 text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'>
-              <article className='py-2 px-3'>
+              <article className='px-3 py-2'>
                 <div className='text-color-primary leading-snug dark:text-gray-300'>
                   {onefile.name}：{onefile.suggestions}
                 </div>
@@ -58,7 +58,7 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
                     <div className='flex gap-1 pl-2 md:hidden'>
                       {onefile.demo_url && (
                         <a
-                          className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
+                          className='flex cursor-pointer items-center justify-center rounded-md border px-1 py-0.5 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                           href={onefile.demo_url}
                         >
                           <GoPlay className='mr-1' size={14} />
@@ -67,47 +67,45 @@ const OneFileDetailPage: NextPage<OneFileProps> = ({ onefile }) => {
                       )}
 
                       <a
-                        className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
+                        className='flex cursor-pointer items-center justify-center rounded-md border px-1 py-0.5 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                         href={onefile.repo_url}
                       >
                         <GoLink className='mr-1' size={14} />
                         {t('code.vite')}
                       </a>
                       <span
-                        className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
+                        className='flex cursor-pointer items-center justify-center rounded-md border px-1 py-0.5 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                         onClick={() => handleCopy(onefile)}
                       >
-                        <GoClippy className='mr-1' size={14} />
+                        <GoCopy className='mr-1' size={14} />
                         {t('code.copy')}
                       </span>
                     </div>
                   </div>
                   <div className='hidden gap-2 text-sm text-gray-400 md:flex'>
                     {onefile.demo_url && (
-                      <NoPrefetchLink href={onefile.demo_url}>
-                        <a
-                          className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
-                          target='_blank'
-                        >
-                          <GoPlay className='mr-1' size={14} />
-                          {t('code.play')}
-                        </a>
-                      </NoPrefetchLink>
-                    )}
-                    <NoPrefetchLink href={onefile.repo_url}>
-                      <a
-                        className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
+                      <NoPrefetchLink
+                        href={onefile.demo_url}
+                        className='flex cursor-pointer items-center justify-center rounded-md border px-1 py-0.5 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                         target='_blank'
                       >
-                        <GoLink className='mr-1' size={14} />
-                        {t('code.vite')}
-                      </a>
+                        <GoPlay className='mr-1' size={14} />
+                        {t('code.play')}
+                      </NoPrefetchLink>
+                    )}
+                    <NoPrefetchLink
+                      href={onefile.repo_url}
+                      className='flex cursor-pointer items-center justify-center rounded-md border px-1 py-0.5 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
+                      target='_blank'
+                    >
+                      <GoLink className='mr-1' size={14} />
+                      {t('code.vite')}
                     </NoPrefetchLink>
                     <span
-                      className='flex cursor-pointer items-center justify-center rounded-md border py-0.5 px-1 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
+                      className='flex cursor-pointer items-center justify-center rounded-md border px-1 py-0.5 hover:border-blue-500 hover:text-current active:!text-gray-400 dark:border-gray-700 md:hover:text-blue-500'
                       onClick={() => handleCopy(onefile)}
                     >
-                      <GoClippy className='mr-1' size={14} />
+                      <GoCopy className='mr-1' size={14} />
                       {t('code.copy')}
                     </span>
                   </div>

@@ -45,18 +45,20 @@ export interface NetcraftRankPageProps {
 
 // 大模型榜单
 export interface LMArenaRankDataItem extends RankDataItem {
-  model_id: string;
+  model_id: string | null;
+  model_url_zh?: string | null;
+  model_url_en?: string | null;
   organization: string;
   license?: string | null;
   votes?: number | null;
   input_price?: number | null;
   output_price?: number | null;
   price_unit?:
-    | 'usd_per_million_tokens'
-    | 'usd_per_image'
-    | 'usd_per_second'
-    | null;
-  price_tier?: 'low' | 'medium' | 'high' | 'very_high' | null;
+    'usd_per_million_tokens' | 'usd_per_image' | 'usd_per_second' | null;
+  ofox_input_price?: number | null;
+  ofox_output_price?: number | null;
+  ofox_price_unit?:
+    'usd_per_million_tokens' | 'usd_per_image' | 'usd_per_second' | null;
 }
 
 export interface LMArenaRankData {

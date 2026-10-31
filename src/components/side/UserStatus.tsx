@@ -15,17 +15,15 @@ import { SideProps } from '@/types/home';
 
 const UserAvatar = ({ uid, avatar }: { uid: string; avatar: string }) => (
   <NoPrefetchLink href={`/user/${uid}`}>
-    <a>
-      <div className='bg-img top-0 left-0 h-10 w-10 shrink-0 grow-0 cursor-pointer rounded-lg object-cover'>
-        <HostedImage
-          className='rounded'
-          width='40'
-          height='40'
-          src={avatar || DEFAULT_AVATAR}
-          alt='side_avatar'
-        />
-      </div>
-    </a>
+    <div className='bg-img left-0 top-0 h-10 w-10 shrink-0 grow-0 cursor-pointer rounded-lg object-cover'>
+      <HostedImage
+        className='rounded'
+        width='40'
+        height='40'
+        src={avatar || DEFAULT_AVATAR}
+        alt='side_avatar'
+      />
+    </div>
   </NoPrefetchLink>
 );
 
@@ -36,7 +34,7 @@ const NotificationBell = ({ unreadCount }: { unreadCount: number }) => (
       className='text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-500'
     />
     {unreadCount > 0 && (
-      <span className='absolute top-0.5 right-0 flex h-1.5 w-1.5 translate-x-1/2 -translate-y-1/2'>
+      <span className='absolute right-0 top-0.5 flex h-1.5 w-1.5 -translate-y-1/2 translate-x-1/2'>
         <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75' />
         <span className='relative inline-flex h-1.5 w-1.5 rounded-full bg-blue-500' />
       </span>
@@ -56,11 +54,9 @@ const LevelProgress = ({
   <div className='mt-1'>
     <div className='flex justify-between text-sm'>
       <div className='cursor-pointer text-gray-400'>
-        <NoPrefetchLink href='/help/level'>
-          <a className='align-[-5px] text-xs'>
-            <span className='mr-0.5'>{t('user_side.contribute_label')}</span>
-            <AiOutlineQuestionCircle className='inline-block align-[-2px]' />
-          </a>
+        <NoPrefetchLink href='/help/level' className='align-[-5px] text-xs'>
+          <span className='mr-0.5'>{t('user_side.contribute_label')}</span>
+          <AiOutlineQuestionCircle className='inline-block align-[-2px]' />
         </NoPrefetchLink>
       </div>
       <span className='text-xl text-blue-500'>
@@ -94,20 +90,21 @@ const UserFooter = ({
   t: (key: string) => string;
 }) => (
   <div className='mt-3 flex justify-between border-t text-xs dark:border-gray-700'>
-    <NoPrefetchLink href={`/user/${uid}`}>
-      <a className='pl-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
-        {t('user_side.profile')}
-      </a>
+    <NoPrefetchLink
+      href={`/user/${uid}`}
+      className='pb-1 pl-1 pt-2 text-gray-400 hover:text-blue-500 hover:underline'
+    >
+      {t('user_side.profile')}
     </NoPrefetchLink>
     {isAdmin ? (
       <a href='/taichi/'>
-        <div className='pr-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'>
+        <div className='pb-1 pr-1 pt-2 text-gray-400 hover:text-blue-500 hover:underline'>
           {t('user_side.admin')}
         </div>
       </a>
     ) : (
       <div
-        className='cursor-pointer pr-1 pt-2 pb-1 text-gray-400 hover:text-blue-500 hover:underline'
+        className='cursor-pointer pb-1 pr-1 pt-2 text-gray-400 hover:text-blue-500 hover:underline'
         onClick={logout}
       >
         {t('user_side.logout')}

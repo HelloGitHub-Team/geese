@@ -9,8 +9,7 @@ import { redirectRecord } from '@/services/home';
 
 import { AdvertItem } from '@/types/home';
 
-const ImageURL =
-  'https://img.hellogithub.com/article/HwsoJXEiYdPhjLa_1720773908.png';
+const ImageURL = '/images/support/coffee.png';
 const PayURL = 'https://buymeacoffee.com/hellogithub';
 
 interface Props {
@@ -35,7 +34,7 @@ const ImageAdContent = ({ data, handleClose }: ImageAdContentProps) => (
   <div className='group relative h-full'>
     <HostedImage className='h-full w-full' src={data.image_url} alt='ad' />
     <div
-      className='absolute top-0 right-0 hidden cursor-pointer p-1.5 text-inherit opacity-30 group-hover:block'
+      className='absolute right-0 top-0 hidden cursor-pointer p-1.5 text-inherit opacity-30 group-hover:block'
       onClick={handleClose}
     >
       <VscClose size={20} />
@@ -67,7 +66,7 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
   );
 
   const AdTargetInfo = ({ data, t }: AdContentProps) => (
-    <div className='mt-1.5 mb-1 text-xs text-gray-500'>
+    <div className='mb-1 mt-1.5 text-xs text-gray-500'>
       <span>
         {data.year ? t('advert.next2') : t('advert.next')}
         <strong className='mx-1'>{100 - data.percent}%</strong>
@@ -77,14 +76,14 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
   );
 
   const AdServerInfo = ({ data, t, i18n_lang }: AdContentProps) => (
-    <div className='mt-1.5 mb-1 text-xs text-gray-500'>
-      <span className=' inline-flex items-center'>
+    <div className='mb-1 mt-1.5 text-xs text-gray-500'>
+      <span className='inline-flex items-center'>
         {i18n_lang != 'zh' && <GoServer size={11} className='mr-0.5' />}
         {t('advert.desc')}
         <strong className='mx-0.5'>{data.day}</strong>
         {t('advert.day')}
       </span>
-      <div className='relative left-0.5 bottom-1 inline-flex w-fit'>
+      <div className='relative bottom-1 left-0.5 inline-flex w-fit'>
         <span className='text-xs font-medium text-blue-500'>
           <span className='mr-[0.5px]'>+{data.year}</span>
           {t('advert.year')}
@@ -123,23 +122,25 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
     >
       {data.is_reward ? (
         i18n_lang != 'zh' ? (
-          <NoPrefetchLink href={PayURL}>
-            <a target='_blank'>
-              <RewardAdContent data={data} t={t} />
-            </a>
+          <NoPrefetchLink href={PayURL} target='_blank'>
+            <RewardAdContent data={data} t={t} />
           </NoPrefetchLink>
         ) : (
-          <NoPrefetchLink href={data.url}>
-            <a target='_blank' onClick={() => onClickLink(data.aid)}>
-              <RewardAdContent data={data} t={t} />:
-            </a>
+          <NoPrefetchLink
+            href={data.url}
+            target='_blank'
+            onClick={() => onClickLink(data.aid)}
+          >
+            <RewardAdContent data={data} t={t} />:
           </NoPrefetchLink>
         )
       ) : (
-        <NoPrefetchLink href={data.url}>
-          <a target='_blank' onClick={() => onClickLink(data.aid)}>
-            <ImageAdContent data={data} handleClose={handleClose} />
-          </a>
+        <NoPrefetchLink
+          href={data.url}
+          target='_blank'
+          onClick={() => onClickLink(data.aid)}
+        >
+          <ImageAdContent data={data} handleClose={handleClose} />
         </NoPrefetchLink>
       )}
     </div>

@@ -61,29 +61,36 @@
   "lmrank": {
     "title": "LM Rank",
     "nav": "{{month}} {{year}} LM Ranking",
-    "p_text": "<strong>The Arena Ranking</strong> compares models using real user evaluations across text, coding, vision, image and video tasks. We aggregate and clean model names from the original leaderboards. Select a model to see its full ID.",
+    "p_text": "<strong>The Arena Ranking</strong> compares models using real user evaluations across text, coding, vision, image and video tasks. We aggregate and clean model names from the original leaderboards. The ofoxAI column links to details for matched models.",
     "thead": {
       "position": "Rank",
       "name": "Model",
       "rating": "Score",
       "votes": "Votes",
-      "price": "Price"
+      "price": "Price",
+      "ofox": "ofoxAI"
     },
-    "model_id": "Model ID",
-    "copy": "Copy",
-    "copy_success": "Model ID copied",
-    "copy_fail": "Copy failed. Please copy manually.",
+    "view_model": "Try model",
+    "view_on_ofox": "Try on ofoxAI (opens in a new tab)",
     "open_source": "Open source",
     "unavailable": "Not available",
     "empty": "No leaderboard data for this category this month",
-    "scroll_hint": "Swipe horizontally to see all columns",
     "input": "Input",
     "output": "Output",
+    "exchange_estimate": "Estimated CNY at a fixed reference rate: 1 USD = {{rate}} CNY",
+    "price_units": {
+      "usd_per_million_tokens": "In / Out · per 1M tokens",
+      "usd_per_image": "per image",
+      "usd_per_second": "per video second"
+    },
+    "price_help": "About prices",
+    "close_price_help": "Close",
+    "price_precision": "Amounts are rounded for display, preserving significant digits for small prices. Hover over an amount for the full quote.",
+    "price_tier_description": "Ranks output prices with the same billing unit on this leaderboard into three tiers, from expensive to affordable. Equal prices share a tier. All equal prices are moderate; a single quote is not classified.",
     "price_tiers": {
-      "low": "Affordable",
-      "medium": "Moderate",
       "high": "Expensive",
-      "very_high": "Very expensive"
+      "medium": "Moderate",
+      "low": "Affordable"
     }
   }
 }

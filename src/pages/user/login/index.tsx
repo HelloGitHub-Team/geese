@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import { useEffect } from 'react';
 
 import useToken from '@/hooks/useToken';
@@ -20,7 +20,7 @@ interface IProps {
 }
 
 const Index = ({ token, userInfo }: IProps) => {
-  const { t, i18n } = useTranslation('commn');
+  const { t, i18n } = useTranslation('common');
   const router = useRouter();
   const { setToken } = useToken();
 
@@ -28,7 +28,7 @@ const Index = ({ token, userInfo }: IProps) => {
     if (token) {
       // Perform localStorage action
       setToken(token);
-      router.push(localStorage.getItem(OAUTH_LOGIN_KEY) as string);
+      router.push(localStorage.getItem(OAUTH_LOGIN_KEY) || '/');
     } else {
       // 登录失败则回到首页
       router.push('/');
@@ -58,6 +58,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         props: {
           token: data.token,
           userInfo: data.userInfo,
+          ...(await serverSideTranslations(locale as string, ['common'])),
         },
       };
     }
