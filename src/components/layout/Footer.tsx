@@ -72,7 +72,7 @@ const Footer = ({ t, isLite }: FooterProps) => {
       >
         <span>{t('footer.storage_sponsor')}</span>
         <img
-          className='h-3 w-auto shrink-0 dark:brightness-0 dark:invert'
+          className='h-2.5 w-auto shrink-0'
           src='/images/sponsors/rustfs.svg'
           width={360}
           height={61}

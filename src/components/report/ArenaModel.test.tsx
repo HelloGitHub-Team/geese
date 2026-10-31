@@ -1,13 +1,22 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import { createInstance } from 'i18next';
 import { useTranslation } from 'next-i18next/pages';
 
-import { ArenaModel, ArenaPrice, ArenaProviderLink } from './ArenaModel';
+import {
+  ArenaModel,
+  ArenaPrice,
+  ArenaPriceHeader,
+  ArenaProviderLink,
+} from './ArenaModel';
 
 import {
   ArenaProvider,
   ArenaProviderOffer,
   LMArenaRankDataItem,
 } from '@/types/rank';
+
+import en from '~/locales/en/rank.json';
+import zh from '~/locales/zh/rank.json';
 
 jest.mock('next-i18next/pages', () => ({
   useTranslation: jest.fn(() => ({
@@ -185,6 +194,63 @@ it.each(['Apache 2.0', 'MIT', 'Kimi K3 license', 'qwen-research'])(
     expect(
       screen.getByText(model.organization).parentElement
     ).toHaveTextContent(`${model.organization}·lmrank.open_source`);
+  }
+);
+
+it.each([
+  ['en', en],
+  ['zh', zh],
+] as const)(
+  'shows compact price help without a close button or list markers in %s',
+  async (language, messages) => {
+    const i18n = createInstance();
+    await i18n.init({
+      lng: language,
+      resources: { [language]: { rank: messages } },
+      defaultNS: 'rank',
+    });
+    jest.mocked(useTranslation).mockReturnValue({
+      t: i18n.t.bind(i18n),
+      i18n,
+    } as unknown as ReturnType<typeof useTranslation>);
+
+    const { container, rerender } = render(<ArenaPriceHeader />);
+    expect(screen.getByText(messages.lmrank.thead.price)).toBeVisible();
+    const trigger = screen.getByRole('button', {
+      name: messages.lmrank.price_help,
+    });
+    const help = container.querySelector<HTMLElement>('[popover]')!;
+    expect(trigger).toHaveAttribute('popovertarget', help.id);
+    expect(help).toHaveAttribute('popover', 'auto');
+    expect(help).toHaveClass('p-3', 'leading-5');
+    expect(help.querySelector('button, ul, ol, li')).toBeNull();
+    expect(
+      within(help).getByText(messages.lmrank.price_tier_description)
+    ).toBeVisible();
+    expect(
+      within(help).getByText(messages.lmrank.price_precision)
+    ).toBeVisible();
+    const exchangeNote = i18n.t('lmrank.exchange_estimate', { rate: 7 });
+    if (language === 'zh') {
+      expect(within(help).getByText(exchangeNote)).toBeVisible();
+    } else {
+      expect(within(help).queryByText(exchangeNote)).not.toBeInTheDocument();
+    }
+
+    rerender(<ArenaPriceHeader providerName='Example supplier' />);
+    expect(
+      screen.getByText(`Example supplier · ${messages.lmrank.thead.price}`)
+    ).toBeVisible();
+    jest
+      .mocked(useTranslation)
+      .mockReset()
+      .mockImplementation(
+        () =>
+          ({
+            t: (key: string) => key,
+            i18n: { language: 'en' },
+          }) as unknown as ReturnType<typeof useTranslation>
+      );
   }
 );
 

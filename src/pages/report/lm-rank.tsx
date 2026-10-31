@@ -91,7 +91,10 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
   }, [list, providers, showArenaPrice]);
 
   const tableMinWidth =
-    344 +
+    48 +
+    240 +
+    72 +
+    72 +
     (showArenaPrice ? priceColumnWidth : 0) +
     providers.reduce(
       (width, provider) =>
@@ -117,7 +120,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
       {
         key: 'name',
         title: <span className='pl-10'>{t('lmrank.thead.name')}</span>,
-        width: 'auto',
+        width: 240,
         render: (row: LMArenaRankDataItem) => {
           const provider = providers.find(({ id }) =>
             row.providers?.some(
@@ -191,7 +194,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
         ? [
             {
               key: 'price-arena',
-              title: <ArenaPriceHeader providerName='Arena' />,
+              title: <ArenaPriceHeader />,
               render: (row: LMArenaRankDataItem) => (
                 <ArenaPrice
                   offer={row}
@@ -309,6 +312,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
                 key={`${year}-${month}-${category}`}
                 columns={columns}
                 minWidth={tableMinWidth}
+                stretchLastColumn
                 compact
                 list={list}
                 i18n_lang={i18n.language}

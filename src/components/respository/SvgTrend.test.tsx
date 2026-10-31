@@ -92,6 +92,41 @@ it('supports keyboard exploration, exact counts, dismissal and shorter data upda
   expect(screen.getByRole('slider')).toHaveAttribute('aria-valuenow', '0');
 });
 
+it('makes small changes visible and derives the summary from the plotted samples', () => {
+  const { container } = render(
+    <SvgTrend
+      x={['周一', '周二', '周三']}
+      y={[35570, 35571, 35573]}
+      min={0}
+      max={40000}
+      increment={999}
+      locale='en'
+    />
+  );
+  expect(screen.getByText('+3')).toBeVisible();
+  expect(screen.getByText('(+0.01%)')).toBeVisible();
+  expect(screen.queryByText('+999')).not.toBeInTheDocument();
+  const path = container.querySelector('path[fill="none"]')!.getAttribute('d')!;
+  const coordinates = path.match(/-?\d+(?:\.\d+)?/g)!.map(Number);
+  expect(
+    Math.abs(coordinates[1] - coordinates[coordinates.length - 1])
+  ).toBeGreaterThan(60);
+  fireEvent.focus(screen.getByRole('slider'));
+  expect(screen.getByRole('tooltip')).toHaveTextContent('Wed');
+  expect(screen.getByRole('tooltip')).toHaveTextContent('Since previous +2');
+});
+
+it('shows losses without labelling them as gained stars', () => {
+  render(<SvgTrend {...history} y={[1000, 990, 980, 970]} locale='en' />);
+  expect(screen.getByText('-30')).toBeVisible();
+  expect(screen.getByText('(-3%)')).toBeVisible();
+  fireEvent.focus(screen.getByRole('slider'));
+  expect(screen.getByRole('tooltip')).toHaveTextContent('Since previous -10');
+  expect(screen.getByText('View data').closest('details')).toContainElement(
+    screen.getByText('Change')
+  );
+});
+
 it('snaps the full chart hit area to the nearest date and clears on leave', () => {
   render(<SvgTrend {...history} locale='en' />);
   const chart = screen.getByRole('slider');
@@ -106,8 +141,14 @@ it('snaps the full chart hit area to the nearest date and clears on leave', () =
   expect(screen.getByRole('tooltip')).toHaveTextContent('2026-10-04');
   fireEvent(
     chart,
-    new MouseEvent('pointermove', { bubbles: true, clientX: 10 })
+    new MouseEvent('pointerdown', { bubbles: true, clientX: 10 })
   );
+  expect(screen.getByRole('tooltip')).toHaveTextContent('2026-10-01');
+  fireEvent.focus(chart);
+  expect(screen.getByRole('tooltip')).toHaveTextContent('2026-10-01');
+  const touchLeave = new MouseEvent('pointerout', { bubbles: true });
+  Object.defineProperty(touchLeave, 'pointerType', { value: 'touch' });
+  fireEvent(chart, touchLeave);
   expect(screen.getByRole('tooltip')).toHaveTextContent('2026-10-01');
   fireEvent.pointerLeave(chart);
   expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();

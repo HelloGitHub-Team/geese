@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { IoMdArrowDropdown } from 'react-icons/io';
+import { IoChevronDown } from 'react-icons/io5';
 
 export type option = {
   key: string | number;
@@ -21,6 +21,7 @@ type DropdownProps = {
   initValue?: string;
   options: option[];
   trigger?: string;
+  align?: 'left' | 'right';
   onChange?: (opt: any) => void;
 };
 
@@ -72,7 +73,7 @@ function Dropdown(props: DropdownProps, ref: any) {
 
   const wrapClassName = (border = true) =>
     classNames(
-      'inline-flex items-stretch rounded-md bg-white dark:border-gray-700 dark:bg-gray-800',
+      'relative inline-flex max-w-full items-stretch rounded-lg border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-800',
       {
         border: !!border,
       }
@@ -80,17 +81,24 @@ function Dropdown(props: DropdownProps, ref: any) {
 
   const dropdownClassName = (show: boolean) =>
     classNames(
-      'absolute right-0 z-10 mt-10 origin-top rounded-md border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg',
+      'absolute top-full z-20 mt-1.5 min-w-[8rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-600 dark:bg-gray-800',
       {
         block: show,
         hidden: !show,
-        'border top-1': props.border,
+        'left-0': props.align === 'left',
+        'right-0': props.align !== 'left',
       }
     );
 
   const btnClassName = () => {
     return classNames(
-      'flex items-center rounded-md px-2 py-1 sm:py-2 text-sm sm:text-base text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-300'
+      'flex min-w-0 items-center gap-2 rounded-lg text-left text-gray-700 transition-colors hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:text-gray-200 dark:hover:bg-gray-700',
+      props.size === 'small'
+        ? 'px-2.5 py-1.5 text-xs leading-5'
+        : props.size === 'large'
+          ? 'px-3.5 py-2.5 text-base'
+          : 'px-3 py-2 text-sm',
+      show && 'bg-gray-50 dark:bg-gray-700'
     );
   };
 
@@ -125,6 +133,9 @@ function Dropdown(props: DropdownProps, ref: any) {
   return (
     <div ref={dropdownBtnRef} className={wrapClassName(props.border)}>
       <button
+        type='button'
+        aria-haspopup='menu'
+        aria-expanded={show}
         style={{
           width: props.width || '100%',
           minWidth: props.minWidth || '100%',
@@ -137,33 +148,43 @@ function Dropdown(props: DropdownProps, ref: any) {
         onMouseMove={onTrigger('mousemove')}
         onMouseLeave={onTrigger('mouseleave')}
       >
-        <span className='truncate'>{activeOption?.value}</span>
-        <IoMdArrowDropdown className='ml-1' />
+        <span className='truncate' title={activeOption?.value}>
+          {activeOption?.value}
+        </span>
+        <IoChevronDown
+          aria-hidden='true'
+          className={`h-3.5 w-3.5 shrink-0 text-gray-400 transition-transform ${show ? 'rotate-180' : ''}`}
+        />
       </button>
 
-      <div className='relative'>
+      <div
+        style={{ width }}
+        className={dropdownClassName(show)}
+        role='menu'
+        onMouseLeave={onTrigger('mouseleave')}
+      >
         <div
-          style={{ width }}
-          className={dropdownClassName(show)}
-          role='menu'
-          onMouseLeave={onTrigger('mouseleave')}
+          className='hidden-scrollbar max-h-64 overflow-y-auto p-1'
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+          onTouchStart={() => setIsHover(true)}
         >
-          <div
-            className='hidden-scrollbar max-h-64 overflow-y-auto p-2'
-            onMouseEnter={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}
-            onTouchStart={() => setIsHover(true)}
-          >
-            {props.options?.map((opt: option) => (
-              <span
-                key={opt.key}
-                className='block cursor-pointer truncate rounded-lg px-1 py-2 text-left text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-300'
-                onClick={() => onChange(opt)}
-              >
-                {opt.value}
-              </span>
-            ))}
-          </div>
+          {props.options?.map((opt: option) => (
+            <span
+              key={opt.key}
+              role='menuitemradio'
+              aria-checked={activeOption?.key === opt.key}
+              className={classNames(
+                'block cursor-pointer whitespace-normal break-words rounded-md px-2.5 py-1.5 text-left text-sm leading-5 transition-colors',
+                activeOption?.key === opt.key
+                  ? 'bg-blue-50 font-medium text-blue-600 dark:bg-blue-500/15 dark:text-blue-300'
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-100'
+              )}
+              onClick={() => onChange(opt)}
+            >
+              {opt.value}
+            </span>
+          ))}
         </div>
       </div>
     </div>

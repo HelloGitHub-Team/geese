@@ -1,5 +1,8 @@
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { GetServerSidePropsContext } from 'next';
+import { useTranslation } from 'next-i18next/pages';
+
+import { RankTable } from '@/components/rankTable/RankTable';
 
 import LMRankPage, { getServerSideProps } from '@/pages/report/lm-rank';
 import { getLMArenaRank } from '@/services/rank';
@@ -14,15 +17,21 @@ const provider: ArenaProvider = {
   is_show_price: true,
 };
 
+const mockPush = jest.fn();
+
 jest.mock('next/router', () => ({
-  useRouter: () => ({ query: {}, push: jest.fn() }),
+  useRouter: () => ({
+    pathname: '/report/lm-rank',
+    query: { month: '9' },
+    push: mockPush,
+  }),
 }));
 jest.mock('next-i18next/pages', () => ({
   Trans: () => null,
-  useTranslation: () => ({
+  useTranslation: jest.fn(() => ({
     t: (key: string) => key,
     i18n: { language: 'en' },
-  }),
+  })),
 }));
 jest.mock('next-i18next/pages/serverSideTranslations', () => ({
   serverSideTranslations: jest.fn(),
@@ -34,7 +43,7 @@ jest.mock('@/services/rank', () => ({
 }));
 jest.mock('@/utils/util', () => ({ getClientIP: () => '127.0.0.1' }));
 
-it('shows OFOX links in the last column and fits desktop content without a scroll hint', () => {
+it('keeps model columns fixed and lets the final provider column fill desktop space', () => {
   const props = {
     year: 2026,
     month: 9,
@@ -100,11 +109,11 @@ it('shows OFOX links in the last column and fits desktop content without a scrol
   );
   expect(screen.getByRole('table')).toHaveClass('w-full', 'table-fixed');
   expect(screen.getByRole('table')).toHaveStyle({
-    minWidth: 'max(100%, 640px)',
+    minWidth: 'max(100%, 728px)',
   });
   expect(
     screen.getAllByRole('columnheader').map((cell) => cell.style.width)
-  ).toEqual(['48px', 'auto', '72px', '72px', '192px', '104px']);
+  ).toEqual(['48px', '240px', '72px', '72px', '192px', 'auto']);
   expect(screen.queryByText('lmrank.scroll_hint')).not.toBeInTheDocument();
 
   rerender(<LMRankPage {...props} category='vision' month={8} />);
@@ -115,6 +124,120 @@ it('shows OFOX links in the last column and fits desktop content without a scrol
       })
     ).toBeVisible();
   });
+});
+
+it('preserves the default table widths for other leaderboards', () => {
+  render(
+    <RankTable
+      columns={[
+        {
+          key: 'name',
+          title: 'Model',
+          width: 'auto',
+          render: (row) => row.name,
+        },
+        {
+          key: 'rating',
+          title: 'Score',
+          width: 72,
+          render: (row) => row.rating,
+        },
+      ]}
+      list={[]}
+      i18n_lang='en'
+    />
+  );
+  expect(screen.getByRole('table')).toHaveClass(
+    'w-full',
+    'min-w-full',
+    'table-fixed'
+  );
+  expect(
+    screen.getAllByRole('columnheader').map((cell) => cell.style.width)
+  ).toEqual(['auto', '72px']);
+});
+
+it('uses a compact CNY price column without widening the model column', () => {
+  jest.mocked(useTranslation).mockReturnValueOnce({
+    t: (key: string) => key,
+    i18n: { language: 'zh' },
+  } as unknown as ReturnType<typeof useTranslation>);
+  render(
+    <LMRankPage
+      year={2026}
+      month={9}
+      monthList={[9]}
+      providers={[]}
+      category='text'
+      categoryList={['text']}
+      list={[
+        {
+          name: 'Example model',
+          model_id: null,
+          organization: 'Example',
+          position: 1,
+          rating: 1500,
+          change: 0,
+        },
+      ]}
+    />
+  );
+  expect(screen.getByRole('table')).toHaveStyle({
+    minWidth: 'max(100%, 600px)',
+  });
+  expect(
+    screen.getAllByRole('columnheader').map((cell) => cell.style.width)
+  ).toEqual(['48px', '240px', '72px', '72px', 'auto']);
+});
+
+it('opens compact dropdowns, marks the current option and routes selections', () => {
+  render(
+    <LMRankPage
+      year={2026}
+      month={9}
+      monthList={[8, 9]}
+      providers={[]}
+      category='text'
+      categoryList={['text']}
+      list={[]}
+    />
+  );
+  const typeButton = screen.getByRole('button', { name: 'Model' });
+  expect(typeButton).toHaveClass('text-xs', 'py-1.5');
+  expect(typeButton).toHaveAttribute('aria-expanded', 'false');
+  fireEvent.click(typeButton);
+  expect(typeButton).toHaveAttribute('aria-expanded', 'true');
+  expect(typeButton.querySelector('svg')).toHaveClass('rotate-180');
+  const typeMenu = within(typeButton.parentElement!).getByRole('menu');
+  expect(typeMenu).toHaveClass('left-0', 'block');
+  expect(screen.getByRole('menuitemradio', { name: 'Model' })).toHaveAttribute(
+    'aria-checked',
+    'true'
+  );
+  const contribution = screen.getByRole('menuitemradio', {
+    name: 'Contribution',
+  });
+  expect(contribution).toHaveClass('whitespace-normal', 'break-words');
+  fireEvent.click(contribution);
+  expect(mockPush).toHaveBeenLastCalledWith('/report/contribution');
+  expect(typeMenu).toHaveClass('hidden');
+  expect(typeButton).toHaveAttribute('aria-expanded', 'false');
+
+  const monthButton = screen.getByRole('button', { name: 'Sep' });
+  fireEvent.click(monthButton);
+  const monthMenu = within(monthButton.parentElement!).getByRole('menu');
+  expect(monthMenu).toHaveClass('right-0', 'block');
+  expect(screen.getByRole('menuitemradio', { name: 'Sep' })).toHaveAttribute(
+    'aria-checked',
+    'true'
+  );
+  fireEvent.click(screen.getByRole('menuitemradio', { name: 'Aug' }));
+  expect(mockPush).toHaveBeenLastCalledWith({
+    pathname: '/report/lm-rank',
+    query: { month: 8 },
+  });
+  expect(monthMenu).toHaveClass('hidden');
+  expect(monthButton).toHaveAttribute('aria-expanded', 'false');
 });
 
 it('updates price tiers when the displayed leaderboard changes', () => {
@@ -341,7 +464,10 @@ it('honors provider visibility and price switches without leaking legacy fields'
     <LMRankPage {...props} providers={[]} category='vision' month={8} />
   );
   expect(screen.getAllByRole('columnheader')).toHaveLength(5);
-  expect(screen.getByText('Arena · lmrank.thead.price')).toBeVisible();
+  expect(screen.getByText('lmrank.thead.price')).toBeVisible();
+  expect(
+    screen.queryByText('Arena · lmrank.thead.price')
+  ).not.toBeInTheDocument();
   expect(screen.queryByText('$1 / 2')).not.toBeInTheDocument();
   expect(screen.queryByText('$3 / 4')).not.toBeInTheDocument();
   expect(screen.queryByText(/999/)).not.toBeInTheDocument();
@@ -350,8 +476,11 @@ it('honors provider visibility and price switches without leaking legacy fields'
   expect(screen.getByText('Example org')).toBeVisible();
   expect(screen.getAllByRole('cell')[4]).toHaveTextContent('—');
   expect(screen.getByRole('table')).toHaveStyle({
-    minWidth: 'max(100%, 536px)',
+    minWidth: 'max(100%, 624px)',
   });
+  expect(
+    screen.getAllByRole('columnheader').map((cell) => cell.style.width)
+  ).toEqual(['48px', '240px', '72px', '72px', 'auto']);
 });
 
 it.each([
@@ -381,7 +510,10 @@ it.each([
       })),
     };
     const { rerender } = render(<LMRankPage {...props} />);
-    expect(screen.getByText('Arena · lmrank.thead.price')).toBeVisible();
+    expect(screen.getByText('lmrank.thead.price')).toBeVisible();
+    expect(
+      screen.queryByText('Arena · lmrank.thead.price')
+    ).not.toBeInTheDocument();
     expect(screen.getByText(label)).toHaveAttribute(
       'aria-label',
       expect.stringContaining('Arena ·')

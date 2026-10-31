@@ -85,9 +85,8 @@
       "usd_per_second": "每秒视频"
     },
     "price_help": "价格说明",
-    "close_price_help": "关闭",
-    "price_precision": "金额按显示精度四舍五入，小额价格保留有效数字；悬停金额可查看完整报价。",
-    "price_tier_description": "按当前榜单同一供应商、同计费单位的输出价格，从贵到便宜分为三档。同价同档；价格全部相同时标为适中，只有一个报价时不分档。",
+    "price_precision": "金额四舍五入，小额价格保留有效位；悬停可查看更多精度。",
+    "price_tier_description": "按本榜单同来源、同计费单位的输出价格分为三档。同价同档，全同为适中，单个报价不分档。",
     "price_tiers": {
       "high": "贵",
       "medium": "适中",

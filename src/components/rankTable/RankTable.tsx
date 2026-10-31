@@ -18,6 +18,7 @@ type TableProps = {
   list: RankDataItem[];
   i18n_lang: string;
   minWidth?: number;
+  stretchLastColumn?: boolean;
   compact?: boolean;
 };
 
@@ -43,6 +44,7 @@ export const RankTable = ({
   list,
   i18n_lang,
   minWidth,
+  stretchLastColumn = false,
   compact,
 }: TableProps) => {
   return (
@@ -55,11 +57,16 @@ export const RankTable = ({
       >
         <thead>
           <tr>
-            {columns?.map(({ key, title, width = 'auto' }: column) => (
+            {columns?.map(({ key, title, width = 'auto' }: column, index) => (
               <th
                 key={key}
                 scope='col'
-                style={{ width: width }}
+                style={{
+                  width:
+                    stretchLastColumn && index === columns.length - 1
+                      ? 'auto'
+                      : width,
+                }}
                 className={`bg-gray-50/80 px-2 py-3.5 text-xs font-medium text-gray-500 dark:bg-gray-900/30 dark:text-gray-400 ${key === 'position' ? 'text-center' : 'text-left'}`}
               >
                 {title}
@@ -157,8 +164,9 @@ export const RankSearchBar = ({
 
   return (
     <div className='mb-2 flex items-center rounded-lg border bg-gray-50 px-2 py-2 shadow dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-800'>
-      <div className='flex flex-1 justify-start'>
+      <div className='flex min-w-0 flex-1 justify-start'>
         <Dropdown
+          align='left'
           options={typeOptions}
           initValue={target}
           size='small'
@@ -187,7 +195,7 @@ export const RankSearchBar = ({
           </span>
         </div>
       </div>
-      <div className='flex flex-1 justify-end'>
+      <div className='flex min-w-0 flex-1 justify-end'>
         <Dropdown
           initValue={month}
           size='small'

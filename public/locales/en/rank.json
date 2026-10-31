@@ -85,9 +85,8 @@
       "usd_per_second": "per video second"
     },
     "price_help": "About prices",
-    "close_price_help": "Close",
-    "price_precision": "Amounts are rounded for display, preserving significant digits for small prices. Hover over an amount for the full quote.",
-    "price_tier_description": "Ranks output prices from the same provider with the same billing unit on this leaderboard into three tiers, from expensive to affordable. Equal prices share a tier. All equal prices are moderate; a single quote is not classified.",
+    "price_precision": "Amounts are rounded, keeping small prices visible. Hover for more precision.",
+    "price_tier_description": "Output prices on this leaderboard form three tiers by source and billing unit. Equal prices share a tier; all equal means moderate, and a lone quote has no tier.",
     "price_tiers": {
       "high": "Expensive",
       "medium": "Moderate",

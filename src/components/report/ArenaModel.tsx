@@ -164,9 +164,9 @@ export const ArenaPriceHeader = ({
       <div
         id={id}
         popover='auto'
-        className='m-auto w-80 max-w-[calc(100vw-2rem)] rounded-lg border border-gray-200 bg-white p-4 text-left text-xs font-normal leading-6 text-gray-600 shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'
+        className='m-auto w-80 max-w-[calc(100vw-2rem)] space-y-1 rounded-lg border border-gray-200 bg-white p-3 text-left text-xs font-normal leading-5 text-gray-600 shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'
       >
-        <p className='mb-1 font-medium text-gray-900 dark:text-gray-100'>
+        <p className='font-medium text-gray-900 dark:text-gray-100'>
           {t('lmrank.price_help')}
         </p>
         <p>{t('lmrank.price_tier_description')}</p>
@@ -174,14 +174,6 @@ export const ArenaPriceHeader = ({
         {i18n.language.startsWith('zh') && (
           <p>{t('lmrank.exchange_estimate', { rate: USD_TO_CNY })}</p>
         )}
-        <button
-          type='button'
-          popoverTarget={id}
-          popoverTargetAction='hide'
-          className='mt-2 rounded px-2 py-1 text-gray-700 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 dark:text-gray-200 dark:hover:bg-gray-700'
-        >
-          {t('lmrank.close_price_help')}
-        </button>
       </div>
     </div>
   );
