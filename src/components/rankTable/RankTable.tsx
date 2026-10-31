@@ -75,7 +75,7 @@ export const RankTable = ({
               className='group bg-white transition-colors hover:bg-gray-50/80 dark:bg-gray-800 dark:hover:bg-gray-700/30'
             >
               {columns.map(({ key, render, percent }) => {
-                let content = row[key];
+                let content = row[key as keyof RankDataItem];
                 if (render) {
                   content = render(row, percent, i18n_lang);
                 }
@@ -134,15 +134,15 @@ export const RankSearchBar = ({
     } else {
       return i18n_lang == 'en'
         ? [
+            { key: '/report/lm-rank', value: 'Model' },
             { key: '/report/tiobe', value: 'Language' },
             { key: '/report/contribution', value: 'Contribution' },
-            { key: '/report/lm-rank', value: 'Model' },
             { key: '/report/db-engines', value: 'Database' },
           ]
         : [
+            { key: '/report/lm-rank', value: '大模型' },
             { key: '/report/tiobe', value: '编程语言' },
             { key: '/report/contribution', value: '用户贡献' },
-            { key: '/report/lm-rank', value: '大模型' },
             { key: '/report/db-engines', value: '数据库' },
           ];
     }

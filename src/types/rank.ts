@@ -1,5 +1,4 @@
 export interface RankDataItem {
-  [key: string]: string | number | boolean | null | undefined;
   name: string;
   position: number;
   rating: string | number;
@@ -44,7 +43,26 @@ export interface NetcraftRankPageProps {
 }
 
 // 大模型榜单
+export interface ArenaProvider {
+  id: number;
+  code: string;
+  name: string;
+  website_url: string;
+  is_show_price: boolean;
+}
+
+export interface ArenaProviderOffer {
+  provider_id: number;
+  model_id: string | null;
+  model_url_zh?: string | null;
+  model_url_en?: string | null;
+  input_price?: number | null;
+  output_price?: number | null;
+  price_unit?: string | null;
+}
+
 export interface LMArenaRankDataItem extends RankDataItem {
+  providers?: ArenaProviderOffer[];
   model_id: string | null;
   model_url_zh?: string | null;
   model_url_en?: string | null;
@@ -68,6 +86,7 @@ export interface LMArenaRankData {
   month_list: number[];
   category: string;
   category_list: string[];
+  providers: ArenaProvider[];
   data: LMArenaRankDataItem[];
 }
 
@@ -77,5 +96,6 @@ export interface LMArenaRankPageProps {
   monthList: number[];
   category: string;
   categoryList: string[];
+  providers: ArenaProvider[];
   list: LMArenaRankDataItem[];
 }

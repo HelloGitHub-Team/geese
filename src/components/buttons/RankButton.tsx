@@ -17,7 +17,7 @@ const RankButton = ({ t, type = '' }: RankButtonProps) => {
   const btnList: option[] = [
     { key: '/', value: t('header.home') },
     { key: '/periodical', value: t('header.periodical') },
-    { key: '/report/tiobe', value: t('header.rank') },
+    { key: '/report/lm-rank', value: t('header.rank') },
     { key: '/article', value: t('header.article') },
   ];
 
@@ -31,7 +31,7 @@ const RankButton = ({ t, type = '' }: RankButtonProps) => {
       if (router.pathname.includes('periodical')) {
         key = '/periodical';
       } else if (router.pathname.includes('report')) {
-        key = '/report/tiobe';
+        key = '/report/lm-rank';
       } else if (router.pathname.includes('article')) {
         key = '/article';
       }
@@ -48,7 +48,7 @@ const RankButton = ({ t, type = '' }: RankButtonProps) => {
   }
 
   return (
-    <HeaderBtn pathname='/report/tiobe'>
+    <HeaderBtn pathname='/report/lm-rank'>
       <span className='mr-0.5'>🏆</span>
       <span>{t('header.rank')}</span>
     </HeaderBtn>

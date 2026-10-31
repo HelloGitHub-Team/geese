@@ -1,25 +1,22 @@
 import { getArenaPriceTiers } from './arenaPrice';
 
-import { LMArenaRankDataItem } from '@/types/rank';
+import { ArenaProviderOffer } from '@/types/rank';
 
 const priced = (
   price: number | null,
-  unit: LMArenaRankDataItem['ofox_price_unit'] = 'usd_per_million_tokens'
-): LMArenaRankDataItem => ({
-  name: 'Example',
+  unit: ArenaProviderOffer['price_unit'] = 'usd_per_million_tokens',
+  provider_id = 1
+): ArenaProviderOffer => ({
+  provider_id,
   model_id: `example/${price}`,
-  organization: 'Example',
-  position: 1,
-  rating: 1500,
-  change: 0,
-  ofox_output_price: price,
-  ofox_price_unit: unit,
+  output_price: price,
+  price_unit: unit,
 });
 
 it('ranks distinct prices from most expensive to cheapest and keeps ties together', () => {
-  const models = [30, 50, 0, 40, 10, 30].map((price) => priced(price));
-  const tiers = getArenaPriceTiers(models);
-  expect(models.map((model) => tiers.get(model))).toEqual([
+  const offers = [30, 50, 0, 40, 10, 30].map((price) => priced(price));
+  const tiers = getArenaPriceTiers(offers);
+  expect(offers.map((offer) => tiers.get(offer))).toEqual([
     'medium',
     'high',
     'low',
@@ -29,23 +26,37 @@ it('ranks distinct prices from most expensive to cheapest and keeps ties togethe
   ]);
 });
 
-it('compares billing units separately and ignores missing, invalid and unmatched quotes', () => {
+it('compares billing units and providers separately and ignores invalid quotes', () => {
   const tokens = [priced(10), priced(20)];
   const images = [priced(0.1, 'usd_per_image'), priced(0.2, 'usd_per_image')];
+  const otherProvider = [
+    priced(1000, 'usd_per_million_tokens', 2),
+    priced(2000, 'usd_per_million_tokens', 2),
+  ];
   const excluded = [
     priced(null),
     priced(-1),
     priced(NaN),
     priced(Infinity),
     priced(10, null),
+    priced(10, 'unknown'),
     { ...priced(100), model_id: null },
-    { ...priced(null), ofox_input_price: 10, output_price: 999 },
+    { ...priced(null), input_price: 10 },
     priced(5, 'usd_per_second'),
   ];
-  const tiers = getArenaPriceTiers([...tokens, ...images, ...excluded]);
-  expect(tokens.map((model) => tiers.get(model))).toEqual(['low', 'high']);
-  expect(images.map((model) => tiers.get(model))).toEqual(['low', 'high']);
-  excluded.forEach((model) => expect(tiers.has(model)).toBe(false));
+  const tiers = getArenaPriceTiers([
+    ...tokens,
+    ...images,
+    ...otherProvider,
+    ...excluded,
+  ]);
+  expect(tokens.map((offer) => tiers.get(offer))).toEqual(['low', 'high']);
+  expect(images.map((offer) => tiers.get(offer))).toEqual(['low', 'high']);
+  expect(otherProvider.map((offer) => tiers.get(offer))).toEqual([
+    'low',
+    'high',
+  ]);
+  excluded.forEach((offer) => expect(tiers.has(offer)).toBe(false));
 });
 
 it('handles equal prices, zero prices and lists too small for three tiers', () => {

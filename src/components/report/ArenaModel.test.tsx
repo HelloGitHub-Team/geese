@@ -1,9 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { useTranslation } from 'next-i18next/pages';
 
-import { ArenaModel, ArenaOfoxLink, ArenaPrice } from './ArenaModel';
+import { ArenaModel, ArenaPrice, ArenaProviderLink } from './ArenaModel';
 
-import { LMArenaRankDataItem } from '@/types/rank';
+import {
+  ArenaProvider,
+  ArenaProviderOffer,
+  LMArenaRankDataItem,
+} from '@/types/rank';
 
 jest.mock('next-i18next/pages', () => ({
   useTranslation: jest.fn(() => ({
@@ -12,29 +16,41 @@ jest.mock('next-i18next/pages', () => ({
   })),
 }));
 
-const model: LMArenaRankDataItem = {
-  name: 'Example model',
+const provider: ArenaProvider = {
+  id: 1,
+  code: 'ofox',
+  name: 'ofoxAI',
+  website_url: 'https://supplier.example',
+  is_show_price: true,
+};
+const offer: ArenaProviderOffer = {
+  provider_id: provider.id,
   model_id: 'example/example-model-2026-09-01',
   model_url_en: 'https://supplier.example/en/detail/example-model',
   model_url_zh: 'https://supplier.example/zh/detail/example-model',
+};
+const model: LMArenaRankDataItem = {
+  name: 'Example model',
+  model_id: null,
   organization: 'Anthropic',
   license: 'Proprietary',
   position: 1,
   rating: 1500,
   change: 0,
+  providers: [offer],
 };
 
 const ModelDetails = ({ model }: { model: LMArenaRankDataItem }) => (
-  <ArenaModel model={model} />
+  <ArenaModel model={model} provider={provider} offer={offer} />
 );
 
-it('shows the model and provider without ID disclosure controls', () => {
+it('shows the model and organization with the supplied provider link', () => {
   const { container } = render(<ModelDetails model={model} />);
   expect(screen.getByText(model.name)).toBeVisible();
   expect(screen.getByText(model.name).closest('button')).toBeNull();
   expect(screen.getByRole('link', { name: model.name })).toHaveAttribute(
     'href',
-    model.model_url_en
+    offer.model_url_en
   );
   expect(screen.getByRole('link', { name: model.name })).toHaveAttribute(
     'rel',
@@ -43,7 +59,7 @@ it('shows the model and provider without ID disclosure controls', () => {
   expect(screen.getByText(model.organization)).toBeVisible();
   expect(screen.queryByText('lmrank.closed_source')).not.toBeInTheDocument();
   expect(screen.queryByText('lmrank.open_source')).not.toBeInTheDocument();
-  expect(screen.queryByText(model.model_id!)).not.toBeInTheDocument();
+  expect(screen.queryByText(offer.model_id!)).not.toBeInTheDocument();
   expect(container.querySelector('img')).toHaveAttribute(
     'src',
     '/images/arena/providers/anthropic.svg'
@@ -51,7 +67,7 @@ it('shows the model and provider without ID disclosure controls', () => {
   expect(container.querySelector('img')).toHaveAttribute('alt', '');
 });
 
-it('keeps long model and provider names readable without truncation', () => {
+it('keeps long model and organization names readable without truncation', () => {
   const name = 'Example reasoning model with extended context (preview)';
   const organization = 'An independent model research organization';
   render(<ArenaModel model={{ ...model, name, organization }} />);
@@ -61,6 +77,21 @@ it('keeps long model and provider names readable without truncation', () => {
   );
   expect(screen.getByText(name)).not.toHaveClass('truncate');
   expect(screen.getByText(organization)).toHaveClass('whitespace-normal');
+});
+
+it('does not link the model without a visible provider even with legacy URLs', () => {
+  render(
+    <ArenaModel
+      model={{
+        ...model,
+        model_id: offer.model_id,
+        model_url_en: offer.model_url_en,
+      }}
+      offer={offer}
+    />
+  );
+  expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  expect(screen.getByText(model.name)).toBeVisible();
 });
 
 it('handles unavailable licenses and logos without broken images', () => {
@@ -81,40 +112,50 @@ it.each([
   ['en-US', 'https://supplier.example/en/detail/example-model'],
   ['zh', 'https://supplier.example/zh/detail/example-model'],
   ['zh-CN', 'https://supplier.example/zh/detail/example-model'],
-])('links the OFOX CTA to the model page for %s', (language, href) => {
+])('links the provider CTA to the model page for %s', (language, href) => {
   jest.mocked(useTranslation).mockReturnValueOnce({
     t: (key: string) => key,
     i18n: { language },
   } as unknown as ReturnType<typeof useTranslation>);
-  const model_id = 'openai/gpt-6.1-terra';
-  render(<ArenaOfoxLink model={{ ...model, model_id }} />);
+  render(
+    <ArenaProviderLink name={model.name} provider={provider} offer={offer} />
+  );
   const link = screen.getByRole('link', {
     name: `lmrank.view_model: ${model.name} — ofoxAI`,
   });
   expect(link).toHaveAttribute('href', href);
-  expect(link).toHaveAttribute('title', 'lmrank.view_on_ofox');
+  expect(link).toHaveAttribute('title', 'lmrank.view_on_provider');
   expect(link).toHaveAttribute('target', '_blank');
   expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   expect(screen.getByText('lmrank.view_model')).toBeVisible();
   expect(link.querySelector('img')).toBeNull();
-  expect(screen.queryByText(model_id)).not.toBeInTheDocument();
+  expect(screen.queryByText(offer.model_id!)).not.toBeInTheDocument();
   expect(screen.queryByRole('button')).not.toBeInTheDocument();
 });
 
 it('does not invent a link when the API omits the locale URL', () => {
-  render(<ArenaOfoxLink model={{ ...model, model_url_en: null }} />);
+  render(
+    <ArenaProviderLink
+      name={model.name}
+      provider={provider}
+      offer={{ ...offer, model_url_en: null }}
+    />
+  );
   expect(screen.queryByRole('link')).not.toBeInTheDocument();
 });
 
-it.each([null, ''])(
-  'does not offer to link or copy an unavailable ID: %s',
-  (model_id) => {
-    render(<ArenaOfoxLink model={{ ...model, model_id }} />);
-    expect(screen.getByText('lmrank.unavailable')).toBeVisible();
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
-    expect(screen.queryByRole('link')).not.toBeInTheDocument();
-  }
-);
+it.each([null, ''])('does not link an unavailable ID: %s', (model_id) => {
+  render(
+    <ArenaProviderLink
+      name={model.name}
+      provider={provider}
+      offer={{ ...offer, model_id }}
+    />
+  );
+  expect(screen.getByText('lmrank.unavailable')).toBeVisible();
+  expect(screen.queryByRole('button')).not.toBeInTheDocument();
+  expect(screen.queryByRole('link')).not.toBeInTheDocument();
+});
 
 it.each([
   undefined,
@@ -137,7 +178,7 @@ it.each([
 });
 
 it.each(['Apache 2.0', 'MIT', 'Kimi K3 license', 'qwen-research'])(
-  'shows the open-source label after the provider: %s',
+  'shows the open-source label after the organization: %s',
   (license) => {
     render(<ModelDetails model={{ ...model, license }} />);
     expect(screen.queryByText(license)).not.toBeInTheDocument();
@@ -148,36 +189,30 @@ it.each(['Apache 2.0', 'MIT', 'Kimi K3 license', 'qwen-research'])(
 );
 
 it.each([
-  { ofox_input_price: 0, ofox_output_price: 0.000001, label: '$0 / 0.000001' },
-  { ofox_input_price: 10, ofox_output_price: 50, label: '$10 / 50' },
-  { ofox_input_price: 10, ofox_output_price: null, label: '$10 / —' },
-  { ofox_input_price: null, ofox_output_price: 50, label: '$— / 50' },
-])('uses ofoxAI prices rather than Arena prices: $label', (prices) => {
+  { input_price: 0, output_price: 0.000001, label: '$0 / 0.000001' },
+  { input_price: 10, output_price: 50, label: '$10 / 50' },
+  { input_price: 10, output_price: null, label: '$10 / —' },
+  { input_price: null, output_price: 50, label: '$— / 50' },
+])('uses the provider quote: $label', (prices) => {
   render(
     <ArenaPrice
-      model={{
-        ...model,
-        ...prices,
-        input_price: 999,
-        output_price: 999,
-        ofox_price_unit: 'usd_per_million_tokens',
-      }}
+      offer={{ ...offer, ...prices, price_unit: 'usd_per_million_tokens' }}
+      providerName='Example supplier'
     />
   );
   expect(screen.getByText(prices.label)).toHaveAttribute(
     'aria-label',
-    expect.stringContaining('ofoxAI')
+    expect.stringContaining('Example supplier')
   );
   expect(
     screen.getByText('lmrank.price_units.usd_per_million_tokens')
   ).toBeVisible();
-  expect(screen.queryByText(/999/)).not.toBeInTheDocument();
 });
 
 it.each([
-  { ofox_input_price: 10, ofox_output_price: 50, label: '≈¥70 / 350' },
-  { ofox_input_price: 0, ofox_output_price: 0.000001, label: '≈¥0 / 0.000007' },
-  { ofox_input_price: 0.1, ofox_output_price: 0.3, label: '≈¥0.7 / 2.1' },
+  { input_price: 10, output_price: 50, label: '≈¥70 / 350' },
+  { input_price: 0, output_price: 0.000001, label: '≈¥0 / 0.000007' },
+  { input_price: 0.1, output_price: 0.3, label: '≈¥0.7 / 2.1' },
 ])('marks CNY prices as estimates: $label', (prices) => {
   jest.mocked(useTranslation).mockReturnValueOnce({
     t: (key: string) => key,
@@ -185,7 +220,8 @@ it.each([
   } as unknown as ReturnType<typeof useTranslation>);
   render(
     <ArenaPrice
-      model={{ ...model, ...prices, ofox_price_unit: 'usd_per_million_tokens' }}
+      offer={{ ...offer, ...prices, price_unit: 'usd_per_million_tokens' }}
+      providerName={provider.name}
     />
   );
   expect(screen.getByText(prices.label)).toHaveAttribute(
@@ -195,11 +231,12 @@ it.each([
 });
 
 it.each(['usd_per_image', 'usd_per_second'] as const)(
-  'shows ofoxAI media price with unit %s',
+  'shows the provider media price with unit %s',
   (unit) => {
     render(
       <ArenaPrice
-        model={{ ...model, ofox_output_price: 0.13, ofox_price_unit: unit }}
+        offer={{ ...offer, output_price: 0.13, price_unit: unit }}
+        providerName={provider.name}
       />
     );
     expect(screen.getByText('$0.13')).toBeVisible();
@@ -217,11 +254,12 @@ it.each([
   (price, label, full) => {
     render(
       <ArenaPrice
-        model={{
-          ...model,
-          ofox_output_price: price as number,
-          ofox_price_unit: 'usd_per_image',
+        offer={{
+          ...offer,
+          output_price: price as number,
+          price_unit: 'usd_per_image',
         }}
+        providerName={provider.name}
         tier='low'
       />
     );
@@ -236,35 +274,23 @@ it.each([
   }
 );
 
-it('does not fall back to Arena prices for missing or invalid ofoxAI prices', () => {
-  const pricedModel = {
-    ...model,
-    input_price: 10,
-    output_price: 50,
-    price_unit: 'usd_per_million_tokens' as const,
-  };
-  const { rerender } = render(<ArenaPrice model={pricedModel} />);
-  expect(screen.getByLabelText('lmrank.unavailable')).toHaveTextContent('—');
-  rerender(
-    <ArenaPrice
-      model={{
-        ...pricedModel,
-        ofox_input_price: -1,
-        ofox_output_price: NaN,
-        ofox_price_unit: 'usd_per_million_tokens',
-      }}
-    />
-  );
-  expect(screen.getByLabelText('lmrank.unavailable')).toHaveTextContent('—');
-  rerender(
-    <ArenaPrice
-      model={{
-        ...pricedModel,
-        model_id: null,
-        ofox_input_price: 1,
-        ofox_price_unit: 'usd_per_million_tokens',
-      }}
-    />
-  );
+it.each([
+  undefined,
+  offer,
+  {
+    ...offer,
+    input_price: -1,
+    output_price: NaN,
+    price_unit: 'usd_per_million_tokens',
+  },
+  {
+    ...offer,
+    model_id: null,
+    input_price: 1,
+    price_unit: 'usd_per_million_tokens',
+  },
+  { ...offer, output_price: 1, price_unit: 'unknown' },
+])('marks missing, invalid and unmatched quotes as unavailable', (quote) => {
+  render(<ArenaPrice offer={quote} providerName={provider.name} />);
   expect(screen.getByLabelText('lmrank.unavailable')).toHaveTextContent('—');
 });

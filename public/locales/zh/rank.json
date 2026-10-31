@@ -61,7 +61,8 @@
   "lmrank": {
     "title": "大模型排名",
     "nav": "{{year}} 年 {{month}} 月大模型排行榜",
-    "p_text": "<strong>「Arena 排名」</strong>基于真实用户的模型评测，覆盖文本、编码、视觉和图像、视频生成等能力。我们在原始榜单基础上聚合并整理模型名称，点击 ofoxAI 列的「体验模型」，可了解已匹配模型的详情。",
+    "p_text": "<strong>「Arena 排名」</strong>基于真实用户的模型评测，覆盖文本、编码、视觉和图像、视频生成等能力。我们在原始榜单基础上聚合并整理模型名称。",
+    "provider_note": "点击供应商列的「体验模型」，可了解已匹配模型的详情。",
     "thead": {
       "position": "排名",
       "name": "模型",
@@ -71,7 +72,7 @@
       "ofox": "ofoxAI"
     },
     "view_model": "体验模型",
-    "view_on_ofox": "前往 ofoxAI 体验模型（新标签页打开）",
+    "view_on_provider": "前往 {{provider}} 体验模型（新标签页打开）",
     "open_source": "开源",
     "unavailable": "暂无",
     "empty": "本月暂无该分类榜单数据",
@@ -86,7 +87,7 @@
     "price_help": "价格说明",
     "close_price_help": "关闭",
     "price_precision": "金额按显示精度四舍五入，小额价格保留有效数字；悬停金额可查看完整报价。",
-    "price_tier_description": "按当前榜单同计费单位的输出价格，从贵到便宜分为三档。同价同档；价格全部相同时标为适中，只有一个报价时不分档。",
+    "price_tier_description": "按当前榜单同一供应商、同计费单位的输出价格，从贵到便宜分为三档。同价同档；价格全部相同时标为适中，只有一个报价时不分档。",
     "price_tiers": {
       "high": "贵",
       "medium": "适中",

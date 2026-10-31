@@ -13,9 +13,9 @@ import {
 } from '@/components/rankTable/RankTable';
 import {
   ArenaModel,
-  ArenaOfoxLink,
   ArenaPrice,
   ArenaPriceHeader,
+  ArenaProviderLink,
 } from '@/components/report/ArenaModel';
 import { RatingWithTrendRender } from '@/components/report/Report';
 import Seo from '@/components/Seo';
@@ -45,6 +45,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
   monthList,
   category,
   categoryList,
+  providers,
   list,
 }) => {
   const { t, i18n } = useTranslation('rank');
@@ -73,7 +74,32 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
       }));
   }, [categoryList, i18n.language]);
 
-  const priceTiers = useMemo(() => getArenaPriceTiers(list || []), [list]);
+  const priceTiers = useMemo(() => {
+    const pricedProviders = new Set(
+      providers.filter((provider) => provider.is_show_price).map(({ id }) => id)
+    );
+    return getArenaPriceTiers(
+      (list || []).flatMap((row) =>
+        (row.providers || []).filter((offer) =>
+          pricedProviders.has(offer.provider_id)
+        )
+      )
+    );
+  }, [list, providers]);
+
+  const tableMinWidth =
+    344 +
+    providers.reduce(
+      (width, provider) =>
+        width +
+        104 +
+        (provider.is_show_price
+          ? i18n.language.startsWith('zh')
+            ? 168
+            : 192
+          : 0),
+      0
+    );
 
   // 表格列配置
   const columns: any[] = useMemo(
@@ -94,7 +120,27 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
         key: 'name',
         title: <span className='pl-10'>{t('lmrank.thead.name')}</span>,
         width: 'auto',
-        render: (row: LMArenaRankDataItem) => <ArenaModel model={row} />,
+        render: (row: LMArenaRankDataItem) => {
+          const provider = providers.find(({ id }) =>
+            row.providers?.some(
+              (offer) =>
+                offer.provider_id === id &&
+                offer.model_id &&
+                (i18n.language.startsWith('zh')
+                  ? offer.model_url_zh
+                  : offer.model_url_en)
+            )
+          );
+          return (
+            <ArenaModel
+              model={row}
+              provider={provider}
+              offer={row.providers?.find(
+                (offer) => offer.provider_id === provider?.id
+              )}
+            />
+          );
+        },
       },
       {
         key: 'rating',
@@ -143,34 +189,65 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
         },
         width: 72,
       },
-      {
-        key: 'price',
-        title: <ArenaPriceHeader />,
-        render: (row: LMArenaRankDataItem) => (
-          <ArenaPrice model={row} tier={priceTiers.get(row)} />
-        ),
-        width: i18n.language.startsWith('zh') ? 168 : 192,
-      },
-      {
-        key: 'ofox',
-        title: (
-          <span className='inline-flex items-center gap-0.5'>
-            <img
-              src='/images/arena/ofox.svg'
-              alt=''
-              aria-hidden='true'
-              width={16}
-              height={16}
-              className='h-4 w-4 shrink-0 dark:invert'
+      ...providers.flatMap((provider) => [
+        ...(provider.is_show_price
+          ? [
+              {
+                key: `price-${provider.id}`,
+                title: (
+                  <ArenaPriceHeader
+                    providerName={
+                      providers.length > 1 ? provider.name : undefined
+                    }
+                  />
+                ),
+                render: (row: LMArenaRankDataItem) => {
+                  const offer = row.providers?.find(
+                    (item) => item.provider_id === provider.id
+                  );
+                  return (
+                    <ArenaPrice
+                      offer={offer}
+                      providerName={provider.name}
+                      tier={offer ? priceTiers.get(offer) : undefined}
+                    />
+                  );
+                },
+                width: i18n.language.startsWith('zh') ? 168 : 192,
+              },
+            ]
+          : []),
+        {
+          key: `provider-${provider.id}`,
+          title: (
+            <span className='inline-flex items-center gap-0.5'>
+              {provider.code === 'ofox' && (
+                <img
+                  src='/images/arena/ofox.svg'
+                  alt=''
+                  aria-hidden='true'
+                  width={16}
+                  height={16}
+                  className='h-4 w-4 shrink-0 dark:invert'
+                />
+              )}
+              {provider.name}
+            </span>
+          ),
+          render: (row: LMArenaRankDataItem) => (
+            <ArenaProviderLink
+              name={row.name}
+              provider={provider}
+              offer={row.providers?.find(
+                (offer) => offer.provider_id === provider.id
+              )}
             />
-            {t('lmrank.thead.ofox')}
-          </span>
-        ),
-        render: (row: LMArenaRankDataItem) => <ArenaOfoxLink model={row} />,
-        width: 104,
-      },
+          ),
+          width: 104,
+        },
+      ]),
     ],
-    [i18n.language, t, priceTiers]
+    [i18n.language, t, priceTiers, providers]
   );
 
   return (
@@ -217,7 +294,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
               <RankTable
                 key={`${year}-${month}-${category}`}
                 columns={columns}
-                minWidth={640}
+                minWidth={tableMinWidth}
                 compact
                 list={list}
                 i18n_lang={i18n.language}
@@ -231,6 +308,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
               <div className='whitespace-pre-wrap leading-8'>
                 <p>
                   <Trans ns='rank' i18nKey='lmrank.p_text' />
+                  {providers.length > 0 && ` ${t('lmrank.provider_note')}`}
                 </p>
               </div>
             </div>
@@ -274,6 +352,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         monthList: data.month_list,
         category: data.category,
         categoryList: data.category_list,
+        providers: data.providers ?? [],
         ...(await serverSideTranslations(locale as string, ['common', 'rank'])),
       },
     };

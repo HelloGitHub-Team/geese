@@ -4,6 +4,16 @@ import { GetServerSidePropsContext } from 'next';
 import LMRankPage, { getServerSideProps } from '@/pages/report/lm-rank';
 import { getLMArenaRank } from '@/services/rank';
 
+import { ArenaProvider, LMArenaRankData } from '@/types/rank';
+
+const provider: ArenaProvider = {
+  id: 1,
+  code: 'ofox',
+  name: 'ofoxAI',
+  website_url: 'https://supplier.example',
+  is_show_price: true,
+};
+
 jest.mock('next/router', () => ({
   useRouter: () => ({ query: {}, push: jest.fn() }),
 }));
@@ -29,12 +39,20 @@ it('shows OFOX links in the last column and fits desktop content without a scrol
     year: 2026,
     month: 9,
     monthList: [9],
+    providers: [provider],
     category: 'text',
     categoryList: ['text', 'vision'],
     list: ['First model', 'Second model'].map((name, index) => ({
       name,
       model_id: `example/model-${index}-2026-09-preview`,
       model_url_en: `https://supplier.example/en/item/${index}`,
+      providers: [
+        {
+          provider_id: provider.id,
+          model_id: `example/model-${index}-2026-09-preview`,
+          model_url_en: `https://supplier.example/en/item/${index}`,
+        },
+      ],
       organization: 'Anthropic',
       position: index + 1,
       rating: 1500 - index,
@@ -56,7 +74,7 @@ it('shows OFOX links in the last column and fits desktop content without a scrol
     'lmrank.thead.rating',
     'lmrank.thead.votes',
     'lmrank.thead.price',
-    'lmrank.thead.ofox',
+    'ofoxAI',
   ]);
   expect(
     screen.getAllByRole('columnheader')[5].querySelector('img')
@@ -104,6 +122,7 @@ it('updates price tiers when the displayed leaderboard changes', () => {
     year: 2026,
     month: 9,
     monthList: [9],
+    providers: [provider],
     category: 'text',
     categoryList: ['text'],
     list: [10, 20].map((price, index) => ({
@@ -113,8 +132,14 @@ it('updates price tiers when the displayed leaderboard changes', () => {
       position: index + 1,
       rating: 1500,
       change: 0,
-      ofox_output_price: price,
-      ofox_price_unit: 'usd_per_million_tokens' as const,
+      providers: [
+        {
+          provider_id: provider.id,
+          model_id: `example/${index}`,
+          output_price: price,
+          price_unit: 'usd_per_million_tokens',
+        },
+      ],
     })),
   };
   const { rerender } = render(<LMRankPage {...props} />);
@@ -139,6 +164,13 @@ it('only links matched models when ranks are tied', () => {
     name: 'Shared model',
     model_id: 'example/shared-model',
     model_url_en: 'https://supplier.example/en/shared',
+    providers: [
+      {
+        provider_id: provider.id,
+        model_id: 'example/shared-model',
+        model_url_en: 'https://supplier.example/en/shared',
+      },
+    ],
     organization: 'Anthropic',
     position: 1,
     rating: 1500,
@@ -149,9 +181,10 @@ it('only links matched models when ranks are tied', () => {
       year={2026}
       month={9}
       monthList={[9]}
+      providers={[provider]}
       category='webdev'
       categoryList={['webdev']}
-      list={[{ ...model }, { ...model }, { ...model, model_id: null }]}
+      list={[{ ...model }, { ...model }, { ...model, providers: [] }]}
     />
   );
   const rows = screen.getAllByRole('row').slice(1);
@@ -174,6 +207,7 @@ it('shows only the five supported categories even with an older backend', () => 
       year={2026}
       month={9}
       monthList={[9]}
+      providers={[provider]}
       category='text'
       categoryList={[
         'agent',
@@ -208,6 +242,134 @@ it('shows only the five supported categories even with an older backend', () => 
   ).not.toBeInTheDocument();
   expect(screen.queryByText('lmrank.agent_note')).not.toBeInTheDocument();
 });
+
+it('honors provider visibility and price switches without leaking legacy fields', () => {
+  const otherProvider: ArenaProvider = {
+    id: 2,
+    code: 'other',
+    name: 'Other supplier',
+    website_url: 'https://other.example',
+    is_show_price: true,
+  };
+  const props = {
+    year: 2026,
+    month: 9,
+    monthList: [9],
+    category: 'text',
+    categoryList: ['text', 'vision'],
+    providers: [provider, otherProvider],
+    list: [
+      {
+        name: 'Example model',
+        model_id: 'legacy-model',
+        model_url_en: 'https://legacy.example/model',
+        ofox_output_price: 999,
+        ofox_price_unit: 'usd_per_million_tokens' as const,
+        organization: 'Example org',
+        position: 1,
+        rating: 1500,
+        change: 0,
+        providers: [
+          {
+            provider_id: provider.id,
+            model_id: 'first-model',
+            model_url_en: 'https://supplier.example/en/model',
+            input_price: 1,
+            output_price: 2,
+            price_unit: 'usd_per_million_tokens',
+          },
+          {
+            provider_id: otherProvider.id,
+            model_id: 'other-model',
+            model_url_en: 'https://other.example/en/model',
+            input_price: 3,
+            output_price: 4,
+            price_unit: 'usd_per_million_tokens',
+          },
+        ],
+      },
+    ],
+  };
+  const { rerender } = render(<LMRankPage {...props} />);
+  expect(screen.getAllByRole('columnheader')).toHaveLength(8);
+  expect(screen.getByText('ofoxAI · lmrank.thead.price')).toBeVisible();
+  expect(screen.getByText('Other supplier · lmrank.thead.price')).toBeVisible();
+  expect(screen.getByText('$1 / 2')).toBeVisible();
+  expect(screen.getByText('$3 / 4')).toBeVisible();
+  expect(screen.getByRole('link', { name: 'Example model' })).toHaveAttribute(
+    'href',
+    'https://supplier.example/en/model'
+  );
+  expect(screen.queryByText(/999/)).not.toBeInTheDocument();
+
+  rerender(
+    <LMRankPage
+      {...props}
+      providers={[{ ...provider, is_show_price: false }, otherProvider]}
+    />
+  );
+  expect(screen.getAllByRole('columnheader')).toHaveLength(7);
+  expect(screen.queryByText('$1 / 2')).not.toBeInTheDocument();
+  expect(
+    screen.queryByText('ofoxAI · lmrank.thead.price')
+  ).not.toBeInTheDocument();
+  expect(screen.getByText('$3 / 4')).toBeVisible();
+  expect(
+    screen.getByRole('link', {
+      name: 'lmrank.view_model: Example model — ofoxAI',
+    })
+  ).toBeVisible();
+
+  rerender(
+    <LMRankPage
+      {...props}
+      providers={[{ ...otherProvider, is_show_price: false }]}
+    />
+  );
+  expect(screen.getAllByRole('columnheader')).toHaveLength(5);
+  expect(screen.queryByText(/ofoxAI/)).not.toBeInTheDocument();
+  expect(screen.queryByText(/lmrank.thead.price/)).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole('button', { name: 'lmrank.price_help' })
+  ).not.toBeInTheDocument();
+  expect(screen.getByRole('link', { name: 'Example model' })).toHaveAttribute(
+    'href',
+    'https://other.example/en/model'
+  );
+
+  rerender(
+    <LMRankPage {...props} providers={[]} category='vision' month={8} />
+  );
+  expect(screen.getAllByRole('columnheader')).toHaveLength(4);
+  expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  expect(screen.queryByText('lmrank.provider_note')).not.toBeInTheDocument();
+  expect(screen.getByText('Example org')).toBeVisible();
+  expect(screen.getByRole('table')).toHaveStyle({
+    minWidth: 'max(100%, 344px)',
+  });
+});
+
+it.each([undefined, [], [provider]])(
+  'passes API provider configuration through SSR: %j',
+  async (providers) => {
+    jest.mocked(getLMArenaRank).mockResolvedValueOnce({
+      success: true,
+      year: 2026,
+      month: 9,
+      month_list: [9],
+      category: 'text',
+      category_list: ['text'],
+      providers,
+      data: [],
+    } as LMArenaRankData);
+    const result = await getServerSideProps({
+      query: {},
+      req: {},
+      locale: 'en',
+    } as unknown as GetServerSidePropsContext);
+    expect(result).toMatchObject({ props: { providers: providers ?? [] } });
+  }
+);
 
 it('defaults missing or unsupported URL categories to text and keeps valid ones', async () => {
   for (const category of [
@@ -249,6 +411,7 @@ it.each([
       year={2026}
       month={9}
       monthList={[9]}
+      providers={[provider]}
       category='text'
       categoryList={['text']}
       list={[

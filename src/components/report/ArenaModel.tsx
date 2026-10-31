@@ -4,7 +4,11 @@ import { MdInfoOutline, MdNorthEast } from 'react-icons/md';
 
 import { ArenaPriceTier } from '@/utils/arenaPrice';
 
-import { LMArenaRankDataItem } from '@/types/rank';
+import {
+  ArenaProvider,
+  ArenaProviderOffer,
+  LMArenaRankDataItem,
+} from '@/types/rank';
 
 import providerLogos from '~/images/arena/providers.json';
 
@@ -13,11 +17,19 @@ const logos: Record<string, string> = providerLogos;
 // Fixed display estimate, not a live exchange rate.
 const USD_TO_CNY = 7;
 
-export const ArenaModel = ({ model }: { model: LMArenaRankDataItem }) => {
+export const ArenaModel = ({
+  model,
+  provider,
+  offer,
+}: {
+  model: LMArenaRankDataItem;
+  provider?: ArenaProvider;
+  offer?: ArenaProviderOffer;
+}) => {
   const { t, i18n } = useTranslation('rank');
   const modelURL = i18n.language.startsWith('zh')
-    ? model.model_url_zh
-    : model.model_url_en;
+    ? offer?.model_url_zh
+    : offer?.model_url_en;
   const [failedLogo, setFailedLogo] = useState<string>();
   const logo = logos[model.organization];
   const license = model.license?.trim();
@@ -53,12 +65,12 @@ export const ArenaModel = ({ model }: { model: LMArenaRankDataItem }) => {
         )}
       </span>
       <div className='min-w-0 flex-1'>
-        {model.model_id && modelURL ? (
+        {provider && offer?.model_id && modelURL ? (
           <a
             href={modelURL}
             target='_blank'
             rel='noopener noreferrer'
-            title={t('lmrank.view_on_ofox')}
+            title={t('lmrank.view_on_provider', { provider: provider.name })}
             aria-label={model.name}
             className='block whitespace-normal break-words rounded-sm font-mono text-[13px] font-medium leading-5 tracking-[-0.025em] text-gray-950 transition-colors hover:text-blue-600 hover:underline hover:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 dark:text-gray-100 dark:hover:text-blue-300'
           >
@@ -92,13 +104,21 @@ export const ArenaModel = ({ model }: { model: LMArenaRankDataItem }) => {
   );
 };
 
-export const ArenaOfoxLink = ({ model }: { model: LMArenaRankDataItem }) => {
+export const ArenaProviderLink = ({
+  name,
+  provider,
+  offer,
+}: {
+  name: string;
+  provider: ArenaProvider;
+  offer?: ArenaProviderOffer;
+}) => {
   const { t, i18n } = useTranslation('rank');
   const modelURL = i18n.language.startsWith('zh')
-    ? model.model_url_zh
-    : model.model_url_en;
+    ? offer?.model_url_zh
+    : offer?.model_url_en;
 
-  if (!model.model_id || !modelURL) {
+  if (!offer?.model_id || !modelURL) {
     return (
       <span className='text-xs text-gray-400'>{t('lmrank.unavailable')}</span>
     );
@@ -109,8 +129,8 @@ export const ArenaOfoxLink = ({ model }: { model: LMArenaRankDataItem }) => {
       href={modelURL}
       target='_blank'
       rel='noopener noreferrer'
-      title={t('lmrank.view_on_ofox')}
-      aria-label={`${t('lmrank.view_model')}: ${model.name} — ofoxAI`}
+      title={t('lmrank.view_on_provider', { provider: provider.name })}
+      aria-label={`${t('lmrank.view_model')}: ${name} — ${provider.name}`}
       className='inline-flex items-center gap-1 whitespace-nowrap rounded py-1 text-xs font-normal text-gray-500 transition-colors hover:text-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:text-gray-400 dark:hover:text-blue-300'
     >
       <span>{t('lmrank.view_model')}</span>
@@ -119,13 +139,20 @@ export const ArenaOfoxLink = ({ model }: { model: LMArenaRankDataItem }) => {
   );
 };
 
-export const ArenaPriceHeader = () => {
+export const ArenaPriceHeader = ({
+  providerName,
+}: {
+  providerName?: string;
+}) => {
   const { t, i18n } = useTranslation('rank');
   const id = useId();
 
   return (
     <div className='inline-flex items-center gap-0.5'>
-      <span>{t('lmrank.thead.price')}</span>
+      <span>
+        {providerName ? `${providerName} · ` : ''}
+        {t('lmrank.thead.price')}
+      </span>
       <button
         type='button'
         popoverTarget={id}
@@ -167,10 +194,12 @@ const priceTierStyles: Record<ArenaPriceTier, string> = {
 };
 
 export const ArenaPrice = ({
-  model,
+  offer,
+  providerName,
   tier,
 }: {
-  model: LMArenaRankDataItem;
+  offer?: ArenaProviderOffer;
+  providerName: string;
   tier?: ArenaPriceTier;
 }) => {
   const { t, i18n } = useTranslation('rank');
@@ -188,17 +217,17 @@ export const ArenaPrice = ({
           : 2,
     });
   };
-  const unit = model.ofox_price_unit;
+  const unit = offer?.price_unit;
   const tokenPrice = unit === 'usd_per_million_tokens';
   const supportedUnit =
     tokenPrice || unit === 'usd_per_image' || unit === 'usd_per_second';
   const rawPrices = tokenPrice
-    ? [model.ofox_input_price, model.ofox_output_price]
-    : [model.ofox_output_price];
+    ? [offer?.input_price, offer?.output_price]
+    : [offer?.output_price];
   const prices = rawPrices.map((price) => formatPrice(price));
 
   if (
-    !model.model_id ||
+    !offer?.model_id ||
     !supportedUnit ||
     prices.every((price) => price === '—')
   ) {
@@ -215,7 +244,7 @@ export const ArenaPrice = ({
   const unitLabel = t(`lmrank.price_units.${unit}`);
   const priceText = `${isChinese ? '≈' : ''}${currency}${prices.join(' / ')}`;
   const fullPriceText = `${isChinese ? '≈' : ''}${currency}${rawPrices.map((price) => formatPrice(price, true)).join(' / ')}`;
-  const priceDescription = `ofoxAI · ${fullPriceText} · ${unitLabel}${
+  const priceDescription = `${providerName} · ${fullPriceText} · ${unitLabel}${
     isChinese
       ? `（${t('lmrank.exchange_estimate', { rate: USD_TO_CNY })}）`
       : ''
