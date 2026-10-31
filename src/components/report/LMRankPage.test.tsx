@@ -340,14 +340,70 @@ it('honors provider visibility and price switches without leaking legacy fields'
   rerender(
     <LMRankPage {...props} providers={[]} category='vision' month={8} />
   );
-  expect(screen.getAllByRole('columnheader')).toHaveLength(4);
+  expect(screen.getAllByRole('columnheader')).toHaveLength(5);
+  expect(screen.getByText('Arena · lmrank.thead.price')).toBeVisible();
+  expect(screen.queryByText('$1 / 2')).not.toBeInTheDocument();
+  expect(screen.queryByText('$3 / 4')).not.toBeInTheDocument();
+  expect(screen.queryByText(/999/)).not.toBeInTheDocument();
   expect(screen.queryByRole('link')).not.toBeInTheDocument();
   expect(screen.queryByText('lmrank.provider_note')).not.toBeInTheDocument();
   expect(screen.getByText('Example org')).toBeVisible();
+  expect(screen.getAllByRole('cell')[4]).toHaveTextContent('—');
   expect(screen.getByRole('table')).toHaveStyle({
-    minWidth: 'max(100%, 344px)',
+    minWidth: 'max(100%, 536px)',
   });
 });
+
+it.each([
+  { category: 'text', unit: 'usd_per_million_tokens', label: '$1 / 10' },
+  { category: 'text-to-image', unit: 'usd_per_image', label: '$10' },
+  { category: 'text-to-video', unit: 'usd_per_second', label: '$10' },
+] as const)(
+  'shows Arena prices without provider matches for $category',
+  ({ category, unit, label }) => {
+    const props = {
+      year: 2026,
+      month: 9,
+      monthList: [9],
+      category,
+      categoryList: [category],
+      providers: [],
+      list: [10, 20].map((output_price, index) => ({
+        name: `Arena model ${index}`,
+        model_id: null,
+        organization: 'Example',
+        position: index + 1,
+        rating: 1500,
+        change: 0,
+        input_price: 1,
+        output_price,
+        price_unit: unit,
+      })),
+    };
+    const { rerender } = render(<LMRankPage {...props} />);
+    expect(screen.getByText('Arena · lmrank.thead.price')).toBeVisible();
+    expect(screen.getByText(label)).toHaveAttribute(
+      'aria-label',
+      expect.stringContaining('Arena ·')
+    );
+    expect(screen.getAllByText(`lmrank.price_units.${unit}`)).toHaveLength(2);
+    expect(screen.getByText('lmrank.price_tiers.low')).toBeVisible();
+    expect(screen.getByText('lmrank.price_tiers.high')).toBeVisible();
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+
+    rerender(<LMRankPage {...props} providers={[provider]} />);
+    expect(
+      screen.queryByText('Arena · lmrank.thead.price')
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText(label)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('lmrank.price_tiers.low')
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('lmrank.price_tiers.high')
+    ).not.toBeInTheDocument();
+  }
+);
 
 it.each([undefined, [], [provider]])(
   'passes API provider configuration through SSR: %j',

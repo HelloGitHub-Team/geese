@@ -198,7 +198,7 @@ export const ArenaPrice = ({
   providerName,
   tier,
 }: {
-  offer?: ArenaProviderOffer;
+  offer?: ArenaProviderOffer | LMArenaRankDataItem;
   providerName: string;
   tier?: ArenaPriceTier;
 }) => {
@@ -227,7 +227,7 @@ export const ArenaPrice = ({
   const prices = rawPrices.map((price) => formatPrice(price));
 
   if (
-    !offer?.model_id ||
+    (offer && 'provider_id' in offer && !offer.model_id) ||
     !supportedUnit ||
     prices.every((price) => price === '—')
   ) {

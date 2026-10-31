@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { GoStar } from 'react-icons/go';
+import { GoStar, GoStarFill } from 'react-icons/go';
 
 import { NOOP } from '@/utils/constants';
 
@@ -19,51 +19,21 @@ function Rating(props: {
 
   return (
     <div className='flex items-center'>
-      <GoStar
-        size={size}
-        className={clsx('text-gray-400', {
-          'text-yellow-300': value >= 1,
-          'cursor-pointer': !disabled,
-          'cursor-not-allowed opacity-50': disabled,
-        })}
-        onClick={() => handleClick(1)}
-      />
-      <GoStar
-        size={size}
-        className={clsx('text-gray-400', {
-          'text-yellow-300': value >= 2,
-          'cursor-pointer': !disabled,
-          'cursor-not-allowed opacity-50': disabled,
-        })}
-        onClick={() => handleClick(2)}
-      />
-      <GoStar
-        size={size}
-        className={clsx('text-gray-400', {
-          'text-yellow-300': value >= 3,
-          'cursor-pointer': !disabled,
-          'cursor-not-allowed opacity-50': disabled,
-        })}
-        onClick={() => handleClick(3)}
-      />
-      <GoStar
-        size={size}
-        className={clsx('text-gray-400', {
-          'text-yellow-300': value >= 4,
-          'cursor-pointer': !disabled,
-          'cursor-not-allowed opacity-50': disabled,
-        })}
-        onClick={() => handleClick(4)}
-      />
-      <GoStar
-        size={size}
-        className={clsx('text-gray-400', {
-          'text-yellow-300': value >= 5,
-          'cursor-pointer': !disabled,
-          'cursor-not-allowed opacity-50': disabled,
-        })}
-        onClick={() => handleClick(5)}
-      />
+      {[1, 2, 3, 4, 5].map((rating) => {
+        const selected = value >= rating;
+        const Star = selected ? GoStarFill : GoStar;
+        return (
+          <Star
+            key={rating}
+            size={size}
+            className={clsx(selected ? 'text-yellow-300' : 'text-gray-400', {
+              'cursor-pointer': !disabled,
+              'cursor-not-allowed opacity-50': disabled,
+            })}
+            onClick={() => handleClick(rating)}
+          />
+        );
+      })}
     </div>
   );
 }

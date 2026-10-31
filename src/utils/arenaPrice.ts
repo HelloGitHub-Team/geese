@@ -1,15 +1,23 @@
-import { ArenaProviderOffer } from '@/types/rank';
+import { ArenaProviderOffer, LMArenaRankDataItem } from '@/types/rank';
 
 export type ArenaPriceTier = 'high' | 'medium' | 'low';
 
-export const getArenaPriceTiers = (offers: ArenaProviderOffer[]) => {
-  const groups = new Map<string, ArenaProviderOffer[]>();
-  const tiers = new Map<ArenaProviderOffer, ArenaPriceTier>();
+export const getArenaPriceTiers = (
+  offers: (ArenaProviderOffer | LMArenaRankDataItem)[]
+) => {
+  const groups = new Map<
+    string,
+    (ArenaProviderOffer | LMArenaRankDataItem)[]
+  >();
+  const tiers = new Map<
+    ArenaProviderOffer | LMArenaRankDataItem,
+    ArenaPriceTier
+  >();
 
   offers.forEach((offer) => {
-    const { model_id, price_unit: unit, output_price: price } = offer;
+    const { price_unit: unit, output_price: price } = offer;
     if (
-      !model_id ||
+      ('provider_id' in offer && !offer.model_id) ||
       !unit ||
       !['usd_per_million_tokens', 'usd_per_image', 'usd_per_second'].includes(
         unit
@@ -20,7 +28,7 @@ export const getArenaPriceTiers = (offers: ArenaProviderOffer[]) => {
     ) {
       return;
     }
-    const key = `${offer.provider_id}:${unit}`;
+    const key = `${'provider_id' in offer ? offer.provider_id : 'arena'}:${unit}`;
     const group = groups.get(key) || [];
     group.push(offer);
     groups.set(key, group);

@@ -74,7 +74,10 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
       }));
   }, [categoryList, i18n.language]);
 
+  const showArenaPrice = providers.length === 0;
+  const priceColumnWidth = i18n.language.startsWith('zh') ? 168 : 192;
   const priceTiers = useMemo(() => {
+    if (showArenaPrice) return getArenaPriceTiers(list || []);
     const pricedProviders = new Set(
       providers.filter((provider) => provider.is_show_price).map(({ id }) => id)
     );
@@ -85,19 +88,14 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
         )
       )
     );
-  }, [list, providers]);
+  }, [list, providers, showArenaPrice]);
 
   const tableMinWidth =
     344 +
+    (showArenaPrice ? priceColumnWidth : 0) +
     providers.reduce(
       (width, provider) =>
-        width +
-        104 +
-        (provider.is_show_price
-          ? i18n.language.startsWith('zh')
-            ? 168
-            : 192
-          : 0),
+        width + 104 + (provider.is_show_price ? priceColumnWidth : 0),
       0
     );
 
@@ -189,6 +187,22 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
         },
         width: 72,
       },
+      ...(showArenaPrice
+        ? [
+            {
+              key: 'price-arena',
+              title: <ArenaPriceHeader providerName='Arena' />,
+              render: (row: LMArenaRankDataItem) => (
+                <ArenaPrice
+                  offer={row}
+                  providerName='Arena'
+                  tier={priceTiers.get(row)}
+                />
+              ),
+              width: priceColumnWidth,
+            },
+          ]
+        : []),
       ...providers.flatMap((provider) => [
         ...(provider.is_show_price
           ? [
@@ -213,7 +227,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
                     />
                   );
                 },
-                width: i18n.language.startsWith('zh') ? 168 : 192,
+                width: priceColumnWidth,
               },
             ]
           : []),
@@ -247,7 +261,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
         },
       ]),
     ],
-    [i18n.language, t, priceTiers, providers]
+    [i18n.language, t, priceTiers, providers, showArenaPrice, priceColumnWidth]
   );
 
   return (

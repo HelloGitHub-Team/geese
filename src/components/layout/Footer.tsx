@@ -68,6 +68,21 @@ const Footer = ({ t, isLite }: FooterProps) => {
 
       <FooterLink
         className='mt-2 inline-flex w-full items-center gap-1.5 whitespace-nowrap leading-5'
+        href='https://rustfs.com/'
+      >
+        <span>{t('footer.storage_sponsor')}</span>
+        <img
+          className='h-3 w-auto shrink-0 dark:brightness-0 dark:invert'
+          src='/images/sponsors/rustfs.svg'
+          width={360}
+          height={61}
+          alt='RustFS'
+        />
+        <span>{t('footer.storage_sponsor2')}</span>
+      </FooterLink>
+
+      <FooterLink
+        className='mt-2 inline-flex w-full items-center gap-1.5 whitespace-nowrap leading-5'
         href='https://serpapi.com/hello-github'
       >
         <span>{t('footer.community_sponsor')}</span>
