@@ -18,6 +18,7 @@ type DropdownProps = {
   border?: boolean;
   width?: number;
   minWidth?: number;
+  fitContent?: boolean;
   initValue?: string;
   options: option[];
   trigger?: string;
@@ -81,7 +82,7 @@ function Dropdown(props: DropdownProps, ref: any) {
 
   const dropdownClassName = (show: boolean) =>
     classNames(
-      'absolute top-full z-20 mt-1.5 min-w-[8rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-600 dark:bg-gray-800',
+      'absolute top-full z-20 mt-1.5 max-w-[calc(100vw-2rem)] overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-600 dark:bg-gray-800',
       {
         block: show,
         hidden: !show,
@@ -158,7 +159,10 @@ function Dropdown(props: DropdownProps, ref: any) {
       </button>
 
       <div
-        style={{ width }}
+        style={{
+          width,
+          minWidth: props.fitContent ? 'max-content' : width,
+        }}
         className={dropdownClassName(show)}
         role='menu'
         onMouseLeave={onTrigger('mouseleave')}
@@ -175,7 +179,10 @@ function Dropdown(props: DropdownProps, ref: any) {
               role='menuitemradio'
               aria-checked={activeOption?.key === opt.key}
               className={classNames(
-                'block cursor-pointer whitespace-normal break-words rounded-md px-2.5 py-1.5 text-left text-sm leading-5 transition-colors',
+                'block cursor-pointer rounded-md px-2.5 py-1.5 text-left text-sm leading-5 transition-colors',
+                props.fitContent
+                  ? 'whitespace-nowrap'
+                  : 'whitespace-normal break-words',
                 activeOption?.key === opt.key
                   ? 'bg-blue-50 font-medium text-blue-600 dark:bg-blue-500/15 dark:text-blue-300'
                   : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-100'

@@ -170,6 +170,7 @@ export const RankSearchBar = ({
           options={typeOptions}
           initValue={target}
           size='small'
+          fitContent
           onChange={(opt) => onChange('target', opt.key)}
         />
       </div>

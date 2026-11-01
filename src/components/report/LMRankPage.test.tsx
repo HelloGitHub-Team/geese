@@ -220,7 +220,7 @@ it('opens compact dropdowns, marks the current option and routes selections', ()
   const contribution = screen.getByRole('menuitemradio', {
     name: 'Contribution',
   });
-  expect(contribution).toHaveClass('whitespace-normal', 'break-words');
+  expect(contribution).toHaveClass('whitespace-nowrap');
   fireEvent.click(contribution);
   expect(mockPush).toHaveBeenLastCalledWith('/report/contribution');
   expect(typeMenu).toHaveClass('hidden');
