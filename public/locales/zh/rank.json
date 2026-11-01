@@ -77,11 +77,15 @@
     "empty": "本月暂无该分类榜单数据",
     "input": "输入",
     "output": "输出",
+    "exchange_estimate": "人民币估算，固定参考汇率：1 美元 = {{rate}} 元人民币",
     "price_units": {
       "usd_per_million_tokens": "输入 / 输出 · 每百万 token",
       "usd_per_image": "每张图片",
       "usd_per_second": "每秒视频"
     },
+    "price_help": "价格说明",
+    "price_precision": "金额按显示精度四舍五入，小额价格保留有效数字。",
+    "price_tier_description": "按当前榜单同一供应商、同计费单位的输出价格，从贵到便宜分为三档。",
     "price_tiers": {
       "high": "贵",
       "medium": "适中",

@@ -9,5 +9,9 @@
   },
   "expand": "展开",
   "collapse": "收起",
-  "empty": "暂无内容"
+  "empty": "暂无内容",
+  "source": {
+    "description": "内容整理自 spdx 和 GitHub 网站，并遵循",
+    "license": "协议。"
+  }
 }

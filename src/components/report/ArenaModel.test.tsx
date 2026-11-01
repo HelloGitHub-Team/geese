@@ -200,41 +200,61 @@ it.each(['Apache 2.0', 'MIT', 'Kimi K3 license', 'qwen-research'])(
 it.each([
   ['en', en],
   ['zh', zh],
-] as const)(
-  'renders a plain price header in %s',
-  async (language, messages) => {
-    const i18n = createInstance();
-    await i18n.init({
-      lng: language,
-      resources: { [language]: { rank: messages } },
-      defaultNS: 'rank',
-    });
-    jest.mocked(useTranslation).mockReturnValue({
-      t: i18n.t.bind(i18n),
-      i18n,
-    } as unknown as ReturnType<typeof useTranslation>);
+] as const)('renders the price help in %s', async (language, messages) => {
+  const i18n = createInstance();
+  await i18n.init({
+    lng: language,
+    resources: { [language]: { rank: messages } },
+    defaultNS: 'rank',
+  });
+  jest.mocked(useTranslation).mockReturnValue({
+    t: i18n.t.bind(i18n),
+    i18n,
+  } as unknown as ReturnType<typeof useTranslation>);
 
-    const { container, rerender } = render(<ArenaPriceHeader />);
-    expect(screen.getByText(messages.lmrank.thead.price)).toBeVisible();
-    expect(container.querySelector('[popover]')).toBeNull();
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
-
-    rerender(<ArenaPriceHeader providerName='Example supplier' />);
-    expect(
-      screen.getByText(`Example supplier · ${messages.lmrank.thead.price}`)
-    ).toBeVisible();
-    jest
-      .mocked(useTranslation)
-      .mockReset()
-      .mockImplementation(
-        () =>
-          ({
-            t: (key: string) => key,
-            i18n: { language: 'en' },
-          }) as unknown as ReturnType<typeof useTranslation>
-      );
+  const { container, rerender } = render(<ArenaPriceHeader />);
+  expect(screen.getByText(messages.lmrank.thead.price)).toBeVisible();
+  const helpButton = container.querySelector('button[aria-label]');
+  expect(helpButton).toHaveAttribute('aria-label', messages.lmrank.price_help);
+  expect(helpButton).toBeVisible();
+  expect(container.querySelector('[popover] button')).toBeNull();
+  expect(container.querySelector('[popover]')).toHaveTextContent(
+    messages.lmrank.price_tier_description
+  );
+  expect(container.querySelector('[popover]')).toHaveTextContent(
+    messages.lmrank.price_precision
+  );
+  if (language === 'zh') {
+    expect(container.querySelector('[popover]')).toHaveTextContent(
+      messages.lmrank.exchange_estimate.replace('{{rate}}', '7')
+    );
   }
-);
+
+  rerender(<ArenaPriceHeader providerName='Example supplier' />);
+  expect(
+    screen.getByText(`Example supplier · ${messages.lmrank.thead.price}`)
+  ).toBeVisible();
+  jest
+    .mocked(useTranslation)
+    .mockReset()
+    .mockImplementation(
+      () =>
+        ({
+          t: (key: string) => key,
+          i18n: { language: 'en' },
+        }) as unknown as ReturnType<typeof useTranslation>
+    );
+});
+
+beforeEach(() => {
+  jest.mocked(useTranslation).mockImplementation(
+    () =>
+      ({
+        t: (key: string) => key,
+        i18n: { language: 'en' },
+      }) as unknown as ReturnType<typeof useTranslation>
+  );
+});
 
 it.each([
   { input_price: 0, output_price: 0.000001, label: '$0 / 0.000001' },

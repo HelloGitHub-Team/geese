@@ -7,15 +7,18 @@ import {
 } from '@testing-library/react';
 
 import { getRecommend } from '@/services/home';
+import { getLicenseDetail } from '@/services/license';
 
 import Recommend from './Recommend';
 
 import { RecommendItems } from '@/types/home';
 
 jest.mock('@/services/home', () => ({ getRecommend: jest.fn() }));
+jest.mock('@/services/license', () => ({ getLicenseDetail: jest.fn() }));
 jest.mock('next/router', () => ({ useRouter: jest.fn() }));
 
 const request = jest.mocked(getRecommend);
+const licenseRequest = jest.mocked(getLicenseDetail);
 const t = (key: string) => key;
 const empty: RecommendItems = { success: true, total: 0, data: [] };
 const populated: RecommendItems = {
@@ -38,6 +41,10 @@ const populated: RecommendItems = {
 
 beforeEach(() => {
   jest.resetAllMocks();
+  licenseRequest.mockResolvedValue({
+    success: true,
+    data: { lid: 'license-id' },
+  } as any);
   jest.requireMock('next/router').useRouter.mockReturnValue({
     pathname: '/help/ats',
     query: {},
@@ -89,6 +96,17 @@ it.each(['network', 'api'])(
   }
 );
 
+it('uses the license record ID when loading license recommendations', async () => {
+  request.mockResolvedValue(empty);
+  const router = { pathname: '/license/[lid]', query: { lid: 'MIT' } };
+  jest.requireMock('next/router').useRouter.mockReturnValue(router);
+  render(<Recommend t={t} />);
+  await waitFor(() => {
+    expect(licenseRequest).toHaveBeenCalledWith('', 'MIT');
+    expect(request).toHaveBeenCalledWith('license-id');
+  });
+});
+
 it('uses the current license filter and ignores results from a previous route', async () => {
   let resolvePrevious!: (value: RecommendItems) => void;
   request.mockReturnValueOnce(new Promise((done) => (resolvePrevious = done)));
@@ -96,12 +114,15 @@ it('uses the current license filter and ignores results from a previous route', 
   const router = { pathname: '/license/[lid]', query: { lid: 'mit' } };
   jest.requireMock('next/router').useRouter.mockReturnValue(router);
   const { rerender } = render(<Recommend t={t} />);
-  expect(request).toHaveBeenCalledWith('mit');
+  await waitFor(() => expect(request).toHaveBeenCalledWith('license-id'));
   router.query.lid = 'apache-2.0';
   rerender(<Recommend t={t} />);
-  await waitFor(() => expect(request).toHaveBeenLastCalledWith('apache-2.0'));
+  await waitFor(() =>
+    expect(licenseRequest).toHaveBeenLastCalledWith('', 'apache-2.0')
+  );
+  await waitFor(() => expect(request).toHaveBeenLastCalledWith('license-id'));
   expect(await screen.findByText('recommend.empty')).toBeInTheDocument();
   await act(async () => resolvePrevious(populated));
   expect(screen.queryByText('owner/project')).not.toBeInTheDocument();
-  expect(screen.getByText('CC-BY-3.0')).toBeInTheDocument();
+  expect(screen.queryByText('CC-BY-3.0')).not.toBeInTheDocument();
 });

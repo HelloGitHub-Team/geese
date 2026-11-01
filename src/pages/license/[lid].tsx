@@ -97,11 +97,9 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
   }, [detail]);
 
   useEffect(() => {
-    if (expand) {
-      setLicenseText(detail.text);
-    } else {
-      setLicenseText(detail.text?.slice(0, 600) + '...');
-    }
+    const text = detail.text?.trimEnd();
+    const preview = text?.slice(0, 600).trimEnd();
+    setLicenseText(text ? (expand ? text : `${preview}...`) : undefined);
   }, [expand, detail]);
 
   const onCopy = async () => {
@@ -196,17 +194,48 @@ const LicenseDetail: NextPage<LicenseDetailProps> = ({ detail }) => {
           </div>
           {licenseText ? (
             <div className='whitespace-pre-wrap md:text-justify'>
-              {licenseText}
-              <span
-                className='ml-2 cursor-pointer text-sm font-medium text-blue-400'
-                onClick={() => setExpand(!expand)}
-              >
-                {!expand ? t('expand') : t('collapse')}
-              </span>
+              {expand ? (
+                <>
+                  {licenseText}
+                  <button
+                    type='button'
+                    className='ml-2 inline whitespace-nowrap text-sm font-medium text-blue-500 hover:text-blue-600'
+                    onClick={() => setExpand(false)}
+                  >
+                    {t('collapse')}
+                  </button>
+                </>
+              ) : (
+                <>
+                  {licenseText.slice(0, -3)}
+                  <span className='inline-flex items-baseline whitespace-nowrap'>
+                    ...
+                    <button
+                      type='button'
+                      className='ml-2 text-sm font-medium text-blue-500 hover:text-blue-600'
+                      onClick={() => setExpand(true)}
+                    >
+                      {t('expand')}
+                    </button>
+                  </span>
+                </>
+              )}
             </div>
           ) : (
             <div className='my-4'>{t('empty')}</div>
           )}
+          <div className='mt-6 border-t pt-3 text-xs leading-5 text-gray-500 dark:border-gray-700 dark:text-gray-400'>
+            {t('source.description')}
+            <a
+              href='https://creativecommons.org/licenses/by/3.0/deed.zh'
+              target='_blank'
+              rel='noreferrer'
+              className='mx-1 text-blue-500 hover:underline'
+            >
+              CC-BY-3.0
+            </a>
+            {t('source.license')}
+          </div>
         </div>
       </div>
     </>

@@ -7,6 +7,7 @@ import { MdRefresh } from 'react-icons/md';
 import HostedImage from '@/components/HostedImage';
 
 import { getRecommend } from '@/services/home';
+import { getLicenseDetail } from '@/services/license';
 
 import { RecommendSkeleton } from '../loading/skeleton';
 
@@ -75,7 +76,12 @@ export default function Recommend({ t }: SideProps) {
 
     async function loadRecommendations() {
       try {
-        const res = await getRecommend(lid);
+        let recommendationLid = lid;
+        if (isLicenseDetailPath(pathname) && lid) {
+          const license = await getLicenseDetail('', lid);
+          if (license.success) recommendationLid = license.data.lid;
+        }
+        const res = await getRecommend(recommendationLid);
         if (active) {
           setFailed(!res.success);
           setRepositories(res.success ? res.data : []);
@@ -92,8 +98,6 @@ export default function Recommend({ t }: SideProps) {
       active = false;
     };
   }, [pathname, lid, refreshCount]);
-
-  const ShowIsLicenseDetail = isLicenseDetailPath(pathname);
 
   return (
     <>
@@ -133,20 +137,6 @@ export default function Recommend({ t }: SideProps) {
           )}
         </div>
       </div>
-      {ShowIsLicenseDetail && (
-        <div className='space-y-1.5 rounded-lg bg-white px-4 pb-2 pt-3 text-sm dark:bg-gray-800'>
-          {t('recommend.desc')}
-          <a
-            target='_blank'
-            className='cursor-pointer px-1 hover:text-blue-500'
-            href='https://creativecommons.org/licenses/by/3.0/deed.zh'
-            rel='noreferrer'
-          >
-            CC-BY-3.0
-          </a>
-          {t('recommend.desc2')}
-        </div>
-      )}
     </>
   );
 }

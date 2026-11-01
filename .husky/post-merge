@@ -1,1 +1,1 @@
-yarn
+YARN_IGNORE_PATH=1 yarn install --frozen-lockfile

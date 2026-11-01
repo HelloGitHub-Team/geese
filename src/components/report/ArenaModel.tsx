@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next/pages';
-import { useState } from 'react';
-import { MdNorthEast } from 'react-icons/md';
+import { useId, useState } from 'react';
+import { MdInfoOutline, MdNorthEast } from 'react-icons/md';
 
 import { ArenaPriceTier } from '@/utils/arenaPrice';
 
@@ -144,13 +144,40 @@ export const ArenaPriceHeader = ({
 }: {
   providerName?: string;
 }) => {
-  const { t } = useTranslation('rank');
+  const { t, i18n } = useTranslation('rank');
+  const id = useId();
 
   return (
-    <span>
-      {providerName ? `${providerName} · ` : ''}
-      {t('lmrank.thead.price')}
-    </span>
+    <div className='inline-flex items-center gap-0.5'>
+      <span>
+        {providerName ? `${providerName} · ` : ''}
+        {t('lmrank.thead.price')}
+      </span>
+      <button
+        type='button'
+        popoverTarget={id}
+        aria-label={t('lmrank.price_help')}
+        className='inline-flex h-6 w-6 shrink-0 items-center justify-start rounded text-gray-400 hover:text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 dark:hover:text-gray-200'
+      >
+        <MdInfoOutline size={12} aria-hidden='true' />
+      </button>
+      <div
+        id={id}
+        popover='auto'
+        className='m-auto w-80 max-w-[calc(100vw-2rem)] rounded-xl border border-gray-200 bg-white p-4 text-left text-xs leading-5 text-gray-600 shadow-xl dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'
+      >
+        <div className='space-y-2'>
+          <p className='font-semibold text-gray-900 dark:text-gray-100'>
+            {t('lmrank.price_help')}
+          </p>
+          <p>{t('lmrank.price_tier_description')}</p>
+          <p>{t('lmrank.price_precision')}</p>
+          {i18n.language.startsWith('zh') && (
+            <p>{t('lmrank.exchange_estimate', { rate: USD_TO_CNY })}</p>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 

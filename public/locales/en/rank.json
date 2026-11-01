@@ -77,11 +77,15 @@
     "empty": "No leaderboard data for this category this month",
     "input": "Input",
     "output": "Output",
+    "exchange_estimate": "Estimated CNY at a fixed reference rate: 1 USD = {{rate}} CNY",
     "price_units": {
       "usd_per_million_tokens": "In / Out · per 1M tokens",
       "usd_per_image": "per image",
       "usd_per_second": "per video second"
     },
+    "price_help": "About prices",
+    "price_precision": "Amounts are rounded for display, preserving significant digits for small prices.",
+    "price_tier_description": "Ranks output prices from the same provider with the same billing unit on this leaderboard into three tiers, from expensive to affordable.",
     "price_tiers": {
       "high": "Expensive",
       "medium": "Moderate",

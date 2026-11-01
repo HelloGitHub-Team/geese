@@ -9,5 +9,9 @@
   },
   "expand": "Expand",
   "collapse": "Collapse",
-  "empty": "No content available"
+  "empty": "No content available",
+  "source": {
+    "description": "Content is collected from spdx and GitHub, following the",
+    "license": "protocol."
+  }
 }

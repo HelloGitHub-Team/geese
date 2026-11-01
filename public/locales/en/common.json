@@ -42,8 +42,6 @@
   },
   "recommend": {
     "title": "Recommend",
-    "desc": "Content is collected from spdx and GitHub, following the",
-    "desc2": "protocol.",
     "change": "Refresh",
     "empty": "No recommendations available",
     "error": "Could not load recommendations. Please try again.",
