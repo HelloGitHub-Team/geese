@@ -12,7 +12,14 @@ node --version # Should be v26.x
 
 This `export` applies only to the current terminal. Select Node 26 again in a new terminal.
 
-Firstly, the project utilizes yarn for package installation, which you can search for and install on your own. After installation is complete, set the version number with the command `yarn set version v1.22.19`.
+The project uses Yarn Classic installed in the environment (`>=1.22.19 <2`) and does not store the Yarn runtime in the repository. Install 1.22.22 for new environments; CI uses this version as well:
+
+```sh
+npm install --global yarn@1.22.22
+yarn --version
+```
+
+Servers with Yarn 1.22.19 or 1.22.22 installed can continue using their existing version.
 
 Next, to get the 'Geese' project running locally, follow these detailed steps:
 

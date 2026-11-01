@@ -22,9 +22,6 @@ pnpm-lock.yaml
 *.tsbuildinfo
 .eslintcache
 /.cache/
-/.yarn/cache/
-/.yarn/unplugged/
-/.yarn/install-state.gz
 
 # production
 /build

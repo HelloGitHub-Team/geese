@@ -38,8 +38,5 @@ yarn-error.log*
 # changelog
 CHANGELOG.md
 
-# yarn
-.yarn
-
 # data
 /data

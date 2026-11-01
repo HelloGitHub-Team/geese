@@ -14,7 +14,14 @@ node --version # 应为 v26.x
 
 上述 `export` 仅作用于当前终端；新终端需重新切换 Node 版本。
 
-首先，项目用的是 yarn 安装可自行搜索，安装完成后通过 `yarn set version v1.22.19` 命令设置版本号。
+项目使用环境中安装的 Yarn Classic（`>=1.22.19 <2`），不在仓库中保存 Yarn 运行文件。新环境建议安装 1.22.22，CI 也使用该版本：
+
+```sh
+npm install --global yarn@1.22.22
+yarn --version
+```
+
+已安装 Yarn 1.22.19 或 1.22.22 的服务器可以继续使用现有版本。
 
 然后，要把「Geese」项目在本地跑起来，详细步骤如下：
 

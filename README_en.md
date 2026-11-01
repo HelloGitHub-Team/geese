@@ -16,19 +16,6 @@ This community offers interesting and beginner-friendly open-source projects acr
 
 Currently, the community **is live** for [online experience](https://hellogithub.com). If you encounter any issues or find bugs, you can [report them with one click](https://github.com/HelloGitHub-Team/geese/issues/new).
 
-## Up for Grabs
-
-- [ ] [[Complex] Reduce the package size](https://github.com/HelloGitHub-Team/geese/issues/101)
-- [ ] [[Simple] Pending issues to be resolved](https://github.com/HelloGitHub-Team/geese/issues/38)
-
-Development guidelines can be found [here](./docs/content_en.md). Thanks to every [contributor](https://github.com/HelloGitHub-Team/geese/graphs/contributors); I'm thrilled to be working on an open-source project with all of you. This experience has been incredibly rewarding.
-
-**Requirements**
-
-1. You should have a **passion for open source**, **a commitment to seeing things through**, and **reliability**.
-2. Completion time: It can be based on your actual situation, with reference times of: Simple (7 days), Medium (14 days), Complex (30 days).
-3. If you have any questions, feel free to communicate in the corresponding `issues`.
-
 ## Disclaimer
 
 <a href="mailto:595666367@qq.com">Contact me</a>

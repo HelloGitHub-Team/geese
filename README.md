@@ -16,19 +16,6 @@ HelloGitHub 社区提供了不同 **编程语言/类别/标签** 有趣、入门
 
 目前，该社区 **已上线** [在线体验](https://hellogithub.com) 如遇到问题或发现 BUG 可以[一键反馈](https://github.com/HelloGitHub-Team/geese/issues/new)。
 
-## 待认领
-
-- [ ] [【复杂】减小项目打包的体积](https://github.com/HelloGitHub-Team/geese/issues/101)
-- [ ] [【简单】待解决的问题](https://github.com/HelloGitHub-Team/geese/issues/38)
-
-开发须知[在这里](./docs/content.md)，感谢每一位参与贡献的[小伙伴](https://github.com/HelloGitHub-Team/geese/graphs/contributors)，十分开心可以和各位一起做开源项目，这段经历让我受益匪浅。
-
-**要求**
-
-1. 拥有 **热爱开源**、**有始有终**、**靠谱** 的性格。
-2. 完成时间：可根据自己的实际情况而定，参考：简单（7 天）、中等（14 天）、复杂（30 天）。
-3. 有任何问题可在对应需求下的 `issues` 中进行沟通。
-
 ## 声明
 
 <a href="mailto:595666367@qq.com">联系我</a>

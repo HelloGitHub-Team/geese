@@ -98,7 +98,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
     (showArenaPrice ? priceColumnWidth : 0) +
     providers.reduce(
       (width, provider) =>
-        width + 104 + (provider.is_show_price ? priceColumnWidth : 0),
+        width + 112 + (provider.is_show_price ? priceColumnWidth : 0),
       0
     );
 
@@ -255,7 +255,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
               )}
             />
           ),
-          width: 104,
+          width: 112,
         },
       ]),
     ],

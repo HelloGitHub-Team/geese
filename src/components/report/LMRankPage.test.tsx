@@ -105,11 +105,14 @@ it('keeps model columns fixed and lets the final provider column fill desktop sp
     expect(cells[2].querySelector('svg')).toBeNull();
   });
   expect(screen.getByRole('table').parentElement).toHaveClass(
-    'overflow-x-auto'
+    'touch-pan-x',
+    'overflow-x-auto',
+    'md:touch-none',
+    'md:overflow-x-hidden'
   );
   expect(screen.getByRole('table')).toHaveClass('w-full', 'table-fixed');
   expect(screen.getByRole('table')).toHaveStyle({
-    minWidth: 'max(100%, 728px)',
+    minWidth: 'max(100%, 736px)',
   });
   expect(
     screen.getAllByRole('columnheader').map((cell) => cell.style.width)
