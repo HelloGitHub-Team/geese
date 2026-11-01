@@ -233,11 +233,11 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
 
   const renderDropdownMenu = () => (
     <div
-      className={`absolute ${
+      className={`absolute left-0 top-full z-20 -mt-px ${
         showDropdown ? 'block' : 'hidden'
       } lg:group-hover:block`}
     >
-      <div className='relative z-10 mt-1 w-max origin-top-right rounded-md border border-gray-100 bg-white shadow-lg'>
+      <div className='w-max origin-top-left rounded-md border border-gray-100 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800'>
         {urlOptions.map((item) => (
           <CustomLink
             key={item.key}
@@ -303,7 +303,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
             <Score repo={repo} t={t} />
           </div>
         </div>
-        <div className='flex flex-1 flex-row flex-wrap items-end justify-between gap-x-4 gap-y-3'>
+        <div className='flex flex-1 flex-row flex-wrap justify-between'>
           <div className='mb-2 flex w-full flex-col gap-y-2 md:hidden'>
             <div className='flex flex-row items-center'>
               <CustomLink
@@ -322,25 +322,58 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
               {i18n_lang == 'en' ? repo.title_en || repo.title : repo.title}
             </span>
           </div>
-          <div className='w-full min-w-0 md:w-auto md:flex-1'>
+          <div className='hidden md:flex'>
             {repo.star_history ? (
-              <SvgTrend {...repo.star_history} locale={i18n_lang} />
+              <div className='flex flex-col items-center'>
+                <SvgTrend {...repo.star_history} locale={i18n_lang} />
+                <div className='text-xs text-gray-500'>
+                  {t('history.past_day_desc', {
+                    days: repo.star_history.x.length,
+                  })}
+                  {t('history.total_desc', {
+                    total: numFormat(repo.star_history.increment, 1),
+                  })}
+                </div>
+              </div>
             ) : (
-              <p className='pb-1 text-xs text-gray-500'>
-                {t('history.fail_desc')}
-              </p>
+              <div className='flex flex-col justify-end px-1 pb-1 text-xs text-gray-500'>
+                <div>{t('history.fail_desc')}</div>
+              </div>
             )}
           </div>
           <div className='flex h-[72px] w-full flex-row items-end gap-x-2 md:mt-0 md:w-64 lg:w-72'>
             <div className='group relative lg:block'>
-              <div className='hidden lg:block'>
-                <CustomLink
-                  href={repo.url}
-                  onClick={() => handleClickLink('source', repo.rid)}
-                >
+              <div className='relative' ref={urlMenuRef}>
+                <div className='hidden lg:block'>
+                  <CustomLink
+                    href={repo.url}
+                    onClick={() => handleClickLink('source', repo.rid)}
+                  >
+                    <Button
+                      variant='white-outline'
+                      className='origin-top scale-95 transition duration-200 ease-in-out hover:scale-100'
+                    >
+                      {urlOptions.length > 0 ? (
+                        <div className='flex flex-row items-center px-1 py-3'>
+                          <div className='px-1 text-sm font-medium'>
+                            {t('info.vite')}
+                          </div>
+                          <AiOutlineDown size={10} />
+                        </div>
+                      ) : (
+                        <div className='p-3 text-sm font-medium'>
+                          {t('info.vite')}
+                        </div>
+                      )}
+                    </Button>
+                  </CustomLink>
+                </div>
+
+                <div className='block lg:hidden'>
                   <Button
                     variant='white-outline'
                     className='origin-top scale-95 transition duration-200 ease-in-out hover:scale-100'
+                    onClick={handleURLOptionsToggle} // 添加点击事件处理器
                   >
                     {urlOptions.length > 0 ? (
                       <div className='flex flex-row items-center px-1 py-3'>
@@ -350,40 +383,20 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
                         <AiOutlineDown size={10} />
                       </div>
                     ) : (
-                      <div className='p-3 text-sm font-medium'>
-                        {t('info.vite')}
-                      </div>
+                      <CustomLink
+                        href={repo.url}
+                        onClick={() => handleClickLink('source', repo.rid)}
+                      >
+                        <div className='p-3 text-sm font-medium'>
+                          {t('info.vite')}
+                        </div>
+                      </CustomLink>
                     )}
                   </Button>
-                </CustomLink>
-              </div>
+                </div>
 
-              <div className='block lg:hidden' ref={urlMenuRef}>
-                <Button
-                  variant='white-outline'
-                  className='origin-top scale-95 transition duration-200 ease-in-out hover:scale-100'
-                  onClick={handleURLOptionsToggle} // 添加点击事件处理器
-                >
-                  {urlOptions.length > 0 ? (
-                    <div className='flex flex-row items-center px-1 py-3'>
-                      <div className='px-1 text-sm font-medium'>
-                        {t('info.vite')}
-                      </div>
-                      <AiOutlineDown size={10} />
-                    </div>
-                  ) : (
-                    <CustomLink
-                      href={repo.url}
-                      onClick={() => handleClickLink('source', repo.rid)}
-                    >
-                      <div className='p-3 text-sm font-medium'>
-                        {t('info.vite')}
-                      </div>
-                    </CustomLink>
-                  )}
-                </Button>
+                {renderDropdownMenu()}
               </div>
-              {renderDropdownMenu()}
             </div>
             <Button
               variant={isVoted ? 'blue-outline' : 'gradient'}

@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next/pages';
-import { useId, useState } from 'react';
-import { MdInfoOutline, MdNorthEast } from 'react-icons/md';
+import { useState } from 'react';
+import { MdNorthEast } from 'react-icons/md';
 
 import { ArenaPriceTier } from '@/utils/arenaPrice';
 
@@ -14,7 +14,7 @@ import providerLogos from '~/images/arena/providers.json';
 
 const logos: Record<string, string> = providerLogos;
 
-// Fixed display estimate, not a live exchange rate.
+// Fixed display estimate used to convert USD prices to CNY.
 const USD_TO_CNY = 7;
 
 export const ArenaModel = ({
@@ -144,38 +144,13 @@ export const ArenaPriceHeader = ({
 }: {
   providerName?: string;
 }) => {
-  const { t, i18n } = useTranslation('rank');
-  const id = useId();
+  const { t } = useTranslation('rank');
 
   return (
-    <div className='inline-flex items-center gap-0.5'>
-      <span>
-        {providerName ? `${providerName} · ` : ''}
-        {t('lmrank.thead.price')}
-      </span>
-      <button
-        type='button'
-        popoverTarget={id}
-        aria-label={t('lmrank.price_help')}
-        className='inline-flex h-6 w-6 shrink-0 items-center justify-start rounded text-gray-400 hover:text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 dark:hover:text-gray-200'
-      >
-        <MdInfoOutline size={12} aria-hidden='true' />
-      </button>
-      <div
-        id={id}
-        popover='auto'
-        className='m-auto w-80 max-w-[calc(100vw-2rem)] space-y-1 rounded-lg border border-gray-200 bg-white p-3 text-left text-xs font-normal leading-5 text-gray-600 shadow-lg dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300'
-      >
-        <p className='font-medium text-gray-900 dark:text-gray-100'>
-          {t('lmrank.price_help')}
-        </p>
-        <p>{t('lmrank.price_tier_description')}</p>
-        <p>{t('lmrank.price_precision')}</p>
-        {i18n.language.startsWith('zh') && (
-          <p>{t('lmrank.exchange_estimate', { rate: USD_TO_CNY })}</p>
-        )}
-      </div>
-    </div>
+    <span>
+      {providerName ? `${providerName} · ` : ''}
+      {t('lmrank.thead.price')}
+    </span>
   );
 };
 
@@ -187,24 +162,21 @@ const priceTierStyles: Record<ArenaPriceTier, string> = {
 
 export const ArenaPrice = ({
   offer,
-  providerName,
   tier,
 }: {
   offer?: ArenaProviderOffer | LMArenaRankDataItem;
-  providerName: string;
   tier?: ArenaPriceTier;
 }) => {
   const { t, i18n } = useTranslation('rank');
   const isChinese = i18n.language.startsWith('zh');
   const currency = isChinese ? '¥' : '$';
-  const formatPrice = (price?: number | null, full = false) => {
+  const formatPrice = (price?: number | null) => {
     if (typeof price !== 'number' || !Number.isFinite(price) || price < 0)
       return '—';
     const amount = price * (isChinese ? USD_TO_CNY : 1);
     return amount.toLocaleString(i18n.language, {
-      maximumFractionDigits: full
-        ? 6
-        : amount > 0 && amount < 0.01
+      maximumFractionDigits:
+        amount > 0 && amount < 0.01
           ? Math.min(20, -Math.floor(Math.log10(amount)))
           : 2,
     });
@@ -235,29 +207,15 @@ export const ArenaPrice = ({
 
   const unitLabel = t(`lmrank.price_units.${unit}`);
   const priceText = `${isChinese ? '≈' : ''}${currency}${prices.join(' / ')}`;
-  const fullPriceText = `${isChinese ? '≈' : ''}${currency}${rawPrices.map((price) => formatPrice(price, true)).join(' / ')}`;
-  const priceDescription = `${providerName} · ${fullPriceText} · ${unitLabel}${
-    isChinese
-      ? `（${t('lmrank.exchange_estimate', { rate: USD_TO_CNY })}）`
-      : ''
-  }`;
-
   return (
-    <div
-      className='flex min-w-0 flex-col items-start gap-0.5'
-      title={priceDescription}
-    >
+    <div className='flex min-w-0 flex-col items-start gap-0.5'>
       <div className='flex min-w-0 max-w-full items-center gap-1 whitespace-normal text-xs leading-5'>
-        <span
-          className='min-w-0 break-words font-normal tabular-nums text-gray-700 dark:text-gray-300'
-          aria-label={priceDescription}
-        >
+        <span className='min-w-0 break-words font-normal tabular-nums text-gray-700 dark:text-gray-300'>
           {priceText}
         </span>
         {tier && (
           <span
             className={`inline-flex shrink-0 items-center whitespace-nowrap rounded px-1 py-px text-[10px] font-normal leading-3 ${priceTierStyles[tier]}`}
-            title={t('lmrank.price_tier_description')}
           >
             {t(`lmrank.price_tiers.${tier}`)}
           </span>

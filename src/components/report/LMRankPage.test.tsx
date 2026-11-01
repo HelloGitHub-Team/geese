@@ -514,10 +514,8 @@ it.each([
     expect(
       screen.queryByText('Arena · lmrank.thead.price')
     ).not.toBeInTheDocument();
-    expect(screen.getByText(label)).toHaveAttribute(
-      'aria-label',
-      expect.stringContaining('Arena ·')
-    );
+    expect(screen.getByText(label)).not.toHaveAttribute('title');
+    expect(screen.getByText(label)).not.toHaveAttribute('aria-label');
     expect(screen.getAllByText(`lmrank.price_units.${unit}`)).toHaveLength(2);
     expect(screen.getByText('lmrank.price_tiers.low')).toBeVisible();
     expect(screen.getByText('lmrank.price_tiers.high')).toBeVisible();

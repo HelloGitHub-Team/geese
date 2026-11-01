@@ -196,11 +196,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
               key: 'price-arena',
               title: <ArenaPriceHeader />,
               render: (row: LMArenaRankDataItem) => (
-                <ArenaPrice
-                  offer={row}
-                  providerName='Arena'
-                  tier={priceTiers.get(row)}
-                />
+                <ArenaPrice offer={row} tier={priceTiers.get(row)} />
               ),
               width: priceColumnWidth,
             },
@@ -225,7 +221,6 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
                   return (
                     <ArenaPrice
                       offer={offer}
-                      providerName={provider.name}
                       tier={offer ? priceTiers.get(offer) : undefined}
                     />
                   );
@@ -326,7 +321,6 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
               <div className='whitespace-pre-wrap leading-8'>
                 <p>
                   <Trans ns='rank' i18nKey='lmrank.p_text' />
-                  {providers.length > 0 && ` ${t('lmrank.provider_note')}`}
                 </p>
               </div>
             </div>

@@ -61,8 +61,7 @@
   "lmrank": {
     "title": "LM Rank",
     "nav": "{{month}} {{year}} LM Ranking",
-    "p_text": "<strong>The Arena Ranking</strong> compares models using real user evaluations across text, coding, vision, image and video tasks. We aggregate and clean model names from the original leaderboards.",
-    "provider_note": "The provider columns link to details for matched models.",
+    "p_text": "<strong>The Arena Ranking</strong> is a leaderboard created through user votes. Users try and compare models in anonymous head-to-head matchups, and the votes are used to produce scores and rankings. It covers text, coding, vision, image, and video generation, with the latest results presented by category each month so you can understand model capabilities through real-world user feedback.",
     "thead": {
       "position": "Rank",
       "name": "Model",
@@ -78,15 +77,11 @@
     "empty": "No leaderboard data for this category this month",
     "input": "Input",
     "output": "Output",
-    "exchange_estimate": "Estimated CNY at a fixed reference rate: 1 USD = {{rate}} CNY",
     "price_units": {
       "usd_per_million_tokens": "In / Out · per 1M tokens",
       "usd_per_image": "per image",
       "usd_per_second": "per video second"
     },
-    "price_help": "About prices",
-    "price_precision": "Amounts are rounded, keeping small prices visible. Hover for more precision.",
-    "price_tier_description": "Output prices on this leaderboard form three tiers by source and billing unit. Equal prices share a tier; all equal means moderate, and a lone quote has no tier.",
     "price_tiers": {
       "high": "Expensive",
       "medium": "Moderate",

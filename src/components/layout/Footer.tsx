@@ -50,7 +50,7 @@ const Footer = ({ t, isLite }: FooterProps) => {
       </p>
 
       <FooterLink
-        className='mt-2'
+        className='mt-2 leading-[16px]'
         href='https://www.ucloud.cn/?ytag=geo_waituo_HelloGitHub'
       >
         <span>{t('footer.server_sponsor')}</span>
@@ -67,29 +67,29 @@ const Footer = ({ t, isLite }: FooterProps) => {
       </FooterLink>
 
       <FooterLink
-        className='mt-2 inline-flex w-full items-center gap-1.5 whitespace-nowrap leading-5'
+        className='mt-2 inline-flex w-full items-center gap-1 whitespace-nowrap leading-[16px]'
         href='https://rustfs.com/'
       >
         <span>{t('footer.storage_sponsor')}</span>
         <img
           className='h-2.5 w-auto shrink-0'
           src='/images/sponsors/rustfs.svg'
-          width={360}
-          height={61}
+          width='360'
+          height='16'
           alt='RustFS'
         />
         <span>{t('footer.storage_sponsor2')}</span>
       </FooterLink>
 
       <FooterLink
-        className='mt-2 inline-flex w-full items-center gap-1.5 whitespace-nowrap leading-5'
+        className='mt-2 inline-flex w-full items-center gap-1.5 whitespace-nowrap leading-[16px]'
         href='https://serpapi.com/hello-github'
       >
         <span>{t('footer.community_sponsor')}</span>
         <img
-          className='h-3.5 w-auto shrink-0 dark:brightness-0 dark:invert'
+          className='h-4 w-auto shrink-0 dark:brightness-0 dark:invert'
           src='/images/sponsors/serpapi.svg'
-          width={56.25515}
+          width={56}
           height={14}
           alt='SerpApi'
         />

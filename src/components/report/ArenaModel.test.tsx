@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { createInstance } from 'i18next';
 import { useTranslation } from 'next-i18next/pages';
 
@@ -201,7 +201,7 @@ it.each([
   ['en', en],
   ['zh', zh],
 ] as const)(
-  'shows compact price help without a close button or list markers in %s',
+  'renders a plain price header in %s',
   async (language, messages) => {
     const i18n = createInstance();
     await i18n.init({
@@ -216,26 +216,8 @@ it.each([
 
     const { container, rerender } = render(<ArenaPriceHeader />);
     expect(screen.getByText(messages.lmrank.thead.price)).toBeVisible();
-    const trigger = screen.getByRole('button', {
-      name: messages.lmrank.price_help,
-    });
-    const help = container.querySelector<HTMLElement>('[popover]')!;
-    expect(trigger).toHaveAttribute('popovertarget', help.id);
-    expect(help).toHaveAttribute('popover', 'auto');
-    expect(help).toHaveClass('p-3', 'leading-5');
-    expect(help.querySelector('button, ul, ol, li')).toBeNull();
-    expect(
-      within(help).getByText(messages.lmrank.price_tier_description)
-    ).toBeVisible();
-    expect(
-      within(help).getByText(messages.lmrank.price_precision)
-    ).toBeVisible();
-    const exchangeNote = i18n.t('lmrank.exchange_estimate', { rate: 7 });
-    if (language === 'zh') {
-      expect(within(help).getByText(exchangeNote)).toBeVisible();
-    } else {
-      expect(within(help).queryByText(exchangeNote)).not.toBeInTheDocument();
-    }
+    expect(container.querySelector('[popover]')).toBeNull();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
 
     rerender(<ArenaPriceHeader providerName='Example supplier' />);
     expect(
@@ -263,13 +245,9 @@ it.each([
   render(
     <ArenaPrice
       offer={{ ...offer, ...prices, price_unit: 'usd_per_million_tokens' }}
-      providerName='Example supplier'
     />
   );
-  expect(screen.getByText(prices.label)).toHaveAttribute(
-    'aria-label',
-    expect.stringContaining('Example supplier')
-  );
+  expect(screen.getByText(prices.label)).not.toHaveAttribute('title');
   expect(
     screen.getByText('lmrank.price_units.usd_per_million_tokens')
   ).toBeVisible();
@@ -279,7 +257,7 @@ it.each([
   { input_price: 10, output_price: 50, label: '≈¥70 / 350' },
   { input_price: 0, output_price: 0.000001, label: '≈¥0 / 0.000007' },
   { input_price: 0.1, output_price: 0.3, label: '≈¥0.7 / 2.1' },
-])('marks CNY prices as estimates: $label', (prices) => {
+])('shows CNY prices without extra hover details: $label', (prices) => {
   jest.mocked(useTranslation).mockReturnValueOnce({
     t: (key: string) => key,
     i18n: { language: 'zh-CN' },
@@ -287,12 +265,12 @@ it.each([
   render(
     <ArenaPrice
       offer={{ ...offer, ...prices, price_unit: 'usd_per_million_tokens' }}
-      providerName={provider.name}
+      tier='low'
     />
   );
-  expect(screen.getByText(prices.label)).toHaveAttribute(
-    'aria-label',
-    expect.stringContaining('lmrank.exchange_estimate')
+  expect(screen.getByText(prices.label)).not.toHaveAttribute('title');
+  expect(screen.getByText('lmrank.price_tiers.low')).not.toHaveAttribute(
+    'title'
   );
 });
 
@@ -300,10 +278,7 @@ it.each(['usd_per_image', 'usd_per_second'] as const)(
   'shows the provider media price with unit %s',
   (unit) => {
     render(
-      <ArenaPrice
-        offer={{ ...offer, output_price: 0.13, price_unit: unit }}
-        providerName={provider.name}
-      />
+      <ArenaPrice offer={{ ...offer, output_price: 0.13, price_unit: unit }} />
     );
     expect(screen.getByText('$0.13')).toBeVisible();
     expect(screen.getByText(`lmrank.price_units.${unit}`)).toBeVisible();
@@ -316,8 +291,8 @@ it.each([
   [0.009999, '$0.01', '0.009999'],
   [0, '$0', '$0'],
 ])(
-  'keeps compact prices readable and preserves the full quote: %s',
-  (price, label, full) => {
+  'keeps compact prices readable without hover details: %s',
+  (price, label) => {
     render(
       <ArenaPrice
         offer={{
@@ -325,14 +300,17 @@ it.each([
           output_price: price as number,
           price_unit: 'usd_per_image',
         }}
-        providerName={provider.name}
         tier='low'
       />
     );
     const amount = screen.getByText(label);
-    expect(amount).toHaveAttribute('aria-label', expect.stringContaining(full));
+    expect(amount).not.toHaveAttribute('title');
+    expect(amount).not.toHaveAttribute('aria-label');
     expect(amount.nextElementSibling).toBe(
       screen.getByText('lmrank.price_tiers.low')
+    );
+    expect(screen.getByText('lmrank.price_tiers.low')).not.toHaveAttribute(
+      'title'
     );
     expect(amount.parentElement?.parentElement).toContainElement(
       screen.getByText('lmrank.price_units.usd_per_image')
@@ -357,6 +335,6 @@ it.each([
   },
   { ...offer, output_price: 1, price_unit: 'unknown' },
 ])('marks missing, invalid and unmatched quotes as unavailable', (quote) => {
-  render(<ArenaPrice offer={quote} providerName={provider.name} />);
+  render(<ArenaPrice offer={quote} />);
   expect(screen.getByLabelText('lmrank.unavailable')).toHaveTextContent('—');
 });
