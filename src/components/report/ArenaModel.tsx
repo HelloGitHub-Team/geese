@@ -17,19 +17,8 @@ const logos: Record<string, string> = providerLogos;
 // Fixed display estimate used to convert USD prices to CNY.
 const USD_TO_CNY = 7;
 
-export const ArenaModel = ({
-  model,
-  provider,
-  offer,
-}: {
-  model: LMArenaRankDataItem;
-  provider?: ArenaProvider;
-  offer?: ArenaProviderOffer;
-}) => {
-  const { t, i18n } = useTranslation('rank');
-  const modelURL = i18n.language.startsWith('zh')
-    ? offer?.model_url_zh
-    : offer?.model_url_en;
+export const ArenaModel = ({ model }: { model: LMArenaRankDataItem }) => {
+  const { t } = useTranslation('rank');
   const [failedLogo, setFailedLogo] = useState<string>();
   const logo = logos[model.organization];
   const license = model.license?.trim();
@@ -65,22 +54,9 @@ export const ArenaModel = ({
         )}
       </span>
       <div className='min-w-0 flex-1'>
-        {provider && offer?.model_id && modelURL ? (
-          <a
-            href={modelURL}
-            target='_blank'
-            rel='noopener noreferrer'
-            title={t('lmrank.view_on_provider', { provider: provider.name })}
-            aria-label={model.name}
-            className='block whitespace-normal break-words rounded-sm font-mono text-[13px] font-medium leading-5 tracking-[-0.025em] text-gray-950 transition-colors hover:text-blue-600 hover:underline hover:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 dark:text-gray-100 dark:hover:text-blue-300'
-          >
-            {model.name}
-          </a>
-        ) : (
-          <span className='block whitespace-normal break-words font-mono text-[13px] font-medium leading-5 tracking-[-0.025em] text-gray-950 dark:text-gray-100'>
-            {model.name}
-          </span>
-        )}
+        <span className='block whitespace-normal break-words font-mono text-[13px] font-medium leading-5 tracking-[-0.025em] text-gray-950 dark:text-gray-100'>
+          {model.name}
+        </span>
         <div className='mt-0.5 flex flex-wrap items-center gap-x-1.5 text-[12px] font-normal leading-5 text-gray-500 dark:text-gray-400'>
           <span className='whitespace-normal break-words'>
             {model.organization || t('lmrank.unavailable')}

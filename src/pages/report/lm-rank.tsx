@@ -121,27 +121,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
         key: 'name',
         title: <span className='pl-10'>{t('lmrank.thead.name')}</span>,
         width: 240,
-        render: (row: LMArenaRankDataItem) => {
-          const provider = providers.find(({ id }) =>
-            row.providers?.some(
-              (offer) =>
-                offer.provider_id === id &&
-                offer.model_id &&
-                (i18n.language.startsWith('zh')
-                  ? offer.model_url_zh
-                  : offer.model_url_en)
-            )
-          );
-          return (
-            <ArenaModel
-              model={row}
-              provider={provider}
-              offer={row.providers?.find(
-                (offer) => offer.provider_id === provider?.id
-              )}
-            />
-          );
-        },
+        render: (row: LMArenaRankDataItem) => <ArenaModel model={row} />,
       },
       {
         key: 'rating',

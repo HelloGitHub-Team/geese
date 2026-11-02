@@ -49,10 +49,10 @@ export const RankTable = ({
 }: TableProps) => {
   return (
     <div
-      className={`rounded-lg border border-gray-200 dark:border-gray-700 ${compact ? 'touch-pan-x overflow-x-auto' : 'overflow-hidden'}`}
+      className={`rounded-lg border border-gray-200 dark:border-gray-700 ${compact ? 'overflow-x-auto md:overflow-x-hidden' : 'overflow-hidden'}`}
     >
       <table
-        className='w-full min-w-full table-fixed divide-y divide-gray-200 text-sm dark:divide-gray-700'
+        className={`w-full min-w-full table-fixed divide-y divide-gray-200 text-sm dark:divide-gray-700 ${compact ? 'md:!min-w-full md:table-auto' : ''}`}
         style={minWidth ? { minWidth: `max(100%, ${minWidth}px)` } : undefined}
       >
         <thead>

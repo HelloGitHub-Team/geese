@@ -43,7 +43,7 @@ jest.mock('@/services/rank', () => ({
 }));
 jest.mock('@/utils/util', () => ({ getClientIP: () => '127.0.0.1' }));
 
-it('keeps model columns fixed and lets the final provider column fill desktop space', () => {
+it('keeps mobile column widths and fits the table into its desktop container', () => {
   const props = {
     year: 2026,
     month: 9,
@@ -92,6 +92,7 @@ it('keeps model columns fixed and lets the final provider column fill desktop sp
   props.list.forEach((model, index) => {
     const cells = within(rows[index]).getAllByRole('cell');
     expect(within(cells[1]).getByText(model.name)).toBeVisible();
+    expect(within(cells[1]).queryByRole('link')).not.toBeInTheDocument();
     expect(within(cells[1]).queryByRole('button')).not.toBeInTheDocument();
     expect(
       within(cells[5]).queryByText(model.model_id)
@@ -105,14 +106,18 @@ it('keeps model columns fixed and lets the final provider column fill desktop sp
     expect(cells[2].querySelector('svg')).toBeNull();
   });
   expect(screen.getByRole('table').parentElement).toHaveClass(
-    'touch-pan-x',
-    'overflow-x-auto'
-  );
-  expect(screen.getByRole('table').parentElement).not.toHaveClass(
-    'md:touch-none',
+    'overflow-x-auto',
     'md:overflow-x-hidden'
   );
+  expect(screen.getByRole('table').parentElement).not.toHaveClass(
+    'touch-pan-x',
+    'md:touch-none'
+  );
   expect(screen.getByRole('table')).toHaveClass('w-full', 'table-fixed');
+  expect(screen.getByRole('table')).toHaveClass(
+    'md:table-auto',
+    'md:!min-w-full'
+  );
   expect(screen.getByRole('table')).toHaveStyle({
     minWidth: 'max(100%, 704px)',
   });
@@ -439,10 +444,14 @@ it('honors provider visibility and price switches without leaking legacy fields'
   expect(screen.getByText('Other supplier · lmrank.thead.price')).toBeVisible();
   expect(screen.getByText('$1 / 2')).toBeVisible();
   expect(screen.getByText('$3 / 4')).toBeVisible();
-  expect(screen.getByRole('link', { name: 'Example model' })).toHaveAttribute(
-    'href',
-    'https://supplier.example/en/model'
-  );
+  expect(
+    screen.queryByRole('link', { name: 'Example model' })
+  ).not.toBeInTheDocument();
+  expect(
+    screen.getByRole('link', {
+      name: 'lmrank.view_model: Example model — ofoxAI',
+    })
+  ).toHaveAttribute('href', 'https://supplier.example/en/model');
   expect(screen.queryByText(/999/)).not.toBeInTheDocument();
 
   rerender(
@@ -475,10 +484,14 @@ it('honors provider visibility and price switches without leaking legacy fields'
   expect(
     screen.queryByRole('button', { name: 'lmrank.price_help' })
   ).not.toBeInTheDocument();
-  expect(screen.getByRole('link', { name: 'Example model' })).toHaveAttribute(
-    'href',
-    'https://other.example/en/model'
-  );
+  expect(
+    screen.queryByRole('link', { name: 'Example model' })
+  ).not.toBeInTheDocument();
+  expect(
+    screen.getByRole('link', {
+      name: 'lmrank.view_model: Example model — Other supplier',
+    })
+  ).toHaveAttribute('href', 'https://other.example/en/model');
 
   rerender(
     <LMRankPage {...props} providers={[]} category='vision' month={8} />

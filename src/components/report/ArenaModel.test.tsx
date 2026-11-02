@@ -49,22 +49,11 @@ const model: LMArenaRankDataItem = {
   providers: [offer],
 };
 
-const ModelDetails = ({ model }: { model: LMArenaRankDataItem }) => (
-  <ArenaModel model={model} provider={provider} offer={offer} />
-);
-
-it('shows the model and organization with the supplied provider link', () => {
-  const { container } = render(<ModelDetails model={model} />);
+it('shows the model and organization as plain text even with provider matches', () => {
+  const { container } = render(<ArenaModel model={model} />);
   expect(screen.getByText(model.name)).toBeVisible();
   expect(screen.getByText(model.name).closest('button')).toBeNull();
-  expect(screen.getByRole('link', { name: model.name })).toHaveAttribute(
-    'href',
-    offer.model_url_en
-  );
-  expect(screen.getByRole('link', { name: model.name })).toHaveAttribute(
-    'rel',
-    'noopener noreferrer'
-  );
+  expect(screen.queryByRole('link')).not.toBeInTheDocument();
   expect(screen.getByText(model.organization)).toBeVisible();
   expect(screen.queryByText('lmrank.closed_source')).not.toBeInTheDocument();
   expect(screen.queryByText('lmrank.open_source')).not.toBeInTheDocument();
@@ -88,7 +77,7 @@ it('keeps long model and organization names readable without truncation', () => 
   expect(screen.getByText(organization)).toHaveClass('whitespace-normal');
 });
 
-it('does not link the model without a visible provider even with legacy URLs', () => {
+it('does not link the model even with legacy URLs', () => {
   render(
     <ArenaModel
       model={{
@@ -96,7 +85,6 @@ it('does not link the model without a visible provider even with legacy URLs', (
         model_id: offer.model_id,
         model_url_en: offer.model_url_en,
       }}
-      offer={offer}
     />
   );
   expect(screen.queryByRole('link')).not.toBeInTheDocument();
@@ -105,7 +93,7 @@ it('does not link the model without a visible provider even with legacy URLs', (
 
 it('handles unavailable licenses and logos without broken images', () => {
   const { container } = render(
-    <ModelDetails model={{ ...model, license: null }} />
+    <ArenaModel model={{ ...model, license: null }} />
   );
   fireEvent.error(container.querySelector('img')!);
   expect(container.querySelector('img')).toBeNull();
@@ -176,7 +164,7 @@ it.each([
   'Unknown',
   ' unknown ',
 ])('omits license labels and separators for %s', (license) => {
-  render(<ModelDetails model={{ ...model, license }} />);
+  render(<ArenaModel model={{ ...model, license }} />);
   expect(screen.getByText(model.organization)).toBeInTheDocument();
   expect(screen.queryByText('lmrank.open_source')).not.toBeInTheDocument();
   expect(screen.queryByText('lmrank.closed_source')).not.toBeInTheDocument();
@@ -189,7 +177,7 @@ it.each([
 it.each(['Apache 2.0', 'MIT', 'Kimi K3 license', 'qwen-research'])(
   'shows the open-source label after the organization: %s',
   (license) => {
-    render(<ModelDetails model={{ ...model, license }} />);
+    render(<ArenaModel model={{ ...model, license }} />);
     expect(screen.queryByText(license)).not.toBeInTheDocument();
     expect(
       screen.getByText(model.organization).parentElement
