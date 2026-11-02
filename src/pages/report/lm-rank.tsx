@@ -75,7 +75,7 @@ const LMRankPage: NextPage<LMArenaRankPageProps> = ({
   }, [categoryList, i18n.language]);
 
   const showArenaPrice = providers.length === 0;
-  const priceColumnWidth = i18n.language.startsWith('zh') ? 168 : 192;
+  const priceColumnWidth = i18n.language.startsWith('zh') ? 144 : 160;
   const priceTiers = useMemo(() => {
     if (showArenaPrice) return getArenaPriceTiers(list || []);
     const pricedProviders = new Set(

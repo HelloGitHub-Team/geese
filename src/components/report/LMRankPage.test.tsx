@@ -106,17 +106,19 @@ it('keeps model columns fixed and lets the final provider column fill desktop sp
   });
   expect(screen.getByRole('table').parentElement).toHaveClass(
     'touch-pan-x',
-    'overflow-x-auto',
+    'overflow-x-auto'
+  );
+  expect(screen.getByRole('table').parentElement).not.toHaveClass(
     'md:touch-none',
     'md:overflow-x-hidden'
   );
   expect(screen.getByRole('table')).toHaveClass('w-full', 'table-fixed');
   expect(screen.getByRole('table')).toHaveStyle({
-    minWidth: 'max(100%, 736px)',
+    minWidth: 'max(100%, 704px)',
   });
   expect(
     screen.getAllByRole('columnheader').map((cell) => cell.style.width)
-  ).toEqual(['48px', '240px', '72px', '72px', '192px', 'auto']);
+  ).toEqual(['48px', '240px', '72px', '72px', '160px', 'auto']);
   expect(screen.queryByText('lmrank.scroll_hint')).not.toBeInTheDocument();
 
   rerender(<LMRankPage {...props} category='vision' month={8} />);
@@ -186,7 +188,7 @@ it('uses a compact CNY price column without widening the model column', () => {
     />
   );
   expect(screen.getByRole('table')).toHaveStyle({
-    minWidth: 'max(100%, 600px)',
+    minWidth: 'max(100%, 576px)',
   });
   expect(
     screen.getAllByRole('columnheader').map((cell) => cell.style.width)
@@ -418,6 +420,21 @@ it('honors provider visibility and price switches without leaking legacy fields'
   };
   const { rerender } = render(<LMRankPage {...props} />);
   expect(screen.getAllByRole('columnheader')).toHaveLength(8);
+  expect(screen.getByRole('table')).toHaveStyle({
+    minWidth: 'max(100%, 976px)',
+  });
+  expect(
+    screen.getAllByRole('columnheader').map((cell) => cell.style.width)
+  ).toEqual([
+    '48px',
+    '240px',
+    '72px',
+    '72px',
+    '160px',
+    '112px',
+    '160px',
+    'auto',
+  ]);
   expect(screen.getByText('ofoxAI · lmrank.thead.price')).toBeVisible();
   expect(screen.getByText('Other supplier · lmrank.thead.price')).toBeVisible();
   expect(screen.getByText('$1 / 2')).toBeVisible();
@@ -479,7 +496,7 @@ it('honors provider visibility and price switches without leaking legacy fields'
   expect(screen.getByText('Example org')).toBeVisible();
   expect(screen.getAllByRole('cell')[4]).toHaveTextContent('—');
   expect(screen.getByRole('table')).toHaveStyle({
-    minWidth: 'max(100%, 624px)',
+    minWidth: 'max(100%, 592px)',
   });
   expect(
     screen.getAllByRole('columnheader').map((cell) => cell.style.width)
