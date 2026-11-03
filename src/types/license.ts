@@ -46,8 +46,3 @@ export type TagListItem = {
   bgColor: string;
   content: Tag[];
 };
-
-export type LicenseTagsFetchData = {
-  success: boolean;
-  data: Tag[];
-};

@@ -57,11 +57,6 @@ export interface RepositorySuccessData extends BaseType {
   data: Repository;
 }
 
-export interface RepoTag {
-  name: string;
-  tid: string;
-}
-
 export interface RepoType {
   rid: string;
   url: string;

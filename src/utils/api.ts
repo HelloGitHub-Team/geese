@@ -1,7 +1,5 @@
 import stringify from './qs-stringify';
 
-export const ITEMS_PER_PAGE = 10;
-
 // const LOCAL_API_HOST = 'https://frp.hellogithub.com';
 const LOCAL_API_HOST = 'http://127.0.0.1:8001';
 const PRODUCTION_API_HOST = 'https://api.hellogithub.com';
@@ -41,7 +39,3 @@ export const makeUrl = (
   const queryParameters = `?${stringify(parameters)}`;
   return `${API_HOST}${API_ROOT_PATH}${path}${queryParameters}`;
 };
-
-export const TOKEN_KEY = 'Authorization';
-
-export const getToken = () => localStorage.getItem(TOKEN_KEY);

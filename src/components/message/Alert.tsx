@@ -91,9 +91,7 @@ function AlertComp({ id = 'default-alert' }: AlertProps) {
 
     const classes = 'block p-4 text-center'.split(' ');
 
-    if (alert.fadeOut) {
-      // classes.push('ant-move-up-leave ant-move-up-leave-active');
-    } else if (alert.fadeIn) {
+    if (alert.fadeIn && !alert.fadeOut) {
       classes.push('ant-move-up-appear ant-move-up-appear-active');
     }
 

@@ -94,7 +94,7 @@ const BulletTag = ({
         <HostedImage
           src={item.image_path}
           alt=''
-          className='h-6 w-6 shrink-0 rounded-full'
+          className='h-6 w-6 shrink-0 rounded-full object-cover'
         />
       )}
       <span

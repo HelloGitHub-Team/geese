@@ -135,7 +135,7 @@ const User: React.FC = () => {
   const router = useRouter();
   const { uid, tab, fid } = router.query;
 
-  const { data, isValidating } = useSWR<UserDetailInfo>(
+  const { data } = useSWR<UserDetailInfo>(
     uid ? makeUrl(`/user/${uid}`) : null,
     fetcher
   );
@@ -185,7 +185,7 @@ const User: React.FC = () => {
         <Navbar middleText={t('title')} />
 
         <div className='flex flex-col bg-white p-4 dark:bg-gray-800 sm:p-6 md:flex-row md:rounded-lg'>
-          {isValidating || !userDetailInfo ? (
+          {!userDetailInfo ? (
             <ProfileSkeleton />
           ) : (
             <UserProfile userInfo={userDetailInfo} i18n={i18n} t={t} />

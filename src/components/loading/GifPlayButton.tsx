@@ -1,6 +1,3 @@
-// GifPlayButton.tsx
-import React from 'react';
-
 const GifPlayButton = () => (
   <svg
     width='50'

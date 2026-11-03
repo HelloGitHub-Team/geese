@@ -9,11 +9,6 @@ export interface ArticleProps {
   article: ArticleContent;
 }
 
-export interface ItemProps {
-  item: ArticleItem;
-  index: number;
-}
-
 export interface ArticleItem {
   aid: string;
   title: string;

@@ -18,11 +18,6 @@ export interface SearchItemType {
   publish_at: string;
 }
 
-export interface SearchResultItemProps {
-  repo: SearchItemType;
-  index: number;
-}
-
 export interface SearchResponse {
   page: number;
   data: SearchItemType[];

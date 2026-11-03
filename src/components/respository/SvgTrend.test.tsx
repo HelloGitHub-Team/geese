@@ -28,7 +28,22 @@ it.each([
     const { container } = render(
       <SvgTrend x={x} y={y} min={y[0] ?? 0} max={y[0] ?? 0} increment={0} />
     );
-    expect(container.querySelectorAll('tbody tr')).toHaveLength(y.length);
+    if (y.length) {
+      const chart = screen.getByRole('slider', { name: 'Star 趋势' });
+      expect(chart).toHaveAttribute('aria-valuemax', String(y.length - 1));
+      fireEvent.focus(chart);
+      expect(screen.getByRole('tooltip')).toHaveTextContent(x[x.length - 1]);
+      expect(chart).toHaveAttribute(
+        'aria-valuetext',
+        `${x[x.length - 1]} · Star: ${y[y.length - 1].toLocaleString('zh')}`
+      );
+    } else {
+      expect(
+        screen.getByRole('img', { name: 'Star 趋势' })
+      ).toBeInTheDocument();
+      expect(screen.getByText('暂无数据')).toBeInTheDocument();
+      expect(screen.queryByRole('slider')).not.toBeInTheDocument();
+    }
     expect(container.firstElementChild).toHaveClass('h-[54px]', 'w-[320px]');
     if (y.length === 1)
       expect(container.querySelector('circle')).toBeInTheDocument();

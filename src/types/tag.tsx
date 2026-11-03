@@ -31,12 +31,6 @@ export interface Tag {
   icon_name: string;
 }
 
-export interface SelectTag {
-  name: string;
-  tid: string;
-  is_selected: boolean;
-}
-
 export interface SelectTagItems {
   success: boolean;
   data: PortalTagGroup[];

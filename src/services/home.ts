@@ -1,30 +1,9 @@
-import { createContext } from 'react';
-
 import { makeUrl } from '@/utils/api';
 
 import { fetcher } from './base';
 
-import {
-  AdvertItems,
-  HomeItem,
-  HomeItems,
-  RecommendItems,
-  Sitemap,
-  Stats,
-} from '@/types/home';
+import { RecommendItems, Sitemap } from '@/types/home';
 import { TagItems } from '@/types/tag';
-
-export const getItems = async (
-  params?: Record<string, unknown>
-): Promise<HomeItems> => {
-  const data = await fetcher<HomeItems>(makeUrl(`/`, params));
-  return data;
-};
-
-export const getStats = async (): Promise<Stats> => {
-  const data = await fetcher<Stats>(makeUrl(`/stats/`));
-  return data;
-};
 
 export const getRecommend = async (lid?: string): Promise<RecommendItems> => {
   return fetcher<RecommendItems>(
@@ -85,17 +64,8 @@ export const createFeedback = async (data: {
     console.error(error);
   }
 };
-export type HomeItemData = HomeItem[];
-export const DataContext = createContext<HomeItemData>([]);
 
 export const getSitemap = async (): Promise<Sitemap> => {
   const data = await fetcher<Sitemap>(makeUrl(`/sitemap/`));
-  return data;
-};
-
-export const getHeaderAd = async (): Promise<AdvertItems> => {
-  const data = await fetcher<AdvertItems>(
-    makeUrl(`/sponsor/`, { position: 'top' })
-  );
   return data;
 };
