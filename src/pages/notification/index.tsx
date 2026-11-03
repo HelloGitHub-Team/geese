@@ -17,6 +17,7 @@ import ToTop from '@/components/toTop/ToTop';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
+import { DEFAULT_AVATAR } from '@/utils/constants';
 import { fromNow } from '@/utils/day';
 import { getHtmlImageUrls } from '@/utils/image';
 
@@ -212,7 +213,7 @@ const Notification = () => {
                       className='mr-3 h-10 rounded-full'
                       src={
                         activeTab == 'comment'
-                          ? item.user_info?.avatar
+                          ? item.user_info?.avatar_path || DEFAULT_AVATAR
                           : '/images/avatars/notification.jpeg'
                       }
                     />

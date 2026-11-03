@@ -35,7 +35,7 @@ const AvatarWithDropdown = ({ t, className }: Props) => {
     <div className={`${className} h-7 w-7`}>
       <HostedImage
         className='relative inline overflow-hidden rounded-full'
-        src={userInfo?.avatar || DEFAULT_AVATAR}
+        src={userInfo?.avatar_path || DEFAULT_AVATAR}
         width='28'
         height='28'
         alt='header_avatar'

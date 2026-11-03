@@ -20,7 +20,7 @@ import { CustomLink } from '@/components/links/CustomLink';
 import { fetcher } from '@/services/base';
 import { Logout } from '@/services/login';
 import { makeUrl } from '@/utils/api';
-import { NOOP } from '@/utils/constants';
+import { DEFAULT_AVATAR, NOOP } from '@/utils/constants';
 
 import { UserStatusProps } from '@/types/user';
 
@@ -45,7 +45,7 @@ const LoginContext = createContext<LoginContextProps>({
     success: true,
     uid: '',
     nickname: '',
-    avatar: '',
+    avatar_path: DEFAULT_AVATAR,
     contribute: 0,
     unread: {
       total: 0,

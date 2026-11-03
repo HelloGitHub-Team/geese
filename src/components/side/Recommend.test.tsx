@@ -29,7 +29,7 @@ const populated: RecommendItems = {
       rid: 'example',
       name: 'project',
       full_name: 'owner/project',
-      author_avatar: '/images/avatar.png',
+      author_avatar_path: '/images/avatar.png',
       description: 'Example project',
       primary_lang: 'TypeScript',
       lang_color: '#3178c6',

@@ -18,7 +18,7 @@ export interface ArticleItem {
   aid: string;
   title: string;
   title_en?: string;
-  head_image: string;
+  head_image: string | null;
   desc: string;
   desc_en?: string;
   author: string;

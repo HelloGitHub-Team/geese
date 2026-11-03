@@ -8,6 +8,7 @@ import HostedImage from '@/components/HostedImage';
 
 import { getRecommend } from '@/services/home';
 import { getLicenseDetail } from '@/services/license';
+import { DEFAULT_AVATAR } from '@/utils/constants';
 
 import { RecommendSkeleton } from '../loading/skeleton';
 
@@ -25,7 +26,7 @@ const RecommendList = ({ repositories }: { repositories: RecommendItem[] }) => (
           <div className='flex w-full items-center px-1'>
             <HostedImage
               className='w-10 rounded-full border border-gray-100 dark:border-gray-900'
-              src={item.author_avatar}
+              src={item.author_avatar_path || DEFAULT_AVATAR}
               width='40'
               height='40'
               alt='repo_avatar'

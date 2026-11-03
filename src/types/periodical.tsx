@@ -30,7 +30,7 @@ export interface PeriodicalItem {
   stars: number;
   forks: number;
   watch: number;
-  image_url: string | null;
+  image_path: string | null;
   vote_total: number;
   volume_num: number;
   publish_at: string;
@@ -88,7 +88,7 @@ export interface BulletItem {
   title?: string;
   title_en?: string;
   lang_color?: string;
-  image_url?: string;
+  image_path?: string;
 }
 
 export interface BulletsResponse {

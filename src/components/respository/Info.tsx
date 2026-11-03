@@ -30,6 +30,7 @@ import {
   userRepoStatus,
   voteRepo,
 } from '@/services/repository';
+import { DEFAULT_AVATAR } from '@/utils/constants';
 import { numFormat } from '@/utils/util';
 
 import MoreInfo from './MoreInfo';
@@ -262,7 +263,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
           <div className='flex min-w-[72px] items-center'>
             <div className='relative overflow-hidden rounded border border-gray-100 dark:border-gray-800'>
               <HostedImage
-                src={repo.author_avatar}
+                src={repo.author_avatar_path || DEFAULT_AVATAR}
                 width='72'
                 height='72'
                 alt='repo_avatar'

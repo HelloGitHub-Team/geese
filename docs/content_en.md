@@ -87,6 +87,8 @@ On a server with PM2 configured, run:
 
 Each command builds with the regional image configuration, then reloads the PM2 service only if the build succeeds.
 
+`NEXT_PUBLIC_IMAGE_BASE_URL` is the only image endpoint setting. Mainland builds leave it empty to use `https://img.hellogithub.com`; overseas builds set it to `https://img-global.cheatsheet.store`. All owned images use that endpoint, preserving paths, processing styles and query strings. Failed loads do not automatically switch domains.
+
 ## Finally
 
 I am very happy to build 'Geese' with you and hope that you also gain something from the process of contributing code.

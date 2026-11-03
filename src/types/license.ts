@@ -1,7 +1,7 @@
 type User = {
   uid: string;
   nickname: string;
-  avatar: string;
+  avatar_path: string | null;
 };
 export type Tag = {
   tid: string;
@@ -18,7 +18,7 @@ export type LicenseDetailData = {
   spdx_id: string;
   name: string;
   remark: string;
-  user: User;
+  user: User | null;
   text: string;
   text_zh: string;
   description: string;

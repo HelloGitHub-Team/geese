@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next/pages';
 import { useMemo } from 'react';
-import useSWRImmutable from 'swr/immutable';
+import useSWR from 'swr';
 
 import clsxm from '@/lib/clsxm';
 
@@ -13,6 +13,7 @@ import { LevelRender } from '@/components/user/Common';
 
 import { fetcher } from '@/services/base';
 import { makeUrl } from '@/utils/api';
+import { DEFAULT_AVATAR } from '@/utils/constants';
 import { format, formatZH } from '@/utils/day';
 
 import CollectionList from './CollectionList';
@@ -31,7 +32,7 @@ const UserProfile: React.FC<{
   t: (key: string, options?: any) => any;
 }> = ({ userInfo, i18n, t }) => {
   const {
-    avatar,
+    avatar_path,
     nickname,
     level,
     rank,
@@ -52,7 +53,7 @@ const UserProfile: React.FC<{
       <div className='mx-auto flex h-[72px] w-[72px] md:block md:h-20 md:w-20 md:shrink-0'>
         <HostedImage
           className='rounded-full bg-white dark:bg-gray-800'
-          src={avatar}
+          src={avatar_path || DEFAULT_AVATAR}
           alt={`${nickname}'s avatar`}
           loading='lazy'
         />
@@ -134,7 +135,7 @@ const User: React.FC = () => {
   const router = useRouter();
   const { uid, tab, fid } = router.query;
 
-  const { data, isValidating } = useSWRImmutable<UserDetailInfo>(
+  const { data, isValidating } = useSWR<UserDetailInfo>(
     uid ? makeUrl(`/user/${uid}`) : null,
     fetcher
   );

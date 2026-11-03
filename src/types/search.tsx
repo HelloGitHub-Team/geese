@@ -5,7 +5,7 @@ export interface SearchItemType {
   rid: string;
   title: string;
   author: string;
-  author_avatar: string;
+  author_avatar_path: string | null;
   name: string;
   summary: string;
   primary_lang: string;

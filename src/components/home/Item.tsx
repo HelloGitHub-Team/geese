@@ -5,6 +5,7 @@ import HostedImage from '@/components/HostedImage';
 import { CustomLink } from '@/components/links/CustomLink';
 import VerifiedIcon from '@/components/VerifiedIcon';
 
+import { DEFAULT_AVATAR } from '@/utils/constants';
 import { fromNow } from '@/utils/day';
 import { numFormat } from '@/utils/util';
 
@@ -13,7 +14,7 @@ interface ItemProps {
     item_id?: string;
     rid?: string;
 
-    author_avatar: string;
+    author_avatar_path: string | null;
     is_hot?: boolean;
     is_featured?: boolean;
     is_claimed?: boolean;
@@ -49,7 +50,7 @@ const RepositoryItem = ({
   const {
     item_id,
     rid,
-    author_avatar,
+    author_avatar_path,
     is_hot,
     is_featured,
     is_claimed,
@@ -103,7 +104,7 @@ const RepositoryItem = ({
                   <HostedImage
                     width='75'
                     height='75'
-                    src={author_avatar}
+                    src={author_avatar_path || DEFAULT_AVATAR}
                     alt={`${author} avatar`}
                     className='block rounded'
                   />
@@ -157,7 +158,7 @@ const RepositoryItem = ({
                     <HostedImage
                       width='16'
                       height='16'
-                      src={author_avatar}
+                      src={author_avatar_path || DEFAULT_AVATAR}
                       alt={`${author} small avatar`}
                       className={smallAvatarClassName}
                     />

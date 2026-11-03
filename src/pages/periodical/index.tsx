@@ -90,9 +90,9 @@ const BulletTag = ({
       onMouseEnter={() => onHover(true)}
       onMouseLeave={() => onHover(false)}
     >
-      {item.image_url && (
+      {item.image_path && (
         <HostedImage
-          src={item.image_url}
+          src={item.image_path}
           alt=''
           className='h-6 w-6 shrink-0 rounded-full'
         />

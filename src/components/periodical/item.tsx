@@ -113,11 +113,11 @@ const PeriodItem: NextPage<PeriodicalItemProps> = ({ item, index }) => {
           : item.description}
       </MDRender>
       {/* 图片预览 */}
-      {item.image_url && (
+      {item.image_path && (
         <div className='my-2 flex justify-center'>
           <ImageWithPreview
             className='cursor-zoom-in rounded-md'
-            src={item.image_url}
+            src={item.image_path}
             alt={item.name}
           />
         </div>

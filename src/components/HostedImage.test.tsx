@@ -22,14 +22,10 @@ jest.mock('next/head', () => ({
 }));
 
 const original = 'https://img.hellogithub.com';
-const source = `${original}/article/a%2fb.png!small#part`;
-const upyun =
-  process.env.NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL?.replace(/\/+$/, '') || original;
+const source = `${original}/article/a%2fb.png#part`;
 const base =
-  process.env.NEXT_PUBLIC_IMAGE_BASE_URL?.replace(/\/+$/, '') || upyun;
-const expected = (url: string) =>
-  url.replace(original, url.split('#', 1)[0].includes('?') ? upyun : base);
-const fallback = (url: string) => url.replace(original, upyun);
+  process.env.NEXT_PUBLIC_IMAGE_BASE_URL?.replace(/\/+$/, '') || original;
+const expected = (url: string) => url.replaceAll(original, base);
 
 it('renders routed src/srcset during SSR and in the browser, forwarding native props and ref', () => {
   const ref = createRef<HTMLImageElement>();
@@ -75,28 +71,25 @@ it('preserves the local default avatar, third-party and other local images', () 
   }
 });
 
-it('falls back to configured Upyun src and srcset once if a direct R2 read fails', () => {
+it('keeps configured src and srcset on errors and forwards the error handler', () => {
   const onError = jest.fn();
   const srcSet = `${source} 1x, ${original}/article/large.png 2x`;
   const { rerender } = render(
     <HostedImage src={source} srcSet={srcSet} alt='pending' onError={onError} />
   );
   const image = screen.getByAltText('pending');
-  fireEvent.error(image);
-  expect(image).toHaveAttribute('src', fallback(source));
-  expect(image).toHaveAttribute(
-    'srcset',
-    `${fallback(source)} 1x, ${fallback(`${original}/article/large.png`)} 2x`
-  );
   const attributes = image.outerHTML;
+  fireEvent.error(image);
+  expect(image.outerHTML).toBe(attributes);
+  expect(image).toHaveAttribute('src', expected(source));
+  expect(image).toHaveAttribute('srcset', expected(srcSet));
   fireEvent.error(image);
   expect(image.outerHTML).toBe(attributes);
   expect(onError).toHaveBeenCalledTimes(2);
   const next = `${original}/article/new.png`;
   rerender(<HostedImage src={next} alt='pending' />);
-  expect(image).toHaveAttribute('src', expected(next));
   fireEvent.error(image);
-  expect(image).toHaveAttribute('src', fallback(next));
+  expect(image).toHaveAttribute('src', expected(next));
 });
 
 it('routes both thumbnail and full-size preview, then responds to a changed source', () => {
@@ -135,7 +128,7 @@ it('preserves GIF cover/play behavior and the full-size animated preview', () =>
 });
 
 it('routes Markdown and embedded HTML images without changing links, text, code or external images', () => {
-  const markdown = `![markdown](${source})\n\n![external](https://third.test/a.png)\n\n[link](${source})\n\n${original}/plain.png\n\n\`![code](${source})\`\n\n<img src="${original}/html.png!small?x=1&amp;y=2#p" srcset="${original}/small.png 320w, https://third.test/large.png 640w" alt="html" onerror="alert(1)">\n\n<!-- <img src="${original}/comment.png"> -->`;
+  const markdown = `![markdown](${source})\n\n![external](https://third.test/a.png)\n\n[link](${source})\n\n${original}/plain.png\n\n\`![code](${source})\`\n\n<img src="${original}/html.png?x=1&amp;y=2#p" srcset="${original}/small.png 320w, https://third.test/large.png 640w" alt="html" onerror="alert(1)">\n\n<!-- <img src="${original}/comment.png"> -->`;
   const { container } = render(<MDRender>{markdown}</MDRender>);
   expect(screen.getByAltText('markdown')).toHaveAttribute(
     'src',
@@ -148,7 +141,7 @@ it('routes Markdown and embedded HTML images without changing links, text, code 
   const htmlImage = screen.getByAltText('html');
   expect(htmlImage).toHaveAttribute(
     'src',
-    expected(`${original}/html.png!small?x=1&y=2#p`)
+    expected(`${original}/html.png?x=1&y=2#p`)
   );
   expect(htmlImage).toHaveAttribute(
     'srcset',

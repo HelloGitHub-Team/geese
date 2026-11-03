@@ -119,7 +119,7 @@ const CommentItem = (props: CommentItemProps) => {
           <NoPrefetchLink href={`/user/${user.uid}`}>
             <HostedImage
               className='h-10 w-10 cursor-pointer rounded-full'
-              src={user?.avatar || DEFAULT_AVATAR}
+              src={user?.avatar_path || DEFAULT_AVATAR}
               alt='comment_avatar'
             />
           </NoPrefetchLink>
@@ -132,7 +132,7 @@ const CommentItem = (props: CommentItemProps) => {
               <div className='mr-1 md:hidden'>
                 <HostedImage
                   className='h-5 w-5 rounded-full'
-                  src={user?.avatar || DEFAULT_AVATAR}
+                  src={user?.avatar_path || DEFAULT_AVATAR}
                   alt='comment_avatar'
                 />
               </div>

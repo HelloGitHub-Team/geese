@@ -3,16 +3,8 @@ import type * as ImageRouting from './image';
 const original = 'https://img.hellogithub.com';
 const overseas = 'https://img-global.cheatsheet.store';
 const initialBaseUrl = process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
-const initialUpyunUrl = process.env.NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL;
-const upyun = 'https://img-upyun.cheatsheet.store';
 
-const loadRouting = (
-  baseUrl?: string,
-  upyunUrl?: string
-): typeof ImageRouting => {
-  if (upyunUrl === undefined)
-    delete process.env.NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL;
-  else process.env.NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL = upyunUrl;
+const loadRouting = (baseUrl?: string): typeof ImageRouting => {
   if (baseUrl === undefined) delete process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
   else process.env.NEXT_PUBLIC_IMAGE_BASE_URL = baseUrl;
   let routing: typeof ImageRouting | undefined;
@@ -27,9 +19,6 @@ afterEach(() => {
   if (initialBaseUrl === undefined)
     delete process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
   else process.env.NEXT_PUBLIC_IMAGE_BASE_URL = initialBaseUrl;
-  if (initialUpyunUrl === undefined)
-    delete process.env.NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL;
-  else process.env.NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL = initialUpyunUrl;
 });
 
 it.each([undefined, '', ' ', original, `${original}/`])(
@@ -37,7 +26,7 @@ it.each([undefined, '', ' ', original, `${original}/`])(
   (config) => {
     const { getImageUrl, getImageSrcSet, getHtmlImageUrls } =
       loadRouting(config);
-    const url = `${original}/a%2Fb//c.png!small?x=1&y=%2f#part`;
+    const url = `${original}/a%2Fb//c.png#part`;
     expect(getImageUrl(url)).toBe(url);
     expect(getImageSrcSet(`${url} 1x, ${url} 2x`)).toBe(`${url} 1x, ${url} 2x`);
     const html = `<IMG SRC='${url}' srcset="${url} 2x">`;
@@ -45,34 +34,28 @@ it.each([undefined, '', ' ', original, `${original}/`])(
   }
 );
 
-it.each([
-  '/article/a%2fb.png!small#top',
-  '/github_avatar/name.jpeg!small',
-  '/article/cover.png!headimage',
-  '/article/demo.gif!gif',
-  '/article/a.png#section?text',
-  '#part',
-  '',
-])('preserves the original suffix %s without URL serialization', (suffix) => {
-  const { getImageUrl } = loadRouting(overseas);
-  expect(getImageUrl(original + suffix)).toBe(overseas + suffix);
-});
-
-it.each([
-  '/article/a.png?width=300',
-  '/article/a.png!small?token=signature',
-  '/article/a.png?',
-  '/article/a.png!unknown',
-  '/article/a.png!/fw/300',
-  '?image=a%20b#part',
-])(
-  'keeps dynamic processing and unsupported variants on Upyun: %s',
+it.each(['/article/a%2fb.png#top', '/article/a.png#section?text', '#part', ''])(
+  'preserves the original suffix %s without URL serialization',
   (suffix) => {
-    expect(loadRouting(overseas).getImageUrl(original + suffix)).toBe(
-      original + suffix
-    );
+    const { getImageUrl } = loadRouting(overseas);
+    expect(getImageUrl(original + suffix)).toBe(overseas + suffix);
   }
 );
+
+it('routes root-relative backend media paths without touching local assets', () => {
+  const { getImageUrl } = loadRouting(overseas);
+  expect(getImageUrl('/avatar/a.jpeg')).toBe(`${overseas}/avatar/a.jpeg`);
+  expect(getImageUrl('/i/a.png')).toBe(`${overseas}/i/a.png`);
+  expect(getImageUrl('/suggestions/a.png')).toBe(
+    `${overseas}/suggestions/a.png`
+  );
+  expect(getImageUrl('/article/demo.gif!gif')).toBe(
+    `${overseas}/article/demo.gif!gif`
+  );
+  expect(getImageUrl('/images/avatars/default.jpeg')).toBe(
+    '/images/avatars/default.jpeg'
+  );
+});
 
 it.each([
   'https://github.com/avatar.png',
@@ -123,8 +106,8 @@ it.each([
 it('supports a custom base path, strips trailing slashes and is idempotent', () => {
   const base = 'https://media.example.com/assets/hg';
   const { getImageUrl } = loadRouting(` ${base}/// `);
-  const result = getImageUrl(`${original}/article/a.png!small#part`);
-  expect(result).toBe(`${base}/article/a.png!small#part`);
+  const result = getImageUrl(`${original}/article/a.png#part`);
+  expect(result).toBe(`${base}/article/a.png#part`);
   expect(getImageUrl(result)).toBe(result);
 });
 
@@ -142,9 +125,9 @@ it('captures config once for consistent rendering', () => {
 
 it('rewrites srcset candidates while preserving descriptors and URL commas', () => {
   const { getImageSrcSet } = loadRouting(overseas);
-  const source = `  ${original}/a,b.png!small?q=a,b 320w,\nhttps://third.test/a.png 640w, data:image/svg+xml,%3Csvg,%3E 2x, ${original}/large.png 3x`;
+  const source = `  ${original}/a,b.png?q=a,b 320w,\nhttps://third.test/a.png 640w, data:image/svg+xml,%3Csvg,%3E 2x, ${original}/large.png 3x`;
   expect(getImageSrcSet(source)).toBe(
-    `  ${original}/a,b.png!small?q=a,b 320w,\nhttps://third.test/a.png 640w, data:image/svg+xml,%3Csvg,%3E 2x, ${overseas}/large.png 3x`
+    `  ${overseas}/a,b.png?q=a,b 320w,\nhttps://third.test/a.png 640w, data:image/svg+xml,%3Csvg,%3E 2x, ${overseas}/large.png 3x`
   );
   expect(getImageSrcSet(`${original}/a, ${original}/b, `)).toBe(
     `${overseas}/a, ${overseas}/b, `
@@ -154,71 +137,33 @@ it('rewrites srcset candidates while preserving descriptors and URL commas', () 
 
 it('rewrites only image attributes in HTML, including picture sources', () => {
   const { getHtmlImageUrls } = loadRouting(overseas);
-  const html = `<a href="${original}/link">${original}/text</a><picture><source SRCSET='${original}/wide.png 2x, https://third.test/a 1x'><IMG alt="a > b" data-src="${original}/lazy" src=${original}/a.png!small?x=1&amp;y=2#p /></picture>`;
+  const html = `<a href="${original}/link">${original}/text</a><picture><source SRCSET='${original}/wide.png 2x, https://third.test/a 1x'><IMG alt="a > b" data-src="${original}/lazy" src=${original}/a.png?x=1&amp;y=2#p /></picture>`;
   expect(getHtmlImageUrls(html)).toBe(
-    `<a href="${original}/link">${original}/text</a><picture><source SRCSET='${overseas}/wide.png 2x, https://third.test/a 1x'><IMG alt="a > b" data-src="${original}/lazy" src=${original}/a.png!small?x=1&amp;y=2#p /></picture>`
+    `<a href="${original}/link">${original}/text</a><picture><source SRCSET='${overseas}/wide.png 2x, https://third.test/a 1x'><IMG alt="a > b" data-src="${original}/lazy" src=${overseas}/a.png?x=1&amp;y=2#p /></picture>`
   );
 });
 
-it.each([
-  '/article/a.png',
-  '/article/a%2fb.png!small#part',
-  '/article/a.png!headimage',
-  '/article/demo.gif!gif',
-  '/article/a.png?width=300',
-  '/article/a.png!small?token=signature',
-  '/article/a.png?',
-  '/article/a.png!unknown',
-  '/article/a.png!/fw/300',
-])(
-  'routes mainland reads and processing through configured Upyun: %s',
-  (path) => {
-    const routing = loadRouting('', upyun);
-    expect(routing.getImageUrl(original + path)).toBe(upyun + path);
-    expect(routing.getImageUrl(upyun + path)).toBe(upyun + path);
-    expect(routing.getUpyunImageUrl(original + path)).toBe(upyun + path);
+it('routes mainland backend media paths to the default endpoint', () => {
+  const { getImageUrl } = loadRouting('');
+  expect(getImageUrl('/article/a.png')).toBe(`${original}/article/a.png`);
+});
+
+it.each([original, overseas])(
+  'routes both owned origins to the configured endpoint %s',
+  (base) => {
+    const routing = loadRouting(base);
+    for (const origin of [original, overseas]) {
+      expect(routing.getImageUrl(origin + '/a.png')).toBe(base + '/a.png');
+    }
+    expect(routing.getImageUrl('/local.png')).toBe('/local.png');
+    expect(
+      routing.getImageUrl('https://img-global.cheatsheet.store.evil.test/a')
+    ).toBe('https://img-global.cheatsheet.store.evil.test/a');
+    expect(
+      routing.getImageSrcSet(`${original}/a.png 1x, ${overseas}/b.png 2x`)
+    ).toBe(`${base}/a.png 1x, ${base}/b.png 2x`);
   }
 );
-
-it('routes both legacy and new backend origins to R2 with a configured fallback', () => {
-  const routing = loadRouting(overseas, upyun);
-  for (const origin of [original, upyun]) {
-    expect(routing.getImageUrl(origin + '/a.png!small')).toBe(
-      overseas + '/a.png!small'
-    );
-    expect(routing.getImageUrl(origin + '/a.png?width=300')).toBe(
-      upyun + '/a.png?width=300'
-    );
-    expect(routing.getImageUrl(origin + '/a.png!/fw/300')).toBe(
-      upyun + '/a.png!/fw/300'
-    );
-    expect(routing.getUpyunImageUrl(origin + '/a.png!small')).toBe(
-      upyun + '/a.png!small'
-    );
-  }
-  expect(routing.getImageUrl(overseas + '/a.png')).toBe(overseas + '/a.png');
-  expect(routing.getImageUrl('/local.png')).toBe('/local.png');
-  expect(
-    routing.getImageUrl('https://img-upyun.cheatsheet.store.evil.test/a')
-  ).toBe('https://img-upyun.cheatsheet.store.evil.test/a');
-  expect(routing.getUpyunImageUrl('https://third.test/a')).toBe(
-    'https://third.test/a'
-  );
-  expect(
-    routing.getImageSrcSet(
-      `${original}/a.png 1x, ${upyun}/b.png 2x`,
-      routing.getUpyunImageUrl
-    )
-  ).toBe(`${upyun}/a.png 1x, ${upyun}/b.png 2x`);
-});
-
-it('rejects an invalid Upyun fallback without affecting R2 delivery', () => {
-  const routing = loadRouting(overseas, 'https://user@bad.test');
-  expect(routing.getImageUrl(original + '/a.png')).toBe(overseas + '/a.png');
-  expect(routing.getUpyunImageUrl(original + '/a.png')).toBe(
-    original + '/a.png'
-  );
-});
 
 it('does not rewrite comments, scripts, escaped HTML or attributes on other tags', () => {
   const { getHtmlImageUrls } = loadRouting(overseas);

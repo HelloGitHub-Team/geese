@@ -6,7 +6,7 @@ export interface RankDataItem {
   star?: string;
   percent?: boolean;
   total?: number;
-  avatar?: string;
+  avatar_path?: string;
   uid?: string;
 }
 

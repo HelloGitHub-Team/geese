@@ -12,8 +12,6 @@ module.exports = withBundleAnalyzer({
   // Freeze the empty domestic default too, for matching SSR/browser builds.
   env: {
     NEXT_PUBLIC_IMAGE_BASE_URL: process.env.NEXT_PUBLIC_IMAGE_BASE_URL || '',
-    NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL:
-      process.env.NEXT_PUBLIC_UPYUN_IMAGE_BASE_URL || '',
   },
   trailingSlash: false,
   reactStrictMode: false,
@@ -23,7 +21,6 @@ module.exports = withBundleAnalyzer({
       { protocol: 'https', hostname: 'raw.githubusercontent.com' },
       { protocol: 'https', hostname: 'img.hellogithub.com' },
       { protocol: 'https', hostname: 'img-global.cheatsheet.store' },
-      { protocol: 'https', hostname: 'img-upyun.cheatsheet.store' },
       { protocol: 'https', hostname: 'thirdwx.qlogo.cn' },
     ],
   },

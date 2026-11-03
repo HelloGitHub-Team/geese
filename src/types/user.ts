@@ -14,14 +14,14 @@ export interface User {
 export interface UserType {
   uid: string;
   nickname: string;
-  avatar: string;
+  avatar_path: string | null;
 }
 
 export interface UserStatusProps {
   success: boolean;
   uid: string;
   nickname: string;
-  avatar: string;
+  avatar_path: string | null;
   permission?: Permission;
   contribute: number;
   level: number;
@@ -49,7 +49,7 @@ export interface Permission {
 export interface UserDetail {
   uid: string;
   nickname: string;
-  avatar: string;
+  avatar_path: string | null;
   contribute_total: number;
   share_repo_total: number;
   comment_repo_total: number;

@@ -21,7 +21,7 @@ export interface HomeItems {
 export interface HomeItem {
   item_id: string;
   author: string;
-  author_avatar: string;
+  author_avatar_path: string | null;
   title: string;
   title_en?: string;
   name: string;
@@ -46,7 +46,7 @@ export interface RecommendItem {
   rid: string;
   name: string;
   full_name: string;
-  author_avatar: string;
+  author_avatar_path: string | null;
   description: string;
   primary_lang: string;
   lang_color: string;
@@ -63,7 +63,7 @@ export interface RecommendItems {
 export interface AdvertItem {
   aid: string;
   url: string;
-  image_url: string;
+  image_path: string;
   is_ad: boolean;
   is_reward: boolean;
   year?: number;

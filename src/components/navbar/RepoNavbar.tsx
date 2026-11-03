@@ -4,13 +4,15 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 import HostedImage from '@/components/HostedImage';
 import { NoPrefetchLink } from '@/components/links/CustomLink';
 
+import { DEFAULT_AVATAR } from '@/utils/constants';
+
 interface Props {
-  avatar: string;
+  avatar_path: string | null;
   uid: string;
   t: (key: string) => string;
 }
 
-const RepoDetailNavbar = ({ avatar, uid, t }: Props) => {
+const RepoDetailNavbar = ({ avatar_path, uid, t }: Props) => {
   const router = useRouter();
 
   const goBack = () => {
@@ -39,7 +41,7 @@ const RepoDetailNavbar = ({ avatar, uid, t }: Props) => {
             <span className='m-1 flex items-center'>
               <HostedImage
                 className='rounded-full hover:animate-spin'
-                src={avatar}
+                src={avatar_path || DEFAULT_AVATAR}
                 width='18'
                 height='18'
                 alt='navbar_avatar'

@@ -22,10 +22,10 @@ const Tabs = ({ repo, t, i18n_lang }: RepositoryProps) => {
     if (selectTab === 'summary') {
       return (
         <>
-          {repo.image_url && (
+          {repo.image_path && (
             <div className='flex cursor-zoom-in justify-center pt-2'>
               <ImageWithPreview
-                src={repo?.image_url}
+                src={repo?.image_path}
                 className='rounded-md border border-gray-200 dark:border-none'
                 alt={`${repo.name} image`}
               />

@@ -32,7 +32,7 @@ interface ImageAdContentProps {
 
 const ImageAdContent = ({ data, handleClose }: ImageAdContentProps) => (
   <div className='group relative h-full'>
-    <HostedImage className='h-full w-full' src={data.image_url} alt='ad' />
+    <HostedImage className='h-full w-full' src={data.image_path} alt='ad' />
     <div
       className='absolute right-0 top-0 hidden cursor-pointer p-1.5 text-inherit opacity-30 group-hover:block'
       onClick={handleClose}
@@ -97,7 +97,7 @@ export default function Ad({ data, className, t, i18n_lang }: Props) {
     <div className='group flex flex-row p-3'>
       <HostedImage
         className='h-[55px] w-[55px]'
-        src={i18n_lang != 'zh' ? ImageURL : data.image_url}
+        src={i18n_lang != 'zh' ? ImageURL : data.image_path}
         alt='ad'
       />
       <div className='ml-3'>

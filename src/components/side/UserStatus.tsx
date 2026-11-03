@@ -13,14 +13,20 @@ import SideLoginButton from './SideLoginButton';
 
 import { SideProps } from '@/types/home';
 
-const UserAvatar = ({ uid, avatar }: { uid: string; avatar: string }) => (
+const UserAvatar = ({
+  uid,
+  avatar_path,
+}: {
+  uid: string;
+  avatar_path: string | null;
+}) => (
   <NoPrefetchLink href={`/user/${uid}`}>
     <div className='bg-img left-0 top-0 h-10 w-10 shrink-0 grow-0 cursor-pointer rounded-lg object-cover'>
       <HostedImage
         className='rounded'
         width='40'
         height='40'
-        src={avatar || DEFAULT_AVATAR}
+        src={avatar_path || DEFAULT_AVATAR}
         alt='side_avatar'
       />
     </div>
@@ -124,7 +130,7 @@ export default function UserStatus({ t, i18n_lang }: SideProps) {
   return (
     <div className='relative'>
       <div className='flex'>
-        <UserAvatar uid={userInfo.uid} avatar={userInfo.avatar} />
+        <UserAvatar uid={userInfo.uid} avatar_path={userInfo.avatar_path} />
         <div className='ml-2 w-full'>
           <div className='relative flex h-5 items-center'>
             <div className='block w-14 truncate align-baseline font-medium dark:text-gray-300 lg:w-24'>

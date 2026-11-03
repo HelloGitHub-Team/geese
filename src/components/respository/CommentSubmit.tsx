@@ -134,7 +134,7 @@ function CommentSubmit(props: CommentSubmitProps) {
           <div className='relative aspect-square w-14 overflow-hidden rounded-full'>
             {!props.replyUser && (
               <HostedImage
-                src={userInfo?.avatar || DEFAULT_AVATAR}
+                src={userInfo?.avatar_path || DEFAULT_AVATAR}
                 alt='comment_submit_avatar'
               />
             )}

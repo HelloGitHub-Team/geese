@@ -31,10 +31,14 @@ const RepositoryPage: NextPage<Props> = ({ repo }) => {
           repo.title
         )}`}
         description={getLocalizedField(repo.summary_en, repo.summary)}
-        image={repo.image_url ? repo.image_url : repo.author_avatar}
+        image={
+          repo.image_path ||
+          repo.author_avatar_path ||
+          'https://hellogithub.com/green.jpeg'
+        }
       />
       <RepoDetailNavbar
-        avatar={repo.share_user.avatar}
+        avatar_path={repo.share_user.avatar_path}
         uid={repo.share_user.uid}
         t={t}
       />

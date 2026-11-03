@@ -89,6 +89,8 @@ yarn --version
 
 命令会使用对应地区的图片配置构建，成功后再重载 PM2 服务。
 
+图片域名仅通过 `NEXT_PUBLIC_IMAGE_BASE_URL` 配置：国内构建将其置空，默认使用 `https://img.hellogithub.com`；海外构建将其设为 `https://img-global.cheatsheet.store`。自有图片统一使用对应地址，保留原路径、处理样式和查询参数，加载失败时不自动切换域名。
+
 ## 最后
 
 很开心和您一起构建「Geese」，希望您在贡献代码过程中也有所收获。

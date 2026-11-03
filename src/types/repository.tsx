@@ -27,8 +27,8 @@ export interface Repository extends RepoType {
 
   summary: string;
   code: string;
-  image_url: string | null;
-  author_avatar: string;
+  image_path: string | null;
+  author_avatar_path: string | null;
   homepage: string | null;
   document: string | null;
   download: string | null;
@@ -152,7 +152,7 @@ export interface CommentItemData {
   user: {
     uid: string;
     nickname: string;
-    avatar: string;
+    avatar_path: string | null;
   };
   /** 评分 */
   score: number;
@@ -176,7 +176,7 @@ export interface CommentItemData {
   reply_user?: {
     uid: string;
     nickname: string;
-    avatar: string;
+    avatar_path: string | null;
   };
   /** 回复列表 */
   replies?: {

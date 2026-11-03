@@ -121,7 +121,7 @@ export const UserColumnRender = (row: RankDataItem) => {
         <HostedImage
           width='20'
           height='20'
-          src={row.avatar}
+          src={row.avatar_path || '/images/avatars/default.jpeg'}
           alt=''
           className='block h-5 w-5 shrink-0 rounded object-cover'
         />
