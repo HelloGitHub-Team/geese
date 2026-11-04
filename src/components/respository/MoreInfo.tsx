@@ -47,12 +47,14 @@ const MoreInfo = ({ repo, t }: RepositoryProps) => {
           ))}
         </div>
       </div>
-      <div
-        className='absolute bottom-0 right-3 translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-400 hover:bg-gray-200 active:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:active:bg-gray-700 lg:right-9'
+      <button
+        type='button'
+        className='absolute bottom-0 right-3 translate-y-full cursor-pointer rounded-b-lg bg-gray-100 px-4 py-1 text-xs text-gray-400 hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:active:bg-gray-700 lg:right-9'
+        aria-expanded={isShowMore}
         onClick={() => setIsShowMore(!isShowMore)}
       >
         {isShowMore ? t('more.collapse') : t('more.expand')}
-      </div>
+      </button>
     </div>
   );
 };

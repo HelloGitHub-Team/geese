@@ -13,10 +13,13 @@ const Tabs = ({ repo, t, i18n_lang }: RepositoryProps) => {
   const [selectTab, setSelectTab] = useState<string>('summary');
 
   const tabClassName = (tabName: string) =>
-    classNames('px-4 border-b cursor-pointer hover:text-blue-500', {
-      'border-transparent': selectTab !== tabName,
-      'border-current text-blue-500': selectTab === tabName,
-    });
+    classNames(
+      'px-4 border-b cursor-pointer hover:text-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
+      {
+        'border-transparent': selectTab !== tabName,
+        'border-current text-blue-500': selectTab === tabName,
+      }
+    );
 
   const tabContent = () => {
     if (selectTab === 'summary') {
@@ -100,27 +103,33 @@ const Tabs = ({ repo, t, i18n_lang }: RepositoryProps) => {
   return (
     <>
       <nav className='flex border-b border-gray-100 text-base font-medium leading-10 dark:border-gray-700 dark:text-gray-300'>
-        <span
+        <button
+          type='button'
           className={tabClassName('summary')}
+          aria-pressed={selectTab === 'summary'}
           onClick={() => setSelectTab('summary')}
         >
           {t('content.desc_tab')}
-        </span>
+        </button>
         {repo.code && (
-          <span
+          <button
+            type='button'
             className={tabClassName('code')}
+            aria-pressed={selectTab === 'code'}
             onClick={() => setSelectTab('code')}
           >
             {t('content.code_tab')}
-          </span>
+          </button>
         )}
         {repo.video_url && (
-          <span
+          <button
+            type='button'
             className={tabClassName('video')}
+            aria-pressed={selectTab === 'video'}
             onClick={() => setSelectTab('video')}
           >
             {t('content.video_tab')}
-          </span>
+          </button>
         )}
       </nav>
       {tabContent()}
