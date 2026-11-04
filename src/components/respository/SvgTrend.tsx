@@ -2,21 +2,19 @@ import { useId, useState } from 'react';
 
 import { StarHistory } from '@/types/repository';
 
-const WIDTH = 320;
-const HEIGHT = 54;
-const LEFT = WIDTH * 0.02;
-const RIGHT = WIDTH - LEFT;
-const TOP = HEIGHT * 0.2;
-const BOTTOM = HEIGHT * 0.9;
+const WIDTH = 288;
+const HEIGHT = 56;
+const LEFT = 8;
+const RIGHT = WIDTH - 8;
+const TOP = 6;
+const BOTTOM = HEIGHT - 6;
 
 const SvgTrend = ({
   x: dates,
   y: values,
-  min,
-  max,
-  increment,
   locale = 'zh',
-}: StarHistory & { locale?: string }) => {
+  summary,
+}: StarHistory & { locale?: string; summary?: string }) => {
   const id = useId();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const isEnglish = locale === 'en';
@@ -24,25 +22,27 @@ const SvgTrend = ({
   const instructions = isEnglish
     ? 'Use arrow keys to explore dates, Home and End for the first and last date, Escape to dismiss.'
     : '使用方向键查看日期，Home 和 End 跳至首尾，Escape 关闭提示。';
-  const range = Math.max(max - min, increment > 10 ? 1 : 10);
+  const changes = values.slice(1).map((value, index) => value - values[index]);
+  const min = Math.min(values[0] ?? 0, ...values);
+  const max = Math.max(values[0] ?? 0, ...values);
+  // Keep tiny changes modest instead of stretching a single star to full height.
+  const range = Math.max(max - min, 10);
+  const padding = (range - (max - min)) / 2;
   const points = values.map((value, index) => ({
     x:
       values.length === 1
         ? WIDTH / 2
         : LEFT + ((RIGHT - LEFT) * index) / (values.length - 1),
-    y: BOTTOM - ((value - min) / range) * (BOTTOM - TOP),
+    y: BOTTOM - ((value - min + padding) / range) * (BOTTOM - TOP),
   }));
-
-  // Monotone cubic interpolation: smooth joins without inventing peaks or dips.
-  const slopes = points
-    .slice(1)
-    .map(
-      (point, index) =>
-        (point.y - points[index].y) / (point.x - points[index].x)
-    );
+  // Monotone tangents soften joins while keeping each segment within its values.
+  const slopes = points.slice(1).map((point, index) => {
+    const previous = points[index];
+    return (point.y - previous.y) / (point.x - previous.x);
+  });
   const tangents = points.map((_, index) => {
-    if (index === 0) return slopes[0] || 0;
-    if (index === points.length - 1) return slopes[index - 1] || 0;
+    if (index === 0) return slopes[0] ?? 0;
+    if (index === points.length - 1) return slopes[index - 1] ?? 0;
     const before = slopes[index - 1];
     const after = slopes[index];
     return before * after <= 0 ? 0 : (2 * before * after) / (before + after);
@@ -58,28 +58,34 @@ const SvgTrend = ({
       ? null
       : Math.max(0, Math.min(activeIndex, points.length - 1));
   const active = index === null ? null : points[index];
-  const valueText =
-    index === null
-      ? ''
-      : `${dates[index]} · Star: ${values[index].toLocaleString(locale)}`;
+  const formatCount = (value: number) =>
+    Math.abs(value) >= 1000
+      ? `${Number((value / 1000).toFixed(1))}k`
+      : value.toLocaleString(locale);
+  const formatChange = (value: number) =>
+    `${value > 0 ? '+' : ''}${value.toLocaleString(locale)}`;
+  const selectedIndex = index ?? values.length - 1;
+  const change = selectedIndex > 0 ? changes[selectedIndex - 1] : null;
+  const valueText = points.length
+    ? `${dates[selectedIndex]} · Star: ${values[selectedIndex].toLocaleString(locale)}${
+        change === null
+          ? ''
+          : ` · ${isEnglish ? 'Daily change' : '较前日'}: ${formatChange(change)}`
+      }`
+    : '';
 
   return (
-    <div className='relative h-[54px] w-[320px] max-w-full text-[#5470c6] dark:text-[#708bdd]'>
+    <div className='relative w-72 max-w-full text-[#5470c6] dark:text-[#708bdd]'>
       <svg
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-        className='block h-full w-full touch-pan-y rounded outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800'
+        className='block h-14 w-full touch-pan-y rounded outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800'
         role={points.length ? 'slider' : 'img'}
         aria-label={label}
-        aria-describedby={`${id}-instructions`}
+        aria-describedby={`${id}-instructions${summary ? ` ${id}-summary` : ''}`}
         aria-valuemin={points.length ? 0 : undefined}
         aria-valuemax={points.length ? points.length - 1 : undefined}
-        aria-valuenow={points.length ? (index ?? points.length - 1) : undefined}
-        aria-valuetext={
-          points.length
-            ? valueText ||
-              `${dates.at(-1)} · Star: ${values.at(-1)?.toLocaleString(locale)}`
-            : undefined
-        }
+        aria-valuenow={points.length ? selectedIndex : undefined}
+        aria-valuetext={points.length ? valueText : undefined}
         tabIndex={points.length ? 0 : undefined}
         onPointerMove={(event) => {
           const bounds = event.currentTarget.getBoundingClientRect();
@@ -121,7 +127,8 @@ const SvgTrend = ({
         {points.length > 1 && (
           <path
             d={`${line} L ${points[points.length - 1].x} ${BOTTOM} L ${points[0].x} ${BOTTOM} Z`}
-            fill='rgb(59 130 246 / 0.2)'
+            fill='currentColor'
+            fillOpacity='0.08'
           />
         )}
         <path
@@ -133,7 +140,14 @@ const SvgTrend = ({
           strokeLinejoin='round'
         />
         {points.length === 1 && (
-          <circle cx={points[0].x} cy={points[0].y} r='3' fill='currentColor' />
+          <circle
+            cx={points[0].x}
+            cy={points[0].y}
+            r='4'
+            fill='currentColor'
+            strokeWidth='2'
+            className='stroke-white dark:stroke-gray-800'
+          />
         )}
         {active && (
           <g pointerEvents='none'>
@@ -143,20 +157,12 @@ const SvgTrend = ({
               y1={TOP}
               y2={BOTTOM}
               stroke='currentColor'
-              strokeDasharray='2 2'
-              strokeOpacity='0.22'
+              strokeOpacity='0.2'
             />
             <circle
               cx={active.x}
               cy={active.y}
-              r='7'
-              fill='currentColor'
-              opacity='0.16'
-            />
-            <circle
-              cx={active.x}
-              cy={active.y}
-              r='3.5'
+              r='4'
               fill='currentColor'
               strokeWidth='2'
               className='stroke-white dark:stroke-gray-800'
@@ -164,10 +170,18 @@ const SvgTrend = ({
           </g>
         )}
       </svg>
+      {summary && (
+        <div
+          id={`${id}-summary`}
+          className='mt-1 whitespace-nowrap text-center text-xs leading-4 text-gray-500 dark:text-gray-400'
+        >
+          {summary}
+        </div>
+      )}
       {active && index !== null && (
         <div
           role='tooltip'
-          className='pointer-events-none absolute bottom-full z-20 mb-1 whitespace-nowrap rounded-md border border-gray-200/80 bg-white/95 px-2.5 py-1.5 text-xs leading-4 text-gray-700 shadow-md backdrop-blur-sm transition-opacity dark:border-gray-600/80 dark:bg-gray-900/95 dark:text-gray-100'
+          className='pointer-events-none absolute bottom-full z-20 mb-1 whitespace-nowrap rounded-md border border-gray-200/80 bg-white/95 px-2.5 py-1.5 text-xs leading-4 text-gray-700 shadow-md backdrop-blur-sm dark:border-gray-600/80 dark:bg-gray-900/95 dark:text-gray-100'
           style={{
             left: `${(active.x / WIDTH) * 100}%`,
             transform: `translateX(${active.x < WIDTH / 3 ? '0' : active.x > (WIDTH * 2) / 3 ? '-100%' : '-50%'})`,
@@ -176,10 +190,18 @@ const SvgTrend = ({
           <div className='text-[11px] text-gray-500 dark:text-gray-400'>
             {dates[index]}
           </div>
-          <div className='flex items-center gap-1.5'>
-            <span className='h-1.5 w-1.5 rounded-full bg-[#5470c6] dark:bg-[#708bdd]' />
-            <strong className='font-semibold tabular-nums text-gray-900 dark:text-white'>
-              {values[index].toLocaleString(locale)}
+          <div className='flex items-baseline gap-1.5'>
+            <strong className='text-sm font-semibold tabular-nums text-gray-900 dark:text-white'>
+              {formatCount(values[index])}
+              {change !== null && (
+                <sup
+                  aria-label={`${isEnglish ? 'Daily change' : '较前日'}: ${formatChange(change)}`}
+                  className={`ml-0.5 text-[9px] font-medium ${change > 0 ? 'text-green-700 dark:text-green-300' : 'text-gray-500 dark:text-gray-400'}`}
+                >
+                  {change > 0 ? '+' : ''}
+                  {formatCount(change)}
+                </sup>
+              )}
             </strong>
             <span className='text-gray-500 dark:text-gray-400'>Star</span>
           </div>
@@ -188,6 +210,29 @@ const SvgTrend = ({
       <span id={`${id}-instructions`} className='sr-only'>
         {points.length ? instructions : isEnglish ? 'No data' : '暂无数据'}
       </span>
+      <table className='sr-only'>
+        <caption>{label}</caption>
+        <thead>
+          <tr>
+            <th>{isEnglish ? 'Date' : '日期'}</th>
+            <th>Star</th>
+            <th>{isEnglish ? 'Daily change' : '较前日'}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {values.map((total, sampleIndex) => (
+            <tr key={sampleIndex}>
+              <td>{dates[sampleIndex]}</td>
+              <td>{total.toLocaleString(locale)}</td>
+              <td>
+                {sampleIndex === 0
+                  ? '—'
+                  : formatChange(changes[sampleIndex - 1])}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

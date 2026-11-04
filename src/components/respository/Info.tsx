@@ -304,7 +304,7 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
             <Score repo={repo} t={t} />
           </div>
         </div>
-        <div className='flex flex-1 flex-row flex-wrap justify-between'>
+        <div className='flex flex-1 flex-row flex-wrap items-end justify-between'>
           <div className='mb-2 flex w-full flex-col gap-y-2 md:hidden'>
             <div className='flex flex-row items-center'>
               <CustomLink
@@ -325,17 +325,15 @@ const Info = ({ repo, t, i18n_lang }: RepositoryProps) => {
           </div>
           <div className='hidden md:flex'>
             {repo.star_history ? (
-              <div className='flex flex-col items-center'>
-                <SvgTrend {...repo.star_history} locale={i18n_lang} />
-                <div className='text-xs text-gray-500'>
-                  {t('history.past_day_desc', {
-                    days: repo.star_history.x.length,
-                  })}
-                  {t('history.total_desc', {
-                    total: numFormat(repo.star_history.increment, 1),
-                  })}
-                </div>
-              </div>
+              <SvgTrend
+                {...repo.star_history}
+                locale={i18n_lang}
+                summary={`${t('history.past_day_desc', {
+                  days: repo.star_history.x.length,
+                })}${t('history.total_desc', {
+                  total: numFormat(repo.star_history.increment, 1),
+                })}`}
+              />
             ) : (
               <div className='flex flex-col justify-end px-1 pb-1 text-xs text-gray-500'>
                 <div>{t('history.fail_desc')}</div>
